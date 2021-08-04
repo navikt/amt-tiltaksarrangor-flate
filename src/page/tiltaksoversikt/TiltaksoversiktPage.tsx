@@ -23,6 +23,7 @@ function TiltaksoversiktPage() {
 									label={tiltakstype}
 									name="filter-tiltakstype"
 									checked={false}
+									onChange={() => {}}
 								/>
 							))}
 						</CheckboxGruppe>
@@ -36,6 +37,7 @@ function TiltaksoversiktPage() {
 									label={status}
 									name="filter-tiltakstatus"
 									checked={false}
+									onChange={() => {}}
 								/>
 							))}
 						</CheckboxGruppe>
