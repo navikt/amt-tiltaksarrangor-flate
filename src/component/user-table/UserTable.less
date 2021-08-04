@@ -1,0 +1,17 @@
+@import "~nav-frontend-core/less/_variabler";
+
+.user-table {
+  width: 100%;
+  min-width: 950px;
+  overflow-x: auto;
+
+  &__no-users {
+    margin: 2rem auto 0 auto;
+    width: 400px;
+  }
+}
+
+.column-template() {
+  grid-template-columns: minmax(250px, 300px) minmax(120px, 150px) minmax(120px, 150px) minmax(120px, 150px) minmax(120px, 150px);
+  grid-column-gap: 4px;
+}
