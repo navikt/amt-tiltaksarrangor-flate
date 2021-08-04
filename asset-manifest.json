@@ -1,21 +1,21 @@
 {
   "files": {
-    "main.css": "/static/css/main.8c8b27cf.chunk.css",
-    "main.js": "/static/js/main.5eea68f7.chunk.js",
-    "main.js.map": "/static/js/main.5eea68f7.chunk.js.map",
-    "runtime-main.js": "/static/js/runtime-main.68dcfb17.js",
-    "runtime-main.js.map": "/static/js/runtime-main.68dcfb17.js.map",
-    "static/js/2.799fe4af.chunk.js": "/static/js/2.799fe4af.chunk.js",
-    "static/js/2.799fe4af.chunk.js.map": "/static/js/2.799fe4af.chunk.js.map",
-    "static/js/3.e1fd4ed1.chunk.js": "/static/js/3.e1fd4ed1.chunk.js",
-    "static/js/3.e1fd4ed1.chunk.js.map": "/static/js/3.e1fd4ed1.chunk.js.map",
-    "index.html": "/index.html",
-    "static/css/main.8c8b27cf.chunk.css.map": "/static/css/main.8c8b27cf.chunk.css.map",
-    "static/js/2.799fe4af.chunk.js.LICENSE.txt": "/static/js/2.799fe4af.chunk.js.LICENSE.txt",
-    "static/media/logo.6ce24c58.svg": "/static/media/logo.6ce24c58.svg"
+    "main.css": "/amt-tiltaksarrangor-flate/static/css/main.8c8b27cf.chunk.css",
+    "main.js": "/amt-tiltaksarrangor-flate/static/js/main.5eea68f7.chunk.js",
+    "main.js.map": "/amt-tiltaksarrangor-flate/static/js/main.5eea68f7.chunk.js.map",
+    "runtime-main.js": "/amt-tiltaksarrangor-flate/static/js/runtime-main.6a1120cc.js",
+    "runtime-main.js.map": "/amt-tiltaksarrangor-flate/static/js/runtime-main.6a1120cc.js.map",
+    "static/js/2.799fe4af.chunk.js": "/amt-tiltaksarrangor-flate/static/js/2.799fe4af.chunk.js",
+    "static/js/2.799fe4af.chunk.js.map": "/amt-tiltaksarrangor-flate/static/js/2.799fe4af.chunk.js.map",
+    "static/js/3.e1fd4ed1.chunk.js": "/amt-tiltaksarrangor-flate/static/js/3.e1fd4ed1.chunk.js",
+    "static/js/3.e1fd4ed1.chunk.js.map": "/amt-tiltaksarrangor-flate/static/js/3.e1fd4ed1.chunk.js.map",
+    "index.html": "/amt-tiltaksarrangor-flate/index.html",
+    "static/css/main.8c8b27cf.chunk.css.map": "/amt-tiltaksarrangor-flate/static/css/main.8c8b27cf.chunk.css.map",
+    "static/js/2.799fe4af.chunk.js.LICENSE.txt": "/amt-tiltaksarrangor-flate/static/js/2.799fe4af.chunk.js.LICENSE.txt",
+    "static/media/logo.6ce24c58.svg": "/amt-tiltaksarrangor-flate/static/media/logo.6ce24c58.svg"
   },
   "entrypoints": [
-    "static/js/runtime-main.68dcfb17.js",
+    "static/js/runtime-main.6a1120cc.js",
     "static/js/2.799fe4af.chunk.js",
     "static/css/main.8c8b27cf.chunk.css",
     "static/js/main.5eea68f7.chunk.js"
