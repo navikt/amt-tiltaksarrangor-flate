@@ -1,23 +1,26 @@
 {
   "files": {
-    "main.css": "/amt-tiltaksarrangor-flate/static/css/main.8c8b27cf.chunk.css",
-    "main.js": "/amt-tiltaksarrangor-flate/static/js/main.5eea68f7.chunk.js",
-    "main.js.map": "/amt-tiltaksarrangor-flate/static/js/main.5eea68f7.chunk.js.map",
-    "runtime-main.js": "/amt-tiltaksarrangor-flate/static/js/runtime-main.6a1120cc.js",
-    "runtime-main.js.map": "/amt-tiltaksarrangor-flate/static/js/runtime-main.6a1120cc.js.map",
-    "static/js/2.799fe4af.chunk.js": "/amt-tiltaksarrangor-flate/static/js/2.799fe4af.chunk.js",
-    "static/js/2.799fe4af.chunk.js.map": "/amt-tiltaksarrangor-flate/static/js/2.799fe4af.chunk.js.map",
-    "static/js/3.e1fd4ed1.chunk.js": "/amt-tiltaksarrangor-flate/static/js/3.e1fd4ed1.chunk.js",
-    "static/js/3.e1fd4ed1.chunk.js.map": "/amt-tiltaksarrangor-flate/static/js/3.e1fd4ed1.chunk.js.map",
+    "main.css": "/amt-tiltaksarrangor-flate/static/css/main.59206f33.chunk.css",
+    "main.js": "/amt-tiltaksarrangor-flate/static/js/main.9de4d48b.chunk.js",
+    "main.js.map": "/amt-tiltaksarrangor-flate/static/js/main.9de4d48b.chunk.js.map",
+    "runtime-main.js": "/amt-tiltaksarrangor-flate/static/js/runtime-main.2df95160.js",
+    "runtime-main.js.map": "/amt-tiltaksarrangor-flate/static/js/runtime-main.2df95160.js.map",
+    "static/css/2.0b2c7c13.chunk.css": "/amt-tiltaksarrangor-flate/static/css/2.0b2c7c13.chunk.css",
+    "static/js/2.ba48a25e.chunk.js": "/amt-tiltaksarrangor-flate/static/js/2.ba48a25e.chunk.js",
+    "static/js/2.ba48a25e.chunk.js.map": "/amt-tiltaksarrangor-flate/static/js/2.ba48a25e.chunk.js.map",
+    "static/js/3.8e8d6902.chunk.js": "/amt-tiltaksarrangor-flate/static/js/3.8e8d6902.chunk.js",
+    "static/js/3.8e8d6902.chunk.js.map": "/amt-tiltaksarrangor-flate/static/js/3.8e8d6902.chunk.js.map",
     "index.html": "/amt-tiltaksarrangor-flate/index.html",
-    "static/css/main.8c8b27cf.chunk.css.map": "/amt-tiltaksarrangor-flate/static/css/main.8c8b27cf.chunk.css.map",
-    "static/js/2.799fe4af.chunk.js.LICENSE.txt": "/amt-tiltaksarrangor-flate/static/js/2.799fe4af.chunk.js.LICENSE.txt",
-    "static/media/logo.6ce24c58.svg": "/amt-tiltaksarrangor-flate/static/media/logo.6ce24c58.svg"
+    "static/css/2.0b2c7c13.chunk.css.map": "/amt-tiltaksarrangor-flate/static/css/2.0b2c7c13.chunk.css.map",
+    "static/css/main.59206f33.chunk.css.map": "/amt-tiltaksarrangor-flate/static/css/main.59206f33.chunk.css.map",
+    "static/js/2.ba48a25e.chunk.js.LICENSE.txt": "/amt-tiltaksarrangor-flate/static/js/2.ba48a25e.chunk.js.LICENSE.txt",
+    "static/media/arrow-down.f2b5771b.svg": "/amt-tiltaksarrangor-flate/static/media/arrow-down.f2b5771b.svg"
   },
   "entrypoints": [
-    "static/js/runtime-main.6a1120cc.js",
-    "static/js/2.799fe4af.chunk.js",
-    "static/css/main.8c8b27cf.chunk.css",
-    "static/js/main.5eea68f7.chunk.js"
+    "static/js/runtime-main.2df95160.js",
+    "static/css/2.0b2c7c13.chunk.css",
+    "static/js/2.ba48a25e.chunk.js",
+    "static/css/main.59206f33.chunk.css",
+    "static/js/main.9de4d48b.chunk.js"
   ]
 }
