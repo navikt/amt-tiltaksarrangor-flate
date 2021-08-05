@@ -1,18 +1,18 @@
 import React from 'react';
-import './TiltaksoversiktPage.less';
 import { Checkbox, CheckboxGruppe, Input } from 'nav-frontend-skjema';
 import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
 import { UserTable } from '../../component/user-table/UserTable';
 import { PaginationBar } from '../../component/user-table/pagination-bar/PaginationBar';
 import { Header } from '../../component/header/Header';
+import styles from './TiltaksoversiktPage.module.less';
 
 export const TiltaksoversiktPage = () => {
 	return (
 		<>
 			<Header/>
-			<div className="tiltaksoversikt-page">
+			<main className={styles.tiltaksoversiktPage}>
 
-				<main className="tiltaksoversikt-page__filter-column">
+				<div>
 					<Input placeholder="Søk etter navn eller fnr" className="blokk-m"/>
 
 					<Ekspanderbartpanel tittel="Tiltakstype" className="blokk-m" apen>
@@ -42,13 +42,13 @@ export const TiltaksoversiktPage = () => {
 							))}
 						</CheckboxGruppe>
 					</ Ekspanderbartpanel>
-				</main>
+				</div>
 
-				<div className="tiltaksoversikt-page__table-column">
+				<div>
 					<PaginationBar/>
 					<UserTable/>
 				</div>
-			</div>
+			</main>
 		</>
 	);
 }
