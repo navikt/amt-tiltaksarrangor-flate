@@ -1,10 +1,8 @@
 import React from 'react';
-import TiltaksoversiktPage from './page/tiltaksoversikt/TiltaksoversiktPage';
+import { TiltaksoversiktPage } from './page/tiltaksoversikt/TiltaksoversiktPage';
 
-function App() {
+export function App() {
 	return (
 		<TiltaksoversiktPage/>
 	);
 }
-
-export default App;

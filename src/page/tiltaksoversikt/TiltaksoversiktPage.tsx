@@ -4,9 +4,9 @@ import { Checkbox, CheckboxGruppe, Input } from 'nav-frontend-skjema';
 import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
 import { UserTable } from '../../component/user-table/UserTable';
 import { PaginationBar } from '../../component/user-table/pagination-bar/PaginationBar';
-import Header from '../../component/header/Header';
+import { Header } from '../../component/header/Header';
 
-function TiltaksoversiktPage() {
+export function TiltaksoversiktPage() {
 	return (
 		<>
 			<Header/>
@@ -41,7 +41,7 @@ function TiltaksoversiktPage() {
 								/>
 							))}
 						</CheckboxGruppe>
-					</Ekspanderbartpanel>
+					</ Ekspanderbartpanel>
 				</main>
 
 				<div className="tiltaksoversikt-page__table-column">
@@ -52,5 +52,3 @@ function TiltaksoversiktPage() {
 		</>
 	);
 }
-
-export default TiltaksoversiktPage;
