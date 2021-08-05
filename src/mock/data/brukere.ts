@@ -2,7 +2,7 @@ import faker from 'faker';
 import { Bruker } from '../../rest/data/bruker';
 import { randBetween } from '../../utils';
 
-function randomFnr(): string {
+const randomFnr = (): string => {
 	const dag = randBetween(1, 31);
 	const mnd = randBetween(1, 12);
 	const ar = randBetween(0, 99);

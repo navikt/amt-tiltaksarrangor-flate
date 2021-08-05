@@ -1,5 +1,5 @@
 
-export function lagBrukerNavn(fornavn: string, etternavn: string): string {
+export const lagBrukerNavn = (fornavn: string, etternavn: string): string => {
 	const manglerFornavn = fornavn === '';
 	const manglerEtternavn = etternavn === '';
 
@@ -13,6 +13,6 @@ export function lagBrukerNavn(fornavn: string, etternavn: string): string {
 	return etternavn + ', ' + fornavn;
 }
 
-export function randBetween(from: number, to: number): number {
+export const randBetween = (from: number, to: number): number => {
 	return Math.round(Math.random() * (to - from) + from);
 }

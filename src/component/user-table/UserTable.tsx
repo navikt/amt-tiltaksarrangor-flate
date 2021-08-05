@@ -13,10 +13,10 @@ export const UserTable = () => {
 		direction: OrderByDirection.ASC
 	};
 
-	function handleOnOrderByChanged(nyData: OrderByData) {
+	const handleOnOrderByChanged = (nyData: OrderByData) => {
 		// setOrderByField(nyData.field);
 		// setOrderByDirection(nyData.direction);
-	}
+	};
 
     return (
     	<div role="table" aria-label="Brukere som har tiltak" aria-rowcount={mockBrukere.length} className="user-table">

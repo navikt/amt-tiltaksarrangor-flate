@@ -6,7 +6,7 @@ import { UserTable } from '../../component/user-table/UserTable';
 import { PaginationBar } from '../../component/user-table/pagination-bar/PaginationBar';
 import { Header } from '../../component/header/Header';
 
-export function TiltaksoversiktPage() {
+export const TiltaksoversiktPage = () => {
 	return (
 		<>
 			<Header/>

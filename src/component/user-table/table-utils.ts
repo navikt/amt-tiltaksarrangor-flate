@@ -10,7 +10,7 @@ export interface OrderByData {
 	direction: OrNothing<OrderByDirection>;
 }
 
-export function toggleOrderByDirection(orderByDirection: OrNothing<OrderByDirection>): OrNothing<OrderByDirection> {
+export const toggleOrderByDirection = (orderByDirection: OrNothing<OrderByDirection>): OrNothing<OrderByDirection> => {
 	switch (orderByDirection) {
 		case OrderByDirection.ASC:
 			return OrderByDirection.DESC;

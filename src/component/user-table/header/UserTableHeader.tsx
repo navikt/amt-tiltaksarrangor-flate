@@ -14,7 +14,7 @@ interface UserTableHeaderProps {
 export const UserTableHeader = (props: UserTableHeaderProps) => {
 	const { orderByData, onOrderByChanged } = props;
 
-	function handleOnOrderByChanged(fieldName: HeaderFieldName) {
+	const handleOnOrderByChanged = (fieldName: HeaderFieldName) => {
 		const newOrderByData: OrderByData = {
 			field: fieldName,
 			direction: INITIAL_DIRECTION

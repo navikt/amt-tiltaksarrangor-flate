@@ -7,7 +7,7 @@ import { Bruker } from '../../../rest/data/bruker';
 import { Show } from '../../felles/Show';
 import { mockBrukere } from '../../../mock/data/brukere';
 
-function PagineringKnapp(props: React.DetailedHTMLProps<React.ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>) {
+export const PagineringKnapp = (props: React.DetailedHTMLProps<React.ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>) => {
     const { className, children, ...rest } = props;
     return (
         <button className={cls(className, 'paginering__knapp')} {...rest}>
@@ -16,7 +16,7 @@ function PagineringKnapp(props: React.DetailedHTMLProps<React.ButtonHTMLAttribut
     );
 }
 
-export function PaginationBar() {
+export const PaginationBar = () => {
     const { currentPage, totalPages, pageSize } = {
         currentPage: 1,
         totalPages: 4,
@@ -32,7 +32,7 @@ export function PaginationBar() {
     const tilBruker = ((currentPage - 1) * pageSize) + (brukere ? brukere.length : 0);
     const totaltBrukere = 100;
 
-    function handlePageChanged(newPage: number) {
+    const handlePageChanged = (newPage: number) => {
         // setCurrentPage(newPage);
     }
 
