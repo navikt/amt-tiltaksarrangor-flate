@@ -1,7 +1,6 @@
 import React from 'react';
 import { UserRow } from './UserTableRow';
-import { Bruker } from '../../../rest/data/bruker';
-import './UserTableBody.less';
+import { Bruker } from '../../../api/data/bruker';
 
 interface UserTableBodyProps {
 	brukere: Bruker[];
@@ -9,8 +8,8 @@ interface UserTableBodyProps {
 
 export const UserTableBody = (props: UserTableBodyProps) => {
     return (
-	    <div role="rowgroup" className="user-table-body">
+	    <tbody>
 		    {props.brukere.map((bruker, idx) => <UserRow idx={idx} bruker={bruker} key={idx} />)}
-	    </div>
+		</tbody>
     );
 };

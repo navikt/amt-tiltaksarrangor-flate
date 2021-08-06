@@ -1,6 +1,5 @@
-import React, { CSSProperties } from 'react';
-import { Bruker } from '../../../rest/data/bruker';
-import { Normaltekst, Element } from 'nav-frontend-typografi';
+import React from 'react';
+import { Bruker } from '../../../api/data/bruker';
 import { lagBrukerNavn } from '../../../utils';
 
 export const UserRow = (props: { idx: number, bruker: Bruker }) => {
@@ -13,17 +12,13 @@ export const UserRow = (props: { idx: number, bruker: Bruker }) => {
 		tiltak
 	} = props.bruker;
 
-	const alignStart: CSSProperties = { textAlign: 'start' };
-
 	return (
-		<div role="row" aria-rowindex={props.idx} className="user-table-row">
-			<div className="user-table-row__innhold">
-				<Normaltekst tag="span" role="cell" style={alignStart}>{lagBrukerNavn(fornavn, etternavn)}</Normaltekst>
-				<Element tag="span" role="cell">{fodselsdato}</Element>
-				<Normaltekst tag="span" role="cell">{tiltakType}</Normaltekst>
-				<Normaltekst tag="span" role="cell">{tiltak}</Normaltekst>
-				<Element tag="span" role="cell" style={alignStart}>{tiltakStatus}</Element>
-			</div>
-		</div>
+		<tr>
+			<td>{lagBrukerNavn(fornavn, etternavn)}</td>
+			<td>{fodselsdato}</td>
+			<td>{tiltakType}</td>
+			<td>{tiltak}</td>
+			<td>{tiltakStatus}</td>
+		</tr>
 	);
 };

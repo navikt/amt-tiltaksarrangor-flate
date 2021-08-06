@@ -1,5 +1,5 @@
 import faker from 'faker';
-import { Bruker } from '../../rest/data/bruker';
+import { Bruker } from '../../api/data/bruker';
 import { randBetween } from '../../utils';
 
 const randomFnr = (): string => {
