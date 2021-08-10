@@ -1,10 +1,10 @@
 import React from 'react';
 import { Sidetittel } from 'nav-frontend-typografi';
-import './Header.less';
+import styles from './Header.module.less';
 
 export const Header = () => {
 	return (
-		<header className="header">
+		<header className={styles.header}>
 			<Sidetittel>Tiltaksoversikt</Sidetittel>
 		</header>
 	);

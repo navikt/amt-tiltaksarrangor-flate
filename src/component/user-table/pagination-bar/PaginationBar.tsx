@@ -1,20 +1,12 @@
 import React from 'react';
 import { HoyreChevron, VenstreChevron } from 'nav-frontend-chevron';
-import cls from 'classnames';
 import './PaginationBar.less';
 import { Element } from 'nav-frontend-typografi';
-import { Bruker } from '../../../rest/data/bruker';
+import { Bruker } from '../../../api/data/bruker';
 import { Show } from '../../felles/Show';
 import { mockBrukere } from '../../../mock/data/brukere';
-
-export const PagineringKnapp = (props: React.DetailedHTMLProps<React.ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>) => {
-    const { className, children, ...rest } = props;
-    return (
-        <button className={cls(className, 'paginering__knapp')} {...rest}>
-            {props.children}
-        </button>
-    );
-}
+import styles from './PaginationBar.module.less';
+import { PagineringKnapp } from './PagineringKnapp';
 
 export const PaginationBar = () => {
     const { currentPage, totalPages, pageSize } = {
@@ -37,15 +29,11 @@ export const PaginationBar = () => {
     }
 
     return (
-        <div className="pagination-bar">
-            <div>
-                <Show if={true}>
-                    <Element aria-live="polite">
-                        Viser {fraBruker}-{tilBruker} av totalt {totaltBrukere} brukere
-                    </Element>
-                </Show>
-            </div>
-            <div className={cls('paginering')}>
+        <div className={styles.paginationBar}>
+            <Element aria-live="polite">
+                Viser {fraBruker}-{tilBruker} av totalt {totaltBrukere} brukere
+            </Element>
+            <div className={styles.paginering}>
                 <PagineringKnapp aria-label="Forrige side" disabled={erPaForsteSide} onClick={() => handlePageChanged(currentPage - 1)}>
                     <VenstreChevron/>
                 </PagineringKnapp>
