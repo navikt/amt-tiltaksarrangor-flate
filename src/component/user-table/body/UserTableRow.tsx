@@ -1,6 +1,7 @@
 import React from 'react';
 import { Bruker } from '../../../api/data/bruker';
 import { lagBrukerNavn } from '../../../utils';
+import { mapTiltakStatusTilTekst, mapTiltakTypeTilTekst } from '../../../utils/text-mappers';
 
 export const UserRow = (props: { idx: number, bruker: Bruker }) => {
 	const {
@@ -16,9 +17,9 @@ export const UserRow = (props: { idx: number, bruker: Bruker }) => {
 		<tr>
 			<td>{lagBrukerNavn(fornavn, etternavn)}</td>
 			<td>{fodselsdato}</td>
-			<td>{tiltakType}</td>
+			<td>{mapTiltakTypeTilTekst(tiltakType)}</td>
 			<td>{tiltak}</td>
-			<td>{tiltakStatus}</td>
+			<td>{mapTiltakStatusTilTekst(tiltakStatus)}</td>
 		</tr>
 	);
 };
