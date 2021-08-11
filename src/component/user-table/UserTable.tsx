@@ -14,6 +14,7 @@ interface UserTableProps {
 }
 
 export const UserTable = (props: UserTableProps) => {
+	const harIngenBrukere = props.brukere.length === 0;
 
 	const IngenBrukereAlertstripe = () =>
 		<AlertStripeInfo className={styles.ingenBrukere}>
@@ -21,18 +22,20 @@ export const UserTable = (props: UserTableProps) => {
 		</AlertStripeInfo>
 
 	return (
-    	<table className="tabell tabell--stripet">
-		    <UserTableHeader />
-		    <Show if={props.isLoading}>
-			    <Spinner/>
-		    </Show>
-		    <Show if={!props.isLoading}>
-			    {
-				    props.brukere.length === 0
-					    ? <IngenBrukereAlertstripe/>
-					    : <UserTableBody brukere={props.brukere}/>
-			    }
-		    </Show>
-		</table>
-    );
+		<>
+			<table className="tabell tabell--stripet">
+				<UserTableHeader/>
+				<Show if={!props.isLoading}>
+					{
+						harIngenBrukere
+							? <IngenBrukereAlertstripe/>
+							: <UserTableBody brukere={props.brukere}/>
+					}
+				</Show>
+			</table>
+			<Show if={props.isLoading}>
+				<Spinner/>
+			</Show>
+		</>
+	);
 };

@@ -22,7 +22,6 @@ export const PaginationBar = (props: PaginationBarProps) => {
 
     const fraBruker = ((currentPage - 1) * pageSize) + 1;
     const tilBruker = ((currentPage - 1) * pageSize) + props.totalUsers;
-    const totaltBrukere = 100;
 
     const handlePageChanged = (newPage: number) => {
         // setCurrentPage(newPage);
@@ -31,7 +30,7 @@ export const PaginationBar = (props: PaginationBarProps) => {
     return (
         <div className={styles.paginationBar}>
             <Element aria-live="polite">
-                Viser {fraBruker}-{tilBruker} av totalt {totaltBrukere} brukere
+                Viser {fraBruker}-{tilBruker} av totalt {props.totalUsers} brukere
             </Element>
             <div className={styles.paginering}>
                 <PagineringKnapp aria-label="Forrige side" disabled={erPaForsteSide} onClick={() => handlePageChanged(currentPage - 1)}>

@@ -35,4 +35,4 @@ export const lagBrukere = (antallBrukere: number): Bruker[] => {
 	return brukere;
 };
 
-export const mockBrukere = lagBrukere(25);
+export const mockBrukere = lagBrukere(55);
