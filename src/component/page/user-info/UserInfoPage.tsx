@@ -1,4 +1,3 @@
-import react from 'react';
 
 export const UserInfoPage = () => {
     return (
