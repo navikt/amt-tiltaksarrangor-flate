@@ -6,10 +6,6 @@ class Environment {
 	get isDevelopment() {
 		return process.env.REACT_APP_DEV === 'true';
 	}
-
-	get isRunningOnGhPages() {
-		return window.location.hostname === 'navikt.github.io';
-	}
 }
 
 const env = new Environment();

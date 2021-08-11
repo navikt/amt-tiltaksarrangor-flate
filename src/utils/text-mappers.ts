@@ -20,7 +20,7 @@ export const mapTiltakTypeTilTekst = (tiltakType: TiltakType): string => {
 		case TiltakType.GRUPPE_AMO:
 			return 'Gruppe AMO';
 		case TiltakType.JOBBSOKERKURS:
-			return 'Jobbsokerkurs';
+			return 'Jobbsøkerkurs';
 		case TiltakType.OPPFOLGING:
 			return 'Oppfølging';
 		default:

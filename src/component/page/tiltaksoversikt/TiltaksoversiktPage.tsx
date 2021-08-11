@@ -16,16 +16,17 @@ export const TiltaksoversiktPage = () => {
 	useEffect(() => {
 		// TODO: this must be debounced
 		setIsLoading(true);
-		brukerSok({
+
+		const sokParams = {
 			filter: {
 				navnFnrSok,
 				tiltakTyper,
 				tiltakStatuser
 			}
-		})
-			.then(res => {
-				setBrukere(res.data);
-			})
+		};
+
+		brukerSok(sokParams)
+			.then(res => setBrukere(res.data))
 			.catch(console.error) // TODO: vis feil i alertstripe
 			.finally(() => setIsLoading(false));
 	}, [tiltakTyper, tiltakStatuser, navnFnrSok]);
