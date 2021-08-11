@@ -21,6 +21,7 @@ export const lagBrukere = (antallBrukere: number): Bruker[] => {
 
 	for (let i = 0; i < antallBrukere; i++) {
 		const bruker: Bruker = {
+			id: randBetween(1000, 1000000).toString(),
 			fornavn: faker.name.firstName(),
 			etternavn: faker.name.lastName(),
 			fodselsdato: randomFnr().substring(0, 6),

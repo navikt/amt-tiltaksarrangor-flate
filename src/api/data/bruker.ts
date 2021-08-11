@@ -1,5 +1,6 @@
 
 export interface Bruker {
+	id: string; //TODO: Skal vi bruke uuid eller heltall?
 	fodselsdato: string;
 	fornavn: string;
 	etternavn: string;
