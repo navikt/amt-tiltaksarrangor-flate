@@ -1,6 +1,8 @@
 import faker from 'faker';
-import { Bruker } from '../../api/data/bruker';
+import { Bruker, TiltakStatus, TiltakType } from '../../api/data/bruker';
 import { randBetween } from '../../utils';
+
+faker.seed(486756783);
 
 const randomFnr = (): string => {
 	const dag = randBetween(1, 31);
@@ -22,8 +24,8 @@ export const lagBrukere = (antallBrukere: number): Bruker[] => {
 			fornavn: faker.name.firstName(),
 			etternavn: faker.name.lastName(),
 			fodselsdato: randomFnr().substring(0, 6),
-			tiltakStatus: 'Ny bruker',
-			tiltakType: 'Avklaring',
+			tiltakStatus: faker.random.objectElement(TiltakStatus) as TiltakStatus,
+			tiltakType: faker.random.objectElement(TiltakType) as TiltakType,
 			tiltak: 'Noe tekst'
 		};
 
@@ -33,4 +35,4 @@ export const lagBrukere = (antallBrukere: number): Bruker[] => {
 	return brukere;
 };
 
-export const mockBrukere = lagBrukere(25);
+export const mockBrukere = lagBrukere(55);

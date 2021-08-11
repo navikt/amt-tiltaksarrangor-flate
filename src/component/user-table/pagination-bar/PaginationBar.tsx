@@ -2,27 +2,26 @@ import React from 'react';
 import { HoyreChevron, VenstreChevron } from 'nav-frontend-chevron';
 import './PaginationBar.less';
 import { Element } from 'nav-frontend-typografi';
-import { Bruker } from '../../../api/data/bruker';
 import { Show } from '../../felles/Show';
-import { mockBrukere } from '../../../mock/data/brukere';
 import styles from './PaginationBar.module.less';
 import { PagineringKnapp } from './PagineringKnapp';
 
-export const PaginationBar = () => {
+interface PaginationBarProps {
+    totalUsers: number;
+}
+
+export const PaginationBar = (props: PaginationBarProps) => {
     const { currentPage, totalPages, pageSize } = {
         currentPage: 1,
         totalPages: 4,
         pageSize: 25
     };
 
-    const brukere: Bruker[] = mockBrukere;
-
     const erPaForsteSide: boolean = currentPage === 1;
     const erPaSisteSide: boolean = currentPage >= totalPages;
 
     const fraBruker = ((currentPage - 1) * pageSize) + 1;
-    const tilBruker = ((currentPage - 1) * pageSize) + (brukere ? brukere.length : 0);
-    const totaltBrukere = 100;
+    const tilBruker = ((currentPage - 1) * pageSize) + props.totalUsers;
 
     const handlePageChanged = (newPage: number) => {
         // setCurrentPage(newPage);
@@ -31,7 +30,7 @@ export const PaginationBar = () => {
     return (
         <div className={styles.paginationBar}>
             <Element aria-live="polite">
-                Viser {fraBruker}-{tilBruker} av totalt {totaltBrukere} brukere
+                Viser {fraBruker}-{tilBruker} av totalt {props.totalUsers} brukere
             </Element>
             <div className={styles.paginering}>
                 <PagineringKnapp aria-label="Forrige side" disabled={erPaForsteSide} onClick={() => handlePageChanged(currentPage - 1)}>

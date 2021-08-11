@@ -2,11 +2,19 @@ import React from 'react';
 import { UserTableHeader } from './header/UserTableHeader';
 import { AlertStripeInfo } from 'nav-frontend-alertstriper';
 import { UserTableBody } from './body/UserTableBody';
-import { mockBrukere } from '../../mock/data/brukere';
 import styles from './UserTable.module.less'
 import "nav-frontend-tabell-style";
+import { Bruker } from '../../api/data/bruker';
+import { Show } from '../felles/Show';
+import { Spinner } from '../felles/spinner/Spinner';
 
-export const UserTable = () => {
+interface UserTableProps {
+	brukere: Bruker[];
+	isLoading: boolean;
+}
+
+export const UserTable = (props: UserTableProps) => {
+	const harIngenBrukere = props.brukere.length === 0;
 
 	const IngenBrukereAlertstripe = () =>
 		<AlertStripeInfo className={styles.ingenBrukere}>
@@ -14,13 +22,19 @@ export const UserTable = () => {
 		</AlertStripeInfo>
 
 	return (
-    	<table className="tabell tabell--stripet">
-		    <UserTableHeader />
-			{
-				mockBrukere.length === 0
-					? <IngenBrukereAlertstripe/>
-					: <UserTableBody brukere={mockBrukere}/>
-			}
-		</table>
-    );
+		<>
+			<table className="tabell tabell--stripet">
+				<UserTableHeader/>
+				<Show if={!props.isLoading && !harIngenBrukere}>
+					<UserTableBody brukere={props.brukere}/>
+				</Show>
+			</table>
+			<Show if={!props.isLoading && harIngenBrukere}>
+				<IngenBrukereAlertstripe/>
+			</Show>
+			<Show if={props.isLoading}>
+				<Spinner/>
+			</Show>
+		</>
+	);
 };

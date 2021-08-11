@@ -2,39 +2,72 @@ import React from 'react';
 
 import { Checkbox, CheckboxGruppe, Input } from 'nav-frontend-skjema';
 import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
+import { TiltakStatus, TiltakType } from '../../../api/data/bruker';
+import { mapTiltakStatusTilTekst, mapTiltakTypeTilTekst } from '../../../utils/text-mappers';
+import { useTiltaksoversiktFilter } from '../../../store/tiltaksoversikt-filter-store';
 
 export const FilterMenu = () => {
-    return (
-        <div>
-            <Input placeholder="Søk etter navn eller fnr" className="blokk-m"/>
+	const {
+		navnFnrSok,
+		setNavnFnrSok,
+		tiltakStatuser,
+		leggTilTiltakStatus,
+		fjernTilTiltakStatus,
+		tiltakTyper,
+		leggTilTiltakType,
+		fjernTilTiltakType
+	} = useTiltaksoversiktFilter();
 
-            <Ekspanderbartpanel tittel="Tiltakstype" className="blokk-m" apen>
-                <CheckboxGruppe>
-                    {['Jobbsøkerkurs', 'Avklaring', 'Gruppe AMO', 'Oppfølging'].map(tiltakstype => (
-                        <Checkbox
-                            key={tiltakstype}
-                            label={tiltakstype}
-                            name="filter-tiltakstype"
-                            checked={false}
-                            onChange={() => {}}
-                        />
-                    ))}
-                </CheckboxGruppe>
-            </Ekspanderbartpanel>
+	return (
+		<div>
+			<Input
+				placeholder="Søk etter navn eller fnr"
+				className="blokk-m"
+				value={navnFnrSok}
+				onChange={(e) => setNavnFnrSok(e.target.value)}
+			/>
 
-            <Ekspanderbartpanel tittel="Status" className="blokk-m" apen>
-                <CheckboxGruppe>
-                    {['Ny bruker', 'Påmeldt', 'Gjennomføres'].map(status => (
-                        <Checkbox
-                            key={status}
-                            label={status}
-                            name="filter-tiltakstatus"
-                            checked={false}
-                            onChange={() => {}}
-                        />
-                    ))}
-                </CheckboxGruppe>
-            </ Ekspanderbartpanel>
-        </div>
-    )
+			<Ekspanderbartpanel tittel="Tiltakstype" className="blokk-m" apen>
+				<CheckboxGruppe>
+					{Object.values(TiltakType).map(type => (
+							<Checkbox
+								key={type}
+								label={mapTiltakTypeTilTekst(type)}
+								name="filter-tiltakstype"
+								checked={tiltakTyper.includes(type)}
+								onChange={(e) => {
+									if (e.target.checked) {
+										leggTilTiltakType(type);
+									} else {
+										fjernTilTiltakType(type);
+									}
+								}}
+							/>
+						)
+					)}
+				</CheckboxGruppe>
+			</Ekspanderbartpanel>
+
+			<Ekspanderbartpanel tittel="Status" className="blokk-m" apen>
+				<CheckboxGruppe>
+					{Object.values(TiltakStatus).map(status => (
+							<Checkbox
+								key={status}
+								label={mapTiltakStatusTilTekst(status)}
+								name="filter-tiltakstatus"
+								checked={tiltakStatuser.includes(status)}
+								onChange={(e) => {
+									if (e.target.checked) {
+										leggTilTiltakStatus(status);
+									} else {
+										fjernTilTiltakStatus(status);
+									}
+								}}
+							/>
+						)
+					)}
+				</CheckboxGruppe>
+			</Ekspanderbartpanel>
+		</div>
+	)
 }

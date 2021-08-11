@@ -3,7 +3,20 @@ export interface Bruker {
 	fodselsdato: string;
 	fornavn: string;
 	etternavn: string;
-	tiltakType: string;
-	tiltakStatus: string;
+	tiltakType: TiltakType;
+	tiltakStatus: TiltakStatus;
 	tiltak: string;
+}
+
+export enum TiltakType {
+	JOBBSOKERKURS = 'JOBBSOKERKURS',
+	AVKLARING = 'AVKLARING',
+	GRUPPE_AMO = 'GRUPPE_AMO',
+	OPPFOLGING = 'OPPFOLGING'
+}
+
+export enum TiltakStatus {
+	NY_BRUKER= 'NY_BRUKER',
+	PAMELDT= 'PAMELDT',
+	GJENNOMFORES= 'GJENNOMFORES'
 }
