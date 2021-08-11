@@ -49,7 +49,7 @@
   "scripts": {
     "start": "cross-env REACT_APP_DEV=true craco start",
     "build": "craco build",
-    "build:mock": "cross-env PUBLIC_URL=/amt-tiltaksarrangor-flate craco build",
+    "build:mock": "cross-env PUBLIC_URL=/amt-tiltaksarrangor-flate REACT_APP_DEV=true craco build",
     "test": "craco test"
   },
   "eslintConfig": {
