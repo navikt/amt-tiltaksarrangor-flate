@@ -4,6 +4,7 @@ import { PaginationBar } from '../../user-table/pagination-bar/PaginationBar';
 import { Header } from '../../header/Header';
 import styles from './TiltaksoversiktPage.module.less';
 import { FilterMenu } from './FilterMenu';
+import { mockBrukere } from '../../../mock/data/brukere';
 
 export const TiltaksoversiktPage = () => {
 	return (
@@ -12,8 +13,8 @@ export const TiltaksoversiktPage = () => {
 			<main className={styles.tiltaksoversiktPage}>
 				<FilterMenu/>
 				<div>
-					<PaginationBar/>
-					<UserTable/>
+					<PaginationBar totalUsers={mockBrukere.length}/>
+					<UserTable brukere={mockBrukere} isLoading={false} />
 				</div>
 			</main>
 		</>

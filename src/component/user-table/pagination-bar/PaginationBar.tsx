@@ -2,26 +2,26 @@ import React from 'react';
 import { HoyreChevron, VenstreChevron } from 'nav-frontend-chevron';
 import './PaginationBar.less';
 import { Element } from 'nav-frontend-typografi';
-import { Bruker } from '../../../api/data/bruker';
 import { Show } from '../../felles/Show';
-import { mockBrukere } from '../../../mock/data/brukere';
 import styles from './PaginationBar.module.less';
 import { PagineringKnapp } from './PagineringKnapp';
 
-export const PaginationBar = () => {
+interface PaginationBarProps {
+    totalUsers: number;
+}
+
+export const PaginationBar = (props: PaginationBarProps) => {
     const { currentPage, totalPages, pageSize } = {
         currentPage: 1,
         totalPages: 4,
         pageSize: 25
     };
 
-    const brukere: Bruker[] = mockBrukere;
-
     const erPaForsteSide: boolean = currentPage === 1;
     const erPaSisteSide: boolean = currentPage >= totalPages;
 
     const fraBruker = ((currentPage - 1) * pageSize) + 1;
-    const tilBruker = ((currentPage - 1) * pageSize) + (brukere ? brukere.length : 0);
+    const tilBruker = ((currentPage - 1) * pageSize) + props.totalUsers;
     const totaltBrukere = 100;
 
     const handlePageChanged = (newPage: number) => {
