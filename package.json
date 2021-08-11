@@ -80,5 +80,11 @@
   },
   "msw": {
     "workerDirectory": "public"
+  },
+
+  "jest": {
+    "transformIgnorePatterns": [
+      "node_modules/@navikt/?!(ds-icons)"
+    ]
   }
 }
