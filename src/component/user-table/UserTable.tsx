@@ -25,14 +25,13 @@ export const UserTable = (props: UserTableProps) => {
 		<>
 			<table className="tabell tabell--stripet">
 				<UserTableHeader/>
-				<Show if={!props.isLoading}>
-					{
-						harIngenBrukere
-							? <IngenBrukereAlertstripe/>
-							: <UserTableBody brukere={props.brukere}/>
-					}
+				<Show if={!props.isLoading && !harIngenBrukere}>
+					<UserTableBody brukere={props.brukere}/>
 				</Show>
 			</table>
+			<Show if={!props.isLoading && harIngenBrukere}>
+				<IngenBrukereAlertstripe/>
+			</Show>
 			<Show if={props.isLoading}>
 				<Spinner/>
 			</Show>
