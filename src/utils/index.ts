@@ -12,7 +12,3 @@ export const lagBrukerNavn = (fornavn: string, etternavn: string): string => {
 
 	return etternavn + ', ' + fornavn;
 }
-
-export const randBetween = (from: number, to: number): number => {
-	return Math.round(Math.random() * (to - from) + from);
-}
