@@ -1,11 +1,11 @@
 import { setupWorker, rest } from 'msw';
 import { RequestHandler } from 'msw/lib/types/handlers/RequestHandler';
-import { mockBrukere } from './data/brukere';
+import { mockBrukere, tilBruker } from './data/brukere';
 import { Bruker } from '../api/data/bruker';
 import { BrukerSokParams } from '../api';
 
-const mockBrukerSok = (params: BrukerSokParams): Bruker[] => {
-	return mockBrukere.filter((bruker) => {
+const mockBrukerSok = (brukere: Bruker[], params: BrukerSokParams): Bruker[] => {
+	return brukere.filter((bruker) => {
 		const { navnFnrSok, tiltakStatuser, tiltakTyper } = params.filter;
 		if (navnFnrSok?.trim()) {
 			const matcherFornavn = bruker.fornavn.toLowerCase().includes(navnFnrSok || '');
@@ -35,7 +35,15 @@ const mockBrukerSok = (params: BrukerSokParams): Bruker[] => {
 const allHandlers: RequestHandler[] = [
 	rest.post('/amt-tiltak/api/bruker/sok', (req, res, ctx) => {
 		const sokParams = req.body as BrukerSokParams;
-		return res(ctx.delay(500), ctx.json(mockBrukerSok(sokParams)));
+		const brukere = mockBrukere.map(tilBruker);
+
+		return res(ctx.delay(500), ctx.json(mockBrukerSok(brukere, sokParams)));
+	}),
+	rest.get('/amt-tiltak/api/bruker/:brukerId',(req, res, ctx) => {
+		const brukerId = req.params['brukerId'];
+		const bruker = mockBrukere.find((b) => b.id === brukerId);
+
+		return res(ctx.delay(500), ctx.json(bruker));
 	})
 ];
 

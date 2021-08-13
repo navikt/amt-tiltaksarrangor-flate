@@ -1,5 +1,5 @@
 import faker from 'faker';
-import { Bruker, NavEnhet, TiltakStatus, TiltakType } from '../../api/data/bruker';
+import { Bruker, DetaljertBruker, NavEnhet, TiltakStatus, TiltakType } from '../../api/data/bruker';
 import { OrNothing } from '../../utils/types/or-nothing';
 
 faker.locale = "nb_NO";
@@ -63,8 +63,8 @@ const lagMailFraNavn = (navn: string, mailDomain: string): string => {
 	return `${mailNavn}@${mailDomain}`
 };
 
-export const lagBrukere = (antallBrukere: number): Bruker[] => {
-	const brukere: Bruker[] = [];
+export const lagDetaljerteBrukere = (antallBrukere: number): DetaljertBruker[] => {
+	const brukere: DetaljertBruker[] = [];
 
 	for (let i = 0; i < antallBrukere; i++) {
 
@@ -75,7 +75,7 @@ export const lagBrukere = (antallBrukere: number): Bruker[] => {
 
 		const veilederNavn = faker.name.firstName() + " " + faker.name.lastName();
 
-		const bruker: Bruker = {
+		const bruker: DetaljertBruker = {
 			id: randBetween(1000, 1000000).toString(),
 			fornavn: brukerFornavn,
 			etternavn: brukerEtternavn,
@@ -105,4 +105,14 @@ export const lagBrukere = (antallBrukere: number): Bruker[] => {
 	return brukere;
 };
 
-export const mockBrukere = lagBrukere(55);
+export const tilBruker = (detaljertBruker: DetaljertBruker): Bruker => {
+	return {
+		id: detaljertBruker.id,
+		fornavn: detaljertBruker.fornavn,
+		etternavn: detaljertBruker.etternavn,
+		fodselsdato: detaljertBruker.fodselsdato,
+		tiltak: detaljertBruker.tiltak
+	};
+};
+
+export const mockBrukere = lagDetaljerteBrukere(55);

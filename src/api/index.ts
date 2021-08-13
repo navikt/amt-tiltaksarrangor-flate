@@ -1,5 +1,5 @@
 import { AxiosPromise } from 'axios';
-import { Bruker, TiltakStatus, TiltakType } from './data/bruker';
+import { Bruker, DetaljertBruker, TiltakStatus, TiltakType } from './data/bruker';
 import { axiosInstance } from './utils';
 
 export interface BrukerSokParams {
@@ -12,4 +12,8 @@ export interface BrukerSokParams {
 
 export const brukerSok = (brukerSokParams: BrukerSokParams): AxiosPromise<Bruker[]> => {
 	return axiosInstance.post('/amt-tiltak/api/bruker/sok', brukerSokParams);
+};
+
+export const fetchBrukerDetaljer = (brukerId: string): AxiosPromise<DetaljertBruker> => {
+	return axiosInstance.get(`/amt-tiltak/api/bruker/${brukerId}`);
 };
