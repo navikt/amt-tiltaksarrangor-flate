@@ -6,6 +6,14 @@ export interface Bruker {
 	fornavn: string; // TODO: Kan hende det holder med kun et felt for navn
 	etternavn: string;
 	tiltak: Tiltak;
+}
+
+export interface DetaljertBruker {
+	id: string; // TODO: Skal vi bruke uuid eller heltall?
+	fodselsdato: string;
+	fornavn: string; // TODO: Kan hende det holder med kun et felt for navn
+	etternavn: string;
+	tiltak: Tiltak;
 	navEnhet: NavEnhet;
 	kontaktinfo: Kontaktinfo;
 	navVeileder: OrNothing<NavVeileder>;
