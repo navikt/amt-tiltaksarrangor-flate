@@ -23,8 +23,8 @@ interface Tiltak {
 	type: TiltakType;
 	status: TiltakStatus;
 	navn: string;
-	startDato: OrNothing<string>;
-	sluttDato: OrNothing<string>;
+	startdato: OrNothing<string>;
+	sluttdato: OrNothing<string>;
 }
 
 export interface NavEnhet {

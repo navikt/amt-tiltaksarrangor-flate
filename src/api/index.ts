@@ -17,3 +17,7 @@ export const brukerSok = (brukerSokParams: BrukerSokParams): AxiosPromise<Bruker
 export const fetchBrukerDetaljer = (brukerId: string): AxiosPromise<DetaljertBruker> => {
 	return axiosInstance.get(`/amt-tiltak/api/bruker/${brukerId}`);
 };
+
+export const oppdaterTiltakStartdato = (brukerId: string, startdato: Date): AxiosPromise<DetaljertBruker> => {
+	return axiosInstance.get(`/amt-tiltak/api/bruker/${brukerId}`);
+};
