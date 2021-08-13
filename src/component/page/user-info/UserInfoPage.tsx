@@ -4,7 +4,6 @@ import { Link, useParams } from 'react-router-dom';
 import { fetchBrukerDetaljer } from '../../../api';
 import { DetaljertBruker } from '../../../api/data/bruker';
 import { Spinner } from '../../felles/spinner/Spinner';
-import { Sidetittel } from 'nav-frontend-typografi';
 import { AlertStripeFeil } from 'nav-frontend-alertstriper';
 import { UserInfoContent } from './UserInfoContent';
 import styles from './UserInfoPage.module.less';
@@ -23,7 +22,6 @@ export const UserInfoPage = () => {
 	return (
 		<main className={styles.userInfoPage}>
 			<Link to="/" className={cls(styles.tilbakeLenke, "blokk-m")}>Tilbake</Link>
-			<Sidetittel className="blokk-m">Brukerinformasjon</Sidetittel>
 			{bruker
 				? <UserInfoContent bruker={bruker}/>
 				: (hasFailed ? <AlertStripeFeil>En feil oppstod</AlertStripeFeil> : <Spinner/>)
