@@ -11,8 +11,6 @@ export const UserRow = (props: { idx: number, bruker: Bruker }) => {
 		fodselsdato,
 		fornavn,
 		etternavn,
-		tiltakType,
-		tiltakStatus,
 		tiltak,
 		id
 	} = props.bruker;
@@ -21,12 +19,10 @@ export const UserRow = (props: { idx: number, bruker: Bruker }) => {
 		<tr>
 			<td>{lagBrukerNavn(fornavn, etternavn)}</td>
 			<td>{fodselsdato}</td>
-			<td>{mapTiltakTypeTilTekst(tiltakType)}</td>
-			<td>{tiltak}</td>
-			<td>{mapTiltakStatusTilTekst(tiltakStatus)}</td>
-			<td>{tiltakStatus}</td>
+			<td>{mapTiltakTypeTilTekst(tiltak.type)}</td>
+			<td>{tiltak.navn}</td>
+			<td>{mapTiltakStatusTilTekst(tiltak.status)}</td>
 			<td>
-
 				<Link to={`/user/${id}`}>
 					<PeopleFilled className={styles.personIcon}/>
 				</Link>

@@ -17,13 +17,13 @@ const mockBrukerSok = (params: BrukerSokParams): Bruker[] => {
 		}
 
 		if (tiltakStatuser.length > 0) {
-			if (!tiltakStatuser.includes(bruker.tiltakStatus)) {
+			if (!tiltakStatuser.includes(bruker.tiltak.status)) {
 				return false;
 			}
 		}
 
 		if (tiltakTyper.length > 0) {
-			if (!tiltakTyper.includes(bruker.tiltakType)) {
+			if (!tiltakTyper.includes(bruker.tiltak.type)) {
 				return false;
 			}
 		}
