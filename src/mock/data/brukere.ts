@@ -81,7 +81,7 @@ export const lagDetaljerteBrukere = (antallBrukere: number): DetaljertBruker[] =
 			etternavn: brukerEtternavn,
 			fodselsdato: randomFnr().substring(0, 6),
 			tiltak: {
-				status: faker.random.objectElement(TiltakStatus) as TiltakStatus,
+				status: status,
 				type: faker.random.objectElement(TiltakType) as TiltakType,
 				startDato: startDatoForTiltakStatus(status),
 				sluttDato: sluttDatoForTiltakStatus(status),
