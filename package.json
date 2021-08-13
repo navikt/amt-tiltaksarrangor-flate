@@ -3,24 +3,57 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@craco/craco": "^6.2.0",
+    "@navikt/ds-icons": "^0.3.3",
+    "@navikt/fnrvalidator": "^1.1.4",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
     "@types/jest": "^26.0.15",
     "@types/node": "^12.0.0",
     "@types/react": "^17.0.0",
+    "@types/react-collapse": "^5.0.1",
     "@types/react-dom": "^17.0.0",
+    "axios": "^0.21.1",
+    "@types/react-router-dom": "^5.1.8",
+    "classnames": "^2.3.1",
+    "constate": "^3.3.0",
+    "craco-less": "^1.18.0",
+    "cross-env": "^7.0.3",
+    "lodash.throttle": "^4.1.1",
+    "nav-frontend-alertstriper": "^4.0.1",
+    "nav-frontend-alertstriper-style": "^3.0.1",
+    "nav-frontend-chevron": "^1.0.30",
+    "nav-frontend-chevron-style": "^1.0.4",
+    "nav-frontend-core": "^6.0.1",
+    "nav-frontend-ekspanderbartpanel": "^4.0.1",
+    "nav-frontend-ekspanderbartpanel-style": "^2.0.1",
+    "nav-frontend-ikoner-assets": "^3.0.1",
+    "nav-frontend-js-utils": "^1.0.19",
+    "nav-frontend-knapper-style": "^2.0.2",
+    "nav-frontend-lenker": "^2.0.1",
+    "nav-frontend-lenker-style": "^2.0.1",
+    "nav-frontend-paneler-style": "^2.0.1",
+    "nav-frontend-skjema": "^4.0.1",
+    "nav-frontend-skjema-style": "^3.0.1",
+    "nav-frontend-spinner": "^3.0.1",
+    "nav-frontend-spinner-style": "^1.0.2",
+    "nav-frontend-tabell-style": "^2.0.2",
+    "nav-frontend-typografi": "^4.0.1",
+    "nav-frontend-typografi-style": "^2.0.1",
+    "prop-types": "^15.7.2",
     "react": "^17.0.2",
+    "react-collapse": "^5.1.0",
     "react-dom": "^17.0.2",
+    "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",
-    "typescript": "^4.1.2",
-    "web-vitals": "^1.0.1"
+    "typescript": "^4.3.5"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "start": "cross-env REACT_APP_DEV=true craco start",
+    "build": "craco build",
+    "build:mock": "cross-env PUBLIC_URL=/amt-tiltaksarrangor-flate REACT_APP_DEV=true craco build",
+    "test": "craco test"
   },
   "eslintConfig": {
     "extends": [
@@ -38,6 +71,20 @@
       "last 1 chrome version",
       "last 1 firefox version",
       "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "@types/faker": "^5.5.7",
+    "faker": "^5.5.3",
+    "msw": "^0.34.0"
+  },
+  "msw": {
+    "workerDirectory": "public"
+  },
+
+  "jest": {
+    "transformIgnorePatterns": [
+      "node_modules/@navikt/?!(ds-icons)"
     ]
   }
 }

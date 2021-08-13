@@ -1,26 +1,18 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { TiltaksoversiktPage } from './component/page/tiltaksoversikt/TiltaksoversiktPage';
+import StoreProvider from './store/store-provider';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { UserInfoPage } from './component/page/user-info/UserInfoPage';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+export const App = () => {
+	return (
+		<StoreProvider>
+			<BrowserRouter>
+				<Switch>
+					<Route path='/user/:id'><UserInfoPage /></Route>
+					<Route path='/'><TiltaksoversiktPage/></Route>
+				</Switch>
+			</BrowserRouter>		</StoreProvider>
+
+	);
 }
-
-export default App;
