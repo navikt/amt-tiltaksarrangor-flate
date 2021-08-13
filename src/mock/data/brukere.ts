@@ -83,8 +83,8 @@ export const lagDetaljerteBrukere = (antallBrukere: number): DetaljertBruker[] =
 			tiltak: {
 				status: status,
 				type: faker.random.objectElement(TiltakType) as TiltakType,
-				startDato: startDatoForTiltakStatus(status),
-				sluttDato: sluttDatoForTiltakStatus(status),
+				startdato: startDatoForTiltakStatus(status),
+				sluttdato: sluttDatoForTiltakStatus(status),
 				navn: 'Noe tekst'
 			},
 			kontaktinfo: {
