@@ -1,14 +1,6 @@
 
-export const lagBrukerNavn = (fornavn: string, etternavn: string): string => {
-	const manglerFornavn = fornavn === '';
-	const manglerEtternavn = etternavn === '';
+export const lagKommaSeparertBrukerNavn = (fornavn: string, etternavn: string): string =>
+	`${etternavn}, ${fornavn}`;
 
-	if (manglerFornavn && manglerEtternavn) {
-		return '';
-	} else if (manglerFornavn || manglerEtternavn) {
-		// Skal egentlig ikke skje, men hvis ett av navnene mangler så trenger vi ikke å separere med ","
-		return etternavn + fornavn;
-	}
-
-	return etternavn + ', ' + fornavn;
-}
+export const lagBrukerNavn = (fornavn: string, etternavn: string): string =>
+	`${fornavn} ${etternavn}`;

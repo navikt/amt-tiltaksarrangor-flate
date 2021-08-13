@@ -1,6 +1,6 @@
 import React from 'react';
 import { Bruker } from '../../../api/data/bruker';
-import { lagBrukerNavn } from '../../../utils';
+import { lagKommaSeparertBrukerNavn } from '../../../utils';
 import { mapTiltakStatusTilTekst, mapTiltakTypeTilTekst } from '../../../utils/text-mappers';
 import { PeopleFilled } from '@navikt/ds-icons';
 import { Link } from 'react-router-dom';
@@ -17,7 +17,7 @@ export const UserRow = (props: { idx: number, bruker: Bruker }) => {
 
 	return (
 		<tr>
-			<td>{lagBrukerNavn(fornavn, etternavn)}</td>
+			<td>{lagKommaSeparertBrukerNavn(fornavn, etternavn)}</td>
 			<td>{fodselsdato}</td>
 			<td>{mapTiltakTypeTilTekst(tiltak.type)}</td>
 			<td>{tiltak.navn}</td>
