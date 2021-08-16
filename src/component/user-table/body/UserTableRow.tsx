@@ -5,6 +5,7 @@ import { mapTiltakStatusTilTekst, mapTiltakTypeTilTekst } from '../../../utils/t
 import { PeopleFilled } from '@navikt/ds-icons';
 import { Link } from 'react-router-dom';
 import styles from './UserTableRow.module.less';
+import { formatDateStr } from '../../../utils/date-utils';
 
 export const UserRow = (props: { idx: number, bruker: Bruker }) => {
 	const {
@@ -22,6 +23,8 @@ export const UserRow = (props: { idx: number, bruker: Bruker }) => {
 			<td>{mapTiltakTypeTilTekst(tiltak.type)}</td>
 			<td>{tiltak.navn}</td>
 			<td>{mapTiltakStatusTilTekst(tiltak.status)}</td>
+			<td>{tiltak.startdato && formatDateStr(tiltak.startdato)}</td>
+			<td>{tiltak.sluttdato && formatDateStr(tiltak.sluttdato)}</td>
 			<td>
 				<Link to={`/user/${id}`}>
 					<PeopleFilled className={styles.personIcon}/>
