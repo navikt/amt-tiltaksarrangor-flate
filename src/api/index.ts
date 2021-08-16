@@ -1,14 +1,11 @@
 import { AxiosPromise } from 'axios';
-import { Bruker, DetaljertBruker, TiltakStatus, TiltakType } from './data/bruker';
+import { Bruker, DetaljertBruker, Tiltaksinstans } from './data/bruker';
 import { axiosInstance } from './utils';
-
-export interface BrukerSokParams {
-	filter: {
-		navnFnrSok: string | undefined,
-		tiltakTyper: TiltakType[],
-		tiltakStatuser: TiltakStatus[]
-	}
-}
+import {
+	BrukerSokParams,
+	OppdaterTiltakSluttdatoRequestBody,
+	OppdaterTiltakStartdatoRequestBody
+} from './data/request-types';
 
 export const brukerSok = (brukerSokParams: BrukerSokParams): AxiosPromise<Bruker[]> => {
 	return axiosInstance.post('/amt-tiltak/api/bruker/sok', brukerSokParams);
@@ -18,6 +15,16 @@ export const fetchBrukerDetaljer = (brukerId: string): AxiosPromise<DetaljertBru
 	return axiosInstance.get(`/amt-tiltak/api/bruker/${brukerId}`);
 };
 
-export const oppdaterTiltakStartdato = (brukerId: string, startdato: Date): AxiosPromise<DetaljertBruker> => {
-	return axiosInstance.get(`/amt-tiltak/api/bruker/${brukerId}`);
+export const oppdaterTiltakStartdato = (tiltakinstansId: string, startdato: Date): AxiosPromise<Tiltaksinstans> => {
+	const body : OppdaterTiltakStartdatoRequestBody = {
+		startdato: startdato.toISOString()
+	};
+	return axiosInstance.put(`/amt-tiltak/api/tiltak/${tiltakinstansId}/startdato`, body);
+};
+
+export const oppdaterTiltakSluttdato = (tiltakinstansId: string, sluttdato: Date): AxiosPromise<Tiltaksinstans> => {
+	const body : OppdaterTiltakSluttdatoRequestBody = {
+		sluttdato: sluttdato.toISOString()
+	}
+	return axiosInstance.put(`/amt-tiltak/api/tiltak/${tiltakinstansId}/sluttdato`, body);
 };

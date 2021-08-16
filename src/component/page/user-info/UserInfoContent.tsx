@@ -3,10 +3,11 @@ import { DetaljertBruker } from '../../../api/data/bruker';
 import { Ingress, Normaltekst, Sidetittel } from 'nav-frontend-typografi';
 import { mapTiltakStatusTilTekst, mapTiltakTypeTilTekst } from '../../../utils/text-mappers';
 import { Knapp } from 'nav-frontend-knapper';
-import { formatDateInputStr } from '../../../utils/date-utils';
+import { formatDateInputStr, stringToDate } from '../../../utils/date-utils';
 import { Input } from 'nav-frontend-skjema';
 import { lagBrukerNavn } from '../../../utils';
 import styles from './UserInfoContent.module.less';
+import { oppdaterTiltakSluttdato, oppdaterTiltakStartdato } from '../../../api';
 
 interface SeksjonProps {
     tittel: string;
@@ -21,14 +22,17 @@ const Seksjon = ({tittel, children}: SeksjonProps) =>
 
 export const UserInfoContent = (props: { bruker: DetaljertBruker }) => {
     const { tiltak, navEnhet, navVeileder, kontaktinfo, fornavn, etternavn} = props.bruker;
-    const [startdato, setStartdato] = useState<string | undefined>(formatDateInputStr(tiltak.startdato));
-    const [sluttdato, setSluttdato] = useState<string | undefined>(formatDateInputStr(tiltak.sluttdato));
+    const [startdato, setStartdato] = useState<string>(formatDateInputStr(tiltak.startdato));
+    const [sluttdato, setSluttdato] = useState<string>(formatDateInputStr(tiltak.sluttdato));
 
     const onStartdatoLagreClick = () => {
+        if(!startdato) return;
+        oppdaterTiltakStartdato(tiltak.id, stringToDate(startdato!));
 
     }
     const onSluttdatoLagreClick = () => {
-
+        if(!sluttdato) return;
+        oppdaterTiltakSluttdato(tiltak.id, stringToDate(sluttdato!));
     }
     return (
         <>
@@ -52,7 +56,7 @@ export const UserInfoContent = (props: { bruker: DetaljertBruker }) => {
                             onChange={(e) => setStartdato(e.target.value)}
                         />
 
-                        <Knapp className={styles.periodeKnapp} onClick={onStartdatoLagreClick}>Lagre</Knapp>
+                        <Knapp className={styles.periodeKnapp} onClick={onStartdatoLagreClick} disabled={!startdato}>Lagre</Knapp>
 
                     </div>
                     <div className={styles.periodeInputWrapper}>
@@ -62,7 +66,7 @@ export const UserInfoContent = (props: { bruker: DetaljertBruker }) => {
                             value={sluttdato}
                             onChange={(e) => setSluttdato(e.target.value)}/>
 
-                        <Knapp className={styles.periodeKnapp} onChange={onSluttdatoLagreClick}>Lagre</Knapp>
+                        <Knapp className={styles.periodeKnapp} onClick={onSluttdatoLagreClick} disabled={!sluttdato}>Lagre</Knapp>
                     </div>
                 </Seksjon>
 

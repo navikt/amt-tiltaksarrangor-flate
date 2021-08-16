@@ -81,6 +81,7 @@ export const lagDetaljerteBrukere = (antallBrukere: number): DetaljertBruker[] =
 			etternavn: brukerEtternavn,
 			fodselsdato: randomFnr().substring(0, 6),
 			tiltak: {
+				id: randBetween(1000, 1000000).toString(),
 				status: status,
 				type: faker.random.objectElement(TiltakType) as TiltakType,
 				startdato: startDatoForTiltakStatus(status),
