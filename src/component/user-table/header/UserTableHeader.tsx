@@ -10,6 +10,8 @@ export const UserTableHeader = () => {
 			    <th>Tiltakstype</th>
 			    <th>Tiltak</th>
 			    <th>Status</th>
+				<th>Start</th>
+				<th>Slutt</th>
 				<th/>
 		    </tr>
 		</thead>
