@@ -2,7 +2,11 @@ import { setupWorker, rest } from 'msw';
 import { RequestHandler } from 'msw/lib/types/handlers/RequestHandler';
 import { mockBrukere, tilBruker } from './data/brukere';
 import { Bruker } from '../api/data/bruker';
-import { BrukerSokParams } from '../api';
+import {
+	BrukerSokParams,
+	OppdaterTiltakSluttdatoRequestBody,
+	OppdaterTiltakStartdatoRequestBody
+} from '../api/data/request-types';
 
 const mockBrukerSok = (brukere: Bruker[], params: BrukerSokParams): Bruker[] => {
 	return brukere.filter((bruker) => {
@@ -44,7 +48,27 @@ const allHandlers: RequestHandler[] = [
 		const bruker = mockBrukere.find((b) => b.id === brukerId);
 
 		return res(ctx.delay(500), ctx.json(bruker));
-	})
+	}),
+	rest.put('/amt-tiltak/api/tiltak/:tiltakinstansId/startdato', (req, res, ctx) => {
+		const body = req.body as OppdaterTiltakStartdatoRequestBody;
+		const tiltakinstansId = req.params['tiltakinstansId']
+		const bruker = mockBrukere.find(bruker=>bruker.tiltak.id===tiltakinstansId);
+
+		if(!bruker) throw new Error(`Fant ingen tiltak med id: ${tiltakinstansId}`);
+		bruker.tiltak.startdato = body.startdato;
+
+		return res(ctx.delay(500), ctx.json(bruker.tiltak));
+	}),
+	rest.put('/amt-tiltak/api/tiltak/:tiltakinstansId/sluttdato', (req, res, ctx) => {
+		const body = req.body as OppdaterTiltakSluttdatoRequestBody;
+		const tiltakinstansId = req.params['tiltakinstansId']
+		const bruker = mockBrukere.find(bruker=>bruker.tiltak.id===tiltakinstansId);
+
+		if(!bruker) throw new Error(`Fant ingen tiltak med id: ${tiltakinstansId}`);
+		bruker.tiltak.sluttdato = body.sluttdato;
+
+		return res(ctx.delay(500), ctx.json(bruker.tiltak));
+	}),
 ];
 
 setupWorker(...allHandlers)

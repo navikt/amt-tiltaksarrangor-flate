@@ -5,7 +5,7 @@ export interface Bruker {
 	fodselsdato: string;
 	fornavn: string; // TODO: Kan hende det holder med kun et felt for navn
 	etternavn: string;
-	tiltak: Tiltak;
+	tiltak: Tiltaksinstans;
 }
 
 export interface DetaljertBruker {
@@ -13,13 +13,15 @@ export interface DetaljertBruker {
 	fodselsdato: string;
 	fornavn: string; // TODO: Kan hende det holder med kun et felt for navn
 	etternavn: string;
-	tiltak: Tiltak;
+	tiltak: Tiltaksinstans;
+
 	navEnhet: NavEnhet;
 	kontaktinfo: Kontaktinfo;
 	navVeileder: OrNothing<NavVeileder>;
 }
 
-interface Tiltak {
+export interface Tiltaksinstans {
+	id: string;
 	type: TiltakType;
 	status: TiltakStatus;
 	navn: string;

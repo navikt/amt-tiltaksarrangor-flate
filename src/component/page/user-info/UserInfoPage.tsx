@@ -17,7 +17,7 @@ export const UserInfoPage = () => {
 		fetchBrukerDetaljer(brukerId)
 			.then(res => setBruker(res.data))
 			.catch(() => setHasFailed(true));
-	}, []);
+	}, [brukerId]);
 
 	return (
 		<main className={styles.userInfoPage}>
