@@ -1,6 +1,6 @@
 import React from 'react';
 
-export const UserTableHeader = () => {
+export const Header = () => {
 
 	return (
 		<thead>

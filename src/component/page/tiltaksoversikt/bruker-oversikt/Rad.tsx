@@ -1,13 +1,13 @@
 import React from 'react';
-import { Bruker } from '../../../api/data/bruker';
-import { lagKommaSeparertBrukerNavn } from '../../../utils';
-import { mapTiltakStatusTilTekst, mapTiltakTypeTilTekst } from '../../../utils/text-mappers';
+import { Bruker } from '../../../../api/data/bruker';
+import { lagKommaSeparertBrukerNavn } from '../../../../utils/bruker-utils';
+import { mapTiltakStatusTilTekst, mapTiltakTypeTilTekst } from '../../../../utils/text-mappers';
 import { PeopleFilled } from '@navikt/ds-icons';
 import { Link } from 'react-router-dom';
-import styles from './UserTableRow.module.less';
-import { formatDateStr } from '../../../utils/date-utils';
+import { formatDateStr } from '../../../../utils/date-utils';
+import styles from './Rad.module.less';
 
-export const UserRow = (props: { idx: number, bruker: Bruker }) => {
+export const Rad = (props: { idx: number, bruker: Bruker }) => {
 	const {
 		fodselsdato,
 		fornavn,
