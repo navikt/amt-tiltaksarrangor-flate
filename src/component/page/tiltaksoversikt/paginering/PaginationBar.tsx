@@ -1,10 +1,9 @@
 import React from 'react';
 import { HoyreChevron, VenstreChevron } from 'nav-frontend-chevron';
-import './PaginationBar.less';
 import { Element } from 'nav-frontend-typografi';
-import { Show } from '../../felles/Show';
-import styles from './PaginationBar.module.less';
+import { Show } from '../../../felles/Show';
 import { PagineringKnapp } from './PagineringKnapp';
+import styles from './PaginationBar.module.less';
 
 interface PaginationBarProps {
     totalUsers: number;

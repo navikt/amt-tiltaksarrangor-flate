@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { UserTable } from '../../user-table/UserTable';
-import { PaginationBar } from '../../user-table/pagination-bar/PaginationBar';
-import { Header } from '../../header/Header';
-import styles from './TiltaksoversiktPage.module.less';
-import { FilterMenu } from './FilterMenu';
+import { BrukerOversikt } from './bruker-oversikt/BrukerOversikt';
+import { PaginationBar } from './paginering/PaginationBar';
+import { Header } from './Header';
+import { FilterMeny } from './FilterMeny';
 import { Bruker } from '../../../api/data/bruker';
 import { useTiltaksoversiktSok } from '../../../store/tiltaksoversikt-sok-store';
 import { brukerSok } from '../../../api';
 import { BrukerSokParams } from '../../../api/data/request-types';
+import styles from './TiltaksoversiktPage.module.less';
 
 export const TiltaksoversiktPage = () => {
 	const { tiltakTyper, tiltakStatuser, navnFnrSok, userSort } = useTiltaksoversiktSok();
@@ -39,10 +39,10 @@ export const TiltaksoversiktPage = () => {
 		<>
 			<Header/>
 			<main className={styles.tiltaksoversiktPage}>
-				<FilterMenu/>
+				<FilterMeny/>
 				<div>
 					<PaginationBar totalUsers={brukere.length}/>
-					<UserTable brukere={brukere} isLoading={isLoading} />
+					<BrukerOversikt brukere={brukere} isLoading={isLoading} />
 				</div>
 			</main>
 		</>

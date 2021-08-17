@@ -62,7 +62,7 @@ const getNextSortDirection = (sortDirection: SortDirection): SortDirection => {
 	}
 };
 
-const TableHeader = (props: TableHeaderProps) => {
+const SortableHeader = (props: TableHeaderProps) => {
 	const { title, name, userSort, onSortChange } = props;
 	const sortDirection = name === userSort?.name
 		? userSort.sortDirection
@@ -83,20 +83,20 @@ interface UserTableHeaderProps {
 	onSortChange: (sortedHeader: UserSort) => void;
 }
 
-export const UserTableHeader = (props: UserTableHeaderProps) => {
+export const TabellHeader = (props: UserTableHeaderProps) => {
 	const { userSort, onSortChange } = props;
 	return (
 		<thead>
 		    <tr>
 			    {/* TODO: Er mulig å gjøre koden mer DRY på bekostning av kompleksitet */}
-			    <TableHeader userSort={userSort} onSortChange={onSortChange} title="Etternavn, Fornavn" name={TableHeaderName.NAVN}/>
-			    <TableHeader userSort={userSort} onSortChange={onSortChange} title="Fødselsdato" name={TableHeaderName.FODSELSDATO}/>
-			    <TableHeader userSort={userSort} onSortChange={onSortChange} title="Tiltakstype" name={TableHeaderName.TILTAKSTYPE}/>
-			    <TableHeader userSort={userSort} onSortChange={onSortChange} title="Tiltak" name={TableHeaderName.TILTAK}/>
-			    <TableHeader userSort={userSort} onSortChange={onSortChange} title="Status" name={TableHeaderName.STATUS}/>
-				<TableHeader userSort={userSort} onSortChange={onSortChange} title="Start" name={TableHeaderName.START}/>
-				<TableHeader userSort={userSort} onSortChange={onSortChange} title="Slutt" name={TableHeaderName.SLUTT}/>
-				<th role="columnheader"/>
+			    <SortableHeader userSort={userSort} onSortChange={onSortChange} title="Etternavn, Fornavn" name={TableHeaderName.NAVN}/>
+			    <SortableHeader userSort={userSort} onSortChange={onSortChange} title="Fødselsdato" name={TableHeaderName.FODSELSDATO}/>
+			    <SortableHeader userSort={userSort} onSortChange={onSortChange} title="Tiltakstype" name={TableHeaderName.TILTAKSTYPE}/>
+			    <SortableHeader userSort={userSort} onSortChange={onSortChange} title="Tiltak" name={TableHeaderName.TILTAK}/>
+			    <SortableHeader userSort={userSort} onSortChange={onSortChange} title="Status" name={TableHeaderName.STATUS}/>
+				<SortableHeader userSort={userSort} onSortChange={onSortChange} title="Start" name={TableHeaderName.START}/>
+				<SortableHeader userSort={userSort} onSortChange={onSortChange} title="Slutt" name={TableHeaderName.SLUTT}/>
+				<th/>
 		    </tr>
 		</thead>
     );

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import constate from 'constate';
 import { TiltakStatus, TiltakType } from '../api/data/bruker';
-import { UserSort } from '../component/user-table/header/UserTableHeader';
+import { UserSort } from '../component/page/tiltaksoversikt/bruker-oversikt/TabellHeader';
 
 export const [TiltaksoversiktSokStoreProvider, useTiltaksoversiktSok] = constate(() => {
 	const [navnFnrSok, setNavnFnrSok] = useState<string>('');

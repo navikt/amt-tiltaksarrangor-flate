@@ -1,4 +1,4 @@
-import { OrNothing } from '../../utils/types/or-nothing';
+import { OrNothing } from '../../../../utils/types/or-nothing';
 import { OrderByDirection, OrderByField } from './types';
 
 export const INITIAL_DIRECTION = OrderByDirection.ASC;

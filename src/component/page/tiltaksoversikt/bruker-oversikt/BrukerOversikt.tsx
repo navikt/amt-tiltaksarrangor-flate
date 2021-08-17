@@ -1,20 +1,20 @@
 import React from 'react';
-import { UserTableHeader } from './header/UserTableHeader';
 import { AlertStripeInfo } from 'nav-frontend-alertstriper';
-import { UserTableBody } from './body/UserTableBody';
-import styles from './UserTable.module.less'
+import { Bruker } from '../../../../api/data/bruker';
+import { Show } from '../../../felles/Show';
+import { Spinner } from '../../../felles/spinner/Spinner';
+import styles from './BrukerOversikt.module.less'
 import "nav-frontend-tabell-style";
-import { Bruker } from '../../api/data/bruker';
-import { Show } from '../felles/Show';
-import { Spinner } from '../felles/spinner/Spinner';
-import { useTiltaksoversiktSok } from '../../store/tiltaksoversikt-sok-store';
+import { useTiltaksoversiktSok } from '../../../../store/tiltaksoversikt-sok-store';
+import { TabellHeader } from './TabellHeader';
+import { TabellBody } from './TabellBody';
 
 interface UserTableProps {
 	brukere: Bruker[];
 	isLoading: boolean;
 }
 
-export const UserTable = (props: UserTableProps) => {
+export const BrukerOversikt = (props: UserTableProps) => {
 	const { userSort, setUserSort } = useTiltaksoversiktSok();
 	const harIngenBrukere = props.brukere.length === 0;
 
@@ -26,9 +26,9 @@ export const UserTable = (props: UserTableProps) => {
 	return (
 		<>
 			<table className="tabell tabell--stripet">
-				<UserTableHeader userSort={userSort} onSortChange={(sort) => setUserSort(sort)} />
+				<TabellHeader userSort={userSort} onSortChange={(sort) => setUserSort(sort)} />
 				<Show if={!props.isLoading && !harIngenBrukere}>
-					<UserTableBody brukere={props.brukere} userSort={userSort}/>
+					<TabellBody brukere={props.brukere} userSort={userSort}/>
 				</Show>
 			</table>
 			<Show if={!props.isLoading && harIngenBrukere}>

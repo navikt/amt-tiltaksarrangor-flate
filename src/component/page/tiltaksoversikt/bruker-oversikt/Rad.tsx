@@ -1,13 +1,12 @@
 import React from 'react';
-import { Bruker } from '../../../api/data/bruker';
-import { lagKommaSeparertBrukerNavn } from '../../../utils';
-import { mapTiltakStatusTilTekst, mapTiltakTypeTilTekst } from '../../../utils/text-mappers';
+import { Bruker } from '../../../../api/data/bruker';
+import { lagKommaSeparertBrukerNavn } from '../../../../utils/bruker-utils';
+import { mapTiltakStatusTilTekst, mapTiltakTypeTilTekst } from '../../../../utils/text-mappers';
 import { PeopleFilled } from '@navikt/ds-icons';
 import { Link } from 'react-router-dom';
-import styles from './UserTableRow.module.less';
-import { formatDateStr } from '../../../utils/date-utils';
-import { TableHeaderName, UserSort } from '../header/UserTableHeader';
-
+import styles from './Rad.module.less';
+import { TableHeaderName, UserSort } from './TabellHeader';
+import { formatDateStr } from '../../../../utils/date-utils';
 
 interface UserRowProps {
 	idx: number;
@@ -23,7 +22,7 @@ const sortClassName = (name: TableHeaderName, userSort?: UserSort): string | und
 	return 'tabell__td--sortert';
 }
 
-export const UserRow = (props: UserRowProps) => {
+export const Rad = (props: UserRowProps) => {
 	const {
 		fodselsdato,
 		fornavn,

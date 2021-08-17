@@ -1,5 +1,5 @@
 import { TiltakStatus, TiltakType } from './bruker';
-import { SortDirection, TableHeaderName } from '../../component/user-table/header/UserTableHeader';
+import { SortDirection, TableHeaderName } from '../../component/page/tiltaksoversikt/bruker-oversikt/TabellHeader';
 
 // TODO: Might be better to use different enums for the DTO than TableHeaderName and SortDirection
 

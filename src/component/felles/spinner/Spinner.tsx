@@ -1,10 +1,10 @@
 import React from 'react';
 import NavFrontendSpinner from 'nav-frontend-spinner';
-import './Spinner.less';
+import styles from './Spinner.module.less';
 
 export const Spinner = () => {
 	return (
-		<div className="app-spinner">
+		<div className={styles.spinner}>
 			<NavFrontendSpinner type="XL" />
 		</div>
 	);

@@ -3,11 +3,12 @@ import { DetaljertBruker } from '../../../api/data/bruker';
 import { Ingress, Normaltekst, Sidetittel } from 'nav-frontend-typografi';
 import { mapTiltakStatusTilTekst, mapTiltakTypeTilTekst } from '../../../utils/text-mappers';
 import { Knapp } from 'nav-frontend-knapper';
-import { formatDateInputStr, stringToDate } from '../../../utils/date-utils';
 import { Input } from 'nav-frontend-skjema';
-import { lagBrukerNavn } from '../../../utils';
-import styles from './UserInfoContent.module.less';
 import { oppdaterTiltakSluttdato, oppdaterTiltakStartdato } from '../../../api';
+import { formatDateInputStr, stringToDate } from '../../../utils/date-utils';
+import { lagBrukerNavn } from '../../../utils/bruker-utils';
+import globalStyles from '../../../globals.module.less';
+import styles from './BrukerPaaTiltakDetaljer.module.less';
 
 interface SeksjonProps {
     tittel: string;
@@ -20,7 +21,7 @@ const Seksjon = ({tittel, children}: SeksjonProps) =>
         {children}
     </div>;
 
-export const UserInfoContent = (props: { bruker: DetaljertBruker }) => {
+export const BrukerPaaTiltakDetaljer = (props: { bruker: DetaljertBruker }) => {
     const { tiltak, navEnhet, navVeileder, kontaktinfo, fornavn, etternavn} = props.bruker;
     const [startdato, setStartdato] = useState<string>(formatDateInputStr(tiltak.startdato));
     const [sluttdato, setSluttdato] = useState<string>(formatDateInputStr(tiltak.sluttdato));
@@ -36,7 +37,7 @@ export const UserInfoContent = (props: { bruker: DetaljertBruker }) => {
     }
     return (
         <>
-            <Sidetittel className="blokk-m">{lagBrukerNavn(fornavn, etternavn)}</Sidetittel>
+            <Sidetittel className={globalStyles.blokkM}>{lagBrukerNavn(fornavn, etternavn)}</Sidetittel>
             <div className={styles.userInfoContent}>
                 <Seksjon tittel="Kontaktinformasjon">
                     <Normaltekst>Telefon: {kontaktinfo.telefonnummer}</Normaltekst>

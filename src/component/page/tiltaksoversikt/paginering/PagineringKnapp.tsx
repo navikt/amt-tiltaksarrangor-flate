@@ -1,10 +1,10 @@
 import React from 'react';
-import cls from 'classnames';
+import styles from './PagineringKnapp.module.less';
 
 export const PagineringKnapp = (props: React.DetailedHTMLProps<React.ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>) => {
-    const { className, children, ...rest } = props;
+    const { children, ...rest } = props;
     return (
-        <button className={cls(className, 'paginering__knapp')} {...rest}>
+        <button className={styles.pagineringKnapp} {...rest}>
             {props.children}
         </button>
     );

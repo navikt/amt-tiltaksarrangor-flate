@@ -1,8 +1,8 @@
 import { Bruker } from '../api/data/bruker';
 import { BrukerSokParams } from '../api/data/request-types';
-import { SortDirection, TableHeaderName } from '../component/user-table/header/UserTableHeader';
 import { sortDateNullsFirst } from '../utils/date-utils';
 import { reverseSort } from '../utils';
+import { SortDirection, TableHeaderName } from '../component/page/tiltaksoversikt/bruker-oversikt/TabellHeader';
 
 export const mockBrukerSok = (brukere: Bruker[], params: BrukerSokParams): Bruker[] => {
 	const filtrerteBrukere = filtrerBrukere(brukere, params);

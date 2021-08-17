@@ -6,7 +6,9 @@ import { TiltakStatus, TiltakType } from '../../../api/data/bruker';
 import { mapTiltakStatusTilTekst, mapTiltakTypeTilTekst } from '../../../utils/text-mappers';
 import { useTiltaksoversiktSok } from '../../../store/tiltaksoversikt-sok-store';
 
-export const FilterMenu = () => {
+import globalStyles from '../../../globals.module.less';
+
+export const FilterMeny = () => {
 	const {
 		navnFnrSok,
 		setNavnFnrSok,
@@ -22,12 +24,12 @@ export const FilterMenu = () => {
 		<div>
 			<Input
 				placeholder="Søk etter navn eller fnr"
-				className="blokk-m"
+				className={globalStyles.blokkM}
 				value={navnFnrSok}
 				onChange={(e) => setNavnFnrSok(e.target.value)}
 			/>
 
-			<Ekspanderbartpanel tittel="Tiltakstype" className="blokk-m" apen>
+			<Ekspanderbartpanel tittel="Tiltakstype" className={globalStyles.blokkM} apen>
 				<CheckboxGruppe>
 					{Object.values(TiltakType).map(type => (
 							<Checkbox
@@ -48,7 +50,7 @@ export const FilterMenu = () => {
 				</CheckboxGruppe>
 			</Ekspanderbartpanel>
 
-			<Ekspanderbartpanel tittel="Status" className="blokk-m" apen>
+			<Ekspanderbartpanel tittel="Status" className={globalStyles.blokkM} apen>
 				<CheckboxGruppe>
 					{Object.values(TiltakStatus).map(status => (
 							<Checkbox
