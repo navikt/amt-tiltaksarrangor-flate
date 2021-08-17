@@ -6,25 +6,42 @@ import { PeopleFilled } from '@navikt/ds-icons';
 import { Link } from 'react-router-dom';
 import styles from './UserTableRow.module.less';
 import { formatDateStr } from '../../../utils/date-utils';
+import { TableHeaderName, UserSort } from '../header/UserTableHeader';
 
-export const UserRow = (props: { idx: number, bruker: Bruker }) => {
+
+interface UserRowProps {
+	idx: number;
+	bruker: Bruker;
+	userSort?: UserSort;
+}
+
+const sortClassName = (name: TableHeaderName, userSort?: UserSort): string | undefined => {
+	if (!userSort || name !== userSort.name) {
+		return undefined;
+	}
+
+	return 'tabell__td--sortert';
+}
+
+export const UserRow = (props: UserRowProps) => {
 	const {
 		fodselsdato,
 		fornavn,
 		etternavn,
 		tiltak,
-		id
+		id,
 	} = props.bruker;
+	const userSort = props.userSort;
 
 	return (
 		<tr>
-			<td>{lagKommaSeparertBrukerNavn(fornavn, etternavn)}</td>
-			<td>{fodselsdato}</td>
-			<td>{mapTiltakTypeTilTekst(tiltak.type)}</td>
-			<td>{tiltak.navn}</td>
-			<td>{mapTiltakStatusTilTekst(tiltak.status)}</td>
-			<td>{tiltak.startdato && formatDateStr(tiltak.startdato)}</td>
-			<td>{tiltak.sluttdato && formatDateStr(tiltak.sluttdato)}</td>
+			<td className={sortClassName(TableHeaderName.NAVN, userSort)}>{lagKommaSeparertBrukerNavn(fornavn, etternavn)}</td>
+			<td className={sortClassName(TableHeaderName.FODSELSDATO, userSort)}>{fodselsdato}</td>
+			<td className={sortClassName(TableHeaderName.TILTAKSTYPE, userSort)}>{mapTiltakTypeTilTekst(tiltak.type)}</td>
+			<td className={sortClassName(TableHeaderName.TILTAK, userSort)}>{tiltak.navn}</td>
+			<td className={sortClassName(TableHeaderName.STATUS, userSort)}>{mapTiltakStatusTilTekst(tiltak.status)}</td>
+			<td className={sortClassName(TableHeaderName.START, userSort)}>{tiltak.startdato && formatDateStr(tiltak.startdato)}</td>
+			<td className={sortClassName(TableHeaderName.SLUTT, userSort)}>{tiltak.sluttdato && formatDateStr(tiltak.sluttdato)}</td>
 			<td>
 				<Link to={`/user/${id}`}>
 					<PeopleFilled className={styles.personIcon}/>

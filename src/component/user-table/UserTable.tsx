@@ -28,7 +28,7 @@ export const UserTable = (props: UserTableProps) => {
 			<table className="tabell tabell--stripet">
 				<UserTableHeader userSort={userSort} onSortChange={(sort) => setUserSort(sort)} />
 				<Show if={!props.isLoading && !harIngenBrukere}>
-					<UserTableBody brukere={props.brukere}/>
+					<UserTableBody brukere={props.brukere} userSort={userSort}/>
 				</Show>
 			</table>
 			<Show if={!props.isLoading && harIngenBrukere}>
