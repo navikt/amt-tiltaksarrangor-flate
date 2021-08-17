@@ -4,7 +4,7 @@ import { Checkbox, CheckboxGruppe, Input } from 'nav-frontend-skjema';
 import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
 import { TiltakStatus, TiltakType } from '../../../api/data/bruker';
 import { mapTiltakStatusTilTekst, mapTiltakTypeTilTekst } from '../../../utils/text-mappers';
-import { useTiltaksoversiktFilter } from '../../../store/tiltaksoversikt-filter-store';
+import { useTiltaksoversiktSok } from '../../../store/tiltaksoversikt-sok-store';
 
 export const FilterMenu = () => {
 	const {
@@ -16,7 +16,7 @@ export const FilterMenu = () => {
 		tiltakTyper,
 		leggTilTiltakType,
 		fjernTilTiltakType
-	} = useTiltaksoversiktFilter();
+	} = useTiltaksoversiktSok();
 
 	return (
 		<div>

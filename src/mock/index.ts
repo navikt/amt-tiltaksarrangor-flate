@@ -1,40 +1,12 @@
 import { setupWorker, rest } from 'msw';
 import { RequestHandler } from 'msw/lib/types/handlers/RequestHandler';
 import { mockBrukere, tilBruker } from './data/brukere';
-import { Bruker } from '../api/data/bruker';
 import {
 	BrukerSokParams,
 	OppdaterTiltakSluttdatoRequestBody,
 	OppdaterTiltakStartdatoRequestBody
 } from '../api/data/request-types';
-
-const mockBrukerSok = (brukere: Bruker[], params: BrukerSokParams): Bruker[] => {
-	return brukere.filter((bruker) => {
-		const { navnFnrSok, tiltakStatuser, tiltakTyper } = params.filter;
-		if (navnFnrSok?.trim()) {
-			const matcherFornavn = bruker.fornavn.toLowerCase().includes(navnFnrSok || '');
-			const matcherEtternavn = bruker.etternavn.toLowerCase().includes(navnFnrSok || '');
-
-			if (!matcherFornavn && !matcherEtternavn) {
-				return false;
-			}
-		}
-
-		if (tiltakStatuser.length > 0) {
-			if (!tiltakStatuser.includes(bruker.tiltak.status)) {
-				return false;
-			}
-		}
-
-		if (tiltakTyper.length > 0) {
-			if (!tiltakTyper.includes(bruker.tiltak.type)) {
-				return false;
-			}
-		}
-
-		return true;
-	});
-};
+import { mockBrukerSok } from './bruker-sok';
 
 const allHandlers: RequestHandler[] = [
 	rest.post('/amt-tiltak/api/bruker/sok', (req, res, ctx) => {
@@ -52,9 +24,10 @@ const allHandlers: RequestHandler[] = [
 	rest.put('/amt-tiltak/api/tiltak/:tiltakinstansId/startdato', (req, res, ctx) => {
 		const body = req.body as OppdaterTiltakStartdatoRequestBody;
 		const tiltakinstansId = req.params['tiltakinstansId']
-		const bruker = mockBrukere.find(bruker=>bruker.tiltak.id===tiltakinstansId);
+		const bruker = mockBrukere.find(bruker => bruker.tiltak.id === tiltakinstansId);
 
 		if(!bruker) throw new Error(`Fant ingen tiltak med id: ${tiltakinstansId}`);
+
 		bruker.tiltak.startdato = body.startdato;
 
 		return res(ctx.delay(500), ctx.json(bruker.tiltak));
@@ -62,9 +35,10 @@ const allHandlers: RequestHandler[] = [
 	rest.put('/amt-tiltak/api/tiltak/:tiltakinstansId/sluttdato', (req, res, ctx) => {
 		const body = req.body as OppdaterTiltakSluttdatoRequestBody;
 		const tiltakinstansId = req.params['tiltakinstansId']
-		const bruker = mockBrukere.find(bruker=>bruker.tiltak.id===tiltakinstansId);
+		const bruker = mockBrukere.find(bruker => bruker.tiltak.id === tiltakinstansId);
 
 		if(!bruker) throw new Error(`Fant ingen tiltak med id: ${tiltakinstansId}`);
+
 		bruker.tiltak.sluttdato = body.sluttdato;
 
 		return res(ctx.delay(500), ctx.json(bruker.tiltak));

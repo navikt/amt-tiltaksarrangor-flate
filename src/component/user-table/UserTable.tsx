@@ -7,6 +7,7 @@ import "nav-frontend-tabell-style";
 import { Bruker } from '../../api/data/bruker';
 import { Show } from '../felles/Show';
 import { Spinner } from '../felles/spinner/Spinner';
+import { useTiltaksoversiktSok } from '../../store/tiltaksoversikt-sok-store';
 
 interface UserTableProps {
 	brukere: Bruker[];
@@ -14,6 +15,7 @@ interface UserTableProps {
 }
 
 export const UserTable = (props: UserTableProps) => {
+	const { userSort, setUserSort } = useTiltaksoversiktSok();
 	const harIngenBrukere = props.brukere.length === 0;
 
 	const IngenBrukereAlertstripe = () =>
@@ -24,7 +26,7 @@ export const UserTable = (props: UserTableProps) => {
 	return (
 		<>
 			<table className="tabell tabell--stripet">
-				<UserTableHeader/>
+				<UserTableHeader userSort={userSort} onSortChange={(sort) => setUserSort(sort)} />
 				<Show if={!props.isLoading && !harIngenBrukere}>
 					<UserTableBody brukere={props.brukere}/>
 				</Show>

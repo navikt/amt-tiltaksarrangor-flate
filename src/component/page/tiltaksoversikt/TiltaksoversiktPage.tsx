@@ -5,11 +5,12 @@ import { Header } from '../../header/Header';
 import styles from './TiltaksoversiktPage.module.less';
 import { FilterMenu } from './FilterMenu';
 import { Bruker } from '../../../api/data/bruker';
-import { useTiltaksoversiktFilter } from '../../../store/tiltaksoversikt-filter-store';
+import { useTiltaksoversiktSok } from '../../../store/tiltaksoversikt-sok-store';
 import { brukerSok } from '../../../api';
+import { BrukerSokParams } from '../../../api/data/request-types';
 
 export const TiltaksoversiktPage = () => {
-	const { tiltakTyper, tiltakStatuser, navnFnrSok } = useTiltaksoversiktFilter();
+	const { tiltakTyper, tiltakStatuser, navnFnrSok, userSort } = useTiltaksoversiktSok();
 	const [brukere, setBrukere] = useState<Bruker[]>([]);
 	const [isLoading, setIsLoading] = useState<boolean>(false);
 
@@ -17,19 +18,22 @@ export const TiltaksoversiktPage = () => {
 		// TODO: this must be debounced
 		setIsLoading(true);
 
-		const sokParams = {
+		const sokParams: BrukerSokParams = {
 			filter: {
 				navnFnrSok,
 				tiltakTyper,
 				tiltakStatuser
-			}
+			},
+			sort: userSort
+				? { name: userSort.name, sortDirection: userSort.sortDirection }
+				: undefined
 		};
 
 		brukerSok(sokParams)
 			.then(res => setBrukere(res.data))
 			.catch(console.error) // TODO: vis feil i alertstripe
 			.finally(() => setIsLoading(false));
-	}, [tiltakTyper, tiltakStatuser, navnFnrSok]);
+	}, [tiltakTyper, tiltakStatuser, navnFnrSok, userSort]);
 
 	return (
 		<>
