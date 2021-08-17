@@ -1,19 +1,20 @@
 import React from 'react';
-import { UserTableHeader } from './header/UserTableHeader';
+import { Header } from './Header';
 import { AlertStripeInfo } from 'nav-frontend-alertstriper';
-import { UserTableBody } from './body/UserTableBody';
-import styles from './UserTable.module.less'
+import { TabellBody } from './TabellBody';
+import { Bruker } from '../../../../api/data/bruker';
+import { Show } from '../../../felles/Show';
+import { Spinner } from '../../../felles/spinner/Spinner';
+import styles from './BrukerOversikt.module.less'
 import "nav-frontend-tabell-style";
-import { Bruker } from '../../api/data/bruker';
-import { Show } from '../felles/Show';
-import { Spinner } from '../felles/spinner/Spinner';
+
 
 interface UserTableProps {
 	brukere: Bruker[];
 	isLoading: boolean;
 }
 
-export const UserTable = (props: UserTableProps) => {
+export const BrukerOversikt = (props: UserTableProps) => {
 	const harIngenBrukere = props.brukere.length === 0;
 
 	const IngenBrukereAlertstripe = () =>
@@ -24,9 +25,9 @@ export const UserTable = (props: UserTableProps) => {
 	return (
 		<>
 			<table className="tabell tabell--stripet">
-				<UserTableHeader/>
+				<Header/>
 				<Show if={!props.isLoading && !harIngenBrukere}>
-					<UserTableBody brukere={props.brukere}/>
+					<TabellBody brukere={props.brukere}/>
 				</Show>
 			</table>
 			<Show if={!props.isLoading && harIngenBrukere}>
