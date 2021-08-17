@@ -15,7 +15,7 @@ interface UserTableProps {
 }
 
 export const BrukerOversikt = (props: UserTableProps) => {
-	const { userSort, setUserSort } = useTiltaksoversiktSok();
+	const { brukerSortering, setBrukerSortering } = useTiltaksoversiktSok();
 	const harIngenBrukere = props.brukere.length === 0;
 
 	const IngenBrukereAlertstripe = () =>
@@ -26,9 +26,9 @@ export const BrukerOversikt = (props: UserTableProps) => {
 	return (
 		<>
 			<table className="tabell tabell--stripet">
-				<TabellHeader userSort={userSort} onSortChange={(sort) => setUserSort(sort)} />
+				<TabellHeader sortering={brukerSortering} onSortChange={(sort) => setBrukerSortering(sort)} />
 				<Show if={!props.isLoading && !harIngenBrukere}>
-					<TabellBody brukere={props.brukere} userSort={userSort}/>
+					<TabellBody brukere={props.brukere} sortering={brukerSortering}/>
 				</Show>
 			</table>
 			<Show if={!props.isLoading && harIngenBrukere}>

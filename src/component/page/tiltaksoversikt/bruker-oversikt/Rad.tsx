@@ -5,16 +5,16 @@ import { mapTiltakStatusTilTekst, mapTiltakTypeTilTekst } from '../../../../util
 import { PeopleFilled } from '@navikt/ds-icons';
 import { Link } from 'react-router-dom';
 import styles from './Rad.module.less';
-import { TableHeaderName, UserSort } from './TabellHeader';
+import { TableHeaderName, BrukerSortering } from './TabellHeader';
 import { formatDateStr } from '../../../../utils/date-utils';
 
 interface UserRowProps {
 	idx: number;
 	bruker: Bruker;
-	userSort?: UserSort;
+	userSort?: BrukerSortering;
 }
 
-const sortClassName = (name: TableHeaderName, userSort?: UserSort): string | undefined => {
+const sortClassName = (name: TableHeaderName, userSort?: BrukerSortering): string | undefined => {
 	if (!userSort || name !== userSort.name) {
 		return undefined;
 	}

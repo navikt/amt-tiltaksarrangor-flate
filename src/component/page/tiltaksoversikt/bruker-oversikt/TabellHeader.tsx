@@ -16,7 +16,7 @@ export enum TableHeaderName {
 	SLUTT = 'SLUTT'
 }
 
-export interface UserSort {
+export interface BrukerSortering {
 	name: TableHeaderName;
 	sortDirection: SortDirection;
 }
@@ -24,8 +24,8 @@ export interface UserSort {
 interface TableHeaderProps {
 	title: string;
 	name: TableHeaderName;
-	userSort?: UserSort;
-	onSortChange: (sortedHeader: UserSort) => void;
+	sortering?: BrukerSortering;
+	onSortChange: (sortering: BrukerSortering) => void;
 }
 
 const mapSortDirectionToText = (sortDirection: SortDirection): string => {
@@ -63,9 +63,9 @@ const getNextSortDirection = (sortDirection: SortDirection): SortDirection => {
 };
 
 const SortableHeader = (props: TableHeaderProps) => {
-	const { title, name, userSort, onSortChange } = props;
-	const sortDirection = name === userSort?.name
-		? userSort.sortDirection
+	const { title, name, sortering, onSortChange } = props;
+	const sortDirection = name === sortering?.name
+		? sortering.sortDirection
 		: SortDirection.NONE;
 
 	const nextSortDirection = getNextSortDirection(sortDirection);
@@ -79,23 +79,23 @@ const SortableHeader = (props: TableHeaderProps) => {
 };
 
 interface UserTableHeaderProps {
-	userSort?: UserSort;
-	onSortChange: (sortedHeader: UserSort) => void;
+	sortering?: BrukerSortering;
+	onSortChange: (sortedHeader: BrukerSortering) => void;
 }
 
 export const TabellHeader = (props: UserTableHeaderProps) => {
-	const { userSort, onSortChange } = props;
+	const { sortering, onSortChange } = props;
 	return (
 		<thead>
 		    <tr>
 			    {/* TODO: Er mulig å gjøre koden mer DRY på bekostning av kompleksitet */}
-			    <SortableHeader userSort={userSort} onSortChange={onSortChange} title="Etternavn, Fornavn" name={TableHeaderName.NAVN}/>
-			    <SortableHeader userSort={userSort} onSortChange={onSortChange} title="Fødselsdato" name={TableHeaderName.FODSELSDATO}/>
-			    <SortableHeader userSort={userSort} onSortChange={onSortChange} title="Tiltakstype" name={TableHeaderName.TILTAKSTYPE}/>
-			    <SortableHeader userSort={userSort} onSortChange={onSortChange} title="Tiltak" name={TableHeaderName.TILTAK}/>
-			    <SortableHeader userSort={userSort} onSortChange={onSortChange} title="Status" name={TableHeaderName.STATUS}/>
-				<SortableHeader userSort={userSort} onSortChange={onSortChange} title="Start" name={TableHeaderName.START}/>
-				<SortableHeader userSort={userSort} onSortChange={onSortChange} title="Slutt" name={TableHeaderName.SLUTT}/>
+			    <SortableHeader sortering={sortering} onSortChange={onSortChange} title="Etternavn, Fornavn" name={TableHeaderName.NAVN}/>
+			    <SortableHeader sortering={sortering} onSortChange={onSortChange} title="Fødselsdato" name={TableHeaderName.FODSELSDATO}/>
+			    <SortableHeader sortering={sortering} onSortChange={onSortChange} title="Tiltakstype" name={TableHeaderName.TILTAKSTYPE}/>
+			    <SortableHeader sortering={sortering} onSortChange={onSortChange} title="Tiltak" name={TableHeaderName.TILTAK}/>
+			    <SortableHeader sortering={sortering} onSortChange={onSortChange} title="Status" name={TableHeaderName.STATUS}/>
+				<SortableHeader sortering={sortering} onSortChange={onSortChange} title="Start" name={TableHeaderName.START}/>
+				<SortableHeader sortering={sortering} onSortChange={onSortChange} title="Slutt" name={TableHeaderName.SLUTT}/>
 				<th/>
 		    </tr>
 		</thead>

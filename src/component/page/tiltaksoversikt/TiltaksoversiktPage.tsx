@@ -10,7 +10,7 @@ import { BrukerSokParams } from '../../../api/data/request-types';
 import styles from './TiltaksoversiktPage.module.less';
 
 export const TiltaksoversiktPage = () => {
-	const { tiltakTyper, tiltakStatuser, navnFnrSok, userSort } = useTiltaksoversiktSok();
+	const { tiltakTyper, tiltakStatuser, navnFnrSok, brukerSortering } = useTiltaksoversiktSok();
 	const [brukere, setBrukere] = useState<Bruker[]>([]);
 	const [isLoading, setIsLoading] = useState<boolean>(false);
 
@@ -24,8 +24,8 @@ export const TiltaksoversiktPage = () => {
 				tiltakTyper,
 				tiltakStatuser
 			},
-			sort: userSort
-				? { name: userSort.name, sortDirection: userSort.sortDirection }
+			sort: brukerSortering
+				? { name: brukerSortering.name, sortDirection: brukerSortering.sortDirection }
 				: undefined
 		};
 
@@ -33,7 +33,7 @@ export const TiltaksoversiktPage = () => {
 			.then(res => setBrukere(res.data))
 			.catch(console.error) // TODO: vis feil i alertstripe
 			.finally(() => setIsLoading(false));
-	}, [tiltakTyper, tiltakStatuser, navnFnrSok, userSort]);
+	}, [tiltakTyper, tiltakStatuser, navnFnrSok, brukerSortering]);
 
 	return (
 		<>

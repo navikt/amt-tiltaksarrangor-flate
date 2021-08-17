@@ -1,13 +1,13 @@
 import { useState } from 'react';
 import constate from 'constate';
 import { TiltakStatus, TiltakType } from '../api/data/bruker';
-import { UserSort } from '../component/page/tiltaksoversikt/bruker-oversikt/TabellHeader';
+import { BrukerSortering } from '../component/page/tiltaksoversikt/bruker-oversikt/TabellHeader';
 
 export const [TiltaksoversiktSokStoreProvider, useTiltaksoversiktSok] = constate(() => {
 	const [navnFnrSok, setNavnFnrSok] = useState<string>('');
 	const [tiltakTyper, setTiltakTyper] = useState<TiltakType[]>([]);
 	const [tiltakStatuser, setTiltakStatuser] = useState<TiltakStatus[]>([]);
-	const [userSort, setUserSort] = useState<UserSort>();
+	const [brukerSortering, setBrukerSortering] = useState<BrukerSortering>();
 
 	const leggTilTiltakType = (tiltakType: TiltakType) => {
 		setTiltakTyper(prevTyper => {
@@ -45,6 +45,6 @@ export const [TiltaksoversiktSokStoreProvider, useTiltaksoversiktSok] = constate
 		navnFnrSok, setNavnFnrSok,
 		tiltakTyper, leggTilTiltakType, fjernTilTiltakType,
 		tiltakStatuser, leggTilTiltakStatus, fjernTilTiltakStatus,
-		userSort, setUserSort
+		brukerSortering, setBrukerSortering
 	};
 });
