@@ -55,7 +55,18 @@
     "start": "cross-env REACT_APP_DEV=true craco start",
     "build": "craco build",
     "build:mock": "cross-env PUBLIC_URL=/amt-tiltaksarrangor-flate REACT_APP_DEV=true craco build",
+    "prettier": "prettier --write 'src/**/*.{ts,tsx,less}'",
     "test": "craco test"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "src/**/*.{ts,tsx,less}": [
+      "prettier --write"
+    ]
   },
   "eslintConfig": {
     "extends": [
@@ -78,7 +89,10 @@
   "devDependencies": {
     "@types/faker": "^5.5.7",
     "faker": "^5.5.3",
-    "msw": "^0.34.0"
+    "husky": "^7.0.1",
+    "lint-staged": "^11.1.2",
+    "msw": "^0.34.0",
+    "prettier": "^2.3.2"
   },
   "msw": {
     "workerDirectory": "public"
