@@ -1,12 +1,11 @@
+import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
+import { Checkbox, CheckboxGruppe, Input } from 'nav-frontend-skjema';
 import React from 'react';
 
-import { Checkbox, CheckboxGruppe, Input } from 'nav-frontend-skjema';
-import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
 import { TiltakStatus, TiltakType } from '../../../api/data/bruker';
-import { mapTiltakStatusTilTekst, mapTiltakTypeTilTekst } from '../../../utils/text-mappers';
-import { useTiltaksoversiktSok } from '../../../store/tiltaksoversikt-sok-store';
-
 import globalStyles from '../../../globals.module.less';
+import { useTiltaksoversiktSok } from '../../../store/tiltaksoversikt-sok-store';
+import { mapTiltakStatusTilTekst, mapTiltakTypeTilTekst } from '../../../utils/text-mappers';
 
 export const FilterMeny = () => {
 	const {

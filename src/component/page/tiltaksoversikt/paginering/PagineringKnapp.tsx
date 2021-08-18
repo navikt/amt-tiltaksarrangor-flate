@@ -1,4 +1,5 @@
 import React from 'react';
+
 import styles from './PagineringKnapp.module.less';
 
 export const PagineringKnapp = (

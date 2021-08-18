@@ -1,6 +1,7 @@
 import React from 'react';
-import { Rad } from './Rad';
+
 import { Bruker } from '../../../../api/data/bruker';
+import { Rad } from './Rad';
 import { BrukerSortering } from './types';
 
 interface TabellBodyProps {

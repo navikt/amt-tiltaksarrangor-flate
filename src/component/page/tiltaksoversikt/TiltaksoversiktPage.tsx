@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import { BrukerOversiktTabell } from './bruker-oversikt/BrukerOversiktTabell';
-import { PaginationBar } from './paginering/PaginationBar';
-import { Header } from './Header';
-import { FilterMeny } from './FilterMeny';
-import { Bruker } from '../../../api/data/bruker';
-import { useTiltaksoversiktSok } from '../../../store/tiltaksoversikt-sok-store';
+
 import { brukerSok } from '../../../api';
+import { Bruker } from '../../../api/data/bruker';
 import { BrukerSokParams } from '../../../api/data/request-types';
-import styles from './TiltaksoversiktPage.module.less';
+import { useTiltaksoversiktSok } from '../../../store/tiltaksoversikt-sok-store';
 import { SorteringType } from '../../../utils/sortering-utils';
+import { BrukerOversiktTabell } from './bruker-oversikt/BrukerOversiktTabell';
+import { FilterMeny } from './FilterMeny';
+import { Header } from './Header';
+import { PaginationBar } from './paginering/PaginationBar';
+import styles from './TiltaksoversiktPage.module.less';
 
 export const TiltaksoversiktPage = () => {
 	const { tiltakTyper, tiltakStatuser, navnFnrSok, brukerSortering } = useTiltaksoversiktSok();

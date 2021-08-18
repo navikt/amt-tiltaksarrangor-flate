@@ -1,4 +1,5 @@
 import axios, { AxiosError, AxiosPromise, AxiosResponse } from 'axios';
+
 import { APP_NAME } from '../utils/constants';
 
 export const axiosInstance = axios.create({

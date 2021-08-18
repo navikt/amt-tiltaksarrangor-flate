@@ -1,13 +1,14 @@
+import cls from 'classnames';
+import { AlertStripeFeil } from 'nav-frontend-alertstriper';
 import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
+
 import { fetchBrukerDetaljer } from '../../../api';
 import { DetaljertBruker } from '../../../api/data/bruker';
-import { Spinner } from '../../felles/spinner/Spinner';
-import { AlertStripeFeil } from 'nav-frontend-alertstriper';
-import { BrukerPaaTiltakDetaljer } from './BrukerPaaTiltakDetaljer';
-import cls from 'classnames';
-import styles from './BrukerDetaljerPage.module.less';
 import globalStyles from '../../../globals.module.less';
+import { Spinner } from '../../felles/spinner/Spinner';
+import styles from './BrukerDetaljerPage.module.less';
+import { BrukerPaaTiltakDetaljer } from './BrukerPaaTiltakDetaljer';
 
 export const BrukerDetaljerPage = () => {
 	const { brukerId } = useParams<{ brukerId: string }>();

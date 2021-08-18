@@ -68,6 +68,12 @@
       "prettier --write"
     ]
   },
+  "importSort": {
+    ".ts, .tsx": {
+      "style": "module",
+      "parser": "typescript"
+    }
+  },
   "eslintConfig": {
     "extends": [
       "react-app",
@@ -90,9 +96,11 @@
     "@types/faker": "^5.5.7",
     "faker": "^5.5.3",
     "husky": "^7.0.1",
+    "import-sort-style-module": "^6.0.0",
     "lint-staged": "^11.1.2",
     "msw": "^0.34.0",
-    "prettier": "^2.3.2"
+    "prettier": "^2.3.2",
+    "prettier-plugin-import-sort": "^0.0.7"
   },
   "msw": {
     "workerDirectory": "public"

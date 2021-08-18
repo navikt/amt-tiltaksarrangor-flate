@@ -1,4 +1,5 @@
 import faker from 'faker';
+
 import { Bruker, DetaljertBruker, NavEnhet, TiltakStatus, TiltakType } from '../../api/data/bruker';
 import { OrNothing } from '../../utils/types/or-nothing';
 

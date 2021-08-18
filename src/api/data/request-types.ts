@@ -1,6 +1,6 @@
-import { TiltakStatus, TiltakType } from './bruker';
 import { Kolonnenavn } from '../../component/page/tiltaksoversikt/bruker-oversikt/types';
 import { SorteringType } from '../../utils/sortering-utils';
+import { TiltakStatus, TiltakType } from './bruker';
 
 export interface BrukerSokParams {
 	filter: {

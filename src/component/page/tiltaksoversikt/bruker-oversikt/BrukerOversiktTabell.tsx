@@ -1,13 +1,15 @@
-import React from 'react';
+import 'nav-frontend-tabell-style';
+
 import { AlertStripeInfo } from 'nav-frontend-alertstriper';
+import React from 'react';
+
 import { Bruker } from '../../../../api/data/bruker';
+import { useTiltaksoversiktSok } from '../../../../store/tiltaksoversikt-sok-store';
 import { Show } from '../../../felles/Show';
 import { Spinner } from '../../../felles/spinner/Spinner';
 import styles from './BrukerOversiktTabell.module.less';
-import 'nav-frontend-tabell-style';
-import { useTiltaksoversiktSok } from '../../../../store/tiltaksoversikt-sok-store';
-import { TabellHeader } from './TabellHeader';
 import { TabellBody } from './TabellBody';
+import { TabellHeader } from './TabellHeader';
 
 interface UserTableProps {
 	brukere: Bruker[];
