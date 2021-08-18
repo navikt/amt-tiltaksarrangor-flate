@@ -8,4 +8,4 @@ export const Header = () => {
 			<Sidetittel>Tiltaksoversikt</Sidetittel>
 		</header>
 	);
-}
+};

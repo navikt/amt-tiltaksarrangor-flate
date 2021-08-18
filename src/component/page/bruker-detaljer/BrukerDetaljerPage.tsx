@@ -16,17 +16,22 @@ export const BrukerDetaljerPage = () => {
 
 	useEffect(() => {
 		fetchBrukerDetaljer(brukerId)
-			.then(res => setBruker(res.data))
+			.then((res) => setBruker(res.data))
 			.catch(() => setHasFailed(true));
 	}, [brukerId]);
 
 	return (
 		<main className={styles.userInfoPage}>
-			<Link to="/" className={cls(styles.tilbakeLenke, globalStyles.blokkM)}>Tilbake</Link>
-			{bruker
-				? <BrukerPaaTiltakDetaljer bruker={bruker}/>
-				: (hasFailed ? <AlertStripeFeil>En feil oppstod</AlertStripeFeil> : <Spinner/>)
-			}
+			<Link to="/" className={cls(styles.tilbakeLenke, globalStyles.blokkM)}>
+				Tilbake
+			</Link>
+			{bruker ? (
+				<BrukerPaaTiltakDetaljer bruker={bruker} />
+			) : hasFailed ? (
+				<AlertStripeFeil>En feil oppstod</AlertStripeFeil>
+			) : (
+				<Spinner />
+			)}
 		</main>
 	);
-}
+};

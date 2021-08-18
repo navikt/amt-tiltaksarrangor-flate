@@ -3,21 +3,21 @@ import { Kolonnenavn } from '../../component/page/tiltaksoversikt/bruker-oversik
 import { SorteringType } from '../../utils/sortering-utils';
 
 export interface BrukerSokParams {
-    filter: {
-        navnFnrSok: string | undefined,
-        tiltakTyper: TiltakType[],
-        tiltakStatuser: TiltakStatus[]
-    },
-    sortering?: {
-        kolonnenavn: Kolonnenavn,
-        sorteringType: SorteringType
-    }
+	filter: {
+		navnFnrSok: string | undefined;
+		tiltakTyper: TiltakType[];
+		tiltakStatuser: TiltakStatus[];
+	};
+	sortering?: {
+		kolonnenavn: Kolonnenavn;
+		sorteringType: SorteringType;
+	};
 }
 
 export interface OppdaterTiltakStartdatoRequestBody {
-    startdato: string;
+	startdato: string;
 }
 
 export interface OppdaterTiltakSluttdatoRequestBody {
-    sluttdato: string;
+	sluttdato: string;
 }

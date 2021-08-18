@@ -10,7 +10,7 @@ export const [TiltaksoversiktSokStoreProvider, useTiltaksoversiktSok] = constate
 	const [brukerSortering, setBrukerSortering] = useState<BrukerSortering>();
 
 	const leggTilTiltakType = (tiltakType: TiltakType) => {
-		setTiltakTyper(prevTyper => {
+		setTiltakTyper((prevTyper) => {
 			if (prevTyper.includes(tiltakType)) {
 				return prevTyper;
 			}
@@ -20,13 +20,13 @@ export const [TiltaksoversiktSokStoreProvider, useTiltaksoversiktSok] = constate
 	};
 
 	const fjernTilTiltakType = (tiltakType: TiltakType) => {
-		setTiltakTyper(prevTyper => {
+		setTiltakTyper((prevTyper) => {
 			return prevTyper.filter((type) => type !== tiltakType);
 		});
 	};
 
 	const leggTilTiltakStatus = (tiltakStatus: TiltakStatus) => {
-		setTiltakStatuser(prevStatuser => {
+		setTiltakStatuser((prevStatuser) => {
 			if (prevStatuser.includes(tiltakStatus)) {
 				return prevStatuser;
 			}
@@ -36,15 +36,21 @@ export const [TiltaksoversiktSokStoreProvider, useTiltaksoversiktSok] = constate
 	};
 
 	const fjernTilTiltakStatus = (tiltakStatus: TiltakStatus) => {
-		setTiltakStatuser(prevStatuser => {
+		setTiltakStatuser((prevStatuser) => {
 			return prevStatuser.filter((status) => status !== tiltakStatus);
 		});
 	};
 
 	return {
-		navnFnrSok, setNavnFnrSok,
-		tiltakTyper, leggTilTiltakType, fjernTilTiltakType,
-		tiltakStatuser, leggTilTiltakStatus, fjernTilTiltakStatus,
-		brukerSortering, setBrukerSortering
+		navnFnrSok,
+		setNavnFnrSok,
+		tiltakTyper,
+		leggTilTiltakType,
+		fjernTilTiltakType,
+		tiltakStatuser,
+		leggTilTiltakStatus,
+		fjernTilTiltakStatus,
+		brukerSortering,
+		setBrukerSortering,
 	};
 });

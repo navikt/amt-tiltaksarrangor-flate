@@ -9,10 +9,14 @@ export const App = () => {
 		<StoreProvider>
 			<BrowserRouter>
 				<Switch>
-					<Route path='/user/:brukerId'><BrukerDetaljerPage /></Route>
-					<Route path='/'><TiltaksoversiktPage/></Route>
+					<Route path="/user/:brukerId">
+						<BrukerDetaljerPage />
+					</Route>
+					<Route path="/">
+						<TiltaksoversiktPage />
+					</Route>
 				</Switch>
-			</BrowserRouter>		</StoreProvider>
-
+			</BrowserRouter>{' '}
+		</StoreProvider>
 	);
-}
+};

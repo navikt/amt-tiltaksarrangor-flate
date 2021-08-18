@@ -1,7 +1,7 @@
 export enum SorteringType {
 	ASCENDING = 'ascending',
 	DESCENDING = 'descending',
-	NONE = 'none'
+	NONE = 'none',
 }
 
 export const mapSortDirectionToText = (sorteringType: SorteringType): string => {

@@ -17,7 +17,7 @@ export const FilterMeny = () => {
 		fjernTilTiltakStatus,
 		tiltakTyper,
 		leggTilTiltakType,
-		fjernTilTiltakType
+		fjernTilTiltakType,
 	} = useTiltaksoversiktSok();
 
 	return (
@@ -31,45 +31,43 @@ export const FilterMeny = () => {
 
 			<Ekspanderbartpanel tittel="Tiltakstype" className={globalStyles.blokkM} apen>
 				<CheckboxGruppe>
-					{Object.values(TiltakType).map(type => (
-							<Checkbox
-								key={type}
-								label={mapTiltakTypeTilTekst(type)}
-								name="filter-tiltakstype"
-								checked={tiltakTyper.includes(type)}
-								onChange={(e) => {
-									if (e.target.checked) {
-										leggTilTiltakType(type);
-									} else {
-										fjernTilTiltakType(type);
-									}
-								}}
-							/>
-						)
-					)}
+					{Object.values(TiltakType).map((type) => (
+						<Checkbox
+							key={type}
+							label={mapTiltakTypeTilTekst(type)}
+							name="filter-tiltakstype"
+							checked={tiltakTyper.includes(type)}
+							onChange={(e) => {
+								if (e.target.checked) {
+									leggTilTiltakType(type);
+								} else {
+									fjernTilTiltakType(type);
+								}
+							}}
+						/>
+					))}
 				</CheckboxGruppe>
 			</Ekspanderbartpanel>
 
 			<Ekspanderbartpanel tittel="Status" className={globalStyles.blokkM} apen>
 				<CheckboxGruppe>
-					{Object.values(TiltakStatus).map(status => (
-							<Checkbox
-								key={status}
-								label={mapTiltakStatusTilTekst(status)}
-								name="filter-tiltakstatus"
-								checked={tiltakStatuser.includes(status)}
-								onChange={(e) => {
-									if (e.target.checked) {
-										leggTilTiltakStatus(status);
-									} else {
-										fjernTilTiltakStatus(status);
-									}
-								}}
-							/>
-						)
-					)}
+					{Object.values(TiltakStatus).map((status) => (
+						<Checkbox
+							key={status}
+							label={mapTiltakStatusTilTekst(status)}
+							name="filter-tiltakstatus"
+							checked={tiltakStatuser.includes(status)}
+							onChange={(e) => {
+								if (e.target.checked) {
+									leggTilTiltakStatus(status);
+								} else {
+									fjernTilTiltakStatus(status);
+								}
+							}}
+						/>
+					))}
 				</CheckboxGruppe>
 			</Ekspanderbartpanel>
 		</div>
-	)
-}
+	);
+};

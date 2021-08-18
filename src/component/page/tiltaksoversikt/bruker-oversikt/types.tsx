@@ -7,7 +7,7 @@ export enum Kolonnenavn {
 	TILTAK = 'TILTAK',
 	STATUS = 'STATUS',
 	START = 'START',
-	SLUTT = 'SLUTT'
+	SLUTT = 'SLUTT',
 }
 
 export interface BrukerSortering {

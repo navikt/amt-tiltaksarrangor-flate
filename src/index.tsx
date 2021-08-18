@@ -9,12 +9,12 @@ import 'dayjs/locale/nb';
 dayjs.locale('nb');
 
 if (env.isDevelopment) {
-    require('./mock');
+	require('./mock');
 }
 
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
+	<React.StrictMode>
+		<App />
+	</React.StrictMode>,
+	document.getElementById('root')
 );
