@@ -1,8 +1,9 @@
 import React from 'react';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
+
+import { BrukerDetaljerPage } from './component/page/bruker-detaljer/BrukerDetaljerPage';
 import { TiltaksoversiktPage } from './component/page/tiltaksoversikt/TiltaksoversiktPage';
 import StoreProvider from './store/store-provider';
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
-import { BrukerDetaljerPage } from './component/page/bruker-detaljer/BrukerDetaljerPage';
 
 export const App = () => {
 	return (

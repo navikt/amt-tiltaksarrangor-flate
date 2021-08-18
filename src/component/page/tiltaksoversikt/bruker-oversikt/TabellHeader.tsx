@@ -1,11 +1,12 @@
 import React from 'react';
-import { BrukerSortering, Kolonnenavn } from './types';
+
 import {
+	SorteringType,
 	finnNesteSorteringType,
 	mapSortDirectionToClassName,
 	mapSortDirectionToText,
-	SorteringType,
 } from '../../../../utils/sortering-utils';
+import { BrukerSortering, Kolonnenavn } from './types';
 
 interface TableHeaderProps {
 	title: string;

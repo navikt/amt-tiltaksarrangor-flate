@@ -1,8 +1,8 @@
 import { Bruker } from '../api/data/bruker';
 import { BrukerSokParams } from '../api/data/request-types';
-import { sortDateNullsFirst } from '../utils/date-utils';
-import { reverseSort } from '../utils';
 import { Kolonnenavn } from '../component/page/tiltaksoversikt/bruker-oversikt/types';
+import { reverseSort } from '../utils';
+import { sortDateNullsFirst } from '../utils/date-utils';
 import { SorteringType } from '../utils/sortering-utils';
 
 export const mockBrukerSok = (brukere: Bruker[], params: BrukerSokParams): Bruker[] => {

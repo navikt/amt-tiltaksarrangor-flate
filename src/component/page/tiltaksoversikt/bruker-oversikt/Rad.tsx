@@ -1,11 +1,12 @@
+import { PeopleFilled } from '@navikt/ds-icons';
 import React from 'react';
+import { Link } from 'react-router-dom';
+
 import { Bruker } from '../../../../api/data/bruker';
 import { lagKommaSeparertBrukerNavn } from '../../../../utils/bruker-utils';
-import { mapTiltakStatusTilTekst, mapTiltakTypeTilTekst } from '../../../../utils/text-mappers';
-import { PeopleFilled } from '@navikt/ds-icons';
-import { Link } from 'react-router-dom';
-import styles from './Rad.module.less';
 import { formatDateStr } from '../../../../utils/date-utils';
+import { mapTiltakStatusTilTekst, mapTiltakTypeTilTekst } from '../../../../utils/text-mappers';
+import styles from './Rad.module.less';
 import { BrukerSortering, Kolonnenavn } from './types';
 
 interface RadProps {

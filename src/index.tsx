@@ -1,10 +1,13 @@
+import 'dayjs/locale/nb';
+
+import './index.less';
+
+import dayjs from 'dayjs';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.less';
+
 import { App } from './App';
 import env from './utils/environment';
-import dayjs from 'dayjs';
-import 'dayjs/locale/nb';
 
 dayjs.locale('nb');
 

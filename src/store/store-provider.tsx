@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { TiltaksoversiktSokStoreProvider } from './tiltaksoversikt-sok-store';
 
 interface StoreProviderProps {

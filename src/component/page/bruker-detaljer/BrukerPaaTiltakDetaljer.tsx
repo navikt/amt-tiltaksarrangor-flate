@@ -1,13 +1,14 @@
-import React, { ReactNode, useState } from 'react';
-import { DetaljertBruker } from '../../../api/data/bruker';
-import { Ingress, Normaltekst, Sidetittel } from 'nav-frontend-typografi';
-import { mapTiltakStatusTilTekst, mapTiltakTypeTilTekst } from '../../../utils/text-mappers';
 import { Knapp } from 'nav-frontend-knapper';
 import { Input } from 'nav-frontend-skjema';
+import { Ingress, Normaltekst, Sidetittel } from 'nav-frontend-typografi';
+import React, { ReactNode, useState } from 'react';
+
 import { oppdaterTiltakSluttdato, oppdaterTiltakStartdato } from '../../../api';
-import { formatDateInputStr, stringToDate } from '../../../utils/date-utils';
-import { lagBrukerNavn } from '../../../utils/bruker-utils';
+import { DetaljertBruker } from '../../../api/data/bruker';
 import globalStyles from '../../../globals.module.less';
+import { lagBrukerNavn } from '../../../utils/bruker-utils';
+import { formatDateInputStr, stringToDate } from '../../../utils/date-utils';
+import { mapTiltakStatusTilTekst, mapTiltakTypeTilTekst } from '../../../utils/text-mappers';
 import styles from './BrukerPaaTiltakDetaljer.module.less';
 
 interface SeksjonProps {
