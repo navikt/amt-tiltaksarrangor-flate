@@ -1,7 +1,6 @@
 import { TiltakStatus, TiltakType } from './bruker';
-import { SortDirection, TableHeaderName } from '../../component/page/tiltaksoversikt/bruker-oversikt/TabellHeader';
-
-// TODO: Might be better to use different enums for the DTO than TableHeaderName and SortDirection
+import { Kolonnenavn } from '../../component/page/tiltaksoversikt/bruker-oversikt/types';
+import { SorteringType } from '../../utils/sortering-utils';
 
 export interface BrukerSokParams {
     filter: {
@@ -9,9 +8,9 @@ export interface BrukerSokParams {
         tiltakTyper: TiltakType[],
         tiltakStatuser: TiltakStatus[]
     },
-    sort?: {
-        name: TableHeaderName,
-        sortDirection: SortDirection
+    sortering?: {
+        kolonnenavn: Kolonnenavn,
+        sorteringType: SorteringType
     }
 }
 

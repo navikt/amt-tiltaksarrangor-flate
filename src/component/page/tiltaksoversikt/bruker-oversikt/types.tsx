@@ -1,12 +1,16 @@
-export enum OrderByField {
-	FODSELSDATO = 'FODSELSDATO',
+import { SorteringType } from '../../../../utils/sortering-utils';
+
+export enum Kolonnenavn {
 	NAVN = 'NAVN',
-	TILTAK_TYPE = 'TILTAK_TYPE',
-	TILTAK_STATUS = 'TILTAK_STATUS',
-	TILTAK = 'TILTAK'
+	FODSELSDATO = 'FODSELSDATO',
+	TILTAKSTYPE = 'TILTAKSTYPE',
+	TILTAK = 'TILTAK',
+	STATUS = 'STATUS',
+	START = 'START',
+	SLUTT = 'SLUTT'
 }
 
-export enum OrderByDirection {
-	ASC = 'ASC',
-	DESC = 'DESC'
+export interface BrukerSortering {
+	kolonnenavn: Kolonnenavn;
+	sorteringType: SorteringType;
 }

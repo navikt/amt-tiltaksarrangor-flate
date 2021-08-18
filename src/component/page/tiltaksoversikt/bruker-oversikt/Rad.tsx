@@ -5,24 +5,24 @@ import { mapTiltakStatusTilTekst, mapTiltakTypeTilTekst } from '../../../../util
 import { PeopleFilled } from '@navikt/ds-icons';
 import { Link } from 'react-router-dom';
 import styles from './Rad.module.less';
-import { TableHeaderName, BrukerSortering } from './TabellHeader';
 import { formatDateStr } from '../../../../utils/date-utils';
+import { BrukerSortering, Kolonnenavn } from './types';
 
-interface UserRowProps {
+interface RadProps {
 	idx: number;
 	bruker: Bruker;
-	userSort?: BrukerSortering;
+	brukerSortering?: BrukerSortering;
 }
 
-const sortClassName = (name: TableHeaderName, userSort?: BrukerSortering): string | undefined => {
-	if (!userSort || name !== userSort.name) {
+const sortClassName = (name: Kolonnenavn, brukerSortering?: BrukerSortering): string | undefined => {
+	if (!brukerSortering || name !== brukerSortering.kolonnenavn) {
 		return undefined;
 	}
 
 	return 'tabell__td--sortert';
 }
 
-export const Rad = (props: UserRowProps) => {
+export const Rad = (props: RadProps) => {
 	const {
 		fodselsdato,
 		fornavn,
@@ -30,17 +30,17 @@ export const Rad = (props: UserRowProps) => {
 		tiltak,
 		id,
 	} = props.bruker;
-	const userSort = props.userSort;
+	const userSort = props.brukerSortering;
 
 	return (
 		<tr>
-			<td className={sortClassName(TableHeaderName.NAVN, userSort)}>{lagKommaSeparertBrukerNavn(fornavn, etternavn)}</td>
-			<td className={sortClassName(TableHeaderName.FODSELSDATO, userSort)}>{fodselsdato}</td>
-			<td className={sortClassName(TableHeaderName.TILTAKSTYPE, userSort)}>{mapTiltakTypeTilTekst(tiltak.type)}</td>
-			<td className={sortClassName(TableHeaderName.TILTAK, userSort)}>{tiltak.navn}</td>
-			<td className={sortClassName(TableHeaderName.STATUS, userSort)}>{mapTiltakStatusTilTekst(tiltak.status)}</td>
-			<td className={sortClassName(TableHeaderName.START, userSort)}>{tiltak.startdato && formatDateStr(tiltak.startdato)}</td>
-			<td className={sortClassName(TableHeaderName.SLUTT, userSort)}>{tiltak.sluttdato && formatDateStr(tiltak.sluttdato)}</td>
+			<td className={sortClassName(Kolonnenavn.NAVN, userSort)}>{lagKommaSeparertBrukerNavn(fornavn, etternavn)}</td>
+			<td className={sortClassName(Kolonnenavn.FODSELSDATO, userSort)}>{fodselsdato}</td>
+			<td className={sortClassName(Kolonnenavn.TILTAKSTYPE, userSort)}>{mapTiltakTypeTilTekst(tiltak.type)}</td>
+			<td className={sortClassName(Kolonnenavn.TILTAK, userSort)}>{tiltak.navn}</td>
+			<td className={sortClassName(Kolonnenavn.STATUS, userSort)}>{mapTiltakStatusTilTekst(tiltak.status)}</td>
+			<td className={sortClassName(Kolonnenavn.START, userSort)}>{tiltak.startdato && formatDateStr(tiltak.startdato)}</td>
+			<td className={sortClassName(Kolonnenavn.SLUTT, userSort)}>{tiltak.sluttdato && formatDateStr(tiltak.sluttdato)}</td>
 			<td>
 				<Link to={`/user/${id}`}>
 					<PeopleFilled className={styles.personIcon}/>

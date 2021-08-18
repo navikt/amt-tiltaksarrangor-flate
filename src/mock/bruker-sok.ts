@@ -2,7 +2,8 @@ import { Bruker } from '../api/data/bruker';
 import { BrukerSokParams } from '../api/data/request-types';
 import { sortDateNullsFirst } from '../utils/date-utils';
 import { reverseSort } from '../utils';
-import { SortDirection, TableHeaderName } from '../component/page/tiltaksoversikt/bruker-oversikt/TabellHeader';
+import { Kolonnenavn } from '../component/page/tiltaksoversikt/bruker-oversikt/types';
+import { SorteringType } from '../utils/sortering-utils';
 
 export const mockBrukerSok = (brukere: Bruker[], params: BrukerSokParams): Bruker[] => {
 	const filtrerteBrukere = filtrerBrukere(brukere, params);
@@ -45,34 +46,34 @@ const paginerBrukere = (brukere: Bruker[], params: BrukerSokParams): Bruker[] =>
 };
 
 const sorterBrukere = (brukere: Bruker[], params: BrukerSokParams): Bruker[] => {
-	if (!params.sort || params.sort.sortDirection === SortDirection.NONE) {
+	if (!params.sortering || params.sortering.sorteringType === SorteringType.NONE) {
 		return brukere;
 	}
 
-	const { name, sortDirection } = params.sort;
+	const { kolonnenavn, sorteringType } = params.sortering;
 
-	const ascendingSort = getAscendingSort(name);
-	const sort = sortDirection === SortDirection.ASCENDING ? ascendingSort : reverseSort(ascendingSort);
+	const ascendingSort = getAscendingSort(kolonnenavn);
+	const sort = sorteringType === SorteringType.ASCENDING ? ascendingSort : reverseSort(ascendingSort);
 
 	return brukere.sort(sort);
 };
 
-const getAscendingSort = (name: TableHeaderName): (b1: Bruker, b2: Bruker) => number => {
+const getAscendingSort = (name: Kolonnenavn): (b1: Bruker, b2: Bruker) => number => {
 	return (b1, b2) => {
 		switch (name) {
-			case TableHeaderName.NAVN:
+			case Kolonnenavn.NAVN:
 				return b1.etternavn.localeCompare(b2.etternavn);
-			case TableHeaderName.FODSELSDATO:
+			case Kolonnenavn.FODSELSDATO:
 				return b1.fodselsdato.localeCompare(b2.fodselsdato);
-			case TableHeaderName.TILTAK:
+			case Kolonnenavn.TILTAK:
 				return b1.tiltak.navn.localeCompare(b2.tiltak.navn);
-			case TableHeaderName.TILTAKSTYPE:
+			case Kolonnenavn.TILTAKSTYPE:
 				return b1.tiltak.type.localeCompare(b2.tiltak.type);
-			case TableHeaderName.STATUS:
+			case Kolonnenavn.STATUS:
 				return b1.tiltak.status.localeCompare(b2.tiltak.status);
-			case TableHeaderName.START:
+			case Kolonnenavn.START:
 				return sortDateNullsFirst(b1.tiltak.startdato, b2.tiltak.startdato);
-			case TableHeaderName.SLUTT:
+			case Kolonnenavn.SLUTT:
 				return sortDateNullsFirst(b1.tiltak.sluttdato, b2.tiltak.sluttdato);
 			default:
 				return 0;

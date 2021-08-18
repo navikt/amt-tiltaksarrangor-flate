@@ -3,7 +3,7 @@ import { AlertStripeInfo } from 'nav-frontend-alertstriper';
 import { Bruker } from '../../../../api/data/bruker';
 import { Show } from '../../../felles/Show';
 import { Spinner } from '../../../felles/spinner/Spinner';
-import styles from './BrukerOversikt.module.less'
+import styles from './BrukerOversiktTabell.module.less'
 import "nav-frontend-tabell-style";
 import { useTiltaksoversiktSok } from '../../../../store/tiltaksoversikt-sok-store';
 import { TabellHeader } from './TabellHeader';
@@ -14,7 +14,7 @@ interface UserTableProps {
 	isLoading: boolean;
 }
 
-export const BrukerOversikt = (props: UserTableProps) => {
+export const BrukerOversiktTabell = (props: UserTableProps) => {
 	const { brukerSortering, setBrukerSortering } = useTiltaksoversiktSok();
 	const harIngenBrukere = props.brukere.length === 0;
 

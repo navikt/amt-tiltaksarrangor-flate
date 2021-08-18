@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { BrukerOversikt } from './bruker-oversikt/BrukerOversikt';
+import { BrukerOversiktTabell } from './bruker-oversikt/BrukerOversiktTabell';
 import { PaginationBar } from './paginering/PaginationBar';
 import { Header } from './Header';
 import { FilterMeny } from './FilterMeny';
@@ -8,6 +8,7 @@ import { useTiltaksoversiktSok } from '../../../store/tiltaksoversikt-sok-store'
 import { brukerSok } from '../../../api';
 import { BrukerSokParams } from '../../../api/data/request-types';
 import styles from './TiltaksoversiktPage.module.less';
+import { SorteringType } from '../../../utils/sortering-utils';
 
 export const TiltaksoversiktPage = () => {
 	const { tiltakTyper, tiltakStatuser, navnFnrSok, brukerSortering } = useTiltaksoversiktSok();
@@ -24,8 +25,8 @@ export const TiltaksoversiktPage = () => {
 				tiltakTyper,
 				tiltakStatuser
 			},
-			sort: brukerSortering
-				? { name: brukerSortering.name, sortDirection: brukerSortering.sortDirection }
+			sortering: brukerSortering && brukerSortering.sorteringType !== SorteringType.NONE
+				? { kolonnenavn: brukerSortering.kolonnenavn, sorteringType: brukerSortering.sorteringType }
 				: undefined
 		};
 
@@ -42,7 +43,7 @@ export const TiltaksoversiktPage = () => {
 				<FilterMeny/>
 				<div>
 					<PaginationBar totalUsers={brukere.length}/>
-					<BrukerOversikt brukere={brukere} isLoading={isLoading} />
+					<BrukerOversiktTabell brukere={brukere} isLoading={isLoading} />
 				</div>
 			</main>
 		</>
