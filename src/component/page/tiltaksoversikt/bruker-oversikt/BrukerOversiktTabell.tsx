@@ -1,20 +1,21 @@
 import React from 'react';
-import { Header } from './Header';
 import { AlertStripeInfo } from 'nav-frontend-alertstriper';
-import { TabellBody } from './TabellBody';
 import { Bruker } from '../../../../api/data/bruker';
 import { Show } from '../../../felles/Show';
 import { Spinner } from '../../../felles/spinner/Spinner';
-import styles from './BrukerOversikt.module.less'
+import styles from './BrukerOversiktTabell.module.less'
 import "nav-frontend-tabell-style";
-
+import { useTiltaksoversiktSok } from '../../../../store/tiltaksoversikt-sok-store';
+import { TabellHeader } from './TabellHeader';
+import { TabellBody } from './TabellBody';
 
 interface UserTableProps {
 	brukere: Bruker[];
 	isLoading: boolean;
 }
 
-export const BrukerOversikt = (props: UserTableProps) => {
+export const BrukerOversiktTabell = (props: UserTableProps) => {
+	const { brukerSortering, setBrukerSortering } = useTiltaksoversiktSok();
 	const harIngenBrukere = props.brukere.length === 0;
 
 	const IngenBrukereAlertstripe = () =>
@@ -25,9 +26,9 @@ export const BrukerOversikt = (props: UserTableProps) => {
 	return (
 		<>
 			<table className="tabell tabell--stripet">
-				<Header/>
+				<TabellHeader sortering={brukerSortering} onSortChange={(sort) => setBrukerSortering(sort)} />
 				<Show if={!props.isLoading && !harIngenBrukere}>
-					<TabellBody brukere={props.brukere}/>
+					<TabellBody brukere={props.brukere} sortering={brukerSortering}/>
 				</Show>
 			</table>
 			<Show if={!props.isLoading && harIngenBrukere}>

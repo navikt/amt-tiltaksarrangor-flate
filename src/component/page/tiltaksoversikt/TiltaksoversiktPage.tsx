@@ -1,15 +1,17 @@
 import React, { useEffect, useState } from 'react';
-import { BrukerOversikt } from './bruker-oversikt/BrukerOversikt';
+import { BrukerOversiktTabell } from './bruker-oversikt/BrukerOversiktTabell';
 import { PaginationBar } from './paginering/PaginationBar';
 import { Header } from './Header';
 import { FilterMeny } from './FilterMeny';
 import { Bruker } from '../../../api/data/bruker';
-import { useTiltaksoversiktFilter } from '../../../store/tiltaksoversikt-filter-store';
+import { useTiltaksoversiktSok } from '../../../store/tiltaksoversikt-sok-store';
 import { brukerSok } from '../../../api';
+import { BrukerSokParams } from '../../../api/data/request-types';
 import styles from './TiltaksoversiktPage.module.less';
+import { SorteringType } from '../../../utils/sortering-utils';
 
 export const TiltaksoversiktPage = () => {
-	const { tiltakTyper, tiltakStatuser, navnFnrSok } = useTiltaksoversiktFilter();
+	const { tiltakTyper, tiltakStatuser, navnFnrSok, brukerSortering } = useTiltaksoversiktSok();
 	const [brukere, setBrukere] = useState<Bruker[]>([]);
 	const [isLoading, setIsLoading] = useState<boolean>(false);
 
@@ -17,19 +19,22 @@ export const TiltaksoversiktPage = () => {
 		// TODO: this must be debounced
 		setIsLoading(true);
 
-		const sokParams = {
+		const sokParams: BrukerSokParams = {
 			filter: {
 				navnFnrSok,
 				tiltakTyper,
 				tiltakStatuser
-			}
+			},
+			sortering: brukerSortering && brukerSortering.sorteringType !== SorteringType.NONE
+				? { kolonnenavn: brukerSortering.kolonnenavn, sorteringType: brukerSortering.sorteringType }
+				: undefined
 		};
 
 		brukerSok(sokParams)
 			.then(res => setBrukere(res.data))
 			.catch(console.error) // TODO: vis feil i alertstripe
 			.finally(() => setIsLoading(false));
-	}, [tiltakTyper, tiltakStatuser, navnFnrSok]);
+	}, [tiltakTyper, tiltakStatuser, navnFnrSok, brukerSortering]);
 
 	return (
 		<>
@@ -38,7 +43,7 @@ export const TiltaksoversiktPage = () => {
 				<FilterMeny/>
 				<div>
 					<PaginationBar totalUsers={brukere.length}/>
-					<BrukerOversikt brukere={brukere} isLoading={isLoading} />
+					<BrukerOversiktTabell brukere={brukere} isLoading={isLoading} />
 				</div>
 			</main>
 		</>

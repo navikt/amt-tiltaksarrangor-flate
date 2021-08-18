@@ -1,5 +1,5 @@
 import React from 'react';
-import { TiltaksoversiktFilterStoreProvider } from './tiltaksoversikt-filter-store';
+import { TiltaksoversiktSokStoreProvider } from './tiltaksoversikt-sok-store';
 
 interface StoreProviderProps {
 	children: React.ReactNode;
@@ -7,9 +7,9 @@ interface StoreProviderProps {
 
 const StoreProvider = (props: StoreProviderProps) => {
 	return (
-		<TiltaksoversiktFilterStoreProvider>
+		<TiltaksoversiktSokStoreProvider>
 			{props.children}
-		</TiltaksoversiktFilterStoreProvider>
+		</TiltaksoversiktSokStoreProvider>
 	);
 };
 
