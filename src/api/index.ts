@@ -4,7 +4,7 @@ import { axiosInstance } from './utils';
 import {
 	BrukerSokParams,
 	OppdaterTiltakSluttdatoRequestBody,
-	OppdaterTiltakStartdatoRequestBody
+	OppdaterTiltakStartdatoRequestBody,
 } from './data/request-types';
 
 export const brukerSok = (brukerSokParams: BrukerSokParams): AxiosPromise<Bruker[]> => {
@@ -16,15 +16,15 @@ export const fetchBrukerDetaljer = (brukerId: string): AxiosPromise<DetaljertBru
 };
 
 export const oppdaterTiltakStartdato = (tiltakinstansId: string, startdato: Date): AxiosPromise<Tiltaksinstans> => {
-	const body : OppdaterTiltakStartdatoRequestBody = {
-		startdato: startdato.toISOString()
+	const body: OppdaterTiltakStartdatoRequestBody = {
+		startdato: startdato.toISOString(),
 	};
 	return axiosInstance.put(`/amt-tiltak/api/tiltak/${tiltakinstansId}/startdato`, body);
 };
 
 export const oppdaterTiltakSluttdato = (tiltakinstansId: string, sluttdato: Date): AxiosPromise<Tiltaksinstans> => {
-	const body : OppdaterTiltakSluttdatoRequestBody = {
-		sluttdato: sluttdato.toISOString()
-	}
+	const body: OppdaterTiltakSluttdatoRequestBody = {
+		sluttdato: sluttdato.toISOString(),
+	};
 	return axiosInstance.put(`/amt-tiltak/api/tiltak/${tiltakinstansId}/sluttdato`, body);
 };

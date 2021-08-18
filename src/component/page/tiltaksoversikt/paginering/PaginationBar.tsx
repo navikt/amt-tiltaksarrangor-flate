@@ -6,54 +6,64 @@ import { PagineringKnapp } from './PagineringKnapp';
 import styles from './PaginationBar.module.less';
 
 interface PaginationBarProps {
-    totalUsers: number;
+	totalUsers: number;
 }
 
 export const PaginationBar = (props: PaginationBarProps) => {
-    const { currentPage, totalPages, pageSize } = {
-        currentPage: 1,
-        totalPages: 4,
-        pageSize: 25
-    };
+	const { currentPage, totalPages, pageSize } = {
+		currentPage: 1,
+		totalPages: 4,
+		pageSize: 25,
+	};
 
-    const erPaForsteSide: boolean = currentPage === 1;
-    const erPaSisteSide: boolean = currentPage >= totalPages;
+	const erPaForsteSide: boolean = currentPage === 1;
+	const erPaSisteSide: boolean = currentPage >= totalPages;
 
-    const fraBruker = ((currentPage - 1) * pageSize) + 1;
-    const tilBruker = ((currentPage - 1) * pageSize) + props.totalUsers;
+	const fraBruker = (currentPage - 1) * pageSize + 1;
+	const tilBruker = (currentPage - 1) * pageSize + props.totalUsers;
 
-    const handlePageChanged = (newPage: number) => {
-        // setCurrentPage(newPage);
-    }
+	const handlePageChanged = (newPage: number) => {
+		// setCurrentPage(newPage);
+	};
 
-    return (
-        <div className={styles.paginationBar}>
-            <Element aria-live="polite">
-                Viser {fraBruker}-{tilBruker} av totalt {props.totalUsers} brukere
-            </Element>
-            <div className={styles.paginering}>
-                <PagineringKnapp aria-label="Forrige side" disabled={erPaForsteSide} onClick={() => handlePageChanged(currentPage - 1)}>
-                    <VenstreChevron/>
-                </PagineringKnapp>
+	return (
+		<div className={styles.paginationBar}>
+			<Element aria-live="polite">
+				Viser {fraBruker}-{tilBruker} av totalt {props.totalUsers} brukere
+			</Element>
+			<div className={styles.paginering}>
+				<PagineringKnapp
+					aria-label="Forrige side"
+					disabled={erPaForsteSide}
+					onClick={() => handlePageChanged(currentPage - 1)}
+				>
+					<VenstreChevron />
+				</PagineringKnapp>
 
-                <Show if={!erPaForsteSide}>
-                    <PagineringKnapp aria-label="Første side" onClick={() => handlePageChanged(1)}>1</PagineringKnapp>
-                </Show>
+				<Show if={!erPaForsteSide}>
+					<PagineringKnapp aria-label="Første side" onClick={() => handlePageChanged(1)}>
+						1
+					</PagineringKnapp>
+				</Show>
 
-                <PagineringKnapp aria-live="polite" aria-label="Valgt side">
-                    <strong>{currentPage}</strong>
-                </PagineringKnapp>
+				<PagineringKnapp aria-live="polite" aria-label="Valgt side">
+					<strong>{currentPage}</strong>
+				</PagineringKnapp>
 
-                <Show if={!erPaSisteSide}>
-                    <PagineringKnapp aria-label="Siste side" onClick={() => handlePageChanged(totalPages)}>
-                        {totalPages}
-                    </PagineringKnapp>
-                </Show>
+				<Show if={!erPaSisteSide}>
+					<PagineringKnapp aria-label="Siste side" onClick={() => handlePageChanged(totalPages)}>
+						{totalPages}
+					</PagineringKnapp>
+				</Show>
 
-                <PagineringKnapp aria-label="Neste side" disabled={erPaSisteSide} onClick={() => handlePageChanged(currentPage + 1)}>
-                    <HoyreChevron/>
-                </PagineringKnapp>
-            </div>
-        </div>
-    );
-}
+				<PagineringKnapp
+					aria-label="Neste side"
+					disabled={erPaSisteSide}
+					onClick={() => handlePageChanged(currentPage + 1)}
+				>
+					<HoyreChevron />
+				</PagineringKnapp>
+			</div>
+		</div>
+	);
+};

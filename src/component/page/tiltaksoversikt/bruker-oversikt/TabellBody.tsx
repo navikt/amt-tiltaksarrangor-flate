@@ -9,9 +9,11 @@ interface TabellBodyProps {
 }
 
 export const TabellBody = (props: TabellBodyProps) => {
-    return (
-	    <tbody>
-		    {props.brukere.map((bruker, idx) => <Rad idx={idx} bruker={bruker} brukerSortering={props.sortering} key={idx} />)}
+	return (
+		<tbody>
+			{props.brukere.map((bruker, idx) => (
+				<Rad idx={idx} bruker={bruker} brukerSortering={props.sortering} key={idx} />
+			))}
 		</tbody>
-    );
+	);
 };

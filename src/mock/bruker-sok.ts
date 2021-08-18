@@ -58,7 +58,7 @@ const sorterBrukere = (brukere: Bruker[], params: BrukerSokParams): Bruker[] => 
 	return brukere.sort(sort);
 };
 
-const getAscendingSort = (name: Kolonnenavn): (b1: Bruker, b2: Bruker) => number => {
+const getAscendingSort = (name: Kolonnenavn): ((b1: Bruker, b2: Bruker) => number) => {
 	return (b1, b2) => {
 		switch (name) {
 			case Kolonnenavn.NAVN:

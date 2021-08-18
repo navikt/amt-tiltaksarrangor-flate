@@ -6,11 +6,7 @@ interface StoreProviderProps {
 }
 
 const StoreProvider = (props: StoreProviderProps) => {
-	return (
-		<TiltaksoversiktSokStoreProvider>
-			{props.children}
-		</TiltaksoversiktSokStoreProvider>
-	);
+	return <TiltaksoversiktSokStoreProvider>{props.children}</TiltaksoversiktSokStoreProvider>;
 };
 
 export default StoreProvider;

@@ -23,29 +23,30 @@ export const TiltaksoversiktPage = () => {
 			filter: {
 				navnFnrSok,
 				tiltakTyper,
-				tiltakStatuser
+				tiltakStatuser,
 			},
-			sortering: brukerSortering && brukerSortering.sorteringType !== SorteringType.NONE
-				? { kolonnenavn: brukerSortering.kolonnenavn, sorteringType: brukerSortering.sorteringType }
-				: undefined
+			sortering:
+				brukerSortering && brukerSortering.sorteringType !== SorteringType.NONE
+					? { kolonnenavn: brukerSortering.kolonnenavn, sorteringType: brukerSortering.sorteringType }
+					: undefined,
 		};
 
 		brukerSok(sokParams)
-			.then(res => setBrukere(res.data))
+			.then((res) => setBrukere(res.data))
 			.catch(console.error) // TODO: vis feil i alertstripe
 			.finally(() => setIsLoading(false));
 	}, [tiltakTyper, tiltakStatuser, navnFnrSok, brukerSortering]);
 
 	return (
 		<>
-			<Header/>
+			<Header />
 			<main className={styles.tiltaksoversiktPage}>
-				<FilterMeny/>
+				<FilterMeny />
 				<div>
-					<PaginationBar totalUsers={brukere.length}/>
+					<PaginationBar totalUsers={brukere.length} />
 					<BrukerOversiktTabell brukere={brukere} isLoading={isLoading} />
 				</div>
 			</main>
 		</>
 	);
-}
+};

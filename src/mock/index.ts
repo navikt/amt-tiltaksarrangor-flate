@@ -4,7 +4,7 @@ import { mockBrukere, tilBruker } from './data/brukere';
 import {
 	BrukerSokParams,
 	OppdaterTiltakSluttdatoRequestBody,
-	OppdaterTiltakStartdatoRequestBody
+	OppdaterTiltakStartdatoRequestBody,
 } from '../api/data/request-types';
 import { mockBrukerSok } from './bruker-sok';
 
@@ -15,7 +15,7 @@ const allHandlers: RequestHandler[] = [
 
 		return res(ctx.delay(500), ctx.json(mockBrukerSok(brukere, sokParams)));
 	}),
-	rest.get('/amt-tiltak/api/bruker/:brukerId',(req, res, ctx) => {
+	rest.get('/amt-tiltak/api/bruker/:brukerId', (req, res, ctx) => {
 		const brukerId = req.params['brukerId'];
 		const bruker = mockBrukere.find((b) => b.id === brukerId);
 
@@ -23,10 +23,10 @@ const allHandlers: RequestHandler[] = [
 	}),
 	rest.put('/amt-tiltak/api/tiltak/:tiltakinstansId/startdato', (req, res, ctx) => {
 		const body = req.body as OppdaterTiltakStartdatoRequestBody;
-		const tiltakinstansId = req.params['tiltakinstansId']
-		const bruker = mockBrukere.find(bruker => bruker.tiltak.id === tiltakinstansId);
+		const tiltakinstansId = req.params['tiltakinstansId'];
+		const bruker = mockBrukere.find((bruker) => bruker.tiltak.id === tiltakinstansId);
 
-		if(!bruker) throw new Error(`Fant ingen tiltak med id: ${tiltakinstansId}`);
+		if (!bruker) throw new Error(`Fant ingen tiltak med id: ${tiltakinstansId}`);
 
 		bruker.tiltak.startdato = body.startdato;
 
@@ -34,10 +34,10 @@ const allHandlers: RequestHandler[] = [
 	}),
 	rest.put('/amt-tiltak/api/tiltak/:tiltakinstansId/sluttdato', (req, res, ctx) => {
 		const body = req.body as OppdaterTiltakSluttdatoRequestBody;
-		const tiltakinstansId = req.params['tiltakinstansId']
-		const bruker = mockBrukere.find(bruker => bruker.tiltak.id === tiltakinstansId);
+		const tiltakinstansId = req.params['tiltakinstansId'];
+		const bruker = mockBrukere.find((bruker) => bruker.tiltak.id === tiltakinstansId);
 
-		if(!bruker) throw new Error(`Fant ingen tiltak med id: ${tiltakinstansId}`);
+		if (!bruker) throw new Error(`Fant ingen tiltak med id: ${tiltakinstansId}`);
 
 		bruker.tiltak.sluttdato = body.sluttdato;
 
@@ -47,7 +47,7 @@ const allHandlers: RequestHandler[] = [
 
 setupWorker(...allHandlers)
 	.start({ serviceWorker: { url: process.env.PUBLIC_URL + '/mockServiceWorker.js' } })
-	.catch(e => {
+	.catch((e) => {
 		// tslint:disable-next-line:no-console
 		console.error('Unable to setup mocked API endpoints', e);
 	});

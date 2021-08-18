@@ -3,13 +3,13 @@ import { OrNothing } from './types/or-nothing';
 
 export const formatDateStr = (dateStr: string) => {
 	return dayjs(dateStr).format('DD. MMM YYYY');
-}
+};
 
-export const formatDateInputStr = (dateStr: OrNothing<string>) : string => {
+export const formatDateInputStr = (dateStr: OrNothing<string>): string => {
 	return dateStr ? dayjs(dateStr).format('YYYY-MM-DD') : '';
-}
+};
 
-export const stringToDate = (dateStr: string) : Date => dayjs(dateStr, 'YYYY-MM-DD').toDate();
+export const stringToDate = (dateStr: string): Date => dayjs(dateStr, 'YYYY-MM-DD').toDate();
 
 export const sortDateNullsFirst = (d1Str: OrNothing<string>, d2Str: OrNothing<string>): number => {
 	if (d1Str == null) {
@@ -29,4 +29,3 @@ export const sortDateNullsFirst = (d1Str: OrNothing<string>, d2Str: OrNothing<st
 
 	return date1.isBefore(date2) ? -1 : 1;
 };
-

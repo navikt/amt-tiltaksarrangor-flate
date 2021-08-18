@@ -2,30 +2,30 @@ import faker from 'faker';
 import { Bruker, DetaljertBruker, NavEnhet, TiltakStatus, TiltakType } from '../../api/data/bruker';
 import { OrNothing } from '../../utils/types/or-nothing';
 
-faker.locale = "nb_NO";
+faker.locale = 'nb_NO';
 faker.seed(486756783);
 
 const navEnheter: NavEnhet[] = [
 	{
 		enhetId: '0219',
-		enhetNavn: 'NAV Bærum'
+		enhetNavn: 'NAV Bærum',
 	},
 	{
 		enhetId: '0425',
-		enhetNavn: 'NAV Åsnes'
+		enhetNavn: 'NAV Åsnes',
 	},
 	{
 		enhetId: '1500',
-		enhetNavn: 'NAV Møre og Romsdal'
+		enhetNavn: 'NAV Møre og Romsdal',
 	},
 	{
 		enhetId: '0104',
-		enhetNavn: 'NAV Moss'
-	}
+		enhetNavn: 'NAV Moss',
+	},
 ];
 
 const randBetween = (min: number, max: number): number => {
-	return faker.datatype.number({ min, max })
+	return faker.datatype.number({ min, max });
 };
 
 const randomFnr = (): string => {
@@ -37,8 +37,10 @@ const randomFnr = (): string => {
 	const individsifre = `${arhundre}${kjonnsiffer}`;
 	const kontrollsifre = `${randBetween(0, 9)}${randBetween(0, 9)}`;
 
-	return `${dag.toString().padStart(2, '0')}${mnd.toString().padStart(2, '0')}${ar.toString().padStart(2, '0')}${individsifre}${kontrollsifre}`;
-}
+	return `${dag.toString().padStart(2, '0')}${mnd.toString().padStart(2, '0')}${ar
+		.toString()
+		.padStart(2, '0')}${individsifre}${kontrollsifre}`;
+};
 
 const startDatoForTiltakStatus = (status: TiltakStatus): OrNothing<string> => {
 	if (status === TiltakStatus.PAMELDT || status === TiltakStatus.GJENNOMFORES) {
@@ -54,26 +56,26 @@ const sluttDatoForTiltakStatus = (status: TiltakStatus): OrNothing<string> => {
 };
 
 const lagMailFraNavn = (navn: string, mailDomain: string): string => {
-	const mailNavn = navn.replaceAll(' ', '.')
+	const mailNavn = navn
+		.replaceAll(' ', '.')
 		.replaceAll('æ', 'ae')
 		.replaceAll('ø', 'o')
 		.replaceAll('å', 'a')
 		.toLowerCase();
 
-	return `${mailNavn}@${mailDomain}`
+	return `${mailNavn}@${mailDomain}`;
 };
 
 export const lagDetaljerteBrukere = (antallBrukere: number): DetaljertBruker[] => {
 	const brukere: DetaljertBruker[] = [];
 
 	for (let i = 0; i < antallBrukere; i++) {
-
 		const status = faker.random.objectElement(TiltakStatus) as TiltakStatus;
 
 		const brukerFornavn = faker.name.firstName();
 		const brukerEtternavn = faker.name.lastName();
 
-		const veilederNavn = faker.name.firstName() + " " + faker.name.lastName();
+		const veilederNavn = faker.name.firstName() + ' ' + faker.name.lastName();
 
 		const bruker: DetaljertBruker = {
 			id: randBetween(1000, 1000000).toString(),
@@ -86,17 +88,17 @@ export const lagDetaljerteBrukere = (antallBrukere: number): DetaljertBruker[] =
 				type: faker.random.objectElement(TiltakType) as TiltakType,
 				startdato: startDatoForTiltakStatus(status),
 				sluttdato: sluttDatoForTiltakStatus(status),
-				navn: 'Noe tekst'
+				navn: 'Noe tekst',
 			},
 			kontaktinfo: {
 				email: lagMailFraNavn(`${brukerFornavn} ${brukerEtternavn}`, 'example.com'),
-				telefonnummer: faker.phone.phoneNumber()
+				telefonnummer: faker.phone.phoneNumber(),
 			},
 			navEnhet: faker.random.arrayElement(navEnheter),
 			navVeileder: {
 				navn: veilederNavn,
 				email: lagMailFraNavn(veilederNavn, 'nav.no'),
-				telefonnummer: faker.phone.phoneNumber()
+				telefonnummer: faker.phone.phoneNumber(),
 			},
 		};
 
@@ -112,7 +114,7 @@ export const tilBruker = (detaljertBruker: DetaljertBruker): Bruker => {
 		fornavn: detaljertBruker.fornavn,
 		etternavn: detaljertBruker.etternavn,
 		fodselsdato: detaljertBruker.fodselsdato,
-		tiltak: detaljertBruker.tiltak
+		tiltak: detaljertBruker.tiltak,
 	};
 };
 

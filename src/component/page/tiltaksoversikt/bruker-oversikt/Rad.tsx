@@ -20,16 +20,10 @@ const sortClassName = (name: Kolonnenavn, brukerSortering?: BrukerSortering): st
 	}
 
 	return 'tabell__td--sortert';
-}
+};
 
 export const Rad = (props: RadProps) => {
-	const {
-		fodselsdato,
-		fornavn,
-		etternavn,
-		tiltak,
-		id,
-	} = props.bruker;
+	const { fodselsdato, fornavn, etternavn, tiltak, id } = props.bruker;
 	const userSort = props.brukerSortering;
 
 	return (
@@ -39,11 +33,15 @@ export const Rad = (props: RadProps) => {
 			<td className={sortClassName(Kolonnenavn.TILTAKSTYPE, userSort)}>{mapTiltakTypeTilTekst(tiltak.type)}</td>
 			<td className={sortClassName(Kolonnenavn.TILTAK, userSort)}>{tiltak.navn}</td>
 			<td className={sortClassName(Kolonnenavn.STATUS, userSort)}>{mapTiltakStatusTilTekst(tiltak.status)}</td>
-			<td className={sortClassName(Kolonnenavn.START, userSort)}>{tiltak.startdato && formatDateStr(tiltak.startdato)}</td>
-			<td className={sortClassName(Kolonnenavn.SLUTT, userSort)}>{tiltak.sluttdato && formatDateStr(tiltak.sluttdato)}</td>
+			<td className={sortClassName(Kolonnenavn.START, userSort)}>
+				{tiltak.startdato && formatDateStr(tiltak.startdato)}
+			</td>
+			<td className={sortClassName(Kolonnenavn.SLUTT, userSort)}>
+				{tiltak.sluttdato && formatDateStr(tiltak.sluttdato)}
+			</td>
 			<td>
 				<Link to={`/user/${id}`}>
-					<PeopleFilled className={styles.personIcon}/>
+					<PeopleFilled className={styles.personIcon} />
 				</Link>
 			</td>
 		</tr>
