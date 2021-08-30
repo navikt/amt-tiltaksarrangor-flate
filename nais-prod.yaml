@@ -2,9 +2,9 @@ apiVersion: "nais.io/v1alpha1"
 kind: "Application"
 metadata:
   name: amt-tiltaksarrangor-flate
-  namespace: pto
+  namespace: amt
   labels:
-    team: pto
+    team: amt
 spec:
   image: docker.pkg.github.com/navikt/pto-frontend/pto-frontend:2021.06.22_08.34-3e18671c9b52
   port: 8080
