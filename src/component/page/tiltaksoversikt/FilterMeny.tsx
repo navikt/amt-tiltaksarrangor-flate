@@ -11,12 +11,12 @@ export const FilterMeny = () => {
 	const {
 		navnFnrSok,
 		setNavnFnrSok,
-		tiltakStatuser,
+		tiltakStatusFilter,
 		leggTilTiltakStatus,
 		fjernTilTiltakStatus,
-		tiltakTyper,
-		leggTilTiltakType,
-		fjernTilTiltakType,
+		tiltakTypeFilter,
+		leggTilTiltakFilter,
+		fjernTilTiltakFilter,
 	} = useTiltaksoversiktSok();
 
 	return (
@@ -35,12 +35,12 @@ export const FilterMeny = () => {
 							key={type}
 							label={mapTiltakTypeTilTekst(type)}
 							name="filter-tiltakstype"
-							checked={tiltakTyper.includes(type)}
+							checked={tiltakTypeFilter.includes(type)}
 							onChange={(e) => {
 								if (e.target.checked) {
-									leggTilTiltakType(type);
+									leggTilTiltakFilter(type);
 								} else {
-									fjernTilTiltakType(type);
+									fjernTilTiltakFilter(type);
 								}
 							}}
 						/>
@@ -55,7 +55,7 @@ export const FilterMeny = () => {
 							key={status}
 							label={mapTiltakStatusTilTekst(status)}
 							name="filter-tiltakstatus"
-							checked={tiltakStatuser.includes(status)}
+							checked={tiltakStatusFilter.includes(status)}
 							onChange={(e) => {
 								if (e.target.checked) {
 									leggTilTiltakStatus(status);

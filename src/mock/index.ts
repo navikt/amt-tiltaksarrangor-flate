@@ -8,7 +8,7 @@ import {
 import { mockBrukere, tilBruker } from './data/brukere';
 
 const allHandlers: RequestHandler[] = [
-	rest.get('/amt-tiltak/api/bruker/sok', (req, res, ctx) => {
+	rest.get('/amt-tiltak/api/brukere', (req, res, ctx) => {
 		const brukere = mockBrukere.map(tilBruker);
 
 		return res(ctx.delay(500), ctx.json(brukere));

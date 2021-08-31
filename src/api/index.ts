@@ -8,7 +8,7 @@ import {
 import { axiosInstance } from './utils';
 
 export const fetchTiltakoversikt = (): AxiosPromise<Bruker[]> => {
-	return axiosInstance.get('/amt-tiltak/api/bruker/sok');
+	return axiosInstance.get('/amt-tiltak/api/brukere');
 };
 
 export const fetchBrukerDetaljer = (brukerId: string): AxiosPromise<DetaljertBruker> => {

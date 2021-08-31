@@ -10,7 +10,7 @@ import { PaginationBar } from './paginering/PaginationBar';
 import styles from './TiltaksoversiktPage.module.less';
 
 export const TiltaksoversiktPage = () => {
-	const { tiltakTyper, tiltakStatuser, navnFnrSok, brukerSortering } = useTiltaksoversiktSok();
+	const { tiltakTypeFilter, tiltakStatusFilter, navnFnrSok, brukerSortering } = useTiltaksoversiktSok();
 	const [brukere, setBrukere] = useState<Bruker[]>([]);
 	const [isLoading, setIsLoading] = useState<boolean>(false);
 
@@ -22,7 +22,7 @@ export const TiltaksoversiktPage = () => {
 			.then((res) => setBrukere(res.data))
 			.catch(console.error) // TODO: vis feil i alertstripe
 			.finally(() => setIsLoading(false));
-	}, [tiltakTyper, tiltakStatuser, navnFnrSok, brukerSortering]);
+	}, [tiltakTypeFilter, tiltakStatusFilter, navnFnrSok, brukerSortering]);
 
 	return (
 		<>
