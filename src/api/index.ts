@@ -8,6 +8,10 @@ import {
 } from './data/request-types';
 import { axiosInstance } from './utils';
 
+export const checkIsAuthenticated = (): AxiosPromise<{ isAuthenticated: boolean }> => {
+	return axiosInstance.get('/auth-proxy/is-authenticated');
+};
+
 export const brukerSok = (brukerSokParams: BrukerSokParams): AxiosPromise<Bruker[]> => {
 	return axiosInstance.post('/amt-tiltak/api/bruker/sok', brukerSokParams);
 };

@@ -10,6 +10,9 @@ import { mockBrukerSok } from './bruker-sok';
 import { mockBrukere, tilBruker } from './data/brukere';
 
 const allHandlers: RequestHandler[] = [
+	rest.get('/auth-proxy/is-authenticated', (req, res, ctx) => {
+		return res(ctx.delay(500), ctx.json({ isAuthenticated: false }));
+	}),
 	rest.post('/amt-tiltak/api/bruker/sok', (req, res, ctx) => {
 		const sokParams = req.body as BrukerSokParams;
 		const brukere = mockBrukere.map(tilBruker);
