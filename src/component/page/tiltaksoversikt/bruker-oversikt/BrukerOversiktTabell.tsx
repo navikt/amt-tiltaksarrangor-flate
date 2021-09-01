@@ -23,6 +23,7 @@ export const BrukerOversiktTabell = (props: UserTableProps) => {
 
 	useEffect(() => {
 		setFiltrerteBrukere(brukereFiltrert());
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [props.brukere, tiltakTypeFilter, tiltakStatusFilter, navnFnrSok]);
 
 	const IngenBrukereAlertstripe = () => (
