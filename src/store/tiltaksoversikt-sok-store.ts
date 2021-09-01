@@ -20,7 +20,7 @@ export const [TiltaksoversiktSokStoreProvider, useTiltaksoversiktSok] = constate
 		});
 	};
 
-	const fjernTilTiltakFilter = (tiltakType: TiltakType) => {
+	const fjernFraTiltakFilter = (tiltakType: TiltakType) => {
 		setTiltakTypeFilter((prevTyper) => {
 			return prevTyper.filter((type) => type !== tiltakType);
 		});
@@ -36,7 +36,7 @@ export const [TiltaksoversiktSokStoreProvider, useTiltaksoversiktSok] = constate
 		});
 	};
 
-	const fjernTilTiltakStatus = (tiltakStatus: TiltakStatus) => {
+	const fjernFraTiltakStatus = (tiltakStatus: TiltakStatus) => {
 		setTiltakStatusFilter((prevStatuser) => {
 			return prevStatuser.filter((status) => status !== tiltakStatus);
 		});
@@ -47,10 +47,10 @@ export const [TiltaksoversiktSokStoreProvider, useTiltaksoversiktSok] = constate
 		setNavnFnrSok,
 		tiltakTypeFilter,
 		leggTilTiltakFilter,
-		fjernTilTiltakFilter,
+		fjernFraTiltakFilter,
 		tiltakStatusFilter,
 		leggTilTiltakStatus,
-		fjernTilTiltakStatus,
+		fjernFraTiltakStatus,
 		brukerSortering,
 		setBrukerSortering,
 	};

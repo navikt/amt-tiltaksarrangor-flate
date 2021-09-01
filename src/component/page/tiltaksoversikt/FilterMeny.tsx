@@ -13,10 +13,10 @@ export const FilterMeny = () => {
 		setNavnFnrSok,
 		tiltakStatusFilter,
 		leggTilTiltakStatus,
-		fjernTilTiltakStatus,
+		fjernFraTiltakStatus,
 		tiltakTypeFilter,
 		leggTilTiltakFilter,
-		fjernTilTiltakFilter,
+		fjernFraTiltakFilter,
 	} = useTiltaksoversiktSok();
 
 	return (
@@ -40,7 +40,7 @@ export const FilterMeny = () => {
 								if (e.target.checked) {
 									leggTilTiltakFilter(type);
 								} else {
-									fjernTilTiltakFilter(type);
+									fjernFraTiltakFilter(type);
 								}
 							}}
 						/>
@@ -60,7 +60,7 @@ export const FilterMeny = () => {
 								if (e.target.checked) {
 									leggTilTiltakStatus(status);
 								} else {
-									fjernTilTiltakStatus(status);
+									fjernFraTiltakStatus(status);
 								}
 							}}
 						/>
