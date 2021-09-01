@@ -2,19 +2,16 @@ import { rest, setupWorker } from 'msw';
 import { RequestHandler } from 'msw/lib/types/handlers/RequestHandler';
 
 import {
-	BrukerSokParams,
 	OppdaterTiltakSluttdatoRequestBody,
 	OppdaterTiltakStartdatoRequestBody,
 } from '../api/data/request-types';
-import { mockBrukerSok } from './bruker-sok';
 import { mockBrukere, tilBruker } from './data/brukere';
 
 const allHandlers: RequestHandler[] = [
-	rest.post('/amt-tiltak/api/bruker/sok', (req, res, ctx) => {
-		const sokParams = req.body as BrukerSokParams;
+	rest.get('/amt-tiltak/api/brukere', (req, res, ctx) => {
 		const brukere = mockBrukere.map(tilBruker);
 
-		return res(ctx.delay(500), ctx.json(mockBrukerSok(brukere, sokParams)));
+		return res(ctx.delay(500), ctx.json(brukere));
 	}),
 	rest.get('/amt-tiltak/api/bruker/:brukerId', (req, res, ctx) => {
 		const brukerId = req.params['brukerId'];

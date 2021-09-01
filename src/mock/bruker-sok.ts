@@ -5,46 +5,6 @@ import { reverseSort } from '../utils';
 import { sortDateNullsFirst } from '../utils/date-utils';
 import { SorteringType } from '../utils/sortering-utils';
 
-export const mockBrukerSok = (brukere: Bruker[], params: BrukerSokParams): Bruker[] => {
-	const filtrerteBrukere = filtrerBrukere(brukere, params);
-	const sorterteBrukere = sorterBrukere(filtrerteBrukere, params);
-
-	return paginerBrukere(sorterteBrukere, params);
-};
-
-const filtrerBrukere = (brukere: Bruker[], params: BrukerSokParams): Bruker[] => {
-	return brukere.filter((bruker) => {
-		const { navnFnrSok, tiltakStatuser, tiltakTyper } = params.filter;
-		if (navnFnrSok?.trim()) {
-			const matcherFornavn = bruker.fornavn.toLowerCase().includes(navnFnrSok || '');
-			const matcherEtternavn = bruker.etternavn.toLowerCase().includes(navnFnrSok || '');
-
-			if (!matcherFornavn && !matcherEtternavn) {
-				return false;
-			}
-		}
-
-		if (tiltakStatuser.length > 0) {
-			if (!tiltakStatuser.includes(bruker.tiltak.status)) {
-				return false;
-			}
-		}
-
-		if (tiltakTyper.length > 0) {
-			if (!tiltakTyper.includes(bruker.tiltak.type)) {
-				return false;
-			}
-		}
-
-		return true;
-	});
-};
-
-const paginerBrukere = (brukere: Bruker[], params: BrukerSokParams): Bruker[] => {
-	// TODO: Implement later
-	return brukere;
-};
-
 const sorterBrukere = (brukere: Bruker[], params: BrukerSokParams): Bruker[] => {
 	if (!params.sortering || params.sortering.sorteringType === SorteringType.NONE) {
 		return brukere;

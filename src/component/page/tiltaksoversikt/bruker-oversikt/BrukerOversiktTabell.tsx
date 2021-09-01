@@ -1,8 +1,5 @@
-import 'nav-frontend-tabell-style';
-
+import React, { useEffect, useState } from 'react';
 import { AlertStripeInfo } from 'nav-frontend-alertstriper';
-import React from 'react';
-
 import { Bruker } from '../../../../api/data/bruker';
 import { useTiltaksoversiktSok } from '../../../../store/tiltaksoversikt-sok-store';
 import { Show } from '../../../felles/Show';
@@ -10,6 +7,8 @@ import { Spinner } from '../../../felles/spinner/Spinner';
 import styles from './BrukerOversiktTabell.module.less';
 import { TabellBody } from './TabellBody';
 import { TabellHeader } from './TabellHeader';
+import { filtrerBrukere } from '../../../../utils/filtrering-utils';
+import 'nav-frontend-tabell-style';
 
 interface UserTableProps {
 	brukere: Bruker[];
@@ -17,8 +16,14 @@ interface UserTableProps {
 }
 
 export const BrukerOversiktTabell = (props: UserTableProps) => {
-	const { brukerSortering, setBrukerSortering } = useTiltaksoversiktSok();
-	const harIngenBrukere = props.brukere.length === 0;
+	const { brukerSortering, setBrukerSortering, tiltakTypeFilter, tiltakStatusFilter, navnFnrSok} = useTiltaksoversiktSok();
+	const brukereFiltrert = () => filtrerBrukere(props.brukere, tiltakTypeFilter, tiltakStatusFilter, navnFnrSok);
+	const [filtrerteBrukere, setFiltrerteBrukere] = useState<Bruker[]>(brukereFiltrert);
+	const harIngenBrukere = filtrerteBrukere.length === 0;
+
+	useEffect(() => {
+		setFiltrerteBrukere(brukereFiltrert());
+	}, [props.brukere, tiltakTypeFilter, tiltakStatusFilter, navnFnrSok]);
 
 	const IngenBrukereAlertstripe = () => (
 		<AlertStripeInfo className={styles.ingenBrukere}>
@@ -33,7 +38,7 @@ export const BrukerOversiktTabell = (props: UserTableProps) => {
 			<table className="tabell tabell--stripet">
 				<TabellHeader sortering={brukerSortering} onSortChange={(sort) => setBrukerSortering(sort)} />
 				<Show if={!props.isLoading && !harIngenBrukere}>
-					<TabellBody brukere={props.brukere} sortering={brukerSortering} />
+					<TabellBody brukere={filtrerteBrukere} sortering={brukerSortering} />
 				</Show>
 			</table>
 			<Show if={!props.isLoading && harIngenBrukere}>
