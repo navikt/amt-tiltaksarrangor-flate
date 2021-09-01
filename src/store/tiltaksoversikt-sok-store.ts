@@ -6,12 +6,12 @@ import { BrukerSortering } from '../component/page/tiltaksoversikt/bruker-oversi
 
 export const [TiltaksoversiktSokStoreProvider, useTiltaksoversiktSok] = constate(() => {
 	const [navnFnrSok, setNavnFnrSok] = useState<string>('');
-	const [tiltakTyper, setTiltakTyper] = useState<TiltakType[]>([]);
-	const [tiltakStatuser, setTiltakStatuser] = useState<TiltakStatus[]>([]);
+	const [tiltakTypeFilter, setTiltakTypeFilter] = useState<TiltakType[]>([]);
+	const [tiltakStatusFilter, setTiltakStatusFilter] = useState<TiltakStatus[]>([]);
 	const [brukerSortering, setBrukerSortering] = useState<BrukerSortering>();
 
-	const leggTilTiltakType = (tiltakType: TiltakType) => {
-		setTiltakTyper((prevTyper) => {
+	const leggTilTiltakFilter = (tiltakType: TiltakType) => {
+		setTiltakTypeFilter((prevTyper) => {
 			if (prevTyper.includes(tiltakType)) {
 				return prevTyper;
 			}
@@ -20,14 +20,14 @@ export const [TiltaksoversiktSokStoreProvider, useTiltaksoversiktSok] = constate
 		});
 	};
 
-	const fjernTilTiltakType = (tiltakType: TiltakType) => {
-		setTiltakTyper((prevTyper) => {
+	const fjernFraTiltakFilter = (tiltakType: TiltakType) => {
+		setTiltakTypeFilter((prevTyper) => {
 			return prevTyper.filter((type) => type !== tiltakType);
 		});
 	};
 
 	const leggTilTiltakStatus = (tiltakStatus: TiltakStatus) => {
-		setTiltakStatuser((prevStatuser) => {
+		setTiltakStatusFilter((prevStatuser) => {
 			if (prevStatuser.includes(tiltakStatus)) {
 				return prevStatuser;
 			}
@@ -36,8 +36,8 @@ export const [TiltaksoversiktSokStoreProvider, useTiltaksoversiktSok] = constate
 		});
 	};
 
-	const fjernTilTiltakStatus = (tiltakStatus: TiltakStatus) => {
-		setTiltakStatuser((prevStatuser) => {
+	const fjernFraTiltakStatus = (tiltakStatus: TiltakStatus) => {
+		setTiltakStatusFilter((prevStatuser) => {
 			return prevStatuser.filter((status) => status !== tiltakStatus);
 		});
 	};
@@ -45,12 +45,12 @@ export const [TiltaksoversiktSokStoreProvider, useTiltaksoversiktSok] = constate
 	return {
 		navnFnrSok,
 		setNavnFnrSok,
-		tiltakTyper,
-		leggTilTiltakType,
-		fjernTilTiltakType,
-		tiltakStatuser,
+		tiltakTypeFilter,
+		leggTilTiltakFilter,
+		fjernFraTiltakFilter,
+		tiltakStatusFilter,
 		leggTilTiltakStatus,
-		fjernTilTiltakStatus,
+		fjernFraTiltakStatus,
 		brukerSortering,
 		setBrukerSortering,
 	};
