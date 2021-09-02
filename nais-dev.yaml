@@ -6,7 +6,7 @@ metadata:
   labels:
     team: amt
 spec:
-  image: docker.pkg.github.com/navikt/pto-frontend/pto-frontend:2021.06.22_08.34-3e18671c9b52
+  image: ghcr.io/navikt/pto-frontend/pto-frontend:2021.06.22_08.34-3e18671c9b52
   port: 8080
   ingresses:
     - https://amt-tiltaksarrangor-flate.dev.intern.nav.no
@@ -44,6 +44,7 @@ spec:
       value: >
         {
           "proxies": [
-            { "from": "/auth-proxy", "to": "http://amt-tiltaksarrangor-flate-auth-proxy", "preserveContextPath": false }
+            { "from": "/auth-proxy", "to": "http://amt-tiltaksarrangor-flate-auth-proxy" },
+            { "from": "/amt-tiltak", "to": "http://amt-tiltaksarrangor-flate-auth-proxy/proxy/amt-tiltak" }
           ]
         }
