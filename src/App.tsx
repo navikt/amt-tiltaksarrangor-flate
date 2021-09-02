@@ -23,6 +23,10 @@ export const App = () => {
 		return <Spinner/>;
 	}
 
+	if (!isAuthenticated) {
+		return <LoginPage />;
+	}
+
 	return (
 		<StoreProvider>
 			<BrowserRouter>
@@ -32,10 +36,7 @@ export const App = () => {
 					</Route>
 
 					<Route path="/">
-						{isAuthenticated
-							? <TiltaksoversiktPage />
-							: <LoginPage />
-						}
+						<TiltaksoversiktPage />
 					</Route>
 				</Switch>
 			</BrowserRouter>
