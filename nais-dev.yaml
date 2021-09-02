@@ -31,8 +31,19 @@ spec:
     buckets:
       - name: amt-tiltaksarrangor-flate-dev
         cascadingDelete: false
+  accessPolicy:
+    outbound:
+      rules:
+        - application: amt-tiltaksarrangor-flate-auth-proxy
   env:
     - name: GCS_BUCKET_NAME
       value: amt-tiltaksarrangor-flate-dev
     - name: CORS_DOMAIN
       value: "*"
+    - name: JSON_CONFIG
+      value: >
+        {
+          "proxies": [
+            { "from": "/auth-proxy", "to": "http://amt-tiltaksarrangor-flate-auth-proxy", "preserveContextPath": false }
+          ]
+        }
