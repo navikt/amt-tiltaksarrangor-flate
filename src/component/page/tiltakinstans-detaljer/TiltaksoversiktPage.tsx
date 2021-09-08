@@ -5,7 +5,6 @@ import { Bruker } from '../../../api/data/bruker';
 import { useTiltaksoversiktSok } from '../../../store/tiltaksoversikt-sok-store';
 import { BrukerOversiktTabell } from './bruker-oversikt/BrukerOversiktTabell';
 import { FilterMeny } from './FilterMeny';
-import { Header } from './Header';
 import styles from './TiltaksoversiktPage.module.less';
 
 export const TiltaksoversiktPage = () => {
@@ -25,7 +24,6 @@ export const TiltaksoversiktPage = () => {
 
 	return (
 		<>
-			<Header />
 			<main className={styles.tiltaksoversiktPage}>
 				<FilterMeny />
 				<BrukerOversiktTabell brukere={brukere} isLoading={isLoading} />
