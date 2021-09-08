@@ -6,9 +6,9 @@ import { useTiltaksoversiktSok } from '../../../store/tiltaksoversikt-sok-store'
 import { BrukerOversiktTabell } from './bruker-oversikt/BrukerOversiktTabell';
 import { FilterMeny } from './FilterMeny';
 import { Header } from './Header';
-import styles from './TiltaksoversiktPage.module.less';
+import styles from './TiltakinstansDetaljerPage.module.less';
 
-export const TiltaksoversiktPage = () => {
+export const TiltakinstansDetaljerPage = () => {
 	const { tiltakTypeFilter, tiltakStatusFilter, navnFnrSok, brukerSortering } = useTiltaksoversiktSok();
 	const [brukere, setBrukere] = useState<Bruker[]>([]);
 	const [isLoading, setIsLoading] = useState<boolean>(false);

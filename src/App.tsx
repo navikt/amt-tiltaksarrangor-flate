@@ -2,11 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 import { BrukerDetaljerPage } from './component/page/bruker-detaljer/BrukerDetaljerPage';
-import { TiltaksoversiktPage } from './component/page/tiltakinstans-detaljer/TiltaksoversiktPage';
+import { TiltakinstansDetaljerPage } from './component/page/tiltakinstans-detaljer/TiltakinstansDetaljerPage';
 import StoreProvider from './store/store-provider';
 import { LoginPage } from './component/page/login/LoginPage';
 import { Spinner } from './component/felles/spinner/Spinner';
 import { checkIsAuthenticated } from './api';
+import { TiltakinstansOversiktPage } from './component/page/tiltakinstans-oversikt/TiltakinstansOversiktPage';
 
 export const App = () => {
 	const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
@@ -34,9 +35,11 @@ export const App = () => {
 					<Route path="/user/:brukerId">
 						<BrukerDetaljerPage />
 					</Route>
-
+					<Route path="/instans/:id">
+						<TiltakinstansDetaljerPage />
+					</Route>
 					<Route path="/">
-						<TiltaksoversiktPage />
+						<TiltakinstansOversiktPage/>
 					</Route>
 				</Switch>
 			</BrowserRouter>
