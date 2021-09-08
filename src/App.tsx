@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 import { BrukerDetaljerPage } from './component/page/bruker-detaljer/BrukerDetaljerPage';
-import { TiltaksoversiktPage } from './component/page/tiltaksoversikt/TiltaksoversiktPage';
+import { TiltaksoversiktPage } from './component/page/tiltakinstans-detaljer/TiltaksoversiktPage';
 import StoreProvider from './store/store-provider';
 import { LoginPage } from './component/page/login/LoginPage';
 import { Spinner } from './component/felles/spinner/Spinner';

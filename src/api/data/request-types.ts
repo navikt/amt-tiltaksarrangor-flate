@@ -1,4 +1,4 @@
-import { Kolonnenavn } from '../../component/page/tiltaksoversikt/bruker-oversikt/types';
+import { Kolonnenavn } from '../../component/page/tiltakinstans-detaljer/bruker-oversikt/types';
 import { SorteringType } from '../../utils/sortering-utils';
 import { TiltakStatus, TiltakType } from './bruker';
 
