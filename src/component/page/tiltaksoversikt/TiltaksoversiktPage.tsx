@@ -6,7 +6,6 @@ import { useTiltaksoversiktSok } from '../../../store/tiltaksoversikt-sok-store'
 import { BrukerOversiktTabell } from './bruker-oversikt/BrukerOversiktTabell';
 import { FilterMeny } from './FilterMeny';
 import { Header } from './Header';
-import { PaginationBar } from './paginering/PaginationBar';
 import styles from './TiltaksoversiktPage.module.less';
 
 export const TiltaksoversiktPage = () => {
@@ -29,10 +28,7 @@ export const TiltaksoversiktPage = () => {
 			<Header />
 			<main className={styles.tiltaksoversiktPage}>
 				<FilterMeny />
-				<div>
-					<PaginationBar totalUsers={brukere.length} />
-					<BrukerOversiktTabell brukere={brukere} isLoading={isLoading} />
-				</div>
+				<BrukerOversiktTabell brukere={brukere} isLoading={isLoading} />
 			</main>
 		</>
 	);
