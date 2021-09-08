@@ -1,6 +1,6 @@
 import { Bruker } from '../api/data/bruker';
 import { BrukerSokParams } from '../api/data/request-types';
-import { Kolonnenavn } from '../component/page/tiltaksoversikt/bruker-oversikt/types';
+import { Kolonnenavn } from '../component/page/tiltakinstans-detaljer/bruker-oversikt/types';
 import { reverseSort } from '../utils';
 import { sortDateNullsFirst } from '../utils/date-utils';
 import { SorteringType } from '../utils/sortering-utils';
