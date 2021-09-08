@@ -1,4 +1,4 @@
-import { Bruker, TiltakStatus, TiltakType } from '../api/data/bruker';
+import { Bruker, TiltakStatus } from '../api/data/bruker';
 
 const matcherNavn = (bruker: {fornavn: string, etternavn: string}, navnFilter: string | undefined) => {
     if(!navnFilter || navnFilter.trim().length === 0) return true;
@@ -14,14 +14,8 @@ const matcherStatus = (statusFilter: TiltakStatus[], brukerStatus: TiltakStatus)
     return statusFilter.includes(brukerStatus)
 }
 
-const matcherType = (typeFilter: TiltakType[], brukerTiltakType: TiltakType) => {
-    if (typeFilter.length === 0) return true;
-    return typeFilter.includes(brukerTiltakType);
-}
-
-export const filtrerBrukere = (brukere: Bruker[], typeFilter: TiltakType[], statusFilter: TiltakStatus[], navnFilter: string): Bruker[] => {
+export const filtrerBrukere = (brukere: Bruker[], statusFilter: TiltakStatus[], navnFilter: string): Bruker[] => {
    return brukere
         .filter(bruker => matcherNavn(bruker, navnFilter))
-        .filter(bruker => matcherType(typeFilter, bruker.tiltak.type))
         .filter(bruker => matcherStatus(statusFilter, bruker.tiltak.status))
 };

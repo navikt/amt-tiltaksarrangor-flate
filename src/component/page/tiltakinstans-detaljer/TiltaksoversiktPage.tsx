@@ -8,7 +8,7 @@ import { FilterMeny } from './FilterMeny';
 import styles from './TiltaksoversiktPage.module.less';
 
 export const TiltaksoversiktPage = () => {
-	const { tiltakTypeFilter, tiltakStatusFilter, navnFnrSok, brukerSortering } = useTiltaksoversiktSok();
+	const { tiltakStatusFilter, navnFnrSok, brukerSortering } = useTiltaksoversiktSok();
 	const [brukere, setBrukere] = useState<Bruker[]>([]);
 	const [isLoading, setIsLoading] = useState<boolean>(false);
 
@@ -20,7 +20,7 @@ export const TiltaksoversiktPage = () => {
 			.then((res) => setBrukere(res.data))
 			.catch(console.error) // TODO: vis feil i alertstripe
 			.finally(() => setIsLoading(false));
-	}, [tiltakTypeFilter, tiltakStatusFilter, navnFnrSok, brukerSortering]);
+	}, [tiltakStatusFilter, navnFnrSok, navnFnrSok, brukerSortering]);
 
 	return (
 		<>

@@ -2,10 +2,10 @@ import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
 import { Checkbox, CheckboxGruppe, Input } from 'nav-frontend-skjema';
 import React from 'react';
 
-import { TiltakStatus, TiltakType } from '../../../api/data/bruker';
+import { TiltakStatus } from '../../../api/data/bruker';
 import globalStyles from '../../../globals.module.less';
 import { useTiltaksoversiktSok } from '../../../store/tiltaksoversikt-sok-store';
-import { mapTiltakStatusTilTekst, mapTiltakTypeTilTekst } from '../../../utils/text-mappers';
+import { mapTiltakStatusTilTekst } from '../../../utils/text-mappers';
 
 export const FilterMeny = () => {
 	const {
@@ -14,9 +14,6 @@ export const FilterMeny = () => {
 		tiltakStatusFilter,
 		leggTilTiltakStatus,
 		fjernFraTiltakStatus,
-		tiltakTypeFilter,
-		leggTilTiltakFilter,
-		fjernFraTiltakFilter,
 	} = useTiltaksoversiktSok();
 
 	return (
@@ -27,26 +24,6 @@ export const FilterMeny = () => {
 				value={navnFnrSok}
 				onChange={(e) => setNavnFnrSok(e.target.value)}
 			/>
-
-			<Ekspanderbartpanel tittel="Tiltakstype" className={globalStyles.blokkM} apen>
-				<CheckboxGruppe>
-					{Object.values(TiltakType).map((type) => (
-						<Checkbox
-							key={type}
-							label={mapTiltakTypeTilTekst(type)}
-							name="filter-tiltakstype"
-							checked={tiltakTypeFilter.includes(type)}
-							onChange={(e) => {
-								if (e.target.checked) {
-									leggTilTiltakFilter(type);
-								} else {
-									fjernFraTiltakFilter(type);
-								}
-							}}
-						/>
-					))}
-				</CheckboxGruppe>
-			</Ekspanderbartpanel>
 
 			<Ekspanderbartpanel tittel="Status" className={globalStyles.blokkM} apen>
 				<CheckboxGruppe>
