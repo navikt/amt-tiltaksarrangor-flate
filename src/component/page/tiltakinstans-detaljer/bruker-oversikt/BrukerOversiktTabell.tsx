@@ -4,10 +4,10 @@ import { Bruker } from '../../../../api/data/bruker';
 import { useTiltaksoversiktSok } from '../../../../store/tiltaksoversikt-sok-store';
 import { Show } from '../../../felles/Show';
 import { Spinner } from '../../../felles/spinner/Spinner';
-import styles from './BrukerOversiktTabell.module.less';
 import { TabellBody } from './TabellBody';
 import { TabellHeader } from './TabellHeader';
 import { filtrerBrukere } from '../../../../utils/filtrering-utils';
+import styles from './BrukerOversiktTabell.module.less';
 import 'nav-frontend-tabell-style';
 
 interface UserTableProps {
@@ -16,15 +16,15 @@ interface UserTableProps {
 }
 
 export const BrukerOversiktTabell = (props: UserTableProps) => {
-	const { brukerSortering, setBrukerSortering, tiltakTypeFilter, tiltakStatusFilter, navnFnrSok} = useTiltaksoversiktSok();
-	const brukereFiltrert = () => filtrerBrukere(props.brukere, tiltakTypeFilter, tiltakStatusFilter, navnFnrSok);
+	const { brukerSortering, setBrukerSortering, tiltakStatusFilter, navnFnrSok} = useTiltaksoversiktSok();
+	const brukereFiltrert = () => filtrerBrukere(props.brukere, tiltakStatusFilter, navnFnrSok);
 	const [filtrerteBrukere, setFiltrerteBrukere] = useState<Bruker[]>(brukereFiltrert);
 	const harIngenBrukere = filtrerteBrukere.length === 0;
 
 	useEffect(() => {
 		setFiltrerteBrukere(brukereFiltrert());
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [props.brukere, tiltakTypeFilter, tiltakStatusFilter, navnFnrSok]);
+	}, [props.brukere, tiltakStatusFilter, navnFnrSok]);
 
 	const IngenBrukereAlertstripe = () => (
 		<AlertStripeInfo className={styles.ingenBrukere}>
