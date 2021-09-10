@@ -1,7 +1,7 @@
 import { Knapp } from 'nav-frontend-knapper';
 import { Input } from 'nav-frontend-skjema';
-import { Ingress, Normaltekst, Sidetittel } from 'nav-frontend-typografi';
-import React, { ReactNode, useState } from 'react';
+import { Normaltekst, Sidetittel, Systemtittel } from 'nav-frontend-typografi';
+import React, { useState } from 'react';
 
 import { oppdaterTiltakSluttdato, oppdaterTiltakStartdato } from '../../../api';
 import { DetaljertBruker } from '../../../api/data/bruker';
@@ -10,18 +10,7 @@ import { lagBrukerNavn } from '../../../utils/bruker-utils';
 import { formatDateInputStr, stringToDate } from '../../../utils/date-utils';
 import { mapTiltakStatusTilTekst, mapTiltakTypeTilTekst } from '../../../utils/text-mappers';
 import styles from './BrukerPaaTiltakDetaljer.module.less';
-
-interface SeksjonProps {
-	tittel: string;
-	children?: ReactNode;
-}
-
-const Seksjon = ({ tittel, children }: SeksjonProps) => (
-	<div>
-		<Ingress className={styles.textBold}>{tittel}</Ingress>
-		{children}
-	</div>
-);
+import { Card } from '../../felles/card/Card';
 
 export const BrukerPaaTiltakDetaljer = (props: { bruker: DetaljertBruker }) => {
 	const { tiltak, navEnhet, navVeileder, kontaktinfo, fornavn, etternavn } = props.bruker;
@@ -39,17 +28,21 @@ export const BrukerPaaTiltakDetaljer = (props: { bruker: DetaljertBruker }) => {
 	return (
 		<>
 			<Sidetittel className={globalStyles.blokkM}>{lagBrukerNavn(fornavn, etternavn)}</Sidetittel>
+
 			<div className={styles.userInfoContent}>
-				<Seksjon tittel="Kontaktinformasjon">
+				<Card>
+					<Systemtittel>Kontaktinformasjon</Systemtittel>
 					<Normaltekst>Telefon: {kontaktinfo.telefonnummer}</Normaltekst>
 					<Normaltekst>Email: {kontaktinfo.email}</Normaltekst>
-				</Seksjon>
+				</Card>
 
-				<Seksjon tittel="Status">
+				<Card>
+					<Systemtittel>Status</Systemtittel>
 					<Normaltekst>{mapTiltakStatusTilTekst(tiltak.status)}</Normaltekst>
-				</Seksjon>
+				</Card>
 
-				<Seksjon tittel="Periode for gjennomføring">
+				<Card>
+					<Systemtittel>Periode for gjennomføring</Systemtittel>
 					<div className={styles.periodeInputWrapper}>
 						<Input label="Start" type="date" value={startdato} onChange={(e) => setStartdato(e.target.value)} />
 
@@ -64,23 +57,24 @@ export const BrukerPaaTiltakDetaljer = (props: { bruker: DetaljertBruker }) => {
 							Lagre
 						</Knapp>
 					</div>
-				</Seksjon>
+				</Card>
 
-				<Seksjon tittel="NAV-kontor">
+				<Card>
+					<Systemtittel>NAV-kontor</Systemtittel>
 					<Normaltekst>{navEnhet.enhetNavn}</Normaltekst>
-				</Seksjon>
+				</Card>
 
-				<Seksjon tittel="Veileder">
+				<Card>
+					<Systemtittel>Veileder</Systemtittel>
 					<Normaltekst>Navn: {navVeileder?.navn}</Normaltekst>
 					<Normaltekst>Email: {navVeileder?.email}</Normaltekst>
 					<Normaltekst>Telefonnummer: {navVeileder?.telefonnummer}</Normaltekst>
-				</Seksjon>
+				</Card>
 
-				<Seksjon tittel="Tiltak">
+				<Card>
+					<Systemtittel>Tiltak</Systemtittel>
 					<Normaltekst>Type: {mapTiltakTypeTilTekst(tiltak.type)}</Normaltekst>
-				</Seksjon>
-
-				<Seksjon tittel="Beskrivelse" />
+				</Card>
 			</div>
 		</>
 	);
