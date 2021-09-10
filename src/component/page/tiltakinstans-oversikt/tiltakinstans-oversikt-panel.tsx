@@ -1,5 +1,6 @@
-import { LenkepanelBase } from 'nav-frontend-lenkepanel';
+import React from 'react';
 import { Normaltekst, Systemtittel } from 'nav-frontend-typografi';
+import { SpaLenkepanel } from '../../felles/spa-lenkepanel/SpaLenkepanel';
 
 interface TiltakinstansOversiktPanelProps {
     id: string,
@@ -13,12 +14,12 @@ export const TiltakinstansOversiktPanel = (props: TiltakinstansOversiktPanelProp
     const {id, navn, deltakere, oppstart} = props
 
     return (
-        <LenkepanelBase href={`/instans/${id}`} border>
+        <SpaLenkepanel to={`/instans/${id}`} border>
             <Systemtittel>{navn}</Systemtittel>
             <div className="undertekst">
                 { deltakere && <Normaltekst>{`Antall deltakere: ${deltakere}`}</Normaltekst> }
                 { oppstart && <Normaltekst>{`Oppstart: ${oppstart.getUTCDate()}`}</Normaltekst> }
             </div>
-        </LenkepanelBase>
+        </SpaLenkepanel>
     )
 }
