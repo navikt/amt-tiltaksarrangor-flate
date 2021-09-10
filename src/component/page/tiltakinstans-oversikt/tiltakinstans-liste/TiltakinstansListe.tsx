@@ -33,7 +33,7 @@ export const TiltakinstansListe = (props: TiltakinstansListeProps) => {
 										<TiltakinstansOversiktPanel
 											id={tiltakinstanse.id}
 											navn={tiltak.typeNavn} // TODO: Hva blir navnet for en tiltakinstanse?
-											oppstart={dayjs(tiltakinstanse.startDato).toDate()} // TODO: date-utils eller map DTO til ny modell lenger oppe
+											oppstart={dayjs(tiltakinstanse.startdato).toDate()} // TODO: date-utils eller map DTO til ny modell lenger oppe
 											deltakere={tiltakinstanse.deltakere}
 										/>
 									</li>

@@ -1,35 +1,67 @@
 import React, { useEffect, useState } from 'react';
+import { Link, useParams } from 'react-router-dom';
 
-import { fetchTiltakoversikt } from '../../../api';
+import { fetchDeltakerePaTiltakinstans, fetchTiltakinstans } from '../../../api';
 import { Bruker } from '../../../api/data/bruker';
-import { useTiltaksoversiktSok } from '../../../store/tiltaksoversikt-sok-store';
 import { BrukerOversiktTabell } from './bruker-oversikt/BrukerOversiktTabell';
 import { FilterMeny } from './FilterMeny';
-import { Header } from './Header';
 import styles from './TiltakinstansDetaljerPage.module.less';
+import { Spinner } from '../../felles/spinner/Spinner';
+import { Normaltekst, Systemtittel } from 'nav-frontend-typografi';
+import { AlertStripeFeil } from 'nav-frontend-alertstriper';
+import { Tiltakinstans } from '../../../api/data/tiltak';
+
+interface TiltakinstansDetaljerPageRouteParams {
+	tiltakinstansId: string;
+}
 
 export const TiltakinstansDetaljerPage = () => {
-	const { tiltakTypeFilter, tiltakStatusFilter, navnFnrSok, brukerSortering } = useTiltaksoversiktSok();
+	const params = useParams<TiltakinstansDetaljerPageRouteParams>();
+
+	const [tiltakinstans, setTiltakinstans] = useState<Tiltakinstans>();
 	const [brukere, setBrukere] = useState<Bruker[]>([]);
-	const [isLoading, setIsLoading] = useState<boolean>(false);
+
+	const [isLoadingDeltakere, setIsLoadingDeltakere] = useState<boolean>(false);
+	const [isLoadingTiltakinstans, setIsLoadingTiltakinstans] = useState<boolean>(false);
 
 	useEffect(() => {
-		// TODO: this must be debounced
-		setIsLoading(true);
+		setIsLoadingDeltakere(true)
+		setIsLoadingTiltakinstans(true);
 
-		fetchTiltakoversikt()
+		fetchTiltakinstans(params.tiltakinstansId)
+			.then(res => setTiltakinstans(res.data))
+			.catch(console.error) // TODO: vis feil i alertstripe
+			.finally(() => setIsLoadingTiltakinstans(false))
+
+		fetchDeltakerePaTiltakinstans(params.tiltakinstansId)
 			.then((res) => setBrukere(res.data))
 			.catch(console.error) // TODO: vis feil i alertstripe
-			.finally(() => setIsLoading(false));
-	}, [tiltakTypeFilter, tiltakStatusFilter, navnFnrSok, brukerSortering]);
+			.finally(() => setIsLoadingDeltakere(false));
+	}, [params.tiltakinstansId]);
+
+	if (isLoadingDeltakere || isLoadingTiltakinstans) {
+		return <Spinner/>;
+	}
+
+	if (!tiltakinstans) {
+		return <AlertStripeFeil>Noe gikk galt</AlertStripeFeil>;
+	}
 
 	return (
-		<>
-			<Header />
-			<main className={styles.tiltaksoversiktPage}>
+		<main className={styles.tiltaksoversiktPage}>
+			<section>
+				<Link to="/" className="blokk-m">Tilbake</Link>
+
+				<div className="blokk-m">
+					<Systemtittel>PLACEHOLDER</Systemtittel>
+					<Normaltekst>Start dato: {tiltakinstans.startdato}</Normaltekst>
+					<Normaltekst>Slutt dato: {tiltakinstans.sluttdato}</Normaltekst>
+				</div>
+
 				<FilterMeny />
-				<BrukerOversiktTabell brukere={brukere} isLoading={isLoading} />
-			</main>
-		</>
+			</section>
+
+			<BrukerOversiktTabell brukere={brukere} isLoading={isLoadingTiltakinstans} />
+		</main>
 	);
 };

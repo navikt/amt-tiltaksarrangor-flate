@@ -12,9 +12,21 @@ const allHandlers: RequestHandler[] = [
 	rest.get('/auth-proxy/is-authenticated', (req, res, ctx) => {
 		return res(ctx.delay(500), ctx.json({ isAuthenticated: true }));
 	}),
-	rest.get('/amt-tiltak/api/brukere', (req, res, ctx) => {
-		const brukere = mockBrukere.map(tilBruker);
+	rest.get('/amt-tiltak/api/tiltak/instans/:tiltakinstansId', (req, res, ctx) => {
+		const id = req.params.tiltakinstansId;
 
+		const tiltakinstans = mockTiltak
+			.flatMap(tiltak => tiltak.tiltakinstanser)
+			.find(instans => instans.id === id);
+
+		if (!tiltakinstans) {
+			return res(ctx.delay(500), ctx.status(404));
+		}
+
+		return res(ctx.delay(500), ctx.json(tiltakinstans));
+	}),
+	rest.get('/amt-tiltak/api/tiltak/instans/:tiltakinstansId/brukere', (req, res, ctx) => {
+		const brukere = mockBrukere.map(tilBruker);
 		return res(ctx.delay(500), ctx.json(brukere));
 	}),
 	rest.get('/amt-tiltak/api/bruker/:brukerId', (req, res, ctx) => {
@@ -22,6 +34,9 @@ const allHandlers: RequestHandler[] = [
 		const bruker = mockBrukere.find((b) => b.id === brukerId);
 
 		return res(ctx.delay(500), ctx.json(bruker));
+	}),
+	rest.get('/amt-tiltak/api/tiltak', (req, res, ctx) => {
+		return res(ctx.delay(500), ctx.json(mockTiltak));
 	}),
 	rest.get('/amt-tiltak/api/tiltak', (req, res, ctx) => {
 		return res(ctx.delay(500), ctx.json(mockTiltak));

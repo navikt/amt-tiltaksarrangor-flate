@@ -29,19 +29,21 @@ export const TiltakinstansOversiktPage = () => {
 
     return (
         <main className={styles.page}>
-            <Ekspanderbartpanel tittel="Tiltaksvarianter" className={globalStyles.blokkM} apen>
-                <CheckboxGruppe>
-                    {Object.values(TiltakType).map((type) => (
-                        <Checkbox
-                            key={type}
-                            label={mapTiltakTypeTilTekst(type)}
-                            name="filter-tiltakstype"
-                            checked={false}
+            <section>
+                <Ekspanderbartpanel tittel="Tiltaksvarianter" className={globalStyles.blokkM} apen>
+                    <CheckboxGruppe>
+                        {Object.values(TiltakType).map((type) => (
+                            <Checkbox
+                                key={type}
+                                label={mapTiltakTypeTilTekst(type)}
+                                name="filter-tiltakstype"
+                                checked={false}
 
-                        />
-                    ))}
-                </CheckboxGruppe>
-            </Ekspanderbartpanel>
+                            />
+                        ))}
+                    </CheckboxGruppe>
+                </Ekspanderbartpanel>
+            </section>
 
             <TiltakinstansListe tiltak={tiltak}/>
         </main>

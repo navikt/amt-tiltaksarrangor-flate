@@ -29,6 +29,7 @@ const lagTiltak = (): Tiltak[] => {
 		const antallInstanser = randBetween(1, 3);
 
 		tiltak.push({
+			id: randBetween(1000, 1000000).toString(),
 			...baseTiltak,
 			tiltakinstanser: lagTiltakinstanser(antallInstanser),
 		});
@@ -51,8 +52,8 @@ const lagTiltakinstanse = (): Tiltakinstans => {
 	return {
 		id: randBetween(1000, 1000000).toString(),
 		deltakere: randBetween(0, 20),
-		startDato: faker.date.past().toISOString(),
-		sluttDato: faker.date.future().toISOString()
+		startdato: faker.date.past().toISOString(),
+		sluttdato: faker.date.future().toISOString()
 	};
 };
 

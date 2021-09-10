@@ -1,5 +1,6 @@
 
 export interface Tiltak {
+	id: string;
 	type: string;       // JOBBKLUBB
 	typeNavn: string;   // Jobbklubb
 	navn: string;       // Sveisekurs
@@ -9,7 +10,7 @@ export interface Tiltak {
 
 export interface Tiltakinstans {
 	id: string;
-	startDato: string;
-	sluttDato: string;
+	startdato: string;
+	sluttdato: string;
 	deltakere: number;
 }

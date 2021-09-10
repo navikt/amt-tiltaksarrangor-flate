@@ -35,7 +35,7 @@ export const App = () => {
 					<Route path="/user/:brukerId">
 						<BrukerDetaljerPage />
 					</Route>
-					<Route path="/instans/:id">
+					<Route path="/instans/:tiltakinstansId">
 						<TiltakinstansDetaljerPage />
 					</Route>
 					<Route path="/">
