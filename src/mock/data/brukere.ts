@@ -2,9 +2,7 @@ import faker from 'faker';
 
 import { Bruker, DetaljertBruker, NavEnhet, TiltakStatus, TiltakType } from '../../api/data/bruker';
 import { OrNothing } from '../../utils/types/or-nothing';
-
-faker.locale = 'nb_NO';
-faker.seed(486756783);
+import { randBetween, randomFnr } from '../utils/faker';
 
 const navEnheter: NavEnhet[] = [
 	{
@@ -25,27 +23,9 @@ const navEnheter: NavEnhet[] = [
 	},
 ];
 
-const randBetween = (min: number, max: number): number => {
-	return faker.datatype.number({ min, max });
-};
-
-const randomFnr = (): string => {
-	const dag = randBetween(1, 31);
-	const mnd = randBetween(1, 12);
-	const ar = randBetween(0, 99);
-	const arhundre = randBetween(0, 99).toString().padStart(2, '0');
-	const kjonnsiffer = faker.datatype.boolean() ? 4 : 1;
-	const individsifre = `${arhundre}${kjonnsiffer}`;
-	const kontrollsifre = `${randBetween(0, 9)}${randBetween(0, 9)}`;
-
-	return `${dag.toString().padStart(2, '0')}${mnd.toString().padStart(2, '0')}${ar
-		.toString()
-		.padStart(2, '0')}${individsifre}${kontrollsifre}`;
-};
-
 const startDatoForTiltakStatus = (status: TiltakStatus): OrNothing<string> => {
 	if (status === TiltakStatus.PAMELDT || status === TiltakStatus.GJENNOMFORES) {
-		return faker.date.recent().toISOString();
+		return ;
 	}
 
 	return undefined;

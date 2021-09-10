@@ -6,6 +6,7 @@ import {
 	OppdaterTiltakStartdatoRequestBody,
 } from '../api/data/request-types';
 import { mockBrukere, tilBruker } from './data/brukere';
+import { mockTiltak } from './data/tiltak';
 
 const allHandlers: RequestHandler[] = [
 	rest.get('/auth-proxy/is-authenticated', (req, res, ctx) => {
@@ -21,6 +22,9 @@ const allHandlers: RequestHandler[] = [
 		const bruker = mockBrukere.find((b) => b.id === brukerId);
 
 		return res(ctx.delay(500), ctx.json(bruker));
+	}),
+	rest.get('/amt-tiltak/api/tiltak', (req, res, ctx) => {
+		return res(ctx.delay(500), ctx.json(mockTiltak));
 	}),
 	rest.put('/amt-tiltak/api/tiltak/:tiltakinstansId/startdato', (req, res, ctx) => {
 		const body = req.body as OppdaterTiltakStartdatoRequestBody;

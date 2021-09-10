@@ -1,12 +1,32 @@
-import styles from './TiltakinstansOversiktPage.module.less';
+import React, { useEffect, useState } from 'react';
 import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
-import globalStyles from '../../../globals.module.less';
 import { Checkbox, CheckboxGruppe } from 'nav-frontend-skjema';
 import { TiltakType } from '../../../api/data/bruker';
 import { mapTiltakTypeTilTekst } from '../../../utils/text-mappers';
-import { TiltakinstansOversiktPanel } from './tiltakinstans-oversikt-panel';
+import { TiltakinstansListe } from './tiltakinstans-liste/TiltakinstansListe';
+import globalStyles from '../../../globals.module.less';
+import styles from './TiltakinstansOversiktPage.module.less';
+import { fetchTiltak } from '../../../api';
+import { Tiltak } from '../../../api/data/tiltak';
+import { Spinner } from '../../felles/spinner/Spinner';
 
 export const TiltakinstansOversiktPage = () => {
+    const [tiltak, setTiltak] = useState<Tiltak[]>([]);
+    const [isLoading, setIsLoading] = useState<boolean>(false);
+
+    useEffect(() => {
+        setIsLoading(true);
+
+        fetchTiltak()
+            .then(res => setTiltak(res.data))
+            .catch(console.error) // TODO: vis feil i alertstripe
+            .finally(() => setIsLoading(false));
+    }, []);
+
+    if (isLoading) {
+        return <Spinner/>;
+    }
+
     return (
         <main className={styles.page}>
             <Ekspanderbartpanel tittel="Tiltaksvarianter" className={globalStyles.blokkM} apen>
@@ -23,24 +43,7 @@ export const TiltakinstansOversiktPage = () => {
                 </CheckboxGruppe>
             </Ekspanderbartpanel>
 
-            <ul> {/* Tiltaksoversikt */}
-                <li> {/*  */}
-                    <h1>Jobbklubb</h1>
-                    <ul> {/* */}
-                        <li><TiltakinstansOversiktPanel id={"1"} navn={"Jobbklubb"} oppstart={new Date()}/></li>
-                        <li><TiltakinstansOversiktPanel id={"2"} navn={"Jobbklubb"} deltakere={2}/></li>
-                        <li><TiltakinstansOversiktPanel id={"3"} navn={"Tiltak 3"} oppstart={new Date()} deltakere={2}/></li>
-                    </ul>
-                </li>
-                <li>
-                    <h1>Avklaring</h1>
-                    <ul>
-                        <li><TiltakinstansOversiktPanel id={"1"} navn={"Jobbklubb"} oppstart={new Date()}/></li>
-                        <li><TiltakinstansOversiktPanel id={"2"} navn={"Jobbklubb"} deltakere={2}/></li>
-                        <li><TiltakinstansOversiktPanel id={"3"} navn={"Tiltak 3"} oppstart={new Date()} deltakere={2}/></li>
-                    </ul>
-                </li>
-            </ul>
+            <TiltakinstansListe tiltak={tiltak}/>
         </main>
     )
 }

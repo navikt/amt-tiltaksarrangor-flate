@@ -6,6 +6,7 @@ import {
 	OppdaterTiltakStartdatoRequestBody,
 } from './data/request-types';
 import { axiosInstance } from './utils';
+import { Tiltak } from './data/tiltak';
 
 export const checkIsAuthenticated = (): AxiosPromise<{ isAuthenticated: boolean }> => {
 	return axiosInstance.get('/auth-proxy/is-authenticated');
@@ -17,6 +18,10 @@ export const fetchTiltakoversikt = (): AxiosPromise<Bruker[]> => {
 
 export const fetchBrukerDetaljer = (brukerId: string): AxiosPromise<DetaljertBruker> => {
 	return axiosInstance.get(`/amt-tiltak/api/bruker/${brukerId}`);
+};
+
+export const fetchTiltak = (): AxiosPromise<Tiltak[]> => {
+	return axiosInstance.get('/amt-tiltak/api/tiltak');
 };
 
 export const oppdaterTiltakStartdato = (tiltakinstansId: string, startdato: Date): AxiosPromise<Tiltaksinstans> => {
