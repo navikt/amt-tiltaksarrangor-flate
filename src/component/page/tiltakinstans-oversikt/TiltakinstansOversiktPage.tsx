@@ -12,11 +12,9 @@ import { Spinner } from '../../felles/spinner/Spinner';
 
 export const TiltakinstansOversiktPage = () => {
     const [tiltak, setTiltak] = useState<Tiltak[]>([]);
-    const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [isLoading, setIsLoading] = useState<boolean>(true);
 
     useEffect(() => {
-        setIsLoading(true);
-
         fetchTiltak()
             .then(res => setTiltak(res.data))
             .catch(console.error) // TODO: vis feil i alertstripe

@@ -21,13 +21,10 @@ export const TiltakinstansDetaljerPage = () => {
 	const [tiltakinstans, setTiltakinstans] = useState<Tiltakinstans>();
 	const [brukere, setBrukere] = useState<Bruker[]>([]);
 
-	const [isLoadingDeltakere, setIsLoadingDeltakere] = useState<boolean>(false);
-	const [isLoadingTiltakinstans, setIsLoadingTiltakinstans] = useState<boolean>(false);
+	const [isLoadingDeltakere, setIsLoadingDeltakere] = useState<boolean>(true);
+	const [isLoadingTiltakinstans, setIsLoadingTiltakinstans] = useState<boolean>(true);
 
 	useEffect(() => {
-		setIsLoadingDeltakere(true)
-		setIsLoadingTiltakinstans(true);
-
 		fetchTiltakinstans(params.tiltakinstansId)
 			.then(res => setTiltakinstans(res.data))
 			.catch(console.error) // TODO: vis feil i alertstripe
