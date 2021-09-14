@@ -1,6 +1,6 @@
 import { AxiosPromise } from 'axios';
 
-import { Bruker, DetaljertBruker, DeprecatedTiltaksinstans } from './data/bruker';
+import { Deltaker, DetaljertBruker, DeprecatedTiltaksinstans } from './data/bruker';
 import {
 	OppdaterTiltakSluttdatoRequestBody,
 	OppdaterTiltakStartdatoRequestBody,
@@ -13,7 +13,7 @@ export const fetchInnloggetAnsatt = (): AxiosPromise<InnloggetAnsatt> => {
 	return axiosInstance.get(`/amt-tiltak/api/tiltaksleverandor/ansatt/me`);
 };
 
-export const fetchDeltakerePaTiltakinstans = (tiltakinstansId: string): AxiosPromise<Bruker[]> => {
+export const fetchDeltakerePaTiltakinstans = (tiltakinstansId: string): AxiosPromise<Deltaker[]> => {
 	return axiosInstance.get(`/amt-tiltak/api/tiltak/instans/${tiltakinstansId}/brukere`);
 };
 

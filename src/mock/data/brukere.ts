@@ -1,6 +1,6 @@
 import faker from 'faker';
 
-import { Bruker, DetaljertBruker, NavEnhet, TiltakStatus, TiltakType } from '../../api/data/bruker';
+import { Deltaker, DetaljertBruker, NavEnhet, TiltakStatus, TiltakType } from '../../api/data/bruker';
 import { OrNothing } from '../../utils/types/or-nothing';
 import { randBetween, randomFnr } from '../utils/faker';
 
@@ -89,12 +89,14 @@ export const lagDetaljerteBrukere = (antallBrukere: number): DetaljertBruker[] =
 	return brukere;
 };
 
-export const tilBruker = (detaljertBruker: DetaljertBruker): Bruker => {
+export const tilBruker = (detaljertBruker: DetaljertBruker): Deltaker => {
 	return {
 		id: detaljertBruker.id,
 		fornavn: detaljertBruker.fornavn,
 		etternavn: detaljertBruker.etternavn,
 		fodselsdato: detaljertBruker.fodselsdato,
+		stardato: faker.date.recent(5).toISOString(),
+		sluttdato: faker.date.soon(5).toISOString(),
 		tiltak: detaljertBruker.tiltak,
 	};
 };

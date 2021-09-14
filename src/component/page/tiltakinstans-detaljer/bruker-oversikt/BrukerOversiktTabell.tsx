@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { AlertStripeInfo } from 'nav-frontend-alertstriper';
-import { Bruker } from '../../../../api/data/bruker';
+import { Deltaker } from '../../../../api/data/bruker';
 import { useTiltaksoversiktSokStore } from '../../../../store/tiltaksoversikt-sok-store';
 import { Show } from '../../../felles/Show';
 import { Spinner } from '../../../felles/spinner/Spinner';
@@ -11,14 +11,14 @@ import styles from './BrukerOversiktTabell.module.less';
 import 'nav-frontend-tabell-style';
 
 interface UserTableProps {
-	brukere: Bruker[];
+	brukere: Deltaker[];
 	isLoading: boolean;
 }
 
 export const BrukerOversiktTabell = (props: UserTableProps) => {
 	const { brukerSortering, setBrukerSortering, tiltakStatusFilter, navnFnrSok} = useTiltaksoversiktSokStore();
 	const brukereFiltrert = () => filtrerBrukere(props.brukere, tiltakStatusFilter, navnFnrSok);
-	const [filtrerteBrukere, setFiltrerteBrukere] = useState<Bruker[]>(brukereFiltrert);
+	const [filtrerteBrukere, setFiltrerteBrukere] = useState<Deltaker[]>(brukereFiltrert);
 	const harIngenBrukere = filtrerteBrukere.length === 0;
 
 	useEffect(() => {

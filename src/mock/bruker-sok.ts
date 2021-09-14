@@ -1,11 +1,11 @@
-import { Bruker } from '../api/data/bruker';
+import { Deltaker } from '../api/data/bruker';
 import { BrukerSokParams } from '../api/data/request-types';
 import { Kolonnenavn } from '../component/page/tiltakinstans-detaljer/bruker-oversikt/types';
 import { reverseSort } from '../utils';
 import { sortDateNullsFirst } from '../utils/date-utils';
 import { SorteringType } from '../utils/sortering-utils';
 
-const sorterBrukere = (brukere: Bruker[], params: BrukerSokParams): Bruker[] => {
+const sorterBrukere = (brukere: Deltaker[], params: BrukerSokParams): Deltaker[] => {
 	if (!params.sortering || params.sortering.sorteringType === SorteringType.NONE) {
 		return brukere;
 	}
@@ -18,17 +18,13 @@ const sorterBrukere = (brukere: Bruker[], params: BrukerSokParams): Bruker[] => 
 	return brukere.sort(sort);
 };
 
-const getAscendingSort = (name: Kolonnenavn): ((b1: Bruker, b2: Bruker) => number) => {
+const getAscendingSort = (name: Kolonnenavn): ((b1: Deltaker, b2: Deltaker) => number) => {
 	return (b1, b2) => {
 		switch (name) {
 			case Kolonnenavn.NAVN:
 				return b1.etternavn.localeCompare(b2.etternavn);
 			case Kolonnenavn.FODSELSDATO:
 				return b1.fodselsdato.localeCompare(b2.fodselsdato);
-			case Kolonnenavn.TILTAK:
-				return b1.tiltak.navn.localeCompare(b2.tiltak.navn);
-			case Kolonnenavn.TILTAKSTYPE:
-				return b1.tiltak.type.localeCompare(b2.tiltak.type);
 			case Kolonnenavn.STATUS:
 				return b1.tiltak.status.localeCompare(b2.tiltak.status);
 			case Kolonnenavn.START:

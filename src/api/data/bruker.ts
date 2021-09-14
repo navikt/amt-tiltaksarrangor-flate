@@ -1,10 +1,12 @@
 import { OrNothing } from '../../utils/types/or-nothing';
 
-export interface Bruker {
+export interface Deltaker {
 	id: string;
 	fodselsdato: string;
 	fornavn: string;
 	etternavn: string;
+	stardato: string | undefined;
+	sluttdato: string | undefined;
 	tiltak: DeprecatedTiltaksinstans;
 }
 
