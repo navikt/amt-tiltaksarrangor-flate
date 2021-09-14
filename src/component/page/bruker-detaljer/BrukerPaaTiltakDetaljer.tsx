@@ -8,15 +8,20 @@ import styles from './BrukerPaaTiltakDetaljer.module.less';
 import { Card } from '../../felles/card/Card';
 import { EtikettSuksess } from 'nav-frontend-etiketter';
 import { Label } from './label/Label';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 
 export const BrukerPaaTiltakDetaljer = (props: { bruker: DetaljertBruker }) => {
+	const history = useHistory();
 	const { tiltak, navEnhet, navVeileder, kontaktinfo, fornavn, etternavn, fodselsdato } = props.bruker;
 
 	return (
 		<div>
 			<div className={styles.header}>
-				<Link to="/" className={styles.tilbakeLenke}>
+				<Link to="#" className={styles.tilbakeLenke} onClick={(e) => {
+					// TODO: Hvis vi ikke får IDen til instansen så er dette greit nok, men det er bedre å konstruere riktig lenke
+					e.preventDefault();
+					history.goBack();
+				}}>
 					Tilbake
 				</Link>
 				<Systemtittel className={styles.headerTitle}>{lagBrukerNavn(fornavn, etternavn)}</Systemtittel>
@@ -55,3 +60,7 @@ export const BrukerPaaTiltakDetaljer = (props: { bruker: DetaljertBruker }) => {
 		</div>
 	);
 };
+function useRouter(): {} {
+    throw new Error('Function not implemented.');
+}
+

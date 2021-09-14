@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { BrukerSortering } from '../component/page/tiltakinstans-detaljer/bruker-oversikt/types';
 import { TiltakStatus } from '../api/data/bruker';
 
-export const [TiltaksoversiktSokStoreProvider, useTiltaksoversiktSok] = constate(() => {
+export const [TiltaksoversiktSokStoreProvider, useTiltaksoversiktSokStore] = constate(() => {
 	const [navnFnrSok, setNavnFnrSok] = useState<string>('');
 	const [tiltakStatusFilter, setTiltakStatusFilter] = useState<TiltakStatus[]>([]);
 	const [brukerSortering, setBrukerSortering] = useState<BrukerSortering>();

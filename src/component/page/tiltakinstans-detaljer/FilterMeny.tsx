@@ -4,7 +4,7 @@ import React from 'react';
 
 import { TiltakStatus } from '../../../api/data/bruker';
 import globalStyles from '../../../globals.module.less';
-import { useTiltaksoversiktSok } from '../../../store/tiltaksoversikt-sok-store';
+import { useTiltaksoversiktSokStore } from '../../../store/tiltaksoversikt-sok-store';
 import { mapTiltakStatusTilTekst } from '../../../utils/text-mappers';
 
 export const FilterMeny = () => {
@@ -14,7 +14,7 @@ export const FilterMeny = () => {
 		tiltakStatusFilter,
 		leggTilTiltakStatus,
 		fjernFraTiltakStatus,
-	} = useTiltaksoversiktSok();
+	} = useTiltaksoversiktSokStore();
 
 	return (
 		<div>
