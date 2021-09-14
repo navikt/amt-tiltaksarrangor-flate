@@ -1,18 +1,12 @@
 import constate from 'constate';
 import { useState } from 'react';
-import { mockVirksomheter } from '../mock/data/virksomheter';
+import { InnloggetAnsatt } from '../api/data/ansatt';
 
-interface Virksomhet {
-	id: string;
-	navn: string;
-	virksomhetsnummer: string;
-}
-
-export const [DataStoreProvider, useDataStore] = constate(() => {
-	const [tilgjengeligeVirksomheter, setTilgjengeligeVirksomheter] = useState<Virksomhet[]>(mockVirksomheter);
+export const [DataStoreProvider, useDataStore] = constate((props: {initialInnloggetAnsatt: InnloggetAnsatt}) => {
+	const [innloggetAnsatt, setInnloggetAnsatt] = useState<InnloggetAnsatt>(props.initialInnloggetAnsatt);
 
 	return {
-		tilgjengeligeVirksomheter,
-		setTilgjengeligeVirksomheter,
+		innloggetAnsatt,
+		setInnloggetAnsatt,
 	};
 });

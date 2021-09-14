@@ -60,7 +60,3 @@ export const BrukerPaaTiltakDetaljer = (props: { bruker: DetaljertBruker }) => {
 		</div>
 	);
 };
-function useRouter(): {} {
-    throw new Error('Function not implemented.');
-}
-
