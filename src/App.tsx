@@ -8,6 +8,7 @@ import { LoginPage } from './component/page/login/LoginPage';
 import { Spinner } from './component/felles/spinner/Spinner';
 import { checkIsAuthenticated } from './api';
 import { TiltakinstansOversiktPage } from './component/page/tiltakinstans-oversikt/TiltakinstansOversiktPage';
+import { Menu } from './component/felles/menu/Menu';
 
 export const App = () => {
 	const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
@@ -30,6 +31,7 @@ export const App = () => {
 
 	return (
 		<StoreProvider>
+			<Menu/>
 			<BrowserRouter>
 				<Switch>
 					<Route path="/user/:brukerId">

@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { DataStoreProvider } from './data-store';
+import { ValgtVirksomhettoreProvider } from './valgt-virksomhet-store';
 import { TiltaksoversiktSokStoreProvider } from './tiltaksoversikt-sok-store';
 
 interface StoreProviderProps {
@@ -7,7 +9,15 @@ interface StoreProviderProps {
 }
 
 const StoreProvider = (props: StoreProviderProps) => {
-	return <TiltaksoversiktSokStoreProvider>{props.children}</TiltaksoversiktSokStoreProvider>;
+	return (
+		<DataStoreProvider>
+			<ValgtVirksomhettoreProvider>
+				<TiltaksoversiktSokStoreProvider>
+					{props.children}
+				</TiltaksoversiktSokStoreProvider>
+			</ValgtVirksomhettoreProvider>
+		</DataStoreProvider>
+	);
 };
 
 export default StoreProvider;
