@@ -6,18 +6,19 @@ import { TiltakinstansDetaljerPage } from './component/page/tiltakinstans-detalj
 import StoreProvider from './store/store-provider';
 import { LoginPage } from './component/page/login/LoginPage';
 import { Spinner } from './component/felles/spinner/Spinner';
-import { checkIsAuthenticated } from './api';
+import { fetchInnloggetAnsatt } from './api';
 import { TiltakinstansOversiktPage } from './component/page/tiltakinstans-oversikt/TiltakinstansOversiktPage';
 import { Menu } from './component/felles/menu/Menu';
+import { InnloggetAnsatt } from './api/data/ansatt';
 
 export const App = () => {
-	const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
+	const [innloggetAnsatt, setInnloggetAnsatt] = useState<InnloggetAnsatt>();
 	const [isLoading, setIsLoading] = useState<boolean>(true);
 
 	useEffect(() => {
-		checkIsAuthenticated()
-			.then((res) => setIsAuthenticated(res.data.isAuthenticated))
-			.catch(() => setIsAuthenticated(false))
+		fetchInnloggetAnsatt()
+			.then((res) => setInnloggetAnsatt(res.data))
+			.catch(console.error)
 			.finally(() => setIsLoading(false));
 	}, []);
 
@@ -25,12 +26,12 @@ export const App = () => {
 		return <Spinner/>;
 	}
 
-	if (!isAuthenticated) {
+	if (!innloggetAnsatt) {
 		return <LoginPage />;
 	}
 
 	return (
-		<StoreProvider>
+		<StoreProvider innloggetAnsatt={innloggetAnsatt}>
 			<Menu/>
 			<BrowserRouter>
 				<Switch>

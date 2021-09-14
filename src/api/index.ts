@@ -7,9 +7,10 @@ import {
 } from './data/request-types';
 import { axiosInstance } from './utils';
 import { Tiltak, Tiltakinstans } from './data/tiltak';
+import { InnloggetAnsatt } from './data/ansatt';
 
-export const checkIsAuthenticated = (): AxiosPromise<{ isAuthenticated: boolean }> => {
-	return axiosInstance.get('/auth-proxy/is-authenticated');
+export const fetchInnloggetAnsatt = (): AxiosPromise<InnloggetAnsatt> => {
+	return axiosInstance.get(`/amt-tiltak/api/tiltaksleverandor/ansatt/me`);
 };
 
 export const fetchDeltakerePaTiltakinstans = (tiltakinstansId: string): AxiosPromise<Bruker[]> => {

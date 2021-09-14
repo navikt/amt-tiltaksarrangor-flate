@@ -7,10 +7,11 @@ import {
 } from '../api/data/request-types';
 import { mockBrukere, tilBruker } from './data/brukere';
 import { mockTiltak } from './data/tiltak';
+import { mockInnloggetAnsatt } from './data/ansatt';
 
 const allHandlers: RequestHandler[] = [
-	rest.get('/auth-proxy/is-authenticated', (req, res, ctx) => {
-		return res(ctx.delay(500), ctx.json({ isAuthenticated: true }));
+	rest.get('/amt-tiltak/api/tiltaksleverandor/ansatt/me', (req, res, ctx) => {
+		return res(ctx.delay(500), ctx.json(mockInnloggetAnsatt));
 	}),
 	rest.get('/amt-tiltak/api/tiltak/instans/:tiltakinstansId', (req, res, ctx) => {
 		const id = req.params.tiltakinstansId;

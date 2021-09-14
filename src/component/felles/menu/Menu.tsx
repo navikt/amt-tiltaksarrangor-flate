@@ -5,15 +5,17 @@ import React from 'react';
 import { useDataStore } from '../../../store/data-store';
 
 export const Menu = () => {
-	const { tilgjengeligeVirksomheter } = useDataStore();
+	const { innloggetAnsatt } = useDataStore();
 	const { valgtVirksomhet, setValgtVirksomhet } = useValgtVirksomhetStore();
+
+	const tilgjengeligeVirksomheter = innloggetAnsatt?.virksomheter || [];
 
 	const onValgtVirksomhetChanged = (e: React.ChangeEvent<HTMLSelectElement>) => {
 		const id = e.target.value;
-		const valgtVirksomhet = tilgjengeligeVirksomheter.find(virksomhet => virksomhet.id === id);
+		const nyValgtVirksomhet = tilgjengeligeVirksomheter.find(virksomhet => virksomhet.id === id);
 
-		if (valgtVirksomhet) {
-			setValgtVirksomhet(valgtVirksomhet);
+		if (nyValgtVirksomhet) {
+			setValgtVirksomhet(nyValgtVirksomhet);
 		}
 	};
 
@@ -32,7 +34,7 @@ export const Menu = () => {
 					{tilgjengeligeVirksomheter.map(virksomhet => {
 						return (
 							<option key={virksomhet.id} value={virksomhet.id}>
-								{virksomhet.navn}
+								{virksomhet.virksomhetsnavn}
 							</option>
 						)
 					})}

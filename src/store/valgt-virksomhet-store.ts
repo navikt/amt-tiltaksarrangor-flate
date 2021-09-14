@@ -3,7 +3,7 @@ import { useState } from 'react';
 
 interface ValgtVirksomhet {
 	id: string;
-	navn: string;
+	virksomhetsnavn: string;
 	virksomhetsnummer: string;
 }
 
