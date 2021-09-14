@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 
 import { fetchDeltakerePaTiltakinstans, fetchTiltakinstans } from '../../../api';
-import { Bruker } from '../../../api/data/bruker';
+import { Deltaker } from '../../../api/data/bruker';
 import { BrukerOversiktTabell } from './bruker-oversikt/BrukerOversiktTabell';
 import { FilterMeny } from './FilterMeny';
 import styles from './TiltakinstansDetaljerPage.module.less';
@@ -19,7 +19,7 @@ export const TiltakinstansDetaljerPage = () => {
 	const params = useParams<TiltakinstansDetaljerPageRouteParams>();
 
 	const [tiltakinstans, setTiltakinstans] = useState<Tiltakinstans>();
-	const [brukere, setBrukere] = useState<Bruker[]>([]);
+	const [brukere, setBrukere] = useState<Deltaker[]>([]);
 
 	const [isLoadingDeltakere, setIsLoadingDeltakere] = useState<boolean>(true);
 	const [isLoadingTiltakinstans, setIsLoadingTiltakinstans] = useState<boolean>(true);
