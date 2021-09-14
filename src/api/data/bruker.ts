@@ -1,26 +1,26 @@
 import { OrNothing } from '../../utils/types/or-nothing';
 
 export interface Bruker {
-	id: string; // TODO: Skal vi bruke uuid eller heltall?
+	id: string;
 	fodselsdato: string;
-	fornavn: string; // TODO: Kan hende det holder med kun et felt for navn
+	fornavn: string;
 	etternavn: string;
-	tiltak: Tiltaksinstans;
+	tiltak: DeprecatedTiltaksinstans;
 }
 
 export interface DetaljertBruker {
-	id: string; // TODO: Skal vi bruke uuid eller heltall?
+	id: string;
 	fodselsdato: string;
-	fornavn: string; // TODO: Kan hende det holder med kun et felt for navn
+	fornavn: string;
 	etternavn: string;
-	tiltak: Tiltaksinstans;
+	tiltak: DeprecatedTiltaksinstans;
 
 	navEnhet: NavEnhet;
 	kontaktinfo: Kontaktinfo;
 	navVeileder: OrNothing<NavVeileder>;
 }
 
-export interface Tiltaksinstans {
+export interface DeprecatedTiltaksinstans {
 	id: string;
 	type: TiltakType;
 	status: TiltakStatus;

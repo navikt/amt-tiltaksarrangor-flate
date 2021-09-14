@@ -19,7 +19,7 @@ export const FilterMeny = () => {
 	return (
 		<div>
 			<Input
-				placeholder="Søk etter navn eller fnr"
+				placeholder="Søk etter navn eller fødselsdato"
 				className={globalStyles.blokkM}
 				value={navnFnrSok}
 				onChange={(e) => setNavnFnrSok(e.target.value)}
