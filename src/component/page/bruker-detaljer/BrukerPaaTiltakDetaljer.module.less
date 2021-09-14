@@ -3,8 +3,32 @@
 @import '~nav-frontend-core/less/_mixins';
 @import '~nav-frontend-core/less/utilities';
 
-.textBold {
-	font-weight: bolder;
+.header {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+
+	background-color: white;
+	padding: 2rem 3rem 2rem 3rem;
+	width: 100%;
+}
+
+.headerTitle {
+	margin-right: 2rem;
+}
+
+.tilbakeLenke {
+	display: block;
+	margin-right: 2rem;
+}
+
+.detaljer {
+	padding: 2rem;
+}
+
+.tiltakCard {
+	width: 100%;
+	margin-bottom: 2rem;
 }
 
 .userInfoContent {
@@ -12,15 +36,4 @@
 	grid-template-columns: 1fr 1fr 1fr;
 	grid-column-gap: 2rem;
 	grid-row-gap: 2rem;
-}
-
-.periodeInputWrapper {
-	display: flex;
-	.blokk-s();
-	align-items: flex-end;
-}
-
-.periodeKnapp {
-	margin-left: 1rem;
-	height: 42px;
 }

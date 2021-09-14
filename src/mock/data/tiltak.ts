@@ -24,8 +24,7 @@ const baseTiltakList: BaseTiltak[] = [
 const lagTiltak = (): Tiltak[] => {
 	const tiltak: Tiltak[] = [];
 
-	for (let i = 0; i < baseTiltakList.length; i++) {
-		const baseTiltak = baseTiltakList[i];
+	baseTiltakList.forEach(baseTiltak => {
 		const antallInstanser = randBetween(1, 3);
 
 		tiltak.push({
@@ -33,7 +32,7 @@ const lagTiltak = (): Tiltak[] => {
 			...baseTiltak,
 			tiltakinstanser: lagTiltakinstanser(antallInstanser),
 		});
-	}
+	});
 
 	return tiltak;
 };
