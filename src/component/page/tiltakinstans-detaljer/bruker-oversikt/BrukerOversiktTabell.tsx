@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { AlertStripeInfo } from 'nav-frontend-alertstriper';
 import { Deltaker } from '../../../../api/data/bruker';
 import { useTiltaksoversiktSokStore } from '../../../../store/tiltaksoversikt-sok-store';
-import { Show } from '../../../felles/Show';
 import { Spinner } from '../../../felles/spinner/Spinner';
 import { TabellBody } from './TabellBody';
 import { TabellHeader } from './TabellHeader';
@@ -15,6 +14,14 @@ interface UserTableProps {
 	isLoading: boolean;
 }
 
+const IngenBrukereAlertstripe = () => (
+	<AlertStripeInfo className={styles.ingenBrukere}>
+			<span role="alert" aria-live="polite">
+				Fant ingen brukere
+			</span>
+	</AlertStripeInfo>
+);
+
 export const BrukerOversiktTabell = (props: UserTableProps) => {
 	const { brukerSortering, setBrukerSortering, tiltakStatusFilter, navnFnrSok} = useTiltaksoversiktSokStore();
 	const brukereFiltrert = () => filtrerBrukere(props.brukere, tiltakStatusFilter, navnFnrSok);
@@ -26,28 +33,18 @@ export const BrukerOversiktTabell = (props: UserTableProps) => {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [props.brukere, tiltakStatusFilter, navnFnrSok]);
 
-	const IngenBrukereAlertstripe = () => (
-		<AlertStripeInfo className={styles.ingenBrukere}>
-			<span role="alert" aria-live="polite">
-				Fant ingen brukere
-			</span>
-		</AlertStripeInfo>
-	);
+	if (props.isLoading) {
+		return <Spinner/>;
+	}
+
+	if (harIngenBrukere) {
+		return <IngenBrukereAlertstripe/>;
+	}
 
 	return (
-		<>
-			<table className="tabell tabell--stripet">
-				<TabellHeader sortering={brukerSortering} onSortChange={(sort) => setBrukerSortering(sort)} />
-				<Show if={!props.isLoading && !harIngenBrukere}>
-					<TabellBody brukere={filtrerteBrukere} sortering={brukerSortering} />
-				</Show>
-			</table>
-			<Show if={!props.isLoading && harIngenBrukere}>
-				<IngenBrukereAlertstripe />
-			</Show>
-			<Show if={props.isLoading}>
-				<Spinner />
-			</Show>
-		</>
+		<table className="tabell tabell--stripet">
+			<TabellHeader sortering={brukerSortering} onSortChange={(sort) => setBrukerSortering(sort)} />
+			<TabellBody brukere={filtrerteBrukere} sortering={brukerSortering} />
+		</table>
 	);
 };

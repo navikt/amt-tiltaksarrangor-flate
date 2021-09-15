@@ -48,9 +48,13 @@ const lagTiltakinstanser = (antallInstanser: number): Tiltakinstans[] => {
 };
 
 const lagTiltakinstanse = (): Tiltakinstans => {
+	const deltakerAntall = randBetween(0, 20);
+	const deltakerKapasitet = deltakerAntall + randBetween(0, 10);
+
 	return {
 		id: randBetween(1000, 1000000).toString(),
-		deltakere: randBetween(0, 20),
+		deltakerAntall,
+		deltakerKapasitet,
 		startdato: faker.date.past().toISOString(),
 		sluttdato: faker.date.future().toISOString()
 	};

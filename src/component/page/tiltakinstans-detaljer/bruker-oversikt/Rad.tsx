@@ -1,11 +1,11 @@
 import React from 'react';
 
-import { Deltaker, TiltakStatus } from '../../../../api/data/bruker';
+import { Deltaker } from '../../../../api/data/bruker';
 import { lagKommaSeparertBrukerNavn } from '../../../../utils/bruker-utils';
 import { formatDateStr } from '../../../../utils/date-utils';
 import { BrukerSortering, Kolonnenavn } from './types';
-import { EtikettFokus, EtikettInfo, EtikettSuksess } from 'nav-frontend-etiketter';
 import { Link } from 'react-router-dom';
+import { mapTiltakStatusTilEtikett } from '../../../../utils/text-mappers';
 
 interface RadProps {
 	idx: number;
@@ -19,19 +19,6 @@ const sortClassName = (name: Kolonnenavn, brukerSortering?: BrukerSortering): st
 	}
 
 	return 'tabell__td--sortert';
-};
-
-const mapTiltakStatusTilEtikett = (tiltakStatus: TiltakStatus) => {
-	switch (tiltakStatus) {
-		case TiltakStatus.GJENNOMFORES:
-			return <EtikettSuksess>Gjennomføres</EtikettSuksess>;
-		case TiltakStatus.NY_BRUKER:
-			return <EtikettInfo>Ny bruker</EtikettInfo>;
-		case TiltakStatus.PAMELDT:
-			return <EtikettFokus>Påmeldt</EtikettFokus>;
-		default:
-			return null;
-	}
 };
 
 export const Rad = (props: RadProps) => {
