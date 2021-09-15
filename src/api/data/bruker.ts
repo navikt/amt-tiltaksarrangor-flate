@@ -47,6 +47,9 @@ interface NavVeileder {
 	telefonnummer: OrNothing<string>;
 }
 
+// TODO: Tror vi må droppe å bruke enum for tiltak type
+//  Er bedre med en egen type, type TiltakType = string;
+
 export enum TiltakType {
 	JOBBSOKERKURS = 'JOBBSOKERKURS',
 	AVKLARING = 'AVKLARING',

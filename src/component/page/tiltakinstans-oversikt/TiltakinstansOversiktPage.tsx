@@ -1,25 +1,32 @@
 import React, { useEffect, useState } from 'react';
-import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
-import { Checkbox, CheckboxGruppe } from 'nav-frontend-skjema';
-import { TiltakType } from '../../../api/data/bruker';
-import { mapTiltakTypeTilTekst } from '../../../utils/text-mappers';
 import { TiltakinstansListe } from './tiltakinstans-liste/TiltakinstansListe';
-import globalStyles from '../../../globals.module.less';
 import styles from './TiltakinstansOversiktPage.module.less';
 import { fetchTiltak } from '../../../api';
 import { Tiltak } from '../../../api/data/tiltak';
 import { Spinner } from '../../felles/spinner/Spinner';
+import { TiltaksvariantFilter } from './TiltaksvariantFilter';
 
 export const TiltakinstansOversiktPage = () => {
-    const [tiltak, setTiltak] = useState<Tiltak[]>([]);
+    const [alleTiltak, setAlleTiltak] = useState<Tiltak[]>([]);
+    const [valgteTiltakTyper, setValgteTiltakTyper] = useState<string[]>([]);
     const [isLoading, setIsLoading] = useState<boolean>(true);
+
+    const filtrerteTiltak = valgteTiltakTyper.length > 0
+        ? alleTiltak.filter(tiltak => valgteTiltakTyper.includes(tiltak.type))
+        : alleTiltak;
+
+    const tiltakValg = alleTiltak.map(tiltak => ({ type: tiltak.type, navn: tiltak.typeNavn }))
 
     useEffect(() => {
         fetchTiltak()
-            .then(res => setTiltak(res.data))
+            .then(res => setAlleTiltak(res.data))
             .catch(console.error) // TODO: vis feil i alertstripe
             .finally(() => setIsLoading(false));
     }, []);
+
+    const handleOnTiltakValgtChanged = (valgteTyper: string[]) => {
+        setValgteTiltakTyper(valgteTyper);
+    };
 
     if (isLoading) {
         return <Spinner/>;
@@ -28,22 +35,16 @@ export const TiltakinstansOversiktPage = () => {
     return (
         <main className={styles.page}>
             <section>
-                <Ekspanderbartpanel tittel="Tiltaksvarianter" className={globalStyles.blokkM} apen>
-                    <CheckboxGruppe>
-                        {Object.values(TiltakType).map((type) => (
-                            <Checkbox
-                                key={type}
-                                label={mapTiltakTypeTilTekst(type)}
-                                name="filter-tiltakstype"
-                                checked={false}
-
-                            />
-                        ))}
-                    </CheckboxGruppe>
-                </Ekspanderbartpanel>
+                <TiltaksvariantFilter
+                    tiltakValg={tiltakValg}
+                    valgteTyper={valgteTiltakTyper}
+                    onTiltakValgtChanged={handleOnTiltakValgtChanged}
+                />
             </section>
 
-            <TiltakinstansListe tiltak={tiltak}/>
+            <section>
+                <TiltakinstansListe tiltak={filtrerteTiltak}/>
+            </section>
         </main>
     )
 }
