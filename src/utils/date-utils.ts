@@ -6,6 +6,13 @@ export const formatDateStr = (dateStr: string) => {
 	return dayjs(dateStr).format('DD.MM.YYYY');
 };
 
+export const dateStrWithMonthName = (dateStr: string | undefined): string => {
+	if (!dateStr)
+		return '';
+
+	return dayjs(dateStr).format('DD. MMMM YYYY');
+};
+
 export const formatDateInputStr = (dateStr: OrNothing<string>): string => {
 	return dateStr ? dayjs(dateStr).format('YYYY-MM-DD') : '';
 };

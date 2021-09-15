@@ -10,6 +10,8 @@ import { Spinner } from '../../felles/spinner/Spinner';
 import { Normaltekst, Systemtittel } from 'nav-frontend-typografi';
 import { AlertStripeFeil } from 'nav-frontend-alertstriper';
 import { Tiltakinstans } from '../../../api/data/tiltak';
+import { dateStrWithMonthName } from '../../../utils/date-utils';
+import { EtikettSuksess } from 'nav-frontend-etiketter';
 
 interface TiltakinstansDetaljerPageRouteParams {
 	tiltakinstansId: string;
@@ -44,21 +46,32 @@ export const TiltakinstansDetaljerPage = () => {
 		return <AlertStripeFeil>Noe gikk galt</AlertStripeFeil>;
 	}
 
+	const ledigePlasser = tiltakinstans.deltakerKapasitet - tiltakinstans.deltakerAntall;
+
 	return (
 		<main className={styles.tiltaksoversiktPage}>
 			<section>
-				<Link to="/" className="blokk-m">Tilbake</Link>
+				<Link to="/" className={styles.tilbakelenke}>Tilbake</Link>
 
 				<div className="blokk-m">
-					<Systemtittel>PLACEHOLDER</Systemtittel>
-					<Normaltekst>Start dato: {tiltakinstans.startdato}</Normaltekst>
-					<Normaltekst>Slutt dato: {tiltakinstans.sluttdato}</Normaltekst>
+					<Systemtittel className="blokk-xxs">Jobbkurs(PLACEHOLDER)</Systemtittel>
+					<Normaltekst>Oppstart: {dateStrWithMonthName(tiltakinstans.startdato)}</Normaltekst>
+					<Normaltekst className="blokk-xxs">Sluttdato: {dateStrWithMonthName(tiltakinstans.sluttdato)}</Normaltekst>
+
+					<EtikettSuksess className="blokk-s">Gjennomføres</EtikettSuksess>
+
+					<Normaltekst className="blokk-xxs">
+						Ledige plasser: {ledigePlasser} &nbsp;&nbsp; Totalt: {tiltakinstans.deltakerKapasitet}
+					</Normaltekst>
+					<Normaltekst>Gruppe AMO(PLACEHOLDER)</Normaltekst>
 				</div>
 
 				<FilterMeny />
 			</section>
 
-			<BrukerOversiktTabell brukere={brukere} isLoading={isLoadingTiltakinstans} />
+			<section>
+				<BrukerOversiktTabell brukere={brukere} isLoading={isLoadingTiltakinstans} />
+			</section>
 		</main>
 	);
 };

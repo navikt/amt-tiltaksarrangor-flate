@@ -12,5 +12,6 @@ export interface Tiltakinstans {
 	id: string;
 	startdato: string;
 	sluttdato: string;
-	deltakere: number;
+	deltakerKapasitet: number;
+	deltakerAntall: number;
 }
