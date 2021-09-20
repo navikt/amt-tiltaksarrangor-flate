@@ -2,14 +2,14 @@ import constate from 'constate';
 import { useState } from 'react';
 
 import { BrukerSortering } from '../component/page/tiltakinstans-detaljer/bruker-oversikt/types';
-import { TiltakStatus } from '../api/data/bruker';
+import { TiltakDeltagerStatus } from '../api/data/deltager';
 
 export const [TiltaksoversiktSokStoreProvider, useTiltaksoversiktSokStore] = constate(() => {
 	const [navnFnrSok, setNavnFnrSok] = useState<string>('');
-	const [tiltakStatusFilter, setTiltakStatusFilter] = useState<TiltakStatus[]>([]);
+	const [tiltakStatusFilter, setTiltakStatusFilter] = useState<TiltakDeltagerStatus[]>([]);
 	const [brukerSortering, setBrukerSortering] = useState<BrukerSortering>();
 
-	const leggTilTiltakStatus = (tiltakStatus: TiltakStatus) => {
+	const leggTilTiltakStatus = (tiltakStatus: TiltakDeltagerStatus) => {
 		setTiltakStatusFilter((prevStatuser) => {
 			if (prevStatuser.includes(tiltakStatus)) {
 				return prevStatuser;
@@ -19,7 +19,7 @@ export const [TiltaksoversiktSokStoreProvider, useTiltaksoversiktSokStore] = con
 		});
 	};
 
-	const fjernFraTiltakStatus = (tiltakStatus: TiltakStatus) => {
+	const fjernFraTiltakStatus = (tiltakStatus: TiltakDeltagerStatus) => {
 		setTiltakStatusFilter((prevStatuser) => {
 			return prevStatuser.filter((status) => status !== tiltakStatus);
 		});

@@ -1,17 +1,22 @@
 
-export interface Tiltak {
-	id: string;
-	type: string;       // JOBBKLUBB
-	typeNavn: string;   // Jobbklubb
-	navn: string;       // Sveisekurs
-	// enum for individuell/gruppe?
-	tiltakinstanser: Tiltakinstans[];
+export enum TiltakInstansStatus {
+	IKKE_STARTET= 'IKKE_STARTET',
+	GJENNOMFORES= 'GJENNOMFORES',
+	AVSLUTTET= 'AVSLUTTET',
 }
 
-export interface Tiltakinstans {
-	id: string;
-	startdato: string;
-	sluttdato: string;
-	deltakerKapasitet: number;
-	deltakerAntall: number;
+export interface TiltakInstansDto {
+	id: string,
+	navn: string,
+	startdato: string,
+	sluttdato: string,
+	status: TiltakInstansStatus,
+	deltagerAntall: number,
+	deltagerKapasitet: number,
+	tiltak: TiltakDto
+}
+
+export interface TiltakDto {
+	tiltakskode: string,
+	tiltaksnavn: string,
 }

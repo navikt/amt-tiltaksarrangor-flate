@@ -1,15 +1,15 @@
 import React from 'react';
 
-import { Deltaker } from '../../../../api/data/bruker';
 import { lagKommaSeparertBrukerNavn } from '../../../../utils/bruker-utils';
 import { formatDateStr } from '../../../../utils/date-utils';
 import { BrukerSortering, Kolonnenavn } from './types';
 import { Link } from 'react-router-dom';
-import { mapTiltakStatusTilEtikett } from '../../../../utils/text-mappers';
+import { TiltakDeltagerDto } from '../../../../api/data/deltager';
+import { mapTiltakDeltagerStatusTilTekst } from '../../../../utils/text-mappers';
 
 interface RadProps {
 	idx: number;
-	bruker: Deltaker;
+	bruker: TiltakDeltagerDto;
 	brukerSortering?: BrukerSortering;
 }
 
@@ -22,7 +22,7 @@ const sortClassName = (name: Kolonnenavn, brukerSortering?: BrukerSortering): st
 };
 
 export const Rad = (props: RadProps) => {
-	const { fodselsdato, fornavn, etternavn, tiltak, id, stardato, sluttdato } = props.bruker;
+	const { fodselsdato, fornavn, etternavn, id, startdato, sluttdato, status } = props.bruker;
 	const userSort = props.brukerSortering;
 
 	return (
@@ -34,12 +34,12 @@ export const Rad = (props: RadProps) => {
 			</td>
 			<td className={sortClassName(Kolonnenavn.FODSELSDATO, userSort)}>{fodselsdato}</td>
 			<td className={sortClassName(Kolonnenavn.START, userSort)}>
-				{stardato && formatDateStr(stardato)}
+				{startdato && formatDateStr(startdato)}
 			</td>
 			<td className={sortClassName(Kolonnenavn.SLUTT, userSort)}>
 				{sluttdato && formatDateStr(sluttdato)}
 			</td>
-			<td className={sortClassName(Kolonnenavn.STATUS, userSort)}>{mapTiltakStatusTilEtikett(tiltak.status)}</td>
+			<td className={sortClassName(Kolonnenavn.STATUS, userSort)}>{mapTiltakDeltagerStatusTilTekst(status)}</td>
 		</tr>
 	);
 };

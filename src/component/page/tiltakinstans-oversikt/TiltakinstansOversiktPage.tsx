@@ -1,25 +1,27 @@
 import React, { useEffect, useState } from 'react';
 import { TiltakinstansListe } from './tiltakinstans-liste/TiltakinstansListe';
 import styles from './TiltakinstansOversiktPage.module.less';
-import { fetchTiltak } from '../../../api';
-import { Tiltak } from '../../../api/data/tiltak';
+import { fetchTiltakInstanser } from '../../../api';
+import { TiltakInstansDto } from '../../../api/data/tiltak';
 import { Spinner } from '../../felles/spinner/Spinner';
 import { TiltaksvariantFilter } from './TiltaksvariantFilter';
+import { finnUnikeTiltak } from '../../../utils/tiltak-utils';
 
 export const TiltakinstansOversiktPage = () => {
-    const [alleTiltak, setAlleTiltak] = useState<Tiltak[]>([]);
+    const [alleTiltakInstanser, setAlleTiltakInstanser] = useState<TiltakInstansDto[]>([]);
     const [valgteTiltakTyper, setValgteTiltakTyper] = useState<string[]>([]);
     const [isLoading, setIsLoading] = useState<boolean>(true);
 
     const filtrerteTiltak = valgteTiltakTyper.length > 0
-        ? alleTiltak.filter(tiltak => valgteTiltakTyper.includes(tiltak.type))
-        : alleTiltak;
+        ? alleTiltakInstanser.filter(tiltakInstans => valgteTiltakTyper.includes(tiltakInstans.tiltak.tiltakskode))
+        : alleTiltakInstanser;
 
-    const tiltakValg = alleTiltak.map(tiltak => ({ type: tiltak.type, navn: tiltak.typeNavn }))
+    const tiltakValg = finnUnikeTiltak(alleTiltakInstanser)
+        .map(tiltak => ({ type: tiltak.tiltakskode, navn: tiltak.tiltaksnavn }));
 
     useEffect(() => {
-        fetchTiltak()
-            .then(res => setAlleTiltak(res.data))
+        fetchTiltakInstanser('TODO')
+            .then(res => setAlleTiltakInstanser(res.data))
             .catch(console.error) // TODO: vis feil i alertstripe
             .finally(() => setIsLoading(false));
     }, []);
@@ -43,7 +45,7 @@ export const TiltakinstansOversiktPage = () => {
             </section>
 
             <section>
-                <TiltakinstansListe tiltak={filtrerteTiltak}/>
+                <TiltakinstansListe tiltakInstanser={filtrerteTiltak}/>
             </section>
         </main>
     )

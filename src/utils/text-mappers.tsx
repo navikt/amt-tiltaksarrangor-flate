@@ -1,44 +1,47 @@
-import { TiltakStatus, TiltakType } from '../api/data/bruker';
+import { TiltakDeltagerStatus } from '../api/data/deltager';
 import { EtikettFokus, EtikettInfo, EtikettSuksess } from 'nav-frontend-etiketter';
 import React from 'react';
+import { TiltakInstansStatus } from '../api/data/tiltak';
 
-export const mapTiltakTypeTilTekst = (tiltakType: TiltakType): string => {
-	switch (tiltakType) {
-		case TiltakType.AVKLARING:
-			return 'Avklaring';
-		case TiltakType.GRUPPE_AMO:
-			return 'Gruppe AMO';
-		case TiltakType.JOBBSOKERKURS:
-			return 'Jobbsøkerkurs';
-		case TiltakType.OPPFOLGING:
-			return 'Oppfølging';
-		default:
-			return tiltakType;
-	}
-};
-
-export const mapTiltakStatusTilTekst = (tiltakStatus: TiltakStatus): string => {
-	switch (tiltakStatus) {
-		case TiltakStatus.GJENNOMFORES:
-			return 'Gjennomføres';
-		case TiltakStatus.NY_BRUKER:
-			return 'Ny Bruker';
-		case TiltakStatus.PAMELDT:
-			return 'Påmeldt';
-		default:
-			return tiltakStatus;
-	}
-};
-
-export const mapTiltakStatusTilEtikett = (tiltakStatus: TiltakStatus) => {
-	switch (tiltakStatus) {
-		case TiltakStatus.GJENNOMFORES:
+export const mapTiltakInstansStatusTilEtikett = (tiltakInstansStatus: TiltakInstansStatus) => {
+	switch (tiltakInstansStatus) {
+		case TiltakInstansStatus.IKKE_STARTET:
+			return <EtikettInfo>Gjennomføres</EtikettInfo>;
+		case TiltakInstansStatus.GJENNOMFORES:
 			return <EtikettSuksess>Gjennomføres</EtikettSuksess>;
-		case TiltakStatus.NY_BRUKER:
-			return <EtikettInfo>Ny bruker</EtikettInfo>;
-		case TiltakStatus.PAMELDT:
-			return <EtikettFokus>Påmeldt</EtikettFokus>;
+		case TiltakInstansStatus.AVSLUTTET:
+			return <EtikettFokus>Avsluttet</EtikettFokus>;
 		default:
 			return null;
+	}
+};
+
+export const mapTiltakDeltagerStatusTilEtikett = (tiltakDeltagerStatus: TiltakDeltagerStatus) => {
+	switch (tiltakDeltagerStatus) {
+		case TiltakDeltagerStatus.GJENNOMFORES:
+			return <EtikettSuksess>Gjennomføres</EtikettSuksess>;
+		case TiltakDeltagerStatus.NY_BRUKER:
+			return <EtikettInfo>Ny bruker</EtikettInfo>;
+		case TiltakDeltagerStatus.AVBRUTT:
+			return <EtikettFokus>Avbrutt</EtikettFokus>;
+		case TiltakDeltagerStatus.FULLFORT:
+			return <EtikettSuksess>Fullført</EtikettSuksess>;
+		default:
+			return null;
+	}
+};
+
+export const mapTiltakDeltagerStatusTilTekst = (tiltakDeltagerStatus: TiltakDeltagerStatus): string => {
+	switch (tiltakDeltagerStatus) {
+		case TiltakDeltagerStatus.GJENNOMFORES:
+			return 'Gjennomføres';
+		case TiltakDeltagerStatus.NY_BRUKER:
+			return 'Ny Bruker';
+		case TiltakDeltagerStatus.AVBRUTT:
+			return 'Avbrutt';
+		case TiltakDeltagerStatus.FULLFORT:
+			return 'Fullført';
+		default:
+			return tiltakDeltagerStatus;
 	}
 };

@@ -2,16 +2,16 @@ import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 
 import { fetchDeltakerePaTiltakinstans, fetchTiltakinstans } from '../../../api';
-import { Deltaker } from '../../../api/data/bruker';
 import { BrukerOversiktTabell } from './bruker-oversikt/BrukerOversiktTabell';
 import { FilterMeny } from './FilterMeny';
 import styles from './TiltakinstansDetaljerPage.module.less';
 import { Spinner } from '../../felles/spinner/Spinner';
 import { Normaltekst, Systemtittel } from 'nav-frontend-typografi';
 import { AlertStripeFeil } from 'nav-frontend-alertstriper';
-import { Tiltakinstans } from '../../../api/data/tiltak';
 import { dateStrWithMonthName } from '../../../utils/date-utils';
-import { EtikettSuksess } from 'nav-frontend-etiketter';
+import { TiltakInstansDto } from '../../../api/data/tiltak';
+import { TiltakDeltagerDto } from '../../../api/data/deltager';
+import { mapTiltakInstansStatusTilEtikett } from '../../../utils/text-mappers';
 
 interface TiltakinstansDetaljerPageRouteParams {
 	tiltakinstansId: string;
@@ -20,8 +20,8 @@ interface TiltakinstansDetaljerPageRouteParams {
 export const TiltakinstansDetaljerPage = () => {
 	const params = useParams<TiltakinstansDetaljerPageRouteParams>();
 
-	const [tiltakinstans, setTiltakinstans] = useState<Tiltakinstans>();
-	const [brukere, setBrukere] = useState<Deltaker[]>([]);
+	const [tiltakinstans, setTiltakinstans] = useState<TiltakInstansDto>();
+	const [brukere, setBrukere] = useState<TiltakDeltagerDto[]>([]);
 
 	const [isLoadingDeltakere, setIsLoadingDeltakere] = useState<boolean>(true);
 	const [isLoadingTiltakinstans, setIsLoadingTiltakinstans] = useState<boolean>(true);
@@ -46,7 +46,7 @@ export const TiltakinstansDetaljerPage = () => {
 		return <AlertStripeFeil>Noe gikk galt</AlertStripeFeil>;
 	}
 
-	const ledigePlasser = tiltakinstans.deltakerKapasitet - tiltakinstans.deltakerAntall;
+	const ledigePlasser = tiltakinstans.deltagerKapasitet - tiltakinstans.deltagerAntall;
 
 	return (
 		<main className={styles.tiltaksoversiktPage}>
@@ -54,16 +54,16 @@ export const TiltakinstansDetaljerPage = () => {
 				<Link to="/" className={styles.tilbakelenke}>Tilbake</Link>
 
 				<div className="blokk-m">
-					<Systemtittel className="blokk-xxs">Jobbkurs(PLACEHOLDER)</Systemtittel>
+					<Systemtittel className="blokk-xxs">{tiltakinstans.navn}</Systemtittel>
 					<Normaltekst>Oppstart: {dateStrWithMonthName(tiltakinstans.startdato)}</Normaltekst>
 					<Normaltekst className="blokk-xxs">Sluttdato: {dateStrWithMonthName(tiltakinstans.sluttdato)}</Normaltekst>
 
-					<EtikettSuksess className="blokk-s">Gjennomføres</EtikettSuksess>
+					{mapTiltakInstansStatusTilEtikett(tiltakinstans.status)}
 
 					<Normaltekst className="blokk-xxs">
-						Ledige plasser: {ledigePlasser} &nbsp;&nbsp; Totalt: {tiltakinstans.deltakerKapasitet}
+						Ledige plasser: {ledigePlasser} &nbsp;&nbsp; Totalt: {tiltakinstans.deltagerKapasitet}
 					</Normaltekst>
-					<Normaltekst>Gruppe AMO(PLACEHOLDER)</Normaltekst>
+					<Normaltekst>{tiltakinstans.tiltak.tiltaksnavn}</Normaltekst>
 				</div>
 
 				<FilterMeny />

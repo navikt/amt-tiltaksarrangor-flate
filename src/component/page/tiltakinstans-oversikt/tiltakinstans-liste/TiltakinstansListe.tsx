@@ -1,18 +1,24 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { TiltakinstansOversiktPanel } from './tiltakinstans-oversikt-panel/TiltakinstansOversiktPanel';
-import { Tiltak } from '../../../../api/data/tiltak';
 import styles from './TiltaksinstansListe.module.less';
 import { Systemtittel } from 'nav-frontend-typografi';
-import dayjs from 'dayjs';
 import { AlertStripeInfo } from 'nav-frontend-alertstriper';
+import { TiltakDto, TiltakInstansDto } from '../../../../api/data/tiltak';
+import { finnTiltakInstanser, finnUnikeTiltak } from '../../../../utils/tiltak-utils';
 
 interface TiltakinstansListeProps {
-	tiltak: Tiltak[];
+	tiltakInstanser: TiltakInstansDto[];
 }
+
+
 
 export const TiltakinstansListe = (props: TiltakinstansListeProps) => {
 
-	if (props.tiltak.length === 0) {
+	const unikeTiltak = useMemo<TiltakDto[]>(() => {
+		return finnUnikeTiltak(props.tiltakInstanser)
+	}, [props.tiltakInstanser]);
+
+	if (props.tiltakInstanser.length === 0) {
 		return (
 			<div>
 				<AlertStripeInfo>Ingen tiltak</AlertStripeInfo>
@@ -22,19 +28,19 @@ export const TiltakinstansListe = (props: TiltakinstansListeProps) => {
 
 	return (
 		<ul className={styles.cleanList}>
-			{props.tiltak.map((tiltak, tiltakIdx) => {
+			{unikeTiltak.map((tiltak, tiltakIdx) => {
 				return (
 					<li key={tiltakIdx} className="blokk-l">
-						<Systemtittel className="blokk-m">{tiltak.typeNavn}</Systemtittel>
+						<Systemtittel className="blokk-m">{tiltak.tiltaksnavn}</Systemtittel>
 						<ul className={styles.cleanList}>
-							{tiltak.tiltakinstanser.map((tiltakinstanse, tiltakinstanseIdx) => {
+							{finnTiltakInstanser(tiltak.tiltakskode, props.tiltakInstanser).map((tiltakInstans) => {
 								return (
-									<li key={tiltakinstanseIdx} className="blokk-s">
+									<li key={tiltakInstans.id} className="blokk-s">
 										<TiltakinstansOversiktPanel
-											id={tiltakinstanse.id}
-											navn={tiltak.typeNavn} // TODO: Hva blir navnet for en tiltakinstanse?
-											oppstart={dayjs(tiltakinstanse.startdato).toDate()} // TODO: date-utils eller map DTO til ny modell lenger oppe
-											deltakere={tiltakinstanse.deltakerAntall}
+											id={tiltakInstans.id}
+											navn={tiltakInstans.navn}
+											oppstart={tiltakInstans.startdato}
+											deltakere={tiltakInstans.deltagerAntall}
 										/>
 									</li>
 								);

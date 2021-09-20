@@ -7,6 +7,10 @@ export const randBetween = (min: number, max: number): number => {
 	return faker.datatype.number({ min, max });
 };
 
+export const randomUuid = (): string => {
+	return faker.datatype.uuid()
+};
+
 export const randomFnr = (): string => {
 	const dag = randBetween(1, 31);
 	const mnd = randBetween(1, 12);

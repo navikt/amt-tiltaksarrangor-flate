@@ -1,12 +1,12 @@
 import React from 'react';
 
-import { Deltaker } from '../../../../api/data/bruker';
 import { Rad } from './Rad';
 import { BrukerSortering } from './types';
+import { TiltakDeltagerDto } from '../../../../api/data/deltager';
 
 interface TabellBodyProps {
 	sortering?: BrukerSortering;
-	brukere: Deltaker[];
+	brukere: TiltakDeltagerDto[];
 }
 
 export const TabellBody = (props: TabellBodyProps) => {

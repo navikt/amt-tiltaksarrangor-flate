@@ -1,44 +1,31 @@
 import { AxiosPromise } from 'axios';
 
-import { Deltaker, DetaljertBruker, DeprecatedTiltaksinstans } from './data/bruker';
 import {
-	OppdaterTiltakSluttdatoRequestBody,
-	OppdaterTiltakStartdatoRequestBody,
-} from './data/request-types';
+	TiltakDeltagerDetaljerDto,
+	TiltakDeltagerDto
+} from './data/deltager';
 import { axiosInstance } from './utils';
-import { Tiltak, Tiltakinstans } from './data/tiltak';
+import { TiltakInstansDto } from './data/tiltak';
 import { InnloggetAnsatt } from './data/ansatt';
 
 export const fetchInnloggetAnsatt = (): AxiosPromise<InnloggetAnsatt> => {
-	return axiosInstance.get(`/amt-tiltak/api/tiltaksleverandor/ansatt/me`);
+	return axiosInstance.get('/amt-tiltak/api/tiltaksleverandor/ansatt/meg');
 };
 
-export const fetchDeltakerePaTiltakinstans = (tiltakinstansId: string): AxiosPromise<Deltaker[]> => {
-	return axiosInstance.get(`/amt-tiltak/api/tiltak/instans/${tiltakinstansId}/brukere`);
+export const fetchTiltakInstanser = (tiltaksleverandorId: string): AxiosPromise<TiltakInstansDto[]> => {
+	return axiosInstance.get(`/amt-tiltak/api/tiltak?tiltaksleverandorId=${tiltaksleverandorId}`);
 };
 
-export const fetchTiltakinstans = (tiltakinstansId: string): AxiosPromise<Tiltakinstans> => {
-	return axiosInstance.get(`/amt-tiltak/api/tiltak/instans/${tiltakinstansId}`);
+export const fetchTiltakinstans = (tiltakinstansId: string): AxiosPromise<TiltakInstansDto> => {
+	return axiosInstance.get(`/amt-tiltak/api/tiltak-instans/${tiltakinstansId}`);
 };
 
-export const fetchBrukerDetaljer = (brukerId: string): AxiosPromise<DetaljertBruker> => {
-	return axiosInstance.get(`/amt-tiltak/api/bruker/${brukerId}`);
+export const fetchDeltakerePaTiltakinstans = (tiltakinstansId: string): AxiosPromise<TiltakDeltagerDto[]> => {
+	return axiosInstance.get(`/amt-tiltak/api/tiltak-instans/${tiltakinstansId}/deltagere`);
 };
 
-export const fetchTiltak = (): AxiosPromise<Tiltak[]> => {
-	return axiosInstance.get('/amt-tiltak/api/tiltak');
+export const fetchTiltakDeltagerDetaljer = (tiltakDeltagerId: string): AxiosPromise<TiltakDeltagerDetaljerDto> => {
+	return axiosInstance.get(`/amt-tiltak/api/tiltak-deltager/${tiltakDeltagerId}`);
 };
 
-export const oppdaterTiltakStartdato = (tiltakinstansId: string, startdato: Date): AxiosPromise<DeprecatedTiltaksinstans> => {
-	const body: OppdaterTiltakStartdatoRequestBody = {
-		startdato: startdato.toISOString(),
-	};
-	return axiosInstance.put(`/amt-tiltak/api/tiltak/${tiltakinstansId}/startdato`, body);
-};
 
-export const oppdaterTiltakSluttdato = (tiltakinstansId: string, sluttdato: Date): AxiosPromise<DeprecatedTiltaksinstans> => {
-	const body: OppdaterTiltakSluttdatoRequestBody = {
-		sluttdato: sluttdato.toISOString(),
-	};
-	return axiosInstance.put(`/amt-tiltak/api/tiltak/${tiltakinstansId}/sluttdato`, body);
-};

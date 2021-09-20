@@ -1,68 +1,34 @@
 import { rest, setupWorker } from 'msw';
 import { RequestHandler } from 'msw/lib/types/handlers/RequestHandler';
 
-import {
-	OppdaterTiltakSluttdatoRequestBody,
-	OppdaterTiltakStartdatoRequestBody,
-} from '../api/data/request-types';
-import { mockBrukere, tilBruker } from './data/brukere';
-import { mockTiltak } from './data/tiltak';
 import { mockInnloggetAnsatt } from './data/ansatt';
+import { mockTiltakDeltagere, mockTiltakInstanser } from './data';
+import { tilTiltakDeltagerDetaljerDto, tilTiltakInstansDto } from './dto-mapper';
 
 const allHandlers: RequestHandler[] = [
-	rest.get('/amt-tiltak/api/tiltaksleverandor/ansatt/me', (req, res, ctx) => {
+	rest.get('/amt-tiltak/api/tiltaksleverandor/ansatt/meg', (req, res, ctx) => {
 		return res(ctx.delay(500), ctx.json(mockInnloggetAnsatt));
 	}),
-	rest.get('/amt-tiltak/api/tiltak/instans/:tiltakinstansId', (req, res, ctx) => {
-		const id = req.params.tiltakinstansId;
-
-		const tiltakinstans = mockTiltak
-			.flatMap(tiltak => tiltak.tiltakinstanser)
-			.find(instans => instans.id === id);
-
-		if (!tiltakinstans) {
-			return res(ctx.delay(500), ctx.status(404));
-		}
+	rest.get('/amt-tiltak/api/tiltak-instans/:tiltakinstansId', (req, res, ctx) => {
+		const tiltakinstansId = req.params.tiltakinstansId;
+		const tiltakinstans = mockTiltakInstanser.find(instans => instans.id === tiltakinstansId);
 
 		return res(ctx.delay(500), ctx.json(tiltakinstans));
 	}),
-	rest.get('/amt-tiltak/api/tiltak/instans/:tiltakinstansId/brukere', (req, res, ctx) => {
-		const brukere = mockBrukere.map(tilBruker);
+	rest.get('/amt-tiltak/api/tiltak-instans/:tiltakinstansId/deltagere', (req, res, ctx) => {
+		const tiltakinstansId = req.params.tiltakinstansId;
+		const brukere = mockTiltakDeltagere.filter(deltager => deltager.tiltakInstansId === tiltakinstansId);
+
 		return res(ctx.delay(500), ctx.json(brukere));
 	}),
-	rest.get('/amt-tiltak/api/bruker/:brukerId', (req, res, ctx) => {
+	rest.get('/amt-tiltak/api/tiltak-deltager/:brukerId', (req, res, ctx) => {
 		const brukerId = req.params['brukerId'];
-		const bruker = mockBrukere.find((b) => b.id === brukerId);
+		const bruker = mockTiltakDeltagere.find((b) => b.id === brukerId)!;
 
-		return res(ctx.delay(500), ctx.json(bruker));
+		return res(ctx.delay(500), ctx.json(tilTiltakDeltagerDetaljerDto(bruker)));
 	}),
 	rest.get('/amt-tiltak/api/tiltak', (req, res, ctx) => {
-		return res(ctx.delay(500), ctx.json(mockTiltak));
-	}),
-	rest.get('/amt-tiltak/api/tiltak', (req, res, ctx) => {
-		return res(ctx.delay(500), ctx.json(mockTiltak));
-	}),
-	rest.put('/amt-tiltak/api/tiltak/:tiltakinstansId/startdato', (req, res, ctx) => {
-		const body = req.body as OppdaterTiltakStartdatoRequestBody;
-		const tiltakinstansId = req.params['tiltakinstansId'];
-		const bruker = mockBrukere.find((bruker) => bruker.tiltak.id === tiltakinstansId);
-
-		if (!bruker) throw new Error(`Fant ingen tiltak med id: ${tiltakinstansId}`);
-
-		bruker.tiltak.startdato = body.startdato;
-
-		return res(ctx.delay(500), ctx.json(bruker.tiltak));
-	}),
-	rest.put('/amt-tiltak/api/tiltak/:tiltakinstansId/sluttdato', (req, res, ctx) => {
-		const body = req.body as OppdaterTiltakSluttdatoRequestBody;
-		const tiltakinstansId = req.params['tiltakinstansId'];
-		const bruker = mockBrukere.find((bruker) => bruker.tiltak.id === tiltakinstansId);
-
-		if (!bruker) throw new Error(`Fant ingen tiltak med id: ${tiltakinstansId}`);
-
-		bruker.tiltak.sluttdato = body.sluttdato;
-
-		return res(ctx.delay(500), ctx.json(bruker.tiltak));
+		return res(ctx.delay(500), ctx.json(mockTiltakInstanser.map(tilTiltakInstansDto)));
 	}),
 ];
 

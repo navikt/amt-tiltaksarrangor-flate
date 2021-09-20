@@ -1,63 +1,59 @@
-import { Tiltak, Tiltakinstans } from '../../api/data/tiltak';
-import { randBetween } from '../utils/faker';
+import { TiltakInstansStatus } from '../../api/data/tiltak';
+import { randBetween, randomUuid } from '../utils/faker';
 import * as faker from 'faker';
+import { MockTiltakInstans } from './index';
 
-interface BaseTiltak {
-	navn: string;
-	type: string;
-	typeNavn: string;
+interface TiltakInstansInfo {
+	tiltakInstansNavn: string;
+	tiltaktype: string;
+	tiltaknavn: string;
 }
 
-const baseTiltakList: BaseTiltak[] = [
+const tiltakInstansInfoListe: TiltakInstansInfo[] = [
 	{
-		navn: 'Jobbklubb',
-		type: 'JOBBK',
-		typeNavn: 'Jobbklubb'
+		tiltakInstansNavn: 'Jobbklubb',
+		tiltaktype: 'JOBBK',
+		tiltaknavn: 'Jobbklubb'
 	},
 	{
-		navn: 'Sveisekurs',
-		type: 'GRUPPEAMO',
-		typeNavn: 'Gruppe AMO'
+		tiltakInstansNavn: 'Sveisekurs',
+		tiltaktype: 'GRUPPEAMO',
+		tiltaknavn: 'Gruppe AMO'
 	}
 ];
 
-const lagTiltak = (): Tiltak[] => {
-	const tiltak: Tiltak[] = [];
+export const lagTiltakinstanser = (): MockTiltakInstans[] => {
+	const tiltakinstanser: MockTiltakInstans[] = [];
 
-	baseTiltakList.forEach(baseTiltak => {
-		const antallInstanser = randBetween(1, 3);
+	tiltakInstansInfoListe.forEach(tiltak => {
+		const antallInstanser = randBetween(1, 4);
 
-		tiltak.push({
-			id: randBetween(1000, 1000000).toString(),
-			...baseTiltak,
-			tiltakinstanser: lagTiltakinstanser(antallInstanser),
-		});
+		for (let i = 0; i < antallInstanser; i++) {
+			tiltakinstanser.push(lagTiltakinstanse(tiltak));
+		}
 	});
-
-	return tiltak;
-};
-
-const lagTiltakinstanser = (antallInstanser: number): Tiltakinstans[] => {
-	const tiltakinstanser: Tiltakinstans[] = [];
-
-	for (let i = 0; i < antallInstanser; i++) {
-		tiltakinstanser.push(lagTiltakinstanse());
-	}
 
 	return tiltakinstanser;
 };
 
-const lagTiltakinstanse = (): Tiltakinstans => {
-	const deltakerAntall = randBetween(0, 20);
-	const deltakerKapasitet = deltakerAntall + randBetween(0, 10);
+const lagTiltakinstanse = (tiltakInstansInfo: TiltakInstansInfo): MockTiltakInstans => {
+	const deltagerAntall = randBetween(1, 15);
+	const deltagerKapasitet = deltagerAntall + randBetween(0, 10);
+	const status = faker.random.objectElement(TiltakInstansStatus) as TiltakInstansStatus;
+
+	// TODO utled start/slutt fra status
 
 	return {
-		id: randBetween(1000, 1000000).toString(),
-		deltakerAntall,
-		deltakerKapasitet,
+		id: randomUuid(),
+		deltagerAntall,
+		deltagerKapasitet,
+		navn: tiltakInstansInfo.tiltakInstansNavn,
+		status: status,
+		tiltak: {
+			tiltaksnavn: tiltakInstansInfo.tiltaknavn,
+			tiltakstype: tiltakInstansInfo.tiltaktype
+		},
 		startdato: faker.date.past().toISOString(),
 		sluttdato: faker.date.future().toISOString()
 	};
 };
-
-export const mockTiltak = lagTiltak();

@@ -2,10 +2,10 @@ import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
 import { Checkbox, CheckboxGruppe, Input } from 'nav-frontend-skjema';
 import React from 'react';
 
-import { TiltakStatus } from '../../../api/data/bruker';
 import globalStyles from '../../../globals.module.less';
 import { useTiltaksoversiktSokStore } from '../../../store/tiltaksoversikt-sok-store';
-import { mapTiltakStatusTilTekst } from '../../../utils/text-mappers';
+import { mapTiltakDeltagerStatusTilTekst } from '../../../utils/text-mappers';
+import { TiltakDeltagerStatus } from '../../../api/data/deltager';
 
 export const FilterMeny = () => {
 	const {
@@ -27,10 +27,10 @@ export const FilterMeny = () => {
 
 			<Ekspanderbartpanel tittel="Status" className={globalStyles.blokkM} apen>
 				<CheckboxGruppe>
-					{Object.values(TiltakStatus).map((status) => (
+					{Object.values(TiltakDeltagerStatus).map((status) => (
 						<Checkbox
 							key={status}
-							label={mapTiltakStatusTilTekst(status)}
+							label={mapTiltakDeltagerStatusTilTekst(status)}
 							name="filter-tiltakstatus"
 							checked={tiltakStatusFilter.includes(status)}
 							onChange={(e) => {
