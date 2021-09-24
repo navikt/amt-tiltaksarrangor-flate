@@ -1,6 +1,6 @@
 import React from 'react';
 import { Element, Normaltekst } from 'nav-frontend-typografi';
-import { SpaLenkepanel } from '../../../../felles/spa-lenkepanel/SpaLenkepanel';
+import { SpaLenkepanel } from '../../../../felles/SpaLenkepanel';
 import styles from './TiltakinstansOversiktPanel.module.less';
 import { formatDateStr } from '../../../../../utils/date-utils';
 

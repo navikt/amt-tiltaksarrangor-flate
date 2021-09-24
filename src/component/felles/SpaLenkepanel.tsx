@@ -1,7 +1,6 @@
 import React from 'react';
 import cls from 'classnames';
 import { Link } from 'react-router-dom';
-import './SpaLenkepanel.less';
 
 interface SpaLenkepanelProps {
 	to: string;

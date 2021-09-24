@@ -5,7 +5,6 @@ import React from 'react';
 import cls from 'classnames';
 import { useDataStore } from '../../../store/data-store';
 import { useHistory } from 'react-router-dom';
-import { Knapp } from 'nav-frontend-knapper';
 import { AlertStripeInfo } from 'nav-frontend-alertstriper';
 import navLogo from './nav-logo.svg';
 
@@ -62,8 +61,12 @@ export const Menu = () => {
 						)
 					})}
 				</select>
-
-				<Knapp>Logg ut</Knapp>
+				<a
+					href="/auth-proxy/oauth2/logout?redirect_uri=https://nav.no"
+					className={cls('knapp', 'knapp--standard', styles.logoutBtn)}
+				>
+					Logg ut
+				</a>
 			</div>
 		</header>
 	);
