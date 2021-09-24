@@ -3,8 +3,10 @@ import { Normaltekst } from 'nav-frontend-typografi';
 import { useValgtVirksomhetStore } from '../../../store/valgt-virksomhet-store';
 import React from 'react';
 import { useDataStore } from '../../../store/data-store';
+import { useHistory } from 'react-router-dom';
 
 export const Menu = () => {
+	const history = useHistory();
 	const { innloggetAnsatt } = useDataStore();
 	const { valgtVirksomhet, setValgtVirksomhet } = useValgtVirksomhetStore();
 
@@ -16,6 +18,11 @@ export const Menu = () => {
 
 		if (nyValgtVirksomhet) {
 			setValgtVirksomhet(nyValgtVirksomhet);
+		}
+
+		// Når vi bytter virksomhet så redirect til tiltaksinstans-oversikt hvis vi ikke allerede er der
+		if (history.location.pathname !== '/') {
+			history.push('/');
 		}
 	};
 

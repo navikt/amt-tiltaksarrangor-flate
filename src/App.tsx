@@ -40,8 +40,8 @@ export const App = () => {
 
 	return (
 		<StoreProvider innloggetAnsatt={innloggetAnsatt} defaultValgtVirksomhet={defaultValgtVirksomhet}>
-			<Menu/>
 			<BrowserRouter>
+				<Menu/>
 				<Switch>
 					<Route path="/user/:brukerId">
 						<BrukerDetaljerPage />
