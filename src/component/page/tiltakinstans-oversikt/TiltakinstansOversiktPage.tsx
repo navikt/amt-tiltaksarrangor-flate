@@ -9,13 +9,15 @@ import { finnUnikeTiltak } from '../../../utils/tiltak-utils';
 import { isNotStartedOrPending, isRejected, usePromise } from '../../../utils/use-promise';
 import { AxiosResponse } from 'axios';
 import { AlertStripeFeil } from 'nav-frontend-alertstriper';
+import { useValgtVirksomhetStore } from '../../../store/valgt-virksomhet-store';
 
 export const TiltakinstansOversiktPage = () => {
-    const fetchTiltakInstanserPromise = usePromise<AxiosResponse<TiltakInstansDto[]>>(
-        () => fetchTiltakInstanser('TODO')
-    );
-
+    const { valgtVirksomhet } = useValgtVirksomhetStore();
     const [valgteTiltakTyper, setValgteTiltakTyper] = useState<string[]>([]);
+
+    const fetchTiltakInstanserPromise = usePromise<AxiosResponse<TiltakInstansDto[]>>(
+        () => fetchTiltakInstanser(valgtVirksomhet.id), [valgtVirksomhet]
+    );
 
     if (isNotStartedOrPending(fetchTiltakInstanserPromise)) {
         return <Spinner/>;

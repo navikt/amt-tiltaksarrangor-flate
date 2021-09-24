@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 import { BrukerDetaljerPage } from './component/page/bruker-detaljer/BrukerDetaljerPage';
@@ -9,25 +9,37 @@ import { Spinner } from './component/felles/spinner/Spinner';
 import { fetchInnloggetAnsatt } from './api';
 import { TiltakinstansOversiktPage } from './component/page/tiltakinstans-oversikt/TiltakinstansOversiktPage';
 import { Menu } from './component/felles/menu/Menu';
-import { InnloggetAnsatt } from './api/data/ansatt';
+import { InnloggetAnsatt, Virksomhet } from './api/data/ansatt';
 import { isNotStartedOrPending, isRejected, usePromise } from './utils/use-promise';
 import { AxiosResponse } from 'axios';
+import { AlertStripeAdvarsel } from 'nav-frontend-alertstriper';
+import { hentSisteLagretEllerForsteTilgjengeligVirksomhet } from './store/valgt-virksomhet-store';
 
 export const App = () => {
 	const fetchInnloggetAnsattPromise = usePromise<AxiosResponse<InnloggetAnsatt>>(fetchInnloggetAnsatt);
 
+	const defaultValgtVirksomhet = useMemo<Virksomhet | undefined>(() => {
+		if (fetchInnloggetAnsattPromise.result) {
+			return hentSisteLagretEllerForsteTilgjengeligVirksomhet(fetchInnloggetAnsattPromise.result.data.virksomheter);
+		}
+	}, [fetchInnloggetAnsattPromise.result]);
+
 	if (isNotStartedOrPending(fetchInnloggetAnsattPromise)) {
-		return <Spinner/>;
+		return <Spinner />;
 	}
 
 	if (isRejected(fetchInnloggetAnsattPromise)) {
 		return <LoginPage />;
 	}
 
+	if (!defaultValgtVirksomhet) {
+		return <AlertStripeAdvarsel>Du har ikke blitt tildelt tilgang til en virksomhet</AlertStripeAdvarsel>;
+	}
+
 	const innloggetAnsatt = fetchInnloggetAnsattPromise.result.data;
 
 	return (
-		<StoreProvider innloggetAnsatt={innloggetAnsatt}>
+		<StoreProvider innloggetAnsatt={innloggetAnsatt} defaultValgtVirksomhet={defaultValgtVirksomhet}>
 			<Menu/>
 			<BrowserRouter>
 				<Switch>
