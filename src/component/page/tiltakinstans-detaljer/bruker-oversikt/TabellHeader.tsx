@@ -44,7 +44,6 @@ export const TabellHeader = (props: UserTableHeaderProps) => {
 	return (
 		<thead>
 			<tr>
-				{/* TODO: Er mulig å gjøre koden mer DRY på bekostning av kompleksitet */}
 				<SortableHeader
 					sortering={sortering}
 					onSortChange={onSortChange}

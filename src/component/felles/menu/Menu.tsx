@@ -8,7 +8,7 @@ export const Menu = () => {
 	const { innloggetAnsatt } = useDataStore();
 	const { valgtVirksomhet, setValgtVirksomhet } = useValgtVirksomhetStore();
 
-	const tilgjengeligeVirksomheter = innloggetAnsatt?.virksomheter || [];
+	const tilgjengeligeVirksomheter = innloggetAnsatt.virksomheter;
 
 	const onValgtVirksomhetChanged = (e: React.ChangeEvent<HTMLSelectElement>) => {
 		const id = e.target.value;
