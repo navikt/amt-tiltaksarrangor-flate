@@ -1,14 +1,28 @@
 @import '~nav-frontend-core/less/_variabler';
 
 .menu {
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-end;
+  display: grid;
+  grid-template-columns: minmax(auto, 450px) 1fr minmax(auto, 250px);
+  grid-column-gap: 2rem;
 
   background-color: white;
-  padding: 2rem;
+  padding: 1rem;
 
   border-bottom: 1px solid @navGra20;
+}
+
+.pilotInfoSection {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logoAndTitleSection {
+  display: flex;
+  flex-direction: column;
+
+  align-items: center;
+  justify-content: center;
 }
 
 .virksomhetSelect {

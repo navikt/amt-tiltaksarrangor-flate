@@ -1,9 +1,13 @@
 import styles from './Menu.module.less';
-import { Normaltekst } from 'nav-frontend-typografi';
+import { Normaltekst, Systemtittel } from 'nav-frontend-typografi';
 import { useValgtVirksomhetStore } from '../../../store/valgt-virksomhet-store';
 import React from 'react';
+import cls from 'classnames';
 import { useDataStore } from '../../../store/data-store';
 import { useHistory } from 'react-router-dom';
+import { Knapp } from 'nav-frontend-knapper';
+import { AlertStripeInfo } from 'nav-frontend-alertstriper';
+import navLogo from './nav-logo.svg';
 
 export const Menu = () => {
 	const history = useHistory();
@@ -28,6 +32,18 @@ export const Menu = () => {
 
 	return (
 		<header className={styles.menu}>
+			<div className={styles.pilotInfoSection}>
+				<AlertStripeInfo>
+					Dette er en ny tjeneste som ikke er ferdig.
+					Ta kontakt med oss her hvis du har noen tilbakemeldinger.
+				</AlertStripeInfo>
+			</div>
+
+			<div className={styles.logoAndTitleSection}>
+				<img src={navLogo} className="blokk-xs" alt="NAV logo"/>
+				<Systemtittel>Oversikt for tiltaksarrangører</Systemtittel>
+			</div>
+
 			<div>
 				<Normaltekst className="blokk-xxs">Karoline Koordinatorsen</Normaltekst>
 
@@ -36,7 +52,7 @@ export const Menu = () => {
 					name="virksomheter"
 					value={valgtVirksomhet?.id}
 					onChange={onValgtVirksomhetChanged}
-					className={styles.virksomhetSelect}
+					className={cls(styles.virksomhetSelect, 'blokk-xs')}
 				>
 					{tilgjengeligeVirksomheter.map(virksomhet => {
 						return (
@@ -46,6 +62,8 @@ export const Menu = () => {
 						)
 					})}
 				</select>
+
+				<Knapp>Logg ut</Knapp>
 			</div>
 		</header>
 	);
