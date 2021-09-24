@@ -2,7 +2,30 @@ import faker from 'faker';
 
 import { TiltakDeltagerStatus } from '../../api/data/deltager';
 import { randomFnr, randomUuid } from '../utils/faker';
-import { MockTiltakDeltager, MockTiltakInstans } from './index';
+import { MockTiltakInstans } from './tiltak';
+
+export interface MockTiltakDeltager {
+	id: string,
+	tiltakInstansId: string
+	fornavn: string,
+	mellomnavn: string | undefined,
+	etternavn: string,
+	fodselsdato: string | undefined,
+	telefon: string | undefined,
+	epost: string | undefined,
+	navKontor: {
+		navn: string,
+		adresse: string
+	},
+	navVeileder: {
+		navn: string,
+		telefon: string,
+		epost: string,
+	},
+	startdato: string,
+	sluttdato: string,
+	status: TiltakDeltagerStatus,
+}
 
 const navEnheter: { enhetId: string, navn: string, adresse: string }[] = [
 	{

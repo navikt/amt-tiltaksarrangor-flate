@@ -28,7 +28,10 @@ const allHandlers: RequestHandler[] = [
 		return res(ctx.delay(500), ctx.json(tilTiltakDeltagerDetaljerDto(bruker)));
 	}),
 	rest.get('/amt-tiltak/api/tiltak', (req, res, ctx) => {
-		return res(ctx.delay(500), ctx.json(mockTiltakInstanser.map(tilTiltakInstansDto)));
+		const virksomhetId = req.url.searchParams.get('tiltaksleverandorId');
+		const tiltakInstanser = mockTiltakInstanser.filter(instans => instans.virksomhetId === virksomhetId)
+
+		return res(ctx.delay(500), ctx.json(tiltakInstanser.map(tilTiltakInstansDto)));
 	}),
 ];
 

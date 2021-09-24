@@ -1,6 +1,8 @@
-import { MockTiltakDeltager, MockTiltakInstans, mockTiltakInstanser } from './data';
+import { mockTiltakInstanser } from './data';
 import { TiltakDeltagerDetaljerDto, TiltakDeltagerDto } from '../api/data/deltager';
 import { TiltakInstansDto } from '../api/data/tiltak';
+import { MockTiltakDeltager } from './data/brukere';
+import { MockTiltakInstans } from './data/tiltak';
 
 export const tilTiltakInstansDto = (instans: MockTiltakInstans): TiltakInstansDto => {
 	return {
