@@ -1,32 +1,34 @@
 import { AlertStripeFeil } from 'nav-frontend-alertstriper';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { useParams } from 'react-router-dom';
 
 import { fetchTiltakDeltagerDetaljer } from '../../../api';
 import { TiltakDeltagerDetaljerDto } from '../../../api/data/deltager';
 import { Spinner } from '../../felles/spinner/Spinner';
 import { BrukerPaaTiltakDetaljer } from './BrukerPaaTiltakDetaljer';
+import { isNotStartedOrPending, isRejected, usePromise } from '../../../utils/use-promise';
+import { AxiosResponse } from 'axios';
 
 export const BrukerDetaljerPage = () => {
-	const { brukerId } = useParams<{ brukerId: string }>();
-	const [bruker, setBruker] = useState<TiltakDeltagerDetaljerDto>();
-	const [hasFailed, setHasFailed] = useState<boolean>(false);
+	const params = useParams<{ brukerId: string }>();
 
-	useEffect(() => {
-		fetchTiltakDeltagerDetaljer(brukerId)
-			.then((res) => setBruker(res.data))
-			.catch(() => setHasFailed(true));
-	}, [brukerId]);
+	const fetchTiltakDeltagerDetaljerPromise = usePromise<AxiosResponse<TiltakDeltagerDetaljerDto>>(
+		() => fetchTiltakDeltagerDetaljer(params.brukerId), [params.brukerId]
+	);
+
+	if (isNotStartedOrPending(fetchTiltakDeltagerDetaljerPromise)) {
+		return <Spinner />;
+	}
+
+	if (isRejected(fetchTiltakDeltagerDetaljerPromise)) {
+		return <AlertStripeFeil>En feil oppstod</AlertStripeFeil>;
+	}
+
+	const bruker = fetchTiltakDeltagerDetaljerPromise.result.data;
 
 	return (
 		<main>
-			{bruker ? (
-				<BrukerPaaTiltakDetaljer bruker={bruker} />
-			) : hasFailed ? (
-				<AlertStripeFeil>En feil oppstod</AlertStripeFeil>
-			) : (
-				<Spinner />
-			)}
+			<BrukerPaaTiltakDetaljer bruker={bruker} />
 		</main>
 	);
 };

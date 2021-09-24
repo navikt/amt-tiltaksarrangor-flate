@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { AlertStripeInfo } from 'nav-frontend-alertstriper';
 import { useTiltaksoversiktSokStore } from '../../../../store/tiltaksoversikt-sok-store';
-import { Spinner } from '../../../felles/spinner/Spinner';
 import { TabellBody } from './TabellBody';
 import { TabellHeader } from './TabellHeader';
 import { filtrerBrukere } from '../../../../utils/filtrering-utils';
@@ -11,7 +10,6 @@ import { TiltakDeltagerDto } from '../../../../api/data/deltager';
 
 interface UserTableProps {
 	brukere: TiltakDeltagerDto[];
-	isLoading: boolean;
 }
 
 const IngenBrukereAlertstripe = () => (
@@ -32,10 +30,6 @@ export const BrukerOversiktTabell = (props: UserTableProps) => {
 		setFiltrerteBrukere(brukereFiltrert());
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [props.brukere, tiltakStatusFilter, navnFnrSok]);
-
-	if (props.isLoading) {
-		return <Spinner/>;
-	}
 
 	if (harIngenBrukere) {
 		return <IngenBrukereAlertstripe/>;

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Link, useParams } from 'react-router-dom';
 
 import { fetchDeltakerePaTiltakinstans, fetchTiltakinstans } from '../../../api';
@@ -12,6 +12,8 @@ import { dateStrWithMonthName } from '../../../utils/date-utils';
 import { TiltakInstansDto } from '../../../api/data/tiltak';
 import { TiltakDeltagerDto } from '../../../api/data/deltager';
 import { mapTiltakInstansStatusTilEtikett } from '../../../utils/text-mappers';
+import { isNotStartedOrPending, isRejected, usePromise } from '../../../utils/use-promise';
+import { AxiosResponse } from 'axios';
 
 interface TiltakinstansDetaljerPageRouteParams {
 	tiltakinstansId: string;
@@ -20,31 +22,24 @@ interface TiltakinstansDetaljerPageRouteParams {
 export const TiltakinstansDetaljerPage = () => {
 	const params = useParams<TiltakinstansDetaljerPageRouteParams>();
 
-	const [tiltakinstans, setTiltakinstans] = useState<TiltakInstansDto>();
-	const [brukere, setBrukere] = useState<TiltakDeltagerDto[]>([]);
+	const fetchTiltakinstansPromise = usePromise<AxiosResponse<TiltakInstansDto>>(
+		() => fetchTiltakinstans(params.tiltakinstansId), [params.tiltakinstansId]
+	);
 
-	const [isLoadingDeltakere, setIsLoadingDeltakere] = useState<boolean>(true);
-	const [isLoadingTiltakinstans, setIsLoadingTiltakinstans] = useState<boolean>(true);
+	const fetchDeltakerePaTiltakinstansPromise = usePromise<AxiosResponse<TiltakDeltagerDto[]>>(
+		() => fetchDeltakerePaTiltakinstans(params.tiltakinstansId), [params.tiltakinstansId]
+	);
 
-	useEffect(() => {
-		fetchTiltakinstans(params.tiltakinstansId)
-			.then(res => setTiltakinstans(res.data))
-			.catch(console.error) // TODO: vis feil i alertstripe
-			.finally(() => setIsLoadingTiltakinstans(false))
-
-		fetchDeltakerePaTiltakinstans(params.tiltakinstansId)
-			.then((res) => setBrukere(res.data))
-			.catch(console.error) // TODO: vis feil i alertstripe
-			.finally(() => setIsLoadingDeltakere(false));
-	}, [params.tiltakinstansId]);
-
-	if (isLoadingDeltakere || isLoadingTiltakinstans) {
+	if (isNotStartedOrPending(fetchTiltakinstansPromise) || isNotStartedOrPending(fetchDeltakerePaTiltakinstansPromise)) {
 		return <Spinner/>;
 	}
 
-	if (!tiltakinstans) {
+	if (isRejected(fetchTiltakinstansPromise) || isRejected(fetchDeltakerePaTiltakinstansPromise)) {
 		return <AlertStripeFeil>Noe gikk galt</AlertStripeFeil>;
 	}
+
+	const tiltakinstans = fetchTiltakinstansPromise.result.data;
+	const brukere = fetchDeltakerePaTiltakinstansPromise.result.data;
 
 	const ledigePlasser = tiltakinstans.deltagerKapasitet - tiltakinstans.deltagerAntall;
 
@@ -70,7 +65,7 @@ export const TiltakinstansDetaljerPage = () => {
 			</section>
 
 			<section>
-				<BrukerOversiktTabell brukere={brukere} isLoading={isLoadingTiltakinstans} />
+				<BrukerOversiktTabell brukere={brukere} />
 			</section>
 		</main>
 	);

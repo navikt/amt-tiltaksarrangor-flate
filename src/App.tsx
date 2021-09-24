@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 import { BrukerDetaljerPage } from './component/page/bruker-detaljer/BrukerDetaljerPage';
@@ -10,25 +10,21 @@ import { fetchInnloggetAnsatt } from './api';
 import { TiltakinstansOversiktPage } from './component/page/tiltakinstans-oversikt/TiltakinstansOversiktPage';
 import { Menu } from './component/felles/menu/Menu';
 import { InnloggetAnsatt } from './api/data/ansatt';
+import { isNotStartedOrPending, isRejected, usePromise } from './utils/use-promise';
+import { AxiosResponse } from 'axios';
 
 export const App = () => {
-	const [innloggetAnsatt, setInnloggetAnsatt] = useState<InnloggetAnsatt>();
-	const [isLoading, setIsLoading] = useState<boolean>(true);
+	const fetchInnloggetAnsattPromise = usePromise<AxiosResponse<InnloggetAnsatt>>(fetchInnloggetAnsatt);
 
-	useEffect(() => {
-		fetchInnloggetAnsatt()
-			.then((res) => setInnloggetAnsatt(res.data))
-			.catch(console.error)
-			.finally(() => setIsLoading(false));
-	}, []);
-
-	if (isLoading) {
+	if (isNotStartedOrPending(fetchInnloggetAnsattPromise)) {
 		return <Spinner/>;
 	}
 
-	if (!innloggetAnsatt) {
+	if (isRejected(fetchInnloggetAnsattPromise)) {
 		return <LoginPage />;
 	}
+
+	const innloggetAnsatt = fetchInnloggetAnsattPromise.result.data;
 
 	return (
 		<StoreProvider innloggetAnsatt={innloggetAnsatt}>
