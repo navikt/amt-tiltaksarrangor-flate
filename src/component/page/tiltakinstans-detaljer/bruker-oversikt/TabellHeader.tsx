@@ -53,8 +53,8 @@ export const TabellHeader = (props: UserTableHeaderProps) => {
 				<SortableHeader
 					sortering={sortering}
 					onSortChange={onSortChange}
-					title="Fødselsdato"
-					name={Kolonnenavn.FODSELSDATO}
+					title="Fødselsnummer"
+					name={Kolonnenavn.FODSELSNUMMER}
 				/>
 
 				<SortableHeader sortering={sortering} onSortChange={onSortChange} title="Start" name={Kolonnenavn.START} />

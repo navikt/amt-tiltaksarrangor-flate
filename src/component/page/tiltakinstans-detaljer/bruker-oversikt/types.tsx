@@ -2,7 +2,7 @@ import { SorteringType } from '../../../../utils/sortering-utils';
 
 export enum Kolonnenavn {
 	NAVN = 'NAVN',
-	FODSELSDATO = 'FODSELSDATO',
+	FODSELSNUMMER = 'FODSELSNUMMER',
 	STATUS = 'STATUS',
 	START = 'START',
 	SLUTT = 'SLUTT',

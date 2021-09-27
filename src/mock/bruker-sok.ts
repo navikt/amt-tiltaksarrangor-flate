@@ -34,9 +34,9 @@ const getAscendingSort = (name: Kolonnenavn): ((b1: TiltakDeltagerDto, b2: Tilta
 		switch (name) {
 			case Kolonnenavn.NAVN:
 				return b1.etternavn.localeCompare(b2.etternavn);
-			case Kolonnenavn.FODSELSDATO:
+			case Kolonnenavn.FODSELSNUMMER:
 				return 0;
-				// return b1.fodselsdato.localeCompare(b2.fodselsdato);
+				// return b1.fodselsnummer.localeCompare(b2.fodselsnummer);
 			case Kolonnenavn.STATUS:
 				return b1.status.localeCompare(b2.status);
 			case Kolonnenavn.START:

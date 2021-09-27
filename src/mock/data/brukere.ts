@@ -10,7 +10,7 @@ export interface MockTiltakDeltager {
 	fornavn: string,
 	mellomnavn: string | undefined,
 	etternavn: string,
-	fodselsdato: string | undefined,
+	fodselsnummer: string | undefined,
 	telefon: string | undefined,
 	epost: string | undefined,
 	navKontor: {
@@ -84,7 +84,7 @@ const lagMockTiltakDeltagerForTiltakInstans = (tiltakInstans: MockTiltakInstans)
 		fornavn: brukerFornavn,
 		mellomnavn: undefined,
 		etternavn: brukerEtternavn,
-		fodselsdato: randomFnr().substring(0, 6),
+		fodselsnummer: randomFnr(),
 		epost: lagMailFraNavn(`${brukerFornavn} ${brukerEtternavn}`, 'example.com'),
 		telefon: faker.phone.phoneNumber(),
 		startdato: faker.date.past().toISOString(),
