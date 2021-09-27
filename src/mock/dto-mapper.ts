@@ -26,7 +26,7 @@ export const tilTiltakDeltagerDto = (deltager: MockTiltakDeltager): TiltakDeltag
 		fornavn: deltager.fornavn,
 		mellomnavn: deltager.mellomnavn,
 		etternavn: deltager.etternavn,
-		fodselsdato: deltager.fodselsdato,
+		fodselsnummer: deltager.fodselsnummer,
 		startdato: deltager.startdato,
 		sluttdato: deltager.sluttdato,
 		status: deltager.status
@@ -41,7 +41,7 @@ export const tilTiltakDeltagerDetaljerDto = (deltager: MockTiltakDeltager): Tilt
 		fornavn: deltager.fornavn,
 		mellomnavn: deltager.mellomnavn,
 		etternavn: deltager.etternavn,
-		fodselsdato: deltager.fodselsdato,
+		fodselsnummer: deltager.fodselsnummer,
 		startdato: deltager.startdato,
 		sluttdato: deltager.sluttdato,
 		status: deltager.status,

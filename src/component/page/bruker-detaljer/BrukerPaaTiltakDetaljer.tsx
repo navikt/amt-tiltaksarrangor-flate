@@ -11,7 +11,7 @@ import { formatDateStr } from '../../../utils/date-utils';
 import { mapTiltakDeltagerStatusTilEtikett } from '../../../utils/text-mappers';
 
 export const BrukerPaaTiltakDetaljer = (props: { bruker: TiltakDeltagerDetaljerDto }) => {
-	const { navKontor, navVeileder, fornavn, etternavn, fodselsdato, tiltakInstans, telefon, epost, status } = props.bruker;
+	const { navKontor, navVeileder, fornavn, etternavn, fodselsnummer, tiltakInstans, telefon, epost, status } = props.bruker;
 
 	return (
 		<div>
@@ -20,7 +20,7 @@ export const BrukerPaaTiltakDetaljer = (props: { bruker: TiltakDeltagerDetaljerD
 					Tilbake
 				</Link>
 				<Systemtittel className={styles.headerTitle}>{lagBrukerNavn(fornavn, etternavn)}</Systemtittel>
-				<Normaltekst>{fodselsdato}</Normaltekst>
+				<Normaltekst>{fodselsnummer}</Normaltekst>
 			</div>
 
 			<div className={styles.detaljer}>

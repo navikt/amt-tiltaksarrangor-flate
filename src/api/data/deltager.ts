@@ -12,7 +12,7 @@ export interface TiltakDeltagerDto {
 	fornavn: string,
 	mellomnavn: string | undefined,
 	etternavn: string,
-	fodselsdato: string | undefined,
+	fodselsnummer: string | undefined,
 	startdato: string,
 	sluttdato: string,
 	status: TiltakDeltagerStatus
@@ -23,7 +23,7 @@ export interface TiltakDeltagerDetaljerDto {
 	fornavn: string,
 	mellomnavn: string | undefined,
 	etternavn: string,
-	fodselsdato: string | undefined,
+	fodselsnummer: string | undefined,
 	telefon: string | undefined,
 	epost: string | undefined,
 	navKontor: NavKontorDTO,

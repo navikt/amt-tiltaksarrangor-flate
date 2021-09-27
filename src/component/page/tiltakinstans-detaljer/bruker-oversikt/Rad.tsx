@@ -22,7 +22,7 @@ const sortClassName = (name: Kolonnenavn, brukerSortering?: BrukerSortering): st
 };
 
 export const Rad = (props: RadProps) => {
-	const { fodselsdato, fornavn, etternavn, id, startdato, sluttdato, status } = props.bruker;
+	const { fodselsnummer, fornavn, etternavn, id, startdato, sluttdato, status } = props.bruker;
 	const userSort = props.brukerSortering;
 
 	return (
@@ -32,7 +32,7 @@ export const Rad = (props: RadProps) => {
 					{lagKommaSeparertBrukerNavn(fornavn, etternavn)}
 				</Link>
 			</td>
-			<td className={sortClassName(Kolonnenavn.FODSELSDATO, userSort)}>{fodselsdato}</td>
+			<td className={sortClassName(Kolonnenavn.FODSELSNUMMER, userSort)}>{fodselsnummer}</td>
 			<td className={sortClassName(Kolonnenavn.START, userSort)}>
 				{startdato && formatDateStr(startdato)}
 			</td>
