@@ -1,4 +1,4 @@
-import styles from './Menu.module.less';
+import styles from './Banner.module.less';
 import { Normaltekst, Systemtittel } from 'nav-frontend-typografi';
 import React from 'react';
 import cls from 'classnames';
@@ -8,11 +8,11 @@ import navLogo from './nav-logo.svg';
 import { VirksomhetVelger } from './virksomhet-velger/VirksomhetVelger';
 import globalStyles from '../../../globals.module.less';
 
-export const Menu = () => {
+export const Banner = () => {
 	const { innloggetAnsatt } = useDataStore();
 
 	return (
-		<header className={styles.menu}>
+		<header className={styles.banner}>
 			<div className={styles.pilotInfoSection}>
 				<AlertStripeInfo>
 					Dette er en ny tjeneste som ikke er ferdig.
