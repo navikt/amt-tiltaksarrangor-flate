@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link, useParams } from 'react-router-dom';
 
-import { fetchDeltakerePaTiltakinstans, fetchTiltakinstans } from '../../../api';
+import { fetchDeltakerePaTiltakinstans, fetchTiltakinstans } from '../../../api/tiltakAPI';
 import { BrukerOversiktTabell } from './bruker-oversikt/BrukerOversiktTabell';
 import { FilterMeny } from './FilterMeny';
 import styles from './TiltakinstansDetaljerPage.module.less';
@@ -9,11 +9,11 @@ import { Spinner } from '../../felles/spinner/Spinner';
 import { Normaltekst, Systemtittel } from 'nav-frontend-typografi';
 import { AlertStripeFeil } from 'nav-frontend-alertstriper';
 import { dateStrWithMonthName } from '../../../utils/date-utils';
-import { TiltakInstansDto } from '../../../api/data/tiltak';
-import { TiltakDeltagerDto } from '../../../api/data/deltager';
 import { mapTiltakInstansStatusTilEtikett } from '../../../utils/text-mappers';
 import { isNotStartedOrPending, isRejected, usePromise } from '../../../utils/use-promise';
 import { AxiosResponse } from 'axios';
+import { TiltakInstans } from '../../../domeneobjekter/tiltak';
+import { TiltakDeltager } from '../../../domeneobjekter/deltager';
 import globalStyles from '../../../globals.module.less';
 
 interface TiltakinstansDetaljerPageRouteParams {
@@ -23,11 +23,11 @@ interface TiltakinstansDetaljerPageRouteParams {
 export const TiltakinstansDetaljerPage = () => {
 	const params = useParams<TiltakinstansDetaljerPageRouteParams>();
 
-	const fetchTiltakinstansPromise = usePromise<AxiosResponse<TiltakInstansDto>>(
+	const fetchTiltakinstansPromise = usePromise<AxiosResponse<TiltakInstans>>(
 		() => fetchTiltakinstans(params.tiltakinstansId), [params.tiltakinstansId]
 	);
 
-	const fetchDeltakerePaTiltakinstansPromise = usePromise<AxiosResponse<TiltakDeltagerDto[]>>(
+	const fetchDeltakerePaTiltakinstansPromise = usePromise<AxiosResponse<TiltakDeltager[]>>(
 		() => fetchDeltakerePaTiltakinstans(params.tiltakinstansId), [params.tiltakinstansId]
 	);
 

@@ -6,10 +6,10 @@ import { TabellHeader } from './TabellHeader';
 import { filtrerBrukere } from '../../../../utils/filtrering-utils';
 import styles from './BrukerOversiktTabell.module.less';
 import 'nav-frontend-tabell-style';
-import { TiltakDeltagerDto } from '../../../../api/data/deltager';
+import { TiltakDeltager } from '../../../../domeneobjekter/deltager';
 
-interface UserTableProps {
-	brukere: TiltakDeltagerDto[];
+interface BrukerOversiktTabellProps {
+	brukere: TiltakDeltager[];
 }
 
 const IngenBrukereAlertstripe = () => (
@@ -20,10 +20,10 @@ const IngenBrukereAlertstripe = () => (
 	</AlertStripeInfo>
 );
 
-export const BrukerOversiktTabell = (props: UserTableProps) => {
+export const BrukerOversiktTabell = (props: BrukerOversiktTabellProps) => {
 	const { brukerSortering, setBrukerSortering, tiltakStatusFilter, navnFnrSok} = useTiltaksoversiktSokStore();
 	const brukereFiltrert = () => filtrerBrukere(props.brukere, tiltakStatusFilter, navnFnrSok);
-	const [filtrerteBrukere, setFiltrerteBrukere] = useState<TiltakDeltagerDto[]>(brukereFiltrert);
+	const [filtrerteBrukere, setFiltrerteBrukere] = useState<TiltakDeltager[]>(brukereFiltrert);
 	const harIngenBrukere = filtrerteBrukere.length === 0;
 
 	useEffect(() => {

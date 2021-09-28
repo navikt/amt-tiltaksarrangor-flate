@@ -5,7 +5,7 @@ import React from 'react';
 import globalStyles from '../../../globals.module.less';
 import { useTiltaksoversiktSokStore } from '../../../store/tiltaksoversikt-sok-store';
 import { mapTiltakDeltagerStatusTilTekst } from '../../../utils/text-mappers';
-import { TiltakDeltagerStatus } from '../../../api/data/deltager';
+import { TiltakDeltagerStatus } from '../../../domeneobjekter/deltager';
 
 export const FilterMeny = () => {
 	const {

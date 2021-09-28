@@ -2,7 +2,7 @@ import { Kolonnenavn } from '../component/page/tiltakinstans-detaljer/bruker-ove
 import { reverseSort } from '../utils';
 import { sortDateNullsFirst } from '../utils/date-utils';
 import { SorteringType } from '../utils/sortering-utils';
-import { TiltakDeltagerDto } from '../api/data/deltager';
+import { TiltakDeltagerDTO } from '../api/data/deltager';
 
 export interface BrukerSokParams {
 	filter: {
@@ -14,7 +14,7 @@ export interface BrukerSokParams {
 	};
 }
 
-const sorterBrukere = (brukere: TiltakDeltagerDto[], params: BrukerSokParams): TiltakDeltagerDto[] => {
+const sorterBrukere = (brukere: TiltakDeltagerDTO[], params: BrukerSokParams): TiltakDeltagerDTO[] => {
 	if (!params.sortering || params.sortering.sorteringType === SorteringType.NONE) {
 		return brukere;
 	}
@@ -27,7 +27,7 @@ const sorterBrukere = (brukere: TiltakDeltagerDto[], params: BrukerSokParams): T
 	return brukere.sort(sort);
 };
 
-const getAscendingSort = (name: Kolonnenavn): ((b1: TiltakDeltagerDto, b2: TiltakDeltagerDto) => number) => {
+const getAscendingSort = (name: Kolonnenavn): ((b1: TiltakDeltagerDTO, b2: TiltakDeltagerDTO) => number) => {
 	return (b1, b2) => {
 		switch (name) {
 			case Kolonnenavn.NAVN:

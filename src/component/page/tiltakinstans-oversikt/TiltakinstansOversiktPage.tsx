@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
 import { TiltakinstansListe } from './tiltakinstans-liste/TiltakinstansListe';
 import styles from './TiltakinstansOversiktPage.module.less';
-import { fetchTiltakInstanser } from '../../../api';
-import { TiltakInstansDto } from '../../../api/data/tiltak';
 import { Spinner } from '../../felles/spinner/Spinner';
 import { TiltaksvariantFilter } from './TiltaksvariantFilter';
 import { finnUnikeTiltak } from '../../../utils/tiltak-utils';
@@ -10,13 +8,15 @@ import { isNotStartedOrPending, isRejected, usePromise } from '../../../utils/us
 import { AxiosResponse } from 'axios';
 import { AlertStripeFeil } from 'nav-frontend-alertstriper';
 import { useValgtVirksomhetStore } from '../../../store/valgt-virksomhet-store';
+import { TiltakInstans } from '../../../domeneobjekter/tiltak';
+import { fetchTiltakinstanser } from '../../../api/tiltakAPI';
 
 export const TiltakinstansOversiktPage = () => {
     const { valgtVirksomhet } = useValgtVirksomhetStore();
     const [valgteTiltakTyper, setValgteTiltakTyper] = useState<string[]>([]);
 
-    const fetchTiltakInstanserPromise = usePromise<AxiosResponse<TiltakInstansDto[]>>(
-        () => fetchTiltakInstanser(valgtVirksomhet.id), [valgtVirksomhet]
+    const fetchTiltakInstanserPromise = usePromise<AxiosResponse<TiltakInstans[]>>(
+        () => fetchTiltakinstanser(valgtVirksomhet.id), [valgtVirksomhet]
     );
 
     if (isNotStartedOrPending(fetchTiltakInstanserPromise)) {
@@ -27,7 +27,7 @@ export const TiltakinstansOversiktPage = () => {
         return <AlertStripeFeil>Noe gikk galt</AlertStripeFeil>;
     }
 
-    const alleTiltakInstanser = fetchTiltakInstanserPromise.result.data;
+    const alleTiltakInstanser = fetchTiltakInstanserPromise.result.data
 
     const filtrerteTiltak = valgteTiltakTyper.length > 0
         ? alleTiltakInstanser.filter(tiltakInstans => valgteTiltakTyper.includes(tiltakInstans.tiltak.tiltakskode))

@@ -2,7 +2,7 @@ import constate from 'constate';
 import { useState } from 'react';
 
 import { BrukerSortering } from '../component/page/tiltakinstans-detaljer/bruker-oversikt/types';
-import { TiltakDeltagerStatus } from '../api/data/deltager';
+import { TiltakDeltagerStatus } from '../domeneobjekter/deltager';
 
 export const [TiltaksoversiktSokStoreProvider, useTiltaksoversiktSokStore] = constate(() => {
 	const [navnFnrSok, setNavnFnrSok] = useState<string>('');

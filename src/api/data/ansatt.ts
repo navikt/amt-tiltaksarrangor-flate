@@ -1,22 +1,17 @@
 
-export enum AnsattRolle {
-	KOORDINATOR = 'KOORDINATOR',
-	VEILEDER = 'VEILEDER'
-}
-
-export interface Virksomhet {
+export interface VirksomhetDTO {
 	id: string,
 	organisasjonsnummer: string,
 	organisasjonsnavn: string,
 	virksomhetsnummer: string,
 	virksomhetsnavn: string,
-	roller: AnsattRolle[]
+	roller: string []
 }
 
-export interface InnloggetAnsatt {
+export interface InnloggetAnsattDTO {
 	id: string,
 	fornavn: string,
 	mellomnavn: string | undefined | null,
 	etternavn: string,
-	virksomheter: Virksomhet[]
+	virksomheter: VirksomhetDTO[]
 }

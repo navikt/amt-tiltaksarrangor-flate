@@ -2,11 +2,11 @@ import React from 'react';
 
 import { Rad } from './Rad';
 import { BrukerSortering } from './types';
-import { TiltakDeltagerDto } from '../../../../api/data/deltager';
+import { TiltakDeltager } from '../../../../domeneobjekter/deltager';
 
 interface TabellBodyProps {
 	sortering?: BrukerSortering;
-	brukere: TiltakDeltagerDto[];
+	brukere: TiltakDeltager[];
 }
 
 export const TabellBody = (props: TabellBodyProps) => {

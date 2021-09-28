@@ -1,6 +1,6 @@
 import constate from 'constate';
 import { useState } from 'react';
-import { InnloggetAnsatt } from '../api/data/ansatt';
+import { InnloggetAnsatt } from '../domeneobjekter/ansatt';
 
 export const [DataStoreProvider, useDataStore] = constate((props: {initialInnloggetAnsatt: InnloggetAnsatt}) => {
 	const [innloggetAnsatt, setInnloggetAnsatt] = useState<InnloggetAnsatt>(props.initialInnloggetAnsatt);

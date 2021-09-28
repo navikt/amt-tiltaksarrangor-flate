@@ -1,6 +1,6 @@
 import constate from 'constate';
 import { useEffect, useState } from 'react';
-import { Virksomhet } from '../api/data/ansatt';
+import { Virksomhet } from '../domeneobjekter/ansatt';
 
 export interface ValgtVirksomhet {
 	id: string;
