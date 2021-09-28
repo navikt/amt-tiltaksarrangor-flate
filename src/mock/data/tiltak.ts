@@ -55,8 +55,6 @@ const lagTiltakinstanse = (virksomhetId: string, tiltakInstansInfo: TiltakInstan
 	const deltagerKapasitet = deltagerAntall + randBetween(0, 10);
 	const status = faker.random.objectElement(TiltakInstansStatus) as TiltakInstansStatus;
 
-	// TODO utled start/slutt fra status NOSONAR
-
 	return {
 		id: randomUuid(),
 		deltagerAntall,

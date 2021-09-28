@@ -3,8 +3,7 @@ import { Element, Normaltekst } from 'nav-frontend-typografi';
 import { SpaLenkepanel } from '../../../../felles/SpaLenkepanel';
 import styles from './TiltakinstansOversiktPanel.module.less';
 import globalStyles from '../../../../../globals.module.less';
-
-import { formatDateStr } from '../../../../../utils/date-utils';
+import { dateStrWithMonthName } from '../../../../../utils/date-utils';
 
 interface TiltakinstansOversiktPanelProps {
     id: string,
@@ -22,7 +21,7 @@ export const TiltakinstansOversiktPanel = (props: TiltakinstansOversiktPanelProp
                 <Element className={globalStyles.blokkXxs}>{navn}</Element>
                 <div className={styles.undertekst}>
                     { deltakere !== undefined && <Normaltekst>{`Antall deltakere: ${deltakere}`}</Normaltekst> }
-                    { oppstart && <Normaltekst>{`Oppstart: ${formatDateStr(oppstart)}`}</Normaltekst> }
+                    { oppstart && <Normaltekst>{`Oppstart: ${dateStrWithMonthName(oppstart)}`}</Normaltekst> }
                 </div>
             </div>
         </SpaLenkepanel>

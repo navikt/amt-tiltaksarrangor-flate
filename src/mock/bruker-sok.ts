@@ -7,8 +7,6 @@ import { TiltakDeltagerDto } from '../api/data/deltager';
 export interface BrukerSokParams {
 	filter: {
 		navnFnrSok: string | undefined;
-		// tiltakTyper: TiltakType[];
-		// tiltakStatuser: TiltakStatus[];
 	};
 	sortering?: {
 		kolonnenavn: Kolonnenavn;
@@ -34,9 +32,8 @@ const getAscendingSort = (name: Kolonnenavn): ((b1: TiltakDeltagerDto, b2: Tilta
 		switch (name) {
 			case Kolonnenavn.NAVN:
 				return b1.etternavn.localeCompare(b2.etternavn);
-			case Kolonnenavn.FODSELSDATO:
+			case Kolonnenavn.FODSELSNUMMER:
 				return 0;
-				// return b1.fodselsdato.localeCompare(b2.fodselsdato);
 			case Kolonnenavn.STATUS:
 				return b1.status.localeCompare(b2.status);
 			case Kolonnenavn.START:

@@ -30,8 +30,6 @@ export const hentSisteLagretEllerForsteTilgjengeligVirksomhet = (tilgjengeligeVi
 	return sisteVirksomhet || tilgjengeligeVirksomheter[0]
 };
 
-// TODO: Koden ovenfor hører kanskje ikke hjemme her NOSONAR
-
 export const [ValgtVirksomhettoreProvider, useValgtVirksomhetStore] = constate((props: { defaultValgtVirksomhet: ValgtVirksomhet }) => {
 	const [valgtVirksomhet, setValgtVirksomhet] = useState<ValgtVirksomhet>(props.defaultValgtVirksomhet);
 
