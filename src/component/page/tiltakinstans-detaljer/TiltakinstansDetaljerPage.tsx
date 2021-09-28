@@ -14,6 +14,7 @@ import { TiltakDeltagerDto } from '../../../api/data/deltager';
 import { mapTiltakInstansStatusTilEtikett } from '../../../utils/text-mappers';
 import { isNotStartedOrPending, isRejected, usePromise } from '../../../utils/use-promise';
 import { AxiosResponse } from 'axios';
+import globalStyles from '../../../globals.module.less';
 
 interface TiltakinstansDetaljerPageRouteParams {
 	tiltakinstansId: string;
@@ -48,14 +49,16 @@ export const TiltakinstansDetaljerPage = () => {
 			<section>
 				<Link to="/" className={styles.tilbakelenke}>Tilbake</Link>
 
-				<div className="blokk-m">
-					<Systemtittel className="blokk-xxs">{tiltakinstans.navn}</Systemtittel>
+				<div className={globalStyles.blokkM}>
+					<Systemtittel className={globalStyles.blokkXxs}>{tiltakinstans.navn}</Systemtittel>
 					<Normaltekst>Oppstart: {dateStrWithMonthName(tiltakinstans.startdato)}</Normaltekst>
-					<Normaltekst className="blokk-xxs">Sluttdato: {dateStrWithMonthName(tiltakinstans.sluttdato)}</Normaltekst>
+					<Normaltekst className={globalStyles.blokkXxs}>Sluttdato: {dateStrWithMonthName(tiltakinstans.sluttdato)}</Normaltekst>
 
-					{mapTiltakInstansStatusTilEtikett(tiltakinstans.status)}
+					<div className={globalStyles.blokkXxs}>
+						{mapTiltakInstansStatusTilEtikett(tiltakinstans.status)}
+					</div>
 
-					<Normaltekst className="blokk-xxs">
+					<Normaltekst className={globalStyles.blokkXxs}>
 						Ledige plasser: {ledigePlasser} &nbsp;&nbsp; Totalt: {tiltakinstans.deltagerKapasitet}
 					</Normaltekst>
 					<Normaltekst>{tiltakinstans.tiltak.tiltaksnavn}</Normaltekst>

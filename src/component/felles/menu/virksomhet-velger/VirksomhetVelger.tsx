@@ -7,6 +7,7 @@ import cls from 'classnames';
 import { Element, Normaltekst } from 'nav-frontend-typografi';
 import styles from './VirksomhetVelger.module.less';
 import './VirksomhetVelger.less';
+import globalStyles from '../../../../globals.module.less';
 
 interface Valg {
 	value: string;
@@ -78,7 +79,7 @@ function VirksomhetValgOption(props: OptionProps<Valg>) {
 			aria-selected={props.isSelected}
 		>
 			<Element className={styles.fontSize14}>{virksomhet.organsisasjonsnavn}</Element>
-			<Normaltekst className={cls(styles.fontSize14, 'blokk-xs')}>Organisasjonsnr: {virksomhet.organsisasjonsnummer}</Normaltekst>
+			<Normaltekst className={cls(styles.fontSize14, globalStyles.blokkXs)}>Organisasjonsnr: {virksomhet.organsisasjonsnummer}</Normaltekst>
 
 			<Element>{virksomhet.virksomhetsnavn}</Element>
 			<Normaltekst className={styles.fontSize14}>Virksomhetsnr: {virksomhet.virksomhetsnummer}</Normaltekst>

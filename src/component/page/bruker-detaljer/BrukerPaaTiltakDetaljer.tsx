@@ -9,6 +9,7 @@ import { Label } from './label/Label';
 import { Link } from 'react-router-dom';
 import { formatDateStr } from '../../../utils/date-utils';
 import { mapTiltakDeltagerStatusTilEtikett } from '../../../utils/text-mappers';
+import globalStyles from '../../../globals.module.less';
 
 export const BrukerPaaTiltakDetaljer = (props: { bruker: TiltakDeltagerDetaljerDto }) => {
 	const { navKontor, navVeileder, fornavn, etternavn, fodselsdato, tiltakInstans, telefon, epost, status } = props.bruker;
@@ -25,29 +26,29 @@ export const BrukerPaaTiltakDetaljer = (props: { bruker: TiltakDeltagerDetaljerD
 
 			<div className={styles.detaljer}>
 				<Card className={styles.tiltakCard}>
-					<Systemtittel className="blokk-xxs">{(tiltakInstans.navn)}</Systemtittel>
-					<Normaltekst className="blokk-xxs">{tiltakInstans.tiltak.tiltaksnavn}</Normaltekst>
-					<Normaltekst className="blokk-xxs">{formatDateStr(tiltakInstans.startdato)} - {formatDateStr(tiltakInstans.sluttdato)}</Normaltekst>
+					<Systemtittel className={globalStyles.blokkXxs}>{(tiltakInstans.navn)}</Systemtittel>
+					<Normaltekst className={globalStyles.blokkXxs}>{tiltakInstans.tiltak.tiltaksnavn}</Normaltekst>
+					<Normaltekst className={globalStyles.blokkXxs}>{formatDateStr(tiltakInstans.startdato)} - {formatDateStr(tiltakInstans.sluttdato)}</Normaltekst>
 					{mapTiltakDeltagerStatusTilEtikett(status)}
 				</Card>
 
 				<div className={styles.userInfoContent}>
 					<Card>
-						<Systemtittel className="blokk-s">Deltaker</Systemtittel>
-						<Label title="Telefon" value={telefon} className="blokk-xs"/>
+						<Systemtittel className={globalStyles.blokkS}>Deltaker</Systemtittel>
+						<Label title="Telefon" value={telefon} className={globalStyles.blokkXs}/>
 						<Label title="Epost" value={epost}/>
 					</Card>
 
 					<Card>
-						<Systemtittel className="blokk-s">NAV-kontor</Systemtittel>
-						<Label title="Kontor" value={navKontor.navn} className="blokk-xs"/>
+						<Systemtittel className={globalStyles.blokkS}>NAV-kontor</Systemtittel>
+						<Label title="Kontor" value={navKontor.navn} className={globalStyles.blokkXs}/>
 						<Label title="Adresse" value={navKontor.adresse}/>
 					</Card>
 
 					<Card>
-						<Systemtittel className="blokk-s">NAV-veileder</Systemtittel>
-						<Label title="Navn" value={navVeileder?.navn} className="blokk-xs"/>
-						<Label title="Telefon" value={navVeileder?.telefon} className="blokk-xs"/>
+						<Systemtittel className={globalStyles.blokkS}>NAV-veileder</Systemtittel>
+						<Label title="Navn" value={navVeileder?.navn} className={globalStyles.blokkXs}/>
+						<Label title="Telefon" value={navVeileder?.telefon} className={globalStyles.blokkXs}/>
 						<Label title="Epost" value={navVeileder?.epost}/>
 					</Card>
 				</div>

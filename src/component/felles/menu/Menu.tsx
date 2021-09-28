@@ -6,6 +6,7 @@ import { useDataStore } from '../../../store/data-store';
 import { AlertStripeInfo } from 'nav-frontend-alertstriper';
 import navLogo from './nav-logo.svg';
 import { VirksomhetVelger } from './virksomhet-velger/VirksomhetVelger';
+import globalStyles from '../../../globals.module.less';
 
 export const Menu = () => {
 	const { innloggetAnsatt } = useDataStore();
@@ -20,14 +21,14 @@ export const Menu = () => {
 			</div>
 
 			<div className={styles.logoAndTitleSection}>
-				<img src={navLogo} className="blokk-xs" alt="NAV logo"/>
+				<img src={navLogo} className={globalStyles.blokkXs} alt="NAV logo"/>
 				<Systemtittel>Oversikt for tiltaksarrangører</Systemtittel>
 			</div>
 
 			<div>
-				<Normaltekst className="blokk-xxs">{`${innloggetAnsatt.fornavn} ${innloggetAnsatt.etternavn}`}</Normaltekst>
+				<Normaltekst className={globalStyles.blokkXxs}>{`${innloggetAnsatt.fornavn} ${innloggetAnsatt.etternavn}`}</Normaltekst>
 
-				<VirksomhetVelger className="blokk-xxs" />
+				<VirksomhetVelger className={globalStyles.blokkXxs} />
 
 				<a
 					href="/auth-proxy/oauth2/logout?redirect_uri=https://nav.no"
