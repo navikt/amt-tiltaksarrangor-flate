@@ -6,8 +6,8 @@ export enum AnsattRolle {
 
 export interface Virksomhet {
 	id: string,
-	organsisasjonsnummer: string,
-	organsisasjonsnavn: string,
+	organisasjonsnummer: string,
+	organisasjonsnavn: string,
 	virksomhetsnummer: string,
 	virksomhetsnavn: string,
 	roller: AnsattRolle[]

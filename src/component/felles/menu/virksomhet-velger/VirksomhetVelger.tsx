@@ -78,8 +78,8 @@ function VirksomhetValgOption(props: OptionProps<Valg>) {
 			role="option"
 			aria-selected={props.isSelected}
 		>
-			<Element className={styles.fontSize14}>{virksomhet.organsisasjonsnavn}</Element>
-			<Normaltekst className={cls(styles.fontSize14, globalStyles.blokkXs)}>Organisasjonsnr: {virksomhet.organsisasjonsnummer}</Normaltekst>
+			<Element className={styles.fontSize14}>{virksomhet.organisasjonsnavn}</Element>
+			<Normaltekst className={cls(styles.fontSize14, globalStyles.blokkXs)}>Organisasjonsnr: {virksomhet.organisasjonsnummer}</Normaltekst>
 
 			<Element>{virksomhet.virksomhetsnavn}</Element>
 			<Normaltekst className={styles.fontSize14}>Virksomhetsnr: {virksomhet.virksomhetsnummer}</Normaltekst>
