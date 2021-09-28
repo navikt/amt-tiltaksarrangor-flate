@@ -8,7 +8,7 @@ import { LoginPage } from './component/page/login/LoginPage';
 import { Spinner } from './component/felles/spinner/Spinner';
 import { fetchInnloggetAnsatt } from './api';
 import { TiltakinstansOversiktPage } from './component/page/tiltakinstans-oversikt/TiltakinstansOversiktPage';
-import { Menu } from './component/felles/menu/Menu';
+import { Banner } from './component/felles/menu/Banner';
 import { InnloggetAnsatt, Virksomhet } from './api/data/ansatt';
 import { isNotStartedOrPending, isRejected, usePromise } from './utils/use-promise';
 import { AxiosResponse } from 'axios';
@@ -41,7 +41,7 @@ export const App = () => {
 	return (
 		<StoreProvider innloggetAnsatt={innloggetAnsatt} defaultValgtVirksomhet={defaultValgtVirksomhet}>
 			<BrowserRouter>
-				<Menu/>
+				<Banner/>
 				<Switch>
 					<Route path="/user/:brukerId">
 						<BrukerDetaljerPage />

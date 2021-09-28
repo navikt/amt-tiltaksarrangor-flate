@@ -1,7 +1,7 @@
 import React from 'react';
 import cls from 'classnames';
 import { Link } from 'react-router-dom';
-import './SpaLenkepanel.less';
+import 'nav-frontend-lenkepanel-style'; // Importer direkte siden vi ikke bruker React-komponenten
 
 interface SpaLenkepanelProps {
 	to: string;

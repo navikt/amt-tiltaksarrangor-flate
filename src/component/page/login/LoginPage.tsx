@@ -3,6 +3,7 @@ import cls from 'classnames';
 import { Systemtittel } from 'nav-frontend-typografi';
 import { AlertStripeAdvarsel } from 'nav-frontend-alertstriper';
 import styles from './LoginPage.module.less';
+import globalStyles from '../../../globals.module.less';
 
 export const LoginPage = () => {
 	const currentLocation = window.location.href;
@@ -10,9 +11,9 @@ export const LoginPage = () => {
 
 	return (
 		<main className={styles.loginPage}>
-			<Systemtittel className={cls('blokk-xl', styles.title)}>Hei koordinator hos tiltaksarrangør!</Systemtittel>
+			<Systemtittel className={cls(globalStyles.blokkXl, styles.title)}>Hei koordinator hos tiltaksarrangør!</Systemtittel>
 
-			<AlertStripeAdvarsel className="blokk-xl">
+			<AlertStripeAdvarsel className={globalStyles.blokkXl}>
 				Dette er en første løsning til pilot.
 				Kun de som har avtalt med Team KOMET og har riktig innstilling gjennom Altinn vil kunne få tilgang til tjenesten.
 			</AlertStripeAdvarsel>

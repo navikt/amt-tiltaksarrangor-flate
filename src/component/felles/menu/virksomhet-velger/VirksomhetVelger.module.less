@@ -1,0 +1,22 @@
+@import '~nav-frontend-core/less/_variabler';
+
+.optionItem {
+  padding: 1rem;
+  cursor: pointer;
+
+  &:hover {
+    .optionItemFocused();
+  }
+
+  &:not(:last-child) {
+    border-bottom: 1px solid @navMorkGra;
+  }
+}
+
+.optionItemFocused {
+  background-color: @navBlaLighten80;
+}
+
+.fontSize14 {
+  font-size: 0.875rem;
+}

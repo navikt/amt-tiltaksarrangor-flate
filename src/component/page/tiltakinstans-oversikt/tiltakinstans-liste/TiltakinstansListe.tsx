@@ -5,12 +5,11 @@ import { Systemtittel } from 'nav-frontend-typografi';
 import { AlertStripeInfo } from 'nav-frontend-alertstriper';
 import { TiltakDto, TiltakInstansDto } from '../../../../api/data/tiltak';
 import { finnTiltakInstanser, finnUnikeTiltak } from '../../../../utils/tiltak-utils';
+import globalStyles from '../../../../globals.module.less';
 
 interface TiltakinstansListeProps {
 	tiltakInstanser: TiltakInstansDto[];
 }
-
-
 
 export const TiltakinstansListe = (props: TiltakinstansListeProps) => {
 
@@ -30,12 +29,12 @@ export const TiltakinstansListe = (props: TiltakinstansListeProps) => {
 		<ul className={styles.cleanList}>
 			{unikeTiltak.map((tiltak, tiltakIdx) => {
 				return (
-					<li key={tiltakIdx} className="blokk-l">
-						<Systemtittel className="blokk-m">{tiltak.tiltaksnavn}</Systemtittel>
+					<li key={tiltakIdx} className={globalStyles.blokkL}>
+						<Systemtittel className={globalStyles.blokkM}>{tiltak.tiltaksnavn}</Systemtittel>
 						<ul className={styles.cleanList}>
 							{finnTiltakInstanser(tiltak.tiltakskode, props.tiltakInstanser).map((tiltakInstans) => {
 								return (
-									<li key={tiltakInstans.id} className="blokk-s">
+									<li key={tiltakInstans.id} className={globalStyles.blokkS}>
 										<TiltakinstansOversiktPanel
 											id={tiltakInstans.id}
 											navn={tiltakInstans.navn}
