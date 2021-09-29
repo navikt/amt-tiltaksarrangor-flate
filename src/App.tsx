@@ -6,7 +6,7 @@ import { TiltakinstansDetaljerPage } from './component/page/tiltakinstans-detalj
 import StoreProvider from './store/store-provider';
 import { LoginPage } from './component/page/login/LoginPage';
 import { Spinner } from './component/felles/spinner/Spinner';
-import { fetchInnloggetAnsatt } from './api/tiltakAPI';
+import { fetchInnloggetAnsatt } from './api/tiltak-api';
 import { TiltakinstansOversiktPage } from './component/page/tiltakinstans-oversikt/TiltakinstansOversiktPage';
 import { Banner } from './component/felles/menu/Banner';
 import { isNotStartedOrPending, isRejected, usePromise } from './utils/use-promise';

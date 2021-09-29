@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link, useParams } from 'react-router-dom';
 
-import { fetchDeltakerePaTiltakinstans, fetchTiltakinstans } from '../../../api/tiltakAPI';
+import { fetchDeltakerePaTiltakinstans, fetchTiltakinstans } from '../../../api/tiltak-api';
 import { BrukerOversiktTabell } from './bruker-oversikt/BrukerOversiktTabell';
 import { FilterMeny } from './FilterMeny';
 import styles from './TiltakinstansDetaljerPage.module.less';

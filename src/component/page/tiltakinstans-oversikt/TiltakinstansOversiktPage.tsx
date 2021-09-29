@@ -9,7 +9,7 @@ import { AxiosResponse } from 'axios';
 import { AlertStripeFeil } from 'nav-frontend-alertstriper';
 import { useValgtVirksomhetStore } from '../../../store/valgt-virksomhet-store';
 import { TiltakInstans } from '../../../domeneobjekter/tiltak';
-import { fetchTiltakinstanser } from '../../../api/tiltakAPI';
+import { fetchTiltakinstanser } from '../../../api/tiltak-api';
 
 export const TiltakinstansOversiktPage = () => {
     const { valgtVirksomhet } = useValgtVirksomhetStore();
