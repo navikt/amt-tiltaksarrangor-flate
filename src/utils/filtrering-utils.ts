@@ -1,4 +1,4 @@
-import { TiltakDeltagerDto, TiltakDeltagerStatus } from '../api/data/deltager';
+import { TiltakDeltager, TiltakDeltagerStatus } from '../domeneobjekter/deltager';
 
 const matcherNavn = (bruker: {fornavn: string, etternavn: string}, navnFilter: string | undefined) => {
     if(!navnFilter || navnFilter.trim().length === 0) return true;
@@ -14,7 +14,7 @@ const matcherStatus = (statusFilter: TiltakDeltagerStatus[], brukerStatus: Tilta
     return statusFilter.includes(brukerStatus)
 }
 
-export const filtrerBrukere = (brukere: TiltakDeltagerDto[], statusFilter: TiltakDeltagerStatus[], navnFilter: string): TiltakDeltagerDto[] => {
+export const filtrerBrukere = (brukere: TiltakDeltager[], statusFilter: TiltakDeltagerStatus[], navnFilter: string): TiltakDeltager[] => {
    return brukere
         .filter(bruker => matcherNavn(bruker, navnFilter))
         .filter(bruker => matcherStatus(statusFilter, bruker.status))

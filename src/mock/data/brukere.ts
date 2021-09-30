@@ -1,8 +1,7 @@
 import faker from 'faker';
-
-import { TiltakDeltagerStatus } from '../../api/data/deltager';
 import { randomFnr, randomUuid } from '../utils/faker';
 import { MockTiltakInstans } from './tiltak';
+import { TiltakDeltagerStatus } from '../../domeneobjekter/deltager';
 
 export interface MockTiltakDeltager {
 	id: string,
@@ -24,7 +23,7 @@ export interface MockTiltakDeltager {
 	},
 	startdato: string,
 	sluttdato: string,
-	status: TiltakDeltagerStatus,
+	status: string,
 }
 
 const navEnheter: { enhetId: string, navn: string, adresse: string }[] = [

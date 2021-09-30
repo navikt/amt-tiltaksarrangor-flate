@@ -5,9 +5,9 @@ import { useDataStore } from '../../../../store/data-store';
 import { useValgtVirksomhetStore } from '../../../../store/valgt-virksomhet-store';
 import cls from 'classnames';
 import { Element, Normaltekst } from 'nav-frontend-typografi';
+import globalStyles from '../../../../globals.module.less';
 import styles from './VirksomhetVelger.module.less';
 import './VirksomhetVelger.less';
-import globalStyles from '../../../../globals.module.less';
 
 interface Valg {
 	value: string;

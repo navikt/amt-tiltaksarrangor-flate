@@ -3,7 +3,7 @@ import React from 'react';
 import { DataStoreProvider } from './data-store';
 import { ValgtVirksomhet, ValgtVirksomhettoreProvider } from './valgt-virksomhet-store';
 import { TiltaksoversiktSokStoreProvider } from './tiltaksoversikt-sok-store';
-import { InnloggetAnsatt } from '../api/data/ansatt';
+import { InnloggetAnsatt } from '../domeneobjekter/ansatt';
 
 interface StoreProviderProps {
 	innloggetAnsatt: InnloggetAnsatt;

@@ -6,14 +6,14 @@ import { TiltakinstansDetaljerPage } from './component/page/tiltakinstans-detalj
 import StoreProvider from './store/store-provider';
 import { LoginPage } from './component/page/login/LoginPage';
 import { Spinner } from './component/felles/spinner/Spinner';
-import { fetchInnloggetAnsatt } from './api';
+import { fetchInnloggetAnsatt } from './api/tiltak-api';
 import { TiltakinstansOversiktPage } from './component/page/tiltakinstans-oversikt/TiltakinstansOversiktPage';
 import { Banner } from './component/felles/menu/Banner';
-import { InnloggetAnsatt, Virksomhet } from './api/data/ansatt';
 import { isNotStartedOrPending, isRejected, usePromise } from './utils/use-promise';
 import { AxiosResponse } from 'axios';
 import { AlertStripeAdvarsel } from 'nav-frontend-alertstriper';
 import { hentSisteLagretEllerForsteTilgjengeligVirksomhet } from './store/valgt-virksomhet-store';
+import { InnloggetAnsatt, Virksomhet } from './domeneobjekter/ansatt';
 
 export const App = () => {
 	const fetchInnloggetAnsattPromise = usePromise<AxiosResponse<InnloggetAnsatt>>(fetchInnloggetAnsatt);

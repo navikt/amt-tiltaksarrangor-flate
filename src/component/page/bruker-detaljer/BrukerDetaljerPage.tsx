@@ -2,17 +2,17 @@ import { AlertStripeFeil } from 'nav-frontend-alertstriper';
 import React from 'react';
 import { useParams } from 'react-router-dom';
 
-import { fetchTiltakDeltagerDetaljer } from '../../../api';
-import { TiltakDeltagerDetaljerDto } from '../../../api/data/deltager';
+import { fetchTiltakDeltagerDetaljer } from '../../../api/tiltak-api';
 import { Spinner } from '../../felles/spinner/Spinner';
 import { BrukerPaaTiltakDetaljer } from './BrukerPaaTiltakDetaljer';
 import { isNotStartedOrPending, isRejected, usePromise } from '../../../utils/use-promise';
 import { AxiosResponse } from 'axios';
+import { TiltakDeltagerDetaljer } from '../../../domeneobjekter/deltager';
 
 export const BrukerDetaljerPage = () => {
 	const params = useParams<{ brukerId: string }>();
 
-	const fetchTiltakDeltagerDetaljerPromise = usePromise<AxiosResponse<TiltakDeltagerDetaljerDto>>(
+	const fetchTiltakDeltagerDetaljerPromise = usePromise<AxiosResponse<TiltakDeltagerDetaljer>>(
 		() => fetchTiltakDeltagerDetaljer(params.brukerId), [params.brukerId]
 	);
 

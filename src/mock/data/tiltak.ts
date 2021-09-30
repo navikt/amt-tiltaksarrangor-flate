@@ -1,6 +1,6 @@
-import { TiltakInstansStatus } from '../../api/data/tiltak';
 import { randBetween, randomUuid } from '../utils/faker';
 import * as faker from 'faker';
+import { TiltakInstansStatus } from '../../domeneobjekter/tiltak';
 
 export interface MockTiltakInstans {
 	id: string,
@@ -8,7 +8,7 @@ export interface MockTiltakInstans {
 	navn: string,
 	startdato: string,
 	sluttdato: string,
-	status: TiltakInstansStatus,
+	status: string,
 	deltagerAntall: number,
 	deltagerKapasitet: number,
 	tiltak: {

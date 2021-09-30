@@ -3,17 +3,18 @@ import { TiltakinstansOversiktPanel } from './tiltakinstans-oversikt-panel/Tilta
 import styles from './TiltaksinstansListe.module.less';
 import { Systemtittel } from 'nav-frontend-typografi';
 import { AlertStripeInfo } from 'nav-frontend-alertstriper';
-import { TiltakDto, TiltakInstansDto } from '../../../../api/data/tiltak';
+import { TiltakDTO } from '../../../../api/data/tiltak';
 import { finnTiltakInstanser, finnUnikeTiltak } from '../../../../utils/tiltak-utils';
+import { TiltakInstans } from '../../../../domeneobjekter/tiltak';
 import globalStyles from '../../../../globals.module.less';
 
 interface TiltakinstansListeProps {
-	tiltakInstanser: TiltakInstansDto[];
+	tiltakInstanser: TiltakInstans[];
 }
 
 export const TiltakinstansListe = (props: TiltakinstansListeProps) => {
 
-	const unikeTiltak = useMemo<TiltakDto[]>(() => {
+	const unikeTiltak = useMemo<TiltakDTO[]>(() => {
 		return finnUnikeTiltak(props.tiltakInstanser)
 	}, [props.tiltakInstanser]);
 

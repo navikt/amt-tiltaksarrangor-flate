@@ -9,7 +9,7 @@ interface TiltakinstansOversiktPanelProps {
     id: string,
     navn: string,
     deltakere?: number
-    oppstart?: string,
+    oppstart?: Date,
 }
 
 export const TiltakinstansOversiktPanel = (props: TiltakinstansOversiktPanelProps) => {

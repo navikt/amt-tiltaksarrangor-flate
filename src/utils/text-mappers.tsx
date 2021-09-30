@@ -1,7 +1,7 @@
-import { TiltakDeltagerStatus } from '../api/data/deltager';
-import { EtikettFokus, EtikettInfo, EtikettSuksess } from 'nav-frontend-etiketter';
 import React from 'react';
-import { TiltakInstansStatus } from '../api/data/tiltak';
+import { EtikettFokus, EtikettInfo, EtikettSuksess } from 'nav-frontend-etiketter';
+import { TiltakInstansStatus } from '../domeneobjekter/tiltak';
+import { TiltakDeltagerStatus } from '../domeneobjekter/deltager';
 
 export const mapTiltakInstansStatusTilEtikett = (tiltakInstansStatus: TiltakInstansStatus) => {
 	switch (tiltakInstansStatus) {

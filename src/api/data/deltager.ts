@@ -1,13 +1,6 @@
-import { TiltakInstansDto } from './tiltak';
+import { TiltakInstansDTO } from './tiltak';
 
-export enum TiltakDeltagerStatus {
-	NY_BRUKER = 'NY_BRUKER',
-	GJENNOMFORES = 'GJENNOMFORES',
-	AVBRUTT = 'AVBRUTT',
-	FULLFORT = 'FULLFORT'
-}
-
-export interface TiltakDeltagerDto {
+export interface TiltakDeltagerDTO {
 	id: string,
 	fornavn: string,
 	mellomnavn: string | undefined,
@@ -15,10 +8,10 @@ export interface TiltakDeltagerDto {
 	fodselsnummer: string | undefined,
 	startdato: string,
 	sluttdato: string,
-	status: TiltakDeltagerStatus
+	status: string
 }
 
-export interface TiltakDeltagerDetaljerDto {
+export interface TiltakDeltagerDetaljerDTO {
 	id: string,
 	fornavn: string,
 	mellomnavn: string | undefined,
@@ -30,8 +23,8 @@ export interface TiltakDeltagerDetaljerDto {
 	navVeileder: NavVeilederDTO,
 	startdato: string,
 	sluttdato: string,
-	status: TiltakDeltagerStatus,
-	tiltakInstans: TiltakInstansDto
+	status: string,
+	tiltakInstans: TiltakInstansDTO
 }
 
 export interface NavKontorDTO {

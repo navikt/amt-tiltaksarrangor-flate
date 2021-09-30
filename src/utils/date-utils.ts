@@ -1,12 +1,11 @@
 import dayjs from 'dayjs';
-
 import { OrNothing } from './types/or-nothing';
 
-export const formatDateStr = (dateStr: string) => {
+export const formatDate = (dateStr: Date) => {
 	return dayjs(dateStr).format('DD.MM.YYYY');
 };
 
-export const dateStrWithMonthName = (dateStr: string | undefined): string => {
+export const dateStrWithMonthName = (dateStr: Date | undefined): string => {
 	if (!dateStr)
 		return '';
 

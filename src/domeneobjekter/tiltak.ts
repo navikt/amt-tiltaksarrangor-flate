@@ -1,0 +1,21 @@
+export enum TiltakInstansStatus {
+    IKKE_STARTET= 'IKKE_STARTET',
+    GJENNOMFORES= 'GJENNOMFORES',
+    AVSLUTTET= 'AVSLUTTET',
+}
+
+export interface TiltakInstans {
+    id: string,
+    navn: string,
+    startdato: Date,
+    sluttdato: Date,
+    status: TiltakInstansStatus,
+    deltagerAntall: number,
+    deltagerKapasitet: number,
+    tiltak: Tiltak
+}
+
+export interface Tiltak {
+    tiltakskode: string,
+    tiltaksnavn: string,
+}
