@@ -1,5 +1,5 @@
-import { InnloggetAnsattDTO, VirksomhetDTO } from '../../api/data/ansatt';
-import { randomUuid } from '../utils/faker';
+import { InnloggetAnsattDTO, VirksomhetDTO } from '../../api/data/ansatt'
+import { randomUuid } from '../utils/faker'
 
 export const mockInnloggetAnsattVirksomheter: VirksomhetDTO[] = [
 	{
@@ -8,7 +8,7 @@ export const mockInnloggetAnsattVirksomheter: VirksomhetDTO[] = [
 		organisasjonsnummer: '750863842',
 		virksomhetsnavn: 'Muligheter AS',
 		virksomhetsnummer: '123456789',
-		roller: ["KOORDINATOR", "VEILEDER"]
+		roller: [ 'KOORDINATOR', 'VEILEDER' ]
 	},
 	{
 		id: randomUuid(),
@@ -16,9 +16,9 @@ export const mockInnloggetAnsattVirksomheter: VirksomhetDTO[] = [
 		organisasjonsnummer: '137603847',
 		virksomhetsnavn: 'Tiltak til alle AS',
 		virksomhetsnummer: '987654321',
-		roller: ["VEILEDER"]
+		roller: [ 'VEILEDER' ]
 	}
-];
+]
 
 export const mockInnloggetAnsatt: InnloggetAnsattDTO = {
 	id: randomUuid(),
@@ -26,4 +26,4 @@ export const mockInnloggetAnsatt: InnloggetAnsattDTO = {
 	mellomnavn: undefined,
 	etternavn: 'Koordinatorsen',
 	virksomheter: mockInnloggetAnsattVirksomheter
-};
+}

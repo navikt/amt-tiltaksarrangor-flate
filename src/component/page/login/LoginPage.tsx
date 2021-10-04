@@ -1,13 +1,14 @@
-import React from 'react';
-import cls from 'classnames';
-import { Systemtittel } from 'nav-frontend-typografi';
-import { AlertStripeAdvarsel } from 'nav-frontend-alertstriper';
-import styles from './LoginPage.module.less';
-import globalStyles from '../../../globals.module.less';
+import cls from 'classnames'
+import { AlertStripeAdvarsel } from 'nav-frontend-alertstriper'
+import { Systemtittel } from 'nav-frontend-typografi'
+import React from 'react'
+
+import globalStyles from '../../../globals.module.less'
+import styles from './LoginPage.module.less'
 
 export const LoginPage = () => {
-	const currentLocation = window.location.href;
-	const loginUrl = `/auth-proxy/oauth2/login?redirect_uri=${currentLocation}`;
+	const currentLocation = window.location.href
+	const loginUrl = `/auth-proxy/oauth2/login?redirect_uri=${currentLocation}`
 
 	return (
 		<main className={styles.loginPage}>
@@ -20,5 +21,5 @@ export const LoginPage = () => {
 
 			<a className="knapp knapp--hoved" href={loginUrl}>Logg inn</a>
 		</main>
-	);
-};
+	)
+}

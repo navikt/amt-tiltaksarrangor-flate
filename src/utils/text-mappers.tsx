@@ -1,47 +1,48 @@
-import React from 'react';
-import { EtikettFokus, EtikettInfo, EtikettSuksess } from 'nav-frontend-etiketter';
-import { TiltakInstansStatus } from '../domeneobjekter/tiltak';
-import { TiltakDeltagerStatus } from '../domeneobjekter/deltager';
+import { EtikettFokus, EtikettInfo, EtikettSuksess } from 'nav-frontend-etiketter'
+import React from 'react'
+
+import { TiltakDeltagerStatus } from '../domeneobjekter/deltager'
+import { TiltakInstansStatus } from '../domeneobjekter/tiltak'
 
 export const mapTiltakInstansStatusTilEtikett = (tiltakInstansStatus: TiltakInstansStatus) => {
 	switch (tiltakInstansStatus) {
 		case TiltakInstansStatus.IKKE_STARTET:
-			return <EtikettInfo>Gjennomføres</EtikettInfo>;
+			return <EtikettInfo>Gjennomføres</EtikettInfo>
 		case TiltakInstansStatus.GJENNOMFORES:
-			return <EtikettSuksess>Gjennomføres</EtikettSuksess>;
+			return <EtikettSuksess>Gjennomføres</EtikettSuksess>
 		case TiltakInstansStatus.AVSLUTTET:
-			return <EtikettFokus>Avsluttet</EtikettFokus>;
+			return <EtikettFokus>Avsluttet</EtikettFokus>
 		default:
-			return null;
+			return null
 	}
-};
+}
 
 export const mapTiltakDeltagerStatusTilEtikett = (tiltakDeltagerStatus: TiltakDeltagerStatus) => {
 	switch (tiltakDeltagerStatus) {
 		case TiltakDeltagerStatus.GJENNOMFORES:
-			return <EtikettSuksess>Gjennomføres</EtikettSuksess>;
+			return <EtikettSuksess>Gjennomføres</EtikettSuksess>
 		case TiltakDeltagerStatus.NY_BRUKER:
-			return <EtikettInfo>Ny bruker</EtikettInfo>;
+			return <EtikettInfo>Ny bruker</EtikettInfo>
 		case TiltakDeltagerStatus.AVBRUTT:
-			return <EtikettFokus>Avbrutt</EtikettFokus>;
+			return <EtikettFokus>Avbrutt</EtikettFokus>
 		case TiltakDeltagerStatus.FULLFORT:
-			return <EtikettSuksess>Fullført</EtikettSuksess>;
+			return <EtikettSuksess>Fullført</EtikettSuksess>
 		default:
-			return null;
+			return null
 	}
-};
+}
 
 export const mapTiltakDeltagerStatusTilTekst = (tiltakDeltagerStatus: TiltakDeltagerStatus): string => {
 	switch (tiltakDeltagerStatus) {
 		case TiltakDeltagerStatus.GJENNOMFORES:
-			return 'Gjennomføres';
+			return 'Gjennomføres'
 		case TiltakDeltagerStatus.NY_BRUKER:
-			return 'Ny Bruker';
+			return 'Ny Bruker'
 		case TiltakDeltagerStatus.AVBRUTT:
-			return 'Avbrutt';
+			return 'Avbrutt'
 		case TiltakDeltagerStatus.FULLFORT:
-			return 'Fullført';
+			return 'Fullført'
 		default:
-			return tiltakDeltagerStatus;
+			return tiltakDeltagerStatus
 	}
-};
+}

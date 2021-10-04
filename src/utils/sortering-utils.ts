@@ -7,33 +7,33 @@ export enum SorteringType {
 export const mapSortDirectionToText = (sorteringType: SorteringType): string => {
 	switch (sorteringType) {
 		case SorteringType.ASCENDING:
-			return 'stigende';
+			return 'stigende'
 		case SorteringType.DESCENDING:
-			return 'synkende';
+			return 'synkende'
 		default:
-			return '';
+			return ''
 	}
-};
+}
 
 export const mapSortDirectionToClassName = (sorteringType: SorteringType): string => {
 	switch (sorteringType) {
 		case SorteringType.ASCENDING:
-			return 'tabell__th--sortert-asc';
+			return 'tabell__th--sortert-asc'
 		case SorteringType.DESCENDING:
-			return 'tabell__th--sortert-desc';
+			return 'tabell__th--sortert-desc'
 		default:
-			return '';
+			return ''
 	}
-};
+}
 
 export const finnNesteSorteringType = (sorteringType: SorteringType): SorteringType => {
 	switch (sorteringType) {
 		case SorteringType.ASCENDING:
-			return SorteringType.DESCENDING;
+			return SorteringType.DESCENDING
 		case SorteringType.DESCENDING:
-			return SorteringType.NONE;
+			return SorteringType.NONE
 		default:
 			// This will be the default sort direction
-			return SorteringType.ASCENDING;
+			return SorteringType.ASCENDING
 	}
-};
+}

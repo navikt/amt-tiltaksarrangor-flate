@@ -1,8 +1,8 @@
-import React from 'react';
+import React from 'react'
 
-import { Rad } from './Rad';
-import { BrukerSortering } from './types';
-import { TiltakDeltager } from '../../../../domeneobjekter/deltager';
+import { TiltakDeltager } from '../../../../domeneobjekter/deltager'
+import { Rad } from './Rad'
+import { BrukerSortering } from './types'
 
 interface TabellBodyProps {
 	sortering?: BrukerSortering;
@@ -16,5 +16,5 @@ export const TabellBody = (props: TabellBodyProps) => {
 				<Rad idx={idx} bruker={bruker} brukerSortering={props.sortering} key={idx} />
 			))}
 		</tbody>
-	);
-};
+	)
+}

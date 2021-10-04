@@ -1,11 +1,11 @@
-import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
-import { Checkbox, CheckboxGruppe, Input } from 'nav-frontend-skjema';
-import React from 'react';
+import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel'
+import { Checkbox, CheckboxGruppe, Input } from 'nav-frontend-skjema'
+import React from 'react'
 
-import globalStyles from '../../../globals.module.less';
-import { useTiltaksoversiktSokStore } from '../../../store/tiltaksoversikt-sok-store';
-import { mapTiltakDeltagerStatusTilTekst } from '../../../utils/text-mappers';
-import { TiltakDeltagerStatus } from '../../../domeneobjekter/deltager';
+import { TiltakDeltagerStatus } from '../../../domeneobjekter/deltager'
+import globalStyles from '../../../globals.module.less'
+import { useTiltaksoversiktSokStore } from '../../../store/tiltaksoversikt-sok-store'
+import { mapTiltakDeltagerStatusTilTekst } from '../../../utils/text-mappers'
 
 export const FilterMeny = () => {
 	const {
@@ -14,7 +14,7 @@ export const FilterMeny = () => {
 		tiltakStatusFilter,
 		leggTilTiltakStatus,
 		fjernFraTiltakStatus,
-	} = useTiltaksoversiktSokStore();
+	} = useTiltaksoversiktSokStore()
 
 	return (
 		<div>
@@ -35,9 +35,9 @@ export const FilterMeny = () => {
 							checked={tiltakStatusFilter.includes(status)}
 							onChange={(e) => {
 								if (e.target.checked) {
-									leggTilTiltakStatus(status);
+									leggTilTiltakStatus(status)
 								} else {
-									fjernFraTiltakStatus(status);
+									fjernFraTiltakStatus(status)
 								}
 							}}
 						/>
@@ -45,5 +45,5 @@ export const FilterMeny = () => {
 				</CheckboxGruppe>
 			</Ekspanderbartpanel>
 		</div>
-	);
-};
+	)
+}

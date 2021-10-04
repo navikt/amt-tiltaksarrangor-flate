@@ -1,13 +1,15 @@
-import Select, { MultiValue, OptionProps, SingleValue } from 'react-select';
-import React, { useMemo } from 'react';
-import { useHistory } from 'react-router-dom';
-import { useDataStore } from '../../../../store/data-store';
-import { useValgtVirksomhetStore } from '../../../../store/valgt-virksomhet-store';
-import cls from 'classnames';
-import { Element, Normaltekst } from 'nav-frontend-typografi';
-import globalStyles from '../../../../globals.module.less';
-import styles from './VirksomhetVelger.module.less';
-import './VirksomhetVelger.less';
+import './VirksomhetVelger.less'
+
+import cls from 'classnames'
+import { Element, Normaltekst } from 'nav-frontend-typografi'
+import React, { useMemo } from 'react'
+import { useHistory } from 'react-router-dom'
+import Select, { MultiValue, OptionProps, SingleValue } from 'react-select'
+
+import globalStyles from '../../../../globals.module.less'
+import { useDataStore } from '../../../../store/data-store'
+import { useValgtVirksomhetStore } from '../../../../store/valgt-virksomhet-store'
+import styles from './VirksomhetVelger.module.less'
 
 interface Valg {
 	value: string;
@@ -19,38 +21,38 @@ interface VirksomhetVelgerProps {
 }
 
 export const VirksomhetVelger = (props: VirksomhetVelgerProps) => {
-	const history = useHistory();
-	const { innloggetAnsatt } = useDataStore();
-	const { valgtVirksomhet, setValgtVirksomhet } = useValgtVirksomhetStore();
+	const history = useHistory()
+	const { innloggetAnsatt } = useDataStore()
+	const { valgtVirksomhet, setValgtVirksomhet } = useValgtVirksomhetStore()
 
-	const tilgjengeligeVirksomheter = innloggetAnsatt.virksomheter;
+	const tilgjengeligeVirksomheter = innloggetAnsatt.virksomheter
 
 	const onValgtVirksomhetChanged = (valg: SingleValue<Valg> | MultiValue<Valg>) => {
 		const singleValg = valg as SingleValue<Valg>
 
-		const nyValgtVirksomhet = tilgjengeligeVirksomheter.find(virksomhet => virksomhet.id === singleValg?.value);
+		const nyValgtVirksomhet = tilgjengeligeVirksomheter.find(virksomhet => virksomhet.id === singleValg?.value)
 
 		if (nyValgtVirksomhet) {
-			setValgtVirksomhet(nyValgtVirksomhet);
+			setValgtVirksomhet(nyValgtVirksomhet)
 
 			// Når vi bytter virksomhet så redirect til tiltaksinstans-oversikt hvis vi ikke allerede er der
 			if (history.location.pathname !== '/') {
-				history.push('/');
+				history.push('/')
 			}
 		}
-	};
+	}
 
 	const virksomhetValg = useMemo(() => {
 		return tilgjengeligeVirksomheter.map(v => ({ value: v.id, label: v.virksomhetsnavn }))
-	}, [tilgjengeligeVirksomheter])
+	}, [ tilgjengeligeVirksomheter ])
 
 	const selectedValue = useMemo(() => {
 		return virksomhetValg.find(o => o.value === valgtVirksomhet.id)
-	}, [virksomhetValg, valgtVirksomhet])
+	}, [ virksomhetValg, valgtVirksomhet ])
 
 	return (
 		<Select
-			components={{Option: VirksomhetValgOption}}
+			components={{ Option: VirksomhetValgOption }}
 			defaultValue={selectedValue}
 			onChange={onValgtVirksomhetChanged}
 			options={virksomhetValg}
@@ -59,16 +61,16 @@ export const VirksomhetVelger = (props: VirksomhetVelgerProps) => {
 			classNamePrefix="virksomhet-velger"
 			isSearchable={false}
 		/>
-	);
-};
+	)
+}
 
 function VirksomhetValgOption(props: OptionProps<Valg>) {
-	const { innloggetAnsatt } = useDataStore();
+	const { innloggetAnsatt } = useDataStore()
 
-	const virksomhet = innloggetAnsatt.virksomheter.find(v => v.id === props.data.value);
+	const virksomhet = innloggetAnsatt.virksomheter.find(v => v.id === props.data.value)
 
 	if (!virksomhet) {
-		return null;
+		return null
 	}
 
 	return (

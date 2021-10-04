@@ -1,8 +1,8 @@
-import { mockTiltakInstanser } from './data';
-import { TiltakDeltagerDetaljerDTO, TiltakDeltagerDTO } from '../api/data/deltager';
-import { TiltakInstansDTO } from '../api/data/tiltak';
-import { MockTiltakDeltager } from './data/brukere';
-import { MockTiltakInstans } from './data/tiltak';
+import { TiltakDeltagerDetaljerDTO, TiltakDeltagerDTO } from '../api/data/deltager'
+import { TiltakInstansDTO } from '../api/data/tiltak'
+import { mockTiltakInstanser } from './data'
+import { MockTiltakDeltager } from './data/brukere'
+import { MockTiltakInstans } from './data/tiltak'
 
 export const tilTiltakInstansDto = (instans: MockTiltakInstans): TiltakInstansDTO => {
 	return {
@@ -17,8 +17,8 @@ export const tilTiltakInstansDto = (instans: MockTiltakInstans): TiltakInstansDT
 			tiltakskode: instans.tiltak.tiltakstype,
 			tiltaksnavn: instans.tiltak.tiltaksnavn
 		}
-	};
-};
+	}
+}
 
 export const tilTiltakDeltagerDto = (deltager: MockTiltakDeltager): TiltakDeltagerDTO => {
 	return {
@@ -30,11 +30,11 @@ export const tilTiltakDeltagerDto = (deltager: MockTiltakDeltager): TiltakDeltag
 		startdato: deltager.startdato,
 		sluttdato: deltager.sluttdato,
 		status: deltager.status
-	};
-};
+	}
+}
 
 export const tilTiltakDeltagerDetaljerDto = (deltager: MockTiltakDeltager): TiltakDeltagerDetaljerDTO => {
-	const tiltakInstans = mockTiltakInstanser.find(instans => instans.id === deltager.tiltakInstansId)!;
+	const tiltakInstans = mockTiltakInstanser.find(instans => instans.id === deltager.tiltakInstansId)!
 
 	return {
 		id: deltager.id,
@@ -50,6 +50,6 @@ export const tilTiltakDeltagerDetaljerDto = (deltager: MockTiltakDeltager): Tilt
 		navVeileder: deltager.navVeileder,
 		telefon: deltager.telefon,
 		tiltakInstans: tilTiltakInstansDto(tiltakInstans),
-	};
-};
+	}
+}
 

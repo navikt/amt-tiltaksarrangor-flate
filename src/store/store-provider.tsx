@@ -1,9 +1,9 @@
-import React from 'react';
+import React from 'react'
 
-import { DataStoreProvider } from './data-store';
-import { ValgtVirksomhet, ValgtVirksomhettoreProvider } from './valgt-virksomhet-store';
-import { TiltaksoversiktSokStoreProvider } from './tiltaksoversikt-sok-store';
-import { InnloggetAnsatt } from '../domeneobjekter/ansatt';
+import { InnloggetAnsatt } from '../domeneobjekter/ansatt'
+import { DataStoreProvider } from './data-store'
+import { TiltaksoversiktSokStoreProvider } from './tiltaksoversikt-sok-store'
+import { ValgtVirksomhet, ValgtVirksomhettoreProvider } from './valgt-virksomhet-store'
 
 interface StoreProviderProps {
 	innloggetAnsatt: InnloggetAnsatt;
@@ -20,7 +20,7 @@ const StoreProvider = (props: StoreProviderProps) => {
 				</TiltaksoversiktSokStoreProvider>
 			</ValgtVirksomhettoreProvider>
 		</DataStoreProvider>
-	);
-};
+	)
+}
 
-export default StoreProvider;
+export default StoreProvider

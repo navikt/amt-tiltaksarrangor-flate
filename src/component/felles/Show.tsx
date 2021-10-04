@@ -3,4 +3,4 @@ interface ShowProps {
 	children?: any;
 }
 
-export const Show = (props: ShowProps) => (props.if ? props.children : null);
+export const Show = (props: ShowProps) => (props.if ? props.children : null)

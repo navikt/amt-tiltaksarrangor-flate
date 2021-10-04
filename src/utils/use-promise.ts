@@ -40,12 +40,12 @@ const defaultState: NotStartedPromiseState = {
 }
 
 export const usePromise = <R, E = Error>(func?: () => Promise<R>, dependencies?: any[]) => {
-	const [ promise, setPromise ] = useState<Promise<R>>();
-	const [ promiseState, setPromiseState ] = useState<PromiseState<R, E>>(defaultState);
+	const [ promise, setPromise ] = useState<Promise<R>>()
+	const [ promiseState, setPromiseState ] = useState<PromiseState<R, E>>(defaultState)
 
 	useEffect(() => {
 		if (func) {
-			setPromise(func());
+			setPromise(func())
 		}
 		// eslint-disable-next-line
 	}, dependencies || [])
@@ -82,13 +82,13 @@ export const usePromise = <R, E = Error>(func?: () => Promise<R>, dependencies?:
 }
 
 export const isNotStartedOrPending = <R, E>(state: PromiseState<R, E>): state is NotStartedPromiseState | PendingPromiseState => {
-	return state.status === Status.NOT_STARTED || state.status === Status.PENDING;
+	return state.status === Status.NOT_STARTED || state.status === Status.PENDING
 }
 
 export const isResolved = <R, E>(state: PromiseState<R, E>): state is ResolvedPromiseState<R> => {
-	return state.status === Status.RESOLVED;
+	return state.status === Status.RESOLVED
 }
 
 export const isRejected = <R, E>(state: PromiseState<R, E>): state is RejectedPromiseState<E> => {
-	return state.status === Status.REJECTED;
+	return state.status === Status.REJECTED
 }

@@ -1,15 +1,16 @@
-import styles from './Banner.module.less';
-import { Normaltekst, Systemtittel } from 'nav-frontend-typografi';
-import React from 'react';
-import cls from 'classnames';
-import { useDataStore } from '../../../store/data-store';
-import { AlertStripeInfo } from 'nav-frontend-alertstriper';
-import navLogo from './nav-logo.svg';
-import { VirksomhetVelger } from './virksomhet-velger/VirksomhetVelger';
-import globalStyles from '../../../globals.module.less';
+import cls from 'classnames'
+import { AlertStripeInfo } from 'nav-frontend-alertstriper'
+import { Normaltekst, Systemtittel } from 'nav-frontend-typografi'
+import React from 'react'
+
+import globalStyles from '../../../globals.module.less'
+import { useDataStore } from '../../../store/data-store'
+import styles from './Banner.module.less'
+import navLogo from './nav-logo.svg'
+import { VirksomhetVelger } from './virksomhet-velger/VirksomhetVelger'
 
 export const Banner = () => {
-	const { innloggetAnsatt } = useDataStore();
+	const { innloggetAnsatt } = useDataStore()
 
 	return (
 		<header className={styles.banner}>
@@ -38,5 +39,5 @@ export const Banner = () => {
 				</a>
 			</div>
 		</header>
-	);
-};
+	)
+}

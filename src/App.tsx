@@ -1,42 +1,42 @@
-import React, { useMemo } from 'react';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { AxiosResponse } from 'axios'
+import { AlertStripeAdvarsel } from 'nav-frontend-alertstriper'
+import React, { useMemo } from 'react'
+import { BrowserRouter, Route, Switch } from 'react-router-dom'
 
-import { BrukerDetaljerPage } from './component/page/bruker-detaljer/BrukerDetaljerPage';
-import { TiltakinstansDetaljerPage } from './component/page/tiltakinstans-detaljer/TiltakinstansDetaljerPage';
-import StoreProvider from './store/store-provider';
-import { LoginPage } from './component/page/login/LoginPage';
-import { Spinner } from './component/felles/spinner/Spinner';
-import { fetchInnloggetAnsatt } from './api/tiltak-api';
-import { TiltakinstansOversiktPage } from './component/page/tiltakinstans-oversikt/TiltakinstansOversiktPage';
-import { Banner } from './component/felles/menu/Banner';
-import { isNotStartedOrPending, isRejected, usePromise } from './utils/use-promise';
-import { AxiosResponse } from 'axios';
-import { AlertStripeAdvarsel } from 'nav-frontend-alertstriper';
-import { hentSisteLagretEllerForsteTilgjengeligVirksomhet } from './store/valgt-virksomhet-store';
-import { InnloggetAnsatt, Virksomhet } from './domeneobjekter/ansatt';
+import { fetchInnloggetAnsatt } from './api/tiltak-api'
+import { Banner } from './component/felles/menu/Banner'
+import { Spinner } from './component/felles/spinner/Spinner'
+import { BrukerDetaljerPage } from './component/page/bruker-detaljer/BrukerDetaljerPage'
+import { LoginPage } from './component/page/login/LoginPage'
+import { TiltakinstansDetaljerPage } from './component/page/tiltakinstans-detaljer/TiltakinstansDetaljerPage'
+import { TiltakinstansOversiktPage } from './component/page/tiltakinstans-oversikt/TiltakinstansOversiktPage'
+import { InnloggetAnsatt, Virksomhet } from './domeneobjekter/ansatt'
+import StoreProvider from './store/store-provider'
+import { hentSisteLagretEllerForsteTilgjengeligVirksomhet } from './store/valgt-virksomhet-store'
+import { isNotStartedOrPending, isRejected, usePromise } from './utils/use-promise'
 
 export const App = () => {
-	const fetchInnloggetAnsattPromise = usePromise<AxiosResponse<InnloggetAnsatt>>(fetchInnloggetAnsatt);
+	const fetchInnloggetAnsattPromise = usePromise<AxiosResponse<InnloggetAnsatt>>(fetchInnloggetAnsatt)
 
 	const defaultValgtVirksomhet = useMemo<Virksomhet | undefined>(() => {
 		if (fetchInnloggetAnsattPromise.result) {
-			return hentSisteLagretEllerForsteTilgjengeligVirksomhet(fetchInnloggetAnsattPromise.result.data.virksomheter);
+			return hentSisteLagretEllerForsteTilgjengeligVirksomhet(fetchInnloggetAnsattPromise.result.data.virksomheter)
 		}
-	}, [fetchInnloggetAnsattPromise.result]);
+	}, [ fetchInnloggetAnsattPromise.result ])
 
 	if (isNotStartedOrPending(fetchInnloggetAnsattPromise)) {
-		return <Spinner />;
+		return <Spinner />
 	}
 
 	if (isRejected(fetchInnloggetAnsattPromise)) {
-		return <LoginPage />;
+		return <LoginPage />
 	}
 
 	if (!defaultValgtVirksomhet) {
-		return <AlertStripeAdvarsel>Du har ikke blitt tildelt tilgang til en virksomhet</AlertStripeAdvarsel>;
+		return <AlertStripeAdvarsel>Du har ikke blitt tildelt tilgang til en virksomhet</AlertStripeAdvarsel>
 	}
 
-	const innloggetAnsatt = fetchInnloggetAnsattPromise.result.data;
+	const innloggetAnsatt = fetchInnloggetAnsattPromise.result.data
 
 	return (
 		<StoreProvider innloggetAnsatt={innloggetAnsatt} defaultValgtVirksomhet={defaultValgtVirksomhet}>
@@ -55,5 +55,5 @@ export const App = () => {
 				</Switch>
 			</BrowserRouter>
 		</StoreProvider>
-	);
-};
+	)
+}

@@ -1,4 +1,4 @@
-import { TiltakInstansDTO } from './tiltak';
+import { TiltakInstansDTO } from './tiltak'
 
 export interface TiltakDeltagerDTO {
 	id: string,

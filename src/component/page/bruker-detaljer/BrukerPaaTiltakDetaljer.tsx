@@ -1,19 +1,19 @@
-import React from 'react';
+import { Normaltekst, Systemtittel } from 'nav-frontend-typografi'
+import React from 'react'
+import { Link } from 'react-router-dom'
 
-import { Normaltekst, Systemtittel } from 'nav-frontend-typografi';
-import { lagBrukerNavn } from '../../../utils/bruker-utils';
-import styles from './BrukerPaaTiltakDetaljer.module.less';
-import { Card } from '../../felles/card/Card';
-import { Label } from './label/Label';
-import { Link } from 'react-router-dom';
-import { formatDate } from '../../../utils/date-utils';
-import { mapTiltakDeltagerStatusTilEtikett } from '../../../utils/text-mappers';
-import globalStyles from '../../../globals.module.less';
-import { KopierKnapp } from './kopier-knapp/KopierKnapp';
-import { TiltakDeltagerDetaljer } from '../../../domeneobjekter/deltager';
+import { TiltakDeltagerDetaljer } from '../../../domeneobjekter/deltager'
+import globalStyles from '../../../globals.module.less'
+import { lagBrukerNavn } from '../../../utils/bruker-utils'
+import { formatDate } from '../../../utils/date-utils'
+import { mapTiltakDeltagerStatusTilEtikett } from '../../../utils/text-mappers'
+import { Card } from '../../felles/card/Card'
+import styles from './BrukerPaaTiltakDetaljer.module.less'
+import { KopierKnapp } from './kopier-knapp/KopierKnapp'
+import { Label } from './label/Label'
 
 export const BrukerPaaTiltakDetaljer = (props: { bruker: TiltakDeltagerDetaljer }) => {
-	const { navKontor, navVeileder, fornavn, etternavn, fodselsnummer, tiltakInstans, telefon, epost, status } = props.bruker;
+	const { navKontor, navVeileder, fornavn, etternavn, fodselsnummer, tiltakInstans, telefon, epost, status } = props.bruker
 	return (
 		<div>
 			<div className={styles.header}>
@@ -54,5 +54,5 @@ export const BrukerPaaTiltakDetaljer = (props: { bruker: TiltakDeltagerDetaljer 
 				</div>
 			</div>
 		</div>
-	);
-};
+	)
+}

@@ -70,7 +70,9 @@
     }
   },
   "lint-staged": {
-    "src/**/*.{ts,tsx,less}": []
+    "src/**/*.{ts,tsx,less}": [
+      "eslint --fix"
+    ]
   },
   "browserslist": {
     "production": [
