@@ -60,8 +60,9 @@
     "start": "cross-env REACT_APP_DEV=true craco start",
     "build": "craco build",
     "build:mock": "cross-env PUBLIC_URL=/amt-tiltaksarrangor-flate REACT_APP_DEV=true craco build",
-    "prettier": "prettier --write 'src/**/*.{ts,tsx,less}'",
-    "test": "craco test"
+    "test": "craco test",
+    "lint": "eslint 'src/**/*.{ts,tsx}'",
+    "lint:fix": "eslint --fix 'src/**/*.{ts,tsx}'"
   },
   "husky": {
     "hooks": {
@@ -69,21 +70,7 @@
     }
   },
   "lint-staged": {
-    "src/**/*.{ts,tsx,less}": [
-      "prettier --write"
-    ]
-  },
-  "importSort": {
-    ".ts, .tsx": {
-      "style": "module",
-      "parser": "typescript"
-    }
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
+    "src/**/*.{ts,tsx,less}": []
   },
   "browserslist": {
     "production": [
@@ -99,13 +86,15 @@
   },
   "devDependencies": {
     "@types/faker": "^5.5.7",
+    "@typescript-eslint/eslint-plugin": "^4.32.0",
+    "@typescript-eslint/parser": "^4.32.0",
+    "eslint": "^7.32.0",
+    "eslint-plugin-simple-import-sort": "^7.0.0",
     "faker": "^5.5.3",
     "husky": "^7.0.1",
-    "import-sort-style-module": "^6.0.0",
     "lint-staged": "^11.1.2",
     "msw": "^0.34.0",
-    "prettier": "^2.3.2",
-    "prettier-plugin-import-sort": "^0.0.7"
+    "prettier": "^2.3.2"
   },
   "msw": {
     "workerDirectory": "public"
