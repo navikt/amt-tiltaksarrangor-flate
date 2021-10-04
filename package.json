@@ -95,8 +95,7 @@
     "faker": "^5.5.3",
     "husky": "^7.0.1",
     "lint-staged": "^11.1.2",
-    "msw": "^0.34.0",
-    "prettier": "^2.3.2"
+    "msw": "^0.34.0"
   },
   "msw": {
     "workerDirectory": "public"
