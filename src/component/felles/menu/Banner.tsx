@@ -3,7 +3,6 @@ import { Normaltekst, Systemtittel } from 'nav-frontend-typografi';
 import React from 'react';
 import cls from 'classnames';
 import { useDataStore } from '../../../store/data-store';
-import { AlertStripeInfo } from 'nav-frontend-alertstriper';
 import navLogo from './nav-logo.svg';
 import { VirksomhetVelger } from './virksomhet-velger/VirksomhetVelger';
 import globalStyles from '../../../globals.module.less';
@@ -13,12 +12,7 @@ export const Banner = () => {
 
 	return (
 		<header className={styles.banner}>
-			<div className={styles.pilotInfoSection}>
-				<AlertStripeInfo>
-					Dette er en ny tjeneste som ikke er ferdig.
-					Ta kontakt med oss her hvis du har noen tilbakemeldinger.
-				</AlertStripeInfo>
-			</div>
+			<div />
 
 			<div className={styles.logoAndTitleSection}>
 				<img src={navLogo} className={globalStyles.blokkXs} alt="NAV logo"/>
