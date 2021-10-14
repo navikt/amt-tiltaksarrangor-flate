@@ -8,6 +8,8 @@ import ReactDOM from 'react-dom';
 
 import { App } from './App';
 import env from './utils/environment';
+import { ErrorBoundary } from './component/felles/ErrorBoundry';
+import { ErrorPage } from './component/page/error/ErrorPage';
 
 dayjs.locale('nb');
 
@@ -17,7 +19,9 @@ if (env.isDevelopment) {
 
 ReactDOM.render(
 	<React.StrictMode>
-		<App />
+		<ErrorBoundary renderOnError={() => <ErrorPage />}>
+			<App />
+		</ErrorBoundary>
 	</React.StrictMode>,
 	document.getElementById('root')
 );
