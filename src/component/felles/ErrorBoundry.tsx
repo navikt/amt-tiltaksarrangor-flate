@@ -1,8 +1,8 @@
 import React from 'react';
 
 interface ErrorBoundryProps {
-	children: React.ReactElement;
-	renderOnError: React.ReactElement | ((error: Error) => React.ReactElement);
+	children: React.ReactNode;
+	renderOnError: React.ReactNode | ((error: Error) => React.ReactNode);
 }
 
 type ErrorBoundryState = WithErrorState | WithoutErrorState;

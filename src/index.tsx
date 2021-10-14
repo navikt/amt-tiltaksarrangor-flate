@@ -10,6 +10,7 @@ import { App } from './App';
 import env from './utils/environment';
 import { ErrorBoundary } from './component/felles/ErrorBoundry';
 import { ErrorPage } from './component/page/error/ErrorPage';
+import { DemoBanner } from './component/felles/demo-banner/DemoBanner';
 
 dayjs.locale('nb');
 
@@ -20,6 +21,7 @@ if (env.isDevelopment) {
 ReactDOM.render(
 	<React.StrictMode>
 		<ErrorBoundary renderOnError={() => <ErrorPage />}>
+			{ env.isDemo &&	<DemoBanner /> }
 			<App />
 		</ErrorBoundary>
 	</React.StrictMode>,
