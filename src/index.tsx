@@ -11,8 +11,10 @@ import env from './utils/environment';
 import { ErrorBoundary } from './component/felles/ErrorBoundry';
 import { ErrorPage } from './component/page/error/ErrorPage';
 import { DemoBanner } from './component/felles/demo-banner/DemoBanner';
+import { initAmplitude } from './utils/amplitude-utils';
 
 dayjs.locale('nb');
+initAmplitude();
 
 if (env.isDevelopment) {
 	require('./mock');

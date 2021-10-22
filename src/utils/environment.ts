@@ -1,6 +1,10 @@
 class Environment {
-	get isProduction(): boolean {
-		return !this.isDevelopment;
+	get isProd(): boolean {
+		return !this.isPreprod && window.location.hostname.endsWith('nav.no');
+	}
+
+	get isPreprod(): boolean {
+		return window.location.hostname.endsWith('dev.nav.no');
 	}
 
 	get isDevelopment(): boolean {
