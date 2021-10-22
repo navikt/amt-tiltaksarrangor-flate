@@ -14,6 +14,7 @@ import { AxiosResponse } from 'axios';
 import { AlertStripeAdvarsel } from 'nav-frontend-alertstriper';
 import { hentSisteLagretEllerForsteTilgjengeligVirksomhet } from './store/valgt-virksomhet-store';
 import { InnloggetAnsatt, Virksomhet } from './domeneobjekter/ansatt';
+import { PageViewMetricCollector } from './component/PageViewMetricCollector';
 
 export const App = () => {
 	const fetchInnloggetAnsattPromise = usePromise<AxiosResponse<InnloggetAnsatt>>(fetchInnloggetAnsatt);
@@ -53,6 +54,7 @@ export const App = () => {
 						<TiltakinstansOversiktPage/>
 					</Route>
 				</Switch>
+				<PageViewMetricCollector />
 			</BrowserRouter>
 		</StoreProvider>
 	);
