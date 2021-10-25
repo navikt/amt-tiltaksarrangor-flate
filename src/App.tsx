@@ -10,6 +10,7 @@ import { BrukerDetaljerPage } from './component/page/bruker-detaljer/BrukerDetal
 import { LoginPage } from './component/page/login/LoginPage'
 import { TiltakinstansDetaljerPage } from './component/page/tiltakinstans-detaljer/TiltakinstansDetaljerPage'
 import { TiltakinstansOversiktPage } from './component/page/tiltakinstans-oversikt/TiltakinstansOversiktPage'
+import { PageViewMetricCollector } from './component/PageViewMetricCollector'
 import { InnloggetAnsatt, Virksomhet } from './domeneobjekter/ansatt'
 import StoreProvider from './store/store-provider'
 import { hentSisteLagretEllerForsteTilgjengeligVirksomhet } from './store/valgt-virksomhet-store'
@@ -53,6 +54,7 @@ export const App = () => {
 						<TiltakinstansOversiktPage/>
 					</Route>
 				</Switch>
+				<PageViewMetricCollector />
 			</BrowserRouter>
 		</StoreProvider>
 	)

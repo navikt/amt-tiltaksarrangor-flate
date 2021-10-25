@@ -7,7 +7,7 @@ export enum Status {
     REJECTED = 'REJECTED'
 }
 
-type PromiseState<R, E> = NotStartedPromiseState | PendingPromiseState | ResolvedPromiseState<R> | RejectedPromiseState<E>;
+type PromiseState<R, E> = NotStartedPromiseState | PendingPromiseState | ResolvedPromiseState<R> | RejectedPromiseState<E>
 
 interface NotStartedPromiseState {
 	result: undefined;
