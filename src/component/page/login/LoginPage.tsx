@@ -7,7 +7,7 @@ import globalStyles from '../../../globals.module.less';
 
 export const LoginPage = () => {
 	const currentLocation = window.location.href;
-	const loginUrl = `/auth-proxy/oauth2/login?redirect_uri=${currentLocation}`;
+	const loginUrl = `/auth-proxy/oauth2/login?redirect=${currentLocation}`;
 
 	return (
 		<main className={styles.loginPage}>
