@@ -22,6 +22,7 @@ const logAmplitudeEvent = (eventName: string, data?: { [key: string]: any }): vo
 		}
 
 		if (!env.isPreprod && !env.isProd) {
+			// eslint-disable-next-line no-console
 			console.log(`Amplitude event: ${eventName}`, data)
 			return
 		}
@@ -29,6 +30,7 @@ const logAmplitudeEvent = (eventName: string, data?: { [key: string]: any }): vo
 		try {
 			amplitude.getInstance().logEvent(eventName, data)
 		} catch (error) {
+			// eslint-disable-next-line no-console
 			console.error(error)
 		}
 	})

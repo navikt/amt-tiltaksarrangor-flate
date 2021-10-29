@@ -74,6 +74,8 @@ function VirksomhetValgOption(props: OptionProps<Valg>) {
 	}
 
 	return (
+		// Blir fikset av react-select
+		// eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/interactive-supports-focus
 		<div
 			className={cls(styles.optionItem, props.isFocused && styles.optionItemFocused)}
 			onClick={() => props.setValue(props.data, 'select-option', props.data)}
