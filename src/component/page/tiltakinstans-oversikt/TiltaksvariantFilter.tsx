@@ -15,7 +15,7 @@ interface TiltaksvariantFilterProps {
 	onTiltakValgtChanged: (valgteTyper: string[]) => void;
 }
 
-export const TiltaksvariantFilter = (props: TiltaksvariantFilterProps) => {
+export const TiltaksvariantFilter = (props: TiltaksvariantFilterProps): React.ReactElement<TiltaksvariantFilterProps> => {
 	const { tiltakValg, valgteTyper, onTiltakValgtChanged } = props
 
 	const handleTiltakValgtChanged = (e: ChangeEvent<HTMLInputElement>) => {

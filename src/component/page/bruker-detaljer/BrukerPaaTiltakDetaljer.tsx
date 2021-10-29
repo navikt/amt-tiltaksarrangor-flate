@@ -12,7 +12,7 @@ import styles from './BrukerPaaTiltakDetaljer.module.less'
 import { KopierKnapp } from './kopier-knapp/KopierKnapp'
 import { Label } from './label/Label'
 
-export const BrukerPaaTiltakDetaljer = (props: { bruker: TiltakDeltagerDetaljer }) => {
+export const BrukerPaaTiltakDetaljer = (props: { bruker: TiltakDeltagerDetaljer }): React.ReactElement => {
 	const { navKontor, navVeileder, fornavn, etternavn, fodselsnummer, tiltakInstans, telefon, epost, status } = props.bruker
 	return (
 		<div>

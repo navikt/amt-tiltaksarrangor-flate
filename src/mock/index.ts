@@ -23,7 +23,7 @@ const allHandlers: RequestHandler[] = [
 	}),
 	rest.get('/amt-tiltak/api/tiltak-deltager/:brukerId', (req, res, ctx) => {
 		const brukerId = req.params['brukerId']
-		const bruker = mockTiltakDeltagere.find((b) => b.id === brukerId)!
+		const bruker = mockTiltakDeltagere.find((b) => b.id === brukerId)! // eslint-disable-line @typescript-eslint/no-non-null-assertion
 
 		return res(ctx.delay(500), ctx.json(tilTiltakDeltagerDetaljerDto(bruker)))
 	}),

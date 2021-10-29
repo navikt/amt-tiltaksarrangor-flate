@@ -6,7 +6,7 @@ import React from 'react'
 import globalStyles from '../../../globals.module.less'
 import styles from './LoginPage.module.less'
 
-export const LoginPage = () => {
+export const LoginPage = (): React.ReactElement => {
 	const currentLocation = window.location.href
 	const loginUrl = `/auth-proxy/oauth2/login?redirect=${currentLocation}`
 

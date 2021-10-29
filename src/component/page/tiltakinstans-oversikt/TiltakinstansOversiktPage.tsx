@@ -12,7 +12,7 @@ import { TiltakinstansListe } from './tiltakinstans-liste/TiltakinstansListe'
 import styles from './TiltakinstansOversiktPage.module.less'
 import { TiltaksvariantFilter } from './TiltaksvariantFilter'
 
-export const TiltakinstansOversiktPage = () => {
+export const TiltakinstansOversiktPage = (): React.ReactElement => {
 	const { valgtVirksomhet } = useValgtVirksomhetStore()
 	const [ valgteTiltakTyper, setValgteTiltakTyper ] = useState<string[]>([])
 

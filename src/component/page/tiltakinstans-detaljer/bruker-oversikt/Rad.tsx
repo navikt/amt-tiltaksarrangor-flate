@@ -21,7 +21,7 @@ const sortClassName = (name: Kolonnenavn, brukerSortering?: BrukerSortering): st
 	return 'tabell__td--sortert'
 }
 
-export const Rad = (props: RadProps) => {
+export const Rad = (props: RadProps): React.ReactElement<RadProps> => {
 	const { fodselsnummer, fornavn, etternavn, id, startdato, sluttdato, status } = props.bruker
 	const userSort = props.brukerSortering
 

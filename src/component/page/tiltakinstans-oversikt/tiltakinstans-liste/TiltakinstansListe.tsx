@@ -13,7 +13,7 @@ interface TiltakinstansListeProps {
 	tiltakInstanser: TiltakInstans[];
 }
 
-export const TiltakinstansListe = (props: TiltakinstansListeProps) => {
+export const TiltakinstansListe = (props: TiltakinstansListeProps): React.ReactElement<TiltakinstansListeProps> => {
 
 	const unikeTiltak = useMemo<TiltakDTO[]>(() => {
 		return finnUnikeTiltak(props.tiltakInstanser)

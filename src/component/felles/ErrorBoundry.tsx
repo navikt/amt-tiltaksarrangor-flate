@@ -24,11 +24,11 @@ export class ErrorBoundary extends React.Component<ErrorBoundryProps, ErrorBound
 		this.state = { error: undefined, hasError: false }
 	}
 
-	static getDerivedStateFromError(error: Error) {
+	static getDerivedStateFromError(error: Error): ErrorBoundryState {
 		return { error, hasError: true }
 	}
 
-	render() {
+	render(): React.ReactNode {
 		if (this.state.hasError) {
 			if (typeof this.props.renderOnError === 'function') {
 				return this.props.renderOnError(this.state.error)

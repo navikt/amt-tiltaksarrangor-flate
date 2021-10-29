@@ -20,7 +20,7 @@ interface TiltakinstansDetaljerPageRouteParams {
 	tiltakinstansId: string;
 }
 
-export const TiltakinstansDetaljerPage = () => {
+export const TiltakinstansDetaljerPage = (): React.ReactElement => {
 	const params = useParams<TiltakinstansDetaljerPageRouteParams>()
 
 	const fetchTiltakinstansPromise = usePromise<AxiosResponse<TiltakInstans>>(

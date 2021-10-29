@@ -22,7 +22,7 @@ const IngenBrukereAlertstripe = () => (
 	</AlertStripeInfo>
 )
 
-export const BrukerOversiktTabell = (props: BrukerOversiktTabellProps) => {
+export const BrukerOversiktTabell = (props: BrukerOversiktTabellProps): React.ReactElement<BrukerOversiktTabellProps> => {
 	const { brukerSortering, setBrukerSortering, tiltakStatusFilter, navnFnrSok } = useTiltaksoversiktSokStore()
 	const brukereFiltrert = () => filtrerBrukere(props.brukere, tiltakStatusFilter, navnFnrSok)
 	const [ filtrerteBrukere, setFiltrerteBrukere ] = useState<TiltakDeltager[]>(brukereFiltrert)

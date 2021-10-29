@@ -1,7 +1,7 @@
 import { AlertStripeAdvarsel } from 'nav-frontend-alertstriper'
 import React from 'react'
 
-export const DemoBanner = () => {
+export const DemoBanner = (): React.ReactElement => {
 	return (
 		<AlertStripeAdvarsel>
 			<b>Dette er en demo-tjeneste som er under utvikling</b>

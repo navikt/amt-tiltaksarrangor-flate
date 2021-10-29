@@ -11,7 +11,7 @@ interface SpaLenkepanelProps {
 	className?: string;
 }
 
-export const SpaLenkepanel = (props: SpaLenkepanelProps) => {
+export const SpaLenkepanel = (props: SpaLenkepanelProps): React.ReactElement<SpaLenkepanelProps> => {
 	const { to, border, children, className } = props
 
 	return (

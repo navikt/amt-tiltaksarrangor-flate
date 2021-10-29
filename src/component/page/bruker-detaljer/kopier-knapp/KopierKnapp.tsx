@@ -23,7 +23,7 @@ function writeToClipBoard(text: string): void {
 	textField.remove()
 }
 
-export const KopierKnapp = (props: KopierKnappProps) => {
+export const KopierKnapp = (props: KopierKnappProps): React.ReactElement<KopierKnappProps> => {
 	const [ copySuccess, setCopySuccess ] = useState<boolean>(false)
 
 	const handleOnClick = () => {

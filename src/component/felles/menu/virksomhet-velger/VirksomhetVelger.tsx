@@ -20,7 +20,7 @@ interface VirksomhetVelgerProps {
 	className?: string;
 }
 
-export const VirksomhetVelger = (props: VirksomhetVelgerProps) => {
+export const VirksomhetVelger = (props: VirksomhetVelgerProps): React.ReactElement<VirksomhetVelgerProps> => {
 	const history = useHistory()
 	const { innloggetAnsatt } = useDataStore()
 	const { valgtVirksomhet, setValgtVirksomhet } = useValgtVirksomhetStore()
@@ -64,7 +64,7 @@ export const VirksomhetVelger = (props: VirksomhetVelgerProps) => {
 	)
 }
 
-function VirksomhetValgOption(props: OptionProps<Valg>) {
+function VirksomhetValgOption(props: OptionProps<Valg>): React.ReactElement<OptionProps<Valg>> | null {
 	const { innloggetAnsatt } = useDataStore()
 
 	const virksomhet = innloggetAnsatt.virksomheter.find(v => v.id === props.data.value)

@@ -15,7 +15,7 @@ interface TableHeaderProps {
 	onSortChange: (sortering: BrukerSortering) => void;
 }
 
-const SortableHeader = (props: TableHeaderProps) => {
+const SortableHeader = (props: TableHeaderProps): React.ReactElement<TableHeaderProps> => {
 	const { title, name, sortering, onSortChange } = props
 	const sorteringType = name === sortering?.kolonnenavn ? sortering.sorteringType : SorteringType.NONE
 
@@ -39,7 +39,7 @@ interface UserTableHeaderProps {
 	onSortChange: (sortering: BrukerSortering) => void;
 }
 
-export const TabellHeader = (props: UserTableHeaderProps) => {
+export const TabellHeader = (props: UserTableHeaderProps): React.ReactElement<UserTableHeaderProps> => {
 	const { sortering, onSortChange } = props
 	return (
 		<thead>

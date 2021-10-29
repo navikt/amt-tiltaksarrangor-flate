@@ -10,7 +10,7 @@ interface LabelProps {
 	className?: string;
 }
 
-export const Label = (props: LabelProps) => {
+export const Label = (props: LabelProps): React.ReactElement<LabelProps> => {
 	const { title, value, className } = props
 	return (
 		<div className={cls(styles.label, className)}>

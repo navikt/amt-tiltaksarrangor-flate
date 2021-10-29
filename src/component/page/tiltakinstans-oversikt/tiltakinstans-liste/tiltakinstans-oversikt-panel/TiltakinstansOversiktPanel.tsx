@@ -13,7 +13,7 @@ interface TiltakinstansOversiktPanelProps {
     oppstart?: Date,
 }
 
-export const TiltakinstansOversiktPanel = (props: TiltakinstansOversiktPanelProps) => {
+export const TiltakinstansOversiktPanel = (props: TiltakinstansOversiktPanelProps): React.ReactElement<TiltakinstansOversiktPanelProps> => {
 	const { id, navn, deltakere, oppstart } = props
 
 	return (

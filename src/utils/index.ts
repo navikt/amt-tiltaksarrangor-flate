@@ -1,4 +1,7 @@
-export const reverseSort = <T extends any>(sorter: (t1: T, t2: T) => number) => {
+type SortFunction<T> = (t1: T, t2: T) => number;
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const reverseSort = <T extends any>(sorter: SortFunction<T>): SortFunction<T> => {
 	return (t1: T, t2: T): number => {
 		return sorter(t1, t2) * -1
 	}

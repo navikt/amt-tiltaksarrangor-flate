@@ -7,7 +7,7 @@ import globalStyles from '../../../globals.module.less'
 import { useTiltaksoversiktSokStore } from '../../../store/tiltaksoversikt-sok-store'
 import { mapTiltakDeltagerStatusTilTekst } from '../../../utils/text-mappers'
 
-export const FilterMeny = () => {
+export const FilterMeny = (): React.ReactElement => {
 	const {
 		navnFnrSok,
 		setNavnFnrSok,

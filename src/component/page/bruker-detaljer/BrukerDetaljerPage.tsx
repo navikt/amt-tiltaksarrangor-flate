@@ -9,7 +9,7 @@ import { isNotStartedOrPending, isRejected, usePromise } from '../../../utils/us
 import { Spinner } from '../../felles/spinner/Spinner'
 import { BrukerPaaTiltakDetaljer } from './BrukerPaaTiltakDetaljer'
 
-export const BrukerDetaljerPage = () => {
+export const BrukerDetaljerPage = (): React.ReactElement => {
 	const params = useParams<{ brukerId: string }>()
 
 	const fetchTiltakDeltagerDetaljerPromise = usePromise<AxiosResponse<TiltakDeltagerDetaljer>>(

@@ -3,7 +3,9 @@ import amplitude from 'amplitude-js'
 import { APP_NAME, TEAM_NAME } from './constants'
 import env from './environment'
 
-export const initAmplitude = () => {
+type EventDataValue = string | boolean | number | null | undefined
+
+export const initAmplitude = (): void => {
 	amplitude.getInstance().init('default', '', {
 		apiEndpoint: 'amplitude.nav.no/collect-auto',
 		saveEvents: false,
@@ -13,7 +15,7 @@ export const initAmplitude = () => {
 	})
 }
 
-const logAmplitudeEvent = (eventName: string, data?: { [key: string]: any }): void => {
+const logAmplitudeEvent = (eventName: string, data?: { [key: string]: EventDataValue }): void => {
 	setTimeout(() => {
 		data = {
 			app: APP_NAME,

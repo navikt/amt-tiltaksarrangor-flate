@@ -11,7 +11,7 @@ interface StoreProviderProps {
 	children: React.ReactNode;
 }
 
-const StoreProvider = (props: StoreProviderProps) => {
+const StoreProvider = (props: StoreProviderProps): React.ReactElement<StoreProviderProps> => {
 	return (
 		<DataStoreProvider initialInnloggetAnsatt={props.innloggetAnsatt}>
 			<ValgtVirksomhettoreProvider defaultValgtVirksomhet={props.defaultValgtVirksomhet}>

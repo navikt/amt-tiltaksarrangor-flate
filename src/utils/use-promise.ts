@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { Dispatch, SetStateAction, useEffect, useState } from 'react'
 
 export enum Status {
 	NOT_STARTED = 'NOT_STARTED',
@@ -39,7 +39,10 @@ const defaultState: NotStartedPromiseState = {
 	status: Status.NOT_STARTED
 }
 
-export const usePromise = <R, E = Error>(func?: () => Promise<R>, dependencies?: any[]) => {
+type UsePromise<R, E = Error> = PromiseState<R, E> & { setPromise: Dispatch<SetStateAction<Promise<R> | undefined>> }
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const usePromise = <R, E = Error>(func?: () => Promise<R>, dependencies?: any[]): UsePromise<R, E> => {
 	const [ promise, setPromise ] = useState<Promise<R>>()
 	const [ promiseState, setPromiseState ] = useState<PromiseState<R, E>>(defaultState)
 

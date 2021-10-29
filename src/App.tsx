@@ -16,7 +16,7 @@ import StoreProvider from './store/store-provider'
 import { hentSisteLagretEllerForsteTilgjengeligVirksomhet } from './store/valgt-virksomhet-store'
 import { isNotStartedOrPending, isRejected, usePromise } from './utils/use-promise'
 
-export const App = () => {
+export const App = (): React.ReactElement => {
 	const fetchInnloggetAnsattPromise = usePromise<AxiosResponse<InnloggetAnsatt>>(fetchInnloggetAnsatt)
 
 	const defaultValgtVirksomhet = useMemo<Virksomhet | undefined>(() => {

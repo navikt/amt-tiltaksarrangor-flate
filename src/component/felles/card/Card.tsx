@@ -8,7 +8,7 @@ interface CardProps {
 	children?: React.ReactNode;
 }
 
-export const Card = (props: CardProps) => {
+export const Card = (props: CardProps): React.ReactElement => {
 	return (
 		<section className={cls(styles.card, props.className)}>
 			{props.children}

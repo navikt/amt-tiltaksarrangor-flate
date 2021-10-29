@@ -2,7 +2,7 @@ import dayjs from 'dayjs'
 
 import { OrNothing } from './types/or-nothing'
 
-export const formatDate = (dateStr: Date) => {
+export const formatDate = (dateStr: Date): string => {
 	return dayjs(dateStr).format('DD.MM.YYYY')
 }
 

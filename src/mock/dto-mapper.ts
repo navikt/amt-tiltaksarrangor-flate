@@ -34,6 +34,7 @@ export const tilTiltakDeltagerDto = (deltager: MockTiltakDeltager): TiltakDeltag
 }
 
 export const tilTiltakDeltagerDetaljerDto = (deltager: MockTiltakDeltager): TiltakDeltagerDetaljerDTO => {
+	// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 	const tiltakInstans = mockTiltakInstanser.find(instans => instans.id === deltager.tiltakInstansId)!
 
 	return {

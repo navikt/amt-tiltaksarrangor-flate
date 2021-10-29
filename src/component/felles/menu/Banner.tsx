@@ -9,7 +9,7 @@ import navLogo from './nav-logo.svg'
 import { VirksomhetVelger } from './virksomhet-velger/VirksomhetVelger'
 
 
-export const Banner = () => {
+export const Banner = (): React.ReactElement => {
 	const { innloggetAnsatt } = useDataStore()
 
 	return (

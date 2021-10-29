@@ -4,7 +4,7 @@ import React from 'react'
 import { TiltakDeltagerStatus } from '../domeneobjekter/deltager'
 import { TiltakInstansStatus } from '../domeneobjekter/tiltak'
 
-export const mapTiltakInstansStatusTilEtikett = (tiltakInstansStatus: TiltakInstansStatus) => {
+export const mapTiltakInstansStatusTilEtikett = (tiltakInstansStatus: TiltakInstansStatus): React.ReactElement | null => {
 	switch (tiltakInstansStatus) {
 		case TiltakInstansStatus.IKKE_STARTET:
 			return <EtikettInfo>Gjennomføres</EtikettInfo>
@@ -17,7 +17,7 @@ export const mapTiltakInstansStatusTilEtikett = (tiltakInstansStatus: TiltakInst
 	}
 }
 
-export const mapTiltakDeltagerStatusTilEtikett = (tiltakDeltagerStatus: TiltakDeltagerStatus) => {
+export const mapTiltakDeltagerStatusTilEtikett = (tiltakDeltagerStatus: TiltakDeltagerStatus): React.ReactElement | null => {
 	switch (tiltakDeltagerStatus) {
 		case TiltakDeltagerStatus.GJENNOMFORES:
 			return <EtikettSuksess>Gjennomføres</EtikettSuksess>
