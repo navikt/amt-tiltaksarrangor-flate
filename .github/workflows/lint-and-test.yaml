@@ -1,4 +1,4 @@
-name: Run tests
+name: Lint & tests
 on:
   push:
     branches-ignore:
@@ -8,17 +8,19 @@ env:
   TZ: Europe/Amsterdam
 
 jobs:
-  test:
-    name: Run tests
+  lint-and-test:
+    name: Lint & run tests
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v1
+        uses: actions/checkout@v2
       - name: Setup node
         uses: actions/setup-node@v1
         with:
           node-version: '14.x'
       - name: Install dependencies
         run: npm ci
+      - name: Lint
+        run: npm run lint
       - name: Run tests
         run: npm run test
