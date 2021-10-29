@@ -1,12 +1,12 @@
-import React from 'react';
+import React from 'react'
 
 import {
-	SorteringType,
 	finnNesteSorteringType,
 	mapSortDirectionToClassName,
 	mapSortDirectionToText,
-} from '../../../../utils/sortering-utils';
-import { BrukerSortering, Kolonnenavn } from './types';
+	SorteringType,
+} from '../../../../utils/sortering-utils'
+import { BrukerSortering, Kolonnenavn } from './types'
 
 interface TableHeaderProps {
 	title: string;
@@ -16,11 +16,11 @@ interface TableHeaderProps {
 }
 
 const SortableHeader = (props: TableHeaderProps) => {
-	const { title, name, sortering, onSortChange } = props;
-	const sorteringType = name === sortering?.kolonnenavn ? sortering.sorteringType : SorteringType.NONE;
+	const { title, name, sortering, onSortChange } = props
+	const sorteringType = name === sortering?.kolonnenavn ? sortering.sorteringType : SorteringType.NONE
 
-	const nesteSorteringType = finnNesteSorteringType(sorteringType);
-	const ariaLabel = `Sorter ${title} ${mapSortDirectionToText(nesteSorteringType)}`;
+	const nesteSorteringType = finnNesteSorteringType(sorteringType)
+	const ariaLabel = `Sorter ${title} ${mapSortDirectionToText(nesteSorteringType)}`
 
 	return (
 		<th role="columnheader" className={mapSortDirectionToClassName(sorteringType)} aria-sort={sorteringType}>
@@ -31,8 +31,8 @@ const SortableHeader = (props: TableHeaderProps) => {
 				{title}
 			</button>
 		</th>
-	);
-};
+	)
+}
 
 interface UserTableHeaderProps {
 	sortering?: BrukerSortering;
@@ -40,7 +40,7 @@ interface UserTableHeaderProps {
 }
 
 export const TabellHeader = (props: UserTableHeaderProps) => {
-	const { sortering, onSortChange } = props;
+	const { sortering, onSortChange } = props
 	return (
 		<thead>
 			<tr>
@@ -62,5 +62,5 @@ export const TabellHeader = (props: UserTableHeaderProps) => {
 				<SortableHeader sortering={sortering} onSortChange={onSortChange} title="Status" name={Kolonnenavn.STATUS} />
 			</tr>
 		</thead>
-	);
-};
+	)
+}

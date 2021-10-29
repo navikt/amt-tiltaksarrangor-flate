@@ -1,29 +1,29 @@
-import constate from 'constate';
-import { useState } from 'react';
+import constate from 'constate'
+import { useState } from 'react'
 
-import { BrukerSortering } from '../component/page/tiltakinstans-detaljer/bruker-oversikt/types';
-import { TiltakDeltagerStatus } from '../domeneobjekter/deltager';
+import { BrukerSortering } from '../component/page/tiltakinstans-detaljer/bruker-oversikt/types'
+import { TiltakDeltagerStatus } from '../domeneobjekter/deltager'
 
-export const [TiltaksoversiktSokStoreProvider, useTiltaksoversiktSokStore] = constate(() => {
-	const [navnFnrSok, setNavnFnrSok] = useState<string>('');
-	const [tiltakStatusFilter, setTiltakStatusFilter] = useState<TiltakDeltagerStatus[]>([]);
-	const [brukerSortering, setBrukerSortering] = useState<BrukerSortering>();
+export const [ TiltaksoversiktSokStoreProvider, useTiltaksoversiktSokStore ] = constate(() => {
+	const [ navnFnrSok, setNavnFnrSok ] = useState<string>('')
+	const [ tiltakStatusFilter, setTiltakStatusFilter ] = useState<TiltakDeltagerStatus[]>([])
+	const [ brukerSortering, setBrukerSortering ] = useState<BrukerSortering>()
 
 	const leggTilTiltakStatus = (tiltakStatus: TiltakDeltagerStatus) => {
 		setTiltakStatusFilter((prevStatuser) => {
 			if (prevStatuser.includes(tiltakStatus)) {
-				return prevStatuser;
+				return prevStatuser
 			}
 
-			return [...prevStatuser, tiltakStatus];
-		});
-	};
+			return [ ...prevStatuser, tiltakStatus ]
+		})
+	}
 
 	const fjernFraTiltakStatus = (tiltakStatus: TiltakDeltagerStatus) => {
 		setTiltakStatusFilter((prevStatuser) => {
-			return prevStatuser.filter((status) => status !== tiltakStatus);
-		});
-	};
+			return prevStatuser.filter((status) => status !== tiltakStatus)
+		})
+	}
 
 	return {
 		navnFnrSok,
@@ -33,5 +33,5 @@ export const [TiltaksoversiktSokStoreProvider, useTiltaksoversiktSokStore] = con
 		fjernFraTiltakStatus,
 		brukerSortering,
 		setBrukerSortering,
-	};
-});
+	}
+})

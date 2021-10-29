@@ -1,12 +1,13 @@
-import React, { useMemo } from 'react';
-import { TiltakinstansOversiktPanel } from './tiltakinstans-oversikt-panel/TiltakinstansOversiktPanel';
-import styles from './TiltaksinstansListe.module.less';
-import { Systemtittel } from 'nav-frontend-typografi';
-import { AlertStripeInfo } from 'nav-frontend-alertstriper';
-import { TiltakDTO } from '../../../../api/data/tiltak';
-import { finnTiltakInstanser, finnUnikeTiltak } from '../../../../utils/tiltak-utils';
-import { TiltakInstans } from '../../../../domeneobjekter/tiltak';
-import globalStyles from '../../../../globals.module.less';
+import { AlertStripeInfo } from 'nav-frontend-alertstriper'
+import { Systemtittel } from 'nav-frontend-typografi'
+import React, { useMemo } from 'react'
+
+import { TiltakDTO } from '../../../../api/data/tiltak'
+import { TiltakInstans } from '../../../../domeneobjekter/tiltak'
+import globalStyles from '../../../../globals.module.less'
+import { finnTiltakInstanser, finnUnikeTiltak } from '../../../../utils/tiltak-utils'
+import { TiltakinstansOversiktPanel } from './tiltakinstans-oversikt-panel/TiltakinstansOversiktPanel'
+import styles from './TiltaksinstansListe.module.less'
 
 interface TiltakinstansListeProps {
 	tiltakInstanser: TiltakInstans[];
@@ -16,14 +17,14 @@ export const TiltakinstansListe = (props: TiltakinstansListeProps) => {
 
 	const unikeTiltak = useMemo<TiltakDTO[]>(() => {
 		return finnUnikeTiltak(props.tiltakInstanser)
-	}, [props.tiltakInstanser]);
+	}, [ props.tiltakInstanser ])
 
 	if (props.tiltakInstanser.length === 0) {
 		return (
 			<div>
 				<AlertStripeInfo>Ingen tiltak</AlertStripeInfo>
 			</div>
-		);
+		)
 	}
 
 	return (
@@ -43,12 +44,12 @@ export const TiltakinstansListe = (props: TiltakinstansListeProps) => {
 											deltakere={tiltakInstans.deltagerAntall}
 										/>
 									</li>
-								);
+								)
 							})}
 						</ul>
 					</li>
-				);
+				)
 			})}
 		</ul>
-	);
-};
+	)
+}

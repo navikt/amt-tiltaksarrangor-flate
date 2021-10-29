@@ -1,9 +1,10 @@
-import React from 'react';
-import { Element, Normaltekst } from 'nav-frontend-typografi';
-import { SpaLenkepanel } from '../../../../felles/SpaLenkepanel';
-import styles from './TiltakinstansOversiktPanel.module.less';
-import globalStyles from '../../../../../globals.module.less';
-import { dateStrWithMonthName } from '../../../../../utils/date-utils';
+import { Element, Normaltekst } from 'nav-frontend-typografi'
+import React from 'react'
+
+import globalStyles from '../../../../../globals.module.less'
+import { dateStrWithMonthName } from '../../../../../utils/date-utils'
+import { SpaLenkepanel } from '../../../../felles/SpaLenkepanel'
+import styles from './TiltakinstansOversiktPanel.module.less'
 
 interface TiltakinstansOversiktPanelProps {
     id: string,
@@ -13,17 +14,17 @@ interface TiltakinstansOversiktPanelProps {
 }
 
 export const TiltakinstansOversiktPanel = (props: TiltakinstansOversiktPanelProps) => {
-    const {id, navn, deltakere, oppstart} = props
+	const { id, navn, deltakere, oppstart } = props
 
-    return (
-        <SpaLenkepanel to={`/instans/${id}`} border>
-            <div className={styles.content} >
-                <Element className={globalStyles.blokkXxs}>{navn}</Element>
-                <div className={styles.undertekst}>
-                    { deltakere !== undefined && <Normaltekst>{`Antall deltakere: ${deltakere}`}</Normaltekst> }
-                    { oppstart && <Normaltekst>{`Oppstart: ${dateStrWithMonthName(oppstart)}`}</Normaltekst> }
-                </div>
-            </div>
-        </SpaLenkepanel>
-    )
+	return (
+		<SpaLenkepanel to={`/instans/${id}`} border>
+			<div className={styles.content} >
+				<Element className={globalStyles.blokkXxs}>{navn}</Element>
+				<div className={styles.undertekst}>
+					{ deltakere !== undefined && <Normaltekst>{`Antall deltakere: ${deltakere}`}</Normaltekst> }
+					{ oppstart && <Normaltekst>{`Oppstart: ${dateStrWithMonthName(oppstart)}`}</Normaltekst> }
+				</div>
+			</div>
+		</SpaLenkepanel>
+	)
 }

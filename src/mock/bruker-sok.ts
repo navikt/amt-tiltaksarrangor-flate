@@ -1,8 +1,8 @@
-import { Kolonnenavn } from '../component/page/tiltakinstans-detaljer/bruker-oversikt/types';
-import { reverseSort } from '../utils';
-import { sortDateNullsFirst } from '../utils/date-utils';
-import { SorteringType } from '../utils/sortering-utils';
-import { TiltakDeltagerDTO } from '../api/data/deltager';
+import { TiltakDeltagerDTO } from '../api/data/deltager'
+import { Kolonnenavn } from '../component/page/tiltakinstans-detaljer/bruker-oversikt/types'
+import { reverseSort } from '../utils'
+import { sortDateNullsFirst } from '../utils/date-utils'
+import { SorteringType } from '../utils/sortering-utils'
 
 export interface BrukerSokParams {
 	filter: {
@@ -16,32 +16,32 @@ export interface BrukerSokParams {
 
 const sorterBrukere = (brukere: TiltakDeltagerDTO[], params: BrukerSokParams): TiltakDeltagerDTO[] => {
 	if (!params.sortering || params.sortering.sorteringType === SorteringType.NONE) {
-		return brukere;
+		return brukere
 	}
 
-	const { kolonnenavn, sorteringType } = params.sortering;
+	const { kolonnenavn, sorteringType } = params.sortering
 
-	const ascendingSort = getAscendingSort(kolonnenavn);
-	const sort = sorteringType === SorteringType.ASCENDING ? ascendingSort : reverseSort(ascendingSort);
+	const ascendingSort = getAscendingSort(kolonnenavn)
+	const sort = sorteringType === SorteringType.ASCENDING ? ascendingSort : reverseSort(ascendingSort)
 
-	return brukere.sort(sort);
-};
+	return brukere.sort(sort)
+}
 
 const getAscendingSort = (name: Kolonnenavn): ((b1: TiltakDeltagerDTO, b2: TiltakDeltagerDTO) => number) => {
 	return (b1, b2) => {
 		switch (name) {
 			case Kolonnenavn.NAVN:
-				return b1.etternavn.localeCompare(b2.etternavn);
+				return b1.etternavn.localeCompare(b2.etternavn)
 			case Kolonnenavn.FODSELSNUMMER:
-				return 0;
+				return 0
 			case Kolonnenavn.STATUS:
-				return b1.status.localeCompare(b2.status);
+				return b1.status.localeCompare(b2.status)
 			case Kolonnenavn.START:
-				return sortDateNullsFirst(b1.startdato, b2.startdato);
+				return sortDateNullsFirst(b1.startdato, b2.startdato)
 			case Kolonnenavn.SLUTT:
-				return sortDateNullsFirst(b1.sluttdato, b2.sluttdato);
+				return sortDateNullsFirst(b1.sluttdato, b2.sluttdato)
 			default:
-				return 0;
+				return 0
 		}
-	};
-};
+	}
+}

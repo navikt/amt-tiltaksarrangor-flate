@@ -1,4 +1,4 @@
-import { TiltakInstans } from './tiltak';
+import { TiltakInstans } from './tiltak'
 
 export enum TiltakDeltagerStatus {
     NY_BRUKER = 'NY_BRUKER',

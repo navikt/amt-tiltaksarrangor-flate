@@ -1,7 +1,8 @@
-import faker from 'faker';
-import { randomFnr, randomUuid } from '../utils/faker';
-import { MockTiltakInstans } from './tiltak';
-import { TiltakDeltagerStatus } from '../../domeneobjekter/deltager';
+import faker from 'faker'
+
+import { TiltakDeltagerStatus } from '../../domeneobjekter/deltager'
+import { randomFnr, randomUuid } from '../utils/faker'
+import { MockTiltakInstans } from './tiltak'
 
 export interface MockTiltakDeltager {
 	id: string,
@@ -47,7 +48,7 @@ const navEnheter: { enhetId: string, navn: string, adresse: string }[] = [
 		navn: 'NAV Moss',
 		adresse: 'Kontorveien 37, 4021 Sted'
 	},
-];
+]
 
 const lagMailFraNavn = (navn: string, mailDomain: string): string => {
 	const mailNavn = navn
@@ -55,28 +56,28 @@ const lagMailFraNavn = (navn: string, mailDomain: string): string => {
 		.replaceAll('æ', 'ae')
 		.replaceAll('ø', 'o')
 		.replaceAll('å', 'a')
-		.toLowerCase();
+		.toLowerCase()
 
-	return `${mailNavn}@${mailDomain}`;
-};
+	return `${mailNavn}@${mailDomain}`
+}
 
 export const lagMockTiltakDeltagereForTiltakInstans = (tiltakInstans: MockTiltakInstans): MockTiltakDeltager[] => {
-	const deltagere: MockTiltakDeltager[] = [];
+	const deltagere: MockTiltakDeltager[] = []
 
 	for (let i = 0; i < tiltakInstans.deltagerAntall; i++) {
-		deltagere.push(lagMockTiltakDeltagerForTiltakInstans(tiltakInstans));
+		deltagere.push(lagMockTiltakDeltagerForTiltakInstans(tiltakInstans))
 	}
 
 	return deltagere
-};
+}
 
 const lagMockTiltakDeltagerForTiltakInstans = (tiltakInstans: MockTiltakInstans): MockTiltakDeltager => {
-	const status = faker.random.objectElement(TiltakDeltagerStatus) as TiltakDeltagerStatus;
+	const status = faker.random.objectElement(TiltakDeltagerStatus) as TiltakDeltagerStatus
 
-	const brukerFornavn = faker.name.firstName();
-	const brukerEtternavn = faker.name.lastName();
+	const brukerFornavn = faker.name.firstName()
+	const brukerEtternavn = faker.name.lastName()
 
-	const veilederNavn = faker.name.firstName() + ' ' + faker.name.lastName();
+	const veilederNavn = faker.name.firstName() + ' ' + faker.name.lastName()
 
 	return {
 		id: randomUuid(),
@@ -96,5 +97,5 @@ const lagMockTiltakDeltagerForTiltakInstans = (tiltakInstans: MockTiltakInstans)
 			telefon: faker.phone.phoneNumber()
 		},
 		tiltakInstansId: tiltakInstans.id
-	};
-};
+	}
+}

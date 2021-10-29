@@ -1,8 +1,8 @@
-import { TiltakDTO } from '../api/data/tiltak';
-import { TiltakInstans } from '../domeneobjekter/tiltak';
+import { TiltakDTO } from '../api/data/tiltak'
+import { TiltakInstans } from '../domeneobjekter/tiltak'
 
 export const finnUnikeTiltak = (tiltakInstanser: TiltakInstans[]): TiltakDTO[] => {
-	const unikeTiltak: TiltakDTO[] = [];
+	const unikeTiltak: TiltakDTO[] = []
 
 	tiltakInstanser.forEach(instans => {
 		const tiltak = unikeTiltak.find(t => t.tiltakskode === instans.tiltak.tiltakskode)
@@ -10,11 +10,11 @@ export const finnUnikeTiltak = (tiltakInstanser: TiltakInstans[]): TiltakDTO[] =
 		if (!tiltak) {
 			unikeTiltak.push(instans.tiltak)
 		}
-	});
+	})
 
-	return unikeTiltak;
-};
+	return unikeTiltak
+}
 
 export const finnTiltakInstanser = (tiltakskode: string, tiltakInstanser: TiltakInstans[]): TiltakInstans[] => {
-	return tiltakInstanser.filter(instans => instans.tiltak.tiltakskode === tiltakskode);
-};
+	return tiltakInstanser.filter(instans => instans.tiltak.tiltakskode === tiltakskode)
+}

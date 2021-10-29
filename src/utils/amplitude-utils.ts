@@ -1,6 +1,7 @@
 import amplitude from 'amplitude-js'
+
+import { APP_NAME, TEAM_NAME } from './constants'
 import env from './environment'
-import { APP_NAME, TEAM_NAME } from './constants';
 
 export const initAmplitude = () => {
 	amplitude.getInstance().init('default', '', {
@@ -21,8 +22,8 @@ const logAmplitudeEvent = (eventName: string, data?: { [key: string]: any }): vo
 		}
 
 		if (!env.isPreprod && !env.isProd) {
-			console.log(`Amplitude event: ${eventName}`, data);
-			return;
+			console.log(`Amplitude event: ${eventName}`, data)
+			return
 		}
 
 		try {
@@ -34,5 +35,5 @@ const logAmplitudeEvent = (eventName: string, data?: { [key: string]: any }): vo
 }
 
 export const logSidevisning = (pathname: string): void => {
-	logAmplitudeEvent('sidevisning', { path: pathname });
+	logAmplitudeEvent('sidevisning', { path: pathname })
 }

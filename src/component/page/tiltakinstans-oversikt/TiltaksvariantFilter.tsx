@@ -1,8 +1,8 @@
-import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
-import React, { ChangeEvent } from 'react';
+import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel'
+import { Checkbox, CheckboxGruppe } from 'nav-frontend-skjema'
+import React, { ChangeEvent } from 'react'
 
-import globalStyles from '../../../globals.module.less';
-import { Checkbox, CheckboxGruppe } from 'nav-frontend-skjema';
+import globalStyles from '../../../globals.module.less'
 
 interface Tiltak {
 	type: string;
@@ -16,15 +16,15 @@ interface TiltaksvariantFilterProps {
 }
 
 export const TiltaksvariantFilter = (props: TiltaksvariantFilterProps) => {
-	const { tiltakValg, valgteTyper, onTiltakValgtChanged } = props;
+	const { tiltakValg, valgteTyper, onTiltakValgtChanged } = props
 
 	const handleTiltakValgtChanged = (e: ChangeEvent<HTMLInputElement>) => {
-		const valgtTiltakType = e.target.value;
+		const valgtTiltakType = e.target.value
 
 		if (e.target.checked) {
-			onTiltakValgtChanged([...valgteTyper, valgtTiltakType]);
+			onTiltakValgtChanged([ ...valgteTyper, valgtTiltakType ])
 		} else {
-			onTiltakValgtChanged(valgteTyper.filter(t => t !== valgtTiltakType));
+			onTiltakValgtChanged(valgteTyper.filter(t => t !== valgtTiltakType))
 		}
 	}
 
@@ -43,5 +43,5 @@ export const TiltaksvariantFilter = (props: TiltaksvariantFilterProps) => {
 				))}
 			</CheckboxGruppe>
 		</Ekspanderbartpanel>
-	);
-};
+	)
+}

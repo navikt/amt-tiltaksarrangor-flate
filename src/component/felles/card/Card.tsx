@@ -1,6 +1,7 @@
-import cls from 'classnames';
-import React from 'react';
-import styles from './Card.module.less';
+import cls from 'classnames'
+import React from 'react'
+
+import styles from './Card.module.less'
 
 interface CardProps {
 	className?: string;
@@ -12,5 +13,5 @@ export const Card = (props: CardProps) => {
 		<section className={cls(styles.card, props.className)}>
 			{props.children}
 		</section>
-	);
-};
+	)
+}

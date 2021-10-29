@@ -1,23 +1,22 @@
-import 'dayjs/locale/nb';
+import 'dayjs/locale/nb'
+import './index.less'
 
-import './index.less';
+import dayjs from 'dayjs'
+import React from 'react'
+import ReactDOM from 'react-dom'
 
-import dayjs from 'dayjs';
-import React from 'react';
-import ReactDOM from 'react-dom';
+import { App } from './App'
+import { DemoBanner } from './component/felles/demo-banner/DemoBanner'
+import { ErrorBoundary } from './component/felles/ErrorBoundry'
+import { ErrorPage } from './component/page/error/ErrorPage'
+import { initAmplitude } from './utils/amplitude-utils'
+import env from './utils/environment'
 
-import { App } from './App';
-import env from './utils/environment';
-import { ErrorBoundary } from './component/felles/ErrorBoundry';
-import { ErrorPage } from './component/page/error/ErrorPage';
-import { DemoBanner } from './component/felles/demo-banner/DemoBanner';
-import { initAmplitude } from './utils/amplitude-utils';
-
-dayjs.locale('nb');
-initAmplitude();
+dayjs.locale('nb')
+initAmplitude()
 
 if (env.isDevelopment) {
-	require('./mock');
+	require('./mock')
 }
 
 ReactDOM.render(
@@ -28,4 +27,4 @@ ReactDOM.render(
 		</ErrorBoundary>
 	</React.StrictMode>,
 	document.getElementById('root')
-);
+)

@@ -1,58 +1,59 @@
-import React, { useState } from 'react';
-import { TiltakinstansListe } from './tiltakinstans-liste/TiltakinstansListe';
-import styles from './TiltakinstansOversiktPage.module.less';
-import { Spinner } from '../../felles/spinner/Spinner';
-import { TiltaksvariantFilter } from './TiltaksvariantFilter';
-import { finnUnikeTiltak } from '../../../utils/tiltak-utils';
-import { isNotStartedOrPending, isRejected, usePromise } from '../../../utils/use-promise';
-import { AxiosResponse } from 'axios';
-import { AlertStripeFeil } from 'nav-frontend-alertstriper';
-import { useValgtVirksomhetStore } from '../../../store/valgt-virksomhet-store';
-import { TiltakInstans } from '../../../domeneobjekter/tiltak';
-import { fetchTiltakinstanser } from '../../../api/tiltak-api';
+import { AxiosResponse } from 'axios'
+import { AlertStripeFeil } from 'nav-frontend-alertstriper'
+import React, { useState } from 'react'
+
+import { fetchTiltakinstanser } from '../../../api/tiltak-api'
+import { TiltakInstans } from '../../../domeneobjekter/tiltak'
+import { useValgtVirksomhetStore } from '../../../store/valgt-virksomhet-store'
+import { finnUnikeTiltak } from '../../../utils/tiltak-utils'
+import { isNotStartedOrPending, isRejected, usePromise } from '../../../utils/use-promise'
+import { Spinner } from '../../felles/spinner/Spinner'
+import { TiltakinstansListe } from './tiltakinstans-liste/TiltakinstansListe'
+import styles from './TiltakinstansOversiktPage.module.less'
+import { TiltaksvariantFilter } from './TiltaksvariantFilter'
 
 export const TiltakinstansOversiktPage = () => {
-    const { valgtVirksomhet } = useValgtVirksomhetStore();
-    const [valgteTiltakTyper, setValgteTiltakTyper] = useState<string[]>([]);
+	const { valgtVirksomhet } = useValgtVirksomhetStore()
+	const [ valgteTiltakTyper, setValgteTiltakTyper ] = useState<string[]>([])
 
-    const fetchTiltakInstanserPromise = usePromise<AxiosResponse<TiltakInstans[]>>(
-        () => fetchTiltakinstanser(valgtVirksomhet.id), [valgtVirksomhet]
-    );
+	const fetchTiltakInstanserPromise = usePromise<AxiosResponse<TiltakInstans[]>>(
+		() => fetchTiltakinstanser(valgtVirksomhet.id), [ valgtVirksomhet ]
+	)
 
-    if (isNotStartedOrPending(fetchTiltakInstanserPromise)) {
-        return <Spinner/>;
-    }
+	if (isNotStartedOrPending(fetchTiltakInstanserPromise)) {
+		return <Spinner/>
+	}
 
-    if (isRejected(fetchTiltakInstanserPromise)) {
-        return <AlertStripeFeil>Noe gikk galt</AlertStripeFeil>;
-    }
+	if (isRejected(fetchTiltakInstanserPromise)) {
+		return <AlertStripeFeil>Noe gikk galt</AlertStripeFeil>
+	}
 
-    const alleTiltakInstanser = fetchTiltakInstanserPromise.result.data
+	const alleTiltakInstanser = fetchTiltakInstanserPromise.result.data
 
-    const filtrerteTiltak = valgteTiltakTyper.length > 0
-        ? alleTiltakInstanser.filter(tiltakInstans => valgteTiltakTyper.includes(tiltakInstans.tiltak.tiltakskode))
-        : alleTiltakInstanser;
+	const filtrerteTiltak = valgteTiltakTyper.length > 0
+		? alleTiltakInstanser.filter(tiltakInstans => valgteTiltakTyper.includes(tiltakInstans.tiltak.tiltakskode))
+		: alleTiltakInstanser
 
-    const tiltakValg = finnUnikeTiltak(alleTiltakInstanser)
-        .map(tiltak => ({ type: tiltak.tiltakskode, navn: tiltak.tiltaksnavn }));
+	const tiltakValg = finnUnikeTiltak(alleTiltakInstanser)
+		.map(tiltak => ({ type: tiltak.tiltakskode, navn: tiltak.tiltaksnavn }))
 
-    const handleOnTiltakValgtChanged = (valgteTyper: string[]) => {
-        setValgteTiltakTyper(valgteTyper);
-    };
+	const handleOnTiltakValgtChanged = (valgteTyper: string[]) => {
+		setValgteTiltakTyper(valgteTyper)
+	}
 
-    return (
-        <main className={styles.page}>
-            <section>
-                <TiltaksvariantFilter
-                    tiltakValg={tiltakValg}
-                    valgteTyper={valgteTiltakTyper}
-                    onTiltakValgtChanged={handleOnTiltakValgtChanged}
-                />
-            </section>
+	return (
+		<main className={styles.page}>
+			<section>
+				<TiltaksvariantFilter
+					tiltakValg={tiltakValg}
+					valgteTyper={valgteTiltakTyper}
+					onTiltakValgtChanged={handleOnTiltakValgtChanged}
+				/>
+			</section>
 
-            <section>
-                <TiltakinstansListe tiltakInstanser={filtrerteTiltak}/>
-            </section>
-        </main>
-    )
+			<section>
+				<TiltakinstansListe tiltakInstanser={filtrerteTiltak}/>
+			</section>
+		</main>
+	)
 }

@@ -1,5 +1,5 @@
-import React from 'react';
-import { AlertStripeAdvarsel } from 'nav-frontend-alertstriper';
+import { AlertStripeAdvarsel } from 'nav-frontend-alertstriper'
+import React from 'react'
 
 export const DemoBanner = () => {
 	return (
@@ -9,5 +9,5 @@ export const DemoBanner = () => {
 			Her eksperimenterer vi med ny funksjonalitet.
 			Demoen inneholder ikke ekte data og kan til tider være ustabil.
 		</AlertStripeAdvarsel>
-	);
+	)
 }

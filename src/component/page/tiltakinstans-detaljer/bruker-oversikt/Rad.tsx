@@ -1,11 +1,11 @@
-import React from 'react';
+import React from 'react'
+import { Link } from 'react-router-dom'
 
-import { lagKommaSeparertBrukerNavn } from '../../../../utils/bruker-utils';
-import { formatDate } from '../../../../utils/date-utils';
-import { BrukerSortering, Kolonnenavn } from './types';
-import { Link } from 'react-router-dom';
-import { mapTiltakDeltagerStatusTilTekst } from '../../../../utils/text-mappers';
-import { TiltakDeltager } from '../../../../domeneobjekter/deltager';
+import { TiltakDeltager } from '../../../../domeneobjekter/deltager'
+import { lagKommaSeparertBrukerNavn } from '../../../../utils/bruker-utils'
+import { formatDate } from '../../../../utils/date-utils'
+import { mapTiltakDeltagerStatusTilTekst } from '../../../../utils/text-mappers'
+import { BrukerSortering, Kolonnenavn } from './types'
 
 interface RadProps {
 	idx: number;
@@ -15,15 +15,15 @@ interface RadProps {
 
 const sortClassName = (name: Kolonnenavn, brukerSortering?: BrukerSortering): string | undefined => {
 	if (!brukerSortering || name !== brukerSortering.kolonnenavn) {
-		return undefined;
+		return undefined
 	}
 
-	return 'tabell__td--sortert';
-};
+	return 'tabell__td--sortert'
+}
 
 export const Rad = (props: RadProps) => {
-	const { fodselsnummer, fornavn, etternavn, id, startdato, sluttdato, status } = props.bruker;
-	const userSort = props.brukerSortering;
+	const { fodselsnummer, fornavn, etternavn, id, startdato, sluttdato, status } = props.bruker
+	const userSort = props.brukerSortering
 
 	return (
 		<tr key={id}>
@@ -41,5 +41,5 @@ export const Rad = (props: RadProps) => {
 			</td>
 			<td className={sortClassName(Kolonnenavn.STATUS, userSort)}>{mapTiltakDeltagerStatusTilTekst(status)}</td>
 		</tr>
-	);
-};
+	)
+}
