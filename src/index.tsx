@@ -11,12 +11,17 @@ import { ErrorBoundary } from './component/felles/ErrorBoundry'
 import { ErrorPage } from './component/page/error/ErrorPage'
 import { initAmplitude } from './utils/amplitude-utils'
 import env from './utils/environment'
+import { initSentry } from './utils/sentry-utils'
 
 dayjs.locale('nb')
 initAmplitude()
 
 if (env.isDevelopment) {
 	require('./mock')
+}
+
+if (env.isPreprod || env.isProd) {
+	initSentry()
 }
 
 ReactDOM.render(
