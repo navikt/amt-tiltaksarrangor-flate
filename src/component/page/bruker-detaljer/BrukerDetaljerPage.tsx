@@ -27,7 +27,7 @@ export const BrukerDetaljerPage = (): React.ReactElement => {
 	const bruker = fetchTiltakDeltagerDetaljerPromise.result.data
 
 	return (
-		<main>
+		<main data-testid="bruker-detaljer-page">
 			<BrukerPaaTiltakDetaljer bruker={bruker} />
 		</main>
 	)
