@@ -18,7 +18,7 @@ export const Banner = (): React.ReactElement => {
 
 			<div className={styles.logoAndTitleSection}>
 				<img src={navLogo} className={globalStyles.blokkXs} alt="NAV logo"/>
-				<Systemtittel>Oversikt for tiltaksarrangører</Systemtittel>
+				<Systemtittel tag="h1">Oversikt for tiltaksarrangører</Systemtittel>
 			</div>
 
 			<div>

@@ -60,6 +60,7 @@ export const VirksomhetVelger = (props: VirksomhetVelgerProps): React.ReactEleme
 			className={props.className}
 			classNamePrefix="virksomhet-velger"
 			isSearchable={false}
+			aria-label="Velg virksomhet"
 		/>
 	)
 }
