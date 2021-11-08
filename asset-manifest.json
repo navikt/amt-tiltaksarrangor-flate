@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/amt-tiltaksarrangor-flate/static/css/main.948e7452.chunk.css",
-    "main.js": "/amt-tiltaksarrangor-flate/static/js/main.aaf69bbd.chunk.js",
-    "main.js.map": "/amt-tiltaksarrangor-flate/static/js/main.aaf69bbd.chunk.js.map",
+    "main.js": "/amt-tiltaksarrangor-flate/static/js/main.38fd12f2.chunk.js",
+    "main.js.map": "/amt-tiltaksarrangor-flate/static/js/main.38fd12f2.chunk.js.map",
     "runtime-main.js": "/amt-tiltaksarrangor-flate/static/js/runtime-main.9c114557.js",
     "runtime-main.js.map": "/amt-tiltaksarrangor-flate/static/js/runtime-main.9c114557.js.map",
     "static/css/2.b672c98d.chunk.css": "/amt-tiltaksarrangor-flate/static/css/2.b672c98d.chunk.css",
@@ -20,6 +20,6 @@
     "static/css/2.b672c98d.chunk.css",
     "static/js/2.21e640c9.chunk.js",
     "static/css/main.948e7452.chunk.css",
-    "static/js/main.aaf69bbd.chunk.js"
+    "static/js/main.38fd12f2.chunk.js"
   ]
 }
