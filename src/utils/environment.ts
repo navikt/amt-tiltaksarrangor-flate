@@ -1,3 +1,4 @@
+
 class Environment {
 
 	get isDevelopment() {
@@ -15,6 +16,19 @@ class Environment {
 	get isDemo(): boolean {
 		return window.location.hostname.endsWith('github.io')
 	}
+
+	get name(): string {
+		if (this.isProd) {
+			return 'production'
+		} else if (this.isPreprod) {
+			return 'preprod'
+		} else if (this.isDemo) {
+			return 'demo'
+		} else {
+			return 'development'
+		}
+	}
+
 }
 
 const env = new Environment()

@@ -6,6 +6,8 @@
     "@craco/craco": "^6.2.0",
     "@navikt/ds-icons": "^0.3.3",
     "@navikt/fnrvalidator": "^1.1.4",
+    "@sentry/react": "^6.13.3",
+    "@sentry/tracing": "^6.13.3",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
