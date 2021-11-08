@@ -45,7 +45,7 @@ export const TiltakinstansDetaljerPage = (): React.ReactElement => {
 	const ledigePlasser = tiltakinstans.deltagerKapasitet - tiltakinstans.deltagerAntall
 
 	return (
-		<main className={styles.tiltaksoversiktPage}>
+		<main className={styles.tiltaksoversiktPage} data-testid="tiltaksinstans-detaljer-page">
 			<section>
 				<Link to="/" className={styles.tilbakelenke}>Tilbake</Link>
 

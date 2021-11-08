@@ -65,7 +65,10 @@
     "build:mock": "cross-env PUBLIC_URL=/amt-tiltaksarrangor-flate REACT_APP_DEV=true craco build",
     "test": "craco test",
     "lint": "eslint --max-warnings=0 'src/**/*.{ts,tsx}'",
-    "lint:fix": "eslint --fix 'src/**/*.{ts,tsx}'"
+    "lint:fix": "eslint --fix 'src/**/*.{ts,tsx}'",
+    "cy:run": "cypress run",
+    "cy:open": "cypress open",
+    "cy:clear": "cypress cache clear"
   },
   "husky": {
     "hooks": {
@@ -94,6 +97,9 @@
     "@types/faker": "^5.5.7",
     "@typescript-eslint/eslint-plugin": "^4.32.0",
     "@typescript-eslint/parser": "^4.32.0",
+    "axe-core": "^4.3.5",
+    "cypress": "^8.7.0",
+    "cypress-axe": "^0.13.0",
     "eslint": "^7.32.0",
     "eslint-plugin-simple-import-sort": "^7.0.0",
     "faker": "^5.5.3",

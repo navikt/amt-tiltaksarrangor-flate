@@ -42,7 +42,7 @@ export const TiltakinstansOversiktPage = (): React.ReactElement => {
 	}
 
 	return (
-		<main className={styles.page}>
+		<main className={styles.page} data-testid="tiltaksinstans-oversikt-page">
 			<section>
 				<TiltaksvariantFilter
 					tiltakValg={tiltakValg}
