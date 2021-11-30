@@ -1,9 +1,10 @@
 import { AxiosResponse } from 'axios'
+import dayjs from 'dayjs'
 
 import { AnsattRolle, InnloggetAnsatt } from '../domeneobjekter/ansatt'
 import { TiltakDeltager, TiltakDeltagerDetaljer, TiltakDeltagerStatus } from '../domeneobjekter/deltager'
 import { TiltakInstans, TiltakInstansStatus } from '../domeneobjekter/tiltak'
-import toEnumValue from '../utils/toEnumValue'
+import { toEnumValue, toNullableEnumValue } from '../utils/toEnumValue'
 import { InnloggetAnsattDTO } from './data/ansatt'
 import { TiltakDeltagerDetaljerDTO, TiltakDeltagerDTO } from './data/deltager'
 import { TiltakInstansDTO } from './data/tiltak'
@@ -20,9 +21,9 @@ export const transformTiltakInstans = (response: AxiosResponse<TiltakInstansDTO>
 const toTiltakInstans = (tiltakInstansDTO: TiltakInstansDTO) : TiltakInstans => {
 	return {
 		...tiltakInstansDTO,
-		startdato: new Date(tiltakInstansDTO.startdato),
-		sluttdato: new Date(tiltakInstansDTO.sluttdato),
-		status: toEnumValue(TiltakInstansStatus, tiltakInstansDTO.status)
+		startdato: dayjs(tiltakInstansDTO.oppstartdato, 'YYYY-MM-DD').toDate(),
+		sluttdato: dayjs(tiltakInstansDTO.sluttdato).toDate(),
+		status: toNullableEnumValue(TiltakInstansStatus, tiltakInstansDTO.status)
 	}
 }
 
@@ -34,8 +35,8 @@ export const transformTiltakDeltager = (response: AxiosResponse<TiltakDeltagerDT
 const toTiltakDeltager = (tiltakDeltagerDTO : TiltakDeltagerDTO) : TiltakDeltager => {
 	return {
 		...tiltakDeltagerDTO,
-		startdato: new Date(tiltakDeltagerDTO.startdato),
-		sluttdato: new Date(tiltakDeltagerDTO.sluttdato),
+		startdato: dayjs(tiltakDeltagerDTO.startdato).toDate(),
+		sluttdato: dayjs(tiltakDeltagerDTO.sluttdato).toDate(),
 		status: toEnumValue(TiltakDeltagerStatus, tiltakDeltagerDTO.status)
 	}
 }
@@ -47,8 +48,8 @@ export const transformTiltakDeltagerDetaljer = (response: AxiosResponse<TiltakDe
 const toTiltakDeltagerDetaljer = (tiltakDeltagerDetaljerDTO: TiltakDeltagerDetaljerDTO) : TiltakDeltagerDetaljer => {
 	return {
 		...tiltakDeltagerDetaljerDTO,
-		startdato: new Date(tiltakDeltagerDetaljerDTO.startdato),
-		sluttdato: new Date(tiltakDeltagerDetaljerDTO.sluttdato),
+		startdato: dayjs(tiltakDeltagerDetaljerDTO.startdato).toDate(),
+		sluttdato: dayjs(tiltakDeltagerDetaljerDTO.sluttdato).toDate(),
 		status: toEnumValue(TiltakDeltagerStatus,tiltakDeltagerDetaljerDTO.status),
 		tiltakInstans: toTiltakInstans(tiltakDeltagerDetaljerDTO.tiltakInstans)
 	}
@@ -63,7 +64,7 @@ const toInnloggetAnsatt = (innloggetAnsattDTO: InnloggetAnsattDTO): InnloggetAns
 
 	return {
 		...innloggetAnsattDTO,
-		virksomheter: innloggetAnsattDTO.virksomheter.map(virksomhetDTO => {
+		leverandorer: innloggetAnsattDTO.leverandorer.map(virksomhetDTO => {
 			return {
 				...virksomhetDTO,
 				roller: toVirksomhetRoller(virksomhetDTO.roller)

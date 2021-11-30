@@ -25,7 +25,7 @@ export const VirksomhetVelger = (props: VirksomhetVelgerProps): React.ReactEleme
 	const { innloggetAnsatt } = useDataStore()
 	const { valgtVirksomhet, setValgtVirksomhet } = useValgtVirksomhetStore()
 
-	const tilgjengeligeVirksomheter = innloggetAnsatt.virksomheter
+	const tilgjengeligeVirksomheter = innloggetAnsatt.leverandorer
 
 	const onValgtVirksomhetChanged = (valg: SingleValue<Valg> | MultiValue<Valg>) => {
 		const singleValg = valg as SingleValue<Valg>
@@ -43,7 +43,7 @@ export const VirksomhetVelger = (props: VirksomhetVelgerProps): React.ReactEleme
 	}
 
 	const virksomhetValg = useMemo(() => {
-		return tilgjengeligeVirksomheter.map(v => ({ value: v.id, label: v.virksomhetsnavn }))
+		return tilgjengeligeVirksomheter.map(v => ({ value: v.id, label: v.navn }))
 	}, [ tilgjengeligeVirksomheter ])
 
 	const selectedValue = useMemo(() => {
@@ -68,7 +68,7 @@ export const VirksomhetVelger = (props: VirksomhetVelgerProps): React.ReactEleme
 function VirksomhetValgOption(props: OptionProps<Valg>): React.ReactElement<OptionProps<Valg>> | null {
 	const { innloggetAnsatt } = useDataStore()
 
-	const virksomhet = innloggetAnsatt.virksomheter.find(v => v.id === props.data.value)
+	const virksomhet = innloggetAnsatt.leverandorer.find(v => v.id === props.data.value)
 
 	if (!virksomhet) {
 		return null
@@ -83,11 +83,11 @@ function VirksomhetValgOption(props: OptionProps<Valg>): React.ReactElement<Opti
 			role="option"
 			aria-selected={props.isSelected}
 		>
-			<Element className={styles.fontSize14}>{virksomhet.organisasjonsnavn}</Element>
-			<Normaltekst className={cls(styles.fontSize14, globalStyles.blokkXs)}>Organisasjonsnr: {virksomhet.organisasjonsnummer}</Normaltekst>
+			<Element className={styles.fontSize14}>{virksomhet.overordnetEnhetNavn}</Element>
+			<Normaltekst className={cls(styles.fontSize14, globalStyles.blokkXs)}>Organisasjonsnr: {virksomhet.overordnetEnhetOrganisasjonsnummer}</Normaltekst>
 
-			<Element>{virksomhet.virksomhetsnavn}</Element>
-			<Normaltekst className={styles.fontSize14}>Virksomhetsnr: {virksomhet.virksomhetsnummer}</Normaltekst>
+			<Element>{virksomhet.navn}</Element>
+			<Normaltekst className={styles.fontSize14}>Virksomhetsnr: {virksomhet.organisasjonsnummer}</Normaltekst>
 		</div>
 	)
 }

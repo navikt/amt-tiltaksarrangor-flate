@@ -20,7 +20,7 @@ export interface TiltakDeltagerDetaljerDTO {
 	telefon: string | undefined,
 	epost: string | undefined,
 	navKontor: NavKontorDTO,
-	navVeileder: NavVeilederDTO,
+	navVeileder: NavVeilederDTO | undefined,
 	startdato: string,
 	sluttdato: string,
 	status: string,
