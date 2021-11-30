@@ -1,10 +1,10 @@
 
 export interface VirksomhetDTO {
 	id: string,
+	overordnetEnhetOrganisasjonsnummer: string,
+	overordnetEnhetNavn: string,
 	organisasjonsnummer: string,
-	organisasjonsnavn: string,
-	virksomhetsnummer: string,
-	virksomhetsnavn: string,
+	navn: string,
 	roller: string []
 }
 
@@ -13,5 +13,5 @@ export interface InnloggetAnsattDTO {
 	fornavn: string,
 	mellomnavn: string | undefined | null,
 	etternavn: string,
-	virksomheter: VirksomhetDTO[]
+	leverandorer: VirksomhetDTO[]
 }

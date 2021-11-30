@@ -27,7 +27,7 @@ export interface TiltakDeltagerDetaljer {
     telefon: string | undefined,
     epost: string | undefined,
     navKontor: NavKontor,
-    navVeileder: NavVeileder,
+    navVeileder: NavVeileder | undefined,
     startdato: Date,
     sluttdato: Date,
     status: TiltakDeltagerStatus,

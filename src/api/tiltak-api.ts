@@ -18,9 +18,9 @@ export const fetchInnloggetAnsatt = (): AxiosPromise<InnloggetAnsatt> => {
 		.then(transformInnloggetAnsatt)
 }
 
-export const fetchTiltakinstanser = (tiltaksleverandorId: string): AxiosPromise<TiltakInstans[]> => {
+export const fetchTiltakinstanser = (arrangorId: string): AxiosPromise<TiltakInstans[]> => {
 	return axiosInstance
-		.get(`/amt-tiltak/api/tiltak?tiltaksleverandorId=${tiltaksleverandorId}`)
+		.get(`/amt-tiltak/api/tiltak-instans?arrangorId=${arrangorId}`)
 		.then(transformTiltakInstanser)
 }
 
@@ -32,13 +32,13 @@ export const fetchTiltakinstans = (tiltakinstansId: string): AxiosPromise<Tiltak
 
 export const fetchDeltakerePaTiltakinstans = (tiltakinstansId: string): AxiosPromise<TiltakDeltager[]> => {
 	return axiosInstance
-		.get(`/amt-tiltak/api/tiltak-instans/${tiltakinstansId}/deltagere`)
+		.get(`/amt-tiltak/api/tiltak-instans/${tiltakinstansId}/deltakere`)
 		.then(transformTiltakDeltager)
 }
 
 export const fetchTiltakDeltagerDetaljer = (tiltakDeltagerId: string): AxiosPromise<TiltakDeltagerDetaljer> => {
 	return axiosInstance
-		.get(`/amt-tiltak/api/tiltak-deltager/${tiltakDeltagerId}`)
+		.get(`/amt-tiltak/api/tiltak-deltaker/${tiltakDeltagerId}`)
 		.then(transformTiltakDeltagerDetaljer)
 }
 

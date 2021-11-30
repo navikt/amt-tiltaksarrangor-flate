@@ -5,8 +5,8 @@ import { Virksomhet } from '../domeneobjekter/ansatt'
 
 export interface ValgtVirksomhet {
 	id: string;
-	virksomhetsnavn: string;
-	virksomhetsnummer: string;
+	navn: string;
+	organisasjonsnummer: string;
 }
 
 const SIST_VALGT_VIRKSOMHET_ID_STORAGE_KEY = 'amt_sist_valgt_virksomhet_id'

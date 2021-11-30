@@ -2,7 +2,7 @@
 export interface TiltakInstansDTO {
 	id: string,
 	navn: string,
-	startdato: string,
+	oppstartdato: string,
 	sluttdato: string,
 	status: string,
 	deltagerAntall: number,

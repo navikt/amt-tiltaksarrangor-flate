@@ -6,10 +6,10 @@ export enum AnsattRolle {
 
 export interface Virksomhet {
     id: string,
+    overordnetEnhetOrganisasjonsnummer: string,
+    overordnetEnhetNavn: string,
     organisasjonsnummer: string,
-    organisasjonsnavn: string,
-    virksomhetsnummer: string,
-    virksomhetsnavn: string,
+    navn: string,
     roller: AnsattRolle []
 }
 
@@ -18,5 +18,5 @@ export interface InnloggetAnsatt {
     fornavn: string;
     mellomnavn: string | undefined | null;
     etternavn: string;
-    virksomheter: Virksomhet[]
+    leverandorer: Virksomhet[]
 }

@@ -15,20 +15,20 @@ export const mockHandlers: RequestHandler[] = [
 
 		return res(ctx.delay(500), ctx.json(tiltakinstans))
 	}),
-	rest.get('/amt-tiltak/api/tiltak-instans/:tiltakinstansId/deltagere', (req, res, ctx) => {
+	rest.get('/amt-tiltak/api/tiltak-instans/:tiltakinstansId/deltakere', (req, res, ctx) => {
 		const tiltakinstansId = req.params.tiltakinstansId
 		const brukere = mockTiltakDeltagere.filter(deltager => deltager.tiltakInstansId === tiltakinstansId)
 
 		return res(ctx.delay(500), ctx.json(brukere))
 	}),
-	rest.get('/amt-tiltak/api/tiltak-deltager/:brukerId', (req, res, ctx) => {
+	rest.get('/amt-tiltak/api/tiltak-deltaker/:brukerId', (req, res, ctx) => {
 		const brukerId = req.params['brukerId']
 		const bruker = mockTiltakDeltagere.find((b) => b.id === brukerId)! // eslint-disable-line @typescript-eslint/no-non-null-assertion
 
 		return res(ctx.delay(500), ctx.json(tilTiltakDeltagerDetaljerDto(bruker)))
 	}),
-	rest.get('/amt-tiltak/api/tiltak', (req, res, ctx) => {
-		const virksomhetId = req.url.searchParams.get('tiltaksleverandorId')
+	rest.get('/amt-tiltak/api/tiltak-instans', (req, res, ctx) => {
+		const virksomhetId = req.url.searchParams.get('arrangorId')
 		const tiltakInstanser = mockTiltakInstanser.filter(instans => instans.virksomhetId === virksomhetId)
 
 		return res(ctx.delay(500), ctx.json(tiltakInstanser.map(tilTiltakInstansDto)))
