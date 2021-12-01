@@ -24,7 +24,7 @@ export const mockHandlers: RequestHandler[] = [
 	rest.get('/amt-tiltak/api/tiltak-deltaker/:brukerId', (req, res, ctx) => {
 		const brukerId = req.params['brukerId']
 		const bruker = mockTiltakDeltagere.find((b) => b.id === brukerId)! // eslint-disable-line @typescript-eslint/no-non-null-assertion
-		const tiltakInstans = mockTiltakInstanser.find(instans => instans.id === bruker.tiltakInstans.id)!
+		const tiltakInstans = mockTiltakInstanser.find(instans => instans.id === bruker.tiltakInstans.id)! // eslint-disable-line @typescript-eslint/no-non-null-assertion
 		const deltakerMedTiltakInstans = { ...bruker, tiltakInstans: tilTiltakInstansDto(tiltakInstans) }
 
 		return res(ctx.delay(500), ctx.json(deltakerMedTiltakInstans))

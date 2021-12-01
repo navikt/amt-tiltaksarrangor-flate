@@ -1,10 +1,10 @@
 import faker from 'faker'
 
+import { TiltakDeltagerDetaljerDTO } from '../../api/data/deltager'
 import { TiltakDeltagerStatus } from '../../domeneobjekter/deltager'
+import { tilTiltakInstansDto } from '../dto-mapper'
 import { randomFnr, randomUuid } from '../utils/faker'
 import { MockTiltakInstans } from './tiltak'
-import { TiltakDeltagerDetaljerDTO } from '../../api/data/deltager'
-import { tilTiltakInstansDto } from '../dto-mapper'
 
 const navEnheter: { enhetId: string, navn: string, adresse: string }[] = [
 	{

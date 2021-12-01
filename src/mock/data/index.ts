@@ -1,7 +1,7 @@
+import { TiltakDeltagerDetaljerDTO } from '../../api/data/deltager'
 import { mockInnloggetAnsattVirksomheter } from './ansatt'
 import { lagMockTiltakDeltagereForTiltakInstans } from './brukere'
 import { lagTiltakinstanser, MockTiltakInstans } from './tiltak'
-import { TiltakDeltagerDetaljerDTO } from '../../api/data/deltager'
 
 export const mockTiltakInstanser: MockTiltakInstans[] = mockInnloggetAnsattVirksomheter
 	.map(virksomhet => lagTiltakinstanser(virksomhet.id))

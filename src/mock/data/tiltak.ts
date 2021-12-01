@@ -1,8 +1,8 @@
 import * as faker from 'faker'
 
+import { TiltakInstansDTO } from '../../api/data/tiltak'
 import { TiltakInstansStatus } from '../../domeneobjekter/tiltak'
 import { randBetween, randomUuid } from '../utils/faker'
-import { TiltakInstansDTO } from '../../api/data/tiltak'
 
 export type MockTiltakInstans = TiltakInstansDTO & { virksomhetId: string }
 
