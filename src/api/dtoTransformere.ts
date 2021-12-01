@@ -21,7 +21,7 @@ export const transformTiltakInstans = (response: AxiosResponse<TiltakInstansDTO>
 const toTiltakInstans = (tiltakInstansDTO: TiltakInstansDTO) : TiltakInstans => {
 	return {
 		...tiltakInstansDTO,
-		startdato: dayjs(tiltakInstansDTO.oppstartdato, 'YYYY-MM-DD').toDate(),
+		oppstartdato: dayjs(tiltakInstansDTO.oppstartdato, 'YYYY-MM-DD').toDate(),
 		sluttdato: dayjs(tiltakInstansDTO.sluttdato).toDate(),
 		status: toNullableEnumValue(TiltakInstansStatus, tiltakInstansDTO.status)
 	}
@@ -31,12 +31,15 @@ export const transformTiltakDeltager = (response: AxiosResponse<TiltakDeltagerDT
 	const deltagere =  response.data.map(toTiltakDeltager)
 	return { ...response, data: deltagere }
 }
+const toDateIfPresent = (date: string | null) : Date | undefined  => date? dayjs(date).toDate(): undefined
 
 const toTiltakDeltager = (tiltakDeltagerDTO : TiltakDeltagerDTO) : TiltakDeltager => {
+
 	return {
 		...tiltakDeltagerDTO,
-		startdato: dayjs(tiltakDeltagerDTO.startdato).toDate(),
-		sluttdato: dayjs(tiltakDeltagerDTO.sluttdato).toDate(),
+		mellomnavn: tiltakDeltagerDTO.mellomnavn? tiltakDeltagerDTO.mellomnavn: undefined,
+		oppstartdato: toDateIfPresent(tiltakDeltagerDTO.oppstartdato),
+		sluttdato: toDateIfPresent(tiltakDeltagerDTO.sluttdato),
 		status: toEnumValue(TiltakDeltagerStatus, tiltakDeltagerDTO.status)
 	}
 }
@@ -46,10 +49,11 @@ export const transformTiltakDeltagerDetaljer = (response: AxiosResponse<TiltakDe
 }
 
 const toTiltakDeltagerDetaljer = (tiltakDeltagerDetaljerDTO: TiltakDeltagerDetaljerDTO) : TiltakDeltagerDetaljer => {
+
 	return {
 		...tiltakDeltagerDetaljerDTO,
-		startdato: dayjs(tiltakDeltagerDetaljerDTO.startdato).toDate(),
-		sluttdato: dayjs(tiltakDeltagerDetaljerDTO.sluttdato).toDate(),
+		oppstartdato: toDateIfPresent(tiltakDeltagerDetaljerDTO.oppstartdato),
+		sluttdato: toDateIfPresent(tiltakDeltagerDetaljerDTO.sluttdato),
 		status: toEnumValue(TiltakDeltagerStatus,tiltakDeltagerDetaljerDTO.status),
 		tiltakInstans: toTiltakInstans(tiltakDeltagerDetaljerDTO.tiltakInstans)
 	}

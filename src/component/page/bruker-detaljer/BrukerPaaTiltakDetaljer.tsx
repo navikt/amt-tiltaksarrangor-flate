@@ -28,7 +28,7 @@ export const BrukerPaaTiltakDetaljer = (props: { bruker: TiltakDeltagerDetaljer 
 				<Card className={styles.tiltakCard}>
 					<Systemtittel className={globalStyles.blokkXxs}>{(tiltakInstans.navn)}</Systemtittel>
 					<Normaltekst className={globalStyles.blokkXxs}>{tiltakInstans.tiltak.tiltaksnavn}</Normaltekst>
-					<Normaltekst className={globalStyles.blokkXxs}>{formatDate(tiltakInstans.startdato)} - {formatDate(tiltakInstans.sluttdato)}</Normaltekst>
+					<Normaltekst className={globalStyles.blokkXxs}>{formatDate(tiltakInstans.oppstartdato)} - {formatDate(tiltakInstans.sluttdato)}</Normaltekst>
 					{mapTiltakDeltagerStatusTilEtikett(status)}
 				</Card>
 

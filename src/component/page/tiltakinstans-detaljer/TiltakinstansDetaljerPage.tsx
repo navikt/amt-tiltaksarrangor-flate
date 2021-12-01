@@ -51,7 +51,7 @@ export const TiltakinstansDetaljerPage = (): React.ReactElement => {
 
 				<div className={globalStyles.blokkM}>
 					<Systemtittel className={globalStyles.blokkXxs}>{tiltakinstans.navn}</Systemtittel>
-					<Normaltekst>Oppstart: {dateStrWithMonthName(tiltakinstans.startdato)}</Normaltekst>
+					<Normaltekst>Oppstart: {dateStrWithMonthName(tiltakinstans.oppstartdato)}</Normaltekst>
 					<Normaltekst className={globalStyles.blokkXxs}>Sluttdato: {dateStrWithMonthName(tiltakinstans.sluttdato)}</Normaltekst>
 
 					<div className={globalStyles.blokkXxs}>

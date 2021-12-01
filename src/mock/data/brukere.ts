@@ -3,29 +3,8 @@ import faker from 'faker'
 import { TiltakDeltagerStatus } from '../../domeneobjekter/deltager'
 import { randomFnr, randomUuid } from '../utils/faker'
 import { MockTiltakInstans } from './tiltak'
-
-export interface MockTiltakDeltager {
-	id: string,
-	tiltakInstansId: string
-	fornavn: string,
-	mellomnavn: string | undefined,
-	etternavn: string,
-	fodselsnummer: string | undefined,
-	telefon: string | undefined,
-	epost: string | undefined,
-	navKontor: {
-		navn: string,
-		adresse: string
-	},
-	navVeileder: {
-		navn: string,
-		telefon: string,
-		epost: string,
-	},
-	startdato: string,
-	sluttdato: string,
-	status: string,
-}
+import { TiltakDeltagerDetaljerDTO } from '../../api/data/deltager'
+import { tilTiltakInstansDto } from '../dto-mapper'
 
 const navEnheter: { enhetId: string, navn: string, adresse: string }[] = [
 	{
@@ -61,8 +40,8 @@ const lagMailFraNavn = (navn: string, mailDomain: string): string => {
 	return `${mailNavn}@${mailDomain}`
 }
 
-export const lagMockTiltakDeltagereForTiltakInstans = (tiltakInstans: MockTiltakInstans): MockTiltakDeltager[] => {
-	const deltagere: MockTiltakDeltager[] = []
+export const lagMockTiltakDeltagereForTiltakInstans = (tiltakInstans: MockTiltakInstans): TiltakDeltagerDetaljerDTO[] => {
+	const deltagere: TiltakDeltagerDetaljerDTO[] = []
 
 	for (let i = 0; i < tiltakInstans.deltagerAntall; i++) {
 		deltagere.push(lagMockTiltakDeltagerForTiltakInstans(tiltakInstans))
@@ -71,7 +50,7 @@ export const lagMockTiltakDeltagereForTiltakInstans = (tiltakInstans: MockTiltak
 	return deltagere
 }
 
-const lagMockTiltakDeltagerForTiltakInstans = (tiltakInstans: MockTiltakInstans): MockTiltakDeltager => {
+const lagMockTiltakDeltagerForTiltakInstans = (tiltakInstans: MockTiltakInstans): TiltakDeltagerDetaljerDTO => {
 	const status = faker.random.objectElement(TiltakDeltagerStatus) as TiltakDeltagerStatus
 
 	const brukerFornavn = faker.name.firstName()
@@ -82,12 +61,12 @@ const lagMockTiltakDeltagerForTiltakInstans = (tiltakInstans: MockTiltakInstans)
 	return {
 		id: randomUuid(),
 		fornavn: brukerFornavn,
-		mellomnavn: undefined,
+		mellomnavn: null,
 		etternavn: brukerEtternavn,
 		fodselsnummer: randomFnr(),
 		epost: lagMailFraNavn(`${brukerFornavn} ${brukerEtternavn}`, 'example.com'),
 		telefon: faker.phone.phoneNumber(),
-		startdato: faker.date.past().toISOString(),
+		oppstartdato: faker.date.past().toISOString(),
 		sluttdato: faker.date.future().toISOString(),
 		status: status,
 		navKontor: faker.random.arrayElement(navEnheter),
@@ -96,6 +75,6 @@ const lagMockTiltakDeltagerForTiltakInstans = (tiltakInstans: MockTiltakInstans)
 			navn: veilederNavn,
 			telefon: faker.phone.phoneNumber()
 		},
-		tiltakInstansId: tiltakInstans.id
+		tiltakInstans: tilTiltakInstansDto(tiltakInstans)
 	}
 }

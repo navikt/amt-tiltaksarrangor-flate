@@ -22,7 +22,7 @@ const sortClassName = (name: Kolonnenavn, brukerSortering?: BrukerSortering): st
 }
 
 export const Rad = (props: RadProps): React.ReactElement<RadProps> => {
-	const { fodselsnummer, fornavn, etternavn, id, startdato, sluttdato, status } = props.bruker
+	const { fodselsnummer, fornavn, etternavn, id, oppstartdato, sluttdato, status } = props.bruker
 	const userSort = props.brukerSortering
 
 	return (
@@ -34,7 +34,7 @@ export const Rad = (props: RadProps): React.ReactElement<RadProps> => {
 			</td>
 			<td className={sortClassName(Kolonnenavn.FODSELSNUMMER, userSort)}>{fodselsnummer}</td>
 			<td className={sortClassName(Kolonnenavn.START, userSort)}>
-				{startdato && formatDate(startdato)}
+				{oppstartdato && formatDate(oppstartdato)}
 			</td>
 			<td className={sortClassName(Kolonnenavn.SLUTT, userSort)}>
 				{sluttdato && formatDate(sluttdato)}
