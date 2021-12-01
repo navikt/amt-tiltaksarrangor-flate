@@ -1,39 +1,27 @@
 import * as faker from 'faker'
 
+import { TiltakInstansDTO } from '../../api/data/tiltak'
 import { TiltakInstansStatus } from '../../domeneobjekter/tiltak'
 import { randBetween, randomUuid } from '../utils/faker'
 
-export interface MockTiltakInstans {
-	id: string,
-	virksomhetId: string;
-	navn: string,
-	startdato: string,
-	sluttdato: string,
-	status: string,
-	deltagerAntall: number,
-	deltagerKapasitet: number,
-	tiltak: {
-		tiltakstype: string,
-		tiltaksnavn: string
-	}
-}
+export type MockTiltakInstans = TiltakInstansDTO & { virksomhetId: string }
 
 interface TiltakInstansInfo {
 	tiltakInstansNavn: string;
-	tiltaktype: string;
-	tiltaknavn: string;
+	tiltakskode: string;
+	tiltaksnavn: string;
 }
 
 const tiltakInstansInfoListe: TiltakInstansInfo[] = [
 	{
 		tiltakInstansNavn: 'Jobbklubb',
-		tiltaktype: 'JOBBK',
-		tiltaknavn: 'Jobbklubb'
+		tiltakskode: 'JOBBK',
+		tiltaksnavn: 'Jobbklubb'
 	},
 	{
 		tiltakInstansNavn: 'Sveisekurs',
-		tiltaktype: 'GRUPPEAMO',
-		tiltaknavn: 'Gruppe AMO'
+		tiltakskode: 'GRUPPEAMO',
+		tiltaksnavn: 'Gruppe AMO'
 	}
 ]
 
@@ -63,10 +51,10 @@ const lagTiltakinstanse = (virksomhetId: string, tiltakInstansInfo: TiltakInstan
 		navn: tiltakInstansInfo.tiltakInstansNavn,
 		status: status,
 		tiltak: {
-			tiltaksnavn: tiltakInstansInfo.tiltaknavn,
-			tiltakstype: tiltakInstansInfo.tiltaktype
+			tiltaksnavn: tiltakInstansInfo.tiltaksnavn,
+			tiltakskode: tiltakInstansInfo.tiltakskode
 		},
-		startdato: faker.date.past().toISOString(),
+		oppstartdato: faker.date.past().toISOString(),
 		sluttdato: faker.date.future().toISOString(),
 		virksomhetId: virksomhetId
 	}

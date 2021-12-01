@@ -3,26 +3,26 @@ import { TiltakInstansDTO } from './tiltak'
 export interface TiltakDeltagerDTO {
 	id: string,
 	fornavn: string,
-	mellomnavn: string | undefined,
+	mellomnavn: string | null,
 	etternavn: string,
-	fodselsnummer: string | undefined,
-	startdato: string,
-	sluttdato: string,
+	fodselsnummer: string,
+	oppstartdato: string | null,
+	sluttdato: string | null,
 	status: string
 }
 
 export interface TiltakDeltagerDetaljerDTO {
 	id: string,
 	fornavn: string,
-	mellomnavn: string | undefined,
+	mellomnavn: string | null,
 	etternavn: string,
-	fodselsnummer: string | undefined,
-	telefon: string | undefined,
-	epost: string | undefined,
+	fodselsnummer: string,
+	telefon: string | null,
+	epost: string | null,
 	navKontor: NavKontorDTO,
-	navVeileder: NavVeilederDTO | undefined,
-	startdato: string,
-	sluttdato: string,
+	navVeileder: NavVeilederDTO | null,
+	oppstartdato: string | null,
+	sluttdato: string | null,
 	status: string,
 	tiltakInstans: TiltakInstansDTO
 }

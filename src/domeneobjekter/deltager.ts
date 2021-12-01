@@ -13,23 +13,23 @@ export interface TiltakDeltager {
     mellomnavn: string | undefined,
     etternavn: string,
     fodselsnummer: string | undefined,
-    startdato: Date,
-    sluttdato: Date,
+    oppstartdato: Date | undefined,
+    sluttdato: Date | undefined,
     status: TiltakDeltagerStatus
 }
 
 export interface TiltakDeltagerDetaljer {
     id: string,
     fornavn: string,
-    mellomnavn: string | undefined,
+    mellomnavn: string | null,
     etternavn: string,
-    fodselsnummer: string | undefined,
-    telefon: string | undefined,
-    epost: string | undefined,
+    fodselsnummer: string | null,
+    telefon: string | null,
+    epost: string | null,
     navKontor: NavKontor,
-    navVeileder: NavVeileder | undefined,
-    startdato: Date,
-    sluttdato: Date,
+    navVeileder: NavVeileder | null,
+    oppstartdato: Date | undefined,
+    sluttdato: Date | undefined,
     status: TiltakDeltagerStatus,
     tiltakInstans: TiltakInstans
 }

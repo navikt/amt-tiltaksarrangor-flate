@@ -7,7 +7,7 @@ export enum TiltakInstansStatus {
 export interface TiltakInstans {
     id: string,
     navn: string,
-    startdato: Date,
+    oppstartdato: Date,
     sluttdato: Date,
     status: TiltakInstansStatus | undefined,
     deltagerAntall: number,
