@@ -10,11 +10,11 @@ export const tilTiltakInstansDto = (instans: MockTiltakInstans): TiltakInstansDT
 		navn: instans.navn,
 		deltagerAntall: instans.deltagerAntall,
 		deltagerKapasitet: instans.deltagerKapasitet,
-		oppstartdato: instans.startdato,
+		oppstartdato: instans.oppstartdato,
 		sluttdato: instans.sluttdato,
 		status: instans.status,
 		tiltak: {
-			tiltakskode: instans.tiltak.tiltakstype,
+			tiltakskode: instans.tiltak.tiltakskode,
 			tiltaksnavn: instans.tiltak.tiltaksnavn
 		}
 	}
