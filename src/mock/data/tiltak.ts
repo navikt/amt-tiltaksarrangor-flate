@@ -10,36 +10,41 @@ interface TiltakInstansInfo {
 	tiltakInstansNavn: string;
 	tiltakskode: string;
 	tiltaksnavn: string;
+	virksomhetId: string;
 }
 
 const tiltakInstansInfoListe: TiltakInstansInfo[] = [
 	{
 		tiltakInstansNavn: 'Oppfølging Åsedalen',
-		tiltakskode: 'INDOPPF',
-		tiltaksnavn: 'Oppfølging'
+		tiltakskode: 'OPPFOLG',
+		tiltaksnavn: 'Oppfølging',
+		virksomhetId: '4b26083d-c320-49e1-9104-b4dcdbcc8067'
 	},
 	{
 		tiltakInstansNavn: 'Oppfølging Region Østvest',
-		tiltakskode: 'INDOPPF',
-		tiltaksnavn: 'Oppfølging'
+		tiltakskode: 'OPPFOLG',
+		tiltaksnavn: 'Oppfølging',
+		virksomhetId: '4b26083d-c320-49e1-9104-b4dcdbcc8067'
+	},
+	{
+		tiltakInstansNavn: 'Oppfølging Region Vestøst',
+		tiltakskode: 'OPPFOLG',
+		tiltaksnavn: 'Oppfølging',
+		virksomhetId: '7ee8b861-6dc7-4cc2-9706-252c82b63104'
 	},
 ]
 
 export const lagTiltakinstanser = (virksomhetId: string): MockTiltakInstans[] => {
 	const tiltakinstanser: MockTiltakInstans[] = []
 
-	tiltakInstansInfoListe.forEach(tiltak => {
-		const antallInstanser = randBetween(1, 1)
-
-		for (let i = 0; i < antallInstanser; i++) {
-			tiltakinstanser.push(lagTiltakinstanse(virksomhetId, tiltak))
-		}
-	})
+	tiltakInstansInfoListe
+		.filter(t => t.virksomhetId === virksomhetId)
+		.forEach(t => tiltakinstanser.push(lagTiltakinstanse(t)))
 
 	return tiltakinstanser
 }
 
-const lagTiltakinstanse = (virksomhetId: string, tiltakInstansInfo: TiltakInstansInfo): MockTiltakInstans => {
+const lagTiltakinstanse = (tiltakInstansInfo: TiltakInstansInfo): MockTiltakInstans => {
 	const deltagerAntall = randBetween(1, 15)
 	const deltagerKapasitet = deltagerAntall + randBetween(0, 10)
 	const status = faker.random.objectElement(TiltakInstansStatus) as TiltakInstansStatus
@@ -56,6 +61,6 @@ const lagTiltakinstanse = (virksomhetId: string, tiltakInstansInfo: TiltakInstan
 		},
 		oppstartdato: faker.date.past().toISOString(),
 		sluttdato: faker.date.future().toISOString(),
-		virksomhetId: virksomhetId
+		virksomhetId: tiltakInstansInfo.virksomhetId
 	}
 }
