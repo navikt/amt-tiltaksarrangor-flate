@@ -40,8 +40,6 @@ export const TiltakinstansListe = (props: TiltakinstansListeProps): React.ReactE
 										<TiltakinstansOversiktPanel
 											id={tiltakInstans.id}
 											navn={tiltakInstans.navn}
-											oppstart={tiltakInstans.oppstartdato}
-											deltakere={tiltakInstans.deltagerAntall}
 										/>
 									</li>
 								)

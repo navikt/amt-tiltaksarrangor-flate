@@ -14,22 +14,22 @@ interface TiltakInstansInfo {
 
 const tiltakInstansInfoListe: TiltakInstansInfo[] = [
 	{
-		tiltakInstansNavn: 'Jobbklubb',
-		tiltakskode: 'JOBBK',
-		tiltaksnavn: 'Jobbklubb'
+		tiltakInstansNavn: 'Oppfølging Åsedalen',
+		tiltakskode: 'INDOPPF',
+		tiltaksnavn: 'Oppfølging'
 	},
 	{
-		tiltakInstansNavn: 'Sveisekurs',
-		tiltakskode: 'GRUPPEAMO',
-		tiltaksnavn: 'Gruppe AMO'
-	}
+		tiltakInstansNavn: 'Oppfølging Region Østvest',
+		tiltakskode: 'INDOPPF',
+		tiltaksnavn: 'Oppfølging'
+	},
 ]
 
 export const lagTiltakinstanser = (virksomhetId: string): MockTiltakInstans[] => {
 	const tiltakinstanser: MockTiltakInstans[] = []
 
 	tiltakInstansInfoListe.forEach(tiltak => {
-		const antallInstanser = randBetween(1, 4)
+		const antallInstanser = randBetween(1, 1)
 
 		for (let i = 0; i < antallInstanser; i++) {
 			tiltakinstanser.push(lagTiltakinstanse(virksomhetId, tiltak))
