@@ -29,14 +29,6 @@ export const TiltakinstansOversiktPage = (): React.ReactElement => {
 
 	return (
 		<main className={styles.page} data-testid="tiltaksinstans-oversikt-page">
-			{/*<section>*/}
-			{/*	<TiltaksvariantFilter*/}
-			{/*		tiltakValg={tiltakValg}*/}
-			{/*		valgteTyper={valgteTiltakTyper}*/}
-			{/*		onTiltakValgtChanged={handleOnTiltakValgtChanged}*/}
-			{/*	/>*/}
-			{/*</section>*/}
-
 			<section className={styles.seksjonTiltakinstanser}>
 				<TiltakinstansListe tiltakInstanser={alleTiltakInstanser}/>
 			</section>

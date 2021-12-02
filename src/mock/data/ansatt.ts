@@ -3,7 +3,7 @@ import { randomUuid } from '../utils/faker'
 
 export const mockInnloggetAnsattVirksomheter: VirksomhetDTO[] = [
 	{
-		id: randomUuid(),
+		id: '4b26083d-c320-49e1-9104-b4dcdbcc8067',
 		overordnetEnhetNavn: 'Muligheter Org',
 		overordnetEnhetOrganisasjonsnummer: '750863842',
 		navn: 'Muligheter AS',
@@ -11,7 +11,7 @@ export const mockInnloggetAnsattVirksomheter: VirksomhetDTO[] = [
 		roller: [ 'KOORDINATOR', 'VEILEDER' ]
 	},
 	{
-		id: randomUuid(),
+		id: '7ee8b861-6dc7-4cc2-9706-252c82b63104',
 		overordnetEnhetNavn: 'Tiltak Org',
 		overordnetEnhetOrganisasjonsnummer: '137603847',
 		navn: 'Tiltak til alle AS',
