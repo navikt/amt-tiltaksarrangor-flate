@@ -2,7 +2,7 @@ import * as faker from 'faker'
 
 import { TiltakInstansDTO } from '../../api/data/tiltak'
 import { TiltakInstansStatus } from '../../domeneobjekter/tiltak'
-import { randBetween, randomUuid } from '../utils/faker'
+import { randomUuid } from '../utils/faker'
 
 export type MockTiltakInstans = TiltakInstansDTO & { virksomhetId: string }
 
@@ -45,14 +45,10 @@ export const lagTiltakinstanser = (virksomhetId: string): MockTiltakInstans[] =>
 }
 
 const lagTiltakinstanse = (tiltakInstansInfo: TiltakInstansInfo): MockTiltakInstans => {
-	const deltagerAntall = randBetween(1, 15)
-	const deltagerKapasitet = deltagerAntall + randBetween(0, 10)
 	const status = faker.random.objectElement(TiltakInstansStatus) as TiltakInstansStatus
 
 	return {
 		id: randomUuid(),
-		deltagerAntall,
-		deltagerKapasitet,
 		navn: tiltakInstansInfo.tiltakInstansNavn,
 		status: status,
 		tiltak: {

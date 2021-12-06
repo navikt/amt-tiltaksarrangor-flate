@@ -10,8 +10,6 @@ export interface TiltakInstans {
     oppstartdato: Date,
     sluttdato: Date,
     status: TiltakInstansStatus | undefined,
-    deltagerAntall: number,
-    deltagerKapasitet: number,
     tiltak: Tiltak
 }
 

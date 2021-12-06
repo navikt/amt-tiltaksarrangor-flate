@@ -9,7 +9,6 @@ import { TiltakDeltager } from '../../../domeneobjekter/deltager'
 import { TiltakInstans } from '../../../domeneobjekter/tiltak'
 import globalStyles from '../../../globals.module.less'
 import { dateStrWithMonthName } from '../../../utils/date-utils'
-import { mapTiltakInstansStatusTilEtikett } from '../../../utils/text-mappers'
 import { isNotStartedOrPending, isRejected, usePromise } from '../../../utils/use-promise'
 import { Spinner } from '../../felles/spinner/Spinner'
 import { BrukerOversiktTabell } from './bruker-oversikt/BrukerOversiktTabell'
@@ -42,8 +41,6 @@ export const TiltakinstansDetaljerPage = (): React.ReactElement => {
 	const tiltakinstans = fetchTiltakinstansPromise.result.data
 	const brukere = fetchDeltakerePaTiltakinstansPromise.result.data
 
-	const ledigePlasser = tiltakinstans.deltagerKapasitet - tiltakinstans.deltagerAntall
-
 	return (
 		<main className={styles.tiltaksoversiktPage} data-testid="tiltaksinstans-detaljer-page">
 			<section>
@@ -53,15 +50,6 @@ export const TiltakinstansDetaljerPage = (): React.ReactElement => {
 					<Systemtittel className={globalStyles.blokkXxs}>{tiltakinstans.navn}</Systemtittel>
 					<Normaltekst>Oppstart: {dateStrWithMonthName(tiltakinstans.oppstartdato)}</Normaltekst>
 					<Normaltekst className={globalStyles.blokkXxs}>Sluttdato: {dateStrWithMonthName(tiltakinstans.sluttdato)}</Normaltekst>
-
-					<div className={globalStyles.blokkXxs}>
-						{mapTiltakInstansStatusTilEtikett(tiltakinstans.status)}
-					</div>
-
-					<Normaltekst className={globalStyles.blokkXxs}>
-						Ledige plasser: {ledigePlasser} &nbsp;&nbsp; Totalt: {tiltakinstans.deltagerKapasitet}
-					</Normaltekst>
-					<Normaltekst>{tiltakinstans.tiltak.tiltaksnavn}</Normaltekst>
 				</div>
 
 				<FilterMeny />
