@@ -67,9 +67,7 @@ export const TiltakinstansDetaljerPage = (): React.ReactElement => {
 				<FilterMeny />
 			</section>
 
-			<section>
-				<BrukerOversiktTabell brukere={brukere} />
-			</section>
+			<BrukerOversiktTabell brukere={brukere} />
 		</main>
 	)
 }
