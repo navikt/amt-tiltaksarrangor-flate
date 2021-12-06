@@ -2,20 +2,6 @@ import { EtikettFokus, EtikettInfo, EtikettSuksess } from 'nav-frontend-etikette
 import React from 'react'
 
 import { TiltakDeltagerStatus } from '../domeneobjekter/deltager'
-import { TiltakInstansStatus } from '../domeneobjekter/tiltak'
-
-export const mapTiltakInstansStatusTilEtikett = (tiltakInstansStatus: TiltakInstansStatus | undefined): React.ReactElement | null => {
-	switch (tiltakInstansStatus) {
-		case TiltakInstansStatus.IKKE_STARTET:
-			return <EtikettInfo>Gjennomføres</EtikettInfo>
-		case TiltakInstansStatus.GJENNOMFORES:
-			return <EtikettSuksess>Gjennomføres</EtikettSuksess>
-		case TiltakInstansStatus.AVSLUTTET:
-			return <EtikettFokus>Avsluttet</EtikettFokus>
-		default:
-			return null
-	}
-}
 
 export const mapTiltakDeltagerStatusTilEtikett = (tiltakDeltagerStatus: TiltakDeltagerStatus): React.ReactElement | null => {
 	switch (tiltakDeltagerStatus) {

@@ -43,10 +43,9 @@ const lagMailFraNavn = (navn: string, mailDomain: string): string => {
 export const lagMockTiltakDeltagereForTiltakInstans = (tiltakInstans: MockTiltakInstans): TiltakDeltagerDetaljerDTO[] => {
 	const deltagere: TiltakDeltagerDetaljerDTO[] = []
 
-	for (let i = 0; i < tiltakInstans.deltagerAntall; i++) {
+	for (let i = 0; i < 10; i++) {
 		deltagere.push(lagMockTiltakDeltagerForTiltakInstans(tiltakInstans))
 	}
-
 	return deltagere
 }
 

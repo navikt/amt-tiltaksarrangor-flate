@@ -5,8 +5,6 @@ export interface TiltakInstansDTO {
 	oppstartdato: string,
 	sluttdato: string,
 	status: string,
-	deltagerAntall: number,
-	deltagerKapasitet: number,
 	tiltak: TiltakDTO
 }
 

@@ -6,8 +6,6 @@ export const tilTiltakInstansDto = (instans: MockTiltakInstans): TiltakInstansDT
 	return {
 		id: instans.id,
 		navn: instans.navn,
-		deltagerAntall: instans.deltagerAntall,
-		deltagerKapasitet: instans.deltagerKapasitet,
 		oppstartdato: instans.oppstartdato,
 		sluttdato: instans.sluttdato,
 		status: instans.status,
