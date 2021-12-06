@@ -6,6 +6,7 @@ import {
 	mapSortDirectionToText,
 	SorteringType,
 } from '../../../../utils/sortering-utils'
+import styles from './TabellHeader.module.less'
 import { BrukerSortering, Kolonnenavn } from './types'
 
 interface TableHeaderProps {
@@ -25,6 +26,7 @@ const SortableHeader = (props: TableHeaderProps): React.ReactElement<TableHeader
 	return (
 		<th role="columnheader" className={mapSortDirectionToClassName(sorteringType)} aria-sort={sorteringType}>
 			<button
+				className={styles.header}
 				aria-label={ariaLabel}
 				onClick={() => onSortChange({ sorteringType: nesteSorteringType, kolonnenavn: name })}
 			>
