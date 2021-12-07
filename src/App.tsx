@@ -21,7 +21,7 @@ export const App = (): React.ReactElement => {
 
 	const defaultValgtVirksomhet = useMemo<Virksomhet | undefined>(() => {
 		if (fetchInnloggetAnsattPromise.result) {
-			return hentSisteLagretEllerForsteTilgjengeligVirksomhet(fetchInnloggetAnsattPromise.result.data.leverandorer)
+			return hentSisteLagretEllerForsteTilgjengeligVirksomhet(fetchInnloggetAnsattPromise.result.data.arrangorer)
 		}
 	}, [ fetchInnloggetAnsattPromise.result ])
 

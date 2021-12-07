@@ -25,7 +25,7 @@ export const VirksomhetVelger = (props: VirksomhetVelgerProps): React.ReactEleme
 	const { innloggetAnsatt } = useDataStore()
 	const { valgtVirksomhet, setValgtVirksomhet } = useValgtVirksomhetStore()
 
-	const tilgjengeligeVirksomheter = innloggetAnsatt.leverandorer
+	const tilgjengeligeVirksomheter = innloggetAnsatt.arrangorer
 
 	const onValgtVirksomhetChanged = (valg: SingleValue<Valg> | MultiValue<Valg>) => {
 		const singleValg = valg as SingleValue<Valg>
@@ -68,7 +68,7 @@ export const VirksomhetVelger = (props: VirksomhetVelgerProps): React.ReactEleme
 function VirksomhetValgOption(props: OptionProps<Valg>): React.ReactElement<OptionProps<Valg>> | null {
 	const { innloggetAnsatt } = useDataStore()
 
-	const virksomhet = innloggetAnsatt.leverandorer.find(v => v.id === props.data.value)
+	const virksomhet = innloggetAnsatt.arrangorer.find(v => v.id === props.data.value)
 
 	if (!virksomhet) {
 		return null

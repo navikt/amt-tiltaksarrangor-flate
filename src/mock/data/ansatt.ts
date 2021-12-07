@@ -25,5 +25,5 @@ export const mockInnloggetAnsatt: InnloggetAnsattDTO = {
 	fornavn: 'Karoline',
 	mellomnavn: undefined,
 	etternavn: 'Koordinatorsen',
-	leverandorer: mockInnloggetAnsattVirksomheter
+	arrangorer: mockInnloggetAnsattVirksomheter
 }

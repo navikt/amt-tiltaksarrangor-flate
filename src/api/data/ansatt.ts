@@ -13,5 +13,5 @@ export interface InnloggetAnsattDTO {
 	fornavn: string,
 	mellomnavn: string | undefined | null,
 	etternavn: string,
-	leverandorer: VirksomhetDTO[]
+	arrangorer: VirksomhetDTO[]
 }
