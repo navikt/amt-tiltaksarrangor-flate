@@ -14,7 +14,7 @@ import { axiosInstance } from './utils'
 
 export const fetchInnloggetAnsatt = (): AxiosPromise<InnloggetAnsatt> => {
 	return axiosInstance
-		.get('/amt-tiltak/api/tiltaksleverandor/ansatt/meg')
+		.get('/amt-tiltak/api/arrangor/ansatt/meg')
 		.then(transformInnloggetAnsatt)
 }
 

@@ -68,7 +68,7 @@ const toInnloggetAnsatt = (innloggetAnsattDTO: InnloggetAnsattDTO): InnloggetAns
 
 	return {
 		...innloggetAnsattDTO,
-		leverandorer: innloggetAnsattDTO.leverandorer.map(virksomhetDTO => {
+		arrangorer: innloggetAnsattDTO.arrangorer.map(virksomhetDTO => {
 			return {
 				...virksomhetDTO,
 				roller: toVirksomhetRoller(virksomhetDTO.roller)

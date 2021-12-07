@@ -6,7 +6,7 @@ import { mockInnloggetAnsatt } from '../data/ansatt'
 import { tilTiltakInstansDto } from '../dto-mapper'
 
 export const mockHandlers: RequestHandler[] = [
-	rest.get('/amt-tiltak/api/tiltaksleverandor/ansatt/meg', (req, res, ctx) => {
+	rest.get('/amt-tiltak/api/arrangor/ansatt/meg', (req, res, ctx) => {
 		return res(ctx.delay(500), ctx.json(mockInnloggetAnsatt))
 	}),
 	rest.get('/amt-tiltak/api/tiltak-instans/:tiltakinstansId', (req, res, ctx) => {

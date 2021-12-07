@@ -18,5 +18,5 @@ export interface InnloggetAnsatt {
     fornavn: string;
     mellomnavn: string | undefined | null;
     etternavn: string;
-    leverandorer: Virksomhet[]
+    arrangorer: Virksomhet[]
 }
