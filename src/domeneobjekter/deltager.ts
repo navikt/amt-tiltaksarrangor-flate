@@ -1,10 +1,10 @@
 import { TiltakInstans } from './tiltak'
 
 export enum TiltakDeltagerStatus {
-    NY_BRUKER = 'NY_BRUKER',
+    VENTER_PA_OPPSTART = 'VENTER_PA_OPPSTART',
     GJENNOMFORES = 'GJENNOMFORES',
-    AVBRUTT = 'AVBRUTT',
-    FULLFORT = 'FULLFORT'
+    HAR_SLUTTET = 'HAR_SLUTTET',
+    IKKE_AKTUELL = 'IKKE_AKTUELL'
 }
 
 export interface TiltakDeltager {
