@@ -1,7 +1,7 @@
-import {EtikettFokus, EtikettInfo, EtikettSuksess} from 'nav-frontend-etiketter'
+import { EtikettFokus, EtikettInfo, EtikettSuksess } from 'nav-frontend-etiketter'
 import React from 'react'
 
-import {TiltakDeltagerStatus} from '../domeneobjekter/deltager'
+import { TiltakDeltagerStatus } from '../domeneobjekter/deltager'
 
 export const mapTiltakDeltagerStatusTilEtikett = (tiltakDeltagerStatus: TiltakDeltagerStatus): React.ReactElement | null => {
 	switch (tiltakDeltagerStatus) {
