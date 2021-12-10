@@ -6,7 +6,7 @@ metadata:
   labels:
     team: amt
 spec:
-  image: ghcr.io/navikt/pto-frontend/pto-frontend:2021.06.22_08.34-3e18671c9b52
+  image: ghcr.io/navikt/poao-frontend/poao-frontend:2021.12.14_17.07-68aa85663684
   port: 8080
   ingresses:
     - https://amt-tiltaksarrangor-flate.dev.intern.nav.no
@@ -27,6 +27,12 @@ spec:
     requests:
       cpu: 250m
       memory: 256Mi
+  idporten:
+    enabled: true
+    sidecar:
+      enabled: true
+  tokenx:
+    enabled: true
   gcp:
     buckets:
       - name: amt-tiltaksarrangor-flate-dev
@@ -34,17 +40,21 @@ spec:
   accessPolicy:
     outbound:
       rules:
-        - application: amt-tiltaksarrangor-flate-auth-proxy
+        - application: amt-tiltak
   env:
-    - name: GCS_BUCKET_NAME
-      value: amt-tiltaksarrangor-flate-dev
-    - name: CORS_DOMAIN
-      value: "*"
     - name: JSON_CONFIG
       value: >
         {
+          "gcs": {
+            "bucketName": "amt-tiltaksarrangor-flate-dev"
+          },
+          "auth": {
+            "loginProvider": "ID_PORTEN"
+          },
           "proxies": [
-            { "from": "/auth-proxy", "to": "http://amt-tiltaksarrangor-flate-auth-proxy" },
-            { "from": "/amt-tiltak", "to": "http://amt-tiltaksarrangor-flate-auth-proxy/proxy/amt-tiltak" }
+            {
+              "fromPath": "/amt-tiltak", "toUrl": "http://amt-tiltak",
+              "toApp": { "name": "amt-tiltak", "namespace": "amt", "cluster": "dev-gcp" }
+            }
           ]
         }
