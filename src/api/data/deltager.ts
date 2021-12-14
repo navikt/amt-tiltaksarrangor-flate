@@ -8,22 +8,15 @@ export interface TiltakDeltagerDTO {
 	fodselsnummer: string,
 	oppstartdato: string | null,
 	sluttdato: string | null,
-	status: string
+	status: string,
+	registrertDato: string
 }
 
-export interface TiltakDeltagerDetaljerDTO {
-	id: string,
-	fornavn: string,
-	mellomnavn: string | null,
-	etternavn: string,
-	fodselsnummer: string,
-	telefon: string | null,
+export type TiltakDeltagerDetaljerDTO = TiltakDeltagerDTO & {
 	epost: string | null,
+	telefon: string | null,
 	navKontor: NavKontorDTO,
 	navVeileder: NavVeilederDTO | null,
-	oppstartdato: string | null,
-	sluttdato: string | null,
-	status: string,
 	tiltakInstans: TiltakInstansDTO
 }
 

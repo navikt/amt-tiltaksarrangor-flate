@@ -15,22 +15,15 @@ export interface TiltakDeltager {
     fodselsnummer: string | undefined,
     oppstartdato: Date | undefined,
     sluttdato: Date | undefined,
-    status: TiltakDeltagerStatus
+    status: TiltakDeltagerStatus,
+    registrertDato: Date
 }
 
-export interface TiltakDeltagerDetaljer {
-    id: string,
-    fornavn: string,
-    mellomnavn: string | null,
-    etternavn: string,
-    fodselsnummer: string | null,
+export type TiltakDeltagerDetaljer = TiltakDeltager & {
     telefon: string | null,
     epost: string | null,
     navKontor: NavKontor,
     navVeileder: NavVeileder | null,
-    oppstartdato: Date | undefined,
-    sluttdato: Date | undefined,
-    status: TiltakDeltagerStatus,
     tiltakInstans: TiltakInstans
 }
 

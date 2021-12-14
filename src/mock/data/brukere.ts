@@ -74,6 +74,7 @@ const lagMockTiltakDeltagerForTiltakInstans = (tiltakInstans: MockTiltakInstans)
 			navn: veilederNavn,
 			telefon: faker.phone.phoneNumber()
 		},
-		tiltakInstans: tilTiltakInstansDto(tiltakInstans)
+		tiltakInstans: tilTiltakInstansDto(tiltakInstans),
+		registrertDato: faker.date.past().toISOString()
 	}
 }
