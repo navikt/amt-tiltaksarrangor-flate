@@ -40,7 +40,8 @@ const toTiltakDeltager = (tiltakDeltagerDTO : TiltakDeltagerDTO) : TiltakDeltage
 		mellomnavn: tiltakDeltagerDTO.mellomnavn? tiltakDeltagerDTO.mellomnavn: undefined,
 		oppstartdato: toDateIfPresent(tiltakDeltagerDTO.oppstartdato),
 		sluttdato: toDateIfPresent(tiltakDeltagerDTO.sluttdato),
-		status: toEnumValue(TiltakDeltagerStatus, tiltakDeltagerDTO.status)
+		status: toEnumValue(TiltakDeltagerStatus, tiltakDeltagerDTO.status),
+		registrertDato: dayjs(tiltakDeltagerDTO.registrertDato).toDate()
 	}
 }
 
@@ -52,10 +53,13 @@ const toTiltakDeltagerDetaljer = (tiltakDeltagerDetaljerDTO: TiltakDeltagerDetal
 
 	return {
 		...tiltakDeltagerDetaljerDTO,
+		mellomnavn: tiltakDeltagerDetaljerDTO.mellomnavn? tiltakDeltagerDetaljerDTO.mellomnavn: undefined,
 		oppstartdato: toDateIfPresent(tiltakDeltagerDetaljerDTO.oppstartdato),
 		sluttdato: toDateIfPresent(tiltakDeltagerDetaljerDTO.sluttdato),
 		status: toEnumValue(TiltakDeltagerStatus,tiltakDeltagerDetaljerDTO.status),
-		tiltakInstans: toTiltakInstans(tiltakDeltagerDetaljerDTO.tiltakInstans)
+		tiltakInstans: toTiltakInstans(tiltakDeltagerDetaljerDTO.tiltakInstans),
+		registrertDato: dayjs(tiltakDeltagerDetaljerDTO.registrertDato).toDate()
+
 	}
 }
 

@@ -61,6 +61,7 @@ export const TabellHeader = (props: UserTableHeaderProps): React.ReactElement<Us
 
 				<SortableHeader sortering={sortering} onSortChange={onSortChange} title="Start" name={Kolonnenavn.START} />
 				<SortableHeader sortering={sortering} onSortChange={onSortChange} title="Slutt" name={Kolonnenavn.SLUTT} />
+				<SortableHeader sortering={sortering} onSortChange={onSortChange} title="Søkt inn" name={Kolonnenavn.REGDATO} />
 				<SortableHeader sortering={sortering} onSortChange={onSortChange} title="Status" name={Kolonnenavn.STATUS} />
 			</tr>
 		</thead>

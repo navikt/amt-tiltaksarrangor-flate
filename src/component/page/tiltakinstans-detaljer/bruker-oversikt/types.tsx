@@ -6,6 +6,7 @@ export enum Kolonnenavn {
 	STATUS = 'STATUS',
 	START = 'START',
 	SLUTT = 'SLUTT',
+	REGDATO = 'REGDATO'
 }
 
 export interface BrukerSortering {
