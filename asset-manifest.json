@@ -1,25 +1,25 @@
 {
   "files": {
-    "main.css": "/amt-tiltaksarrangor-flate/static/css/main.48d1c83b.chunk.css",
-    "main.js": "/amt-tiltaksarrangor-flate/static/js/main.753ed216.chunk.js",
-    "main.js.map": "/amt-tiltaksarrangor-flate/static/js/main.753ed216.chunk.js.map",
+    "main.css": "/amt-tiltaksarrangor-flate/static/css/main.7290b3fb.chunk.css",
+    "main.js": "/amt-tiltaksarrangor-flate/static/js/main.a822a8f4.chunk.js",
+    "main.js.map": "/amt-tiltaksarrangor-flate/static/js/main.a822a8f4.chunk.js.map",
     "runtime-main.js": "/amt-tiltaksarrangor-flate/static/js/runtime-main.9c114557.js",
     "runtime-main.js.map": "/amt-tiltaksarrangor-flate/static/js/runtime-main.9c114557.js.map",
     "static/css/2.529a5092.chunk.css": "/amt-tiltaksarrangor-flate/static/css/2.529a5092.chunk.css",
-    "static/js/2.df9d3062.chunk.js": "/amt-tiltaksarrangor-flate/static/js/2.df9d3062.chunk.js",
-    "static/js/2.df9d3062.chunk.js.map": "/amt-tiltaksarrangor-flate/static/js/2.df9d3062.chunk.js.map",
+    "static/js/2.59ec935b.chunk.js": "/amt-tiltaksarrangor-flate/static/js/2.59ec935b.chunk.js",
+    "static/js/2.59ec935b.chunk.js.map": "/amt-tiltaksarrangor-flate/static/js/2.59ec935b.chunk.js.map",
     "index.html": "/amt-tiltaksarrangor-flate/index.html",
     "static/css/2.529a5092.chunk.css.map": "/amt-tiltaksarrangor-flate/static/css/2.529a5092.chunk.css.map",
-    "static/css/main.48d1c83b.chunk.css.map": "/amt-tiltaksarrangor-flate/static/css/main.48d1c83b.chunk.css.map",
-    "static/js/2.df9d3062.chunk.js.LICENSE.txt": "/amt-tiltaksarrangor-flate/static/js/2.df9d3062.chunk.js.LICENSE.txt",
+    "static/css/main.7290b3fb.chunk.css.map": "/amt-tiltaksarrangor-flate/static/css/main.7290b3fb.chunk.css.map",
+    "static/js/2.59ec935b.chunk.js.LICENSE.txt": "/amt-tiltaksarrangor-flate/static/js/2.59ec935b.chunk.js.LICENSE.txt",
     "static/media/nav-logo.1e630d5f.svg": "/amt-tiltaksarrangor-flate/static/media/nav-logo.1e630d5f.svg",
     "static/media/index.less": "/amt-tiltaksarrangor-flate/static/media/sortable.84a4a7b8.svg"
   },
   "entrypoints": [
     "static/js/runtime-main.9c114557.js",
     "static/css/2.529a5092.chunk.css",
-    "static/js/2.df9d3062.chunk.js",
-    "static/css/main.48d1c83b.chunk.css",
-    "static/js/main.753ed216.chunk.js"
+    "static/js/2.59ec935b.chunk.js",
+    "static/css/main.7290b3fb.chunk.css",
+    "static/js/main.a822a8f4.chunk.js"
   ]
 }
