@@ -1,5 +1,6 @@
 import { AxiosResponse } from 'axios'
 import { AlertStripeFeil } from 'nav-frontend-alertstriper'
+import { Tilbakeknapp } from 'nav-frontend-ikonknapper'
 import { Normaltekst, Systemtittel } from 'nav-frontend-typografi'
 import React from 'react'
 import { Link, useParams } from 'react-router-dom'
@@ -44,7 +45,9 @@ export const TiltakinstansDetaljerPage = (): React.ReactElement => {
 	return (
 		<main className={styles.tiltaksoversiktPage} data-testid="tiltaksinstans-detaljer-page">
 			<section>
-				<Link to="/" className={styles.tilbakelenke}>Tilbake</Link>
+				<Link to="/" className={styles.tilbakeknapp}>
+					<Tilbakeknapp />
+				</Link>
 
 				<div className={globalStyles.blokkM}>
 					<Systemtittel className={globalStyles.blokkXxs}>{tiltakinstans.navn}</Systemtittel>
