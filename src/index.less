@@ -7,4 +7,10 @@ html,
 body {
 	margin: 0;
 	background-color: @navGraBakgrunn;
+
+	.app {
+		// Det er en bug i nav-frontend som gjør at denne verdien blir overskrevet av en mixin så vi setter den tilbake her inntil videre
+		line-height: 1.42857143;
+	}
 }
+
