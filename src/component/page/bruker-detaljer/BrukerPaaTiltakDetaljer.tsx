@@ -1,3 +1,4 @@
+import { Tilbakeknapp } from 'nav-frontend-ikonknapper'
 import { Normaltekst, Systemtittel } from 'nav-frontend-typografi'
 import React from 'react'
 import { Link } from 'react-router-dom'
@@ -17,8 +18,8 @@ export const BrukerPaaTiltakDetaljer = (props: { bruker: TiltakDeltagerDetaljer 
 	return (
 		<div>
 			<div className={styles.header}>
-				<Link to={`/instans/${tiltakInstans.id}`} className={styles.tilbakeLenke}>
-					Tilbake
+				<Link to={`/instans/${tiltakInstans.id}`} className={styles.tilbakeknapp}>
+					<Tilbakeknapp />
 				</Link>
 				<Systemtittel className={styles.headerTitle}>{lagBrukerNavn(fornavn, etternavn)}</Systemtittel>
 				{ fodselsnummer && <KopierKnapp text={fodselsnummer}/> }
