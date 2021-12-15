@@ -16,13 +16,15 @@ import { Label } from './label/Label'
 export const BrukerPaaTiltakDetaljer = (props: { bruker: TiltakDeltagerDetaljer }): React.ReactElement => {
 	const { navKontor, navVeileder, fornavn, etternavn, fodselsnummer, tiltakInstans, telefon, epost, status } = props.bruker
 	return (
-		<div>
+		<>
 			<div className={styles.header}>
-				<Link to={`/instans/${tiltakInstans.id}`} className={styles.tilbakeknapp}>
-					<Tilbakeknapp />
-				</Link>
-				<Systemtittel className={styles.headerTitle}>{lagBrukerNavn(fornavn, etternavn)}</Systemtittel>
-				{ fodselsnummer && <KopierKnapp text={fodselsnummer}/> }
+				<div className={styles.headerContent}>
+					<Link to={`/instans/${tiltakInstans.id}`} className={styles.tilbakeknapp}>
+						<Tilbakeknapp />
+					</Link>
+					<Systemtittel className={styles.headerTitle}>{lagBrukerNavn(fornavn, etternavn)}</Systemtittel>
+					{ fodselsnummer && <KopierKnapp text={fodselsnummer}/> }
+				</div>
 			</div>
 
 			<div className={styles.detaljer}>
@@ -54,6 +56,6 @@ export const BrukerPaaTiltakDetaljer = (props: { bruker: TiltakDeltagerDetaljer 
 					</Card>
 				</div>
 			</div>
-		</div>
+		</>
 	)
 }

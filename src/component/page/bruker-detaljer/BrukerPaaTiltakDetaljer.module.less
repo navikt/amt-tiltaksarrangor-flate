@@ -1,15 +1,20 @@
 @import '~nav-frontend-core/less/hide-text';
-
 @import '~nav-frontend-core/less/_mixins';
 @import '~nav-frontend-core/less/utilities';
+@import '/src/globals.module';
 
 .header {
+	background-color: white;
+	padding: 2rem 3rem 2rem 3rem;
+}
+
+.headerContent {
 	display: flex;
 	flex-direction: row;
 	align-items: center;
 
-	background-color: white;
-	padding: 2rem 3rem 2rem 3rem;
+	max-width: @max-bredde;
+	margin: 0 auto;
 }
 
 .headerTitle {
@@ -24,6 +29,8 @@
 
 .detaljer {
 	padding: 2rem;
+	max-width: @max-bredde;
+	margin: 0 auto;
 }
 
 .tiltakCard {
