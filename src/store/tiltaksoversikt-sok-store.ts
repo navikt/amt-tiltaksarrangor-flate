@@ -1,13 +1,17 @@
 import constate from 'constate'
 import { useState } from 'react'
 
-import { BrukerSortering } from '../component/page/tiltakinstans-detaljer/bruker-oversikt/types'
+import { DeltakerKolonneNavn, DeltakerSortering } from '../component/page/tiltakinstans-detaljer/deltaker-oversikt/types'
 import { TiltakDeltagerStatus } from '../domeneobjekter/deltager'
+import { SorteringType } from '../utils/sortering-utils'
 
 export const [ TiltaksoversiktSokStoreProvider, useTiltaksoversiktSokStore ] = constate(() => {
 	const [ navnFnrSok, setNavnFnrSok ] = useState<string>('')
 	const [ tiltakStatusFilter, setTiltakStatusFilter ] = useState<TiltakDeltagerStatus[]>([])
-	const [ brukerSortering, setBrukerSortering ] = useState<BrukerSortering>()
+	const [ deltakerSortering, setDeltakerSortering ] = useState<DeltakerSortering>( {
+		kolonne: DeltakerKolonneNavn.NAVN,
+		type: SorteringType.NONE
+	})
 
 	const leggTilTiltakStatus = (tiltakStatus: TiltakDeltagerStatus) => {
 		setTiltakStatusFilter((prevStatuser) => {
@@ -19,7 +23,7 @@ export const [ TiltaksoversiktSokStoreProvider, useTiltaksoversiktSokStore ] = c
 		})
 	}
 
-	const fjernFraTiltakStatus = (tiltakStatus: TiltakDeltagerStatus) => {
+	const fjernFraTiltakStatus = (tiltakStatus: TiltakDeltakerStatus) => {
 		setTiltakStatusFilter((prevStatuser) => {
 			return prevStatuser.filter((status) => status !== tiltakStatus)
 		})
@@ -31,7 +35,7 @@ export const [ TiltaksoversiktSokStoreProvider, useTiltaksoversiktSokStore ] = c
 		tiltakStatusFilter,
 		leggTilTiltakStatus,
 		fjernFraTiltakStatus,
-		brukerSortering,
-		setBrukerSortering,
+		deltakerSortering,
+		setDeltakerSortering,
 	}
 })

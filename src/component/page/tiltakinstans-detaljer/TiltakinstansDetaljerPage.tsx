@@ -6,13 +6,13 @@ import React from 'react'
 import { Link, useParams } from 'react-router-dom'
 
 import { fetchDeltakerePaTiltakinstans, fetchTiltakinstans } from '../../../api/tiltak-api'
-import { TiltakDeltager } from '../../../domeneobjekter/deltager'
+import { TiltakDeltaker } from '../../../domeneobjekter/deltaker'
 import { TiltakInstans } from '../../../domeneobjekter/tiltak'
 import globalStyles from '../../../globals.module.less'
 import { dateStrWithMonthName } from '../../../utils/date-utils'
 import { isNotStartedOrPending, isRejected, usePromise } from '../../../utils/use-promise'
 import { Spinner } from '../../felles/spinner/Spinner'
-import { BrukerOversiktTabell } from './bruker-oversikt/BrukerOversiktTabell'
+import { DeltakerOversiktTabell } from './deltaker-oversikt/DeltakerOversiktTabell'
 import { FilterMeny } from './FilterMeny'
 import styles from './TiltakinstansDetaljerPage.module.less'
 
@@ -27,7 +27,7 @@ export const TiltakinstansDetaljerPage = (): React.ReactElement => {
 		() => fetchTiltakinstans(params.tiltakinstansId), [ params.tiltakinstansId ]
 	)
 
-	const fetchDeltakerePaTiltakinstansPromise = usePromise<AxiosResponse<TiltakDeltager[]>>(
+	const fetchDeltakerePaTiltakinstansPromise = usePromise<AxiosResponse<TiltakDeltaker[]>>(
 		() => fetchDeltakerePaTiltakinstans(params.tiltakinstansId), [ params.tiltakinstansId ]
 	)
 
@@ -40,7 +40,7 @@ export const TiltakinstansDetaljerPage = (): React.ReactElement => {
 	}
 
 	const tiltakinstans = fetchTiltakinstansPromise.result.data
-	const brukere = fetchDeltakerePaTiltakinstansPromise.result.data
+	const deltakere = fetchDeltakerePaTiltakinstansPromise.result.data
 
 	return (
 		<main className={styles.tiltaksoversiktPage} data-testid="tiltaksinstans-detaljer-page">
@@ -58,7 +58,7 @@ export const TiltakinstansDetaljerPage = (): React.ReactElement => {
 				<FilterMeny />
 			</section>
 
-			<BrukerOversiktTabell brukere={brukere} />
+			<DeltakerOversiktTabell deltakere={deltakere}/>
 		</main>
 	)
 }

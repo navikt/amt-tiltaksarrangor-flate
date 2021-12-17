@@ -2,18 +2,17 @@ import React from 'react'
 
 import { TiltakDeltager } from '../../../../domeneobjekter/deltager'
 import { Rad } from './Rad'
-import { BrukerSortering } from './types'
+import styles from './TabellBody.module.less'
 
 interface TabellBodyProps {
-	sortering?: BrukerSortering;
 	brukere: TiltakDeltager[];
 }
 
-export const TabellBody = (props: TabellBodyProps): React.ReactElement<TabellBodyProps> => {
+export const TabellBody = (props: TabellBodyProps) : JSX.Element => {
 	return (
-		<tbody>
+		<tbody className={styles.rad}>
 			{props.brukere.map((bruker, idx) => (
-				<Rad idx={idx} bruker={bruker} brukerSortering={props.sortering} key={idx} />
+				<Rad idx={idx} bruker={bruker} key={idx} />
 			))}
 		</tbody>
 	)

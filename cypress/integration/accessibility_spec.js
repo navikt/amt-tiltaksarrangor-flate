@@ -76,14 +76,14 @@ describe('Cypress+Axe accessibility tests', () => {
         sjekkUU()
     })
 
-    it('"Tiltaksinstans detaljer" skal oppfylle UU-krav', () => {
+    it('Tiltaksinstans detaljer skal oppfylle UU-krav', () => {
         gaTilTiltakinstansOversikt()
         navigerTilTiltakinstansdetaljer()
 
         sjekkUU()
     })
 
-    it('"Bruker detaljer" skal oppfylle UU-krav', () => {
+    it('Bruker detaljer skal oppfylle UU-krav', () => {
         gaTilTiltakinstansOversikt()
         navigerTilTiltakinstansdetaljer()
         navigerTilBrukerDetaljer()
