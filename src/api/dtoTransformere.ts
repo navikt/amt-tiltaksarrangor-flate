@@ -2,7 +2,7 @@ import { AxiosResponse } from 'axios'
 import dayjs from 'dayjs'
 
 import { AnsattRolle, InnloggetAnsatt } from '../domeneobjekter/ansatt'
-import { TiltakDeltager, TiltakDeltagerDetaljer, TiltakDeltagerStatus } from '../domeneobjekter/deltager'
+import { TiltakDeltaker, TiltakDeltakerDetaljer, TiltakDeltakerStatus } from '../domeneobjekter/deltaker'
 import { TiltakInstans, TiltakInstansStatus } from '../domeneobjekter/tiltak'
 import { toEnumValue, toNullableEnumValue } from '../utils/toEnumValue'
 import { InnloggetAnsattDTO } from './data/ansatt'
@@ -27,36 +27,36 @@ const toTiltakInstans = (tiltakInstansDTO: TiltakInstansDTO) : TiltakInstans => 
 	}
 }
 
-export const transformTiltakDeltager = (response: AxiosResponse<TiltakDeltagerDTO[]>) : AxiosResponse<TiltakDeltager[]> => {
+export const transformTiltakDeltager = (response: AxiosResponse<TiltakDeltagerDTO[]>) : AxiosResponse<TiltakDeltaker[]> => {
 	const deltagere =  response.data.map(toTiltakDeltager)
 	return { ...response, data: deltagere }
 }
 const toDateIfPresent = (date: string | null) : Date | undefined  => date? dayjs(date).toDate(): undefined
 
-const toTiltakDeltager = (tiltakDeltagerDTO : TiltakDeltagerDTO) : TiltakDeltager => {
+const toTiltakDeltager = (tiltakDeltagerDTO : TiltakDeltagerDTO) : TiltakDeltaker => {
 
 	return {
 		...tiltakDeltagerDTO,
 		mellomnavn: tiltakDeltagerDTO.mellomnavn? tiltakDeltagerDTO.mellomnavn: undefined,
 		oppstartdato: toDateIfPresent(tiltakDeltagerDTO.oppstartdato),
 		sluttdato: toDateIfPresent(tiltakDeltagerDTO.sluttdato),
-		status: toEnumValue(TiltakDeltagerStatus, tiltakDeltagerDTO.status),
+		status: toEnumValue(TiltakDeltakerStatus, tiltakDeltagerDTO.status),
 		registrertDato: dayjs(tiltakDeltagerDTO.registrertDato).toDate()
 	}
 }
 
-export const transformTiltakDeltagerDetaljer = (response: AxiosResponse<TiltakDeltagerDetaljerDTO>) : AxiosResponse<TiltakDeltagerDetaljer> => {
+export const transformTiltakDeltagerDetaljer = (response: AxiosResponse<TiltakDeltagerDetaljerDTO>) : AxiosResponse<TiltakDeltakerDetaljer> => {
 	return { ...response, data: toTiltakDeltagerDetaljer(response.data) }
 }
 
-const toTiltakDeltagerDetaljer = (tiltakDeltagerDetaljerDTO: TiltakDeltagerDetaljerDTO) : TiltakDeltagerDetaljer => {
+const toTiltakDeltagerDetaljer = (tiltakDeltagerDetaljerDTO: TiltakDeltagerDetaljerDTO) : TiltakDeltakerDetaljer => {
 
 	return {
 		...tiltakDeltagerDetaljerDTO,
 		mellomnavn: tiltakDeltagerDetaljerDTO.mellomnavn? tiltakDeltagerDetaljerDTO.mellomnavn: undefined,
 		oppstartdato: toDateIfPresent(tiltakDeltagerDetaljerDTO.oppstartdato),
 		sluttdato: toDateIfPresent(tiltakDeltagerDetaljerDTO.sluttdato),
-		status: toEnumValue(TiltakDeltagerStatus,tiltakDeltagerDetaljerDTO.status),
+		status: toEnumValue(TiltakDeltakerStatus,tiltakDeltagerDetaljerDTO.status),
 		tiltakInstans: toTiltakInstans(tiltakDeltagerDetaljerDTO.tiltakInstans),
 		registrertDato: dayjs(tiltakDeltagerDetaljerDTO.registrertDato).toDate()
 

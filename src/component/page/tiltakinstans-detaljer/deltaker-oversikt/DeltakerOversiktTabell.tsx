@@ -2,7 +2,7 @@ import 'nav-frontend-tabell-style'
 
 import React, { useEffect, useState } from 'react'
 
-import { TiltakDeltager } from '../../../../domeneobjekter/deltager'
+import { TiltakDeltaker } from '../../../../domeneobjekter/deltaker'
 import { useTiltaksoversiktSokStore } from '../../../../store/tiltaksoversikt-sok-store'
 import { filtrerBrukere } from '../../../../utils/filtrering-utils'
 import { sorterDeltakere } from '../../../../utils/sortering-utils'
@@ -12,13 +12,13 @@ import { TabellHeader } from './TabellHeader'
 
 
 interface DeltakerOversiktTabellProps {
-	deltakere: TiltakDeltager[]
+	deltakere: TiltakDeltaker[]
 }
 
 export const DeltakerOversiktTabell = (props: DeltakerOversiktTabellProps): React.ReactElement<DeltakerOversiktTabellProps> => {
 	const { deltakere } =  props
 	const { deltakerSortering, tiltakStatusFilter, navnFnrSok } = useTiltaksoversiktSokStore()
-	const [ deltakereBearbeidet, setDeltakereBearbeidet ] = useState<TiltakDeltager[]>(deltakere)
+	const [ deltakereBearbeidet, setDeltakereBearbeidet ] = useState<TiltakDeltaker[]>(deltakere)
 
 	useEffect(() => {
 		if (!deltakere) return

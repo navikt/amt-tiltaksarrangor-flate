@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-import { TiltakDeltager } from '../../../../domeneobjekter/deltager'
+import { TiltakDeltaker } from '../../../../domeneobjekter/deltaker'
 import { useTiltaksoversiktSokStore } from '../../../../store/tiltaksoversikt-sok-store'
 import { lagKommaSeparertBrukerNavn } from '../../../../utils/bruker-utils'
 import { formatDate } from '../../../../utils/date-utils'
@@ -11,7 +11,7 @@ import { DeltakerKolonneNavn, DeltakerSortering } from './types'
 
 interface RadProps {
 	idx: number;
-	bruker: TiltakDeltager;
+	bruker: TiltakDeltaker;
 }
 
 const sortClassName = (name: DeltakerKolonneNavn, deltakerSortering?: DeltakerSortering): string | undefined => {
@@ -28,22 +28,22 @@ export const Rad = (props: RadProps): React.ReactElement<RadProps> => {
 
 	return (
 		<tr key={id}>
-			<td className={sortClassName(DeltakerTabellKolonne.NAVN, deltakerSortering)}>
+			<td className={sortClassName(DeltakerKolonneNavn.NAVN, deltakerSortering)}>
 				<Link className={styles.brukersNavn} to={`/user/${id}`}>
 					{lagKommaSeparertBrukerNavn(fornavn, etternavn)}
 				</Link>
 			</td>
-			<td className={sortClassName(DeltakerTabellKolonne.FODSELSNUMMER, deltakerSortering)}>{fodselsnummer}</td>
-			<td className={sortClassName(DeltakerTabellKolonne.START, deltakerSortering)}>
+			<td className={sortClassName(DeltakerKolonneNavn.FODSELSNUMMER, deltakerSortering)}>{fodselsnummer}</td>
+			<td className={sortClassName(DeltakerKolonneNavn.START, deltakerSortering)}>
 				{oppstartdato && formatDate(oppstartdato)}
 			</td>
-			<td className={sortClassName(DeltakerTabellKolonne.SLUTT, deltakerSortering)}>
+			<td className={sortClassName(DeltakerKolonneNavn.SLUTT, deltakerSortering)}>
 				{sluttdato && formatDate(sluttdato)}
 			</td>
-			<td className={sortClassName(DeltakerTabellKolonne.REGDATO, deltakerSortering)}>
+			<td className={sortClassName(DeltakerKolonneNavn.REGDATO, deltakerSortering)}>
 				{formatDate(registrertDato)}
 			</td>
-			<td className={sortClassName(DeltakerTabellKolonne.STATUS, deltakerSortering)}>{mapTiltakDeltagerStatusTilTekst(status)}</td>
+			<td className={sortClassName(DeltakerKolonneNavn.STATUS, deltakerSortering)}>{mapTiltakDeltagerStatusTilTekst(status)}</td>
 		</tr>
 	)
 }
