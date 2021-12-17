@@ -1,7 +1,7 @@
 import faker from 'faker'
 
 import { TiltakDeltagerDetaljerDTO } from '../../api/data/deltager'
-import { TiltakDeltagerStatus } from '../../domeneobjekter/deltager'
+import { TiltakDeltakerStatus } from '../../domeneobjekter/deltaker'
 import { tilTiltakInstansDto } from '../dto-mapper'
 import { randomFnr, randomUuid } from '../utils/faker'
 import { MockTiltakInstans } from './tiltak'
@@ -50,7 +50,7 @@ export const lagMockTiltakDeltagereForTiltakInstans = (tiltakInstans: MockTiltak
 }
 
 const lagMockTiltakDeltagerForTiltakInstans = (tiltakInstans: MockTiltakInstans): TiltakDeltagerDetaljerDTO => {
-	const status = faker.random.objectElement(TiltakDeltagerStatus) as TiltakDeltagerStatus
+	const status = faker.random.objectElement(TiltakDeltakerStatus) as TiltakDeltakerStatus
 
 	const brukerFornavn = faker.name.firstName()
 	const brukerEtternavn = faker.name.lastName()

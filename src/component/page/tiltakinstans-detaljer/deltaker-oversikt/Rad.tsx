@@ -2,20 +2,20 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 
 import { TiltakDeltager } from '../../../../domeneobjekter/deltager'
+import { useTiltaksoversiktSokStore } from '../../../../store/tiltaksoversikt-sok-store'
 import { lagKommaSeparertBrukerNavn } from '../../../../utils/bruker-utils'
 import { formatDate } from '../../../../utils/date-utils'
 import { mapTiltakDeltagerStatusTilTekst } from '../../../../utils/text-mappers'
 import styles from './Rad.module.less'
-import { BrukerSortering, Kolonnenavn } from './types'
+import { DeltakerKolonneNavn, DeltakerSortering } from './types'
 
 interface RadProps {
 	idx: number;
 	bruker: TiltakDeltager;
-	brukerSortering?: BrukerSortering;
 }
 
-const sortClassName = (name: Kolonnenavn, brukerSortering?: BrukerSortering): string | undefined => {
-	if (!brukerSortering || name !== brukerSortering.kolonnenavn) {
+const sortClassName = (name: DeltakerKolonneNavn, deltakerSortering?: DeltakerSortering): string | undefined => {
+	if (!deltakerSortering || name !== deltakerSortering.kolonne) {
 		return undefined
 	}
 
@@ -24,26 +24,26 @@ const sortClassName = (name: Kolonnenavn, brukerSortering?: BrukerSortering): st
 
 export const Rad = (props: RadProps): React.ReactElement<RadProps> => {
 	const { fodselsnummer, fornavn, etternavn, id, oppstartdato, sluttdato, registrertDato, status } = props.bruker
-	const userSort = props.brukerSortering
+	const { deltakerSortering } = useTiltaksoversiktSokStore()
 
 	return (
 		<tr key={id}>
-			<td className={sortClassName(Kolonnenavn.NAVN, userSort)}>
+			<td className={sortClassName(DeltakerTabellKolonne.NAVN, deltakerSortering)}>
 				<Link className={styles.brukersNavn} to={`/user/${id}`}>
 					{lagKommaSeparertBrukerNavn(fornavn, etternavn)}
 				</Link>
 			</td>
-			<td className={sortClassName(Kolonnenavn.FODSELSNUMMER, userSort)}>{fodselsnummer}</td>
-			<td className={sortClassName(Kolonnenavn.START, userSort)}>
+			<td className={sortClassName(DeltakerTabellKolonne.FODSELSNUMMER, deltakerSortering)}>{fodselsnummer}</td>
+			<td className={sortClassName(DeltakerTabellKolonne.START, deltakerSortering)}>
 				{oppstartdato && formatDate(oppstartdato)}
 			</td>
-			<td className={sortClassName(Kolonnenavn.SLUTT, userSort)}>
+			<td className={sortClassName(DeltakerTabellKolonne.SLUTT, deltakerSortering)}>
 				{sluttdato && formatDate(sluttdato)}
 			</td>
-			<td className={sortClassName(Kolonnenavn.REGDATO, userSort)}>
+			<td className={sortClassName(DeltakerTabellKolonne.REGDATO, deltakerSortering)}>
 				{formatDate(registrertDato)}
 			</td>
-			<td className={sortClassName(Kolonnenavn.STATUS, userSort)}>{mapTiltakDeltagerStatusTilTekst(status)}</td>
+			<td className={sortClassName(DeltakerTabellKolonne.STATUS, deltakerSortering)}>{mapTiltakDeltagerStatusTilTekst(status)}</td>
 		</tr>
 	)
 }

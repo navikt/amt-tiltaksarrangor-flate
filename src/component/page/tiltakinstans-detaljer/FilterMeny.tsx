@@ -2,7 +2,7 @@ import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel'
 import { Checkbox, CheckboxGruppe, Input } from 'nav-frontend-skjema'
 import React from 'react'
 
-import { TiltakDeltagerStatus } from '../../../domeneobjekter/deltager'
+import { TiltakDeltakerStatus } from '../../../domeneobjekter/deltaker'
 import globalStyles from '../../../globals.module.less'
 import { useTiltaksoversiktSokStore } from '../../../store/tiltaksoversikt-sok-store'
 import { mapTiltakDeltagerStatusTilTekst } from '../../../utils/text-mappers'
@@ -27,7 +27,7 @@ export const FilterMeny = (): React.ReactElement => {
 
 			<Ekspanderbartpanel tittel="Status" className={globalStyles.blokkM} apen>
 				<CheckboxGruppe>
-					{Object.values(TiltakDeltagerStatus).map((status) => (
+					{Object.values(TiltakDeltakerStatus).map((status) => (
 						<Checkbox
 							key={status}
 							label={mapTiltakDeltagerStatusTilTekst(status)}

@@ -1,32 +1,32 @@
 import { EtikettFokus, EtikettInfo, EtikettSuksess } from 'nav-frontend-etiketter'
 import React from 'react'
 
-import { TiltakDeltagerStatus } from '../domeneobjekter/deltager'
+import { TiltakDeltakerStatus } from '../domeneobjekter/deltaker'
 
-export const mapTiltakDeltagerStatusTilEtikett = (tiltakDeltagerStatus: TiltakDeltagerStatus): React.ReactElement | null => {
+export const mapTiltakDeltagerStatusTilEtikett = (tiltakDeltagerStatus: TiltakDeltakerStatus): React.ReactElement | null => {
 	switch (tiltakDeltagerStatus) {
-		case TiltakDeltagerStatus.VENTER_PA_OPPSTART:
+		case TiltakDeltakerStatus.VENTER_PA_OPPSTART:
 			return <EtikettSuksess>Venter på oppstart</EtikettSuksess>
-		case TiltakDeltagerStatus.GJENNOMFORES:
+		case TiltakDeltakerStatus.GJENNOMFORES:
 			return <EtikettSuksess>Gjennomføres</EtikettSuksess>
-		case TiltakDeltagerStatus.HAR_SLUTTET:
+		case TiltakDeltakerStatus.HAR_SLUTTET:
 			return <EtikettInfo>Har sluttet</EtikettInfo>
-		case TiltakDeltagerStatus.IKKE_AKTUELL:
+		case TiltakDeltakerStatus.IKKE_AKTUELL:
 			return <EtikettFokus>Ikke aktuell</EtikettFokus>
 		default:
 			return null
 	}
 }
 
-export const mapTiltakDeltagerStatusTilTekst = (tiltakDeltagerStatus: TiltakDeltagerStatus): string => {
+export const mapTiltakDeltagerStatusTilTekst = (tiltakDeltagerStatus: TiltakDeltakerStatus): string => {
 	switch (tiltakDeltagerStatus) {
-		case TiltakDeltagerStatus.VENTER_PA_OPPSTART:
+		case TiltakDeltakerStatus.VENTER_PA_OPPSTART:
 			return 'Venter på oppstart'
-		case TiltakDeltagerStatus.GJENNOMFORES:
+		case TiltakDeltakerStatus.GJENNOMFORES:
 			return 'Gjennomføres'
-		case TiltakDeltagerStatus.HAR_SLUTTET:
+		case TiltakDeltakerStatus.HAR_SLUTTET:
 			return 'Har sluttet'
-		case TiltakDeltagerStatus.IKKE_AKTUELL:
+		case TiltakDeltakerStatus.IKKE_AKTUELL:
 			return 'Ikke aktuell'
 		default:
 			return tiltakDeltagerStatus
