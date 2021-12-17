@@ -4,7 +4,7 @@ import React from 'react'
 import { useParams } from 'react-router-dom'
 
 import { fetchTiltakDeltagerDetaljer } from '../../../api/tiltak-api'
-import { TiltakDeltagerDetaljer } from '../../../domeneobjekter/deltager'
+import { TiltakDeltakerDetaljer } from '../../../domeneobjekter/deltaker'
 import { isNotStartedOrPending, isRejected, usePromise } from '../../../utils/use-promise'
 import { Spinner } from '../../felles/spinner/Spinner'
 import { BrukerPaaTiltakDetaljer } from './BrukerPaaTiltakDetaljer'
@@ -12,7 +12,7 @@ import { BrukerPaaTiltakDetaljer } from './BrukerPaaTiltakDetaljer'
 export const BrukerDetaljerPage = (): React.ReactElement => {
 	const params = useParams<{ brukerId: string }>()
 
-	const fetchTiltakDeltagerDetaljerPromise = usePromise<AxiosResponse<TiltakDeltagerDetaljer>>(
+	const fetchTiltakDeltagerDetaljerPromise = usePromise<AxiosResponse<TiltakDeltakerDetaljer>>(
 		() => fetchTiltakDeltagerDetaljer(params.brukerId), [ params.brukerId ]
 	)
 

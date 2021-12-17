@@ -3,7 +3,7 @@ import { Normaltekst, Systemtittel } from 'nav-frontend-typografi'
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-import { TiltakDeltagerDetaljer } from '../../../domeneobjekter/deltager'
+import { TiltakDeltakerDetaljer } from '../../../domeneobjekter/deltaker'
 import globalStyles from '../../../globals.module.less'
 import { lagBrukerNavn } from '../../../utils/bruker-utils'
 import { formatDate } from '../../../utils/date-utils'
@@ -13,7 +13,7 @@ import styles from './BrukerPaaTiltakDetaljer.module.less'
 import { KopierKnapp } from './kopier-knapp/KopierKnapp'
 import { Label } from './label/Label'
 
-export const BrukerPaaTiltakDetaljer = (props: { bruker: TiltakDeltagerDetaljer }): React.ReactElement => {
+export const BrukerPaaTiltakDetaljer = (props: { bruker: TiltakDeltakerDetaljer }): React.ReactElement => {
 	const { navKontor, navVeileder, fornavn, etternavn, fodselsnummer, tiltakInstans, telefon, epost, status } = props.bruker
 	return (
 		<>

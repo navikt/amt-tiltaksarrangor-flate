@@ -1,7 +1,7 @@
 import { AxiosPromise } from 'axios'
 
 import { InnloggetAnsatt } from '../domeneobjekter/ansatt'
-import { TiltakDeltager, TiltakDeltagerDetaljer } from '../domeneobjekter/deltager'
+import { TiltakDeltaker, TiltakDeltakerDetaljer } from '../domeneobjekter/deltaker'
 import { TiltakInstans } from '../domeneobjekter/tiltak'
 import {
 	transformInnloggetAnsatt,
@@ -30,13 +30,13 @@ export const fetchTiltakinstans = (tiltakinstansId: string): AxiosPromise<Tiltak
 		.then(transformTiltakInstans)
 }
 
-export const fetchDeltakerePaTiltakinstans = (tiltakinstansId: string): AxiosPromise<TiltakDeltager[]> => {
+export const fetchDeltakerePaTiltakinstans = (tiltakinstansId: string): AxiosPromise<TiltakDeltaker[]> => {
 	return axiosInstance
 		.get(`/amt-tiltak/api/tiltak-instans/${tiltakinstansId}/deltakere`)
 		.then(transformTiltakDeltager)
 }
 
-export const fetchTiltakDeltagerDetaljer = (tiltakDeltagerId: string): AxiosPromise<TiltakDeltagerDetaljer> => {
+export const fetchTiltakDeltagerDetaljer = (tiltakDeltagerId: string): AxiosPromise<TiltakDeltakerDetaljer> => {
 	return axiosInstance
 		.get(`/amt-tiltak/api/tiltak-deltaker/${tiltakDeltagerId}`)
 		.then(transformTiltakDeltagerDetaljer)
