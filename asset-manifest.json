@@ -1,8 +1,8 @@
 {
   "files": {
-    "main.css": "/amt-tiltaksarrangor-flate/static/css/main.6ebb3c34.chunk.css",
-    "main.js": "/amt-tiltaksarrangor-flate/static/js/main.cf257c54.chunk.js",
-    "main.js.map": "/amt-tiltaksarrangor-flate/static/js/main.cf257c54.chunk.js.map",
+    "main.css": "/amt-tiltaksarrangor-flate/static/css/main.cb400326.chunk.css",
+    "main.js": "/amt-tiltaksarrangor-flate/static/js/main.f1dda01e.chunk.js",
+    "main.js.map": "/amt-tiltaksarrangor-flate/static/js/main.f1dda01e.chunk.js.map",
     "runtime-main.js": "/amt-tiltaksarrangor-flate/static/js/runtime-main.9c114557.js",
     "runtime-main.js.map": "/amt-tiltaksarrangor-flate/static/js/runtime-main.9c114557.js.map",
     "static/css/2.529a5092.chunk.css": "/amt-tiltaksarrangor-flate/static/css/2.529a5092.chunk.css",
@@ -10,7 +10,7 @@
     "static/js/2.452cb7c8.chunk.js.map": "/amt-tiltaksarrangor-flate/static/js/2.452cb7c8.chunk.js.map",
     "index.html": "/amt-tiltaksarrangor-flate/index.html",
     "static/css/2.529a5092.chunk.css.map": "/amt-tiltaksarrangor-flate/static/css/2.529a5092.chunk.css.map",
-    "static/css/main.6ebb3c34.chunk.css.map": "/amt-tiltaksarrangor-flate/static/css/main.6ebb3c34.chunk.css.map",
+    "static/css/main.cb400326.chunk.css.map": "/amt-tiltaksarrangor-flate/static/css/main.cb400326.chunk.css.map",
     "static/js/2.452cb7c8.chunk.js.LICENSE.txt": "/amt-tiltaksarrangor-flate/static/js/2.452cb7c8.chunk.js.LICENSE.txt",
     "static/media/nav-logo.1e630d5f.svg": "/amt-tiltaksarrangor-flate/static/media/nav-logo.1e630d5f.svg",
     "static/media/index.less": "/amt-tiltaksarrangor-flate/static/media/sortable.84a4a7b8.svg"
@@ -19,7 +19,7 @@
     "static/js/runtime-main.9c114557.js",
     "static/css/2.529a5092.chunk.css",
     "static/js/2.452cb7c8.chunk.js",
-    "static/css/main.6ebb3c34.chunk.css",
-    "static/js/main.cf257c54.chunk.js"
+    "static/css/main.cb400326.chunk.css",
+    "static/js/main.f1dda01e.chunk.js"
   ]
 }
