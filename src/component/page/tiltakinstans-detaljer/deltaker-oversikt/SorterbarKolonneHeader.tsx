@@ -1,12 +1,9 @@
 import React from 'react'
 
 import { useTiltaksoversiktSokStore } from '../../../../store/tiltaksoversikt-sok-store'
-import {
-	finnNesteSorteringType,
-	mapSortDirectionToText, SorteringType,
-} from '../../../../utils/sortering-utils'
+import { finnNesteSorteringType, mapSortDirectionToText, SorteringType, } from '../../../../utils/sortering-utils'
 import styles from './SorterbarKolonneHeader.module.less'
-import { DeltakerKolonneNavn, DeltakerSortering } from './types'
+import { DeltakerKolonneNavn } from './types'
 
 interface SortableHeaderProps {
     kolonne: DeltakerKolonneNavn;
@@ -16,18 +13,19 @@ export const SorterbarKolonneHeader = (props: SortableHeaderProps) : JSX.Element
 	const { kolonne } = props
 	const { deltakerSortering, setDeltakerSortering } = useTiltaksoversiktSokStore()
 	const kolonneNavn = kolonne.valueOf()
-	const nesteSorteringType = finnNesteSorteringType(deltakerSortering.type)
+	const sortertKolonne = deltakerSortering.kolonne === kolonne
+	const nesteSorteringType = sortertKolonne? finnNesteSorteringType(deltakerSortering.type): SorteringType.NONE
 	const ariaLabel = `Sorter ${kolonneNavn} ${mapSortDirectionToText(nesteSorteringType)}`
 
-	const getClass = (sortering: DeltakerSortering, kolonne: DeltakerKolonneNavn): string => {
-		if (sortering.kolonne !== kolonne) return ''
-		if (sortering.type === SorteringType.ASCENDING) return 'tabell__th--sortert-asc'
-		if (sortering.type === SorteringType.DESCENDING) return 'tabell__th--sortert-desc'
+	const getClass = (): string => {
+		if (deltakerSortering.kolonne !== kolonne) return ''
+		if (deltakerSortering.type === SorteringType.ASCENDING) return 'tabell__th--sortert-asc'
+		if (deltakerSortering.type === SorteringType.DESCENDING) return 'tabell__th--sortert-desc'
 		return ''
 	}
 
 	return (
-		<th role="columnheader" className={getClass(deltakerSortering, kolonne)} aria-sort={deltakerSortering.type}>
+		<th role="columnheader" className={getClass()} aria-sort={deltakerSortering.type}>
 			<button
 				className={styles.header}
 				aria-label={ariaLabel}
