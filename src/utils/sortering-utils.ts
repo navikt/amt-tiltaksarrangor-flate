@@ -25,12 +25,12 @@ export const mapSortDirectionToText = (sorteringType: SorteringType): string => 
 export const finnNesteSorteringType = (sorteringType: SorteringType): SorteringType => {
 	switch (sorteringType) {
 		case SorteringType.ASCENDING:
-			return SorteringType.DESCENDING
-		case SorteringType.DESCENDING:
 			return SorteringType.NONE
+		case SorteringType.DESCENDING:
+			return SorteringType.ASCENDING
 		default:
 			// This will be the default sort direction
-			return SorteringType.ASCENDING
+			return SorteringType.DESCENDING
 	}
 }
 
@@ -53,10 +53,11 @@ export const sorterDeltakere = (deltakere: TiltakDeltaker[], sortering: Deltaker
 	}
 
 	if(sortering.type === SorteringType.DESCENDING) {
-		return deltakere.sort((a, b) => sort(b[propName], a[propName]))
+		return deltakere.sort( (a, b) => sort(a[propName], b[propName]))
 	}
 
-	return deltakere.sort( (a, b) => sort(a[propName], b[propName]))
+	return deltakere.sort((a, b) => sort(b[propName], a[propName]))
+
 }
 
 function sort<Type>(a: Type, b: Type): number {
