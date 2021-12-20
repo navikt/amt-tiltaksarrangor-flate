@@ -14,36 +14,21 @@ interface RadProps {
 	bruker: TiltakDeltaker;
 }
 
-const sortClassName = (name: DeltakerKolonneNavn, deltakerSortering?: DeltakerSortering): string | undefined => {
-	if (!deltakerSortering || name !== deltakerSortering.kolonne) {
-		return undefined
-	}
-
-	return 'tabell__td--sortert'
-}
-
 export const Rad = (props: RadProps): React.ReactElement<RadProps> => {
 	const { fodselsnummer, fornavn, etternavn, id, oppstartdato, sluttdato, registrertDato, status } = props.bruker
-	const { deltakerSortering } = useTiltaksoversiktSokStore()
 
 	return (
 		<tr key={id}>
-			<td className={sortClassName(DeltakerKolonneNavn.NAVN, deltakerSortering)}>
+			<td>
 				<Link className={styles.brukersNavn} to={`/user/${id}`}>
 					{lagKommaSeparertBrukerNavn(fornavn, etternavn)}
 				</Link>
 			</td>
-			<td className={sortClassName(DeltakerKolonneNavn.FODSELSNUMMER, deltakerSortering)}>{fodselsnummer}</td>
-			<td className={sortClassName(DeltakerKolonneNavn.START, deltakerSortering)}>
-				{oppstartdato && formatDate(oppstartdato)}
-			</td>
-			<td className={sortClassName(DeltakerKolonneNavn.SLUTT, deltakerSortering)}>
-				{sluttdato && formatDate(sluttdato)}
-			</td>
-			<td className={sortClassName(DeltakerKolonneNavn.REGDATO, deltakerSortering)}>
-				{formatDate(registrertDato)}
-			</td>
-			<td className={sortClassName(DeltakerKolonneNavn.STATUS, deltakerSortering)}>{mapTiltakDeltagerStatusTilTekst(status)}</td>
+			<td>{fodselsnummer}</td>
+			<td>{oppstartdato && formatDate(oppstartdato)}</td>
+			<td>{sluttdato && formatDate(sluttdato)}</td>
+			<td>{formatDate(registrertDato)}</td>
+			<td>{mapTiltakDeltagerStatusTilTekst(status)}</td>
 		</tr>
 	)
 }
