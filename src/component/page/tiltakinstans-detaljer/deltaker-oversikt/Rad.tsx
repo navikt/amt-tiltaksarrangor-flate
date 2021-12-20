@@ -2,12 +2,10 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 
 import { TiltakDeltaker } from '../../../../domeneobjekter/deltaker'
-import { useTiltaksoversiktSokStore } from '../../../../store/tiltaksoversikt-sok-store'
 import { lagKommaSeparertBrukerNavn } from '../../../../utils/bruker-utils'
 import { formatDate } from '../../../../utils/date-utils'
 import { mapTiltakDeltagerStatusTilTekst } from '../../../../utils/text-mappers'
 import styles from './Rad.module.less'
-import { DeltakerKolonneNavn, DeltakerSortering } from './types'
 
 interface RadProps {
 	idx: number;
