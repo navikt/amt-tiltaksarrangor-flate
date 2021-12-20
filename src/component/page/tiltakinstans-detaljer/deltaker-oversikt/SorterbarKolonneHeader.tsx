@@ -3,11 +3,10 @@ import React from 'react'
 import { useTiltaksoversiktSokStore } from '../../../../store/tiltaksoversikt-sok-store'
 import {
 	finnNesteSorteringType,
-	mapSortDirectionToClassName,
-	mapSortDirectionToText,
+	mapSortDirectionToText, SorteringType,
 } from '../../../../utils/sortering-utils'
 import styles from './SorterbarKolonneHeader.module.less'
-import { DeltakerKolonneNavn } from './types'
+import { DeltakerKolonneNavn, DeltakerSortering } from './types'
 
 interface SortableHeaderProps {
     kolonne: DeltakerKolonneNavn;
@@ -20,8 +19,15 @@ export const SorterbarKolonneHeader = (props: SortableHeaderProps) : JSX.Element
 	const nesteSorteringType = finnNesteSorteringType(deltakerSortering.type)
 	const ariaLabel = `Sorter ${kolonneNavn} ${mapSortDirectionToText(nesteSorteringType)}`
 
+	const getClass = (sortering: DeltakerSortering, kolonne: DeltakerKolonneNavn): string => {
+		if (sortering.kolonne !== kolonne) return ''
+		if (sortering.type === SorteringType.ASCENDING) return 'tabell__th--sortert-asc'
+		if (sortering.type === SorteringType.DESCENDING) return 'tabell__th--sortert-desc'
+		return ''
+	}
+
 	return (
-		<th role="columnheader" className={mapSortDirectionToClassName(deltakerSortering.type)} aria-sort={deltakerSortering.type}>
+		<th role="columnheader" className={getClass(deltakerSortering, kolonne)} aria-sort={deltakerSortering.type}>
 			<button
 				className={styles.header}
 				aria-label={ariaLabel}

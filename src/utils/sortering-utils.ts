@@ -22,17 +22,6 @@ export const mapSortDirectionToText = (sorteringType: SorteringType): string => 
 	}
 }
 
-export const mapSortDirectionToClassName = (sorteringType: SorteringType): string => {
-	switch (sorteringType) {
-		case SorteringType.ASCENDING:
-			return 'tabell__th--sortert-asc'
-		case SorteringType.DESCENDING:
-			return 'tabell__th--sortert-desc'
-		default:
-			return ''
-	}
-}
-
 export const finnNesteSorteringType = (sorteringType: SorteringType): SorteringType => {
 	switch (sorteringType) {
 		case SorteringType.ASCENDING:
