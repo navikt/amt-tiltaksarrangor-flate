@@ -28,16 +28,17 @@ export const DeltakerOversiktTabell = (props: DeltakerOversiktTabellProps): Reac
 
 	}, [ deltakere, deltakerSortering, tiltakStatusFilter ])
 
-	if (deltakere.length === 0) {
-		return <IngenDeltakereAlertstripe/>
-	}
-
 	return (
 		<section>
-			<table className="tabell">
-				<TabellHeader />
-				<TabellBody brukere={deltakereBearbeidet} />
-			</table>
+			{deltakere.length === 0
+				? <IngenDeltakereAlertstripe/>
+				: (
+					<table className="tabell">
+						<TabellHeader />
+						<TabellBody brukere={deltakereBearbeidet} />
+					</table>
+				)
+			}
 		</section>
 	)
 }
