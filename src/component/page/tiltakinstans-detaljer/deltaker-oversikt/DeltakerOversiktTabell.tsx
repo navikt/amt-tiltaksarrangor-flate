@@ -33,9 +33,11 @@ export const DeltakerOversiktTabell = (props: DeltakerOversiktTabellProps): Reac
 	}
 
 	return (
-		<table className="tabell">
-			<TabellHeader />
-			<TabellBody brukere={deltakereBearbeidet} />
-		</table>
+		<section>
+			<table className="tabell">
+				<TabellHeader />
+				<TabellBody brukere={deltakereBearbeidet} />
+			</table>
+		</section>
 	)
 }
