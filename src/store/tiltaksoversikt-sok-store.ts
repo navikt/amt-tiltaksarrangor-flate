@@ -6,7 +6,6 @@ import { TiltakDeltakerStatus } from '../domeneobjekter/deltaker'
 import { SorteringType } from '../utils/sortering-utils'
 
 export const [ TiltaksoversiktSokStoreProvider, useTiltaksoversiktSokStore ] = constate(() => {
-	const [ navnFnrSok, setNavnFnrSok ] = useState<string>('')
 	const [ tiltakStatusFilter, setTiltakStatusFilter ] = useState<TiltakDeltakerStatus[]>([])
 	const [ deltakerSortering, setDeltakerSortering ] = useState<DeltakerSortering>( {
 		kolonne: DeltakerKolonneNavn.NAVN,
@@ -30,8 +29,6 @@ export const [ TiltaksoversiktSokStoreProvider, useTiltaksoversiktSokStore ] = c
 	}
 
 	return {
-		navnFnrSok,
-		setNavnFnrSok,
 		tiltakStatusFilter,
 		leggTilTiltakStatus,
 		fjernFraTiltakStatus,
