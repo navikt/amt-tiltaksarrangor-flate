@@ -17,16 +17,16 @@ interface DeltakerOversiktTabellProps {
 
 export const DeltakerOversiktTabell = (props: DeltakerOversiktTabellProps): React.ReactElement<DeltakerOversiktTabellProps> => {
 	const { deltakere } =  props
-	const { deltakerSortering, tiltakStatusFilter, navnFnrSok } = useTiltaksoversiktSokStore()
+	const { deltakerSortering, tiltakStatusFilter } = useTiltaksoversiktSokStore()
 	const [ deltakereBearbeidet, setDeltakereBearbeidet ] = useState<TiltakDeltaker[]>(deltakere)
 
 	useEffect(() => {
 		if (!deltakere) return
-		const filtrerteBrukere = filtrerBrukere(deltakere, tiltakStatusFilter, navnFnrSok)
+		const filtrerteBrukere = filtrerBrukere(deltakere, tiltakStatusFilter)
 		const sortert = sorterDeltakere(filtrerteBrukere, deltakerSortering)
 		setDeltakereBearbeidet(sortert)
 
-	}, [ deltakere, deltakerSortering, tiltakStatusFilter, navnFnrSok ])
+	}, [ deltakere, deltakerSortering, tiltakStatusFilter ])
 
 	if (deltakere.length === 0) {
 		return <IngenDeltakereAlertstripe/>
