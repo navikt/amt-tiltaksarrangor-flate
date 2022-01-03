@@ -12,9 +12,9 @@ export const LoginPage = (): React.ReactElement => {
 
 	return (
 		<main className={styles.loginPage}>
-			<Systemtittel className={cls(styles.title, globalStyles.blokkXl)}>Pilot for tiltaksarrangør</Systemtittel>
+			<Systemtittel className={cls(styles.title, globalStyles.blokkM)}>Pilot for tiltaksarrangør</Systemtittel>
 
-			<div className={cls(styles.infoBoks, globalStyles.blokkL)}>
+			<div className={cls(styles.infoBoks, globalStyles.blokkM)}>
 				NAV lager digitale løsninger for tiltaksarrangører, deltakere i tiltakene og NAV.
 				Les om&nbsp;
 				<a href="https://www.nav.no/no/samarbeidspartner/tiltaksarrangorer/nye-digitale-verktoy-for-tiltaksarrangorer">
@@ -22,12 +22,12 @@ export const LoginPage = (): React.ReactElement => {
 				</a>
 			</div>
 
-			<AlertStripeAdvarsel className={cls(styles.alertstripe, globalStyles.blokkXl)}>
+			<AlertStripeAdvarsel className={cls(styles.alertstripe, globalStyles.blokkM)}>
 				Denne tjenesten er en pilot og er under utvikling. Nå i førsteomgang er det bare de
 				som har en avtale om bruk som har tilgang til tjenesten.
 			</AlertStripeAdvarsel>
 
-			<a className="knapp knapp--hoved" href={loginUrl}>Logg inn</a>
+			<a className={cls('knapp', 'knapp--hoved', globalStyles.lenkeKnapp)} href={loginUrl}>Logg inn</a>
 		</main>
 	)
 }

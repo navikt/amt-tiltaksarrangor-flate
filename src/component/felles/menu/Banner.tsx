@@ -28,7 +28,7 @@ export const Banner = (): React.ReactElement => {
 
 				<a
 					href="/auth-proxy/oauth2/logout?redirect_uri=https://nav.no"
-					className={cls('knapp', 'knapp--standard', styles.logoutBtn)}
+					className={cls('knapp', 'knapp--standard', globalStyles.lenkeKnapp)}
 				>
 					Logg ut
 				</a>
