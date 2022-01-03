@@ -14,6 +14,7 @@ import { PageViewMetricCollector } from './component/PageViewMetricCollector'
 import { InnloggetAnsatt, Virksomhet } from './domeneobjekter/ansatt'
 import StoreProvider from './store/store-provider'
 import { hentSisteLagretEllerForsteTilgjengeligVirksomhet } from './store/valgt-virksomhet-store'
+import { internalUrl } from './utils/url-utils'
 import { isNotStartedOrPending, isRejected, usePromise } from './utils/use-promise'
 
 export const App = (): React.ReactElement => {
@@ -44,13 +45,13 @@ export const App = (): React.ReactElement => {
 			<BrowserRouter>
 				<Banner/>
 				<Switch>
-					<Route path="/user/:brukerId">
+					<Route path={internalUrl('/user/:brukerId')}>
 						<BrukerDetaljerPage />
 					</Route>
-					<Route path="/instans/:tiltakinstansId">
+					<Route path={internalUrl('/instans/:tiltakinstansId')}>
 						<TiltakinstansDetaljerPage />
 					</Route>
-					<Route path="/">
+					<Route path={internalUrl('/')}>
 						<TiltakinstansOversiktPage/>
 					</Route>
 				</Switch>
