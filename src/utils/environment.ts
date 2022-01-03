@@ -17,6 +17,10 @@ class Environment {
 		return window.location.hostname.endsWith('github.io')
 	}
 
+	get publicUrl(): string {
+		return process.env.PUBLIC_URL || ''
+	}
+
 	get name(): string {
 		if (this.isProd) {
 			return 'production'

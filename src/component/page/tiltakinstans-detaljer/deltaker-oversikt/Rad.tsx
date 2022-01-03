@@ -5,6 +5,7 @@ import { TiltakDeltaker } from '../../../../domeneobjekter/deltaker'
 import { lagKommaSeparertBrukerNavn } from '../../../../utils/bruker-utils'
 import { formatDate } from '../../../../utils/date-utils'
 import { mapTiltakDeltagerStatusTilTekst } from '../../../../utils/text-mappers'
+import { internalUrl } from '../../../../utils/url-utils'
 import styles from './Rad.module.less'
 
 interface RadProps {
@@ -18,7 +19,7 @@ export const Rad = (props: RadProps): React.ReactElement<RadProps> => {
 	return (
 		<tr key={id}>
 			<td>
-				<Link className={styles.brukersNavn} to={`/user/${id}`}>
+				<Link className={styles.brukersNavn} to={internalUrl(`/user/${id}`)}>
 					{lagKommaSeparertBrukerNavn(fornavn, etternavn)}
 				</Link>
 			</td>
