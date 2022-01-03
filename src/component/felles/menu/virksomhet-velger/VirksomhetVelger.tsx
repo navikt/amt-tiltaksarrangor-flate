@@ -9,6 +9,7 @@ import Select, { MultiValue, OptionProps, SingleValue } from 'react-select'
 import globalStyles from '../../../../globals.module.less'
 import { useDataStore } from '../../../../store/data-store'
 import { useValgtVirksomhetStore } from '../../../../store/valgt-virksomhet-store'
+import { internalUrl } from '../../../../utils/url-utils'
 import styles from './VirksomhetVelger.module.less'
 
 interface Valg {
@@ -35,9 +36,11 @@ export const VirksomhetVelger = (props: VirksomhetVelgerProps): React.ReactEleme
 		if (nyValgtVirksomhet) {
 			setValgtVirksomhet(nyValgtVirksomhet)
 
+			const rootUrl = internalUrl('/')
+
 			// Når vi bytter virksomhet så redirect til tiltaksinstans-oversikt hvis vi ikke allerede er der
-			if (history.location.pathname !== '/') {
-				history.push('/')
+			if (history.location.pathname !== rootUrl) {
+				history.push(rootUrl)
 			}
 		}
 	}
