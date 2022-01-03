@@ -63,7 +63,7 @@
   "scripts": {
     "start": "cross-env REACT_APP_DEV=true craco start",
     "build": "craco build",
-    "build:gh-pages": "cross-env PUBLIC_URL=/amt-tiltaksarrangor-flate REACT_APP_DEV=true craco build && cpy --cwd=public --rename=404.html index.html .",
+    "build:gh-pages": "cross-env PUBLIC_URL=/amt-tiltaksarrangor-flate REACT_APP_DEV=true craco build && cpy --cwd=build --rename=404.html index.html .",
     "test": "craco test",
     "lint": "eslint --max-warnings=0 'src/**/*.{ts,tsx}'",
     "lint:fix": "eslint --fix 'src/**/*.{ts,tsx}'",
