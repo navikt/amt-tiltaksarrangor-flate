@@ -2,7 +2,7 @@ import { SorteringType } from '../../../../utils/sortering-utils'
 
 export enum DeltakerKolonneNavn {
 	NAVN = 'Etternavn, Fornavn',
-	FODSELSNUMMER = 'Fødselsnummer',
+	FODSELSNUMMER = 'Fødselsnr.',
 	STATUS = 'Status',
 	START = 'Start',
 	SLUTT = 'Slutt',
