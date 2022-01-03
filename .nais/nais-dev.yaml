@@ -6,7 +6,7 @@ metadata:
   labels:
     team: amt
 spec:
-  image: ghcr.io/navikt/poao-frontend/poao-frontend:2021.12.14_17.07-68aa85663684
+  image: ghcr.io/navikt/poao-frontend/poao-frontend:2022.01.03_14.26-195302823f9a
   port: 8080
   ingresses:
     - https://amt-tiltaksarrangor-flate.dev.intern.nav.no
