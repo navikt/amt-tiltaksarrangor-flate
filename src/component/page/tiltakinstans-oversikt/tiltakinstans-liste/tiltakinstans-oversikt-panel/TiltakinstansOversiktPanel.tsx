@@ -1,6 +1,7 @@
 import { Undertittel } from 'nav-frontend-typografi'
 import React from 'react'
 
+import { internalUrl } from '../../../../../utils/url-utils'
 import { SpaLenkepanel } from '../../../../felles/SpaLenkepanel'
 import styles from './TiltakinstansOversiktPanel.module.less'
 
@@ -13,7 +14,7 @@ export const TiltakinstansOversiktPanel = (props: TiltakinstansOversiktPanelProp
 	const { id, navn } = props
 
 	return (
-		<SpaLenkepanel to={`/instans/${id}`} border>
+		<SpaLenkepanel to={internalUrl(`/instans/${id}`)} border>
 			<div className={styles.content} >
 				<Undertittel>{navn}</Undertittel>
 			</div>

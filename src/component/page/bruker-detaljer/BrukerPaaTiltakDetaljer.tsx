@@ -8,6 +8,7 @@ import globalStyles from '../../../globals.module.less'
 import { lagBrukerNavn } from '../../../utils/bruker-utils'
 import { formatDate } from '../../../utils/date-utils'
 import { mapTiltakDeltagerStatusTilEtikett } from '../../../utils/text-mappers'
+import { internalUrl } from '../../../utils/url-utils'
 import { Card } from '../../felles/card/Card'
 import styles from './BrukerPaaTiltakDetaljer.module.less'
 import { KopierKnapp } from './kopier-knapp/KopierKnapp'
@@ -19,7 +20,7 @@ export const BrukerPaaTiltakDetaljer = (props: { bruker: TiltakDeltakerDetaljer 
 		<>
 			<div className={styles.header}>
 				<div className={styles.headerContent}>
-					<Link to={`/instans/${tiltakInstans.id}`} className={styles.tilbakeknapp}>
+					<Link to={internalUrl(`/instans/${tiltakInstans.id}`)} className={styles.tilbakeknapp}>
 						<Tilbakeknapp />
 					</Link>
 					<Systemtittel className={styles.headerTitle}>{lagBrukerNavn(fornavn, etternavn)}</Systemtittel>
