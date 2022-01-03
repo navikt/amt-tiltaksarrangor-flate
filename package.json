@@ -63,7 +63,7 @@
   "scripts": {
     "start": "cross-env REACT_APP_DEV=true craco start",
     "build": "craco build",
-    "build:mock": "cross-env PUBLIC_URL=/amt-tiltaksarrangor-flate REACT_APP_DEV=true craco build",
+    "build:gh-pages": "cross-env PUBLIC_URL=/amt-tiltaksarrangor-flate REACT_APP_DEV=true craco build && cpy --cwd=public --rename=404.html index.html .",
     "test": "craco test",
     "lint": "eslint --max-warnings=0 'src/**/*.{ts,tsx}'",
     "lint:fix": "eslint --fix 'src/**/*.{ts,tsx}'",
@@ -99,6 +99,7 @@
     "@typescript-eslint/eslint-plugin": "^4.32.0",
     "@typescript-eslint/parser": "^4.32.0",
     "axe-core": "^4.3.5",
+    "cpy-cli": "^3.1.1",
     "cypress": "^8.7.0",
     "cypress-axe": "^0.13.0",
     "eslint": "^7.32.0",
