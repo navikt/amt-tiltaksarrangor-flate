@@ -2,6 +2,7 @@ import cls from 'classnames'
 import { Element, Normaltekst } from 'nav-frontend-typografi'
 import React from 'react'
 
+import { EMDASH } from '../../../../utils/constants'
 import styles from './Label.module.less'
 
 interface LabelProps {
@@ -15,7 +16,7 @@ export const Label = (props: LabelProps): React.ReactElement<LabelProps> => {
 	return (
 		<div className={cls(styles.label, className)}>
 			<Element>{title}</Element>
-			<Normaltekst>{value}</Normaltekst>
+			<Normaltekst>{value || EMDASH}</Normaltekst>
 		</div>
 	)
 }
