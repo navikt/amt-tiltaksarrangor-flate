@@ -1,62 +1,62 @@
 import * as faker from 'faker'
 
-import { TiltakInstansDTO } from '../../api/data/tiltak'
-import { TiltakInstansStatus } from '../../domeneobjekter/tiltak'
+import { GjennomforingDTO } from '../../api/data/tiltak'
+import { TiltakGjennomforingStatus } from '../../domeneobjekter/tiltak'
 import { randomUuid } from '../utils/faker'
 
-export type MockTiltakInstans = TiltakInstansDTO & { virksomhetId: string }
+export type MockGjennomforing = GjennomforingDTO & { virksomhetId: string }
 
-interface TiltakInstansInfo {
-	tiltakInstansNavn: string;
+interface GjennomforingInfo {
+	gjennomforingNavn: string;
 	tiltakskode: string;
 	tiltaksnavn: string;
 	virksomhetId: string;
 }
 
-const tiltakInstansInfoListe: TiltakInstansInfo[] = [
+const GjennomforingInfoListe: GjennomforingInfo[] = [
 	{
-		tiltakInstansNavn: 'Oppfølging Åsedalen',
+		gjennomforingNavn: 'Oppfølging Åsedalen',
 		tiltakskode: 'OPPFOLG',
 		tiltaksnavn: 'Oppfølging',
 		virksomhetId: '4b26083d-c320-49e1-9104-b4dcdbcc8067'
 	},
 	{
-		tiltakInstansNavn: 'Oppfølging Region Østvest',
+		gjennomforingNavn: 'Oppfølging Region Østvest',
 		tiltakskode: 'OPPFOLG',
 		tiltaksnavn: 'Oppfølging',
 		virksomhetId: '4b26083d-c320-49e1-9104-b4dcdbcc8067'
 	},
 	{
-		tiltakInstansNavn: 'Oppfølging Region Vestøst',
+		gjennomforingNavn: 'Oppfølging Region Vestøst',
 		tiltakskode: 'OPPFOLG',
 		tiltaksnavn: 'Oppfølging',
 		virksomhetId: '7ee8b861-6dc7-4cc2-9706-252c82b63104'
 	},
 ]
 
-export const lagTiltakinstanser = (virksomhetId: string): MockTiltakInstans[] => {
-	const tiltakinstanser: MockTiltakInstans[] = []
+export const lagTiltakGjennomforinger = (virksomhetId: string): MockGjennomforing[] => {
+	const gjennomforinger: MockGjennomforing[] = []
 
-	tiltakInstansInfoListe
+	GjennomforingInfoListe
 		.filter(t => t.virksomhetId === virksomhetId)
-		.forEach(t => tiltakinstanser.push(lagTiltakinstanse(t)))
+		.forEach(t => gjennomforinger.push(lagGjennomforing(t)))
 
-	return tiltakinstanser
+	return gjennomforinger
 }
 
-const lagTiltakinstanse = (tiltakInstansInfo: TiltakInstansInfo): MockTiltakInstans => {
-	const status = faker.random.objectElement(TiltakInstansStatus) as TiltakInstansStatus
+const lagGjennomforing = (gjennomforingInfo: GjennomforingInfo): MockGjennomforing => {
+	const status = faker.random.objectElement(TiltakGjennomforingStatus) as TiltakGjennomforingStatus
 
 	return {
 		id: randomUuid(),
-		navn: tiltakInstansInfo.tiltakInstansNavn,
+		navn: gjennomforingInfo.gjennomforingNavn,
 		status: status,
 		tiltak: {
-			tiltaksnavn: tiltakInstansInfo.tiltaksnavn,
-			tiltakskode: tiltakInstansInfo.tiltakskode
+			tiltaksnavn: gjennomforingInfo.tiltaksnavn,
+			tiltakskode: gjennomforingInfo.tiltakskode
 		},
 		oppstartdato: faker.date.past().toISOString(),
 		sluttdato: faker.date.future().toISOString(),
-		virksomhetId: tiltakInstansInfo.virksomhetId
+		virksomhetId: gjennomforingInfo.virksomhetId
 	}
 }

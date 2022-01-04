@@ -7,9 +7,9 @@ import { fetchInnloggetAnsatt } from './api/tiltak-api'
 import { Banner } from './component/felles/menu/Banner'
 import { Spinner } from './component/felles/spinner/Spinner'
 import { BrukerDetaljerPage } from './component/page/bruker-detaljer/BrukerDetaljerPage'
+import { GjennomforingDetaljerPage } from './component/page/gjennomforing-detaljer/GjennomforingDetaljerPage'
+import { GjennomforingListePage } from './component/page/gjennomforing-page/GjennomforingListePage'
 import { LoginPage } from './component/page/login/LoginPage'
-import { TiltakinstansDetaljerPage } from './component/page/tiltakinstans-detaljer/TiltakinstansDetaljerPage'
-import { TiltakinstansOversiktPage } from './component/page/tiltakinstans-oversikt/TiltakinstansOversiktPage'
 import { PageViewMetricCollector } from './component/PageViewMetricCollector'
 import { InnloggetAnsatt, Virksomhet } from './domeneobjekter/ansatt'
 import StoreProvider from './store/store-provider'
@@ -48,11 +48,11 @@ export const App = (): React.ReactElement => {
 					<Route path={internalUrl('/user/:brukerId')}>
 						<BrukerDetaljerPage />
 					</Route>
-					<Route path={internalUrl('/instans/:tiltakinstansId')}>
-						<TiltakinstansDetaljerPage />
+					<Route path={internalUrl('/gjennomforing/:gjennomforingId')}>
+						<GjennomforingDetaljerPage />
 					</Route>
 					<Route path={internalUrl('/')}>
-						<TiltakinstansOversiktPage/>
+						<GjennomforingListePage/>
 					</Route>
 				</Switch>
 				<PageViewMetricCollector />

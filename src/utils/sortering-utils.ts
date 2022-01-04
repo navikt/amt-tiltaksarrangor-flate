@@ -2,7 +2,7 @@ import {
 	DeltakerKolonneNavn,
 	DeltakerSortering,
 	TiltakDeltakerPropNames
-} from '../component/page/tiltakinstans-detaljer/deltaker-oversikt/types'
+} from '../component/page/gjennomforing-detaljer/deltaker-oversikt/types'
 import { TiltakDeltaker } from '../domeneobjekter/deltaker'
 
 export enum SorteringType {

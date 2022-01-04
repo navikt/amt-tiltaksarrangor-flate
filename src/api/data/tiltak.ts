@@ -1,5 +1,5 @@
 
-export interface TiltakInstansDTO {
+export interface GjennomforingDTO {
 	id: string,
 	navn: string,
 	oppstartdato: string,

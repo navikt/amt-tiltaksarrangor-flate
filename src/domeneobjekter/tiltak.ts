@@ -1,15 +1,15 @@
-export enum TiltakInstansStatus {
+export enum TiltakGjennomforingStatus {
     IKKE_STARTET= 'IKKE_STARTET',
     GJENNOMFORES= 'GJENNOMFORES',
     AVSLUTTET= 'AVSLUTTET',
 }
 
-export interface TiltakInstans {
+export interface Gjennomforing {
     id: string,
     navn: string,
     oppstartdato: Date,
     sluttdato: Date,
-    status: TiltakInstansStatus | undefined,
+    status: TiltakGjennomforingStatus | undefined,
     tiltak: Tiltak
 }
 
