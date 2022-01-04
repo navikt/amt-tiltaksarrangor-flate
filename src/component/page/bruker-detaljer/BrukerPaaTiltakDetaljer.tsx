@@ -15,7 +15,7 @@ import { KopierKnapp } from './kopier-knapp/KopierKnapp'
 import { Label } from './label/Label'
 
 export const BrukerPaaTiltakDetaljer = (props: { bruker: TiltakDeltakerDetaljer }): React.ReactElement => {
-	const { navKontor, navVeileder, fornavn, etternavn, fodselsnummer, gjennomforing, telefon, epost, status } = props.bruker
+	const { navKontor, navVeileder, fornavn, etternavn, fodselsnummer, gjennomforing, registrertDato, telefon, epost, status } = props.bruker
 	return (
 		<>
 			<div className={styles.header}>
@@ -30,10 +30,17 @@ export const BrukerPaaTiltakDetaljer = (props: { bruker: TiltakDeltakerDetaljer 
 
 			<div className={styles.detaljer}>
 				<Card className={styles.tiltakCard}>
-					<Systemtittel className={globalStyles.blokkXxs}>{(gjennomforing.navn)}</Systemtittel>
-					<Normaltekst className={globalStyles.blokkXxs}>{gjennomforing.tiltak.tiltaksnavn}</Normaltekst>
-					<Normaltekst className={globalStyles.blokkXxs}>{formatDate(gjennomforing.oppstartdato)} - {formatDate(gjennomforing.sluttdato)}</Normaltekst>
-					{mapTiltakDeltagerStatusTilEtikett(status)}
+					<div>
+						<Systemtittel className={globalStyles.blokkXxs}>{(gjennomforing.navn)}</Systemtittel>
+						<Normaltekst className={globalStyles.blokkXxs}>{gjennomforing.tiltak.tiltaksnavn}</Normaltekst>
+						<Normaltekst className={globalStyles.blokkXxs}>Søkt inn: {formatDate(registrertDato)}</Normaltekst>
+						{mapTiltakDeltagerStatusTilEtikett(status)}
+					</div>
+
+					<div>
+						<Label title="Oppstart" value={formatDate(gjennomforing.oppstartdato)} className={globalStyles.blokkM}/>
+						<Label title="Sluttdato" value={formatDate(gjennomforing.sluttdato)}/>
+					</div>
 				</Card>
 
 				<div className={styles.userInfoContent}>

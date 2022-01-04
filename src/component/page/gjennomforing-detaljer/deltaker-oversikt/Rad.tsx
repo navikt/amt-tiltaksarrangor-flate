@@ -24,8 +24,8 @@ export const Rad = (props: RadProps): React.ReactElement<RadProps> => {
 				</Link>
 			</td>
 			<td>{fodselsnummer}</td>
-			<td>{oppstartdato && formatDate(oppstartdato)}</td>
-			<td>{sluttdato && formatDate(sluttdato)}</td>
+			<td>{formatDate(oppstartdato)}</td>
+			<td>{formatDate(sluttdato)}</td>
 			<td>{formatDate(registrertDato)}</td>
 			<td>{mapTiltakDeltagerStatusTilTekst(status)}</td>
 		</tr>

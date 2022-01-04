@@ -1,8 +1,10 @@
 import dayjs from 'dayjs'
 
+import { EMDASH } from './constants'
 import { OrNothing } from './types/or-nothing'
 
-export const formatDate = (dateStr: Date): string => {
+export const formatDate = (dateStr: Date | undefined): string => {
+	if (!dateStr) return EMDASH
 	return dayjs(dateStr).format('DD.MM.YYYY')
 }
 
