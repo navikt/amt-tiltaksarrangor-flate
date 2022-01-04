@@ -1,4 +1,4 @@
-import { TiltakInstansDTO } from './tiltak'
+import { GjennomforingDTO } from './tiltak'
 
 export interface TiltakDeltagerDTO {
 	id: string,
@@ -17,7 +17,7 @@ export type TiltakDeltagerDetaljerDTO = TiltakDeltagerDTO & {
 	telefon: string | null,
 	navKontor: NavKontorDTO,
 	navVeileder: NavVeilederDTO | null,
-	tiltakInstans: TiltakInstansDTO
+	gjennomforing: GjennomforingDTO
 }
 
 export interface NavKontorDTO {

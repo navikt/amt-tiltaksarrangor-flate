@@ -38,7 +38,7 @@ export const VirksomhetVelger = (props: VirksomhetVelgerProps): React.ReactEleme
 
 			const rootUrl = internalUrl('/')
 
-			// Når vi bytter virksomhet så redirect til tiltaksinstans-oversikt hvis vi ikke allerede er der
+			// Når vi bytter virksomhet så redirect til gjennomforing-oversikt hvis vi ikke allerede er der
 			if (history.location.pathname !== rootUrl) {
 				history.push(rootUrl)
 			}

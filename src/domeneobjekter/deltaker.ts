@@ -1,4 +1,4 @@
-import { TiltakInstans } from './tiltak'
+import { Gjennomforing } from './tiltak'
 
 export enum TiltakDeltakerStatus {
     VENTER_PA_OPPSTART = 'VENTER_PA_OPPSTART',
@@ -24,7 +24,7 @@ export type TiltakDeltakerDetaljer = TiltakDeltaker & {
     epost: string | null,
     navKontor: NavKontor,
     navVeileder: NavVeileder | null,
-    tiltakInstans: TiltakInstans
+    gjennomforing: Gjennomforing
 }
 
 export interface NavKontor {

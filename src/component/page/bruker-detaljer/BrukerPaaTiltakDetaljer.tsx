@@ -15,12 +15,12 @@ import { KopierKnapp } from './kopier-knapp/KopierKnapp'
 import { Label } from './label/Label'
 
 export const BrukerPaaTiltakDetaljer = (props: { bruker: TiltakDeltakerDetaljer }): React.ReactElement => {
-	const { navKontor, navVeileder, fornavn, etternavn, fodselsnummer, tiltakInstans, telefon, epost, status } = props.bruker
+	const { navKontor, navVeileder, fornavn, etternavn, fodselsnummer, gjennomforing, telefon, epost, status } = props.bruker
 	return (
 		<>
 			<div className={styles.header}>
 				<div className={styles.headerContent}>
-					<Link to={internalUrl(`/instans/${tiltakInstans.id}`)} className={styles.tilbakeknapp}>
+					<Link to={internalUrl(`/gjennomforing/${gjennomforing.id}`)} className={styles.tilbakeknapp}>
 						<Tilbakeknapp />
 					</Link>
 					<Systemtittel className={styles.headerTitle}>{lagBrukerNavn(fornavn, etternavn)}</Systemtittel>
@@ -30,9 +30,9 @@ export const BrukerPaaTiltakDetaljer = (props: { bruker: TiltakDeltakerDetaljer 
 
 			<div className={styles.detaljer}>
 				<Card className={styles.tiltakCard}>
-					<Systemtittel className={globalStyles.blokkXxs}>{(tiltakInstans.navn)}</Systemtittel>
-					<Normaltekst className={globalStyles.blokkXxs}>{tiltakInstans.tiltak.tiltaksnavn}</Normaltekst>
-					<Normaltekst className={globalStyles.blokkXxs}>{formatDate(tiltakInstans.oppstartdato)} - {formatDate(tiltakInstans.sluttdato)}</Normaltekst>
+					<Systemtittel className={globalStyles.blokkXxs}>{(gjennomforing.navn)}</Systemtittel>
+					<Normaltekst className={globalStyles.blokkXxs}>{gjennomforing.tiltak.tiltaksnavn}</Normaltekst>
+					<Normaltekst className={globalStyles.blokkXxs}>{formatDate(gjennomforing.oppstartdato)} - {formatDate(gjennomforing.sluttdato)}</Normaltekst>
 					{mapTiltakDeltagerStatusTilEtikett(status)}
 				</Card>
 

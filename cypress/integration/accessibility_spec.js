@@ -43,24 +43,24 @@ function sjekkUU() {
     cy.checkA11y(null, null, logViolations)
 }
 
-function gaTilTiltakinstansOversikt() {
+function gaTilTiltakGjennomforingOversikt() {
     cy.visit('/')
-    cy.get('[data-testid=tiltaksinstans-oversikt-page]')
+    cy.get('[data-testid=gjennomforing-oversikt-page]')
 }
 
-function navigerTilTiltakinstansdetaljer() {
-    cy.get('[data-testid=tiltaksinstans-oversikt-page]').within(() => {
+function navigerTilTiltakGjennomforingDetaljer() {
+    cy.get('[data-testid=gjennomforing-oversikt-page]').within(() => {
         cy.get('a')
             .should('have.class', 'lenkepanel')
             .first()
             .click()
     })
 
-    cy.get('[data-testid=tiltaksinstans-detaljer-page]')
+    cy.get('[data-testid=gjennomforing-detaljer-page]')
 }
 
 function navigerTilBrukerDetaljer() {
-    cy.get('[data-testid=tiltaksinstans-detaljer-page]').within(() => {
+    cy.get('[data-testid=gjennomforing-detaljer-page]').within(() => {
         cy.get('td > a')
             .first()
             .click()
@@ -70,22 +70,22 @@ function navigerTilBrukerDetaljer() {
 }
 
 describe('Cypress+Axe accessibility tests', () => {
-    it('"Tiltakinstans oversikt" skal oppfylle UU-krav', () => {
-        gaTilTiltakinstansOversikt()
+    it('"Tiltaksgjennomføring oversikt" skal oppfylle UU-krav', () => {
+        gaTilTiltakGjennomforingOversikt()
 
         sjekkUU()
     })
 
-    it('Tiltaksinstans detaljer skal oppfylle UU-krav', () => {
-        gaTilTiltakinstansOversikt()
-        navigerTilTiltakinstansdetaljer()
+    it('Tiltaksgjennomføring detaljer skal oppfylle UU-krav', () => {
+        gaTilTiltakGjennomforingOversikt()
+        navigerTilTiltakGjennomforingDetaljer()
 
         sjekkUU()
     })
 
     it('Bruker detaljer skal oppfylle UU-krav', () => {
-        gaTilTiltakinstansOversikt()
-        navigerTilTiltakinstansdetaljer()
+        gaTilTiltakGjennomforingOversikt()
+        navigerTilTiltakGjennomforingDetaljer()
         navigerTilBrukerDetaljer()
 
          sjekkUU()

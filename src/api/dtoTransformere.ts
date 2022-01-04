@@ -3,27 +3,27 @@ import dayjs from 'dayjs'
 
 import { AnsattRolle, InnloggetAnsatt } from '../domeneobjekter/ansatt'
 import { TiltakDeltaker, TiltakDeltakerDetaljer, TiltakDeltakerStatus } from '../domeneobjekter/deltaker'
-import { TiltakInstans, TiltakInstansStatus } from '../domeneobjekter/tiltak'
+import { Gjennomforing, TiltakGjennomforingStatus } from '../domeneobjekter/tiltak'
 import { toEnumValue, toNullableEnumValue } from '../utils/toEnumValue'
 import { InnloggetAnsattDTO } from './data/ansatt'
 import { TiltakDeltagerDetaljerDTO, TiltakDeltagerDTO } from './data/deltager'
-import { TiltakInstansDTO } from './data/tiltak'
+import { GjennomforingDTO } from './data/tiltak'
 
-export const transformTiltakInstanser = (response: AxiosResponse<TiltakInstansDTO[]>) : AxiosResponse<TiltakInstans[]> => {
-	const tiltak = response.data.map(toTiltakInstans)
+export const transformGjennomforinger = (response: AxiosResponse<GjennomforingDTO[]>) : AxiosResponse<Gjennomforing[]> => {
+	const tiltak = response.data.map(toGjennomforing)
 	return { ...response, data: tiltak }
 }
 
-export const transformTiltakInstans = (response: AxiosResponse<TiltakInstansDTO>) : AxiosResponse<TiltakInstans> => {
-	return { ...response, data: toTiltakInstans(response.data) }
+export const transformGjennomforing = (response: AxiosResponse<GjennomforingDTO>) : AxiosResponse<Gjennomforing> => {
+	return { ...response, data: toGjennomforing(response.data) }
 }
 
-const toTiltakInstans = (tiltakInstansDTO: TiltakInstansDTO) : TiltakInstans => {
+const toGjennomforing = (gjennomforing: GjennomforingDTO) : Gjennomforing => {
 	return {
-		...tiltakInstansDTO,
-		oppstartdato: dayjs(tiltakInstansDTO.oppstartdato, 'YYYY-MM-DD').toDate(),
-		sluttdato: dayjs(tiltakInstansDTO.sluttdato).toDate(),
-		status: toNullableEnumValue(TiltakInstansStatus, tiltakInstansDTO.status)
+		...gjennomforing,
+		oppstartdato: dayjs(gjennomforing.oppstartdato, 'YYYY-MM-DD').toDate(),
+		sluttdato: dayjs(gjennomforing.sluttdato).toDate(),
+		status: toNullableEnumValue(TiltakGjennomforingStatus, gjennomforing.status)
 	}
 }
 
@@ -57,7 +57,7 @@ const toTiltakDeltagerDetaljer = (tiltakDeltagerDetaljerDTO: TiltakDeltagerDetal
 		oppstartdato: toDateIfPresent(tiltakDeltagerDetaljerDTO.oppstartdato),
 		sluttdato: toDateIfPresent(tiltakDeltagerDetaljerDTO.sluttdato),
 		status: toEnumValue(TiltakDeltakerStatus,tiltakDeltagerDetaljerDTO.status),
-		tiltakInstans: toTiltakInstans(tiltakDeltagerDetaljerDTO.tiltakInstans),
+		gjennomforing: toGjennomforing(tiltakDeltagerDetaljerDTO.gjennomforing),
 		registrertDato: dayjs(tiltakDeltagerDetaljerDTO.registrertDato).toDate()
 
 	}

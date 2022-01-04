@@ -1,7 +1,7 @@
 import constate from 'constate'
 import { useState } from 'react'
 
-import { DeltakerKolonneNavn, DeltakerSortering } from '../component/page/tiltakinstans-detaljer/deltaker-oversikt/types'
+import { DeltakerKolonneNavn, DeltakerSortering } from '../component/page/gjennomforing-detaljer/deltaker-oversikt/types'
 import { TiltakDeltakerStatus } from '../domeneobjekter/deltaker'
 import { SorteringType } from '../utils/sortering-utils'
 
