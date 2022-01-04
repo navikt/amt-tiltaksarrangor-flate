@@ -1,38 +1,38 @@
 import { rest } from 'msw'
 import { RequestHandler } from 'msw/lib/types/handlers/RequestHandler'
 
-import { mockTiltakDeltagere, mockTiltakInstanser } from '../data'
+import { mockGjennomforinger,mockTiltakDeltagere } from '../data'
 import { mockInnloggetAnsatt } from '../data/ansatt'
-import { tilTiltakInstansDto } from '../dto-mapper'
+import { tilGjennomforingDTO } from '../dto-mapper'
 
 export const mockHandlers: RequestHandler[] = [
 	rest.get('/amt-tiltak/api/arrangor/ansatt/meg', (req, res, ctx) => {
 		return res(ctx.delay(500), ctx.json(mockInnloggetAnsatt))
 	}),
-	rest.get('/amt-tiltak/api/tiltak-instans/:tiltakinstansId', (req, res, ctx) => {
-		const tiltakinstansId = req.params.tiltakinstansId
-		const tiltakinstans = mockTiltakInstanser.find(instans => instans.id === tiltakinstansId)
+	rest.get('/amt-tiltak/api/gjennomforing/:gjennomforingId', (req, res, ctx) => {
+		const gjennomforingId = req.params.gjennomforingId
+		const gjennomforing = mockGjennomforinger.find(g => g.id === gjennomforingId)
 
-		return res(ctx.delay(500), ctx.json(tiltakinstans))
+		return res(ctx.delay(500), ctx.json(gjennomforing))
 	}),
-	rest.get('/amt-tiltak/api/tiltak-instans/:tiltakinstansId/deltakere', (req, res, ctx) => {
-		const tiltakinstansId = req.params.tiltakinstansId
-		const brukere = mockTiltakDeltagere.filter(deltager => deltager.tiltakInstans.id === tiltakinstansId)
+	rest.get('/amt-tiltak/api/gjennomforing/:gjennomforingId/deltakere', (req, res, ctx) => {
+		const gjennomforingId = req.params.gjennomforingId
+		const brukere = mockTiltakDeltagere.filter(deltager => deltager.gjennomforing.id === gjennomforingId)
 
 		return res(ctx.delay(500), ctx.json(brukere))
 	}),
 	rest.get('/amt-tiltak/api/tiltak-deltaker/:brukerId', (req, res, ctx) => {
 		const brukerId = req.params['brukerId']
 		const bruker = mockTiltakDeltagere.find((b) => b.id === brukerId)! // eslint-disable-line @typescript-eslint/no-non-null-assertion
-		const tiltakInstans = mockTiltakInstanser.find(instans => instans.id === bruker.tiltakInstans.id)! // eslint-disable-line @typescript-eslint/no-non-null-assertion
-		const deltakerMedTiltakInstans = { ...bruker, tiltakInstans: tilTiltakInstansDto(tiltakInstans) }
+		const gjennomforing = mockGjennomforinger.find(g => g.id === bruker.gjennomforing.id)! // eslint-disable-line @typescript-eslint/no-non-null-assertion
+		const deltakerMedGjennomforing = { ...bruker, gjennomforing: tilGjennomforingDTO(gjennomforing) }
 
-		return res(ctx.delay(500), ctx.json(deltakerMedTiltakInstans))
+		return res(ctx.delay(500), ctx.json(deltakerMedGjennomforing))
 	}),
-	rest.get('/amt-tiltak/api/tiltak-instans', (req, res, ctx) => {
+	rest.get('/amt-tiltak/api/gjennomforing', (req, res, ctx) => {
 		const virksomhetId = req.url.searchParams.get('arrangorId')
-		const tiltakInstanser = mockTiltakInstanser.filter(instans => instans.virksomhetId === virksomhetId)
+		const gjennomforinger = mockGjennomforinger.filter(gjennomforing => gjennomforing.virksomhetId === virksomhetId)
 
-		return res(ctx.delay(500), ctx.json(tiltakInstanser.map(tilTiltakInstansDto)))
+		return res(ctx.delay(500), ctx.json(gjennomforinger.map(tilGjennomforingDTO)))
 	}),
 ]

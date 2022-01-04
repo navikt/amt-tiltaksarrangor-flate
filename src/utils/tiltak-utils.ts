@@ -1,20 +1,20 @@
 import { TiltakDTO } from '../api/data/tiltak'
-import { TiltakInstans } from '../domeneobjekter/tiltak'
+import { Gjennomforing } from '../domeneobjekter/tiltak'
 
-export const finnUnikeTiltak = (tiltakInstanser: TiltakInstans[]): TiltakDTO[] => {
+export const finnUnikeTiltak = (gjennomforinger: Gjennomforing[]): TiltakDTO[] => {
 	const unikeTiltak: TiltakDTO[] = []
 
-	tiltakInstanser.forEach(instans => {
-		const tiltak = unikeTiltak.find(t => t.tiltakskode === instans.tiltak.tiltakskode)
+	gjennomforinger.forEach(gjennomforing => {
+		const tiltak = unikeTiltak.find(t => t.tiltakskode === gjennomforing.tiltak.tiltakskode)
 
 		if (!tiltak) {
-			unikeTiltak.push(instans.tiltak)
+			unikeTiltak.push(gjennomforing.tiltak)
 		}
 	})
 
 	return unikeTiltak
 }
 
-export const finnTiltakInstanser = (tiltakskode: string, tiltakInstanser: TiltakInstans[]): TiltakInstans[] => {
-	return tiltakInstanser.filter(instans => instans.tiltak.tiltakskode === tiltakskode)
+export const finnTiltakGjennomforinger = (tiltakskode: string, gjennomforinger: Gjennomforing[]): Gjennomforing[] => {
+	return gjennomforinger.filter(gjennomforing => gjennomforing.tiltak.tiltakskode === tiltakskode)
 }

@@ -1,16 +1,16 @@
-import { TiltakInstansDTO } from '../api/data/tiltak'
-import { MockTiltakInstans } from './data/tiltak'
+import { GjennomforingDTO } from '../api/data/tiltak'
+import { MockGjennomforing } from './data/tiltak'
 
-export const tilTiltakInstansDto = (instans: MockTiltakInstans): TiltakInstansDTO => {
+export const tilGjennomforingDTO = (gjennomforing: MockGjennomforing): GjennomforingDTO => {
 	return {
-		id: instans.id,
-		navn: instans.navn,
-		oppstartdato: instans.oppstartdato,
-		sluttdato: instans.sluttdato,
-		status: instans.status,
+		id: gjennomforing.id,
+		navn: gjennomforing.navn,
+		oppstartdato: gjennomforing.oppstartdato,
+		sluttdato: gjennomforing.sluttdato,
+		status: gjennomforing.status,
 		tiltak: {
-			tiltakskode: instans.tiltak.tiltakskode,
-			tiltaksnavn: instans.tiltak.tiltaksnavn
+			tiltakskode: gjennomforing.tiltak.tiltakskode,
+			tiltaksnavn: gjennomforing.tiltak.tiltaksnavn
 		}
 	}
 }

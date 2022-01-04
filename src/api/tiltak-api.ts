@@ -2,14 +2,13 @@ import { AxiosPromise } from 'axios'
 
 import { InnloggetAnsatt } from '../domeneobjekter/ansatt'
 import { TiltakDeltaker, TiltakDeltakerDetaljer } from '../domeneobjekter/deltaker'
-import { TiltakInstans } from '../domeneobjekter/tiltak'
+import { Gjennomforing } from '../domeneobjekter/tiltak'
 import {
+	transformGjennomforing,
+	transformGjennomforinger,
 	transformInnloggetAnsatt,
 	transformTiltakDeltager,
-	transformTiltakDeltagerDetaljer,
-	transformTiltakInstans,
-	transformTiltakInstanser
-} from './dtoTransformere'
+	transformTiltakDeltagerDetaljer } from './dtoTransformere'
 import { axiosInstance } from './utils'
 
 export const fetchInnloggetAnsatt = (): AxiosPromise<InnloggetAnsatt> => {
@@ -18,21 +17,21 @@ export const fetchInnloggetAnsatt = (): AxiosPromise<InnloggetAnsatt> => {
 		.then(transformInnloggetAnsatt)
 }
 
-export const fetchTiltakinstanser = (arrangorId: string): AxiosPromise<TiltakInstans[]> => {
+export const fetchTiltakGjennomforinger = (arrangorId: string): AxiosPromise<Gjennomforing[]> => {
 	return axiosInstance
-		.get(`/amt-tiltak/api/tiltak-instans?arrangorId=${arrangorId}`)
-		.then(transformTiltakInstanser)
+		.get(`/amt-tiltak/api/gjennomforing?arrangorId=${arrangorId}`)
+		.then(transformGjennomforinger)
 }
 
-export const fetchTiltakinstans = (tiltakinstansId: string): AxiosPromise<TiltakInstans> => {
+export const fetchTiltakGjennomforing = (gjennomforingId: string): AxiosPromise<Gjennomforing> => {
 	return axiosInstance
-		.get(`/amt-tiltak/api/tiltak-instans/${tiltakinstansId}`)
-		.then(transformTiltakInstans)
+		.get(`/amt-tiltak/api/gjennomforing/${gjennomforingId}`)
+		.then(transformGjennomforing)
 }
 
-export const fetchDeltakerePaTiltakinstans = (tiltakinstansId: string): AxiosPromise<TiltakDeltaker[]> => {
+export const fetchDeltakerePaTiltakGjennomforing = (gjennomforingId: string): AxiosPromise<TiltakDeltaker[]> => {
 	return axiosInstance
-		.get(`/amt-tiltak/api/tiltak-instans/${tiltakinstansId}/deltakere`)
+		.get(`/amt-tiltak/api/gjennomforing/${gjennomforingId}/deltakere`)
 		.then(transformTiltakDeltager)
 }
 
