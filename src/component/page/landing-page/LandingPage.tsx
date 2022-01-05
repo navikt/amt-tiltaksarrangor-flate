@@ -1,17 +1,27 @@
 import cls from 'classnames'
-import { AlertStripeAdvarsel } from 'nav-frontend-alertstriper'
+import { AlertStripeAdvarsel, AlertStripeFeil } from 'nav-frontend-alertstriper'
 import { Systemtittel } from 'nav-frontend-typografi'
 import React from 'react'
 
 import globalStyles from '../../../globals.module.less'
-import styles from './LoginPage.module.less'
+import { Show } from '../../felles/Show'
+import styles from './LandingPage.module.less'
 
-export const LoginPage = (): React.ReactElement => {
+export enum LandingPageView {
+	LOGIN = 'LOGIN',
+	IKKE_TILGANG = 'IKKE_TILGANG'
+}
+
+interface LandingPageProps {
+	view: LandingPageView
+}
+
+export const LandingPage = (props: LandingPageProps): React.ReactElement => {
 	const currentLocation = window.location.href
 	const loginUrl = `/oauth2/login?redirect=${currentLocation}`
 
 	return (
-		<main className={styles.loginPage}>
+		<main className={styles.landingPage}>
 			<Systemtittel className={cls(styles.title, globalStyles.blokkM)}>Pilot for tiltaksarrangør</Systemtittel>
 
 			<div className={cls(styles.infoBoks, globalStyles.blokkM)}>
@@ -27,7 +37,15 @@ export const LoginPage = (): React.ReactElement => {
 				som har en avtale om bruk som har tilgang til tjenesten.
 			</AlertStripeAdvarsel>
 
-			<a className={cls('knapp', 'knapp--hoved', globalStyles.lenkeKnapp)} href={loginUrl}>Logg inn</a>
+			<Show if={props.view === LandingPageView.IKKE_TILGANG}>
+				<AlertStripeFeil className={cls(styles.alertstripe)}>
+					Du har ikke tilgang til tjenesten.
+				</AlertStripeFeil>
+			</Show>
+
+			<Show if={props.view === LandingPageView.LOGIN}>
+				<a className={cls('knapp', 'knapp--hoved', globalStyles.lenkeKnapp)} href={loginUrl}>Logg inn</a>
+			</Show>
 		</main>
 	)
 }
