@@ -15,7 +15,11 @@ import { KopierKnapp } from './kopier-knapp/KopierKnapp'
 import { Label } from './label/Label'
 
 export const BrukerPaaTiltakDetaljer = (props: { bruker: TiltakDeltakerDetaljer }): React.ReactElement => {
-	const { navKontor, navVeileder, fornavn, etternavn, fodselsnummer, gjennomforing, registrertDato, telefon, epost, status } = props.bruker
+	const {
+		navKontor, navVeileder, fornavn, etternavn, fodselsnummer, oppstartdato,
+		sluttdato, gjennomforing, registrertDato, telefon, epost, status
+	} = props.bruker
+
 	return (
 		<>
 			<div className={styles.header}>
@@ -38,8 +42,8 @@ export const BrukerPaaTiltakDetaljer = (props: { bruker: TiltakDeltakerDetaljer 
 					</div>
 
 					<div>
-						<Label title="Oppstart" value={formatDate(gjennomforing.oppstartdato)} className={globalStyles.blokkM}/>
-						<Label title="Sluttdato" value={formatDate(gjennomforing.sluttdato)}/>
+						<Label title="Oppstart" value={formatDate(oppstartdato)} className={globalStyles.blokkM}/>
+						<Label title="Sluttdato" value={formatDate(sluttdato)}/>
 					</div>
 				</Card>
 
