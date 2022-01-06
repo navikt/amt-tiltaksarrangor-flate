@@ -27,7 +27,7 @@ export const Banner = (): React.ReactElement => {
 				<VirksomhetVelger className={globalStyles.blokkXxs} />
 
 				<a
-					href={`/oauth2/logout?redirect_uri=${window.location.origin}`}
+					href="/oauth2/logout"
 					className={cls('knapp', 'knapp--standard', globalStyles.lenkeKnapp)}
 				>
 					Logg ut

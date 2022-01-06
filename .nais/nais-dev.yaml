@@ -29,6 +29,8 @@ spec:
       memory: 256Mi
   idporten:
     enabled: true
+    postLogoutRedirectURIs:
+      - https://amt-tiltaksarrangor-flate.dev.intern.nav.no
     sidecar:
       enabled: true
   tokenx:
