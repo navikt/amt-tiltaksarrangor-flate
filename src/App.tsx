@@ -8,6 +8,7 @@ import { Spinner } from './component/felles/spinner/Spinner'
 import { BrukerDetaljerPage } from './component/page/bruker-detaljer/BrukerDetaljerPage'
 import { GjennomforingDetaljerPage } from './component/page/gjennomforing-detaljer/GjennomforingDetaljerPage'
 import { GjennomforingListePage } from './component/page/gjennomforing-page/GjennomforingListePage'
+import { InformasjonPage } from './component/page/informasjon-page/InformasjonPage'
 import { LandingPage, LandingPageView } from './component/page/landing-page/LandingPage'
 import { PageViewMetricCollector } from './component/PageViewMetricCollector'
 import { InnloggetAnsatt, Virksomhet } from './domeneobjekter/ansatt'
@@ -51,6 +52,9 @@ export const App = (): React.ReactElement => {
 					</Route>
 					<Route path={internalUrl('/gjennomforing/:gjennomforingId')}>
 						<GjennomforingDetaljerPage />
+					</Route>
+					<Route path={internalUrl('/informasjon')}>
+						<InformasjonPage />
 					</Route>
 					<Route path={internalUrl('/')}>
 						<GjennomforingListePage/>

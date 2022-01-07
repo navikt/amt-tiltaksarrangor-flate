@@ -1,10 +1,14 @@
 import { AxiosResponse } from 'axios'
 import { AlertStripeFeil } from 'nav-frontend-alertstriper'
 import React from 'react'
+import { Link as NavLink } from '@navikt/ds-react'
+import { Information } from '@navikt/ds-icons'
+
 
 import { fetchTiltakGjennomforinger } from '../../../api/tiltak-api'
 import { Gjennomforing } from '../../../domeneobjekter/tiltak'
 import { useValgtVirksomhetStore } from '../../../store/valgt-virksomhet-store'
+import { internalUrl } from '../../../utils/url-utils'
 import { isNotStartedOrPending, isRejected, usePromise } from '../../../utils/use-promise'
 import { Spinner } from '../../felles/spinner/Spinner'
 import { GjennomforingListe } from './gjennomforing-liste/GjennomforingListe'
@@ -31,6 +35,18 @@ export const GjennomforingListePage = (): React.ReactElement => {
 		<main className={styles.page} data-testid="gjennomforing-oversikt-page">
 			<section className={styles.seksjonGjennomforinger}>
 				<GjennomforingListe gjennomforinger={alleGjennomforinger}/>
+
+				<div className={styles.informasjonLenkeWrapper}>
+					<NavLink href={internalUrl('/informasjon')}>
+						<Information/>Info om tjeneste
+					</NavLink>
+					{/*<Link className={styles.informasjonLenke} to={internalUrl('/informasjon')}>*/}
+					{/*	/!*<Link href="#">*!/*/}
+					{/*	/!*	tekstlenke <ExternalLink />*!/*/}
+					{/*	/!*</Link>{" "}*!/*/}
+					{/*	<img className={styles.informasjonLenkeIkon} src={informasjonIkon} alt="Informasjon"/>Info om tjeneste*/}
+					{/*</Link>*/}
+				</div>
 			</section>
 		</main>
 	)

@@ -8,6 +8,7 @@ import globalStyles from '../../../../globals.module.less'
 import { finnTiltakGjennomforinger, finnUnikeTiltak } from '../../../../utils/tiltak-utils'
 import styles from './GjennomforingListe.module.less'
 import { GjennomforingListePanel } from './GjennomforingListePanel'
+import { Heading } from '@navikt/ds-react';
 
 interface GjennomforingListeProps {
 	gjennomforinger: Gjennomforing[];
@@ -32,7 +33,7 @@ export const GjennomforingListe = (props: GjennomforingListeProps): React.ReactE
 			{unikeTiltak.map((tiltak, tiltakIdx) => {
 				return (
 					<li key={tiltakIdx} className={globalStyles.blokkL}>
-						<Systemtittel className={globalStyles.blokkM}>{tiltak.tiltaksnavn}</Systemtittel>
+						<Heading className={globalStyles.blokkS} size="xsmall" level="2">{tiltak.tiltaksnavn}</Heading>
 						<ul className={styles.cleanList}>
 							{finnTiltakGjennomforinger(tiltak.tiltakskode, props.gjennomforinger).map((gjennomforing) => {
 								return (
