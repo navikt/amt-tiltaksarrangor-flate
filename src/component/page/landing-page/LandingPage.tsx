@@ -1,6 +1,5 @@
-import { Alert } from '@navikt/ds-react'
+import { Alert, Heading } from '@navikt/ds-react'
 import cls from 'classnames'
-import { Systemtittel } from 'nav-frontend-typografi'
 import React from 'react'
 
 import globalStyles from '../../../globals.module.less'
@@ -22,7 +21,7 @@ export const LandingPage = (props: LandingPageProps): React.ReactElement => {
 
 	return (
 		<main className={styles.landingPage}>
-			<Systemtittel className={cls(styles.title, globalStyles.blokkM)}>Pilot for tiltaksarrangør</Systemtittel>
+			<Heading size="medium" className={cls(styles.title, globalStyles.blokkM)}>Pilot for tiltaksarrangør</Heading>
 
 			<div className={cls(styles.infoBoks, globalStyles.blokkM)}>
 				NAV lager digitale løsninger for tiltaksarrangører, deltakere i tiltakene og NAV.

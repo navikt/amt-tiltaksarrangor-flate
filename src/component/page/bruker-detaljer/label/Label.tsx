@@ -1,5 +1,5 @@
+import { BodyShort, Heading } from '@navikt/ds-react'
 import cls from 'classnames'
-import { Element, Normaltekst } from 'nav-frontend-typografi'
 import React from 'react'
 
 import { EMDASH } from '../../../../utils/constants'
@@ -15,8 +15,8 @@ export const Label = (props: LabelProps): React.ReactElement<LabelProps> => {
 	const { title, value, className } = props
 	return (
 		<div className={cls(styles.label, className)}>
-			<Element>{title}</Element>
-			<Normaltekst>{value || EMDASH}</Normaltekst>
+			<Heading size="xsmall">{title}</Heading>
+			<BodyShort>{value || EMDASH}</BodyShort>
 		</div>
 	)
 }

@@ -1,5 +1,5 @@
+import { BodyShort, Heading } from '@navikt/ds-react'
 import cls from 'classnames'
-import { Normaltekst, Systemtittel } from 'nav-frontend-typografi'
 import React from 'react'
 
 import globalStyles from '../../../globals.module.less'
@@ -18,11 +18,11 @@ export const Banner = (): React.ReactElement => {
 
 			<div className={styles.logoAndTitleSection}>
 				<img src={navLogo} className={globalStyles.blokkXs} alt="NAV logo"/>
-				<Systemtittel tag="h1">Oversikt for tiltaksarrangører</Systemtittel>
+				<Heading size="medium" level="1">Oversikt for tiltaksarrangører</Heading>
 			</div>
 
 			<div>
-				<Normaltekst className={globalStyles.blokkXxs}>{`${innloggetAnsatt.fornavn} ${innloggetAnsatt.etternavn}`}</Normaltekst>
+				<BodyShort className={globalStyles.blokkXxs}>{`${innloggetAnsatt.fornavn} ${innloggetAnsatt.etternavn}`}</BodyShort>
 
 				<VirksomhetVelger className={globalStyles.blokkXxs} />
 

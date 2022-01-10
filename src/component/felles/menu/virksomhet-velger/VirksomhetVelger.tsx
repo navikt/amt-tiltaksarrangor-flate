@@ -1,7 +1,7 @@
 import './VirksomhetVelger.less'
 
+import { BodyShort, Label } from '@navikt/ds-react'
 import cls from 'classnames'
-import { Element, Normaltekst } from 'nav-frontend-typografi'
 import React, { useMemo } from 'react'
 import { useHistory } from 'react-router-dom'
 import Select, { MultiValue, OptionProps, SingleValue } from 'react-select'
@@ -86,11 +86,11 @@ function VirksomhetValgOption(props: OptionProps<Valg>): React.ReactElement<Opti
 			role="option"
 			aria-selected={props.isSelected}
 		>
-			<Element className={styles.fontSize14}>{virksomhet.overordnetEnhetNavn}</Element>
-			<Normaltekst className={cls(styles.fontSize14, globalStyles.blokkXs)}>Organisasjonsnr: {virksomhet.overordnetEnhetOrganisasjonsnummer}</Normaltekst>
+			<Label className={styles.fontSize14}>{virksomhet.overordnetEnhetNavn}</Label>
+			<BodyShort className={cls(styles.fontSize14, globalStyles.blokkXs)}>Organisasjonsnr: {virksomhet.overordnetEnhetOrganisasjonsnummer}</BodyShort>
 
-			<Element>{virksomhet.navn}</Element>
-			<Normaltekst className={styles.fontSize14}>Virksomhetsnr: {virksomhet.organisasjonsnummer}</Normaltekst>
+			<Label>{virksomhet.navn}</Label>
+			<BodyShort className={styles.fontSize14}>Virksomhetsnr: {virksomhet.organisasjonsnummer}</BodyShort>
 		</div>
 	)
 }
