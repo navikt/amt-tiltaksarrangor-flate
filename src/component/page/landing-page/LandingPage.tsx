@@ -44,7 +44,7 @@ export const LandingPage = (props: LandingPageProps): React.ReactElement => {
 			</Show>
 
 			<Show if={props.view === LandingPageView.LOGIN}>
-				<a className={cls('knapp', 'knapp--hoved', globalStyles.lenkeKnapp)} href={loginUrl}>Logg inn</a>
+				<a className={cls('navds-button', 'navds-button--primary', 'navds-button--medium')} href={loginUrl}>Logg inn</a>
 			</Show>
 		</main>
 	)

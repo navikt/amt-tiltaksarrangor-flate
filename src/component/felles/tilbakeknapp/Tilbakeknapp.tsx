@@ -1,5 +1,6 @@
+import { Back } from '@navikt/ds-icons'
+import { Button } from '@navikt/ds-react'
 import cls from 'classnames'
-import { Tilbakeknapp as NavTilbakeknapp } from 'nav-frontend-ikonknapper'
 import React from 'react'
 import { Link } from 'react-router-dom'
 
@@ -15,7 +16,7 @@ export const Tilbakeknapp = (props: TilbakeknappProps): React.ReactElement<Tilba
 
 	return (
 		<Link to={internalUrl(props.to)} className={cls(styles.tilbakeknapp, props.className)}>
-			<NavTilbakeknapp />
+			<Button variant="tertiary"><Back/>Tilbake</Button>
 		</Link>
 	)
 }
