@@ -1,15 +1,13 @@
-import { Tilbakeknapp } from 'nav-frontend-ikonknapper'
 import { Normaltekst, Systemtittel } from 'nav-frontend-typografi'
 import React from 'react'
-import { Link } from 'react-router-dom'
 
 import { TiltakDeltakerDetaljer } from '../../../domeneobjekter/deltaker'
 import globalStyles from '../../../globals.module.less'
 import { lagBrukerNavn } from '../../../utils/bruker-utils'
 import { formatDate } from '../../../utils/date-utils'
 import { mapTiltakDeltagerStatusTilEtikett } from '../../../utils/text-mappers'
-import { internalUrl } from '../../../utils/url-utils'
 import { Card } from '../../felles/card/Card'
+import { Tilbakeknapp } from '../../felles/tilbakeknapp/Tilbakeknapp'
 import styles from './BrukerPaaTiltakDetaljer.module.less'
 import { KopierKnapp } from './kopier-knapp/KopierKnapp'
 import { Label } from './label/Label'
@@ -24,9 +22,7 @@ export const BrukerPaaTiltakDetaljer = (props: { bruker: TiltakDeltakerDetaljer 
 		<>
 			<div className={styles.header}>
 				<div className={styles.headerContent}>
-					<Link to={internalUrl(`/gjennomforing/${gjennomforing.id}`)} className={styles.tilbakeknapp}>
-						<Tilbakeknapp />
-					</Link>
+					<Tilbakeknapp to={`/gjennomforing/${gjennomforing.id}`} className={styles.tilbakeknapp} />
 					<Systemtittel className={styles.headerTitle}>{lagBrukerNavn(fornavn, etternavn)}</Systemtittel>
 					{ fodselsnummer && <KopierKnapp text={fodselsnummer}/> }
 				</div>

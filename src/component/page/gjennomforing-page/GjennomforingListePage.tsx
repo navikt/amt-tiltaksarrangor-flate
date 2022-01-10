@@ -1,9 +1,8 @@
+import { Information } from '@navikt/ds-icons'
+import { Link } from '@navikt/ds-react'
 import { AxiosResponse } from 'axios'
 import { AlertStripeFeil } from 'nav-frontend-alertstriper'
 import React from 'react'
-import { Link as NavLink } from '@navikt/ds-react'
-import { Information } from '@navikt/ds-icons'
-
 
 import { fetchTiltakGjennomforinger } from '../../../api/tiltak-api'
 import { Gjennomforing } from '../../../domeneobjekter/tiltak'
@@ -37,15 +36,9 @@ export const GjennomforingListePage = (): React.ReactElement => {
 				<GjennomforingListe gjennomforinger={alleGjennomforinger}/>
 
 				<div className={styles.informasjonLenkeWrapper}>
-					<NavLink href={internalUrl('/informasjon')}>
+					<Link href={internalUrl('/informasjon')}>
 						<Information/>Info om tjeneste
-					</NavLink>
-					{/*<Link className={styles.informasjonLenke} to={internalUrl('/informasjon')}>*/}
-					{/*	/!*<Link href="#">*!/*/}
-					{/*	/!*	tekstlenke <ExternalLink />*!/*/}
-					{/*	/!*</Link>{" "}*!/*/}
-					{/*	<img className={styles.informasjonLenkeIkon} src={informasjonIkon} alt="Informasjon"/>Info om tjeneste*/}
-					{/*</Link>*/}
+					</Link>
 				</div>
 			</section>
 		</main>

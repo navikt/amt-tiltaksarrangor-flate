@@ -1,14 +1,12 @@
-import { Card } from '../../felles/card/Card';
-import styles from './InformasjonPage.module.less'
-import { Normaltekst, Systemtittel } from 'nav-frontend-typografi';
-import { BodyLong, Heading, Ingress } from '@navikt/ds-react';
-import mobilephoneImg from './mobilephone.svg'
+import { BodyLong, Heading } from '@navikt/ds-react'
+import React from 'react'
+
+import { Card } from '../../felles/card/Card'
+import { Tilbakeknapp } from '../../felles/tilbakeknapp/Tilbakeknapp'
 import clipboardImg from './clipboard.svg'
+import styles from './InformasjonPage.module.less'
 import lightbulbImg from './lightbulb.svg'
-import { internalUrl } from '../../../utils/url-utils';
-import { Tilbakeknapp } from 'nav-frontend-ikonknapper';
-import { Link } from 'react-router-dom';
-import React from 'react';
+import mobilephoneImg from './mobilephone.svg'
 
 interface InfoElementProps {
 	title: string
@@ -17,8 +15,7 @@ interface InfoElementProps {
 	alt: string
 }
 
-export const InfoElement = (props: InfoElementProps) => {
-
+export const InfoElement = (props: InfoElementProps): React.ReactElement<InfoElementProps> => {
 	return (
 		<div className={styles.infoElement}>
 			<img className={styles.infoElementImg} src={props.image} alt={props.alt}/>
@@ -30,13 +27,11 @@ export const InfoElement = (props: InfoElementProps) => {
 	)
 }
 
-export const InformasjonPage = () => {
+export const InformasjonPage = (): React.ReactElement => {
 	return (
 		<main className={styles.page}>
 			<div className={styles.content}>
-				<Link to={internalUrl('')} className={styles.tilbakeknapp}>
-					<Tilbakeknapp />
-				</Link>
+				<Tilbakeknapp to="/" />
 
 				<Card className={styles.contentCard}>
 					<Heading className={styles.title} spacing size="large" level="2">Informasjon om tjenesten</Heading>

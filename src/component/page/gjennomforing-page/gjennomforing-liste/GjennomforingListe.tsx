@@ -1,5 +1,5 @@
+import { Heading } from '@navikt/ds-react'
 import { AlertStripeInfo } from 'nav-frontend-alertstriper'
-import { Systemtittel } from 'nav-frontend-typografi'
 import React, { useMemo } from 'react'
 
 import { TiltakDTO } from '../../../../api/data/tiltak'
@@ -8,7 +8,6 @@ import globalStyles from '../../../../globals.module.less'
 import { finnTiltakGjennomforinger, finnUnikeTiltak } from '../../../../utils/tiltak-utils'
 import styles from './GjennomforingListe.module.less'
 import { GjennomforingListePanel } from './GjennomforingListePanel'
-import { Heading } from '@navikt/ds-react';
 
 interface GjennomforingListeProps {
 	gjennomforinger: Gjennomforing[];
