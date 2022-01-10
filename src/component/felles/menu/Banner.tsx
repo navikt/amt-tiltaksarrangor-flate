@@ -28,7 +28,7 @@ export const Banner = (): React.ReactElement => {
 
 				<a
 					href="/oauth2/logout"
-					className={cls('knapp', 'knapp--standard', globalStyles.lenkeKnapp)}
+					className={cls('navds-button', 'navds-button--secondary', 'navds-button--medium')}
 				>
 					Logg ut
 				</a>
