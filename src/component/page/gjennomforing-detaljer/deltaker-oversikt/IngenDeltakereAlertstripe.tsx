@@ -1,12 +1,12 @@
-import { AlertStripeInfo } from 'nav-frontend-alertstriper'
+import { Alert } from '@navikt/ds-react'
 import React from 'react'
 
 import styles from './IngenDeltakereAlertstripe.module.less'
 
 export const IngenDeltakereAlertstripe = (): JSX.Element => (
-	<AlertStripeInfo className={styles.ingenDeltakere}>
+	<Alert variant="info" className={styles.ingenDeltakere}>
 		<span role="alert" aria-live="polite">
 				Fant ingen deltakere
 		</span>
-	</AlertStripeInfo>
+	</Alert>
 )

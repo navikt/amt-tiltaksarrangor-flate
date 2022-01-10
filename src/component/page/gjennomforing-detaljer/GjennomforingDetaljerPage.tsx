@@ -1,5 +1,5 @@
+import { Alert } from '@navikt/ds-react'
 import { AxiosResponse } from 'axios'
-import { AlertStripeFeil } from 'nav-frontend-alertstriper'
 import { Normaltekst, Systemtittel } from 'nav-frontend-typografi'
 import React from 'react'
 import { useParams } from 'react-router-dom'
@@ -36,7 +36,7 @@ export const GjennomforingDetaljerPage = (): React.ReactElement => {
 	}
 
 	if (isRejected(fetchGjennomforingPromise) || isRejected(fetchDeltakerePaGjennomforingPromise)) {
-		return <AlertStripeFeil>Noe gikk galt</AlertStripeFeil>
+		return <Alert variant="error">Noe gikk galt</Alert>
 	}
 
 	const gjennomforing = fetchGjennomforingPromise.result.data

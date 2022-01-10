@@ -1,5 +1,5 @@
+import { Alert } from '@navikt/ds-react'
 import cls from 'classnames'
-import { AlertStripeAdvarsel, AlertStripeFeil } from 'nav-frontend-alertstriper'
 import { Systemtittel } from 'nav-frontend-typografi'
 import React from 'react'
 
@@ -32,15 +32,15 @@ export const LandingPage = (props: LandingPageProps): React.ReactElement => {
 				</a>
 			</div>
 
-			<AlertStripeAdvarsel className={cls(styles.alertstripe, globalStyles.blokkM)}>
+			<Alert variant="warning" className={cls(styles.alertstripe, globalStyles.blokkM)}>
 				Denne tjenesten er en pilot og er under utvikling. Nå i førsteomgang er det bare de
 				som har en avtale om bruk som har tilgang til tjenesten.
-			</AlertStripeAdvarsel>
+			</Alert>
 
 			<Show if={props.view === LandingPageView.IKKE_TILGANG}>
-				<AlertStripeFeil className={cls(styles.alertstripe)}>
+				<Alert variant="error" className={cls(styles.alertstripe)}>
 					Du har ikke tilgang til tjenesten.
-				</AlertStripeFeil>
+				</Alert>
 			</Show>
 
 			<Show if={props.view === LandingPageView.LOGIN}>

@@ -1,7 +1,6 @@
 import { Information } from '@navikt/ds-icons'
-import { Link } from '@navikt/ds-react'
+import { Alert, Link } from '@navikt/ds-react'
 import { AxiosResponse } from 'axios'
-import { AlertStripeFeil } from 'nav-frontend-alertstriper'
 import React from 'react'
 
 import { fetchTiltakGjennomforinger } from '../../../api/tiltak-api'
@@ -25,7 +24,7 @@ export const GjennomforingListePage = (): React.ReactElement => {
 	}
 
 	if (isRejected(fetchGjennomforingerPromise)) {
-		return <AlertStripeFeil>Noe gikk galt</AlertStripeFeil>
+		return <Alert variant="error">Noe gikk galt</Alert>
 	}
 
 	const alleGjennomforinger = fetchGjennomforingerPromise.result.data

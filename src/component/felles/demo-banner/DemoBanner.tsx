@@ -1,13 +1,13 @@
-import { AlertStripeAdvarsel } from 'nav-frontend-alertstriper'
+import { Alert } from '@navikt/ds-react'
 import React from 'react'
 
 export const DemoBanner = (): React.ReactElement => {
 	return (
-		<AlertStripeAdvarsel>
+		<Alert variant="warning">
 			<b>Dette er en demo-tjeneste som er under utvikling</b>
 			<br />
 			Her eksperimenterer vi med ny funksjonalitet.
 			Demoen inneholder ikke ekte data og kan til tider være ustabil.
-		</AlertStripeAdvarsel>
+		</Alert>
 	)
 }
