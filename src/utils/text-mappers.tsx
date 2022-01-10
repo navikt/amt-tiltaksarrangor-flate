@@ -1,7 +1,7 @@
+import { Tag } from '@navikt/ds-react'
 import React from 'react'
 
 import { TiltakDeltakerStatus } from '../domeneobjekter/deltaker'
-import { Tag } from '@navikt/ds-react';
 
 export const mapTiltakDeltagerStatusTilEtikett = (tiltakDeltagerStatus: TiltakDeltakerStatus): React.ReactElement | null => {
 	switch (tiltakDeltagerStatus) {
