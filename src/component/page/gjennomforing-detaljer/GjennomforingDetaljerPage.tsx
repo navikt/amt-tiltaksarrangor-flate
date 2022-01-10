@@ -1,6 +1,5 @@
-import { Alert } from '@navikt/ds-react'
+import { Alert, BodyShort, Heading } from '@navikt/ds-react'
 import { AxiosResponse } from 'axios'
-import { Normaltekst, Systemtittel } from 'nav-frontend-typografi'
 import React from 'react'
 import { useParams } from 'react-router-dom'
 
@@ -48,9 +47,9 @@ export const GjennomforingDetaljerPage = (): React.ReactElement => {
 				<Tilbakeknapp to="/" className={styles.tilbakeknapp} />
 
 				<div className={globalStyles.blokkM}>
-					<Systemtittel className={globalStyles.blokkXxs}>{gjennomforing.navn}</Systemtittel>
-					<Normaltekst>Oppstart: {dateStrWithMonthName(gjennomforing.oppstartdato)}</Normaltekst>
-					<Normaltekst className={globalStyles.blokkXxs}>Sluttdato: {dateStrWithMonthName(gjennomforing.sluttdato)}</Normaltekst>
+					<Heading size="medium" className={globalStyles.blokkXxs}>{gjennomforing.navn}</Heading>
+					<BodyShort>Oppstart: {dateStrWithMonthName(gjennomforing.oppstartdato)}</BodyShort>
+					<BodyShort className={globalStyles.blokkXxs}>Sluttdato: {dateStrWithMonthName(gjennomforing.sluttdato)}</BodyShort>
 				</div>
 
 				<FilterMeny />
