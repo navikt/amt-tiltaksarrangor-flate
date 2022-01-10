@@ -1,5 +1,5 @@
+import { Heading } from '@navikt/ds-react'
 import { AlertStripeInfo } from 'nav-frontend-alertstriper'
-import { Systemtittel } from 'nav-frontend-typografi'
 import React, { useMemo } from 'react'
 
 import { TiltakDTO } from '../../../../api/data/tiltak'
@@ -32,7 +32,7 @@ export const GjennomforingListe = (props: GjennomforingListeProps): React.ReactE
 			{unikeTiltak.map((tiltak, tiltakIdx) => {
 				return (
 					<li key={tiltakIdx} className={globalStyles.blokkL}>
-						<Systemtittel className={globalStyles.blokkM}>{tiltak.tiltaksnavn}</Systemtittel>
+						<Heading className={globalStyles.blokkS} size="xsmall" level="2">{tiltak.tiltaksnavn}</Heading>
 						<ul className={styles.cleanList}>
 							{finnTiltakGjennomforinger(tiltak.tiltakskode, props.gjennomforinger).map((gjennomforing) => {
 								return (
