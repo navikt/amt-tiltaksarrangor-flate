@@ -1,5 +1,5 @@
+import { Alert } from '@navikt/ds-react'
 import { AxiosResponse } from 'axios'
-import { AlertStripeFeil } from 'nav-frontend-alertstriper'
 import React from 'react'
 import { useParams } from 'react-router-dom'
 
@@ -21,7 +21,7 @@ export const BrukerDetaljerPage = (): React.ReactElement => {
 	}
 
 	if (isRejected(fetchTiltakDeltagerDetaljerPromise)) {
-		return <AlertStripeFeil>En feil oppstod</AlertStripeFeil>
+		return <Alert variant="error">En feil oppstod</Alert>
 	}
 
 	const bruker = fetchTiltakDeltagerDetaljerPromise.result.data

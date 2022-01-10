@@ -1,5 +1,4 @@
-import { Heading } from '@navikt/ds-react'
-import { AlertStripeInfo } from 'nav-frontend-alertstriper'
+import { Alert, Heading } from '@navikt/ds-react'
 import React, { useMemo } from 'react'
 
 import { TiltakDTO } from '../../../../api/data/tiltak'
@@ -22,7 +21,7 @@ export const GjennomforingListe = (props: GjennomforingListeProps): React.ReactE
 	if (props.gjennomforinger.length === 0) {
 		return (
 			<div>
-				<AlertStripeInfo>Ingen tiltak</AlertStripeInfo>
+				<Alert variant="info">Ingen tiltak</Alert>
 			</div>
 		)
 	}
