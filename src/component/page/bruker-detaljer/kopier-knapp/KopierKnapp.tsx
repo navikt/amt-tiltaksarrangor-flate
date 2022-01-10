@@ -1,5 +1,5 @@
+import { Button } from '@navikt/ds-react'
 import cls from 'classnames'
-import { Knapp } from 'nav-frontend-knapper'
 import React, { useEffect, useState } from 'react'
 
 import styles from './KopierKnapp.module.less'
@@ -30,9 +30,9 @@ export const KopierKnapp = (props: KopierKnappProps): React.ReactElement<KopierK
 
 	return (
 		<div className={styles.wrapper}>
-			<Knapp onClick={handleOnClick} className={cls(styles.kopierKnapp, props.className)}>
+			<Button onClick={handleOnClick} className={cls(styles.kopierKnapp, props.className)}>
 				{props.text}
-			</Knapp>
+			</Button>
 			<span className={cls(styles.tooltip, { [styles.tooltipVisible]: copySuccess })}>
                 Kopiert
 			</span>
