@@ -1,18 +1,18 @@
-import { EtikettFokus, EtikettInfo, EtikettSuksess } from 'nav-frontend-etiketter'
 import React from 'react'
 
 import { TiltakDeltakerStatus } from '../domeneobjekter/deltaker'
+import { Tag } from '@navikt/ds-react';
 
 export const mapTiltakDeltagerStatusTilEtikett = (tiltakDeltagerStatus: TiltakDeltakerStatus): React.ReactElement | null => {
 	switch (tiltakDeltagerStatus) {
 		case TiltakDeltakerStatus.VENTER_PA_OPPSTART:
-			return <EtikettSuksess>Venter på oppstart</EtikettSuksess>
+			return <Tag variant="success">Venter på oppstart</Tag>
 		case TiltakDeltakerStatus.GJENNOMFORES:
-			return <EtikettSuksess>Gjennomføres</EtikettSuksess>
+			return <Tag variant="success">Gjennomføres</Tag>
 		case TiltakDeltakerStatus.HAR_SLUTTET:
-			return <EtikettInfo>Har sluttet</EtikettInfo>
+			return <Tag variant="info">Har sluttet</Tag>
 		case TiltakDeltakerStatus.IKKE_AKTUELL:
-			return <EtikettFokus>Ikke aktuell</EtikettFokus>
+			return <Tag variant="warning">Ikke aktuell</Tag>
 		default:
 			return null
 	}
