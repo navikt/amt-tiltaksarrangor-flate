@@ -3,7 +3,7 @@ import './VirksomhetVelger.scss'
 import { BodyShort, Label } from '@navikt/ds-react'
 import cls from 'classnames'
 import React, { useMemo } from 'react'
-import { useHistory } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import Select, { MultiValue, OptionProps, SingleValue } from 'react-select'
 
 import globalStyles from '../../../../globals.module.scss'
@@ -22,7 +22,7 @@ interface VirksomhetVelgerProps {
 }
 
 export const VirksomhetVelger = (props: VirksomhetVelgerProps): React.ReactElement<VirksomhetVelgerProps> => {
-	const history = useHistory()
+	const navigate = useNavigate()
 	const { innloggetAnsatt } = useDataStore()
 	const { valgtVirksomhet, setValgtVirksomhet } = useValgtVirksomhetStore()
 
@@ -39,8 +39,8 @@ export const VirksomhetVelger = (props: VirksomhetVelgerProps): React.ReactEleme
 			const rootUrl = internalUrl('/')
 
 			// Når vi bytter virksomhet så redirect til gjennomforing-oversikt hvis vi ikke allerede er der
-			if (history.location.pathname !== rootUrl) {
-				history.push(rootUrl)
+			if (window.location.pathname !== rootUrl) {
+				navigate(rootUrl)
 			}
 		}
 	}

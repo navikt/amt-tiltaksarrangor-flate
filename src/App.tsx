@@ -1,6 +1,6 @@
 import { AxiosError, AxiosResponse } from 'axios'
 import React, { useMemo } from 'react'
-import { BrowserRouter, Route, Switch } from 'react-router-dom'
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
 
 import { fetchInnloggetAnsatt } from './api/tiltak-api'
 import { Banner } from './component/felles/menu/Banner'
@@ -46,20 +46,12 @@ export const App = (): React.ReactElement => {
 		<StoreProvider innloggetAnsatt={innloggetAnsatt} defaultValgtVirksomhet={defaultValgtVirksomhet}>
 			<BrowserRouter>
 				<Banner/>
-				<Switch>
-					<Route path={internalUrl('/user/:brukerId')}>
-						<BrukerDetaljerPage />
-					</Route>
-					<Route path={internalUrl('/gjennomforing/:gjennomforingId')}>
-						<GjennomforingDetaljerPage />
-					</Route>
-					<Route path={internalUrl('/informasjon')}>
-						<InformasjonPage />
-					</Route>
-					<Route path={internalUrl('/')}>
-						<GjennomforingListePage/>
-					</Route>
-				</Switch>
+				<Routes>
+					<Route path={internalUrl('/user/:brukerId')} element={<BrukerDetaljerPage />} />
+					<Route path={internalUrl('/gjennomforing/:gjennomforingId')} element={<GjennomforingDetaljerPage />} />
+					<Route path={internalUrl('/informasjon')} element={<InformasjonPage />} />
+					<Route path={internalUrl('/')} element={<GjennomforingListePage/>}/>
+				</Routes>
 				<PageViewMetricCollector />
 			</BrowserRouter>
 		</StoreProvider>

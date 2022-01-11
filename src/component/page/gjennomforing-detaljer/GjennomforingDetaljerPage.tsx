@@ -15,19 +15,16 @@ import { DeltakerOversiktTabell } from './deltaker-oversikt/DeltakerOversiktTabe
 import { FilterMeny } from './FilterMeny'
 import styles from './GjennomforingDetaljerPage.module.scss'
 
-interface GjennomforingDetaljerPageRouteParams {
-	gjennomforingId: string;
-}
-
 export const GjennomforingDetaljerPage = (): React.ReactElement => {
-	const params = useParams<GjennomforingDetaljerPageRouteParams>()
+	const params  = useParams<{ gjennomforingId: string }>()
+	const gjennomforingId = params.gjennomforingId || ''
 
 	const fetchGjennomforingPromise = usePromise<AxiosResponse<Gjennomforing>>(
-		() => fetchTiltakGjennomforing(params.gjennomforingId), [ params.gjennomforingId ]
+		() => fetchTiltakGjennomforing(gjennomforingId), [ gjennomforingId ]
 	)
 
 	const fetchDeltakerePaGjennomforingPromise = usePromise<AxiosResponse<TiltakDeltaker[]>>(
-		() => fetchDeltakerePaTiltakGjennomforing(params.gjennomforingId), [ params.gjennomforingId ]
+		() => fetchDeltakerePaTiltakGjennomforing(gjennomforingId), [ gjennomforingId ]
 	)
 
 	if (isNotStartedOrPending(fetchGjennomforingPromise) || isNotStartedOrPending(fetchDeltakerePaGjennomforingPromise)) {
