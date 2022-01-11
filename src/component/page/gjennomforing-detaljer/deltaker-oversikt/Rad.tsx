@@ -1,3 +1,4 @@
+import { Table } from '@navikt/ds-react'
 import React from 'react'
 import { Link } from 'react-router-dom'
 
@@ -17,17 +18,17 @@ export const Rad = (props: RadProps): React.ReactElement<RadProps> => {
 	const { fodselsnummer, fornavn, etternavn, id, oppstartdato, sluttdato, registrertDato, status } = props.bruker
 
 	return (
-		<tr key={id}>
-			<td>
+		<Table.Row key={id}>
+			<Table.DataCell>
 				<Link className={styles.brukersNavn} to={internalUrl(`/user/${id}`)}>
 					{lagKommaSeparertBrukerNavn(fornavn, etternavn)}
 				</Link>
-			</td>
-			<td>{fodselsnummer}</td>
-			<td>{formatDate(oppstartdato)}</td>
-			<td>{formatDate(sluttdato)}</td>
-			<td>{formatDate(registrertDato)}</td>
-			<td>{mapTiltakDeltagerStatusTilTekst(status)}</td>
-		</tr>
+			</Table.DataCell>
+			<Table.DataCell>{fodselsnummer}</Table.DataCell>
+			<Table.DataCell>{formatDate(oppstartdato)}</Table.DataCell>
+			<Table.DataCell>{formatDate(sluttdato)}</Table.DataCell>
+			<Table.DataCell>{formatDate(registrertDato)}</Table.DataCell>
+			<Table.DataCell>{mapTiltakDeltagerStatusTilTekst(status)}</Table.DataCell>
+		</Table.Row>
 	)
 }
