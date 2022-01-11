@@ -1,3 +1,4 @@
+import { Table } from '@navikt/ds-react'
 import React from 'react'
 
 import { useTiltaksoversiktSokStore } from '../../../../store/tiltaksoversikt-sok-store'
@@ -25,7 +26,7 @@ export const SorterbarKolonneHeader = (props: SortableHeaderProps) : JSX.Element
 	}
 
 	return (
-		<th role="columnheader" className={getClass()} aria-sort={deltakerSortering.type}>
+		<Table.HeaderCell role="columnheader" className={getClass()} aria-sort={deltakerSortering.type}>
 			<button
 				className={styles.header}
 				aria-label={ariaLabel}
@@ -33,6 +34,6 @@ export const SorterbarKolonneHeader = (props: SortableHeaderProps) : JSX.Element
 			>
 				{kolonneNavn}
 			</button>
-		</th>
+		</Table.HeaderCell>
 	)
 }

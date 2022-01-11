@@ -1,5 +1,6 @@
-import 'nav-frontend-tabell-style'
+import './DeltakerOversiktTabell.less'
 
+import { Table } from '@navikt/ds-react'
 import React, { useEffect, useState } from 'react'
 
 import { TiltakDeltaker } from '../../../../domeneobjekter/deltaker'
@@ -33,10 +34,10 @@ export const DeltakerOversiktTabell = (props: DeltakerOversiktTabellProps): Reac
 			{deltakere.length === 0
 				? <IngenDeltakereAlertstripe/>
 				: (
-					<table className="tabell">
+					<Table className="tabell" zebraStripes={true}>
 						<TabellHeader />
 						<TabellBody brukere={deltakereBearbeidet} />
-					</table>
+					</Table>
 				)
 			}
 		</section>

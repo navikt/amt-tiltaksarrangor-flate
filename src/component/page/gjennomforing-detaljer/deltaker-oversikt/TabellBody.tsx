@@ -1,8 +1,8 @@
+import { Table } from '@navikt/ds-react'
 import React from 'react'
 
 import { TiltakDeltaker } from '../../../../domeneobjekter/deltaker'
 import { Rad } from './Rad'
-import styles from './TabellBody.module.less'
 
 interface TabellBodyProps {
 	brukere: TiltakDeltaker[];
@@ -10,10 +10,10 @@ interface TabellBodyProps {
 
 export const TabellBody = (props: TabellBodyProps) : JSX.Element => {
 	return (
-		<tbody className={styles.rad}>
+		<Table.Body>
 			{props.brukere.map((bruker, idx) => (
 				<Rad idx={idx} bruker={bruker} key={idx} />
 			))}
-		</tbody>
+		</Table.Body>
 	)
 }
