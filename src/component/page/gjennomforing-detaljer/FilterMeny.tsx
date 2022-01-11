@@ -13,7 +13,7 @@ export const FilterMeny = (): React.ReactElement => {
 	} = useTiltaksoversiktSokStore()
 
 	return (
-		<Panel>
+		<Panel border>
 			<CheckboxGroup legend="Status">
 				{Object.values(TiltakDeltakerStatus).map((status) => (
 					<Checkbox
