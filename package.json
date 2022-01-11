@@ -3,7 +3,6 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@craco/craco": "^6.2.0",
     "@navikt/ds-css": "^0.12.7",
     "@navikt/ds-icons": "^0.3.3",
     "@navikt/ds-react": "^0.14.4",
@@ -23,7 +22,6 @@
     "axios": "^0.21.2",
     "classnames": "^2.3.1",
     "constate": "^3.3.0",
-    "craco-less": "^1.18.0",
     "cross-env": "^7.0.3",
     "dayjs": "^1.10.6",
     "node-sass": "^5.0.0",
