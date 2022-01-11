@@ -1,5 +1,5 @@
 import 'dayjs/locale/nb'
-import './index.less'
+import './index.scss'
 
 import dayjs from 'dayjs'
 import React from 'react'

@@ -6,14 +6,14 @@ import { useParams } from 'react-router-dom'
 import { fetchDeltakerePaTiltakGjennomforing, fetchTiltakGjennomforing } from '../../../api/tiltak-api'
 import { TiltakDeltaker } from '../../../domeneobjekter/deltaker'
 import { Gjennomforing } from '../../../domeneobjekter/tiltak'
-import globalStyles from '../../../globals.module.less'
+import globalStyles from '../../../globals.module.scss'
 import { dateStrWithMonthName } from '../../../utils/date-utils'
 import { isNotStartedOrPending, isRejected, usePromise } from '../../../utils/use-promise'
 import { Spinner } from '../../felles/spinner/Spinner'
 import { Tilbakeknapp } from '../../felles/tilbakeknapp/Tilbakeknapp'
 import { DeltakerOversiktTabell } from './deltaker-oversikt/DeltakerOversiktTabell'
 import { FilterMeny } from './FilterMeny'
-import styles from './GjennomforingDetaljerPage.module.less'
+import styles from './GjennomforingDetaljerPage.module.scss'
 
 interface GjennomforingDetaljerPageRouteParams {
 	gjennomforingId: string;

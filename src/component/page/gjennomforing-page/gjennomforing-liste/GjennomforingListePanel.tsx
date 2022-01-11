@@ -3,7 +3,7 @@ import React from 'react'
 
 import { internalUrl } from '../../../../utils/url-utils'
 import { SpaLenkepanel } from '../../../felles/spa-lenkepanel/SpaLenkepanel'
-import styles from './GjennomforingListePanel.module.less'
+import styles from './GjennomforingListePanel.module.scss'
 
 interface GjennomforingListePanelProps {
     id: string,

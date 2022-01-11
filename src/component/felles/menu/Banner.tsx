@@ -2,9 +2,9 @@ import { BodyShort, Heading } from '@navikt/ds-react'
 import cls from 'classnames'
 import React from 'react'
 
-import globalStyles from '../../../globals.module.less'
+import globalStyles from '../../../globals.module.scss'
 import { useDataStore } from '../../../store/data-store'
-import styles from './Banner.module.less'
+import styles from './Banner.module.scss'
 import navLogo from './nav-logo.svg'
 import { VirksomhetVelger } from './virksomhet-velger/VirksomhetVelger'
 

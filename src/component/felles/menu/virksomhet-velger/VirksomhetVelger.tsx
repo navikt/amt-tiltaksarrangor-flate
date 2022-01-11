@@ -1,4 +1,4 @@
-import './VirksomhetVelger.less'
+import './VirksomhetVelger.scss'
 
 import { BodyShort, Label } from '@navikt/ds-react'
 import cls from 'classnames'
@@ -6,11 +6,11 @@ import React, { useMemo } from 'react'
 import { useHistory } from 'react-router-dom'
 import Select, { MultiValue, OptionProps, SingleValue } from 'react-select'
 
-import globalStyles from '../../../../globals.module.less'
+import globalStyles from '../../../../globals.module.scss'
 import { useDataStore } from '../../../../store/data-store'
 import { useValgtVirksomhetStore } from '../../../../store/valgt-virksomhet-store'
 import { internalUrl } from '../../../../utils/url-utils'
-import styles from './VirksomhetVelger.module.less'
+import styles from './VirksomhetVelger.module.scss'
 
 interface Valg {
 	value: string;

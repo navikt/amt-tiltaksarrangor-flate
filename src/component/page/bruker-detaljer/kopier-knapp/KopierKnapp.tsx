@@ -2,7 +2,7 @@ import { Button } from '@navikt/ds-react'
 import cls from 'classnames'
 import React, { useEffect, useState } from 'react'
 
-import styles from './KopierKnapp.module.less'
+import styles from './KopierKnapp.module.scss'
 
 interface KopierKnappProps {
 	text: string;

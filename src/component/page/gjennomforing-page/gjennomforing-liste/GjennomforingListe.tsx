@@ -3,9 +3,9 @@ import React, { useMemo } from 'react'
 
 import { TiltakDTO } from '../../../../api/data/tiltak'
 import { Gjennomforing } from '../../../../domeneobjekter/tiltak'
-import globalStyles from '../../../../globals.module.less'
+import globalStyles from '../../../../globals.module.scss'
 import { finnTiltakGjennomforinger, finnUnikeTiltak } from '../../../../utils/tiltak-utils'
-import styles from './GjennomforingListe.module.less'
+import styles from './GjennomforingListe.module.scss'
 import { GjennomforingListePanel } from './GjennomforingListePanel'
 
 interface GjennomforingListeProps {

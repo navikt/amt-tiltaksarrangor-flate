@@ -7,7 +7,7 @@ import { lagKommaSeparertBrukerNavn } from '../../../../utils/bruker-utils'
 import { formatDate } from '../../../../utils/date-utils'
 import { mapTiltakDeltagerStatusTilTekst } from '../../../../utils/text-mappers'
 import { internalUrl } from '../../../../utils/url-utils'
-import styles from './Rad.module.less'
+import styles from './Rad.module.scss'
 
 interface RadProps {
 	idx: number;

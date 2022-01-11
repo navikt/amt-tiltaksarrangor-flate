@@ -4,7 +4,7 @@ import React from 'react'
 import { Card } from '../../felles/card/Card'
 import { Tilbakeknapp } from '../../felles/tilbakeknapp/Tilbakeknapp'
 import clipboardImg from './clipboard.svg'
-import styles from './InformasjonPage.module.less'
+import styles from './InformasjonPage.module.scss'
 import lightbulbImg from './lightbulb.svg'
 import mobilephoneImg from './mobilephone.svg'
 

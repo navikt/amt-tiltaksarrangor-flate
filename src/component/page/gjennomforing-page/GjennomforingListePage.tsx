@@ -10,7 +10,7 @@ import { internalUrl } from '../../../utils/url-utils'
 import { isNotStartedOrPending, isRejected, usePromise } from '../../../utils/use-promise'
 import { Spinner } from '../../felles/spinner/Spinner'
 import { GjennomforingListe } from './gjennomforing-liste/GjennomforingListe'
-import styles from './GjennomforingListePage.module.less'
+import styles from './GjennomforingListePage.module.scss'
 
 export const GjennomforingListePage = (): React.ReactElement => {
 	const { valgtVirksomhet } = useValgtVirksomhetStore()
