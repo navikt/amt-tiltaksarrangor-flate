@@ -3,7 +3,7 @@ import React from 'react'
 
 import { useTiltaksoversiktSokStore } from '../../../../store/tiltaksoversikt-sok-store'
 import { finnNesteSorteringType, mapSortDirectionToText, SorteringType, } from '../../../../utils/sortering-utils'
-import styles from './SorterbarKolonneHeader.module.less'
+import styles from './SorterbarKolonneHeader.module.scss'
 import { DeltakerKolonneNavn } from './types'
 
 interface SortableHeaderProps {

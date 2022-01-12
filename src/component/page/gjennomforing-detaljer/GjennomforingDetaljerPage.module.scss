@@ -1,14 +1,14 @@
-@import '/src/globals.module';
+@import '/src/globals.module.scss';
 
 .tiltaksoversiktPage {
 	padding: 2rem;
 	display: grid;
 	grid-template-columns: 1fr 3fr;
 	grid-column-gap: 2rem;
-	max-width: @max-bredde;
+	max-width: $max-bredde;
 	margin: 0 auto;
 }
 
 .tilbakeknapp {
-	.blokkM();
+	@extend .blokkM;
 }

@@ -1,4 +1,4 @@
-@import '/src/globals.module';
+@import '/src/globals.module.scss';
 
 .header {
 	background-color: white;
@@ -10,7 +10,7 @@
 	flex-direction: row;
 	align-items: center;
 
-	max-width: @max-bredde;
+	max-width: $max-bredde;
 	margin: 0 auto;
 }
 
@@ -24,7 +24,7 @@
 
 .detaljer {
 	padding: 2rem;
-	max-width: @max-bredde;
+	max-width: $max-bredde;
 	margin: 0 auto;
 }
 

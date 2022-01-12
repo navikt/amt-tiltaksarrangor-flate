@@ -3,7 +3,7 @@ import cls from 'classnames'
 import React from 'react'
 
 import { EMDASH } from '../../../../utils/constants'
-import styles from './Label.module.less'
+import styles from './Label.module.scss'
 
 interface LabelProps {
 	title: string;

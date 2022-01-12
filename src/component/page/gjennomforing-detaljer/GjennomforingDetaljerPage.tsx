@@ -6,28 +6,25 @@ import { useParams } from 'react-router-dom'
 import { fetchDeltakerePaTiltakGjennomforing, fetchTiltakGjennomforing } from '../../../api/tiltak-api'
 import { TiltakDeltaker } from '../../../domeneobjekter/deltaker'
 import { Gjennomforing } from '../../../domeneobjekter/tiltak'
-import globalStyles from '../../../globals.module.less'
+import globalStyles from '../../../globals.module.scss'
 import { dateStrWithMonthName } from '../../../utils/date-utils'
 import { isNotStartedOrPending, isRejected, usePromise } from '../../../utils/use-promise'
 import { Spinner } from '../../felles/spinner/Spinner'
 import { Tilbakeknapp } from '../../felles/tilbakeknapp/Tilbakeknapp'
 import { DeltakerOversiktTabell } from './deltaker-oversikt/DeltakerOversiktTabell'
 import { FilterMeny } from './FilterMeny'
-import styles from './GjennomforingDetaljerPage.module.less'
-
-interface GjennomforingDetaljerPageRouteParams {
-	gjennomforingId: string;
-}
+import styles from './GjennomforingDetaljerPage.module.scss'
 
 export const GjennomforingDetaljerPage = (): React.ReactElement => {
-	const params = useParams<GjennomforingDetaljerPageRouteParams>()
+	const params  = useParams<{ gjennomforingId: string }>()
+	const gjennomforingId = params.gjennomforingId || ''
 
 	const fetchGjennomforingPromise = usePromise<AxiosResponse<Gjennomforing>>(
-		() => fetchTiltakGjennomforing(params.gjennomforingId), [ params.gjennomforingId ]
+		() => fetchTiltakGjennomforing(gjennomforingId), [ gjennomforingId ]
 	)
 
 	const fetchDeltakerePaGjennomforingPromise = usePromise<AxiosResponse<TiltakDeltaker[]>>(
-		() => fetchDeltakerePaTiltakGjennomforing(params.gjennomforingId), [ params.gjennomforingId ]
+		() => fetchDeltakerePaTiltakGjennomforing(gjennomforingId), [ gjennomforingId ]
 	)
 
 	if (isNotStartedOrPending(fetchGjennomforingPromise) || isNotStartedOrPending(fetchDeltakerePaGjennomforingPromise)) {

@@ -5,7 +5,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 
 import { internalUrl } from '../../../utils/url-utils'
-import styles from './Tilbakeknapp.module.less'
+import styles from './Tilbakeknapp.module.scss'
 
 interface TilbakeknappProps {
 	to: string

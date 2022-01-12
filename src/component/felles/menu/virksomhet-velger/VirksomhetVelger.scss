@@ -1,7 +1,7 @@
-@import '/src/colors';
+@import '/src/colors.scss';
 
 .virksomhet-velger__control {
-  border-color: @navGra60 !important;
+  border-color: $navGra60 !important;
 }
 
 .virksomhet-velger__control--is-focused {
@@ -11,12 +11,12 @@
 }
 
 .virksomhet-velger__single-value {
-  color: @navMorkGra;
+  color: $navMorkGra;
   font-weight: bolder;
 }
 
 .virksomhet-velger__placeholder {
-  color: @navMorkGra !important;
+  color: $navMorkGra !important;
 }
 
 .virksomhet-velger__indicator-separator {
@@ -24,11 +24,11 @@
 }
 
 .virksomhet-velger__indicator {
-  color: @navMorkGra !important;
+  color: $navMorkGra !important;
 }
 
 .virksomhet-velger__menu-list {
   padding: 0 !important;
-  border: 1px solid @navMorkGra;
+  border: 1px solid $navMorkGra;
   border-radius: 4px;
 }

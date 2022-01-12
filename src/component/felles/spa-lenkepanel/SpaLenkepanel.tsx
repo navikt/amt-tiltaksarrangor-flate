@@ -3,7 +3,7 @@ import cls from 'classnames'
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-import styles from './SpaLenkepanel.module.less'
+import styles from './SpaLenkepanel.module.scss'
 
 interface SpaLenkepanelProps {
 	to: string;

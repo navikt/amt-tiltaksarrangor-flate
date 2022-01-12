@@ -1,0 +1,10 @@
+@import 'src/colors';
+@import '~@navikt/ds-css';
+
+html {
+	background-color: $navLysGra;
+}
+
+button {
+	font-family: var(--navds-font-family);
+}

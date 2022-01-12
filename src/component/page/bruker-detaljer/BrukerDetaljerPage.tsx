@@ -11,9 +11,10 @@ import { BrukerPaaTiltakDetaljer } from './BrukerPaaTiltakDetaljer'
 
 export const BrukerDetaljerPage = (): React.ReactElement => {
 	const params = useParams<{ brukerId: string }>()
+	const brukerId = params.brukerId || ''
 
 	const fetchTiltakDeltagerDetaljerPromise = usePromise<AxiosResponse<TiltakDeltakerDetaljer>>(
-		() => fetchTiltakDeltagerDetaljer(params.brukerId), [ params.brukerId ]
+		() => fetchTiltakDeltagerDetaljer(brukerId), [ brukerId ]
 	)
 
 	if (isNotStartedOrPending(fetchTiltakDeltagerDetaljerPromise)) {

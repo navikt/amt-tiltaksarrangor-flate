@@ -1,4 +1,4 @@
-import './DeltakerOversiktTabell.less'
+import './DeltakerOversiktTabell.scss'
 
 import { Table } from '@navikt/ds-react'
 import React, { useEffect, useState } from 'react'

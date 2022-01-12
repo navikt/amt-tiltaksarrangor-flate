@@ -1,7 +1,7 @@
 import { Alert } from '@navikt/ds-react'
 import React from 'react'
 
-import styles from './IngenDeltakereAlertstripe.module.less'
+import styles from './IngenDeltakereAlertstripe.module.scss'
 
 export const IngenDeltakereAlertstripe = (): JSX.Element => (
 	<Alert variant="info" className={styles.ingenDeltakere}>
