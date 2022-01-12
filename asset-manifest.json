@@ -1,27 +1,17 @@
 {
   "files": {
-    "main.css": "/amt-tiltaksarrangor-flate/static/css/main.7d9e94cd.chunk.css",
-    "main.js": "/amt-tiltaksarrangor-flate/static/js/main.754e5229.chunk.js",
-    "main.js.map": "/amt-tiltaksarrangor-flate/static/js/main.754e5229.chunk.js.map",
-    "runtime-main.js": "/amt-tiltaksarrangor-flate/static/js/runtime-main.9c114557.js",
-    "runtime-main.js.map": "/amt-tiltaksarrangor-flate/static/js/runtime-main.9c114557.js.map",
-    "static/css/2.d09d35b7.chunk.css": "/amt-tiltaksarrangor-flate/static/css/2.d09d35b7.chunk.css",
-    "static/js/2.8b4d9b28.chunk.js": "/amt-tiltaksarrangor-flate/static/js/2.8b4d9b28.chunk.js",
-    "static/js/2.8b4d9b28.chunk.js.map": "/amt-tiltaksarrangor-flate/static/js/2.8b4d9b28.chunk.js.map",
+    "main.css": "/amt-tiltaksarrangor-flate/static/css/main.9421f5f8.css",
+    "main.js": "/amt-tiltaksarrangor-flate/static/js/main.3aef5034.js",
+    "static/media/clipboard.svg": "/amt-tiltaksarrangor-flate/static/media/clipboard.2d1cae403a5b54cdfc122db67abb68c9.svg",
+    "static/media/lightbulb.svg": "/amt-tiltaksarrangor-flate/static/media/lightbulb.62039286e19ef154df0d8e6f387e3758.svg",
+    "static/media/nav-logo.svg": "/amt-tiltaksarrangor-flate/static/media/nav-logo.1e630d5f66984cbf05e1733ac78b91b2.svg",
+    "static/media/mobilephone.svg": "/amt-tiltaksarrangor-flate/static/media/mobilephone.0951f556be3590873bb862cc3aecbe35.svg",
     "index.html": "/amt-tiltaksarrangor-flate/index.html",
-    "static/css/2.d09d35b7.chunk.css.map": "/amt-tiltaksarrangor-flate/static/css/2.d09d35b7.chunk.css.map",
-    "static/css/main.7d9e94cd.chunk.css.map": "/amt-tiltaksarrangor-flate/static/css/main.7d9e94cd.chunk.css.map",
-    "static/js/2.8b4d9b28.chunk.js.LICENSE.txt": "/amt-tiltaksarrangor-flate/static/js/2.8b4d9b28.chunk.js.LICENSE.txt",
-    "static/media/clipboard.2d1cae40.svg": "/amt-tiltaksarrangor-flate/static/media/clipboard.2d1cae40.svg",
-    "static/media/lightbulb.62039286.svg": "/amt-tiltaksarrangor-flate/static/media/lightbulb.62039286.svg",
-    "static/media/mobilephone.0951f556.svg": "/amt-tiltaksarrangor-flate/static/media/mobilephone.0951f556.svg",
-    "static/media/nav-logo.1e630d5f.svg": "/amt-tiltaksarrangor-flate/static/media/nav-logo.1e630d5f.svg"
+    "main.9421f5f8.css.map": "/amt-tiltaksarrangor-flate/static/css/main.9421f5f8.css.map",
+    "main.3aef5034.js.map": "/amt-tiltaksarrangor-flate/static/js/main.3aef5034.js.map"
   },
   "entrypoints": [
-    "static/js/runtime-main.9c114557.js",
-    "static/css/2.d09d35b7.chunk.css",
-    "static/js/2.8b4d9b28.chunk.js",
-    "static/css/main.7d9e94cd.chunk.css",
-    "static/js/main.754e5229.chunk.js"
+    "static/css/main.9421f5f8.css",
+    "static/js/main.3aef5034.js"
   ]
 }
