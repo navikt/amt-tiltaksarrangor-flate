@@ -2,8 +2,8 @@
 export interface GjennomforingDTO {
 	id: string,
 	navn: string,
-	oppstartdato: string,
-	sluttdato: string,
+	startDato: string | null,
+	sluttDato: string | null,
 	status: string,
 	tiltak: TiltakDTO
 }

@@ -55,8 +55,8 @@ const lagGjennomforing = (gjennomforingInfo: GjennomforingInfo): MockGjennomfori
 			tiltaksnavn: gjennomforingInfo.tiltaksnavn,
 			tiltakskode: gjennomforingInfo.tiltakskode
 		},
-		oppstartdato: faker.date.past().toISOString(),
-		sluttdato: faker.date.future().toISOString(),
+		startDato: faker.date.past().toISOString(),
+		sluttDato: faker.date.future().toISOString(),
 		virksomhetId: gjennomforingInfo.virksomhetId
 	}
 }

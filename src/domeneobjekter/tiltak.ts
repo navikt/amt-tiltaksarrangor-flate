@@ -7,8 +7,8 @@ export enum TiltakGjennomforingStatus {
 export interface Gjennomforing {
     id: string,
     navn: string,
-    oppstartdato: Date,
-    sluttdato: Date,
+    startDato: Date | undefined,
+    sluttDato: Date | undefined,
     status: TiltakGjennomforingStatus | undefined,
     tiltak: Tiltak
 }

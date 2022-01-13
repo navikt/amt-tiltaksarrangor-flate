@@ -13,8 +13,8 @@ import { Label } from './label/Label'
 
 export const BrukerPaaTiltakDetaljer = (props: { bruker: TiltakDeltakerDetaljer }): React.ReactElement => {
 	const {
-		navKontor, navVeileder, fornavn, etternavn, fodselsnummer, oppstartdato,
-		sluttdato, gjennomforing, registrertDato, telefon, epost
+		navKontor, navVeileder, fornavn, etternavn, fodselsnummer, startDato,
+		sluttDato, gjennomforing, registrertDato, telefon, epost
 	} = props.bruker
 
 	return (
@@ -36,8 +36,8 @@ export const BrukerPaaTiltakDetaljer = (props: { bruker: TiltakDeltakerDetaljer 
 					</div>
 
 					<div>
-						<Label title="Oppstart" value={formatDate(oppstartdato)} className={globalStyles.blokkM}/>
-						<Label title="Sluttdato" value={formatDate(sluttdato)}/>
+						<Label title="Oppstart" value={formatDate(startDato)} className={globalStyles.blokkM}/>
+						<Label title="Sluttdato" value={formatDate(sluttDato)}/>
 					</div>
 				</Card>
 
