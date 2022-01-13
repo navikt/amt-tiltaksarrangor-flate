@@ -13,8 +13,8 @@ export interface TiltakDeltaker {
     mellomnavn: string | undefined,
     etternavn: string,
     fodselsnummer: string,
-    oppstartdato: Date | undefined,
-    sluttdato: Date | undefined,
+    startDato: Date | undefined,
+    sluttDato: Date | undefined,
     status: TiltakDeltakerStatus,
     registrertDato: Date
 }
