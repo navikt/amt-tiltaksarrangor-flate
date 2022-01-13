@@ -4,7 +4,7 @@ import { AxiosResponse } from 'axios'
 import React from 'react'
 
 import { fetchTiltakGjennomforinger } from '../../../api/tiltak-api'
-import { Gjennomforing } from '../../../domeneobjekter/tiltak'
+import { Gjennomforing, TiltakGjennomforingStatus } from '../../../domeneobjekter/tiltak'
 import { useValgtVirksomhetStore } from '../../../store/valgt-virksomhet-store'
 import { internalUrl } from '../../../utils/url-utils'
 import { isNotStartedOrPending, isRejected, usePromise } from '../../../utils/use-promise'
@@ -28,11 +28,12 @@ export const GjennomforingListePage = (): React.ReactElement => {
 	}
 
 	const alleGjennomforinger = fetchGjennomforingerPromise.result.data
+	const aktiveGjennomforinger = alleGjennomforinger.filter(g => g.status === TiltakGjennomforingStatus.GJENNOMFORES)
 
 	return (
 		<main className={styles.page} data-testid="gjennomforing-oversikt-page">
 			<section className={styles.seksjonGjennomforinger}>
-				<GjennomforingListe gjennomforinger={alleGjennomforinger}/>
+				<GjennomforingListe gjennomforinger={aktiveGjennomforinger}/>
 
 				<div className={styles.informasjonLenkeWrapper}>
 					<Link href={internalUrl('/informasjon')}>
