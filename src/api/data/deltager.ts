@@ -6,8 +6,8 @@ export interface TiltakDeltagerDTO {
 	mellomnavn: string | null,
 	etternavn: string,
 	fodselsnummer: string,
-	oppstartdato: string | null,
-	sluttdato: string | null,
+	startDato: string | null,
+	sluttDato: string | null,
 	status: string,
 	registrertDato: string
 }

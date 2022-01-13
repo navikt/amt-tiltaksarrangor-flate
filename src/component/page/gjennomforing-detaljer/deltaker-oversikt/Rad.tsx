@@ -15,7 +15,7 @@ interface RadProps {
 }
 
 export const Rad = (props: RadProps): React.ReactElement<RadProps> => {
-	const { fodselsnummer, fornavn, etternavn, id, oppstartdato, sluttdato, registrertDato, status } = props.bruker
+	const { fodselsnummer, fornavn, etternavn, id, startDato, sluttDato, registrertDato, status } = props.bruker
 
 	return (
 		<Table.Row key={id}>
@@ -25,8 +25,8 @@ export const Rad = (props: RadProps): React.ReactElement<RadProps> => {
 				</Link>
 			</Table.DataCell>
 			<Table.DataCell>{fodselsnummer}</Table.DataCell>
-			<Table.DataCell>{formatDate(oppstartdato)}</Table.DataCell>
-			<Table.DataCell>{formatDate(sluttdato)}</Table.DataCell>
+			<Table.DataCell>{formatDate(startDato)}</Table.DataCell>
+			<Table.DataCell>{formatDate(sluttDato)}</Table.DataCell>
 			<Table.DataCell>{formatDate(registrertDato)}</Table.DataCell>
 			<Table.DataCell>{mapTiltakDeltagerStatusTilTekst(status)}</Table.DataCell>
 		</Table.Row>

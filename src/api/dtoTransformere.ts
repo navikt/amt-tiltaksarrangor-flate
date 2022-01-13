@@ -21,8 +21,8 @@ export const transformGjennomforing = (response: AxiosResponse<GjennomforingDTO>
 const toGjennomforing = (gjennomforing: GjennomforingDTO) : Gjennomforing => {
 	return {
 		...gjennomforing,
-		oppstartdato: dayjs(gjennomforing.oppstartdato, 'YYYY-MM-DD').toDate(),
-		sluttdato: dayjs(gjennomforing.sluttdato).toDate(),
+		startDato: dayjs(gjennomforing.startDato, 'YYYY-MM-DD').toDate(),
+		sluttDato: dayjs(gjennomforing.sluttDato).toDate(),
 		status: toNullableEnumValue(TiltakGjennomforingStatus, gjennomforing.status)
 	}
 }
@@ -38,8 +38,8 @@ const toTiltakDeltager = (tiltakDeltagerDTO : TiltakDeltagerDTO) : TiltakDeltake
 	return {
 		...tiltakDeltagerDTO,
 		mellomnavn: tiltakDeltagerDTO.mellomnavn? tiltakDeltagerDTO.mellomnavn: undefined,
-		oppstartdato: toDateIfPresent(tiltakDeltagerDTO.oppstartdato),
-		sluttdato: toDateIfPresent(tiltakDeltagerDTO.sluttdato),
+		startDato: toDateIfPresent(tiltakDeltagerDTO.startDato),
+		sluttDato: toDateIfPresent(tiltakDeltagerDTO.sluttDato),
 		status: toEnumValue(TiltakDeltakerStatus, tiltakDeltagerDTO.status),
 		registrertDato: dayjs(tiltakDeltagerDTO.registrertDato).toDate()
 	}
@@ -54,8 +54,8 @@ const toTiltakDeltagerDetaljer = (tiltakDeltagerDetaljerDTO: TiltakDeltagerDetal
 	return {
 		...tiltakDeltagerDetaljerDTO,
 		mellomnavn: tiltakDeltagerDetaljerDTO.mellomnavn? tiltakDeltagerDetaljerDTO.mellomnavn: undefined,
-		oppstartdato: toDateIfPresent(tiltakDeltagerDetaljerDTO.oppstartdato),
-		sluttdato: toDateIfPresent(tiltakDeltagerDetaljerDTO.sluttdato),
+		startDato: toDateIfPresent(tiltakDeltagerDetaljerDTO.startDato),
+		sluttDato: toDateIfPresent(tiltakDeltagerDetaljerDTO.sluttDato),
 		status: toEnumValue(TiltakDeltakerStatus,tiltakDeltagerDetaljerDTO.status),
 		gjennomforing: toGjennomforing(tiltakDeltagerDetaljerDTO.gjennomforing),
 		registrertDato: dayjs(tiltakDeltagerDetaljerDTO.registrertDato).toDate()

@@ -65,8 +65,8 @@ const lagMockTiltakDeltagerForGjennomforing = (gjennomforing: MockGjennomforing)
 		fodselsnummer: randomFnr(),
 		epost: lagMailFraNavn(`${brukerFornavn} ${brukerEtternavn}`, 'example.com'),
 		telefon: faker.phone.phoneNumber(),
-		oppstartdato: faker.date.past().toISOString(),
-		sluttdato: faker.date.future().toISOString(),
+		startDato: faker.date.past().toISOString(),
+		sluttDato: faker.date.future().toISOString(),
 		status: status,
 		navKontor: faker.random.arrayElement(navEnheter),
 		navVeileder: {
