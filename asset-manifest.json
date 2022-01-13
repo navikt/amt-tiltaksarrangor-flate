@@ -1,17 +1,17 @@
 {
   "files": {
     "main.css": "/amt-tiltaksarrangor-flate/static/css/main.9421f5f8.css",
-    "main.js": "/amt-tiltaksarrangor-flate/static/js/main.f756e012.js",
+    "main.js": "/amt-tiltaksarrangor-flate/static/js/main.8689d4c8.js",
     "static/media/clipboard.svg": "/amt-tiltaksarrangor-flate/static/media/clipboard.2d1cae403a5b54cdfc122db67abb68c9.svg",
     "static/media/lightbulb.svg": "/amt-tiltaksarrangor-flate/static/media/lightbulb.62039286e19ef154df0d8e6f387e3758.svg",
     "static/media/nav-logo.svg": "/amt-tiltaksarrangor-flate/static/media/nav-logo.1e630d5f66984cbf05e1733ac78b91b2.svg",
     "static/media/mobilephone.svg": "/amt-tiltaksarrangor-flate/static/media/mobilephone.0951f556be3590873bb862cc3aecbe35.svg",
     "index.html": "/amt-tiltaksarrangor-flate/index.html",
     "main.9421f5f8.css.map": "/amt-tiltaksarrangor-flate/static/css/main.9421f5f8.css.map",
-    "main.f756e012.js.map": "/amt-tiltaksarrangor-flate/static/js/main.f756e012.js.map"
+    "main.8689d4c8.js.map": "/amt-tiltaksarrangor-flate/static/js/main.8689d4c8.js.map"
   },
   "entrypoints": [
     "static/css/main.9421f5f8.css",
-    "static/js/main.f756e012.js"
+    "static/js/main.8689d4c8.js"
   ]
 }
