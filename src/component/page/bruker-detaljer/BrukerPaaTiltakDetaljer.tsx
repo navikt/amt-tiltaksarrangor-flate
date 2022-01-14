@@ -22,7 +22,7 @@ export const BrukerPaaTiltakDetaljer = (props: { bruker: TiltakDeltakerDetaljer 
 			<div className={styles.header}>
 				<div className={styles.headerContent}>
 					<Tilbakeknapp to={`/gjennomforing/${gjennomforing.id}`} className={styles.tilbakeknapp} />
-					<Heading size="medium" className={styles.headerTitle}>{lagBrukerNavn(fornavn, etternavn)}</Heading>
+					<Heading size="medium" level="2" className={styles.headerTitle}>{lagBrukerNavn(fornavn, etternavn)}</Heading>
 					{ fodselsnummer && <KopierKnapp text={fodselsnummer}/> }
 				</div>
 			</div>
@@ -30,7 +30,7 @@ export const BrukerPaaTiltakDetaljer = (props: { bruker: TiltakDeltakerDetaljer 
 			<div className={styles.detaljer}>
 				<Card className={styles.tiltakCard}>
 					<div>
-						<Heading size="medium" className={globalStyles.blokkXxs}>{(gjennomforing.navn)}</Heading>
+						<Heading size="medium" level="3" className={globalStyles.blokkXxs}>{(gjennomforing.navn)}</Heading>
 						<BodyShort className={globalStyles.blokkXxs}>{gjennomforing.tiltak.tiltaksnavn}</BodyShort>
 						<BodyShort className={globalStyles.blokkXxs}>Søkt inn: {formatDate(registrertDato)}</BodyShort>
 					</div>
@@ -43,19 +43,19 @@ export const BrukerPaaTiltakDetaljer = (props: { bruker: TiltakDeltakerDetaljer 
 
 				<div className={styles.userInfoContent}>
 					<Card>
-						<Heading size="medium" className={globalStyles.blokkS}>Deltaker</Heading>
+						<Heading size="medium" level="3" className={globalStyles.blokkS}>Deltaker</Heading>
 						<Label title="Telefon" value={telefon} className={globalStyles.blokkXs}/>
 						<Label title="Epost" value={epost}/>
 					</Card>
 
 					<Card>
-						<Heading size="medium" className={globalStyles.blokkS}>NAV-kontor</Heading>
+						<Heading size="medium" level="3" className={globalStyles.blokkS}>NAV-kontor</Heading>
 						<Label title="Kontor" value={navKontor.navn} className={globalStyles.blokkXs}/>
 						<Label title="Adresse" value={navKontor.adresse}/>
 					</Card>
 
 					<Card>
-						<Heading size="medium" className={globalStyles.blokkS}>NAV-veileder</Heading>
+						<Heading size="medium" level="3" className={globalStyles.blokkS}>NAV-veileder</Heading>
 						<Label title="Navn" value={navVeileder?.navn} className={globalStyles.blokkXs}/>
 						<Label title="Telefon" value={navVeileder?.telefon} className={globalStyles.blokkXs}/>
 						<Label title="Epost" value={navVeileder?.epost}/>
