@@ -9,14 +9,13 @@ export const formatDate = (dateStr: Date | undefined): string => {
 }
 
 export const dateStrWithMonthName = (dateStr: Date | undefined): string => {
-	if (!dateStr)
-		return ''
-
+	if (!dateStr) return EMDASH
 	return dayjs(dateStr).format('DD. MMMM YYYY')
 }
 
 export const formatDateInputStr = (dateStr: OrNothing<string>): string => {
-	return dateStr ? dayjs(dateStr).format('YYYY-MM-DD') : ''
+	if (!dateStr) return EMDASH
+	return dayjs(dateStr).format('YYYY-MM-DD')
 }
 
 export const stringToDate = (dateStr: string): Date => dayjs(dateStr, 'YYYY-MM-DD').toDate()

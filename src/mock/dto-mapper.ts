@@ -5,8 +5,8 @@ export const tilGjennomforingDTO = (gjennomforing: MockGjennomforing): Gjennomfo
 	return {
 		id: gjennomforing.id,
 		navn: gjennomforing.navn,
-		oppstartdato: gjennomforing.oppstartdato,
-		sluttdato: gjennomforing.sluttdato,
+		startDato: gjennomforing.startDato,
+		sluttDato: gjennomforing.sluttDato,
 		status: gjennomforing.status,
 		tiltak: {
 			tiltakskode: gjennomforing.tiltak.tiltakskode,

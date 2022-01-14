@@ -45,8 +45,8 @@ export const GjennomforingDetaljerPage = (): React.ReactElement => {
 
 				<div className={globalStyles.blokkM}>
 					<Heading size="medium" className={globalStyles.blokkXxs}>{gjennomforing.navn}</Heading>
-					<BodyShort>Oppstart: {dateStrWithMonthName(gjennomforing.oppstartdato)}</BodyShort>
-					<BodyShort className={globalStyles.blokkXxs}>Sluttdato: {dateStrWithMonthName(gjennomforing.sluttdato)}</BodyShort>
+					<BodyShort>Oppstart: {dateStrWithMonthName(gjennomforing.startDato)}</BodyShort>
+					<BodyShort className={globalStyles.blokkXxs}>Sluttdato: {dateStrWithMonthName(gjennomforing.sluttDato)}</BodyShort>
 				</div>
 
 				<FilterMeny />

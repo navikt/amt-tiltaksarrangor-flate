@@ -15,4 +15,4 @@ export interface DeltakerSortering {
 }
 //Disse må svare til TiltakDeltakers props
 export type TiltakDeltakerPropNames = 'fornavn' | 'etternavn' | 'fodselsnummer'
-	| 'oppstartdato' | 'sluttdato' | 'registrertDato' | 'status'
+	| 'startDato' | 'sluttDato' | 'registrertDato' | 'status'
