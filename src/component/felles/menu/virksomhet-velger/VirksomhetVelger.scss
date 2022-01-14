@@ -2,6 +2,16 @@
 
 .virksomhet-velger__control {
   border-color: $navGra60 !important;
+  border-width: 1px;
+  padding: 1px;
+
+  &:hover {
+    border-color: $navBla !important;
+    border-width: 2px;
+    padding: 0px;
+    cursor: pointer;
+    box-shadow: var(--navds-shadow-card);
+  }
 }
 
 .virksomhet-velger__control--is-focused {
