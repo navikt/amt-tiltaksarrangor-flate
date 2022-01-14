@@ -27,10 +27,10 @@ export const GjennomforingListe = (props: GjennomforingListeProps): React.ReactE
 	}
 
 	return (
-		<ul className={styles.cleanList}>
+		<div className={styles.cleanList}>
 			{unikeTiltak.map((tiltak, tiltakIdx) => {
 				return (
-					<li key={tiltakIdx} className={globalStyles.blokkL}>
+					<div key={tiltakIdx} className={globalStyles.blokkL}>
 						<Heading className={globalStyles.blokkS} size="xsmall" level="2">{tiltak.tiltaksnavn}</Heading>
 						<ul className={styles.cleanList}>
 							{finnTiltakGjennomforinger(tiltak.tiltakskode, props.gjennomforinger).map((gjennomforing) => {
@@ -44,9 +44,9 @@ export const GjennomforingListe = (props: GjennomforingListeProps): React.ReactE
 								)
 							})}
 						</ul>
-					</li>
+					</div>
 				)
 			})}
-		</ul>
+		</div>
 	)
 }
