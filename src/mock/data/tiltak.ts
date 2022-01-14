@@ -11,6 +11,7 @@ interface GjennomforingInfo {
 	tiltakskode: string;
 	tiltaksnavn: string;
 	virksomhetId: string;
+	status: TiltakGjennomforingStatus
 }
 
 const GjennomforingInfoListe: GjennomforingInfo[] = [
@@ -18,19 +19,36 @@ const GjennomforingInfoListe: GjennomforingInfo[] = [
 		gjennomforingNavn: 'Oppfølging Åsedalen',
 		tiltakskode: 'OPPFOLG',
 		tiltaksnavn: 'Oppfølging',
-		virksomhetId: '4b26083d-c320-49e1-9104-b4dcdbcc8067'
+		virksomhetId: '4b26083d-c320-49e1-9104-b4dcdbcc8067',
+		status: TiltakGjennomforingStatus.GJENNOMFORES
 	},
 	{
 		gjennomforingNavn: 'Oppfølging Region Østvest',
 		tiltakskode: 'OPPFOLG',
 		tiltaksnavn: 'Oppfølging',
-		virksomhetId: '4b26083d-c320-49e1-9104-b4dcdbcc8067'
+		virksomhetId: '4b26083d-c320-49e1-9104-b4dcdbcc8067',
+		status: TiltakGjennomforingStatus.GJENNOMFORES
+	},
+	{
+		gjennomforingNavn: 'Oppfølging Region Nordsør',
+		tiltakskode: 'OPPFOLG',
+		tiltaksnavn: 'Oppfølging',
+		virksomhetId: '4b26083d-c320-49e1-9104-b4dcdbcc8067',
+		status: TiltakGjennomforingStatus.IKKE_STARTET
+	},
+	{
+		gjennomforingNavn: 'Oppfølging Region Test',
+		tiltakskode: 'OPPFOLG',
+		tiltaksnavn: 'Oppfølging',
+		virksomhetId: '7ee8b861-6dc7-4cc2-9706-252c82b63104',
+		status: TiltakGjennomforingStatus.GJENNOMFORES
 	},
 	{
 		gjennomforingNavn: 'Oppfølging Region Vestøst',
 		tiltakskode: 'OPPFOLG',
 		tiltaksnavn: 'Oppfølging',
-		virksomhetId: '7ee8b861-6dc7-4cc2-9706-252c82b63104'
+		virksomhetId: '7ee8b861-6dc7-4cc2-9706-252c82b63104',
+		status: TiltakGjennomforingStatus.AVSLUTTET
 	},
 ]
 
@@ -45,18 +63,16 @@ export const lagTiltakGjennomforinger = (virksomhetId: string): MockGjennomforin
 }
 
 const lagGjennomforing = (gjennomforingInfo: GjennomforingInfo): MockGjennomforing => {
-	const status = faker.random.objectElement(TiltakGjennomforingStatus) as TiltakGjennomforingStatus
-
 	return {
 		id: randomUuid(),
 		navn: gjennomforingInfo.gjennomforingNavn,
-		status: status,
+		status: gjennomforingInfo.status,
 		tiltak: {
 			tiltaksnavn: gjennomforingInfo.tiltaksnavn,
 			tiltakskode: gjennomforingInfo.tiltakskode
 		},
-		oppstartdato: faker.date.past().toISOString(),
-		sluttdato: faker.date.future().toISOString(),
+		startDato: faker.date.past().toISOString(),
+		sluttDato: faker.date.future().toISOString(),
 		virksomhetId: gjennomforingInfo.virksomhetId
 	}
 }

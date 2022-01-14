@@ -37,8 +37,8 @@ export const finnNesteSorteringType = (sorteringType: SorteringType): SorteringT
 export const getDeltakerPropName = (kolonne: DeltakerKolonneNavn) : TiltakDeltakerPropNames => {
 	switch (kolonne){
 		case DeltakerKolonneNavn.NAVN: return 'etternavn'
-		case DeltakerKolonneNavn.START: return 'oppstartdato'
-		case DeltakerKolonneNavn.SLUTT: return 'sluttdato'
+		case DeltakerKolonneNavn.START: return 'startDato'
+		case DeltakerKolonneNavn.SLUTT: return 'sluttDato'
 		case DeltakerKolonneNavn.REGDATO: return 'registrertDato'
 		case DeltakerKolonneNavn.FODSELSNUMMER: return 'fodselsnummer'
 		case DeltakerKolonneNavn.STATUS: return 'status'
