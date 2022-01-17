@@ -10,7 +10,7 @@ import globalStyles from '../../../globals.module.scss'
 import { dateStrWithMonthName } from '../../../utils/date-utils'
 import { isNotStartedOrPending, isRejected, usePromise } from '../../../utils/use-promise'
 import { Spinner } from '../../felles/spinner/Spinner'
-import { Tilbakeknapp } from '../../felles/tilbakeknapp/Tilbakeknapp'
+import { Tilbakelenke } from '../../felles/tilbakelenke/Tilbakelenke'
 import { DeltakerOversiktTabell } from './deltaker-oversikt/DeltakerOversiktTabell'
 import { FilterMeny } from './FilterMeny'
 import styles from './GjennomforingDetaljerPage.module.scss'
@@ -41,7 +41,7 @@ export const GjennomforingDetaljerPage = (): React.ReactElement => {
 	return (
 		<main className={styles.tiltaksoversiktPage} data-testid="gjennomforing-detaljer-page">
 			<section>
-				<Tilbakeknapp to="/" className={styles.tilbakeknapp} />
+				<Tilbakelenke to="/" className={styles.tilbakeknapp} />
 
 				<div className={globalStyles.blokkM}>
 					<Heading size="medium" className={globalStyles.blokkXxs}>{gjennomforing.navn}</Heading>
