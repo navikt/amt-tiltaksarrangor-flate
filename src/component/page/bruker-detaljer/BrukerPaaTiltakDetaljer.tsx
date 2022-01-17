@@ -45,7 +45,7 @@ export const BrukerPaaTiltakDetaljer = (props: { bruker: TiltakDeltakerDetaljer 
 					<Card>
 						<Heading size="medium" className={globalStyles.blokkS}>Deltaker</Heading>
 						<Label title="Telefon" value={telefonnummer} className={globalStyles.blokkXs}/>
-						<Label title="Epost" value={epost}/>
+						<Label title="E-post" value={epost}/>
 					</Card>
 
 					<Card>
@@ -58,7 +58,7 @@ export const BrukerPaaTiltakDetaljer = (props: { bruker: TiltakDeltakerDetaljer 
 						<Heading size="medium" className={globalStyles.blokkS}>NAV-veileder</Heading>
 						<Label title="Navn" value={navVeileder?.navn} className={globalStyles.blokkXs}/>
 						<Label title="Telefon" value={navVeileder?.telefon} className={globalStyles.blokkXs}/>
-						<Label title="Epost" value={navVeileder?.epost}/>
+						<Label title="E-post" value={navVeileder?.epost}/>
 					</Card>
 				</div>
 			</div>
