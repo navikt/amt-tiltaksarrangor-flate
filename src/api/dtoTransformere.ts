@@ -59,7 +59,6 @@ const toTiltakDeltagerDetaljer = (tiltakDeltagerDetaljerDTO: TiltakDeltagerDetal
 		status: toEnumValue(TiltakDeltakerStatus,tiltakDeltagerDetaljerDTO.status),
 		gjennomforing: toGjennomforing(tiltakDeltagerDetaljerDTO.gjennomforing),
 		registrertDato: dayjs(tiltakDeltagerDetaljerDTO.registrertDato).toDate()
-
 	}
 }
 

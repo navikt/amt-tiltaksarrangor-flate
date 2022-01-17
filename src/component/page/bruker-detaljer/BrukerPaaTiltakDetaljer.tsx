@@ -50,8 +50,7 @@ export const BrukerPaaTiltakDetaljer = (props: { bruker: TiltakDeltakerDetaljer 
 
 					<Card>
 						<Heading size="medium" className={globalStyles.blokkS}>NAV-kontor</Heading>
-						<Label title="Kontor" value={navKontor.navn} className={globalStyles.blokkXs}/>
-						<Label title="Adresse" value={navKontor.adresse}/>
+						<Label title="Kontor" value={navKontor?.navn} className={globalStyles.blokkXs}/>
 					</Card>
 
 					<Card>
