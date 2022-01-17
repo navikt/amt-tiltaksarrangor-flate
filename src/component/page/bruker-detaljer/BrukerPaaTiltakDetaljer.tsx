@@ -6,7 +6,7 @@ import globalStyles from '../../../globals.module.scss'
 import { lagBrukerNavn } from '../../../utils/bruker-utils'
 import { formatDate } from '../../../utils/date-utils'
 import { Card } from '../../felles/card/Card'
-import { Tilbakeknapp } from '../../felles/tilbakeknapp/Tilbakeknapp'
+import { Tilbakelenke } from '../../felles/tilbakelenke/Tilbakelenke'
 import styles from './BrukerPaaTiltakDetaljer.module.scss'
 import { KopierKnapp } from './kopier-knapp/KopierKnapp'
 import { Label } from './label/Label'
@@ -21,7 +21,7 @@ export const BrukerPaaTiltakDetaljer = (props: { bruker: TiltakDeltakerDetaljer 
 		<>
 			<div className={styles.header}>
 				<div className={styles.headerContent}>
-					<Tilbakeknapp to={`/gjennomforing/${gjennomforing.id}`} className={styles.tilbakeknapp} />
+					<Tilbakelenke to={`/gjennomforing/${gjennomforing.id}`} className={styles.tilbakeknapp} />
 					<Heading size="medium" className={styles.headerTitle}>{lagBrukerNavn(fornavn, etternavn)}</Heading>
 					{ fodselsnummer && <KopierKnapp text={fodselsnummer}/> }
 				</div>

@@ -2,7 +2,7 @@ import { BodyLong, Heading } from '@navikt/ds-react'
 import React from 'react'
 
 import { Card } from '../../felles/card/Card'
-import { Tilbakeknapp } from '../../felles/tilbakeknapp/Tilbakeknapp'
+import { Tilbakelenke } from '../../felles/tilbakelenke/Tilbakelenke'
 import clipboardImg from './clipboard.svg'
 import styles from './InformasjonPage.module.scss'
 import lightbulbImg from './lightbulb.svg'
@@ -31,7 +31,7 @@ export const InformasjonPage = (): React.ReactElement => {
 	return (
 		<main className={styles.page}>
 			<div className={styles.content}>
-				<Tilbakeknapp to="/" />
+				<Tilbakelenke to="/" />
 
 				<Card className={styles.contentCard}>
 					<Heading className={styles.title} spacing size="large" level="2">Informasjon om tjenesten</Heading>
