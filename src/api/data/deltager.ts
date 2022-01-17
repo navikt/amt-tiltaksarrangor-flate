@@ -14,7 +14,7 @@ export interface TiltakDeltagerDTO {
 
 export type TiltakDeltagerDetaljerDTO = TiltakDeltagerDTO & {
 	epost: string | null,
-	telefon: string | null,
+	telefonnummer: string | null,
 	navKontor: NavKontorDTO,
 	navVeileder: NavVeilederDTO | null,
 	gjennomforing: GjennomforingDTO

@@ -20,7 +20,7 @@ export interface TiltakDeltaker {
 }
 
 export type TiltakDeltakerDetaljer = TiltakDeltaker & {
-    telefon: string | null,
+    telefonnummer: string | null,
     epost: string | null,
     navKontor: NavKontor,
     navVeileder: NavVeileder | null,
