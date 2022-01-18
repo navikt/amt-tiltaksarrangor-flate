@@ -48,7 +48,7 @@ const lagMockTiltakDeltagerForGjennomforing = (gjennomforing: MockGjennomforing)
 		etternavn: brukerEtternavn,
 		fodselsnummer: randomFnr(),
 		epost: lagMailFraNavn(`${brukerFornavn} ${brukerEtternavn}`, 'example.com'),
-		telefon: faker.phone.phoneNumber(),
+		telefonnummer: faker.phone.phoneNumber(),
 		startDato: faker.date.past().toISOString(),
 		sluttDato: faker.date.future().toISOString(),
 		status: status,
