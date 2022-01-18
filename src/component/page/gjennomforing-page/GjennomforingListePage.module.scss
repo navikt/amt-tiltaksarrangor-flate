@@ -6,7 +6,12 @@
 }
 
 .seksjonGjennomforinger {
-  min-width: 600px;
+  width: 100%;
+
+  @media(min-width: 600px) {
+    max-width: 600px;
+  }
+
 }
 
 .informasjonLenkeWrapper {

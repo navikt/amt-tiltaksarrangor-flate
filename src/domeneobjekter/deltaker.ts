@@ -20,16 +20,15 @@ export interface TiltakDeltaker {
 }
 
 export type TiltakDeltakerDetaljer = TiltakDeltaker & {
-    telefon: string | null,
+    telefonnummer: string | null,
     epost: string | null,
-    navKontor: NavKontor,
+    navKontor: NavKontor | null,
     navVeileder: NavVeileder | null,
     gjennomforing: Gjennomforing
 }
 
 export interface NavKontor {
     navn: string,
-    adresse: string
 }
 
 export interface NavVeileder {

@@ -37,7 +37,7 @@ export const GjennomforingListePage = (): React.ReactElement => {
 
 				<div className={styles.informasjonLenkeWrapper}>
 					<Link href={internalUrl('/informasjon')}>
-						<Information/>Info om tjeneste
+						<Information/>Info om deltakeroversikten
 					</Link>
 				</div>
 			</section>
