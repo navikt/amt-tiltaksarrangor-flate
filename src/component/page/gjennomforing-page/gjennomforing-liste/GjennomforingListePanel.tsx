@@ -1,4 +1,4 @@
-import { Heading } from '@navikt/ds-react'
+import { BodyShort } from '@navikt/ds-react'
 import React from 'react'
 
 import { internalUrl } from '../../../../utils/url-utils'
@@ -16,7 +16,7 @@ export const GjennomforingListePanel = (props: GjennomforingListePanelProps): Re
 	return (
 		<SpaLenkepanel to={internalUrl(`/gjennomforing/${id}`)}>
 			<div className={styles.content} >
-				<Heading size="small">{navn}</Heading>
+				<BodyShort as="span" className={styles.panelTittel}>{navn}</BodyShort>
 			</div>
 		</SpaLenkepanel>
 	)
