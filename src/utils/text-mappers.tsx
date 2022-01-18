@@ -4,7 +4,7 @@ export const mapTiltakDeltagerStatusTilTekst = (tiltakDeltagerStatus: TiltakDelt
 	switch (tiltakDeltagerStatus) {
 		case TiltakDeltakerStatus.VENTER_PA_OPPSTART:
 			return 'Venter på oppstart'
-		case TiltakDeltakerStatus.GJENNOMFORES:
+		case TiltakDeltakerStatus.DELTAR:
 			return 'Deltar'
 		case TiltakDeltakerStatus.HAR_SLUTTET:
 			return 'Har sluttet'

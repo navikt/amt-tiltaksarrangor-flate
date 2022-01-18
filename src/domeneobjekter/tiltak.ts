@@ -1,7 +1,7 @@
 export enum TiltakGjennomforingStatus {
-    IKKE_STARTET= 'IKKE_STARTET',
-    GJENNOMFORES= 'GJENNOMFORES',
-    AVSLUTTET= 'AVSLUTTET',
+    IKKE_STARTET = 'IKKE_STARTET',
+    GJENNOMFORES = 'GJENNOMFORES',
+    AVSLUTTET = 'AVSLUTTET',
 }
 
 export interface Gjennomforing {

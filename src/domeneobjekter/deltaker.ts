@@ -2,7 +2,7 @@ import { Gjennomforing } from './tiltak'
 
 export enum TiltakDeltakerStatus {
     VENTER_PA_OPPSTART = 'VENTER_PA_OPPSTART',
-    GJENNOMFORES = 'GJENNOMFORES',
+    DELTAR = 'DELTAR',
     HAR_SLUTTET = 'HAR_SLUTTET',
     IKKE_AKTUELL = 'IKKE_AKTUELL'
 }
