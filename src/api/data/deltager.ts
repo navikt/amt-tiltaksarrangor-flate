@@ -15,14 +15,13 @@ export interface TiltakDeltagerDTO {
 export type TiltakDeltagerDetaljerDTO = TiltakDeltagerDTO & {
 	epost: string | null,
 	telefonnummer: string | null,
-	navKontor: NavKontorDTO,
+	navKontor: NavKontorDTO | null,
 	navVeileder: NavVeilederDTO | null,
 	gjennomforing: GjennomforingDTO
 }
 
 export interface NavKontorDTO {
 	navn: string,
-	adresse: string
 }
 
 export interface NavVeilederDTO {

@@ -1,32 +1,16 @@
 import faker from 'faker'
 
-import { TiltakDeltagerDetaljerDTO } from '../../api/data/deltager'
+import { NavKontorDTO, TiltakDeltagerDetaljerDTO } from '../../api/data/deltager'
 import { TiltakDeltakerStatus } from '../../domeneobjekter/deltaker'
 import { tilGjennomforingDTO } from '../dto-mapper'
 import { randomFnr, randomUuid } from '../utils/faker'
 import { MockGjennomforing } from './tiltak'
 
-const navEnheter: { enhetId: string, navn: string, adresse: string }[] = [
-	{
-		enhetId: '0219',
-		navn: 'NAV Bærum',
-		adresse: 'Kontorveien 37, 4021 Sted'
-	},
-	{
-		enhetId: '0425',
-		navn: 'NAV Åsnes',
-		adresse: 'Kontorveien 37, 4021 Sted'
-	},
-	{
-		enhetId: '1500',
-		navn: 'NAV Møre og Romsdal',
-		adresse: 'Kontorveien 37, 4021 Sted'
-	},
-	{
-		enhetId: '0104',
-		navn: 'NAV Moss',
-		adresse: 'Kontorveien 37, 4021 Sted'
-	},
+const navEnheter: NavKontorDTO[] = [
+	{ navn: 'NAV Bærum' },
+	{ navn: 'NAV Åsnes' },
+	{ navn: 'NAV Møre og Romsdal' },
+	{ navn: 'NAV Moss' },
 ]
 
 const lagMailFraNavn = (navn: string, mailDomain: string): string => {
