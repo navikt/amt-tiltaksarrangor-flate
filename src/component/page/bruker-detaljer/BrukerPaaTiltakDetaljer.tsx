@@ -1,21 +1,35 @@
-import { BodyShort, Heading } from '@navikt/ds-react'
+import { Alert, BodyShort, Heading } from '@navikt/ds-react'
 import React from 'react'
 
-import { TiltakDeltakerDetaljer } from '../../../domeneobjekter/deltaker'
+import { TiltakDeltakerDetaljer, TiltakDeltakerStatus } from '../../../domeneobjekter/deltaker'
 import globalStyles from '../../../globals.module.scss'
 import { lagBrukerNavn } from '../../../utils/bruker-utils'
 import { formatDate } from '../../../utils/date-utils'
 import { Card } from '../../felles/card/Card'
+import { Show } from '../../felles/Show'
 import { Tilbakelenke } from '../../felles/tilbakelenke/Tilbakelenke'
 import styles from './BrukerPaaTiltakDetaljer.module.scss'
 import { KopierKnapp } from './kopier-knapp/KopierKnapp'
 import { Label } from './label/Label'
 
+function mapStatusTilAlertTekst(status: TiltakDeltakerStatus): string | null {
+	switch (status) {
+		case TiltakDeltakerStatus.IKKE_AKTUELL:
+			return 'Tiltaket er ikke aktuelt for denne personen'
+		case TiltakDeltakerStatus.HAR_SLUTTET:
+			return 'Personen har sluttet i dette tiltaket'
+		default:
+			return null
+	}
+}
+
 export const BrukerPaaTiltakDetaljer = (props: { bruker: TiltakDeltakerDetaljer }): React.ReactElement => {
 	const {
 		navKontor, navVeileder, fornavn, etternavn, fodselsnummer, startDato,
-		sluttDato, gjennomforing, registrertDato, telefonnummer, epost
+		sluttDato, gjennomforing, registrertDato, telefonnummer, epost, status
 	} = props.bruker
+
+	const alertTekst = mapStatusTilAlertTekst(status)
 
 	return (
 		<>
@@ -28,6 +42,10 @@ export const BrukerPaaTiltakDetaljer = (props: { bruker: TiltakDeltakerDetaljer 
 			</div>
 
 			<div className={styles.detaljer}>
+				<Show if={alertTekst}>
+					<Alert variant="warning" className={styles.statusAlert}>{alertTekst}</Alert>
+				</Show>
+
 				<Card className={styles.tiltakCard}>
 					<div>
 						<Heading size="medium" level="3" className={globalStyles.blokkXxs}>{(gjennomforing.navn)}</Heading>
