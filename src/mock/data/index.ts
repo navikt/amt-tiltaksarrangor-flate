@@ -1,4 +1,4 @@
-import { TiltakDeltagerDetaljerDTO } from '../../api/data/deltager'
+import { TiltakDeltagerDetaljerDTO } from '../../api/data/deltaker'
 import { mockInnloggetAnsattVirksomheter } from './ansatt'
 import { lagMockTiltakDeltagereForGjennomforing } from './brukere'
 import { lagTiltakGjennomforinger, MockGjennomforing } from './tiltak'
