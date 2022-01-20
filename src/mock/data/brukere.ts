@@ -1,6 +1,6 @@
 import faker from 'faker'
 
-import { NavKontorDTO, TiltakDeltagerDetaljerDTO } from '../../api/data/deltager'
+import { NavKontorDTO, TiltakDeltagerDetaljerDTO } from '../../api/data/deltaker'
 import { TiltakDeltakerStatus } from '../../domeneobjekter/deltaker'
 import { tilGjennomforingDTO } from '../dto-mapper'
 import { randomFnr, randomUuid } from '../utils/faker'
@@ -25,12 +25,12 @@ const lagMailFraNavn = (navn: string, mailDomain: string): string => {
 }
 
 export const lagMockTiltakDeltagereForGjennomforing = (gjennomforing: MockGjennomforing): TiltakDeltagerDetaljerDTO[] => {
-	const deltagere: TiltakDeltagerDetaljerDTO[] = []
+	const deltakere: TiltakDeltagerDetaljerDTO[] = []
 
 	for (let i = 0; i < 10; i++) {
-		deltagere.push(lagMockTiltakDeltagerForGjennomforing(gjennomforing))
+		deltakere.push(lagMockTiltakDeltagerForGjennomforing(gjennomforing))
 	}
-	return deltagere
+	return deltakere
 }
 
 const lagMockTiltakDeltagerForGjennomforing = (gjennomforing: MockGjennomforing): TiltakDeltagerDetaljerDTO => {

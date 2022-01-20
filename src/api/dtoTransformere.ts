@@ -6,7 +6,7 @@ import { TiltakDeltaker, TiltakDeltakerDetaljer, TiltakDeltakerStatus } from '..
 import { Gjennomforing, TiltakGjennomforingStatus } from '../domeneobjekter/tiltak'
 import { toEnumValue, toNullableEnumValue } from '../utils/toEnumValue'
 import { InnloggetAnsattDTO } from './data/ansatt'
-import { TiltakDeltagerDetaljerDTO, TiltakDeltagerDTO } from './data/deltager'
+import { TiltakDeltagerDetaljerDTO, TiltakDeltagerDTO } from './data/deltaker'
 import { GjennomforingDTO } from './data/tiltak'
 
 export const transformGjennomforinger = (response: AxiosResponse<GjennomforingDTO[]>) : AxiosResponse<Gjennomforing[]> => {
@@ -28,8 +28,8 @@ const toGjennomforing = (gjennomforing: GjennomforingDTO) : Gjennomforing => {
 }
 
 export const transformTiltakDeltager = (response: AxiosResponse<TiltakDeltagerDTO[]>) : AxiosResponse<TiltakDeltaker[]> => {
-	const deltagere =  response.data.map(toTiltakDeltager)
-	return { ...response, data: deltagere }
+	const deltakere =  response.data.map(toTiltakDeltager)
+	return { ...response, data: deltakere }
 }
 const toDateIfPresent = (date: string | null) : Date | undefined  => date? dayjs(date).toDate(): undefined
 

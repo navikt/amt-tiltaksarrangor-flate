@@ -17,7 +17,7 @@ export const mockHandlers: RequestHandler[] = [
 	}),
 	rest.get('/amt-tiltak/api/gjennomforing/:gjennomforingId/deltakere', (req, res, ctx) => {
 		const gjennomforingId = req.params.gjennomforingId
-		const brukere = mockTiltakDeltagere.filter(deltager => deltager.gjennomforing.id === gjennomforingId)
+		const brukere = mockTiltakDeltagere.filter(deltaker => deltaker.gjennomforing.id === gjennomforingId)
 
 		return res(ctx.delay(500), ctx.json(brukere))
 	}),
