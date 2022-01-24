@@ -1,16 +1,14 @@
 version: '3.7'
 services:
   dev-proxy:
-    image: 'ghcr.io/navikt/poao-dev-proxy/poao-dev-proxy:2021.11.01_11.35-a4d18398225d'
+    image: ghcr.io/navikt/poao-dev-proxy/poao-dev-proxy:2022.01.24_16.17-8630e48a744f
     container_name: poao-dev-proxy
     ports:
       - '58080:8080'
     environment:
       JSON_CONFIG: >
         {
-          "proxy": {
-            "proxies": [
-              { "fromPath": "/amt-tiltak", "toUrl": "https://amt-tiltaksarrangor-flate.dev.intern.nav.no/amt-tiltak" }
-            ]
-          }
+          "proxies": [
+            { "fromPath": "/amt-tiltak", "toUrl": "https://amt-tiltaksarrangor-flate.dev.intern.nav.no", "preserveFromPath": true }
+          ]
         }

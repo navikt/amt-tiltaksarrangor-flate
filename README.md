@@ -15,7 +15,7 @@ Hvis man ønsker å teste med en reel backend i preprod lokalt så kan man ta i 
 Opprett filen **.env.local** med følgende innhold:
 ```.env
 REACT_APP_MOCK_DEV_PROXY_ENABLED=true
-REACT_APP_MOCK_DEV_PROXY_COOKIE=amt-tiltaksarrangor-flate-auth-proxy_session=<SESSION_COOKIE>
+REACT_APP_MOCK_DEV_PROXY_COOKIE=io.nais.wonderwall.session=<SESSION_COOKIE>
 ```
 
 Sørg for å hente en ekte session cookie og bytt den ut med `<SESSION_COOKIE>`.
