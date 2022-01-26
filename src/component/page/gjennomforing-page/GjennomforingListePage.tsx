@@ -1,7 +1,8 @@
 import { Information } from '@navikt/ds-icons'
-import { Alert, Link } from '@navikt/ds-react'
+import { Alert } from '@navikt/ds-react'
 import { AxiosResponse } from 'axios'
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 import { fetchTiltakGjennomforinger } from '../../../api/tiltak-api'
 import { Gjennomforing, TiltakGjennomforingStatus } from '../../../domeneobjekter/tiltak'
@@ -39,7 +40,7 @@ export const GjennomforingListePage = (): React.ReactElement => {
 				<GjennomforingListe gjennomforinger={aktiveGjennomforinger}/>
 
 				<div className={styles.informasjonLenkeWrapper}>
-					<Link href={INFORMASJON_PAGE_ROUTE}>
+					<Link className="navds-link" to={INFORMASJON_PAGE_ROUTE}>
 						<Information/>Info om deltakeroversikten
 					</Link>
 				</div>
