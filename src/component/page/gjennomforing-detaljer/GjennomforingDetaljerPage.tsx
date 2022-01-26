@@ -46,7 +46,7 @@ export const GjennomforingDetaljerPage = (): React.ReactElement => {
 		const status = deltaker.status
 		const entry = statusMap.get(status)
 
-		if (!!entry) {
+		if (entry) {
 			statusMap.set(status, entry + 1)
 		} else {
 			statusMap.set(status, 1)
