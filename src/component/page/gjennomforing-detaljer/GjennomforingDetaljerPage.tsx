@@ -7,6 +7,7 @@ import { fetchDeltakerePaTiltakGjennomforing, fetchTiltakGjennomforing } from '.
 import { TiltakDeltaker } from '../../../domeneobjekter/deltaker'
 import { Gjennomforing } from '../../../domeneobjekter/tiltak'
 import globalStyles from '../../../globals.module.scss'
+import { useTabTitle } from '../../../hooks/use-tab-title'
 import { dateStrWithMonthName } from '../../../utils/date-utils'
 import { isNotStartedOrPending, isRejected, usePromise } from '../../../utils/use-promise'
 import { Spinner } from '../../felles/spinner/Spinner'
@@ -16,6 +17,8 @@ import { FilterMeny } from './FilterMeny'
 import styles from './GjennomforingDetaljerPage.module.scss'
 
 export const GjennomforingDetaljerPage = (): React.ReactElement => {
+	useTabTitle('Deltakeroversikt')
+
 	const params  = useParams<{ gjennomforingId: string }>()
 	const gjennomforingId = params.gjennomforingId || ''
 

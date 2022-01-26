@@ -5,6 +5,7 @@ import React from 'react'
 
 import { fetchTiltakGjennomforinger } from '../../../api/tiltak-api'
 import { Gjennomforing, TiltakGjennomforingStatus } from '../../../domeneobjekter/tiltak'
+import { useTabTitle } from '../../../hooks/use-tab-title'
 import { useValgtVirksomhetStore } from '../../../store/valgt-virksomhet-store'
 import { internalUrl } from '../../../utils/url-utils'
 import { isNotStartedOrPending, isRejected, usePromise } from '../../../utils/use-promise'
@@ -13,6 +14,8 @@ import { GjennomforingListe } from './gjennomforing-liste/GjennomforingListe'
 import styles from './GjennomforingListePage.module.scss'
 
 export const GjennomforingListePage = (): React.ReactElement => {
+	useTabTitle('Tiltaksoversikt')
+
 	const { valgtVirksomhet } = useValgtVirksomhetStore()
 
 	const fetchGjennomforingerPromise = usePromise<AxiosResponse<Gjennomforing[]>>(

@@ -1,6 +1,7 @@
 import { BodyLong, Heading } from '@navikt/ds-react'
 import React from 'react'
 
+import { useTabTitle } from '../../../hooks/use-tab-title'
 import { Card } from '../../felles/card/Card'
 import { Tilbakelenke } from '../../felles/tilbakelenke/Tilbakelenke'
 import clipboardImg from './clipboard.svg'
@@ -28,6 +29,8 @@ export const InfoElement = (props: InfoElementProps): React.ReactElement<InfoEle
 }
 
 export const InformasjonPage = (): React.ReactElement => {
+	useTabTitle('Informasjon om deltakeroversikten')
+
 	return (
 		<main className={styles.page}>
 			<div className={styles.content}>

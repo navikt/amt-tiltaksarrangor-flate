@@ -3,6 +3,7 @@ import React from 'react'
 
 import { TiltakDeltakerDetaljer, TiltakDeltakerStatus } from '../../../domeneobjekter/deltaker'
 import globalStyles from '../../../globals.module.scss'
+import { useTabTitle } from '../../../hooks/use-tab-title'
 import { lagBrukerNavn } from '../../../utils/bruker-utils'
 import { formatDate } from '../../../utils/date-utils'
 import { Card } from '../../felles/card/Card'
@@ -24,6 +25,8 @@ function mapStatusTilAlertTekst(status: TiltakDeltakerStatus): string | null {
 }
 
 export const BrukerPaaTiltakDetaljer = (props: { bruker: TiltakDeltakerDetaljer }): React.ReactElement => {
+	useTabTitle('Deltakerdetaljer')
+
 	const {
 		navKontor, navVeileder, fornavn, etternavn, fodselsnummer, startDato,
 		sluttDato, gjennomforing, registrertDato, telefonnummer, epost, status
