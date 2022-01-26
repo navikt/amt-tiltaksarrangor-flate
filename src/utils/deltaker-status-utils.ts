@@ -6,11 +6,7 @@ export const getAntallDeltakerePerStatus = (deltakere: TiltakDeltaker[]): Map<Ti
 		const status = deltaker.status
 		const entry = statusMap.get(status)
 
-		if (entry) {
-			statusMap.set(status, entry + 1)
-		} else {
-			statusMap.set(status, 1)
-		}
+		statusMap.set(status, entry ? entry + 1 : 1)
 	})
 
 	return statusMap
