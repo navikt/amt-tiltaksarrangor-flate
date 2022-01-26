@@ -1,5 +1,5 @@
 import { BodyLong, Heading } from '@navikt/ds-react'
-import React, { useEffect } from 'react'
+import React from 'react'
 
 import { Card } from '../../felles/card/Card'
 import { Tilbakelenke } from '../../felles/tilbakelenke/Tilbakelenke'
@@ -7,6 +7,7 @@ import clipboardImg from './clipboard.svg'
 import styles from './InformasjonPage.module.scss'
 import lightbulbImg from './lightbulb.svg'
 import mobilephoneImg from './mobilephone.svg'
+import { useTabTitle } from '../../../hooks/use-tab-title'
 
 interface InfoElementProps {
 	title: string
@@ -28,11 +29,7 @@ export const InfoElement = (props: InfoElementProps): React.ReactElement<InfoEle
 }
 
 export const InformasjonPage = (): React.ReactElement => {
-
-	useEffect(() => {
-		document.title = 'Informasjon om deltakeroversikten'
-	}, [])
-
+	useTabTitle('Informasjon om deltakeroversikten');
 
 	return (
 		<main className={styles.page}>

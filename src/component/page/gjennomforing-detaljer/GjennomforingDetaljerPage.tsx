@@ -1,6 +1,6 @@
 import { Alert, BodyShort, Heading } from '@navikt/ds-react'
 import { AxiosResponse } from 'axios'
-import React, { useEffect } from 'react'
+import React from 'react'
 import { useParams } from 'react-router-dom'
 
 import { fetchDeltakerePaTiltakGjennomforing, fetchTiltakGjennomforing } from '../../../api/tiltak-api'
@@ -14,8 +14,11 @@ import { Tilbakelenke } from '../../felles/tilbakelenke/Tilbakelenke'
 import { DeltakerOversiktTabell } from './deltaker-oversikt/DeltakerOversiktTabell'
 import { FilterMeny } from './FilterMeny'
 import styles from './GjennomforingDetaljerPage.module.scss'
+import { useTabTitle } from '../../../hooks/use-tab-title'
 
 export const GjennomforingDetaljerPage = (): React.ReactElement => {
+	useTabTitle('Deltakeroversikt')
+
 	const params  = useParams<{ gjennomforingId: string }>()
 	const gjennomforingId = params.gjennomforingId || ''
 
@@ -26,10 +29,6 @@ export const GjennomforingDetaljerPage = (): React.ReactElement => {
 	const fetchDeltakerePaGjennomforingPromise = usePromise<AxiosResponse<TiltakDeltaker[]>>(
 		() => fetchDeltakerePaTiltakGjennomforing(gjennomforingId), [ gjennomforingId ]
 	)
-
-	useEffect(() => {
-		document.title = 'Deltakeroversikt'
-	}, [])
 
 	if (isNotStartedOrPending(fetchGjennomforingPromise) || isNotStartedOrPending(fetchDeltakerePaGjennomforingPromise)) {
 		return <Spinner/>

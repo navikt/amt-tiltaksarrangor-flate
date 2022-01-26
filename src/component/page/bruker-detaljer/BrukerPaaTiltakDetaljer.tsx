@@ -1,5 +1,5 @@
 import { Alert, BodyShort, Heading } from '@navikt/ds-react'
-import React, { useEffect } from 'react'
+import React from 'react'
 
 import { TiltakDeltakerDetaljer, TiltakDeltakerStatus } from '../../../domeneobjekter/deltaker'
 import globalStyles from '../../../globals.module.scss'
@@ -11,6 +11,7 @@ import { Tilbakelenke } from '../../felles/tilbakelenke/Tilbakelenke'
 import styles from './BrukerPaaTiltakDetaljer.module.scss'
 import { KopierKnapp } from './kopier-knapp/KopierKnapp'
 import { Label } from './label/Label'
+import { useTabTitle } from '../../../hooks/use-tab-title'
 
 function mapStatusTilAlertTekst(status: TiltakDeltakerStatus): string | null {
 	switch (status) {
@@ -24,16 +25,14 @@ function mapStatusTilAlertTekst(status: TiltakDeltakerStatus): string | null {
 }
 
 export const BrukerPaaTiltakDetaljer = (props: { bruker: TiltakDeltakerDetaljer }): React.ReactElement => {
+	useTabTitle('Deltakerdetaljer');
+
 	const {
 		navKontor, navVeileder, fornavn, etternavn, fodselsnummer, startDato,
 		sluttDato, gjennomforing, registrertDato, telefonnummer, epost, status
 	} = props.bruker
 
 	const alertTekst = mapStatusTilAlertTekst(status)
-
-	useEffect(() => {
-		document.title = 'Deltakerdetaljer'
-	}, [])
 
 	return (
 		<>

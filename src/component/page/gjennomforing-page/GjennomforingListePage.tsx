@@ -1,7 +1,7 @@
 import { Information } from '@navikt/ds-icons'
 import { Alert, Link } from '@navikt/ds-react'
 import { AxiosResponse } from 'axios'
-import React, { useEffect } from 'react'
+import React from 'react'
 
 import { fetchTiltakGjennomforinger } from '../../../api/tiltak-api'
 import { Gjennomforing, TiltakGjennomforingStatus } from '../../../domeneobjekter/tiltak'
@@ -11,17 +11,16 @@ import { isNotStartedOrPending, isRejected, usePromise } from '../../../utils/us
 import { Spinner } from '../../felles/spinner/Spinner'
 import { GjennomforingListe } from './gjennomforing-liste/GjennomforingListe'
 import styles from './GjennomforingListePage.module.scss'
+import { useTabTitle } from '../../../hooks/use-tab-title'
 
 export const GjennomforingListePage = (): React.ReactElement => {
+	useTabTitle('Tiltaksoversikt')
+
 	const { valgtVirksomhet } = useValgtVirksomhetStore()
 
 	const fetchGjennomforingerPromise = usePromise<AxiosResponse<Gjennomforing[]>>(
 		() => fetchTiltakGjennomforinger(valgtVirksomhet.id), [ valgtVirksomhet ]
 	)
-
-	useEffect(() => {
-		document.title = 'Tiltaksoversikt'
-	}, [])
 
 	if (isNotStartedOrPending(fetchGjennomforingerPromise)) {
 		return <Spinner/>
