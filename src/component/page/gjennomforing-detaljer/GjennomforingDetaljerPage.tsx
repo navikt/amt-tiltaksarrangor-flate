@@ -4,7 +4,7 @@ import React from 'react'
 import { useParams } from 'react-router-dom'
 
 import { fetchDeltakerePaTiltakGjennomforing, fetchTiltakGjennomforing } from '../../../api/tiltak-api'
-import { TiltakDeltaker } from '../../../domeneobjekter/deltaker'
+import { TiltakDeltaker, TiltakDeltakerStatus } from '../../../domeneobjekter/deltaker'
 import { Gjennomforing } from '../../../domeneobjekter/tiltak'
 import globalStyles from '../../../globals.module.scss'
 import { useTabTitle } from '../../../hooks/use-tab-title'
@@ -41,6 +41,18 @@ export const GjennomforingDetaljerPage = (): React.ReactElement => {
 	const gjennomforing = fetchGjennomforingPromise.result.data
 	const deltakere = fetchDeltakerePaGjennomforingPromise.result.data
 
+	const statusMap = new Map<TiltakDeltakerStatus, number>()
+	deltakere.forEach((deltaker: TiltakDeltaker) => {
+		const status = deltaker.status
+		const entry = statusMap.get(status)
+
+		if (!!entry) {
+			statusMap.set(status, entry + 1)
+		} else {
+			statusMap.set(status, 1)
+		}
+	})
+
 	return (
 		<main className={styles.tiltaksoversiktPage} data-testid="gjennomforing-detaljer-page">
 			<section>
@@ -52,7 +64,7 @@ export const GjennomforingDetaljerPage = (): React.ReactElement => {
 					<BodyShort className={globalStyles.blokkXxs}>Sluttdato: {dateStrWithMonthName(gjennomforing.sluttDato)}</BodyShort>
 				</div>
 
-				<FilterMeny />
+				<FilterMeny statusMap={statusMap}/>
 			</section>
 
 			<DeltakerOversiktTabell deltakere={deltakere}/>

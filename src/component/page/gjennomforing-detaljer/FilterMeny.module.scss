@@ -1,0 +1,19 @@
+.checkbox {
+  display: flex;
+  width: 100%;
+
+  & label {
+    display: flex;
+    width: 100%;
+  }
+
+  & label div {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+  }
+}
+
+.occurences {
+  font-weight: bolder;
+}
