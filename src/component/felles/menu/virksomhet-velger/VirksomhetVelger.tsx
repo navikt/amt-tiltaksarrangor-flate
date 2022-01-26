@@ -7,9 +7,9 @@ import { useNavigate } from 'react-router-dom'
 import Select, { MultiValue, OptionProps, SingleValue } from 'react-select'
 
 import globalStyles from '../../../../globals.module.scss'
+import { GJENNOMFORING_LISTE_PAGE_ROUTE } from '../../../../navigation'
 import { useDataStore } from '../../../../store/data-store'
 import { useValgtVirksomhetStore } from '../../../../store/valgt-virksomhet-store'
-import { internalUrl } from '../../../../utils/url-utils'
 import styles from './VirksomhetVelger.module.scss'
 
 interface Valg {
@@ -36,11 +36,9 @@ export const VirksomhetVelger = (props: VirksomhetVelgerProps): React.ReactEleme
 		if (nyValgtVirksomhet) {
 			setValgtVirksomhet(nyValgtVirksomhet)
 
-			const rootUrl = internalUrl('/')
-
 			// Når vi bytter virksomhet så redirect til gjennomforing-oversikt hvis vi ikke allerede er der
-			if (window.location.pathname !== rootUrl) {
-				navigate(rootUrl)
+			if (window.location.pathname !== GJENNOMFORING_LISTE_PAGE_ROUTE) {
+				navigate(GJENNOMFORING_LISTE_PAGE_ROUTE)
 			}
 		}
 	}

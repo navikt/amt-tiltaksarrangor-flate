@@ -12,9 +12,14 @@ import { InformasjonPage } from './component/page/informasjon-page/InformasjonPa
 import { LandingPage, LandingPageView } from './component/page/landing-page/LandingPage'
 import { PageViewMetricCollector } from './component/PageViewMetricCollector'
 import { InnloggetAnsatt, Virksomhet } from './domeneobjekter/ansatt'
+import {
+	BRUKER_DETALJER_PAGE_ROUTE,
+	GJENNOMFORING_DETALJER_PAGE_ROUTE,
+	GJENNOMFORING_LISTE_PAGE_ROUTE,
+	INFORMASJON_PAGE_ROUTE
+} from './navigation'
 import StoreProvider from './store/store-provider'
 import { hentSisteLagretEllerForsteTilgjengeligVirksomhet } from './store/valgt-virksomhet-store'
-import { internalUrl } from './utils/url-utils'
 import { isNotStartedOrPending, isRejected, usePromise } from './utils/use-promise'
 
 export const App = (): React.ReactElement => {
@@ -47,10 +52,10 @@ export const App = (): React.ReactElement => {
 			<BrowserRouter>
 				<Banner/>
 				<Routes>
-					<Route path={internalUrl('/user/:brukerId')} element={<BrukerDetaljerPage />} />
-					<Route path={internalUrl('/gjennomforing/:gjennomforingId')} element={<GjennomforingDetaljerPage />} />
-					<Route path={internalUrl('/informasjon')} element={<InformasjonPage />} />
-					<Route path={internalUrl('/')} element={<GjennomforingListePage/>}/>
+					<Route path={BRUKER_DETALJER_PAGE_ROUTE} element={<BrukerDetaljerPage />} />
+					<Route path={GJENNOMFORING_DETALJER_PAGE_ROUTE} element={<GjennomforingDetaljerPage />} />
+					<Route path={INFORMASJON_PAGE_ROUTE} element={<InformasjonPage />} />
+					<Route path={GJENNOMFORING_LISTE_PAGE_ROUTE} element={<GjennomforingListePage/>}/>
 				</Routes>
 				<PageViewMetricCollector />
 			</BrowserRouter>
