@@ -1,7 +1,7 @@
 import { Information } from '@navikt/ds-icons'
 import { Alert, Link } from '@navikt/ds-react'
 import { AxiosResponse } from 'axios'
-import React from 'react'
+import React, { useEffect } from 'react'
 
 import { fetchTiltakGjennomforinger } from '../../../api/tiltak-api'
 import { Gjennomforing, TiltakGjennomforingStatus } from '../../../domeneobjekter/tiltak'
@@ -18,6 +18,10 @@ export const GjennomforingListePage = (): React.ReactElement => {
 	const fetchGjennomforingerPromise = usePromise<AxiosResponse<Gjennomforing[]>>(
 		() => fetchTiltakGjennomforinger(valgtVirksomhet.id), [ valgtVirksomhet ]
 	)
+
+	useEffect(() => {
+		document.title = 'Tiltaksoversikt'
+	}, [])
 
 	if (isNotStartedOrPending(fetchGjennomforingerPromise)) {
 		return <Spinner/>

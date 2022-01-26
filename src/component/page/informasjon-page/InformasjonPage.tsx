@@ -1,5 +1,5 @@
 import { BodyLong, Heading } from '@navikt/ds-react'
-import React from 'react'
+import React, { useEffect } from 'react'
 
 import { Card } from '../../felles/card/Card'
 import { Tilbakelenke } from '../../felles/tilbakelenke/Tilbakelenke'
@@ -28,6 +28,12 @@ export const InfoElement = (props: InfoElementProps): React.ReactElement<InfoEle
 }
 
 export const InformasjonPage = (): React.ReactElement => {
+
+	useEffect(() => {
+		document.title = 'Informasjon om deltakeroversikten'
+	}, [])
+
+
 	return (
 		<main className={styles.page}>
 			<div className={styles.content}>

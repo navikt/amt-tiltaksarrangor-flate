@@ -1,6 +1,6 @@
 import { Alert, BodyShort, Heading } from '@navikt/ds-react'
 import { AxiosResponse } from 'axios'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 
 import { fetchDeltakerePaTiltakGjennomforing, fetchTiltakGjennomforing } from '../../../api/tiltak-api'
@@ -26,6 +26,10 @@ export const GjennomforingDetaljerPage = (): React.ReactElement => {
 	const fetchDeltakerePaGjennomforingPromise = usePromise<AxiosResponse<TiltakDeltaker[]>>(
 		() => fetchDeltakerePaTiltakGjennomforing(gjennomforingId), [ gjennomforingId ]
 	)
+
+	useEffect(() => {
+		document.title = 'Deltakeroversikt'
+	}, [])
 
 	if (isNotStartedOrPending(fetchGjennomforingPromise) || isNotStartedOrPending(fetchDeltakerePaGjennomforingPromise)) {
 		return <Spinner/>

@@ -1,5 +1,5 @@
 import { Alert, BodyShort, Heading } from '@navikt/ds-react'
-import React from 'react'
+import React, { useEffect } from 'react'
 
 import { TiltakDeltakerDetaljer, TiltakDeltakerStatus } from '../../../domeneobjekter/deltaker'
 import globalStyles from '../../../globals.module.scss'
@@ -30,6 +30,10 @@ export const BrukerPaaTiltakDetaljer = (props: { bruker: TiltakDeltakerDetaljer 
 	} = props.bruker
 
 	const alertTekst = mapStatusTilAlertTekst(status)
+
+	useEffect(() => {
+		document.title = 'Deltakerdetaljer'
+	}, [])
 
 	return (
 		<>
