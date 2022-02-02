@@ -24,4 +24,3 @@ Sørg for å hente en ekte session cookie og bytt den ut med `<SESSION_COOKIE>`.
 Kjør opp dev-proxyen med `docker compose up -d` og start deretter applikasjonen med `npm start`.
 
 For å skru av proxyen sett `REACT_APP_MOCK_DEV_PROXY_ENABLED=false` i **.env.local**.
-
