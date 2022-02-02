@@ -6,15 +6,15 @@ metadata:
   labels:
     team: amt
 spec:
-  image: ghcr.io/navikt/poao-frontend/poao-frontend:2022.01.03_14.26-195302823f9a
+  image: ghcr.io/navikt/poao-frontend/poao-frontend:2022.02.02_15.00-1cb75dc2fe84
   port: 8080
   ingresses:
     - https://amt-tiltaksarrangor-flate.dev.intern.nav.no
   liveness:
-    path: /internal/isAlive
+    path: /internal/alive
     initialDelay: 10
   readiness:
-    path: /internal/isReady
+    path: /internal/ready
     initialDelay: 10
   replicas:
     min: 1
@@ -30,7 +30,7 @@ spec:
   idporten:
     enabled: true
     postLogoutRedirectURIs:
-      - https://amt-tiltaksarrangor-flate.dev.intern.nav.no
+      - https://amt-tiltaksarrangor-flate.dev.intern.nav.no/tiltaksarrangor/deltakeroversikt
     sidecar:
       enabled: true
   tokenx:
@@ -47,6 +47,7 @@ spec:
     - name: JSON_CONFIG
       value: >
         {
+          "contextPath": "/tiltaksarrangor/deltakeroversikt",
           "gcs": {
             "bucketName": "amt-tiltaksarrangor-flate-dev"
           },

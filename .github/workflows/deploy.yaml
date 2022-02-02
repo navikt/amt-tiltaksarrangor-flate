@@ -26,6 +26,8 @@ jobs:
         run: npm run test
       - name: Build application
         run: npm run build
+        env:
+          PUBLIC_URL: /tiltaksarrangor/deltakeroversikt
       - name: Upload frontend asset files
         uses: actions/upload-artifact@v2
         with:
