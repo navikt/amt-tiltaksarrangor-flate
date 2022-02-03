@@ -32,7 +32,7 @@ export const BrukerPaaTiltakDetaljer = (props: { bruker: TiltakDeltakerDetaljer 
 		sluttDato, gjennomforing, registrertDato, telefonnummer, epost, status
 	} = props.bruker
 
-	const alertTekst = mapStatusTilAlertTekst(status)
+	const alertTekst = mapStatusTilAlertTekst(status.type)
 
 	return (
 		<>

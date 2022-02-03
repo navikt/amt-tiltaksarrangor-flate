@@ -28,7 +28,7 @@ export const Rad = (props: RadProps): React.ReactElement<RadProps> => {
 			<Table.DataCell>{formatDate(startDato)}</Table.DataCell>
 			<Table.DataCell>{formatDate(sluttDato)}</Table.DataCell>
 			<Table.DataCell>{formatDate(registrertDato)}</Table.DataCell>
-			<Table.DataCell>{mapTiltakDeltagerStatusTilTekst(status)}</Table.DataCell>
+			<Table.DataCell>{mapTiltakDeltagerStatusTilTekst(status.type)}</Table.DataCell>
 		</Table.Row>
 	)
 }

@@ -51,7 +51,10 @@ const lagMockTiltakDeltagerForGjennomforing = (gjennomforing: MockGjennomforing)
 		telefonnummer: faker.phone.phoneNumber(),
 		startDato: faker.date.past().toISOString(),
 		sluttDato: faker.date.future().toISOString(),
-		status: status,
+		status: {
+			type: status,
+			endretDato: faker.date.past().toISOString()
+		},
 		navKontor: faker.random.arrayElement(navEnheter),
 		navVeileder: {
 			epost: lagMailFraNavn(veilederNavn, 'nav.no'),
