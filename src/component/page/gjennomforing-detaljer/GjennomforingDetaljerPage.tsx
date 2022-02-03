@@ -8,6 +8,7 @@ import { TiltakDeltaker } from '../../../domeneobjekter/deltaker'
 import { Gjennomforing } from '../../../domeneobjekter/tiltak'
 import globalStyles from '../../../globals.module.scss'
 import { useTabTitle } from '../../../hooks/use-tab-title'
+import { GJENNOMFORING_LISTE_PAGE_ROUTE } from '../../../navigation'
 import { dateStrWithMonthName } from '../../../utils/date-utils'
 import { getAntallDeltakerePerStatus, sluttaForOver2UkerSiden } from '../../../utils/deltaker-status-utils'
 import { isNotStartedOrPending, isRejected, usePromise } from '../../../utils/use-promise'
@@ -47,7 +48,7 @@ export const GjennomforingDetaljerPage = (): React.ReactElement => {
 	return (
 		<main className={styles.tiltaksoversiktPage} data-testid="gjennomforing-detaljer-page">
 			<section>
-				<Tilbakelenke to="/" className={styles.tilbakeknapp} />
+				<Tilbakelenke to={GJENNOMFORING_LISTE_PAGE_ROUTE} className={styles.tilbakeknapp} />
 
 				<div className={globalStyles.blokkM}>
 					<Heading size="medium" level="2" className={globalStyles.blokkXxs}>{gjennomforing.navn}</Heading>

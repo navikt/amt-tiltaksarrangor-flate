@@ -47,6 +47,7 @@ spec:
       value: >
         {
           "contextPath": "/tiltaksarrangor/deltakeroversikt",
+          "fallbackStrategy": "SERVE_INDEX_HTML",
           "gcs": {
             "bucketName": "amt-tiltaksarrangor-flate-prod"
           },

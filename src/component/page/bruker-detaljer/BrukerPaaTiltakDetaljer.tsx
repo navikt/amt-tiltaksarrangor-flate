@@ -4,6 +4,7 @@ import React from 'react'
 import { TiltakDeltakerDetaljer, TiltakDeltakerStatus } from '../../../domeneobjekter/deltaker'
 import globalStyles from '../../../globals.module.scss'
 import { useTabTitle } from '../../../hooks/use-tab-title'
+import { gjennomforingDetaljerPageUrl } from '../../../navigation'
 import { lagBrukerNavn } from '../../../utils/bruker-utils'
 import { formatDate } from '../../../utils/date-utils'
 import { Card } from '../../felles/card/Card'
@@ -38,7 +39,7 @@ export const BrukerPaaTiltakDetaljer = (props: { bruker: TiltakDeltakerDetaljer 
 		<>
 			<div className={styles.header}>
 				<div className={styles.headerContent}>
-					<Tilbakelenke to={`/gjennomforing/${gjennomforing.id}`} className={styles.tilbakeknapp} />
+					<Tilbakelenke to={gjennomforingDetaljerPageUrl(gjennomforing.id)} className={styles.tilbakeknapp} />
 					<Heading size="medium" level="2" className={styles.headerTitle}>{lagBrukerNavn(fornavn, etternavn)}</Heading>
 					{ fodselsnummer && <KopierKnapp text={fodselsnummer}/> }
 				</div>
