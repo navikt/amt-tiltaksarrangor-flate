@@ -8,8 +8,13 @@ export interface TiltakDeltagerDTO {
 	fodselsnummer: string,
 	startDato: string | null,
 	sluttDato: string | null,
-	status: string,
+	status: DeltakerStatus,
 	registrertDato: string
+}
+
+export interface DeltakerStatus {
+	type: string
+	endretDato: string
 }
 
 export type TiltakDeltagerDetaljerDTO = TiltakDeltagerDTO & {

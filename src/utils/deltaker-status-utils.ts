@@ -1,13 +1,21 @@
-import { TiltakDeltaker, TiltakDeltakerStatus } from '../domeneobjekter/deltaker'
+import dayjs from 'dayjs'
+
+import { DeltakerStatus, TiltakDeltaker, TiltakDeltakerStatus } from '../domeneobjekter/deltaker'
 
 export const getAntallDeltakerePerStatus = (deltakere: TiltakDeltaker[]): Map<TiltakDeltakerStatus, number> => {
 	const statusMap = new Map<TiltakDeltakerStatus, number>()
 	deltakere.forEach((deltaker: TiltakDeltaker) => {
-		const status = deltaker.status
+		const status = deltaker.status.type
 		const entry = statusMap.get(status)
 
 		statusMap.set(status, entry ? entry + 1 : 1)
 	})
 
 	return statusMap
+}
+
+export const sluttaForOver2UkerSiden = (status : DeltakerStatus) => {
+	const skalSkjulesDato = dayjs(status.endretDato).add(2, 'w')
+	return (status.type === TiltakDeltakerStatus.IKKE_AKTUELL || status.type === TiltakDeltakerStatus.HAR_SLUTTET )
+		&& dayjs().isAfter(skalSkjulesDato)
 }

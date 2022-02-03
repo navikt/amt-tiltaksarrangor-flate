@@ -6,5 +6,5 @@ const matcherStatus = (statusFilter: TiltakDeltakerStatus[], brukerStatus: Tilta
 }
 
 export const filtrerBrukere = (brukere: TiltakDeltaker[], statusFilter: TiltakDeltakerStatus[]): TiltakDeltaker[] => {
-	return brukere.filter(bruker => matcherStatus(statusFilter, bruker.status))
+	return brukere.filter(bruker => matcherStatus(statusFilter, bruker.status.type))
 }
