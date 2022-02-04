@@ -3,9 +3,9 @@ import cls from 'classnames'
 import React from 'react'
 
 import globalStyles from '../../../globals.module.scss'
+import { appUrl } from '../../../utils/url-utils'
 import { Show } from '../../felles/Show'
 import styles from './LandingPage.module.scss'
-import { appUrl } from '../../../utils/url-utils';
 
 export enum LandingPageView {
 	LOGIN = 'LOGIN',

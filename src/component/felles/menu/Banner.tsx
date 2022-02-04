@@ -4,10 +4,10 @@ import React from 'react'
 
 import globalStyles from '../../../globals.module.scss'
 import { useDataStore } from '../../../store/data-store'
+import { appUrl } from '../../../utils/url-utils'
 import styles from './Banner.module.scss'
 import navLogo from './nav-logo.svg'
 import { VirksomhetVelger } from './virksomhet-velger/VirksomhetVelger'
-import { appUrl } from '../../../utils/url-utils';
 
 
 export const Banner = (): React.ReactElement => {
@@ -28,7 +28,7 @@ export const Banner = (): React.ReactElement => {
 				<VirksomhetVelger className={globalStyles.blokkXxs} />
 
 				<a
-					href={appUrl("/oauth2/logout")}
+					href={appUrl('/oauth2/logout')}
 					className={cls('navds-button', 'navds-button--secondary', 'navds-button--small')}
 				>
 					Logg ut
