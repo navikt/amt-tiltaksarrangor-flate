@@ -2,6 +2,7 @@ import { BodyLong, Heading } from '@navikt/ds-react'
 import React from 'react'
 
 import { useTabTitle } from '../../../hooks/use-tab-title'
+import { GJENNOMFORING_LISTE_PAGE_ROUTE } from '../../../navigation'
 import { Card } from '../../felles/card/Card'
 import { Tilbakelenke } from '../../felles/tilbakelenke/Tilbakelenke'
 import clipboardImg from './clipboard.svg'
@@ -34,7 +35,7 @@ export const InformasjonPage = (): React.ReactElement => {
 	return (
 		<main className={styles.page}>
 			<div className={styles.content}>
-				<Tilbakelenke to="/" />
+				<Tilbakelenke to={GJENNOMFORING_LISTE_PAGE_ROUTE} />
 
 				<Card className={styles.contentCard}>
 					<Heading className={styles.title} spacing size="large" level="2">Info om deltakeroversikten</Heading>
