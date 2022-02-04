@@ -53,7 +53,7 @@ const lagMockTiltakDeltagerForGjennomforing = (gjennomforing: MockGjennomforing)
 		sluttDato: faker.date.future().toISOString(),
 		status: {
 			type: status,
-			endretDato: faker.date.past().toISOString()
+			endretDato: faker.date.recent().toISOString()
 		},
 		navKontor: faker.random.arrayElement(navEnheter),
 		navVeileder: {

@@ -1,12 +1,14 @@
 import { Alert, BodyShort, Heading } from '@navikt/ds-react'
+import dayjs from 'dayjs'
 import React from 'react'
 
-import { TiltakDeltakerDetaljer, TiltakDeltakerStatus } from '../../../domeneobjekter/deltaker'
+import { DeltakerStatus, TiltakDeltakerDetaljer, TiltakDeltakerStatus } from '../../../domeneobjekter/deltaker'
 import globalStyles from '../../../globals.module.scss'
 import { useTabTitle } from '../../../hooks/use-tab-title'
 import { gjennomforingDetaljerPageUrl } from '../../../navigation'
 import { lagBrukerNavn } from '../../../utils/bruker-utils'
 import { formatDate } from '../../../utils/date-utils'
+import { deltakerSkalSkjulesFra } from '../../../utils/deltaker-status-utils'
 import { Card } from '../../felles/card/Card'
 import { Show } from '../../felles/Show'
 import { Tilbakelenke } from '../../felles/tilbakelenke/Tilbakelenke'
@@ -14,12 +16,13 @@ import styles from './BrukerPaaTiltakDetaljer.module.scss'
 import { KopierKnapp } from './kopier-knapp/KopierKnapp'
 import { Label } from './label/Label'
 
-function mapStatusTilAlertTekst(status: TiltakDeltakerStatus): string | null {
-	switch (status) {
+function mapStatusTilAlertTekst(status: DeltakerStatus): string | null {
+	const skjulesFraDato = dayjs(deltakerSkalSkjulesFra(status)).format('DD.MM.YYYY')
+	switch (status.type) {
 		case TiltakDeltakerStatus.IKKE_AKTUELL:
 			return 'Tiltaket er ikke aktuelt for denne personen'
 		case TiltakDeltakerStatus.HAR_SLUTTET:
-			return 'Personen har sluttet i dette tiltaket'
+			return `Personen har sluttet i dette tiltaket.\nDeltakeren fjernes fra listen ${skjulesFraDato}`
 		default:
 			return null
 	}
@@ -33,8 +36,7 @@ export const BrukerPaaTiltakDetaljer = (props: { bruker: TiltakDeltakerDetaljer 
 		sluttDato, gjennomforing, registrertDato, telefonnummer, epost, status
 	} = props.bruker
 
-	const alertTekst = mapStatusTilAlertTekst(status.type)
-
+	const alertTekst = mapStatusTilAlertTekst(status)
 	return (
 		<>
 			<div className={styles.header}>
