@@ -9,6 +9,7 @@ import { Gjennomforing, TiltakGjennomforingStatus } from '../../../domeneobjekte
 import { useTabTitle } from '../../../hooks/use-tab-title'
 import { INFORMASJON_PAGE_ROUTE } from '../../../navigation'
 import { useValgtVirksomhetStore } from '../../../store/valgt-virksomhet-store'
+import { sortAlphabeticAsc } from '../../../utils/sortering-utils'
 import { isNotStartedOrPending, isRejected, usePromise } from '../../../utils/use-promise'
 import { Spinner } from '../../felles/spinner/Spinner'
 import { GjennomforingListe } from './gjennomforing-liste/GjennomforingListe'
@@ -32,12 +33,15 @@ export const GjennomforingListePage = (): React.ReactElement => {
 	}
 
 	const alleGjennomforinger = fetchGjennomforingerPromise.result.data
-	const aktiveGjennomforinger = alleGjennomforinger.filter(g => g.status === TiltakGjennomforingStatus.GJENNOMFORES)
+
+	const gjennomforinger = alleGjennomforinger
+		.filter(g => g.status === TiltakGjennomforingStatus.GJENNOMFORES)
+		.sort((g1, g2) => sortAlphabeticAsc(g1.navn, g2.navn))
 
 	return (
 		<main className={styles.page} data-testid="gjennomforing-oversikt-page">
 			<section className={styles.seksjonGjennomforinger}>
-				<GjennomforingListe gjennomforinger={aktiveGjennomforinger}/>
+				<GjennomforingListe gjennomforinger={gjennomforinger}/>
 
 				<div className={styles.informasjonLenkeWrapper}>
 					<Link className="navds-link" to={INFORMASJON_PAGE_ROUTE}>
