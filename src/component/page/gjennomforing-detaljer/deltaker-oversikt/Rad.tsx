@@ -6,8 +6,8 @@ import { TiltakDeltaker } from '../../../../domeneobjekter/deltaker'
 import { brukerDetaljerPageUrl } from '../../../../navigation'
 import { lagKommaSeparertBrukerNavn } from '../../../../utils/bruker-utils'
 import { formatDate } from '../../../../utils/date-utils'
-import { mapTiltakDeltagerStatusTilTekst } from '../../../../utils/text-mappers'
 import styles from './Rad.module.scss'
+import { StatusMerkelapp } from './StatusMerkelapp'
 
 interface RadProps {
 	idx: number;
@@ -28,7 +28,9 @@ export const Rad = (props: RadProps): React.ReactElement<RadProps> => {
 			<Table.DataCell>{formatDate(startDato)}</Table.DataCell>
 			<Table.DataCell>{formatDate(sluttDato)}</Table.DataCell>
 			<Table.DataCell>{formatDate(registrertDato)}</Table.DataCell>
-			<Table.DataCell>{mapTiltakDeltagerStatusTilTekst(status)}</Table.DataCell>
+			<Table.DataCell>
+				<StatusMerkelapp status={status}/>
+			</Table.DataCell>
 		</Table.Row>
 	)
 }

@@ -2,13 +2,14 @@ import { ResponseComposition, rest, RestContext, RestRequest } from 'msw'
 import { RequestHandler } from 'msw/lib/types/handlers/RequestHandler'
 import { MockedResponse } from 'msw/lib/types/response'
 
+import { appUrl } from '../../utils/url-utils'
 import { getDevProxyCookie, getDevProxyUrl } from '../utils/dev-proxy-env'
 
 // Set mock cookie for all outgoing requests
 document.cookie = getDevProxyCookie()
 
 export const devProxyHandlers: RequestHandler[] = [
-	rest.get('/amt-tiltak/*', async(req, res, ctx) => {
+	rest.get(appUrl('/amt-tiltak/*'), async(req, res, ctx) => {
 		return proxyReq(getDevProxyUrl(), req, res, ctx)
 	})
 ]

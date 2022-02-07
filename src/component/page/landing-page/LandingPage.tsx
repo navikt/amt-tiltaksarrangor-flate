@@ -3,6 +3,7 @@ import cls from 'classnames'
 import React from 'react'
 
 import globalStyles from '../../../globals.module.scss'
+import { appUrl } from '../../../utils/url-utils'
 import { Show } from '../../felles/Show'
 import styles from './LandingPage.module.scss'
 
@@ -16,8 +17,7 @@ interface LandingPageProps {
 }
 
 export const LandingPage = (props: LandingPageProps): React.ReactElement => {
-	const currentLocation = window.location.href
-	const loginUrl = `/oauth2/login?redirect=${currentLocation}`
+	const loginUrl = appUrl(`/oauth2/login?redirect=${window.location.href}`)
 
 	return (
 		<main className={styles.landingPage}>

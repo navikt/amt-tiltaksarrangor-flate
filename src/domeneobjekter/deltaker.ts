@@ -7,6 +7,11 @@ export enum TiltakDeltakerStatus {
     IKKE_AKTUELL = 'IKKE_AKTUELL'
 }
 
+export interface DeltakerStatus {
+    type: TiltakDeltakerStatus,
+    endretDato: Date
+}
+
 export interface TiltakDeltaker {
     id: string,
     fornavn: string,
@@ -15,7 +20,7 @@ export interface TiltakDeltaker {
     fodselsnummer: string,
     startDato: Date | undefined,
     sluttDato: Date | undefined,
-    status: TiltakDeltakerStatus,
+    status: DeltakerStatus,
     registrertDato: Date
 }
 
