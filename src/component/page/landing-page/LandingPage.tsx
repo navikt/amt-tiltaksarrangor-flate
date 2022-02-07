@@ -21,7 +21,7 @@ export const LandingPage = (props: LandingPageProps): React.ReactElement => {
 
 	return (
 		<main className={styles.landingPage}>
-			<Heading size="xlarge" className={cls(styles.title, styles['main-title'], globalStyles.blokkM)}>Deltakeroversikt</Heading>
+			<Heading size="xlarge" className={cls(styles.title, styles.mainTitle, globalStyles.blokkM)}>Deltakeroversikt</Heading>
 			<Heading size="small" className={cls(styles.title, globalStyles.blokkM)}>Pilot for tiltaksarrangør</Heading>
 
 			<div className={cls(styles.infoBoks, globalStyles.blokkM)}>
