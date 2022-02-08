@@ -5,6 +5,7 @@ import React from 'react'
 
 import { NavKontor, NavVeileder } from '../../../../domeneobjekter/deltaker'
 import globalStyles from '../../../../globals.module.scss'
+import { formaterTelefonnummer } from '../../../../utils/bruker-utils'
 import { IconLabel } from '../icon-label/IconLabel'
 import styles from './InfoPanel.module.scss'
 
@@ -34,7 +35,7 @@ export function InfoPanel(props: { navKontor: NavKontor | null, navVeileder: Nav
 					iconWrapperClassName={styles.iconWrapper}
 				/>
 				<IconLabel
-					labelValue={navVeileder?.telefon}
+					labelValue={formaterTelefonnummer(navVeileder?.telefon)}
 					labelAlt="Veileder telefonnummer"
 					icon={<Telephone />}
 					iconWrapperClassName={styles.iconWrapper}

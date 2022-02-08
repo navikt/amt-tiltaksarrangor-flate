@@ -8,7 +8,7 @@ import { DeltakerStatus, TiltakDeltakerDetaljer, TiltakDeltakerStatus } from '..
 import globalStyles from '../../../globals.module.scss'
 import { useTabTitle } from '../../../hooks/use-tab-title'
 import { gjennomforingDetaljerPageUrl } from '../../../navigation'
-import { lagBrukerNavn } from '../../../utils/bruker-utils'
+import { formaterTelefonnummer, lagBrukerNavn } from '../../../utils/bruker-utils'
 import { formatDate } from '../../../utils/date-utils'
 import { deltakerSkalSkjulesFra } from '../../../utils/deltaker-status-utils'
 import { useStyle } from '../../../utils/use-style'
@@ -64,7 +64,7 @@ export const BrukerPaaTiltakDetaljer = (props: { bruker: TiltakDeltakerDetaljer 
 						</div>
 
 						<div className={styles.headerInfo}>
-							<IconLabel labelValue={telefonnummer} labelAlt="Telefonnummer" icon={<Telephone/>}/>
+							<IconLabel labelValue={formaterTelefonnummer(telefonnummer)} labelAlt="Telefonnummer" icon={<Telephone/>}/>
 							<IconLabel labelValue={epost} labelAlt="Epost" icon={<Email/>}/>
 						</div>
 					</div>
