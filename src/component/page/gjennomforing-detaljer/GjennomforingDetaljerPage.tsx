@@ -48,7 +48,7 @@ export const GjennomforingDetaljerPage = (): React.ReactElement => {
 	return (
 		<main className={styles.tiltaksoversiktPage} data-testid="gjennomforing-detaljer-page">
 			<section>
-				<Tilbakelenke to={GJENNOMFORING_LISTE_PAGE_ROUTE} className={styles.tilbakeknapp} />
+				<Tilbakelenke to={GJENNOMFORING_LISTE_PAGE_ROUTE} className={styles.tilbakelenke} />
 
 				<div className={globalStyles.blokkM}>
 					<Heading size="medium" level="2" className={globalStyles.blokkXxs}>{gjennomforing.navn}</Heading>
