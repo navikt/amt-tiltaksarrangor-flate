@@ -14,7 +14,7 @@ export function InfoPanel(props: { navKontor: NavKontor | null, navVeileder: Nav
 
 	return (
 		<Panel border className={styles.infoPanel}>
-			<Heading size="medium" level="3" className={globalStyles.blokkM}>NAV-kontor</Heading>
+			<Heading size="medium" level="3" className={globalStyles.blokkXs}>NAV-kontor</Heading>
 
 			<div className={cls(styles.contentBlock, globalStyles.blokkM)}>
 				<IconLabel

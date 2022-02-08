@@ -18,7 +18,7 @@ export const DeltakerDetalj = (props: DeltakerDetaljProps): React.ReactElement =
 		<div className={cls(styles.deltakerDetalj, props.className)}>
 			<div className={styles.iconWrapper}>{props.detaljeIcon}</div>
 			<div>
-				<Heading size="small" level="3" className={globalStyles.blokkXxxs}>{props.detaljeTittel}</Heading>
+				<Heading size="small" level="4" className={globalStyles.blokkXxxs}>{props.detaljeTittel}</Heading>
 				<BodyShort>{props.detaljeVerdi}</BodyShort>
 			</div>
 		</div>
