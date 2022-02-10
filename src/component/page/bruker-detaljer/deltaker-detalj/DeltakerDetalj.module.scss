@@ -1,0 +1,16 @@
+.deltakerDetalj {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: flex-start;
+
+  padding-bottom: 1rem;
+  width: 100%;
+
+  border-bottom: 1px solid #c9c9c9
+}
+
+.iconWrapper {
+  margin-top: 0.25rem;
+  margin-right: 1rem;
+}
