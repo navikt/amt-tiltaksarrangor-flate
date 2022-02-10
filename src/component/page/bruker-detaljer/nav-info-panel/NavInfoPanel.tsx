@@ -7,9 +7,9 @@ import { NavKontor, NavVeileder } from '../../../../domeneobjekter/deltaker'
 import globalStyles from '../../../../globals.module.scss'
 import { formaterTelefonnummer } from '../../../../utils/bruker-utils'
 import { IconLabel } from '../icon-label/IconLabel'
-import styles from './InfoPanel.module.scss'
+import styles from './NavInfoPanel.module.scss'
 
-export function InfoPanel(props: { navKontor: NavKontor | null, navVeileder: NavVeileder | null }): React.ReactElement {
+export function NavInfoPanel(props: { navKontor: NavKontor | null, navVeileder: NavVeileder | null }): React.ReactElement {
 	const { navKontor, navVeileder } = props
 
 	return (

@@ -18,8 +18,8 @@ import { Tilbakelenke } from '../../felles/tilbakelenke/Tilbakelenke'
 import styles from './BrukerPaaTiltakDetaljer.module.scss'
 import { DeltakerDetalj } from './deltaker-detalj/DeltakerDetalj'
 import { IconLabel } from './icon-label/IconLabel'
-import { InfoPanel } from './info-panel/InfoPanel'
 import { KopierKnapp } from './kopier-knapp/KopierKnapp'
+import { NavInfoPanel } from './nav-info-panel/NavInfoPanel'
 
 function mapStatusTilAlertTekst(status: DeltakerStatus): string | null {
 	const skjulesFraDato = dayjs(deltakerSkalSkjulesFra(status)).format('DD.MM.YYYY')
@@ -94,7 +94,7 @@ export const BrukerPaaTiltakDetaljer = (props: { bruker: TiltakDeltakerDetaljer 
 				</section>
 
 				<section>
-					<InfoPanel navKontor={navKontor} navVeileder={navVeileder} />
+					<NavInfoPanel navKontor={navKontor} navVeileder={navVeileder} />
 				</section>
 			</div>
 		</>
