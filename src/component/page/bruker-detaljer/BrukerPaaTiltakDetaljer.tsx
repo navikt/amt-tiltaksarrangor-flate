@@ -60,12 +60,17 @@ export const BrukerPaaTiltakDetaljer = (props: { bruker: TiltakDeltakerDetaljer 
 					<div className={styles.headerInfoWrapper}>
 						<div className={cls(styles.headerTitleWrapper, globalStyles.blokkXs)}>
 							<Heading size="medium" level="2" className={styles.headerTitle}>{lagBrukerNavn(fornavn, etternavn)}</Heading>
-							{ fodselsnummer && <KopierKnapp text={fodselsnummer}/> }
+							{ fodselsnummer && (
+								<KopierKnapp
+									text={fodselsnummer}
+									ariaLabel={`Kopier fødselsnummer ${fodselsnummer.split('').join(' ')}`}
+								/>
+							) }
 						</div>
 
 						<div className={styles.headerInfo}>
-							<IconLabel labelValue={formaterTelefonnummer(telefonnummer)} labelAlt="Telefonnummer" icon={<Telephone/>}/>
-							<IconLabel labelValue={epost} labelAlt="Epost" icon={<Email/>}/>
+							<IconLabel labelValue={formaterTelefonnummer(telefonnummer)} labelAlt="Deltaker telefonnummer" icon={<Telephone/>}/>
+							<IconLabel labelValue={epost} labelAlt="Deltaker e-post" icon={<Email/>}/>
 						</div>
 					</div>
 
@@ -75,7 +80,7 @@ export const BrukerPaaTiltakDetaljer = (props: { bruker: TiltakDeltakerDetaljer 
 			<div className={styles.detaljer}>
 				<section>
 					<div className={globalStyles.blokkM}>
-						<Heading size="medium" level="3" className={globalStyles.blokkXs}>{(gjennomforing.navn)}</Heading>
+						<Heading size="medium" level="3" className={cls(globalStyles.blokkXs, styles.gjennomforingTitle)}>{(gjennomforing.navn)}</Heading>
 						<BodyShort className={globalStyles.blokkXxs}>{gjennomforing.tiltak.tiltaksnavn}</BodyShort>
 						<BodyShort className={globalStyles.blokkS}>Søkt inn: {formatDate(registrertDato)}</BodyShort>
 

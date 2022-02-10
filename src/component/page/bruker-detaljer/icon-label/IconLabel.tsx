@@ -16,7 +16,7 @@ export function IconLabel(props: IconLabelProps): React.ReactElement {
 	return (
 		<div className={styles.iconWrapper}>
 			<div className={cls(styles.iconLabelIconWrapper, props.iconWrapperClassName)}>{props.icon}</div>
-			<BodyShort aria-label={props.labelAlt}>{props.labelValue || EMDASH}</BodyShort>
+			<BodyShort aria-label={props.labelAlt} className={styles.labelValue}>{props.labelValue || EMDASH}</BodyShort>
 		</div>
 	)
 }
