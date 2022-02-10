@@ -45,7 +45,7 @@ export const GjennomforingListePage = (): React.ReactElement => {
 
 				<div className={styles.informasjonLenkeWrapper}>
 					<Link className="navds-link" to={INFORMASJON_PAGE_ROUTE}>
-						<Information/>Info om deltakeroversikten
+						<Information title="Informasjon"/>Info om deltakeroversikten
 					</Link>
 				</div>
 			</section>

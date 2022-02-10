@@ -69,8 +69,8 @@ export const BrukerPaaTiltakDetaljer = (props: { bruker: TiltakDeltakerDetaljer 
 						</div>
 
 						<div className={styles.headerInfo}>
-							<IconLabel labelValue={formaterTelefonnummer(telefonnummer)} labelAlt="Deltaker telefonnummer" icon={<Telephone/>}/>
-							<IconLabel labelValue={epost} labelAlt="Deltaker e-post" icon={<Email/>}/>
+							<IconLabel labelValue={formaterTelefonnummer(telefonnummer)} icon={<Telephone title="Deltaker telefonnummer"/>}/>
+							<IconLabel labelValue={epost} icon={<Email title="Deltaker e-post"/>}/>
 						</div>
 					</div>
 
@@ -93,8 +93,8 @@ export const BrukerPaaTiltakDetaljer = (props: { bruker: TiltakDeltakerDetaljer 
 					</div>
 
 					<div className={styles.deltakerDetaljer}>
-						<DeltakerDetalj detaljeTittel="Oppstartsdato" detaljeVerdi={formatDate(startDato)} detaljeIcon={<Calender/>}/>
-						<DeltakerDetalj detaljeTittel="Sluttdato" detaljeVerdi={formatDate(sluttDato)} detaljeIcon={<Calender/>}/>
+						<DeltakerDetalj detaljeTittel="Oppstartsdato" detaljeVerdi={formatDate(startDato)} detaljeIcon={<Calender title="Kalender"/>}/>
+						<DeltakerDetalj detaljeTittel="Sluttdato" detaljeVerdi={formatDate(sluttDato)} detaljeIcon={<Calender title="Kalender"/>}/>
 					</div>
 				</section>
 

@@ -8,7 +8,6 @@ import styles from './IconLabel.module.scss'
 interface IconLabelProps {
 	labelValue: string | undefined | null,
 	icon: React.ReactElement,
-	labelAlt: string,
 	iconWrapperClassName?: string
 }
 
@@ -16,7 +15,7 @@ export function IconLabel(props: IconLabelProps): React.ReactElement {
 	return (
 		<div className={styles.iconWrapper}>
 			<div className={cls(styles.iconLabelIconWrapper, props.iconWrapperClassName)}>{props.icon}</div>
-			<BodyShort aria-label={props.labelAlt} className={styles.labelValue}>{props.labelValue || EMDASH}</BodyShort>
+			<BodyShort className={styles.labelValue}>{props.labelValue || EMDASH}</BodyShort>
 		</div>
 	)
 }

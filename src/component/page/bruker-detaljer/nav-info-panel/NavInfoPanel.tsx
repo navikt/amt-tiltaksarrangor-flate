@@ -19,8 +19,7 @@ export function NavInfoPanel(props: { navKontor: NavKontor | null, navVeileder: 
 			<div className={cls(styles.contentBlock, globalStyles.blokkM)}>
 				<IconLabel
 					labelValue={navKontor?.navn}
-					labelAlt="Nav-kontor"
-					icon={<Home />}
+					icon={<Home title="Nav-kontor" />}
 					iconWrapperClassName={styles.iconWrapper}
 				/>
 			</div>
@@ -30,20 +29,17 @@ export function NavInfoPanel(props: { navKontor: NavKontor | null, navVeileder: 
 			<div className={styles.contentBlock}>
 				<IconLabel
 					labelValue={navVeileder?.navn}
-					labelAlt="Veileder navn"
-					icon={<People />}
+					icon={<People title="Veileder navn" />}
 					iconWrapperClassName={styles.iconWrapper}
 				/>
 				<IconLabel
 					labelValue={formaterTelefonnummer(navVeileder?.telefon)}
-					labelAlt="Veileder telefonnummer"
-					icon={<Telephone />}
+					icon={<Telephone title="Veileder telefonnummer" />}
 					iconWrapperClassName={styles.iconWrapper}
 				/>
 				<IconLabel
 					labelValue={navVeileder?.epost}
-					labelAlt="Veileder epost"
-					icon={<Email />}
+					icon={<Email title="Veileder epost" />}
 					iconWrapperClassName={styles.iconWrapper}
 				/>
 			</div>
