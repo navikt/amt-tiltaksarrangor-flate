@@ -23,11 +23,12 @@ import { NavInfoPanel } from './nav-info-panel/NavInfoPanel'
 
 function mapStatusTilAlertTekst(status: DeltakerStatus): string | null {
 	const skjulesFraDato = dayjs(deltakerSkalSkjulesFra(status)).format('DD.MM.YYYY')
+	const brukerFjernesTekst = `Deltakeren fjernes fra listen ${skjulesFraDato}`
 	switch (status.type) {
 		case TiltakDeltakerStatus.IKKE_AKTUELL:
-			return 'Tiltaket er ikke aktuelt for denne personen'
+			return `Tiltaket er ikke aktuelt for denne personen.\n${brukerFjernesTekst}`
 		case TiltakDeltakerStatus.HAR_SLUTTET:
-			return `Personen har sluttet i dette tiltaket.\nDeltakeren fjernes fra listen ${skjulesFraDato}`
+			return `Personen har sluttet i dette tiltaket.\n${brukerFjernesTekst}`
 		default:
 			return null
 	}
