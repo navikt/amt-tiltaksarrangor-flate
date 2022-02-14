@@ -60,6 +60,21 @@ export const sorterDeltakere = (deltakere: TiltakDeltaker[], sortering: Deltaker
 
 }
 
+export const sortAlphabeticAsc = (s1: string, s2: string): number => {
+	const s1Lower = s1.toLowerCase()
+	const s2Lower = s2.toLowerCase()
+
+	if (s1Lower < s2Lower) {
+		return -1
+	}
+
+	if (s2Lower < s1Lower) {
+		return 1
+	}
+
+	return 0
+}
+
 function sort<Type>(a: Type, b: Type): number {
 	if(a === b) return 0
 	if(!a || a < b) return -1
