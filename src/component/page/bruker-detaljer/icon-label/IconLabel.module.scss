@@ -1,0 +1,16 @@
+.iconWrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+}
+
+.iconLabelIconWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 0.5rem;
+}
+
+.labelValue {
+  word-break: break-all;
+}

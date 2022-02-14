@@ -1,12 +1,12 @@
 import { Tag } from '@navikt/ds-react'
 import React from 'react'
 
-import { DeltakerStatus, TiltakDeltakerStatus } from '../../../../domeneobjekter/deltaker'
-import { mapTiltakDeltagerStatusTilTekst } from '../../../../utils/text-mappers'
+import { DeltakerStatus, TiltakDeltakerStatus } from '../../../domeneobjekter/deltaker'
+import { mapTiltakDeltagerStatusTilTekst } from '../../../utils/text-mappers'
 import styles from './StatusMerkelapp.module.scss'
 
-const getStyle = (statustype:TiltakDeltakerStatus) => {
-	switch (statustype) {
+const getStyle = (statusType: TiltakDeltakerStatus) => {
+	switch (statusType) {
 		case TiltakDeltakerStatus.IKKE_AKTUELL:
 		case TiltakDeltakerStatus.HAR_SLUTTET: return styles.statusTagOrange
 		case TiltakDeltakerStatus.DELTAR: return styles.statusTagHvit
@@ -21,7 +21,7 @@ interface StatusProps {
 export const StatusMerkelapp = (props: StatusProps) => {
 	const { type } = props.status
 	return(
-		<Tag variant={'info'} size={'small'} className={getStyle(type)}>
+		<Tag variant="info" size="small" className={getStyle(type)} aria-label="Deltaker status">
 			{mapTiltakDeltagerStatusTilTekst(type)}
 		</Tag>
 	)

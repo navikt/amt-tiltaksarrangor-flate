@@ -7,6 +7,7 @@ import styles from './KopierKnapp.module.scss'
 interface KopierKnappProps {
 	text: string;
 	className?: string;
+	ariaLabel?: string;
 }
 
 const COPY_TOOLTIP_DURATION_MS = 1000
@@ -30,7 +31,7 @@ export const KopierKnapp = (props: KopierKnappProps): React.ReactElement<KopierK
 
 	return (
 		<div className={styles.wrapper}>
-			<Button onClick={handleOnClick} className={cls(styles.kopierKnapp, props.className)}>
+			<Button onClick={handleOnClick} aria-label={props.ariaLabel} className={cls(styles.kopierKnapp, props.className)}>
 				{props.text}
 			</Button>
 			<span className={cls(styles.tooltip, { [styles.tooltipVisible]: copySuccess })}>

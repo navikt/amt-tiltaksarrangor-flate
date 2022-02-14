@@ -2,34 +2,86 @@
 
 .header {
 	background-color: white;
-	padding: 2rem 3rem 2rem 3rem;
+	padding: 1.5rem 0;
+
+	border-bottom: 1px solid #c9c9c9
 }
 
 .headerContent {
+	display: grid;
+	grid-template-columns: 1fr;
+	grid-row-gap: 1rem;
+	max-width: $max-bredde;
+	padding: 0 1.5rem;
+	margin: 0 auto;
+
+	@media(min-width: 800px) {
+		grid-template-columns: 100px 1fr;
+		grid-column-gap: 2rem;
+	}
+}
+
+.headerInfoWrapper {
+	display: flex;
+	flex-direction: column;
+}
+
+.headerInfo {
+	display: flex;
+	flex-direction: row;
+
+	> *:not(:last-child) {
+		margin-right: 2rem;
+	}
+}
+
+.headerTitleWrapper {
 	display: flex;
 	flex-direction: row;
 	align-items: center;
+}
 
-	max-width: $max-bredde;
-	margin: 0 auto;
+.gjennomforingTitle {
+	word-break: break-word;
 }
 
 .headerTitle {
 	margin-right: 2rem;
 }
 
-.tilbakeknapp {
+.tilbakelenkeWrapper {
+	display: flex;
+	justify-content: flex-start;
+	align-items: flex-start;
+}
+
+.tilbakelenke {
 	margin-right: 2rem;
+	margin-top: 0.5rem;
 }
 
 .statusAlert {
 	max-width: 400px;
-	margin: 0 auto 2rem auto;
 }
 
 .detaljer {
+	display: grid;
+	padding: 2.5rem 1.5rem;
 	max-width: $max-bredde;
-	margin: 2rem auto 0 auto;
+	margin: 0 auto;
+
+	grid-template-columns: 1fr;
+
+	@media(min-width: 800px) {
+		grid-template-columns: 1fr 300px;
+		grid-column-gap: 4rem;
+	}
+}
+
+.deltakerDetaljer {
+	> *:not(:last-child) {
+		margin-bottom: 1.5rem;
+	}
 }
 
 .tiltakCard {
