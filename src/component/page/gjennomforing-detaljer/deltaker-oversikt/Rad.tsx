@@ -6,8 +6,8 @@ import { TiltakDeltaker } from '../../../../domeneobjekter/deltaker'
 import { brukerDetaljerPageUrl } from '../../../../navigation'
 import { lagKommaSeparertBrukerNavn } from '../../../../utils/bruker-utils'
 import { formatDate } from '../../../../utils/date-utils'
+import { StatusMerkelapp } from '../../../felles/status-merkelapp/StatusMerkelapp'
 import styles from './Rad.module.scss'
-import { StatusMerkelapp } from './StatusMerkelapp'
 
 interface RadProps {
 	idx: number;
