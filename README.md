@@ -9,13 +9,22 @@ All dataen i demo appen er mocket. Demoen vil i mest mulig grad være lik den re
 
 https://navikt.github.io/amt-tiltaksarrangor-flate/
 
-## Kjør lokalt mot preprod med proxy
-Hvis man ønsker å teste med en reel backend i preprod lokalt så kan man ta i bruk dev-proxyen.
+## Kjør lokalt mot lokal backend
+Hvis man ønsker å teste med en backend som kjører lokalt på PCen/MACen
+så sett følgende innhold i **.env.local**:
 
-Opprett filen **.env.local** med følgende innhold:
 ```.env
-REACT_APP_MOCK_DEV_PROXY_ENABLED=true
-REACT_APP_MOCK_DEV_PROXY_COOKIE=io.nais.wonderwall.session=<SESSION_COOKIE>
+REACT_APP_MOCK_REQUEST_HANDLER=local
+REACT_APP_MOCK_REQUEST_AUTH_HEADER=Bearer <TOKEN>
+```
+
+## Kjør lokalt mot preprod med proxy
+Hvis man ønsker å teste med en reel backend i testmiljøet lokalt fra PCen/MACen
+så sett følgende innhold i **.env.local**:
+
+```.env
+REACT_APP_MOCK_REQUEST_HANDLER=dev
+REACT_APP_MOCK_REQUEST_COOKIE=io.nais.wonderwall.session=<SESSION_COOKIE>
 ```
 
 Sørg for å hente en ekte session cookie og bytt den ut med `<SESSION_COOKIE>`.
@@ -23,4 +32,9 @@ Sørg for å hente en ekte session cookie og bytt den ut med `<SESSION_COOKIE>`.
 
 Kjør opp dev-proxyen med `docker compose up -d` og start deretter applikasjonen med `npm start`.
 
-For å skru av proxyen sett `REACT_APP_MOCK_DEV_PROXY_ENABLED=false` i **.env.local**.
+## Kjør med vanlig mocking
+For å kjøre med mocks så sett følgende innhold i **.env.local** eller slett innholdet/filen:
+
+```.env
+REACT_APP_MOCK_REQUEST_HANDLER=mock
+```
