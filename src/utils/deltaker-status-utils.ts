@@ -15,7 +15,7 @@ export const getAntallDeltakerePerStatus = (deltakere: TiltakDeltaker[]): Map<Ti
 }
 
 export const deltakerSkalSkjulesFra = (status: DeltakerStatus) => {
-	return dayjs(status.endretDato).add(1, 'd')
+	return dayjs(status.endretDato).add(4, 'd')
 }
 
 export const sluttaForOver2UkerSiden = (status : DeltakerStatus) => {
