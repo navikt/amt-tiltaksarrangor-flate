@@ -2,6 +2,7 @@ import { Table } from '@navikt/ds-react'
 import React from 'react'
 
 import { useTiltaksoversiktSokStore } from '../../../../store/tiltaksoversikt-sok-store'
+import { loggKlikk } from '../../../../utils/amplitude-utils'
 import { finnNesteSorteringType, mapSortDirectionToText, SorteringType, } from '../../../../utils/sortering-utils'
 import styles from './SorterbarKolonneHeader.module.scss'
 import { DeltakerKolonneNavn } from './types'
@@ -30,7 +31,10 @@ export const SorterbarKolonneHeader = (props: SortableHeaderProps) : JSX.Element
 			<button
 				className={styles.header}
 				aria-label={ariaLabel}
-				onClick={() => setDeltakerSortering({ type: nesteSorteringType, kolonne: kolonne })}
+				onClick={() => {
+					setDeltakerSortering({ type: nesteSorteringType, kolonne: kolonne })
+					loggKlikk('sorter-kolonne', kolonne, nesteSorteringType)
+				}}
 			>
 				{kolonneNavn}
 			</button>
