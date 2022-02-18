@@ -4,6 +4,11 @@ import { APP_NAME, TEAM_NAME } from './constants'
 import env from './environment'
 
 type EventDataValue = string | boolean | number | null | undefined
+export const klikkFnrKnapp = 'klikk-fnr-knapp'
+export const klikkKolonneSortering = 'klikk-kolonne-sortering-deltaker-liste'
+export const klikkFilterMeny = 'klikk-filter-meny'
+export const klikkDeltakerRadOversikt = 'klikk-deltaker-deltaker-liste'
+
 
 export const initAmplitude = (): void => {
 	amplitude.getInstance().init('default', '', {
@@ -42,6 +47,6 @@ export const loggSidevisning = (pathname: string): void => {
 	logAmplitudeEvent('sidevisning', { path: pathname })
 }
 
-export const loggKlikk = (komponent: string, verdi?: string, status?: string) => {
-	logAmplitudeEvent('klikk', { komponent, verdi, status })
+export const loggKlikk = (event: string, verdi?: string, status?: string) => {
+	logAmplitudeEvent(event, { eventType: 'klikk', verdi, status })
 }

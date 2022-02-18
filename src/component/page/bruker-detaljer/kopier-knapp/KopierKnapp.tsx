@@ -2,7 +2,7 @@ import { Button } from '@navikt/ds-react'
 import cls from 'classnames'
 import React, { useEffect, useState } from 'react'
 
-import { loggKlikk } from '../../../../utils/amplitude-utils'
+import { klikkFnrKnapp, loggKlikk } from '../../../../utils/amplitude-utils'
 import styles from './KopierKnapp.module.scss'
 
 interface KopierKnappProps {
@@ -21,7 +21,7 @@ export const KopierKnapp = (props: KopierKnappProps): React.ReactElement<KopierK
 			.then(() => setCopySuccess(true))
 			.catch(()=> setCopySuccess(false))
 
-		loggKlikk('kopier-fnr-knapp')
+		loggKlikk(klikkFnrKnapp)
 	}
 
 	useEffect(() => {

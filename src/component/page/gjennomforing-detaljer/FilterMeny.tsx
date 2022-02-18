@@ -3,7 +3,7 @@ import React from 'react'
 
 import { TiltakDeltakerStatus } from '../../../domeneobjekter/deltaker'
 import { useTiltaksoversiktSokStore } from '../../../store/tiltaksoversikt-sok-store'
-import { loggKlikk } from '../../../utils/amplitude-utils'
+import { klikkFilterMeny, loggKlikk } from '../../../utils/amplitude-utils'
 import { mapTiltakDeltagerStatusTilTekst } from '../../../utils/text-mappers'
 import styles from './FilterMeny.module.scss'
 
@@ -30,11 +30,11 @@ export const FilterMeny = (props: Props): React.ReactElement => {
 						onChange={(e) => {
 							if (e.target.checked) {
 								leggTilTiltakStatus(status)
-								loggKlikk('filter-meny', status, 'checked')
+								loggKlikk(klikkFilterMeny, status, 'checked')
 
 							} else {
 								fjernFraTiltakStatus(status)
-								loggKlikk('filter-meny', status, 'unchecked')
+								loggKlikk(klikkFilterMeny, status, 'unchecked')
 							}
 						}}
 						value={mapTiltakDeltagerStatusTilTekst(status) }
