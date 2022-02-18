@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 
 import { TiltakDeltaker } from '../../../../domeneobjekter/deltaker'
 import { brukerDetaljerPageUrl } from '../../../../navigation'
+import { loggKlikk } from '../../../../utils/amplitude-utils'
 import { lagKommaSeparertBrukerNavn } from '../../../../utils/bruker-utils'
 import { formatDate } from '../../../../utils/date-utils'
 import { StatusMerkelapp } from '../../../felles/status-merkelapp/StatusMerkelapp'
@@ -20,7 +21,7 @@ export const Rad = (props: RadProps): React.ReactElement<RadProps> => {
 	return (
 		<Table.Row key={id}>
 			<Table.DataCell>
-				<Link className={styles.brukersNavn} to={brukerDetaljerPageUrl(id)}>
+				<Link className={styles.brukersNavn} to={brukerDetaljerPageUrl(id)} onClick={()=> loggKlikk('DeltakerRad')} >
 					{lagKommaSeparertBrukerNavn(fornavn, etternavn)}
 				</Link>
 			</Table.DataCell>

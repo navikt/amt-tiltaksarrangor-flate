@@ -38,6 +38,10 @@ const logAmplitudeEvent = (eventName: string, data?: { [key: string]: EventDataV
 	})
 }
 
-export const logSidevisning = (pathname: string): void => {
+export const loggSidevisning = (pathname: string): void => {
 	logAmplitudeEvent('sidevisning', { path: pathname })
+}
+
+export const loggKlikk = (komponent: string, verdi?: string, status?: string) => {
+	logAmplitudeEvent('klikk', { komponent, verdi, status })
 }
