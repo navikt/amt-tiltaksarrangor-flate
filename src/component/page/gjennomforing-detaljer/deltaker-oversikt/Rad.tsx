@@ -21,7 +21,7 @@ export const Rad = (props: RadProps): React.ReactElement<RadProps> => {
 	return (
 		<Table.Row key={id}>
 			<Table.DataCell>
-				<Link className={styles.brukersNavn} to={brukerDetaljerPageUrl(id)} onClick={()=> loggKlikk('DeltakerRad')} >
+				<Link className={styles.brukersNavn} to={brukerDetaljerPageUrl(id)} onClick={()=> loggKlikk('deltaker-rad')} >
 					{lagKommaSeparertBrukerNavn(fornavn, etternavn)}
 				</Link>
 			</Table.DataCell>
