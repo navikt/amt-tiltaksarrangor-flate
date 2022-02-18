@@ -33,7 +33,7 @@ export const SorterbarKolonneHeader = (props: SortableHeaderProps) : JSX.Element
 				aria-label={ariaLabel}
 				onClick={() => {
 					setDeltakerSortering({ type: nesteSorteringType, kolonne: kolonne })
-					loggKlikk('SorterKolonne', kolonne, nesteSorteringType)
+					loggKlikk('sorter-kolonne', kolonne, nesteSorteringType)
 				}}
 			>
 				{kolonneNavn}

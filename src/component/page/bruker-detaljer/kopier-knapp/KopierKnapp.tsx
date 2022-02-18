@@ -21,7 +21,7 @@ export const KopierKnapp = (props: KopierKnappProps): React.ReactElement<KopierK
 			.then(() => setCopySuccess(true))
 			.catch(()=> setCopySuccess(false))
 
-		loggKlikk('KopierFnrKnapp')
+		loggKlikk('kopier-fnr-knapp')
 	}
 
 	useEffect(() => {

@@ -43,6 +43,5 @@ export const loggSidevisning = (pathname: string): void => {
 }
 
 export const loggKlikk = (komponent: string, verdi?: string, status?: string) => {
-	const eventKategori = 'Brukerklikk'
-	logAmplitudeEvent('navigasjon', { eventKategori, komponent, verdi, status })
+	logAmplitudeEvent('klikk', { komponent, verdi, status })
 }

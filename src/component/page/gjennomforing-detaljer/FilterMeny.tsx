@@ -30,11 +30,11 @@ export const FilterMeny = (props: Props): React.ReactElement => {
 						onChange={(e) => {
 							if (e.target.checked) {
 								leggTilTiltakStatus(status)
-								loggKlikk('FilterMeny', status, 'checked')
+								loggKlikk('filter-meny', status, 'checked')
 
 							} else {
 								fjernFraTiltakStatus(status)
-								loggKlikk('FilterMeny', status, 'unchecked')
+								loggKlikk('filter-meny', status, 'unchecked')
 							}
 						}}
 						value={mapTiltakDeltagerStatusTilTekst(status) }
