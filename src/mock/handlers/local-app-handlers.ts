@@ -2,25 +2,33 @@ import { ResponseComposition, rest, RestContext, RestRequest } from 'msw'
 import { RequestHandler } from 'msw/lib/types/handlers/RequestHandler'
 import { MockedResponse } from 'msw/lib/types/response'
 
+import environment from '../../utils/environment'
 import { appUrl } from '../../utils/url-utils'
-import { getProxyUrl,getRequestCookie } from '../utils/mock-env'
+import { getRequestAuthHeader, localAmtTiltakUrl } from '../utils/mock-env'
 import { joinUrlAndPath } from '../utils/url-utils'
 
-// Set mock cookie for all outgoing requests
-document.cookie = getRequestCookie()
-
-export const devProxyHandlers: RequestHandler[] = [
+export const localAppHandlers: RequestHandler[] = [
 	rest.get(appUrl('/amt-tiltak/*'), async(req, res, ctx) => {
-		return handleReq(getProxyUrl(), req, res, ctx)
+		return handleReq(localAmtTiltakUrl(), req, res, ctx)
 	})
 ]
 
+const stripContextPath = (path: string, contextPath: string): string => {
+	if (path.startsWith(contextPath)) {
+		return path.substring(contextPath.length, path.length)
+	}
+
+	return path
+}
+
 const handleReq = async(proxyUrl: string, req: RestRequest, res: ResponseComposition, ctx: RestContext): Promise<MockedResponse> => {
-	const proxiedUrl = `${joinUrlAndPath(proxyUrl, req.url.pathname)}${req.url.search}`
+	const reqPath = stripContextPath(req.url.pathname, `${environment.publicUrl}/amt-tiltak`)
+	const proxiedUrl = `${joinUrlAndPath(proxyUrl, reqPath)}${req.url.search}`
 
 	try {
+		req.headers.append('Authorization', getRequestAuthHeader())
+
 		const response = await ctx.fetch(proxiedUrl, {
-			credentials: 'include',
 			method: req.method,
 			body: req.body?.toString(),
 			headers: req.headers

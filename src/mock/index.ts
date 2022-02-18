@@ -1,10 +1,27 @@
 import { setupWorker } from 'msw'
+import { RequestHandler } from 'msw/lib/types/handlers/RequestHandler'
 
 import env from '../utils/environment'
 import { appUrl } from '../utils/url-utils'
 import { devProxyHandlers } from './handlers/dev-proxy-handlers'
+import { localAppHandlers } from './handlers/local-app-handlers'
 import { mockHandlers } from './handlers/mock-handlers'
-import { getDevProxyEnabled } from './utils/dev-proxy-env'
+import { getRequestHandler, RequestHandlerType } from './utils/mock-env'
+
+const resolveHandlers = (requestHandlerType: RequestHandlerType): RequestHandler[] => {
+	switch (requestHandlerType) {
+		case RequestHandlerType.MOCK:
+			return mockHandlers
+		case RequestHandlerType.DEV:
+			return devProxyHandlers
+		case RequestHandlerType.LOCAL:
+			return localAppHandlers
+		default:
+			throw Error('Unknown handler: ' + requestHandlerType)
+	}
+}
+
+/* eslint-disable no-console */
 
 /*
  Pga måten service workers fungerer så må vi legge til trailing slash når vi er på rot-urlen for at msw.js sin service worker
@@ -12,18 +29,14 @@ import { getDevProxyEnabled } from './utils/dev-proxy-env'
 */
 const path = window.location.pathname
 if (path === env.publicUrl && !path.endsWith('/')) {
-	// eslint-disable-next-line no-console
 	console.log('Redirected with trailing slash')
 	window.location.href = `${window.location.origin}${path}/`
 }
 
-const handlers = getDevProxyEnabled()
-	? devProxyHandlers
-	: mockHandlers
+const requestHandler = getRequestHandler()
 
-setupWorker(...handlers)
+console.info(`Running with request handler: ${requestHandler}`)
+
+setupWorker(...resolveHandlers(requestHandler))
 	.start({ serviceWorker: { url: appUrl('mockServiceWorker.js') } })
-	.catch((e) => {
-		// eslint-disable-next-line no-console
-		console.error('Unable to setup mocked API endpoints', e)
-	})
+	.catch((e) => console.error('Unable to setup mocked API endpoints', e))
