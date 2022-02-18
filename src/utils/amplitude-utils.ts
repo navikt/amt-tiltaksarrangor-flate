@@ -47,6 +47,6 @@ export const loggSidevisning = (pathname: string): void => {
 	logAmplitudeEvent('sidevisning', { path: pathname })
 }
 
-export const loggKlikk = (event: string, verdi?: string, status?: string) => {
-	logAmplitudeEvent(event, { eventType: 'klikk', verdi, status })
+export const loggKlikk = (eventType: string, verdi?: string, status?: string) => {
+	logAmplitudeEvent('klikk', { eventType, verdi, status })
 }
