@@ -16,7 +16,7 @@ export const SorterbarKolonneHeader = (props: SortableHeaderProps) : JSX.Element
 	const { deltakerSortering, setDeltakerSortering } = useTiltaksoversiktSokStore()
 	const kolonneNavn = kolonne.valueOf()
 	const sortertKolonne = deltakerSortering.kolonne === kolonne
-	const nesteSorteringType = sortertKolonne? finnNesteSorteringType(deltakerSortering.type): SorteringType.NONE
+	const nesteSorteringType = sortertKolonne ? finnNesteSorteringType(deltakerSortering.type) : SorteringType.ASCENDING
 	const ariaLabel = `Sorter ${kolonneNavn} ${mapSortDirectionToText(nesteSorteringType)}`
 
 	const getClass = (): string => {
