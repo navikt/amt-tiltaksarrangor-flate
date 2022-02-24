@@ -11,6 +11,8 @@ export enum SorteringType {
 	NONE = 'none',
 }
 
+export const DEFAULT_SORTERING_TYPE = SorteringType.ASCENDING
+
 export const mapSortDirectionToText = (sorteringType: SorteringType): string => {
 	switch (sorteringType) {
 		case SorteringType.ASCENDING:
@@ -29,8 +31,7 @@ export const finnNesteSorteringType = (sorteringType: SorteringType): SorteringT
 		case SorteringType.DESCENDING:
 			return SorteringType.NONE
 		default:
-			// This will be the default sort direction
-			return SorteringType.DESCENDING
+			return DEFAULT_SORTERING_TYPE
 	}
 }
 

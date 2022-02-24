@@ -3,7 +3,12 @@ import React from 'react'
 
 import { useTiltaksoversiktSokStore } from '../../../../store/tiltaksoversikt-sok-store'
 import { klikkKolonneSortering, loggKlikk } from '../../../../utils/amplitude-utils'
-import { finnNesteSorteringType, mapSortDirectionToText, SorteringType, } from '../../../../utils/sortering-utils'
+import {
+	DEFAULT_SORTERING_TYPE,
+	finnNesteSorteringType,
+	mapSortDirectionToText,
+	SorteringType
+} from '../../../../utils/sortering-utils'
 import styles from './SorterbarKolonneHeader.module.scss'
 import { DeltakerKolonneNavn } from './types'
 
@@ -16,7 +21,7 @@ export const SorterbarKolonneHeader = (props: SortableHeaderProps) : JSX.Element
 	const { deltakerSortering, setDeltakerSortering } = useTiltaksoversiktSokStore()
 	const kolonneNavn = kolonne.valueOf()
 	const sortertKolonne = deltakerSortering.kolonne === kolonne
-	const nesteSorteringType = sortertKolonne ? finnNesteSorteringType(deltakerSortering.type) : SorteringType.ASCENDING
+	const nesteSorteringType = sortertKolonne ? finnNesteSorteringType(deltakerSortering.type) : DEFAULT_SORTERING_TYPE
 	const ariaLabel = `Sorter ${kolonneNavn} ${mapSortDirectionToText(nesteSorteringType)}`
 
 	const getClass = (): string => {
