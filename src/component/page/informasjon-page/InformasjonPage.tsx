@@ -69,8 +69,8 @@ export const InformasjonPage = (): React.ReactElement => {
 						image={lightbulbImg}
 						alt="Lyspære ikon"
 					>
-						<BodyLong className={styles.infoElementText} spacing>
-							Det jobbes kontinuerlig med å gjøre tjenesten bedre. Vi som lager tjenesten, ønsker gjerne tilbakemeldinger på utfordringer dere opplever i kommunikasjonen med NAV og deltaker. Gi tilbakemelding ved å klikke på “Tilbakemelding” som ligger til høyre.
+						<BodyLong className={styles.infoElementText}>
+							Det jobbes kontinuerlig med å gjøre tjenesten bedre.
 						</BodyLong>
 					</InfoElement>
 				</Card>

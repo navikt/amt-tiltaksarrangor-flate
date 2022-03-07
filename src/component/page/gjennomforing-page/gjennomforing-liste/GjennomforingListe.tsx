@@ -21,7 +21,7 @@ export const GjennomforingListe = (props: GjennomforingListeProps): React.ReactE
 	if (props.gjennomforinger.length === 0) {
 		return (
 			<div>
-				<Alert variant="info">Ingen tiltak</Alert>
+				<Alert variant="info">Du har ikke tilgang til noen arbeidsmarkedstiltak.</Alert>
 			</div>
 		)
 	}
