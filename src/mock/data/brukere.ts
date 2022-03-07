@@ -37,6 +37,7 @@ const lagMockTiltakDeltagerForGjennomforing = (gjennomforing: MockGjennomforing)
 	const status = faker.random.objectElement(TiltakDeltakerStatus) as TiltakDeltakerStatus
 
 	const brukerFornavn = faker.name.firstName()
+	const brukerMellomnavn = faker.name.middleName()
 	const brukerEtternavn = faker.name.lastName()
 
 	const veilederNavn = faker.name.firstName() + ' ' + faker.name.lastName()
@@ -44,7 +45,7 @@ const lagMockTiltakDeltagerForGjennomforing = (gjennomforing: MockGjennomforing)
 	return {
 		id: randomUuid(),
 		fornavn: brukerFornavn,
-		mellomnavn: null,
+		mellomnavn: brukerMellomnavn,
 		etternavn: brukerEtternavn,
 		fodselsnummer: randomFnr(),
 		epost: lagMailFraNavn(`${brukerFornavn} ${brukerEtternavn}`, 'example.com'),
