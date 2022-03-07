@@ -42,7 +42,7 @@ const erVenterPaOppstartEllerDeltar = (status: TiltakDeltakerStatus): boolean =>
 
 export const BrukerPaaTiltakDetaljer = (props: { bruker: TiltakDeltakerDetaljer }): React.ReactElement => {
 	const {
-		navKontor, navVeileder, fornavn, etternavn, fodselsnummer, startDato,
+		navKontor, navVeileder, fornavn, mellomnavn, etternavn, fodselsnummer, startDato,
 		sluttDato, gjennomforing, registrertDato, telefonnummer, epost, status
 	} = props.bruker
 
@@ -60,7 +60,7 @@ export const BrukerPaaTiltakDetaljer = (props: { bruker: TiltakDeltakerDetaljer 
 
 					<div className={styles.headerInfoWrapper}>
 						<div className={cls(styles.headerTitleWrapper, globalStyles.blokkXs)}>
-							<Heading size="medium" level="2" className={styles.headerTitle}>{lagBrukerNavn(fornavn, etternavn)}</Heading>
+							<Heading size="medium" level="2" className={styles.headerTitle}>{lagBrukerNavn(fornavn, mellomnavn, etternavn)}</Heading>
 							{ fodselsnummer && (
 								<KopierKnapp
 									text={fodselsnummer}

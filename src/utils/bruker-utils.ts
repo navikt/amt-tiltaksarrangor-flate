@@ -1,6 +1,6 @@
-export const lagKommaSeparertBrukerNavn = (fornavn: string, etternavn: string): string => `${etternavn}, ${fornavn}`
+export const lagKommaSeparertBrukerNavn = (fornavn: string, etternavn: string, mellomnavn: string | undefined): string => `${etternavn}, ${fornavn} ${mellomnavn}`
 
-export const lagBrukerNavn = (fornavn: string, etternavn: string): string => `${fornavn} ${etternavn}`
+export const lagBrukerNavn = (fornavn: string, mellomnavn: string | undefined, etternavn: string): string => `${fornavn} ${mellomnavn} ${etternavn}`
 
 export const formaterTelefonnummer = (telefonnummer: string | null | undefined): string => {
 	const cleanTelefonnummer = telefonnummer?.replace(/ /g, '')
