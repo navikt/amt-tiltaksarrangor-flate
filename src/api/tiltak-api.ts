@@ -18,9 +18,9 @@ export const fetchInnloggetAnsatt = (): AxiosPromise<InnloggetAnsatt> => {
 		.then(transformInnloggetAnsatt)
 }
 
-export const fetchTiltakGjennomforinger = (arrangorId: string): AxiosPromise<Gjennomforing[]> => {
+export const fetchTiltakGjennomforinger = (): AxiosPromise<Gjennomforing[]> => {
 	return axiosInstance
-		.get(appUrl(`/amt-tiltak/api/gjennomforing?arrangorId=${arrangorId}`))
+		.get(appUrl('/amt-tiltak/api/gjennomforing'))
 		.then(transformGjennomforinger)
 }
 
