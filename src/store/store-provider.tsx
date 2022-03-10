@@ -3,22 +3,18 @@ import React from 'react'
 import { InnloggetAnsatt } from '../domeneobjekter/ansatt'
 import { DataStoreProvider } from './data-store'
 import { TiltaksoversiktSokStoreProvider } from './tiltaksoversikt-sok-store'
-import { ValgtVirksomhet, ValgtVirksomhettoreProvider } from './valgt-virksomhet-store'
 
 interface StoreProviderProps {
 	innloggetAnsatt: InnloggetAnsatt;
-	defaultValgtVirksomhet: ValgtVirksomhet;
 	children: React.ReactNode;
 }
 
 const StoreProvider = (props: StoreProviderProps): React.ReactElement<StoreProviderProps> => {
 	return (
 		<DataStoreProvider initialInnloggetAnsatt={props.innloggetAnsatt}>
-			<ValgtVirksomhettoreProvider defaultValgtVirksomhet={props.defaultValgtVirksomhet}>
-				<TiltaksoversiktSokStoreProvider>
-					{props.children}
-				</TiltaksoversiktSokStoreProvider>
-			</ValgtVirksomhettoreProvider>
+			<TiltaksoversiktSokStoreProvider>
+				{props.children}
+			</TiltaksoversiktSokStoreProvider>
 		</DataStoreProvider>
 	)
 }
