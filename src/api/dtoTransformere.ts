@@ -23,7 +23,11 @@ const toGjennomforing = (gjennomforing: GjennomforingDTO) : Gjennomforing => {
 		...gjennomforing,
 		startDato: dayjs(gjennomforing.startDato, 'YYYY-MM-DD').toDate(),
 		sluttDato: dayjs(gjennomforing.sluttDato).toDate(),
-		status: toNullableEnumValue(TiltakGjennomforingStatus, gjennomforing.status)
+		status: toNullableEnumValue(TiltakGjennomforingStatus, gjennomforing.status),
+		arrangor: {
+			...gjennomforing.arrangor,
+			organisasjonNavn: gjennomforing.arrangor.organisasjonNavn? gjennomforing.arrangor.organisasjonNavn: undefined
+		}
 	}
 }
 
