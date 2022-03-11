@@ -11,9 +11,15 @@ export interface Gjennomforing {
     sluttDato: Date | undefined,
     status: TiltakGjennomforingStatus | undefined,
     tiltak: Tiltak
+    arrangor: Arrangor
 }
 
 export interface Tiltak {
     tiltakskode: string,
     tiltaksnavn: string,
+}
+
+export interface Arrangor {
+    virksomhetNavn: string,
+    organisasjonNavn?: string
 }

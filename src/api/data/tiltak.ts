@@ -5,10 +5,17 @@ export interface GjennomforingDTO {
 	startDato: string | null,
 	sluttDato: string | null,
 	status: string,
-	tiltak: TiltakDTO
+	tiltak: TiltakDTO,
+	arrangor: ArrangorDTO
 }
 
 export interface TiltakDTO {
 	tiltakskode: string,
 	tiltaksnavn: string,
 }
+
+export interface ArrangorDTO {
+	virksomhetNavn: string,
+	organisasjonNavn: string | null
+}
+
