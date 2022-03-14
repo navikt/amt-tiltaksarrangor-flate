@@ -1,7 +1,7 @@
 import { AxiosResponse } from 'axios'
 import dayjs from 'dayjs'
 
-import { AnsattRolle, InnloggetAnsatt } from '../domeneobjekter/ansatt'
+import { InnloggetAnsatt } from '../domeneobjekter/ansatt'
 import { TiltakDeltaker, TiltakDeltakerDetaljer, TiltakDeltakerStatus } from '../domeneobjekter/deltaker'
 import { Gjennomforing, TiltakGjennomforingStatus } from '../domeneobjekter/tiltak'
 import { toEnumValue, toNullableEnumValue } from '../utils/toEnumValue'
@@ -67,20 +67,6 @@ const toTiltakDeltagerDetaljer = (tiltakDeltagerDetaljerDTO: TiltakDeltagerDetal
 }
 
 export const transformInnloggetAnsatt = (response: AxiosResponse<InnloggetAnsattDTO>) : AxiosResponse<InnloggetAnsatt> => {
-	return { ...response, data: toInnloggetAnsatt(response.data) }
-}
-
-const toInnloggetAnsatt = (innloggetAnsattDTO: InnloggetAnsattDTO): InnloggetAnsatt => {
-	const toVirksomhetRoller = (rollerDTO: string []) => rollerDTO.map((rolle) => toEnumValue(AnsattRolle, rolle))
-
-	return {
-		...innloggetAnsattDTO,
-		arrangorer: innloggetAnsattDTO.arrangorer.map(virksomhetDTO => {
-			return {
-				...virksomhetDTO,
-				roller: toVirksomhetRoller(virksomhetDTO.roller)
-			}
-		})
-	}
+	return { ...response, data: response.data }
 }
 

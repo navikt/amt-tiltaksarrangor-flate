@@ -8,7 +8,6 @@ import { fetchTiltakGjennomforinger } from '../../../api/tiltak-api'
 import { Gjennomforing, TiltakGjennomforingStatus } from '../../../domeneobjekter/tiltak'
 import { useTabTitle } from '../../../hooks/use-tab-title'
 import { INFORMASJON_PAGE_ROUTE } from '../../../navigation'
-import { useValgtVirksomhetStore } from '../../../store/valgt-virksomhet-store'
 import { sortAlphabeticAsc } from '../../../utils/sortering-utils'
 import { isNotStartedOrPending, isRejected, usePromise } from '../../../utils/use-promise'
 import { Spinner } from '../../felles/spinner/Spinner'
@@ -18,10 +17,9 @@ import styles from './GjennomforingListePage.module.scss'
 export const GjennomforingListePage = (): React.ReactElement => {
 	useTabTitle('Tiltaksoversikt')
 
-	const { valgtVirksomhet } = useValgtVirksomhetStore()
 
 	const fetchGjennomforingerPromise = usePromise<AxiosResponse<Gjennomforing[]>>(
-		() => fetchTiltakGjennomforinger(valgtVirksomhet.id), [ valgtVirksomhet ]
+		() => fetchTiltakGjennomforinger()
 	)
 
 	if (isNotStartedOrPending(fetchGjennomforingerPromise)) {
