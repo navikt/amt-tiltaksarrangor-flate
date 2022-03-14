@@ -1,5 +1,5 @@
 import { AxiosError, AxiosResponse } from 'axios'
-import React, { useMemo } from 'react'
+import React from 'react'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 
 import { fetchInnloggetAnsatt } from './api/tiltak-api'
@@ -11,7 +11,7 @@ import { GjennomforingListePage } from './component/page/gjennomforing-page/Gjen
 import { InformasjonPage } from './component/page/informasjon-page/InformasjonPage'
 import { LandingPage, LandingPageView } from './component/page/landing-page/LandingPage'
 import { PageViewMetricCollector } from './component/PageViewMetricCollector'
-import { InnloggetAnsatt, Virksomhet } from './domeneobjekter/ansatt'
+import { InnloggetAnsatt } from './domeneobjekter/ansatt'
 import {
 	BRUKER_DETALJER_PAGE_ROUTE,
 	GJENNOMFORING_DETALJER_PAGE_ROUTE,
@@ -19,18 +19,10 @@ import {
 	INFORMASJON_PAGE_ROUTE
 } from './navigation'
 import StoreProvider from './store/store-provider'
-import { hentSisteLagretEllerForsteTilgjengeligVirksomhet } from './store/valgt-virksomhet-store'
 import { isNotStartedOrPending, isRejected, usePromise } from './utils/use-promise'
 
 export const App = (): React.ReactElement => {
 	const fetchInnloggetAnsattPromise = usePromise<AxiosResponse<InnloggetAnsatt>, AxiosError>(fetchInnloggetAnsatt)
-
-	const defaultValgtVirksomhet = useMemo<Virksomhet | undefined>(() => {
-		if (fetchInnloggetAnsattPromise.result) {
-			return hentSisteLagretEllerForsteTilgjengeligVirksomhet(fetchInnloggetAnsattPromise.result.data.arrangorer)
-		}
-	}, [ fetchInnloggetAnsattPromise.result ])
-
 	const erIkkeInnlogget = fetchInnloggetAnsattPromise.error?.response?.status === 401
 
 	if (isNotStartedOrPending(fetchInnloggetAnsattPromise)) {
@@ -41,14 +33,14 @@ export const App = (): React.ReactElement => {
 		return <LandingPage view={LandingPageView.LOGIN} />
 	}
 
-	if (!defaultValgtVirksomhet || isRejected(fetchInnloggetAnsattPromise)) {
+	if (isRejected(fetchInnloggetAnsattPromise)) {
 		return <LandingPage view={LandingPageView.IKKE_TILGANG} />
 	}
 
 	const innloggetAnsatt = fetchInnloggetAnsattPromise.result.data
 
 	return (
-		<StoreProvider innloggetAnsatt={innloggetAnsatt} defaultValgtVirksomhet={defaultValgtVirksomhet}>
+		<StoreProvider innloggetAnsatt={innloggetAnsatt}>
 			<BrowserRouter>
 				<Banner/>
 				<Routes>

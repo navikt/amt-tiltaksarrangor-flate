@@ -7,8 +7,6 @@ import { useDataStore } from '../../../store/data-store'
 import { appUrl } from '../../../utils/url-utils'
 import styles from './Banner.module.scss'
 import navLogo from './nav-logo.svg'
-import { VirksomhetVelger } from './virksomhet-velger/VirksomhetVelger'
-
 
 export const Banner = (): React.ReactElement => {
 	const { innloggetAnsatt } = useDataStore()
@@ -24,8 +22,6 @@ export const Banner = (): React.ReactElement => {
 
 			<div>
 				<BodyShort className={globalStyles.blokkXxs}>{`${innloggetAnsatt.fornavn} ${innloggetAnsatt.etternavn}`}</BodyShort>
-
-				<VirksomhetVelger className={globalStyles.blokkXxs} />
 
 				<a
 					href={appUrl('/oauth2/logout')}
