@@ -1,0 +1,53 @@
+import { Alert, BodyLong, BodyShort, Heading } from '@navikt/ds-react'
+import { AxiosResponse } from 'axios'
+import React from 'react'
+
+import { fetchTiltakGjennomforing } from '../../../api/tiltak-api'
+import { Gjennomforing, TiltakGjennomforingStatus } from '../../../domeneobjekter/tiltak'
+import globalStyles from '../../../globals.module.scss'
+import { dateStrWithMonthName } from '../../../utils/date-utils'
+import { isNotStartedOrPending, isRejected, usePromise } from '../../../utils/use-promise'
+import { Show } from '../../felles/Show'
+import { Spinner } from '../../felles/spinner/Spinner'
+import styles from './GjennomforingDetaljerPage.module.scss'
+
+interface TiltakInfoProps {
+    gjennomforingId: string
+}
+
+export const TiltakInfo = ({ gjennomforingId }: TiltakInfoProps) => {
+	const fetchGjennomforingPromise = usePromise<AxiosResponse<Gjennomforing>>(
+		() => fetchTiltakGjennomforing(gjennomforingId), [ gjennomforingId ]
+	)
+
+	if (isNotStartedOrPending(fetchGjennomforingPromise)) {
+		return <Spinner/>
+	}
+
+	if (isRejected(fetchGjennomforingPromise)) {
+		return <Alert variant="error">Noe gikk galt</Alert>
+	}
+
+	const gjennomforing = fetchGjennomforingPromise.result.data
+
+	return (
+		<div className={globalStyles.blokkM}>
+			<Heading size="medium" level="2" className={globalStyles.blokkXxs}>{gjennomforing.navn}</Heading>
+			<BodyShort>Organisasjon: {gjennomforing.arrangor.organisasjonNavn?? ''} </BodyShort>
+			<BodyShort>Oppstart: {dateStrWithMonthName(gjennomforing.startDato)}</BodyShort>
+			<BodyShort className={globalStyles.blokkXxs}>Sluttdato: {dateStrWithMonthName(gjennomforing.sluttDato)}</BodyShort>
+
+			<Show if={gjennomforing.status === TiltakGjennomforingStatus.AVSLUTTET}>
+				<Alert variant="warning" className={styles.statusAlert}>
+					<strong>Tiltaket er avsluttet</strong>
+					<br/>
+					<BodyLong>
+                        Tiltaket er avlyst eller så er avtalen
+                        utdatert. Er dette feil, ta kontakt med
+                        den som er ansvarlig for tiltaket  i NAV.
+					</BodyLong>
+				</Alert>
+			</Show>
+		</div>
+	)
+}
