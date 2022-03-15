@@ -10,9 +10,9 @@ export const TabellHeader = (): JSX.Element => {
 			<Table.Row>
 				<SorterbarKolonneHeader kolonne={DeltakerKolonneNavn.NAVN}/>
 				<SorterbarKolonneHeader kolonne={DeltakerKolonneNavn.FODSELSNUMMER}/>
-				<SorterbarKolonneHeader kolonne={DeltakerKolonneNavn.START} />
-				<SorterbarKolonneHeader kolonne={DeltakerKolonneNavn.SLUTT} />
 				<SorterbarKolonneHeader kolonne={DeltakerKolonneNavn.REGDATO} />
+				<SorterbarKolonneHeader kolonne={DeltakerKolonneNavn.OPPSTART} />
+				<SorterbarKolonneHeader kolonne={DeltakerKolonneNavn.SLUTT} />
 				<SorterbarKolonneHeader kolonne={DeltakerKolonneNavn.STATUS} />
 			</Table.Row>
 		</Table.Header>

@@ -4,7 +4,7 @@ export enum DeltakerKolonneNavn {
 	NAVN = 'Etternavn, Fornavn',
 	FODSELSNUMMER = 'Fødselsnr.',
 	STATUS = 'Status',
-	START = 'Start',
+	OPPSTART = 'Oppstart',
 	SLUTT = 'Slutt',
 	REGDATO = 'Søkt inn'
 }
