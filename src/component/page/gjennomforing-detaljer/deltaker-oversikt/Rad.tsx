@@ -26,9 +26,9 @@ export const Rad = (props: RadProps): React.ReactElement<RadProps> => {
 				</Link>
 			</Table.DataCell>
 			<Table.DataCell>{fodselsnummer}</Table.DataCell>
+			<Table.DataCell>{formatDate(registrertDato)}</Table.DataCell>
 			<Table.DataCell>{formatDate(startDato)}</Table.DataCell>
 			<Table.DataCell>{formatDate(sluttDato)}</Table.DataCell>
-			<Table.DataCell>{formatDate(registrertDato)}</Table.DataCell>
 			<Table.DataCell>
 				<StatusMerkelapp status={status}/>
 			</Table.DataCell>
