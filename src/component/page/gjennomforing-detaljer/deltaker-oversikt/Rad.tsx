@@ -22,7 +22,7 @@ export const Rad = (props: RadProps): React.ReactElement<RadProps> => {
 		<Table.Row key={id}>
 			<Table.DataCell>
 				<Link className={styles.brukersNavn} to={brukerDetaljerPageUrl(id)} onClick={()=> loggKlikk(klikkDeltakerRadOversikt)} >
-					{lagKommaSeparertBrukerNavn(fornavn, etternavn, mellomnavn)}
+					{lagKommaSeparertBrukerNavn(fornavn, mellomnavn, etternavn)}
 				</Link>
 			</Table.DataCell>
 			<Table.DataCell>{fodselsnummer}</Table.DataCell>
