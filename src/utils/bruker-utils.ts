@@ -3,16 +3,20 @@ export const lagKommaSeparertBrukerNavn = (fornavn: string, etternavn: string, m
 export const lagBrukerNavn = (fornavn: string, mellomnavn: string | undefined, etternavn: string): string => `${fornavn} ${mellomnavn?? '' } ${etternavn}`
 
 export const formaterTelefonnummer = (telefonnummer: string | null | undefined): string => {
-	const cleanTelefonnummer = telefonnummer?.replace(/ /g, '')
-
-	if (!cleanTelefonnummer) {
+	if (!telefonnummer) {
 		return ''
 	}
 
-	// Norskt telefonnummer
-	if (cleanTelefonnummer.length === 8) {
-		return `${cleanTelefonnummer.substring(0, 3)} ${cleanTelefonnummer.substring(3, 5)} ${cleanTelefonnummer.substring(5, 8)}`
+	// Fjern norsk landskode. Noen telefonnumer har ikke mellomrom mellom landskode og nummer,
+	// i disse tilfellene så ønsker vi ikke å formatere nummerene
+	if (telefonnummer.startsWith('+47 ')) {
+		telefonnummer = telefonnummer.replace('+47 ', '')
 	}
 
-	return telefonnummer as string
+	if (telefonnummer.length === 8) {
+		// Formater telefonnummer til f.eks: 11 22 33 44
+		return `${telefonnummer.substring(0, 2)} ${telefonnummer.substring(2, 4)} ${telefonnummer.substring(4, 6)} ${telefonnummer.substring(6, 8)}`
+	}
+
+	return telefonnummer
 }
