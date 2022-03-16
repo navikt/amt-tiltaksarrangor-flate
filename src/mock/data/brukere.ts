@@ -3,7 +3,7 @@ import faker from 'faker'
 import { NavKontorDTO, TiltakDeltagerDetaljerDTO } from '../../api/data/deltaker'
 import { GjennomforingDTO } from '../../api/data/tiltak'
 import { TiltakDeltakerStatus } from '../../domeneobjekter/deltaker'
-import { randomFnr, randomUuid } from '../utils/faker'
+import { randBetween, randomFnr, randomUuid } from '../utils/faker'
 
 const navEnheter: NavKontorDTO[] = [
 	{ navn: 'NAV Bærum' },
@@ -36,7 +36,7 @@ const lagMockTiltakDeltagerForGjennomforing = (gjennomforing: GjennomforingDTO):
 	const status = faker.random.objectElement(TiltakDeltakerStatus) as TiltakDeltakerStatus
 
 	const brukerFornavn = faker.name.firstName()
-	const brukerMellomnavn = faker.name.middleName()
+	const brukerMellomnavn = randBetween(0, 10) > 6 ? faker.name.middleName() : null
 	const brukerEtternavn = faker.name.lastName()
 
 	const veilederNavn = faker.name.firstName() + ' ' + faker.name.lastName()
