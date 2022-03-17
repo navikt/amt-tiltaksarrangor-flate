@@ -63,7 +63,7 @@ jobs:
   deploy-prod:
     name: Deploy application to prod
     runs-on: ubuntu-latest
-    needs: test-and-build
+    needs: deploy-dev
     if: github.ref == 'refs/heads/main'
     steps:
       - name: Download frontend asset files
