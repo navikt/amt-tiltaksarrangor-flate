@@ -52,3 +52,11 @@ export const formaterTelefonnummer = (telefonnummer: string | null | undefined):
 
 	return telefonnummer as string
 }
+
+export const hentFodselsdato = (fnr: string): string => {
+	return fnr.substring(0, 6)
+}
+
+export const hentPersonnummer = (fnr: string): string => {
+	return fnr.substring(6)
+}
