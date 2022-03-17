@@ -12,6 +12,7 @@ import { formaterTelefonnummer, lagBrukerNavn } from '../../../utils/bruker-util
 import { formatDate } from '../../../utils/date-utils'
 import { deltakerSkalSkjulesFra } from '../../../utils/deltaker-status-utils'
 import { useStyle } from '../../../utils/use-style'
+import { Fnr } from '../../felles/fnr/Fnr'
 import { Show } from '../../felles/Show'
 import { StatusMerkelapp } from '../../felles/status-merkelapp/StatusMerkelapp'
 import { Tilbakelenke } from '../../felles/tilbakelenke/Tilbakelenke'
@@ -63,9 +64,11 @@ export const BrukerPaaTiltakDetaljer = (props: { bruker: TiltakDeltakerDetaljer 
 							<Heading size="medium" level="2" className={styles.headerTitle}>{lagBrukerNavn(fornavn, mellomnavn, etternavn)}</Heading>
 							{ fodselsnummer && (
 								<KopierKnapp
-									text={fodselsnummer}
+									kopierTekst={fodselsnummer}
 									ariaLabel={`Kopier fødselsnummer ${fodselsnummer.split('').join(' ')}`}
-								/>
+								>
+									<Fnr fnr={fodselsnummer}/>
+								</KopierKnapp>
 							) }
 						</div>
 

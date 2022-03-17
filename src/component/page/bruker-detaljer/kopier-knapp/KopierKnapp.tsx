@@ -6,9 +6,10 @@ import { klikkFnrKnapp, loggKlikk } from '../../../../utils/amplitude-utils'
 import styles from './KopierKnapp.module.scss'
 
 interface KopierKnappProps {
-	text: string;
-	className?: string;
-	ariaLabel?: string;
+	kopierTekst: string
+	children: React.ReactNode
+	className?: string
+	ariaLabel?: string
 }
 
 const COPY_TOOLTIP_DURATION_MS = 1000
@@ -17,7 +18,7 @@ export const KopierKnapp = (props: KopierKnappProps): React.ReactElement<KopierK
 	const [ copySuccess, setCopySuccess ] = useState<boolean>(false)
 
 	const handleOnClick = () => {
-		navigator.clipboard.writeText(props.text)
+		navigator.clipboard.writeText(props.kopierTekst)
 			.then(() => setCopySuccess(true))
 			.catch(()=> setCopySuccess(false))
 
@@ -35,7 +36,7 @@ export const KopierKnapp = (props: KopierKnappProps): React.ReactElement<KopierK
 	return (
 		<div className={styles.wrapper}>
 			<Button onClick={handleOnClick} aria-label={props.ariaLabel} className={cls(styles.kopierKnapp, props.className)}>
-				{props.text}
+				{props.children}
 			</Button>
 			<span className={cls(styles.tooltip, { [styles.tooltipVisible]: copySuccess })}>
                 Kopiert

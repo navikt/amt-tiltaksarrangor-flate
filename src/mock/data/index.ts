@@ -1,11 +1,9 @@
 import { TiltakDeltagerDetaljerDTO } from '../../api/data/deltaker'
-import { mockInnloggetAnsattVirksomheter } from './ansatt'
+import { GjennomforingDTO } from '../../api/data/tiltak'
 import { lagMockTiltakDeltagereForGjennomforing } from './brukere'
-import { lagTiltakGjennomforinger, MockGjennomforing } from './tiltak'
+import { lagTiltakGjennomforinger } from './tiltak'
 
-export const mockGjennomforinger: MockGjennomforing[] = mockInnloggetAnsattVirksomheter
-	.map(virksomhet => lagTiltakGjennomforinger(virksomhet.id))
-	.reduce((previousValue, currentValue) => previousValue.concat(currentValue), [])
+export const mockGjennomforinger: GjennomforingDTO[] = lagTiltakGjennomforinger()
 
 export const mockTiltakDeltagere: TiltakDeltagerDetaljerDTO[] = mockGjennomforinger
 	.map(gjennomforing => lagMockTiltakDeltagereForGjennomforing(gjennomforing))

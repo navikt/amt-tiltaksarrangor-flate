@@ -1,18 +1,66 @@
-export const lagKommaSeparertBrukerNavn = (fornavn: string, etternavn: string, mellomnavn: string | undefined): string => `${etternavn}, ${fornavn} ${mellomnavn?? '' }`
+const formaterNavnCasing = (navn: string): string => {
+	let nyttNavn = ''
+	let nextCharIsUppercase = true
 
-export const lagBrukerNavn = (fornavn: string, mellomnavn: string | undefined, etternavn: string): string => `${fornavn} ${mellomnavn?? '' } ${etternavn}`
+	for (let i = 0; i < navn.length; i++) {
+		const curChar = navn.charAt(i)
+
+		if (nextCharIsUppercase) {
+			nyttNavn += curChar.toUpperCase()
+			nextCharIsUppercase = false
+		} else {
+			nyttNavn += curChar.toLowerCase()
+		}
+
+		if (curChar === '-' || curChar === ' ') {
+			nextCharIsUppercase = true
+		}
+	}
+
+	return nyttNavn
+}
+
+// Lager navn på format: <etternavn>, <fornavn> <mellomnavn>
+export const lagKommaSeparertBrukerNavn = (fornavn: string, mellomnavn: string | undefined, etternavn: string): string => {
+	return [
+		formaterNavnCasing(etternavn) + ',',
+		formaterNavnCasing(fornavn),
+		mellomnavn ? formaterNavnCasing(mellomnavn) : undefined
+	].filter(navn => !!navn).join(' ')
+}
+
+// Lager navn på format: <fornavn> <mellomnavn> <etternavn>
+export const lagBrukerNavn = (fornavn: string, mellomnavn: string | undefined, etternavn: string): string => {
+	return [
+		formaterNavnCasing(fornavn),
+		mellomnavn ? formaterNavnCasing(mellomnavn) : undefined,
+		formaterNavnCasing(etternavn)
+	].filter(navn => !!navn).join(' ')
+}
 
 export const formaterTelefonnummer = (telefonnummer: string | null | undefined): string => {
-	const cleanTelefonnummer = telefonnummer?.replace(/ /g, '')
-
-	if (!cleanTelefonnummer) {
+	if (!telefonnummer) {
 		return ''
 	}
 
-	// Norskt telefonnummer
-	if (cleanTelefonnummer.length === 8) {
-		return `${cleanTelefonnummer.substring(0, 3)} ${cleanTelefonnummer.substring(3, 5)} ${cleanTelefonnummer.substring(5, 8)}`
+	// Fjern norsk landskode. Noen telefonnumer har ikke mellomrom mellom landskode og nummer,
+	// i disse tilfellene så ønsker vi ikke å formatere nummerene
+	if (telefonnummer.startsWith('+47 ')) {
+		telefonnummer = telefonnummer.replace('+47 ', '')
 	}
 
-	return telefonnummer as string
+	if (telefonnummer.length === 8) {
+		// Formater telefonnummer til f.eks: 11 22 33 44
+		return `${telefonnummer.substring(0, 2)} ${telefonnummer.substring(2, 4)} ${telefonnummer.substring(4, 6)} ${telefonnummer.substring(6, 8)}`
+	}
+
+	return telefonnummer
+}
+
+export const hentFodselsdato = (fnr: string): string => {
+	return fnr.substring(0, 6)
+}
+
+export const hentPersonnummer = (fnr: string): string => {
+	return fnr.substring(6)
 }
