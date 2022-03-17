@@ -13,7 +13,8 @@ import styles from './SorterbarKolonneHeader.module.scss'
 import { DeltakerKolonneNavn } from './types'
 
 interface SortableHeaderProps {
-    kolonne: DeltakerKolonneNavn;
+    kolonne: DeltakerKolonneNavn
+	style?: React.CSSProperties
 }
 
 export const SorterbarKolonneHeader = (props: SortableHeaderProps) : JSX.Element => {
@@ -32,7 +33,7 @@ export const SorterbarKolonneHeader = (props: SortableHeaderProps) : JSX.Element
 	}
 
 	return (
-		<Table.HeaderCell role="columnheader" className={getClass()} aria-sort={deltakerSortering.type}>
+		<Table.HeaderCell role="columnheader" className={getClass()} aria-sort={deltakerSortering.type} style={props.style}>
 			<button
 				className={styles.header}
 				aria-label={ariaLabel}
