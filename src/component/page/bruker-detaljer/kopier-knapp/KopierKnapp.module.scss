@@ -12,8 +12,9 @@
   border: none;
   background-color: white;
 
-  span {
+  > span {
     font-weight: 800 !important;
+    gap: 0;
   }
 
   &:hover {
