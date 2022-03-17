@@ -32,6 +32,10 @@ export const lagMockTiltakDeltagereForGjennomforing = (gjennomforing: Gjennomfor
 	return deltakere
 }
 
+const lagTelefonnummer = (): string => {
+	return faker.phone.phoneNumber().replaceAll(' ', '')
+}
+
 const lagMockTiltakDeltagerForGjennomforing = (gjennomforing: GjennomforingDTO): TiltakDeltagerDetaljerDTO => {
 	const status = faker.random.objectElement(TiltakDeltakerStatus) as TiltakDeltakerStatus
 
@@ -48,7 +52,7 @@ const lagMockTiltakDeltagerForGjennomforing = (gjennomforing: GjennomforingDTO):
 		etternavn: brukerEtternavn,
 		fodselsnummer: randomFnr(),
 		epost: lagMailFraNavn(`${brukerFornavn} ${brukerEtternavn}`, 'example.com'),
-		telefonnummer: faker.phone.phoneNumber(),
+		telefonnummer: lagTelefonnummer(),
 		startDato: faker.date.past().toISOString(),
 		sluttDato: faker.date.future().toISOString(),
 		status: {
@@ -59,7 +63,7 @@ const lagMockTiltakDeltagerForGjennomforing = (gjennomforing: GjennomforingDTO):
 		navVeileder: {
 			epost: lagMailFraNavn(veilederNavn, 'nav.no'),
 			navn: veilederNavn,
-			telefon: faker.phone.phoneNumber()
+			telefon: lagTelefonnummer()
 		},
 		gjennomforing: gjennomforing,
 		registrertDato: faker.date.past().toISOString()
