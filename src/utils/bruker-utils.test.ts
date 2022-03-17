@@ -1,4 +1,4 @@
-import { formaterTelefonnummer, lagBrukerNavn, lagKommaSeparertBrukerNavn, hentFodselsdato, hentPersonnummer } from './bruker-utils'
+import { formaterTelefonnummer, hentFodselsdato, hentPersonnummer,lagBrukerNavn, lagKommaSeparertBrukerNavn } from './bruker-utils'
 
 describe('lagKommaSeparertBrukerNavn', () => {
 	test('skal lage riktig navn når navn er uppercase', () => {
