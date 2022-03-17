@@ -17,13 +17,23 @@ interface RadProps {
 }
 
 export const Rad = (props: RadProps): React.ReactElement<RadProps> => {
-	const { fodselsnummer, fornavn, etternavn, mellomnavn, id, startDato, sluttDato, registrertDato, status } = props.bruker
+	const {
+		fodselsnummer,
+		fornavn,
+		etternavn,
+		mellomnavn,
+		id,
+		startDato,
+		sluttDato,
+		registrertDato,
+		status
+	} = props.bruker
 
 	return (
 		<Table.Row key={id}>
 			<Table.DataCell>
-				<Link className={styles.brukersNavn} to={brukerDetaljerPageUrl(id)} onClick={() => loggKlikk(klikkDeltakerRadOversikt)} >
-					{lagKommaSeparertBrukerNavn(fornavn, etternavn, mellomnavn)}
+				<Link className={styles.brukersNavn} to={brukerDetaljerPageUrl(id)} onClick={() => loggKlikk(klikkDeltakerRadOversikt)}>
+					{lagKommaSeparertBrukerNavn(fornavn, mellomnavn, etternavn)}
 				</Link>
 			</Table.DataCell>
 			<Table.DataCell><Fnr fnr={fodselsnummer}/></Table.DataCell>
