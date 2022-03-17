@@ -3,9 +3,9 @@
     "fixturesFolder": false,
     "viewportHeight": 1300,
     "viewportWidth": 1800,
-    "requestTimeout": 10000,
-    "pageLoadTimeout": 10000,
-    "defaultCommandTimeout": 10000,
+    "requestTimeout": 20000,
+    "pageLoadTimeout": 20000,
+    "defaultCommandTimeout": 20000,
     "screenshotOnRunFailure": false,
     "video": false,
     "videoUploadOnPasses": false
