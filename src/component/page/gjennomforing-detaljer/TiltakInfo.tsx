@@ -2,8 +2,8 @@ import { Alert, BodyLong, BodyShort, Heading } from '@navikt/ds-react'
 import { AxiosResponse } from 'axios'
 import React from 'react'
 
+import { GjennomforingDto, TiltakGjennomforingStatus } from '../../../api/data/tiltak'
 import { fetchTiltakGjennomforing } from '../../../api/tiltak-api'
-import { Gjennomforing, TiltakGjennomforingStatus } from '../../../domeneobjekter/tiltak'
 import globalStyles from '../../../globals.module.scss'
 import { dateStrWithMonthName } from '../../../utils/date-utils'
 import { isNotStartedOrPending, isRejected, usePromise } from '../../../utils/use-promise'
@@ -16,7 +16,7 @@ interface TiltakInfoProps {
 }
 
 export const TiltakInfo = ({ gjennomforingId }: TiltakInfoProps) => {
-	const fetchGjennomforingPromise = usePromise<AxiosResponse<Gjennomforing>>(
+	const fetchGjennomforingPromise = usePromise<AxiosResponse<GjennomforingDto>>(
 		() => fetchTiltakGjennomforing(gjennomforingId), [ gjennomforingId ]
 	)
 

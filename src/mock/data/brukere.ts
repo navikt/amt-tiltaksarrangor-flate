@@ -1,11 +1,10 @@
 import faker from 'faker'
 
-import { NavKontorDTO, TiltakDeltagerDetaljerDTO } from '../../api/data/deltaker'
-import { GjennomforingDTO } from '../../api/data/tiltak'
-import { TiltakDeltakerStatus } from '../../domeneobjekter/deltaker'
+import { NavKontorDto, TiltakDeltakerDetaljerDto, TiltakDeltakerStatus } from '../../api/data/deltaker'
+import { GjennomforingDto } from '../../api/data/tiltak'
 import { randBetween, randomFnr, randomUuid } from '../utils/faker'
 
-const navEnheter: NavKontorDTO[] = [
+const navEnheter: NavKontorDto[] = [
 	{ navn: 'NAV Bærum' },
 	{ navn: 'NAV Åsnes' },
 	{ navn: 'NAV Møre og Romsdal' },
@@ -23,8 +22,8 @@ const lagMailFraNavn = (navn: string, mailDomain: string): string => {
 	return `${mailNavn}@${mailDomain}`
 }
 
-export const lagMockTiltakDeltagereForGjennomforing = (gjennomforing: GjennomforingDTO): TiltakDeltagerDetaljerDTO[] => {
-	const deltakere: TiltakDeltagerDetaljerDTO[] = []
+export const lagMockTiltakDeltagereForGjennomforing = (gjennomforing: GjennomforingDto): TiltakDeltakerDetaljerDto[] => {
+	const deltakere: TiltakDeltakerDetaljerDto[] = []
 
 	for (let i = 0; i < 10; i++) {
 		deltakere.push(lagMockTiltakDeltagerForGjennomforing(gjennomforing))
@@ -36,7 +35,7 @@ const lagTelefonnummer = (): string => {
 	return faker.phone.phoneNumber().replaceAll(' ', '')
 }
 
-const lagMockTiltakDeltagerForGjennomforing = (gjennomforing: GjennomforingDTO): TiltakDeltagerDetaljerDTO => {
+const lagMockTiltakDeltagerForGjennomforing = (gjennomforing: GjennomforingDto): TiltakDeltakerDetaljerDto => {
 	const status = faker.random.objectElement(TiltakDeltakerStatus) as TiltakDeltakerStatus
 
 	const brukerFornavn = faker.name.firstName()
@@ -53,11 +52,11 @@ const lagMockTiltakDeltagerForGjennomforing = (gjennomforing: GjennomforingDTO):
 		fodselsnummer: randomFnr(),
 		epost: lagMailFraNavn(`${brukerFornavn} ${brukerEtternavn}`, 'example.com'),
 		telefonnummer: lagTelefonnummer(),
-		startDato: faker.date.past().toISOString(),
-		sluttDato: faker.date.future().toISOString(),
+		startDato: faker.date.past(),
+		sluttDato: faker.date.future(),
 		status: {
 			type: status,
-			endretDato: faker.date.recent().toISOString()
+			endretDato: faker.date.recent()
 		},
 		navKontor: faker.random.arrayElement(navEnheter),
 		navVeileder: {
@@ -66,6 +65,6 @@ const lagMockTiltakDeltagerForGjennomforing = (gjennomforing: GjennomforingDTO):
 			telefon: lagTelefonnummer()
 		},
 		gjennomforing: gjennomforing,
-		registrertDato: faker.date.past().toISOString()
+		registrertDato: faker.date.past()
 	}
 }

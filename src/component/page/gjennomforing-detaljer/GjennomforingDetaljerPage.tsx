@@ -3,8 +3,8 @@ import { AxiosResponse } from 'axios'
 import React from 'react'
 import { useParams } from 'react-router-dom'
 
+import { TiltakDeltakerDto } from '../../../api/data/deltaker'
 import { fetchDeltakerePaTiltakGjennomforing } from '../../../api/tiltak-api'
-import { TiltakDeltaker } from '../../../domeneobjekter/deltaker'
 import { useTabTitle } from '../../../hooks/use-tab-title'
 import { GJENNOMFORING_LISTE_PAGE_ROUTE } from '../../../navigation'
 import { getAntallDeltakerePerStatus, sluttaForOver2UkerSiden } from '../../../utils/deltaker-status-utils'
@@ -22,7 +22,7 @@ export const GjennomforingDetaljerPage = (): React.ReactElement => {
 	const params  = useParams<{ gjennomforingId: string }>()
 	const gjennomforingId = params.gjennomforingId || ''
 
-	const fetchDeltakerePaGjennomforingPromise = usePromise<AxiosResponse<TiltakDeltaker[]>>(
+	const fetchDeltakerePaGjennomforingPromise = usePromise<AxiosResponse<TiltakDeltakerDto[]>>(
 		() => fetchDeltakerePaTiltakGjennomforing(gjennomforingId), [ gjennomforingId ]
 	)
 

@@ -1,11 +1,11 @@
 import React from 'react'
 
-import { InnloggetAnsatt } from '../domeneobjekter/ansatt'
+import { InnloggetAnsattDto } from '../api/data/ansatt'
 import { DataStoreProvider } from './data-store'
 import { TiltaksoversiktSokStoreProvider } from './tiltaksoversikt-sok-store'
 
 interface StoreProviderProps {
-	innloggetAnsatt: InnloggetAnsatt;
+	innloggetAnsatt: InnloggetAnsattDto;
 	children: React.ReactNode;
 }
 

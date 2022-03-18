@@ -1,4 +1,4 @@
-import { TiltakDeltakerStatus } from '../domeneobjekter/deltaker'
+import { TiltakDeltakerStatus } from '../api/data/deltaker'
 
 export const mapTiltakDeltagerStatusTilTekst = (tiltakDeltagerStatus: TiltakDeltakerStatus): string => {
 	switch (tiltakDeltagerStatus) {

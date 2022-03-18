@@ -1,9 +1,9 @@
+import { TiltakDeltakerDto } from '../api/data/deltaker'
 import {
 	DeltakerKolonneNavn,
 	DeltakerSortering,
 	TiltakDeltakerPropNames
 } from '../component/page/gjennomforing-detaljer/deltaker-oversikt/types'
-import { TiltakDeltaker } from '../domeneobjekter/deltaker'
 
 export enum SorteringType {
 	ASCENDING = 'ascending',
@@ -46,7 +46,7 @@ export const getDeltakerPropName = (kolonne: DeltakerKolonneNavn) : TiltakDeltak
 	}
 }
 
-export const sorterDeltakere = (deltakere: TiltakDeltaker[], sortering: DeltakerSortering): TiltakDeltaker[] => {
+export const sorterDeltakere = (deltakere: TiltakDeltakerDto[], sortering: DeltakerSortering): TiltakDeltakerDto[] => {
 	const propName = getDeltakerPropName(sortering.kolonne)
 
 	if (sortering.type === SorteringType.NONE || !deltakere || !sortering.kolonne || !propName) {

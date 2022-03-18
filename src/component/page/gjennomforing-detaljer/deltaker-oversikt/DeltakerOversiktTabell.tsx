@@ -3,7 +3,7 @@ import './DeltakerOversiktTabell.scss'
 import { Table } from '@navikt/ds-react'
 import React, { useEffect, useState } from 'react'
 
-import { TiltakDeltaker } from '../../../../domeneobjekter/deltaker'
+import { TiltakDeltakerDto } from '../../../../api/data/deltaker'
 import { useTiltaksoversiktSokStore } from '../../../../store/tiltaksoversikt-sok-store'
 import { filtrerBrukere } from '../../../../utils/filtrering-utils'
 import { sorterDeltakere } from '../../../../utils/sortering-utils'
@@ -13,13 +13,13 @@ import { TabellHeader } from './TabellHeader'
 
 
 interface DeltakerOversiktTabellProps {
-	deltakere: TiltakDeltaker[]
+	deltakere: TiltakDeltakerDto[]
 }
 
 export const DeltakerOversiktTabell = (props: DeltakerOversiktTabellProps): React.ReactElement<DeltakerOversiktTabellProps> => {
 	const { deltakere } =  props
 	const { deltakerSortering, tiltakStatusFilter } = useTiltaksoversiktSokStore()
-	const [ deltakereBearbeidet, setDeltakereBearbeidet ] = useState<TiltakDeltaker[]>(deltakere)
+	const [ deltakereBearbeidet, setDeltakereBearbeidet ] = useState<TiltakDeltakerDto[]>(deltakere)
 
 	useEffect(() => {
 		if (!deltakere) return

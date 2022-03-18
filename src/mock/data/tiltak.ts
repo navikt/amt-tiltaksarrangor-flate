@@ -1,10 +1,9 @@
 import * as faker from 'faker'
 
-import { GjennomforingDTO } from '../../api/data/tiltak'
-import { TiltakGjennomforingStatus } from '../../domeneobjekter/tiltak'
+import { GjennomforingDto, TiltakGjennomforingStatus } from '../../api/data/tiltak'
 import { randomUuid } from '../utils/faker'
 
-export type MockGjennomforing = GjennomforingDTO & { virksomhetId: string }
+export type MockGjennomforing = GjennomforingDto & { virksomhetId: string }
 
 interface GjennomforingInfo {
 	gjennomforingNavn: string;
@@ -46,8 +45,8 @@ const GjennomforingInfoListe: GjennomforingInfo[] = [
 	},
 ]
 
-export const lagTiltakGjennomforinger = (): GjennomforingDTO[] => {
-	const gjennomforinger: GjennomforingDTO[] = []
+export const lagTiltakGjennomforinger = (): GjennomforingDto[] => {
+	const gjennomforinger: GjennomforingDto[] = []
 
 	GjennomforingInfoListe
 		.forEach(t => gjennomforinger.push(lagGjennomforing(t)))
@@ -55,7 +54,7 @@ export const lagTiltakGjennomforinger = (): GjennomforingDTO[] => {
 	return gjennomforinger
 }
 
-const lagGjennomforing = (gjennomforingInfo: GjennomforingInfo): GjennomforingDTO => {
+const lagGjennomforing = (gjennomforingInfo: GjennomforingInfo): GjennomforingDto => {
 	return {
 		id: randomUuid(),
 		navn: gjennomforingInfo.gjennomforingNavn,
@@ -64,8 +63,8 @@ const lagGjennomforing = (gjennomforingInfo: GjennomforingInfo): GjennomforingDT
 			tiltaksnavn: gjennomforingInfo.tiltaksnavn,
 			tiltakskode: gjennomforingInfo.tiltakskode
 		},
-		startDato: faker.date.past().toISOString(),
-		sluttDato: faker.date.future().toISOString(),
+		startDato: faker.date.past(),
+		sluttDato: faker.date.future(),
 		arrangor: {
 			virksomhetNavn: faker.company.companyName(),
 			organisasjonNavn: faker.company.companyName()
