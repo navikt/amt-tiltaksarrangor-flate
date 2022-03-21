@@ -3,6 +3,7 @@ import dayjs from 'dayjs'
 import { z, ZodType } from 'zod'
 
 import { APP_NAME } from '../utils/constants'
+import { captureError } from '../utils/sentry-utils'
 
 export const axiosInstance = axios.create({
 	withCredentials: true,
@@ -20,4 +21,11 @@ export const nullableDateSchema = z.preprocess((arg) => {
 
 export function parse<T>(schema: ZodType<T>): (r: AxiosResponse) => AxiosResponse<T> {
 	return (res: AxiosResponse) => ({ ...res, data: schema.parse(res.data) })
+}
+
+export function logAndThrowError<E = Error>(err: E): E {
+	// eslint-disable-next-line no-console
+	console.error('Request failed', err)
+	captureError(err)
+	throw err
 }

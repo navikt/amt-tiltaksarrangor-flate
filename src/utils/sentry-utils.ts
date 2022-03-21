@@ -11,3 +11,8 @@ export const initSentry = (): void => {
 		tracesSampleRate: 0.25
 	})
 }
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const captureError = (err: any): void => {
+	Sentry.captureException(err)
+}
