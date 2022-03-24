@@ -1,7 +1,7 @@
 import { z } from 'zod'
 
 import { dateSchema, nullableDateSchema } from '../utils'
-import { GjennomforingDto } from './tiltak'
+import { Gjennomforing } from './tiltak'
 
 export enum TiltakDeltakerStatus {
 	VENTER_PA_OPPSTART = 'VENTER_PA_OPPSTART',
@@ -41,9 +41,9 @@ export const tiltakDeltakerDetaljerSchema = z.object({
 	registrertDato: dateSchema,
 	epost: z.string().email().nullable(),
 	telefonnummer: z.string().nullable(),
-	navKontor: z.custom<NavKontorDto>().nullable(),
-	navVeileder: z.custom<NavVeilederDto>().nullable(),
-	gjennomforing: z.custom<GjennomforingDto>()
+	navKontor: z.custom<NavKontor>().nullable(),
+	navVeileder: z.custom<NavVeileder>().nullable(),
+	gjennomforing: z.custom<Gjennomforing>()
 })
 
 export const navKontorSchema = z.object({
@@ -58,12 +58,12 @@ export const navVeilederSchema = z.object({
 
 export const tiltakDeltakereSchema = z.array(tiltakDeltakerSchema)
 
-export type NavVeilederDto = z.infer<typeof navVeilederSchema>
+export type NavVeileder = z.infer<typeof navVeilederSchema>
 
-export type NavKontorDto = z.infer<typeof navKontorSchema>
+export type NavKontor = z.infer<typeof navKontorSchema>
 
-export type TiltakDeltakerDto = z.infer<typeof tiltakDeltakerSchema>
+export type TiltakDeltaker = z.infer<typeof tiltakDeltakerSchema>
 
-export type TiltakDeltakerDetaljerDto = z.infer<typeof tiltakDeltakerDetaljerSchema>
+export type TiltakDeltakerDetaljer = z.infer<typeof tiltakDeltakerDetaljerSchema>
 
-export type DeltakerStatusDto = z.infer<typeof deltakerStatusSchema>
+export type DeltakerStatus = z.infer<typeof deltakerStatusSchema>

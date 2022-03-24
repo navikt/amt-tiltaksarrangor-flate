@@ -1,9 +1,9 @@
 import * as faker from 'faker'
 
-import { GjennomforingDto, TiltakGjennomforingStatus } from '../../api/data/tiltak'
+import { Gjennomforing, TiltakGjennomforingStatus } from '../../api/data/tiltak'
 import { randomUuid } from '../utils/faker'
 
-export type MockGjennomforing = GjennomforingDto & { virksomhetId: string }
+export type MockGjennomforing = Gjennomforing & { virksomhetId: string }
 
 interface GjennomforingInfo {
 	gjennomforingNavn: string;
@@ -45,8 +45,8 @@ const GjennomforingInfoListe: GjennomforingInfo[] = [
 	},
 ]
 
-export const lagTiltakGjennomforinger = (): GjennomforingDto[] => {
-	const gjennomforinger: GjennomforingDto[] = []
+export const lagTiltakGjennomforinger = (): Gjennomforing[] => {
+	const gjennomforinger: Gjennomforing[] = []
 
 	GjennomforingInfoListe
 		.forEach(t => gjennomforinger.push(lagGjennomforing(t)))
@@ -54,7 +54,7 @@ export const lagTiltakGjennomforinger = (): GjennomforingDto[] => {
 	return gjennomforinger
 }
 
-const lagGjennomforing = (gjennomforingInfo: GjennomforingInfo): GjennomforingDto => {
+const lagGjennomforing = (gjennomforingInfo: GjennomforingInfo): Gjennomforing => {
 	return {
 		id: randomUuid(),
 		navn: gjennomforingInfo.gjennomforingNavn,

@@ -3,13 +3,13 @@ import { Heading, Panel } from '@navikt/ds-react'
 import cls from 'classnames'
 import React from 'react'
 
-import { NavKontorDto, NavVeilederDto } from '../../../../api/data/deltaker'
+import { NavKontor, NavVeileder } from '../../../../api/data/deltaker'
 import globalStyles from '../../../../globals.module.scss'
 import { formaterTelefonnummer } from '../../../../utils/bruker-utils'
 import { IconLabel } from '../icon-label/IconLabel'
 import styles from './NavInfoPanel.module.scss'
 
-export function NavInfoPanel(props: { navKontor: NavKontorDto | null, navVeileder: NavVeilederDto | null }): React.ReactElement {
+export function NavInfoPanel(props: { navKontor: NavKontor | null, navVeileder: NavVeileder | null }): React.ReactElement {
 	const { navKontor, navVeileder } = props
 
 	return (

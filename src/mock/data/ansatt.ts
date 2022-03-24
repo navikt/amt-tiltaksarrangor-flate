@@ -1,7 +1,7 @@
-import { InnloggetAnsattDto, VirksomhetDto } from '../../api/data/ansatt'
+import { InnloggetAnsatt, Virksomhet } from '../../api/data/ansatt'
 import { randomUuid } from '../utils/faker'
 
-export const mockInnloggetAnsattVirksomheter: VirksomhetDto[] = [
+export const mockInnloggetAnsattVirksomheter: Virksomhet[] = [
 	{
 		id: '4b26083d-c320-49e1-9104-b4dcdbcc8067',
 		overordnetEnhetNavn: 'Muligheter Org',
@@ -20,7 +20,7 @@ export const mockInnloggetAnsattVirksomheter: VirksomhetDto[] = [
 	}
 ]
 
-export const mockInnloggetAnsatt: InnloggetAnsattDto = {
+export const mockInnloggetAnsatt: InnloggetAnsatt = {
 	id: randomUuid(),
 	fornavn: 'Karoline',
 	mellomnavn: null,

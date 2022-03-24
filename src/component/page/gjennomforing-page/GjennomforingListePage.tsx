@@ -4,7 +4,7 @@ import { AxiosResponse } from 'axios'
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-import { GjennomforingDto, TiltakGjennomforingStatus } from '../../../api/data/tiltak'
+import { Gjennomforing, TiltakGjennomforingStatus } from '../../../api/data/tiltak'
 import { fetchTiltakGjennomforinger } from '../../../api/tiltak-api'
 import { useTabTitle } from '../../../hooks/use-tab-title'
 import { INFORMASJON_PAGE_ROUTE } from '../../../navigation'
@@ -18,7 +18,7 @@ export const GjennomforingListePage = (): React.ReactElement => {
 	useTabTitle('Tiltaksoversikt')
 
 
-	const fetchGjennomforingerPromise = usePromise<AxiosResponse<GjennomforingDto[]>>(
+	const fetchGjennomforingerPromise = usePromise<AxiosResponse<Gjennomforing[]>>(
 		() => fetchTiltakGjennomforinger()
 	)
 

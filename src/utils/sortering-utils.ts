@@ -1,4 +1,4 @@
-import { TiltakDeltakerDto } from '../api/data/deltaker'
+import { TiltakDeltaker } from '../api/data/deltaker'
 import {
 	DeltakerKolonneNavn,
 	DeltakerSortering,
@@ -46,7 +46,7 @@ export const getDeltakerPropName = (kolonne: DeltakerKolonneNavn) : TiltakDeltak
 	}
 }
 
-export const sorterDeltakere = (deltakere: TiltakDeltakerDto[], sortering: DeltakerSortering): TiltakDeltakerDto[] => {
+export const sorterDeltakere = (deltakere: TiltakDeltaker[], sortering: DeltakerSortering): TiltakDeltaker[] => {
 	const propName = getDeltakerPropName(sortering.kolonne)
 
 	if (sortering.type === SorteringType.NONE || !deltakere || !sortering.kolonne || !propName) {

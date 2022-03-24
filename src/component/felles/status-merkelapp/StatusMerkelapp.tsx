@@ -1,7 +1,7 @@
 import { Tag } from '@navikt/ds-react'
 import React from 'react'
 
-import { DeltakerStatusDto, TiltakDeltakerStatus } from '../../../api/data/deltaker'
+import { DeltakerStatus, TiltakDeltakerStatus } from '../../../api/data/deltaker'
 import { mapTiltakDeltagerStatusTilTekst } from '../../../utils/text-mappers'
 import styles from './StatusMerkelapp.module.scss'
 
@@ -15,7 +15,7 @@ const getStyle = (statusType: TiltakDeltakerStatus) => {
 }
 
 interface StatusProps {
-    status: DeltakerStatusDto
+    status: DeltakerStatus
 }
 
 export const StatusMerkelapp = (props: StatusProps) => {

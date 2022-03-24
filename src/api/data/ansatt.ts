@@ -17,6 +17,6 @@ export const innloggetAnsattSchema = z.object({
 	arrangorer: z.array(virksomhetSchema),
 })
 
-export type InnloggetAnsattDto = z.infer<typeof innloggetAnsattSchema>
+export type InnloggetAnsatt = z.infer<typeof innloggetAnsattSchema>
 
-export type VirksomhetDto = z.infer<typeof virksomhetSchema>
+export type Virksomhet = z.infer<typeof virksomhetSchema>

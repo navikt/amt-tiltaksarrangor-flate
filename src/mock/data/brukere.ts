@@ -1,10 +1,10 @@
 import faker from 'faker'
 
-import { NavKontorDto, TiltakDeltakerDetaljerDto, TiltakDeltakerStatus } from '../../api/data/deltaker'
-import { GjennomforingDto } from '../../api/data/tiltak'
+import { NavKontor, TiltakDeltakerDetaljer, TiltakDeltakerStatus } from '../../api/data/deltaker'
+import { Gjennomforing } from '../../api/data/tiltak'
 import { randBetween, randomFnr, randomUuid } from '../utils/faker'
 
-const navEnheter: NavKontorDto[] = [
+const navEnheter: NavKontor[] = [
 	{ navn: 'NAV Bærum' },
 	{ navn: 'NAV Åsnes' },
 	{ navn: 'NAV Møre og Romsdal' },
@@ -22,8 +22,8 @@ const lagMailFraNavn = (navn: string, mailDomain: string): string => {
 	return `${mailNavn}@${mailDomain}`
 }
 
-export const lagMockTiltakDeltagereForGjennomforing = (gjennomforing: GjennomforingDto): TiltakDeltakerDetaljerDto[] => {
-	const deltakere: TiltakDeltakerDetaljerDto[] = []
+export const lagMockTiltakDeltagereForGjennomforing = (gjennomforing: Gjennomforing): TiltakDeltakerDetaljer[] => {
+	const deltakere: TiltakDeltakerDetaljer[] = []
 
 	for (let i = 0; i < 10; i++) {
 		deltakere.push(lagMockTiltakDeltagerForGjennomforing(gjennomforing))
@@ -35,7 +35,7 @@ const lagTelefonnummer = (): string => {
 	return faker.phone.phoneNumber().replaceAll(' ', '')
 }
 
-const lagMockTiltakDeltagerForGjennomforing = (gjennomforing: GjennomforingDto): TiltakDeltakerDetaljerDto => {
+const lagMockTiltakDeltagerForGjennomforing = (gjennomforing: Gjennomforing): TiltakDeltakerDetaljer => {
 	const status = faker.random.objectElement(TiltakDeltakerStatus) as TiltakDeltakerStatus
 
 	const brukerFornavn = faker.name.firstName()

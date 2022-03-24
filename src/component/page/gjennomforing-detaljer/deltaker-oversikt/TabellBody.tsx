@@ -1,11 +1,11 @@
 import { Table } from '@navikt/ds-react'
 import React from 'react'
 
-import { TiltakDeltakerDto } from '../../../../api/data/deltaker'
+import { TiltakDeltaker } from '../../../../api/data/deltaker'
 import { Rad } from './Rad'
 
 interface TabellBodyProps {
-	brukere: TiltakDeltakerDto[];
+	brukere: TiltakDeltaker[];
 }
 
 export const TabellBody = (props: TabellBodyProps) : JSX.Element => {

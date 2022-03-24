@@ -1,10 +1,10 @@
 import dayjs from 'dayjs'
 
-import { DeltakerStatusDto, TiltakDeltakerStatus } from '../api/data/deltaker'
+import { DeltakerStatus, TiltakDeltakerStatus } from '../api/data/deltaker'
 import { sluttaForOver2UkerSiden } from './deltaker-status-utils'
 
 test('sluttaForOver2UkerSiden - deltaker slutta for over 2 uker siden - returnerer true', () =>{
-	const status : DeltakerStatusDto = {
+	const status : DeltakerStatus = {
 		type: TiltakDeltakerStatus.HAR_SLUTTET,
 		endretDato: dayjs('2021-03-22T03:30:32.589Z').toDate()
 	}
@@ -13,7 +13,7 @@ test('sluttaForOver2UkerSiden - deltaker slutta for over 2 uker siden - returner
 })
 
 test('sluttaForOver2UkerSiden - deltaker slutta for under 2 uker siden - returnerer false', () =>{
-	const status : DeltakerStatusDto = {
+	const status : DeltakerStatus = {
 		type: TiltakDeltakerStatus.HAR_SLUTTET,
 		endretDato: dayjs().toDate()
 	}
@@ -22,7 +22,7 @@ test('sluttaForOver2UkerSiden - deltaker slutta for under 2 uker siden - returne
 })
 
 test('sluttaForOver2UkerSiden - deltaker har ikke slutta - returnerer false', () =>{
-	const status : DeltakerStatusDto = {
+	const status : DeltakerStatus = {
 		type: TiltakDeltakerStatus.DELTAR,
 		endretDato: dayjs('2021-03-22T03:30:32.589Z').toDate()
 	}

@@ -4,7 +4,7 @@ import cls from 'classnames'
 import dayjs from 'dayjs'
 import React from 'react'
 
-import { DeltakerStatusDto, TiltakDeltakerDetaljerDto, TiltakDeltakerStatus } from '../../../api/data/deltaker'
+import { DeltakerStatus, TiltakDeltakerDetaljer, TiltakDeltakerStatus } from '../../../api/data/deltaker'
 import globalStyles from '../../../globals.module.scss'
 import { useTabTitle } from '../../../hooks/use-tab-title'
 import { gjennomforingDetaljerPageUrl } from '../../../navigation'
@@ -22,7 +22,7 @@ import { IconLabel } from './icon-label/IconLabel'
 import { KopierKnapp } from './kopier-knapp/KopierKnapp'
 import { NavInfoPanel } from './nav-info-panel/NavInfoPanel'
 
-function mapStatusTilAlertTekst(status: DeltakerStatusDto): string | null {
+function mapStatusTilAlertTekst(status: DeltakerStatus): string | null {
 	const skjulesFraDato = dayjs(deltakerSkalSkjulesFra(status)).format('DD.MM.YYYY')
 	const brukerFjernesTekst = `Deltakeren fjernes fra listen ${skjulesFraDato}`
 	switch (status.type) {
@@ -41,7 +41,7 @@ const erIkkeAktuellEllerHarSluttet = (status: TiltakDeltakerStatus): boolean =>
 const erVenterPaOppstartEllerDeltar = (status: TiltakDeltakerStatus): boolean =>
 	[ TiltakDeltakerStatus.VENTER_PA_OPPSTART, TiltakDeltakerStatus.DELTAR ].includes(status)
 
-export const BrukerPaaTiltakDetaljer = (props: { bruker: TiltakDeltakerDetaljerDto }): React.ReactElement => {
+export const BrukerPaaTiltakDetaljer = (props: { bruker: TiltakDeltakerDetaljer }): React.ReactElement => {
 	const {
 		navKontor, navVeileder, fornavn, mellomnavn, etternavn, fodselsnummer, startDato,
 		sluttDato, gjennomforing, registrertDato, telefonnummer, epost, status

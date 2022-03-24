@@ -32,8 +32,8 @@ export const gjennomforingSchema = z.object({
 
 export const gjennomforingerSchema = z.array(gjennomforingSchema)
 
-export type GjennomforingDto = z.infer<typeof gjennomforingSchema>
+export type Gjennomforing = z.infer<typeof gjennomforingSchema>
 
-export type TiltakDto = z.infer<typeof tiltakSchema>
+export type Tiltak = z.infer<typeof tiltakSchema>
 
-export type ArrangorDto = z.infer<typeof arrangorSchema>
+export type Arrangor = z.infer<typeof arrangorSchema>

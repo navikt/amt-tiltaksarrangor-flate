@@ -1,11 +1,11 @@
 import dayjs from 'dayjs'
 
-import { DeltakerStatusDto, TiltakDeltakerDto, TiltakDeltakerStatus } from '../api/data/deltaker'
+import { DeltakerStatus, TiltakDeltaker, TiltakDeltakerStatus } from '../api/data/deltaker'
 
 
-export const getAntallDeltakerePerStatus = (deltakere: TiltakDeltakerDto[]): Map<TiltakDeltakerStatus, number> => {
+export const getAntallDeltakerePerStatus = (deltakere: TiltakDeltaker[]): Map<TiltakDeltakerStatus, number> => {
 	const statusMap = new Map<TiltakDeltakerStatus, number>()
-	deltakere.forEach((deltaker: TiltakDeltakerDto) => {
+	deltakere.forEach((deltaker: TiltakDeltaker) => {
 		const status = deltaker.status.type
 		const entry = statusMap.get(status)
 
@@ -15,11 +15,11 @@ export const getAntallDeltakerePerStatus = (deltakere: TiltakDeltakerDto[]): Map
 	return statusMap
 }
 
-export const deltakerSkalSkjulesFra = (status: DeltakerStatusDto) => {
+export const deltakerSkalSkjulesFra = (status: DeltakerStatus) => {
 	return dayjs(status.endretDato).add(2, 'w')
 }
 
-export const sluttaForOver2UkerSiden = (status: DeltakerStatusDto) => {
+export const sluttaForOver2UkerSiden = (status: DeltakerStatus) => {
 	const skalSkjulesDato = deltakerSkalSkjulesFra(status)
 	return (status.type === TiltakDeltakerStatus.IKKE_AKTUELL || status.type === TiltakDeltakerStatus.HAR_SLUTTET )
 		&& dayjs().isAfter(skalSkjulesDato)
