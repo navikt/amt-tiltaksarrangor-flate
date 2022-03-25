@@ -1,8 +1,7 @@
-import { TiltakDTO } from '../api/data/tiltak'
-import { Gjennomforing } from '../domeneobjekter/tiltak'
+import { Gjennomforing, Tiltak } from '../api/data/tiltak'
 
-export const finnUnikeTiltak = (gjennomforinger: Gjennomforing[]): TiltakDTO[] => {
-	const unikeTiltak: TiltakDTO[] = []
+export const finnUnikeTiltak = (gjennomforinger: Gjennomforing[]): Tiltak[] => {
+	const unikeTiltak: Tiltak[] = []
 
 	gjennomforinger.forEach(gjennomforing => {
 		const tiltak = unikeTiltak.find(t => t.tiltakskode === gjennomforing.tiltak.tiltakskode)

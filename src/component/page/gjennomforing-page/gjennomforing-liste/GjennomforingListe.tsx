@@ -1,8 +1,7 @@
 import { Alert, Heading } from '@navikt/ds-react'
 import React, { useMemo } from 'react'
 
-import { TiltakDTO } from '../../../../api/data/tiltak'
-import { Gjennomforing } from '../../../../domeneobjekter/tiltak'
+import { Gjennomforing, Tiltak } from '../../../../api/data/tiltak'
 import globalStyles from '../../../../globals.module.scss'
 import { finnTiltakGjennomforinger, finnUnikeTiltak } from '../../../../utils/tiltak-utils'
 import styles from './GjennomforingListe.module.scss'
@@ -14,7 +13,7 @@ interface GjennomforingListeProps {
 
 export const GjennomforingListe = (props: GjennomforingListeProps): React.ReactElement<GjennomforingListeProps> => {
 
-	const unikeTiltak = useMemo<TiltakDTO[]>(() => {
+	const unikeTiltak = useMemo<Tiltak[]>(() => {
 		return finnUnikeTiltak(props.gjennomforinger)
 	}, [ props.gjennomforinger ])
 

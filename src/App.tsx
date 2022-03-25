@@ -2,6 +2,7 @@ import { AxiosError, AxiosResponse } from 'axios'
 import React from 'react'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 
+import { InnloggetAnsatt } from './api/data/ansatt'
 import { fetchInnloggetAnsatt } from './api/tiltak-api'
 import { Banner } from './component/felles/menu/Banner'
 import { Spinner } from './component/felles/spinner/Spinner'
@@ -11,7 +12,6 @@ import { GjennomforingListePage } from './component/page/gjennomforing-page/Gjen
 import { InformasjonPage } from './component/page/informasjon-page/InformasjonPage'
 import { LandingPage, LandingPageView } from './component/page/landing-page/LandingPage'
 import { PageViewMetricCollector } from './component/PageViewMetricCollector'
-import { InnloggetAnsatt } from './domeneobjekter/ansatt'
 import {
 	BRUKER_DETALJER_PAGE_ROUTE,
 	GJENNOMFORING_DETALJER_PAGE_ROUTE,

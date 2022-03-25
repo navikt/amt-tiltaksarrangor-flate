@@ -3,7 +3,7 @@ import { Heading, Panel } from '@navikt/ds-react'
 import cls from 'classnames'
 import React from 'react'
 
-import { NavKontor, NavVeileder } from '../../../../domeneobjekter/deltaker'
+import { NavKontor, NavVeileder } from '../../../../api/data/deltaker'
 import globalStyles from '../../../../globals.module.scss'
 import { formaterTelefonnummer } from '../../../../utils/bruker-utils'
 import { IconLabel } from '../icon-label/IconLabel'

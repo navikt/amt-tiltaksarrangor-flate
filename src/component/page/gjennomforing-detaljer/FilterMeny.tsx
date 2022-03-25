@@ -1,7 +1,7 @@
 import { Checkbox, CheckboxGroup, Panel } from '@navikt/ds-react'
 import React from 'react'
 
-import { TiltakDeltakerStatus } from '../../../domeneobjekter/deltaker'
+import { TiltakDeltakerStatus } from '../../../api/data/deltaker'
 import { useTiltaksoversiktSokStore } from '../../../store/tiltaksoversikt-sok-store'
 import { klikkFilterMeny, loggKlikk } from '../../../utils/amplitude-utils'
 import { mapTiltakDeltagerStatusTilTekst } from '../../../utils/text-mappers'

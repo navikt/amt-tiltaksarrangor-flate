@@ -1,45 +1,47 @@
 import { AxiosPromise } from 'axios'
 
-import { InnloggetAnsatt } from '../domeneobjekter/ansatt'
-import { TiltakDeltaker, TiltakDeltakerDetaljer } from '../domeneobjekter/deltaker'
-import { Gjennomforing } from '../domeneobjekter/tiltak'
 import { appUrl } from '../utils/url-utils'
+import { InnloggetAnsatt, innloggetAnsattSchema } from './data/ansatt'
 import {
-	transformGjennomforing,
-	transformGjennomforinger,
-	transformInnloggetAnsatt,
-	transformTiltakDeltager,
-	transformTiltakDeltagerDetaljer } from './dtoTransformere'
-import { axiosInstance } from './utils'
+	TiltakDeltaker,
+	TiltakDeltakerDetaljer,
+	tiltakDeltakerDetaljerSchema,
+	tiltakDeltakereSchema
+} from './data/deltaker'
+import { Gjennomforing, gjennomforingerSchema, gjennomforingSchema } from './data/tiltak'
+import { axiosInstance, logAndThrowError, parse } from './utils'
 
 export const fetchInnloggetAnsatt = (): AxiosPromise<InnloggetAnsatt> => {
 	return axiosInstance
 		.get(appUrl('/amt-tiltak/api/arrangor/ansatt/meg'))
-		.then(transformInnloggetAnsatt)
+		.then(parse(innloggetAnsattSchema))
+		.catch(logAndThrowError)
 }
 
 export const fetchTiltakGjennomforinger = (): AxiosPromise<Gjennomforing[]> => {
 	return axiosInstance
 		.get(appUrl('/amt-tiltak/api/gjennomforing'))
-		.then(transformGjennomforinger)
+		.then(parse(gjennomforingerSchema))
+		.catch(logAndThrowError)
 }
 
 export const fetchTiltakGjennomforing = (gjennomforingId: string): AxiosPromise<Gjennomforing> => {
 	return axiosInstance
 		.get(appUrl(`/amt-tiltak/api/gjennomforing/${gjennomforingId}`))
-		.then(transformGjennomforing)
+		.then(parse(gjennomforingSchema))
+		.catch(logAndThrowError)
 }
 
 export const fetchDeltakerePaTiltakGjennomforing = (gjennomforingId: string): AxiosPromise<TiltakDeltaker[]> => {
 	return axiosInstance
 		.get(appUrl(`/amt-tiltak/api/gjennomforing/${gjennomforingId}/deltakere`))
-		.then(transformTiltakDeltager)
+		.then(parse(tiltakDeltakereSchema))
+		.catch(logAndThrowError)
 }
 
 export const fetchTiltakDeltagerDetaljer = (tiltakDeltagerId: string): AxiosPromise<TiltakDeltakerDetaljer> => {
 	return axiosInstance
 		.get(appUrl(`/amt-tiltak/api/tiltak-deltaker/${tiltakDeltagerId}`))
-		.then(transformTiltakDeltagerDetaljer)
+		.then(parse(tiltakDeltakerDetaljerSchema))
+		.catch(logAndThrowError)
 }
-
-

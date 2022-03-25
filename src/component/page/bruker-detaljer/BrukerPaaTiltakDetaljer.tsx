@@ -4,7 +4,7 @@ import cls from 'classnames'
 import dayjs from 'dayjs'
 import React from 'react'
 
-import { DeltakerStatus, TiltakDeltakerDetaljer, TiltakDeltakerStatus } from '../../../domeneobjekter/deltaker'
+import { DeltakerStatus, TiltakDeltakerDetaljer, TiltakDeltakerStatus } from '../../../api/data/deltaker'
 import globalStyles from '../../../globals.module.scss'
 import { useTabTitle } from '../../../hooks/use-tab-title'
 import { gjennomforingDetaljerPageUrl } from '../../../navigation'

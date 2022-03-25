@@ -3,12 +3,12 @@ import dayjs from 'dayjs'
 import { EMDASH } from './constants'
 import { OrNothing } from './types/or-nothing'
 
-export const formatDate = (dateStr: Date | undefined): string => {
+export const formatDate = (dateStr: Date | null): string => {
 	if (!dateStr) return EMDASH
 	return dayjs(dateStr).format('DD.MM.YYYY')
 }
 
-export const dateStrWithMonthName = (dateStr: Date | undefined): string => {
+export const dateStrWithMonthName = (dateStr: Date | null): string => {
 	if (!dateStr) return EMDASH
 	return dayjs(dateStr).format('DD. MMMM YYYY')
 }

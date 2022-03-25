@@ -3,7 +3,7 @@ import './DeltakerOversiktTabell.scss'
 import { Table } from '@navikt/ds-react'
 import React, { useEffect, useState } from 'react'
 
-import { TiltakDeltaker } from '../../../../domeneobjekter/deltaker'
+import { TiltakDeltaker } from '../../../../api/data/deltaker'
 import { useTiltaksoversiktSokStore } from '../../../../store/tiltaksoversikt-sok-store'
 import { filtrerBrukere } from '../../../../utils/filtrering-utils'
 import { sorterDeltakere } from '../../../../utils/sortering-utils'

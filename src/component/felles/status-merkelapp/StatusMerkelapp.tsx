@@ -1,7 +1,7 @@
 import { Tag } from '@navikt/ds-react'
 import React from 'react'
 
-import { DeltakerStatus, TiltakDeltakerStatus } from '../../../domeneobjekter/deltaker'
+import { DeltakerStatus, TiltakDeltakerStatus } from '../../../api/data/deltaker'
 import { mapTiltakDeltagerStatusTilTekst } from '../../../utils/text-mappers'
 import styles from './StatusMerkelapp.module.scss'
 

@@ -2,7 +2,7 @@ import { Table } from '@navikt/ds-react'
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-import { TiltakDeltaker } from '../../../../domeneobjekter/deltaker'
+import { TiltakDeltaker } from '../../../../api/data/deltaker'
 import { brukerDetaljerPageUrl } from '../../../../navigation'
 import { klikkDeltakerRadOversikt, loggKlikk } from '../../../../utils/amplitude-utils'
 import { lagKommaSeparertBrukerNavn } from '../../../../utils/bruker-utils'

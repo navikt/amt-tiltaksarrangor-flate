@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { InnloggetAnsatt } from '../domeneobjekter/ansatt'
+import { InnloggetAnsatt } from '../api/data/ansatt'
 import { DataStoreProvider } from './data-store'
 import { TiltaksoversiktSokStoreProvider } from './tiltaksoversikt-sok-store'
 

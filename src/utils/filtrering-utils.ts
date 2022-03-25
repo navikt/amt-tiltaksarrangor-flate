@@ -1,4 +1,4 @@
-import { TiltakDeltaker, TiltakDeltakerStatus } from '../domeneobjekter/deltaker'
+import { TiltakDeltaker, TiltakDeltakerStatus } from '../api/data/deltaker'
 
 const matcherStatus = (statusFilter: TiltakDeltakerStatus[], brukerStatus: TiltakDeltakerStatus) => {
 	if (statusFilter.length === 0) return true

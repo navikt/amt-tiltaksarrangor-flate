@@ -1,3 +1,5 @@
+import { Nullable } from './types/or-nothing'
+
 const formaterNavnCasing = (navn: string): string => {
 	let nyttNavn = ''
 	let nextCharIsUppercase = true
@@ -21,7 +23,7 @@ const formaterNavnCasing = (navn: string): string => {
 }
 
 // Lager navn på format: <etternavn>, <fornavn> <mellomnavn>
-export const lagKommaSeparertBrukerNavn = (fornavn: string, mellomnavn: string | undefined, etternavn: string): string => {
+export const lagKommaSeparertBrukerNavn = (fornavn: string, mellomnavn: Nullable<string>, etternavn: string): string => {
 	return [
 		formaterNavnCasing(etternavn) + ',',
 		formaterNavnCasing(fornavn),
@@ -30,7 +32,7 @@ export const lagKommaSeparertBrukerNavn = (fornavn: string, mellomnavn: string |
 }
 
 // Lager navn på format: <fornavn> <mellomnavn> <etternavn>
-export const lagBrukerNavn = (fornavn: string, mellomnavn: string | undefined, etternavn: string): string => {
+export const lagBrukerNavn = (fornavn: string, mellomnavn: Nullable<string>, etternavn: string): string => {
 	return [
 		formaterNavnCasing(fornavn),
 		mellomnavn ? formaterNavnCasing(mellomnavn) : undefined,
@@ -38,7 +40,7 @@ export const lagBrukerNavn = (fornavn: string, mellomnavn: string | undefined, e
 	].filter(navn => !!navn).join(' ')
 }
 
-export const formaterTelefonnummer = (telefonnummer: string | null | undefined): string => {
+export const formaterTelefonnummer = (telefonnummer: Nullable<string>): string => {
 	if (!telefonnummer) {
 		return ''
 	}
