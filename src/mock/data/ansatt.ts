@@ -23,7 +23,6 @@ export const mockInnloggetAnsattVirksomheter: Virksomhet[] = [
 export const mockInnloggetAnsatt: InnloggetAnsatt = {
 	id: randomUuid(),
 	fornavn: 'Karoline',
-	mellomnavn: null,
 	etternavn: 'Koordinatorsen',
 	arrangorer: mockInnloggetAnsattVirksomheter
 }
