@@ -33,7 +33,7 @@ export const mockHandlers: RequestHandler[] = [
 	rest.get(appUrl('/amt-tiltak/api/gjennomforing'), (req, res, ctx) => {
 		return res(ctx.delay(500), ctx.json(mockGjennomforinger))
 	}),
-	rest.get(appUrl('/amt-tiltak/api/nav-ansatt/tilgang/invitasjon/:invitasjonId/info'), (req, res, ctx) => {
+	rest.get(appUrl('/amt-tiltak/api/tiltaksarrangor/tilgang/invitasjon/:invitasjonId/info'), (req, res, ctx) => {
 		const info: TilgangInvitasjonInfo = {
 			gjennomforingNavn: 'Oppfølging tjenesteområde 2 og 3',
 			overordnetEnhetNavn: 'Muligheter AS',
@@ -42,7 +42,7 @@ export const mockHandlers: RequestHandler[] = [
 
 		return res(ctx.delay(500), ctx.json(info))
 	}),
-	rest.patch(appUrl('/amt-tiltak/api/nav-ansatt/tilgang/invitasjon/:invitasjonId/aksepter'), (req, res, ctx) => {
+	rest.patch(appUrl('/amt-tiltak/api/tiltaksarrangor/tilgang/invitasjon/:invitasjonId/aksepter'), (req, res, ctx) => {
 		return res(ctx.delay(500), ctx.status(200))
 	}),
 ]

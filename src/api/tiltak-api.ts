@@ -49,12 +49,12 @@ export const fetchTiltakDeltagerDetaljer = (tiltakDeltagerId: string): AxiosProm
 
 export const fetchTilgangInvitasjonInfo = (invitasjonId: string): AxiosPromise<TilgangInvitasjonInfo> => {
 	return axiosInstance
-		.get(appUrl(`/amt-tiltak/api/nav-ansatt/tilgang/invitasjon/${invitasjonId}/info`))
+		.get(appUrl(`/amt-tiltak/api/tiltaksarrangor/tilgang/invitasjon/${invitasjonId}/info`))
 		.catch(logAndThrowError)
 }
 
 export const aksepterTilgangInvitasjon = (invitasjonId: string): AxiosPromise => {
 	return axiosInstance
-		.patch(appUrl(`/amt-tiltak/api/nav-ansatt/tilgang/invitasjon/${invitasjonId}/aksepter`))
+		.patch(appUrl(`/amt-tiltak/api/tiltaksarrangor/tilgang/invitasjon/${invitasjonId}/aksepter`))
 		.catch(logAndThrowError)
 }
