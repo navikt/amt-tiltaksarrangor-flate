@@ -1,5 +1,4 @@
 import { Information } from '@navikt/ds-icons'
-import { Alert } from '@navikt/ds-react'
 import { AxiosResponse } from 'axios'
 import React from 'react'
 import { Link } from 'react-router-dom'
@@ -10,24 +9,24 @@ import { useTabTitle } from '../../../hooks/use-tab-title'
 import { INFORMASJON_PAGE_ROUTE } from '../../../navigation'
 import { sortAlphabeticAsc } from '../../../utils/sortering-utils'
 import { isNotStartedOrPending, isRejected, usePromise } from '../../../utils/use-promise'
-import { Spinner } from '../../felles/spinner/Spinner'
+import { AlertPage } from '../../felles/alert-page/AlertPage'
+import { SpinnerPage } from '../../felles/spinner-page/SpinnerPage'
 import { GjennomforingListe } from './gjennomforing-liste/GjennomforingListe'
 import styles from './GjennomforingListePage.module.scss'
 
 export const GjennomforingListePage = (): React.ReactElement => {
 	useTabTitle('Tiltaksoversikt')
 
-
 	const fetchGjennomforingerPromise = usePromise<AxiosResponse<Gjennomforing[]>>(
 		() => fetchTiltakGjennomforinger()
 	)
 
 	if (isNotStartedOrPending(fetchGjennomforingerPromise)) {
-		return <Spinner/>
+		return <SpinnerPage/>
 	}
 
 	if (isRejected(fetchGjennomforingerPromise)) {
-		return <Alert variant="error">Noe gikk galt</Alert>
+		return <AlertPage variant="error" tekst="Noe gikk galt"/>
 	}
 
 	const alleGjennomforinger = fetchGjennomforingerPromise.result.data

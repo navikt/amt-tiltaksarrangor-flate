@@ -1,4 +1,3 @@
-import { Alert } from '@navikt/ds-react'
 import { AxiosResponse } from 'axios'
 import React from 'react'
 import { useParams } from 'react-router-dom'
@@ -9,7 +8,8 @@ import { useTabTitle } from '../../../hooks/use-tab-title'
 import { GJENNOMFORING_LISTE_PAGE_ROUTE } from '../../../navigation'
 import { getAntallDeltakerePerStatus, sluttaForOver2UkerSiden } from '../../../utils/deltaker-status-utils'
 import { isNotStartedOrPending, isRejected, usePromise } from '../../../utils/use-promise'
-import { Spinner } from '../../felles/spinner/Spinner'
+import { AlertPage } from '../../felles/alert-page/AlertPage'
+import { SpinnerPage } from '../../felles/spinner-page/SpinnerPage'
 import { Tilbakelenke } from '../../felles/tilbakelenke/Tilbakelenke'
 import { DeltakerOversiktTabell } from './deltaker-oversikt/DeltakerOversiktTabell'
 import { FilterMeny } from './FilterMeny'
@@ -27,11 +27,11 @@ export const GjennomforingDetaljerPage = (): React.ReactElement => {
 	)
 
 	if (isNotStartedOrPending(fetchDeltakerePaGjennomforingPromise)) {
-		return <Spinner/>
+		return <SpinnerPage/>
 	}
 
 	if (isRejected(fetchDeltakerePaGjennomforingPromise)) {
-		return <Alert variant="error">Noe gikk galt</Alert>
+		return <AlertPage variant="error" tekst="Noe gikk galt"/>
 	}
 
 	const deltakere = fetchDeltakerePaGjennomforingPromise.result.data
