@@ -45,11 +45,19 @@ export const formaterTelefonnummer = (telefonnummer: Nullable<string>): string =
 		return ''
 	}
 
-	// Fjern norsk landskode. Noen telefonnumer har ikke mellomrom mellom landskode og nummer,
-	// i disse tilfellene så ønsker vi ikke å formatere nummerene
-	if (telefonnummer.startsWith('+47 ')) {
-		telefonnummer = telefonnummer.replace('+47 ', '')
+	if (telefonnummer.startsWith('+47')) {
+		telefonnummer = telefonnummer.replace('+47', '')
 	}
+
+	if(telefonnummer.startsWith('47') && telefonnummer.length === 10) {
+		telefonnummer = telefonnummer.replace('47', '')
+	}
+
+	if(telefonnummer.startsWith('0047') && telefonnummer.length === 12) {
+		telefonnummer = telefonnummer.replace('0047', '')
+	}
+
+	telefonnummer = telefonnummer.trim()
 
 	if (telefonnummer.length === 8) {
 		// Formater telefonnummer til f.eks: 11 22 33 44
