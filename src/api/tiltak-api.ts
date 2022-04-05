@@ -1,4 +1,4 @@
-import { AxiosPromise } from 'axios'
+import { AxiosError, AxiosPromise } from 'axios'
 
 import { appUrl } from '../utils/url-utils'
 import { InnloggetAnsatt, innloggetAnsattSchema } from './data/ansatt'
@@ -15,7 +15,15 @@ export const fetchInnloggetAnsatt = (): AxiosPromise<InnloggetAnsatt> => {
 	return axiosInstance
 		.get(appUrl('/amt-tiltak/api/arrangor/ansatt/meg'))
 		.then(parse(innloggetAnsattSchema))
-		.catch(logAndThrowError)
+		.catch(err => {
+			// Ikke logg 401 feil til sentry
+
+			if ((err as AxiosError).response?.status === 401) {
+				throw err
+			}
+
+			return logAndThrowError(err)
+		})
 }
 
 export const fetchTiltakGjennomforinger = (): AxiosPromise<Gjennomforing[]> => {
