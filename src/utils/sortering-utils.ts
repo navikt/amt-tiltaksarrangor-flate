@@ -54,7 +54,7 @@ export const sortAlphabeticAsc = (s1: string, s2: string): number => {
 	return 0
 }
 
-export function sort<Type>(a: Type, b: Type): number {
+export function compareAsc<Type>(a: Type, b: Type): number {
 	if (a === b) return 0
 	if (!a || a < b) return -1
 	if (a > b) return 1

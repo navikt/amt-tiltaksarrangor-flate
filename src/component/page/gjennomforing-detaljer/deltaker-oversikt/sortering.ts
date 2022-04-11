@@ -1,5 +1,5 @@
 import { TiltakDeltaker } from '../../../../api/data/deltaker'
-import { sort, Sortering } from '../../../../utils/sortering-utils'
+import { compareAsc, Sortering } from '../../../../utils/sortering-utils'
 
 export enum DeltakerKolonne {
 	NAVN = 'NAVN',
@@ -21,11 +21,19 @@ export const sorterDeltakere = (deltakere: TiltakDeltaker[], sortering: Sorterin
 		return deltakere
 	}
 
+	const sorterteDeltakereAsc = [ ...deltakere ].sort((a, b) => {
+		if (propName === 'status') {
+			return compareAsc(a.status.type, b.status.type)
+		} else {
+			return compareAsc(a[propName], b[propName])
+		}
+	})
+
 	if (sortering.direction === 'descending') {
-		return deltakere.sort( (a, b) => sort(b[propName], a[propName]))
+		return sorterteDeltakereAsc.reverse()
 	}
 
-	return deltakere.sort((a, b) => sort(a[propName], b[propName]))
+	return sorterteDeltakereAsc
 }
 
 const getDeltakerPropName = (kolonne: string): keyof TiltakDeltaker => {
