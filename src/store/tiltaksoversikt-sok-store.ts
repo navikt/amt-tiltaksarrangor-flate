@@ -2,15 +2,11 @@ import constate from 'constate'
 import { useState } from 'react'
 
 import { TiltakDeltakerStatus } from '../api/data/deltaker'
-import { DeltakerKolonneNavn, DeltakerSortering } from '../component/page/gjennomforing-detaljer/deltaker-oversikt/types'
-import { SorteringType } from '../utils/sortering-utils'
+import { Sortering } from '../utils/sortering-utils'
 
 export const [ TiltaksoversiktSokStoreProvider, useTiltaksoversiktSokStore ] = constate(() => {
 	const [ tiltakStatusFilter, setTiltakStatusFilter ] = useState<TiltakDeltakerStatus[]>([])
-	const [ deltakerSortering, setDeltakerSortering ] = useState<DeltakerSortering>( {
-		kolonne: DeltakerKolonneNavn.NAVN,
-		type: SorteringType.NONE
-	})
+	const [ deltakerSortering, setDeltakerSortering ] = useState<Sortering>()
 
 	const leggTilTiltakStatus = (tiltakStatus: TiltakDeltakerStatus) => {
 		setTiltakStatusFilter((prevStatuser) => {
