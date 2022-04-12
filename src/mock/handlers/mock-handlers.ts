@@ -1,12 +1,13 @@
 import { rest } from 'msw'
 import { RequestHandler } from 'msw/lib/types/handlers/RequestHandler'
 
+import { TilgangInvitasjonInfo } from '../../api/data/deltaker'
 import { appUrl } from '../../utils/url-utils'
-import { mockGjennomforinger,mockTiltakDeltagere } from '../data'
+import { mockGjennomforinger, mockTiltakDeltagere } from '../data'
 import { mockInnloggetAnsatt } from '../data/ansatt'
 
 export const mockHandlers: RequestHandler[] = [
-	rest.get(appUrl('/amt-tiltak/api/arrangor/ansatt/meg'), (req, res, ctx) => {
+	rest.get(appUrl('/amt-tiltak/api/arrangor/ansatt/meg'), (_req, res, ctx) => {
 		return res(ctx.delay(500), ctx.json(mockInnloggetAnsatt))
 	}),
 	rest.get(appUrl('/amt-tiltak/api/gjennomforing/:gjennomforingId'), (req, res, ctx) => {
@@ -29,7 +30,19 @@ export const mockHandlers: RequestHandler[] = [
 
 		return res(ctx.delay(500), ctx.json(deltakerMedGjennomforing))
 	}),
-	rest.get(appUrl('/amt-tiltak/api/gjennomforing'), (req, res, ctx) => {
+	rest.get(appUrl('/amt-tiltak/api/gjennomforing'), (_req, res, ctx) => {
 		return res(ctx.delay(500), ctx.json(mockGjennomforinger))
+	}),
+	rest.get(appUrl('/amt-tiltak/api/tiltaksarrangor/tilgang/invitasjon/:invitasjonId/info'), (_req, res, ctx) => {
+		const info: TilgangInvitasjonInfo = {
+			gjennomforingNavn: 'Oppfølging tjenesteområde 2 og 3',
+			overordnetEnhetNavn: 'Muligheter AS',
+			erBrukt: false
+		}
+
+		return res(ctx.delay(500), ctx.json(info))
+	}),
+	rest.patch(appUrl('/amt-tiltak/api/tiltaksarrangor/tilgang/invitasjon/:invitasjonId/aksepter'), (_req, res, ctx) => {
+		return res(ctx.delay(500), ctx.status(200))
 	}),
 ]

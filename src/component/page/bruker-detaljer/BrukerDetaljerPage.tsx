@@ -1,4 +1,3 @@
-import { Alert } from '@navikt/ds-react'
 import { AxiosResponse } from 'axios'
 import React from 'react'
 import { useParams } from 'react-router-dom'
@@ -6,7 +5,8 @@ import { useParams } from 'react-router-dom'
 import { TiltakDeltakerDetaljer } from '../../../api/data/deltaker'
 import { fetchTiltakDeltagerDetaljer } from '../../../api/tiltak-api'
 import { isNotStartedOrPending, isRejected, usePromise } from '../../../utils/use-promise'
-import { Spinner } from '../../felles/spinner/Spinner'
+import { AlertPage } from '../../felles/alert-page/AlertPage'
+import { SpinnerPage } from '../../felles/spinner-page/SpinnerPage'
 import { BrukerPaaTiltakDetaljer } from './BrukerPaaTiltakDetaljer'
 
 export const BrukerDetaljerPage = (): React.ReactElement => {
@@ -18,11 +18,11 @@ export const BrukerDetaljerPage = (): React.ReactElement => {
 	)
 
 	if (isNotStartedOrPending(fetchTiltakDeltagerDetaljerPromise)) {
-		return <Spinner />
+		return <SpinnerPage />
 	}
 
 	if (isRejected(fetchTiltakDeltagerDetaljerPromise)) {
-		return <Alert variant="error">En feil oppstod</Alert>
+		return <AlertPage variant="error" tekst="En feil oppstod"/>
 	}
 
 	const bruker = fetchTiltakDeltagerDetaljerPromise.result.data

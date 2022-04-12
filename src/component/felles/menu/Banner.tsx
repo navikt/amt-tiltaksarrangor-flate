@@ -3,10 +3,10 @@ import cls from 'classnames'
 import React from 'react'
 
 import globalStyles from '../../../globals.module.scss'
+import navLogo from '../../../ikoner/nav-logo.svg'
 import { useDataStore } from '../../../store/data-store'
 import { appUrl } from '../../../utils/url-utils'
 import styles from './Banner.module.scss'
-import navLogo from './nav-logo.svg'
 
 export const Banner = (): React.ReactElement => {
 	const { innloggetAnsatt } = useDataStore()

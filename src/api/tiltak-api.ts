@@ -3,6 +3,7 @@ import { AxiosError, AxiosPromise } from 'axios'
 import { appUrl } from '../utils/url-utils'
 import { InnloggetAnsatt, innloggetAnsattSchema } from './data/ansatt'
 import {
+	TilgangInvitasjonInfo,
 	TiltakDeltaker,
 	TiltakDeltakerDetaljer,
 	tiltakDeltakerDetaljerSchema,
@@ -51,5 +52,17 @@ export const fetchTiltakDeltagerDetaljer = (tiltakDeltagerId: string): AxiosProm
 	return axiosInstance
 		.get(appUrl(`/amt-tiltak/api/tiltak-deltaker/${tiltakDeltagerId}`))
 		.then(parse(tiltakDeltakerDetaljerSchema))
+		.catch(logAndThrowError)
+}
+
+export const fetchTilgangInvitasjonInfo = (invitasjonId: string): AxiosPromise<TilgangInvitasjonInfo> => {
+	return axiosInstance
+		.get(appUrl(`/amt-tiltak/api/tiltaksarrangor/tilgang/invitasjon/${invitasjonId}/info`))
+		.catch(logAndThrowError)
+}
+
+export const aksepterTilgangInvitasjon = (invitasjonId: string): AxiosPromise => {
+	return axiosInstance
+		.patch(appUrl(`/amt-tiltak/api/tiltaksarrangor/tilgang/invitasjon/${invitasjonId}/aksepter`))
 		.catch(logAndThrowError)
 }

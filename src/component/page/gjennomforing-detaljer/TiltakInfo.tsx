@@ -1,4 +1,4 @@
-import { Alert, BodyLong, BodyShort, Heading } from '@navikt/ds-react'
+import { Alert, BodyLong, BodyShort, Heading, Loader } from '@navikt/ds-react'
 import { AxiosResponse } from 'axios'
 import React from 'react'
 
@@ -8,7 +8,6 @@ import globalStyles from '../../../globals.module.scss'
 import { dateStrWithMonthName } from '../../../utils/date-utils'
 import { isNotStartedOrPending, isRejected, usePromise } from '../../../utils/use-promise'
 import { Show } from '../../felles/Show'
-import { Spinner } from '../../felles/spinner/Spinner'
 import styles from './GjennomforingDetaljerPage.module.scss'
 
 interface TiltakInfoProps {
@@ -21,7 +20,7 @@ export const TiltakInfo = ({ gjennomforingId }: TiltakInfoProps) => {
 	)
 
 	if (isNotStartedOrPending(fetchGjennomforingPromise)) {
-		return <Spinner/>
+		return <Loader size="2xlarge" className={globalStyles.blokkS} />
 	}
 
 	if (isRejected(fetchGjennomforingPromise)) {

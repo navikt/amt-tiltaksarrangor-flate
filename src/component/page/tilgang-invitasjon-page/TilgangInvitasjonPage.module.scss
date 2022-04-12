@@ -1,0 +1,15 @@
+.page {
+  max-width: 600px;
+  margin: 4rem auto auto;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.alert {
+  background-color: #F3FCF5;
+  border: 1px solid var(--navds-semantic-color-feedback-success-border);
+  padding: 1rem;
+  margin-bottom: 4rem;
+}

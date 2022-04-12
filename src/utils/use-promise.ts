@@ -48,6 +48,7 @@ export const usePromise = <R, E = Error>(func?: () => Promise<R>, dependencies?:
 
 	useEffect(() => {
 		if (func) {
+			setPromiseState({ status: Status.PENDING, error: undefined, result: undefined })
 			setPromise(func())
 		}
 		// eslint-disable-next-line
@@ -57,7 +58,7 @@ export const usePromise = <R, E = Error>(func?: () => Promise<R>, dependencies?:
 		if (promise) {
 			let canceled = false
 
-			setPromiseState(defaultState)
+			setPromiseState({ status: Status.PENDING, error: undefined, result: undefined })
 
 			promise
 				.then((res) => {
@@ -86,6 +87,10 @@ export const usePromise = <R, E = Error>(func?: () => Promise<R>, dependencies?:
 
 export const isNotStartedOrPending = <R, E>(state: PromiseState<R, E>): state is NotStartedPromiseState | PendingPromiseState => {
 	return state.status === Status.NOT_STARTED || state.status === Status.PENDING
+}
+
+export const isPending = <R, E>(state: PromiseState<R, E>): state is PendingPromiseState => {
+	return state.status === Status.PENDING
 }
 
 export const isResolved = <R, E>(state: PromiseState<R, E>): state is ResolvedPromiseState<R> => {
