@@ -1,63 +1,42 @@
-import { TiltakDeltaker } from '../api/data/deltaker'
-import {
-	DeltakerKolonneNavn,
-	DeltakerSortering,
-	TiltakDeltakerPropNames
-} from '../component/page/gjennomforing-detaljer/deltaker-oversikt/types'
 
-export enum SorteringType {
-	ASCENDING = 'ascending',
-	DESCENDING = 'descending',
-	NONE = 'none',
+export type SorteringRetning = 'ascending' | 'descending'
+
+export interface Sortering {
+	orderBy: string,
+	direction: SorteringRetning
 }
 
-export const DEFAULT_SORTERING_TYPE = SorteringType.ASCENDING
+export const DEFAULT_SORTERING_RETNING = 'ascending'
 
-export const mapSortDirectionToText = (sorteringType: SorteringType): string => {
-	switch (sorteringType) {
-		case SorteringType.ASCENDING:
-			return 'stigende'
-		case SorteringType.DESCENDING:
-			return 'synkende'
+export const finnNesteSortering = (sortKey: string | undefined, prevSort: Sortering | undefined): Sortering | undefined => {
+	if (!sortKey) {
+		return undefined
+	}
+
+	const sammeKolonne = prevSort?.orderBy === sortKey
+
+	if (!sammeKolonne) {
+		return { orderBy: sortKey, direction: DEFAULT_SORTERING_RETNING }
+	}
+
+	const retning = finnNesteSorteringRetning(prevSort?.direction)
+
+	if (!retning) {
+		return undefined
+	}
+
+	return { orderBy: sortKey, direction: retning }
+}
+
+const finnNesteSorteringRetning = (retning: SorteringRetning | undefined): SorteringRetning | undefined => {
+	switch (retning) {
+		case 'ascending':
+			return 'descending'
+		case 'descending':
+			return undefined
 		default:
-			return ''
+			return DEFAULT_SORTERING_RETNING
 	}
-}
-
-export const finnNesteSorteringType = (sorteringType: SorteringType): SorteringType => {
-	switch (sorteringType) {
-		case SorteringType.ASCENDING:
-			return SorteringType.DESCENDING
-		case SorteringType.DESCENDING:
-			return SorteringType.NONE
-		default:
-			return DEFAULT_SORTERING_TYPE
-	}
-}
-
-export const getDeltakerPropName = (kolonne: DeltakerKolonneNavn) : TiltakDeltakerPropNames => {
-	switch (kolonne){
-		case DeltakerKolonneNavn.NAVN: return 'etternavn'
-		case DeltakerKolonneNavn.OPPSTART: return 'startDato'
-		case DeltakerKolonneNavn.SLUTT: return 'sluttDato'
-		case DeltakerKolonneNavn.REGDATO: return 'registrertDato'
-		case DeltakerKolonneNavn.FODSELSNUMMER: return 'fodselsnummer'
-		case DeltakerKolonneNavn.STATUS: return 'status'
-	}
-}
-
-export const sorterDeltakere = (deltakere: TiltakDeltaker[], sortering: DeltakerSortering): TiltakDeltaker[] => {
-	const propName = getDeltakerPropName(sortering.kolonne)
-
-	if (sortering.type === SorteringType.NONE || !deltakere || !sortering.kolonne || !propName) {
-		return deltakere
-	}
-
-	if (sortering.type === SorteringType.DESCENDING) {
-		return deltakere.sort( (a, b) => sort(b[propName], a[propName]))
-	}
-
-	return deltakere.sort((a, b) => sort(a[propName], b[propName]))
 }
 
 export const sortAlphabeticAsc = (s1: string, s2: string): number => {
@@ -75,7 +54,7 @@ export const sortAlphabeticAsc = (s1: string, s2: string): number => {
 	return 0
 }
 
-function sort<Type>(a: Type, b: Type): number {
+export function compareAsc<Type>(a: Type, b: Type): number {
 	if (a === b) return 0
 	if (!a || a < b) return -1
 	if (a > b) return 1

@@ -1,13 +1,12 @@
-import './DeltakerOversiktTabell.scss'
-
 import { Table } from '@navikt/ds-react'
 import React, { useEffect, useState } from 'react'
 
 import { TiltakDeltaker } from '../../../../api/data/deltaker'
 import { useTiltaksoversiktSokStore } from '../../../../store/tiltaksoversikt-sok-store'
 import { filtrerBrukere } from '../../../../utils/filtrering-utils'
-import { sorterDeltakere } from '../../../../utils/sortering-utils'
+import { finnNesteSortering } from '../../../../utils/sortering-utils'
 import { IngenDeltakereAlertstripe } from './IngenDeltakereAlertstripe'
+import { sorterDeltakere } from './sortering'
 import { TabellBody } from './TabellBody'
 import { TabellHeader } from './TabellHeader'
 
@@ -18,7 +17,7 @@ interface DeltakerOversiktTabellProps {
 
 export const DeltakerOversiktTabell = (props: DeltakerOversiktTabellProps): React.ReactElement<DeltakerOversiktTabellProps> => {
 	const { deltakere } =  props
-	const { deltakerSortering, tiltakStatusFilter } = useTiltaksoversiktSokStore()
+	const { deltakerSortering, tiltakStatusFilter, setDeltakerSortering } = useTiltaksoversiktSokStore()
 	const [ deltakereBearbeidet, setDeltakereBearbeidet ] = useState<TiltakDeltaker[]>(deltakere)
 
 	useEffect(() => {
@@ -29,12 +28,16 @@ export const DeltakerOversiktTabell = (props: DeltakerOversiktTabellProps): Reac
 
 	}, [ deltakere, deltakerSortering, tiltakStatusFilter ])
 
+	const handleOnSortChange = (sortKey: string | undefined) => {
+		setDeltakerSortering(prevSort => finnNesteSortering(sortKey, prevSort))
+	}
+
 	return (
 		<section>
 			{deltakere.length === 0
 				? <IngenDeltakereAlertstripe/>
 				: (
-					<Table className="tabell" zebraStripes={true}>
+					<Table className="tabell" zebraStripes={true} sort={deltakerSortering} onSortChange={handleOnSortChange}>
 						<TabellHeader />
 						<TabellBody brukere={deltakereBearbeidet} />
 					</Table>

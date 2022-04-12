@@ -50,13 +50,16 @@ test('formaterTelefonnummer skal returnere tom string hvis null | undefined | to
 	expect(formaterTelefonnummer('')).toEqual('')
 })
 
+test('formaterTelefonnummer skal parse norsk landskode', () => {
+	expect(formaterTelefonnummer('47526820')).toEqual('47 52 68 20')
+	expect(formaterTelefonnummer('4747526820')).toEqual('47 52 68 20')
+	expect(formaterTelefonnummer('+4747526820')).toEqual('47 52 68 20')
+	expect(formaterTelefonnummer('004747526820')).toEqual('47 52 68 20')
+})
+
 test('formaterTelefonnummer skal parse norskt telefonnummer', () => {
 	expect(formaterTelefonnummer('+47 12345678')).toEqual('12 34 56 78')
 	expect(formaterTelefonnummer('12345678')).toEqual('12 34 56 78')
-})
-
-test('formaterTelefonnummer skal ikke endre telefonnummer som ikke har skille mellom landskode og nummer', () => {
-	expect(formaterTelefonnummer('+4712345678')).toEqual('+4712345678')
 })
 
 test('formaterTelefonnummer skal ikke endre telefonnummer som ikke er norskt telefonnummer', () => {
