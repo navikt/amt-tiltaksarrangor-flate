@@ -12,7 +12,7 @@ export enum DeltakerKolonne {
 
 export const sorterDeltakere = (deltakere: TiltakDeltaker[], sortering: Sortering | undefined): TiltakDeltaker[] => {
 	if (!sortering) {
-		return deltakere
+		return sorterStatusEndringAsc(deltakere).reverse()
 	}
 
 	const propName = getDeltakerPropName(sortering.orderBy)
@@ -34,6 +34,12 @@ export const sorterDeltakere = (deltakere: TiltakDeltaker[], sortering: Sorterin
 	}
 
 	return sorterteDeltakereAsc
+}
+
+const sorterStatusEndringAsc = (deltakere: TiltakDeltaker[]): TiltakDeltaker[] => {
+	return [ ...deltakere ].sort((d1, d2) => {
+		return compareAsc(d1.status.endretDato, d2.status.endretDato)
+	})
 }
 
 const getDeltakerPropName = (kolonne: string): keyof TiltakDeltaker => {
