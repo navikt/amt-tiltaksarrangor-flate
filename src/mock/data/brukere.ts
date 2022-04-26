@@ -1,10 +1,10 @@
 import faker from 'faker'
 
-import { NavKontor, TiltakDeltakerDetaljer, TiltakDeltakerStatus } from '../../api/data/deltaker'
+import { NavEnhet, TiltakDeltakerDetaljer, TiltakDeltakerStatus } from '../../api/data/deltaker'
 import { Gjennomforing } from '../../api/data/tiltak'
 import { randBetween, randomFnr, randomUuid } from '../utils/faker'
 
-const navEnheter: NavKontor[] = [
+const navEnheter: NavEnhet[] = [
 	{ navn: 'NAV Bærum' },
 	{ navn: 'NAV Åsnes' },
 	{ navn: 'NAV Møre og Romsdal' },
@@ -58,7 +58,7 @@ const lagMockTiltakDeltagerForGjennomforing = (gjennomforing: Gjennomforing): Ti
 			type: status,
 			endretDato: faker.date.recent()
 		},
-		navKontor: faker.random.arrayElement(navEnheter),
+		navEnhet: faker.random.arrayElement(navEnheter),
 		navVeileder: {
 			epost: lagMailFraNavn(veilederNavn, 'nav.no'),
 			navn: veilederNavn,

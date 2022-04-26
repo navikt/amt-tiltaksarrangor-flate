@@ -43,7 +43,7 @@ const erVenterPaOppstartEllerDeltar = (status: TiltakDeltakerStatus): boolean =>
 
 export const BrukerPaaTiltakDetaljer = (props: { bruker: TiltakDeltakerDetaljer }): React.ReactElement => {
 	const {
-		navKontor, navVeileder, fornavn, mellomnavn, etternavn, fodselsnummer, startDato,
+		navEnhet, navVeileder, fornavn, mellomnavn, etternavn, fodselsnummer, startDato,
 		sluttDato, gjennomforing, registrertDato, telefonnummer, epost, status
 	} = props.bruker
 
@@ -103,7 +103,7 @@ export const BrukerPaaTiltakDetaljer = (props: { bruker: TiltakDeltakerDetaljer 
 				</section>
 
 				<section>
-					<NavInfoPanel navKontor={navKontor} navVeileder={navVeileder} />
+					<NavInfoPanel navEnhet={navEnhet} navVeileder={navVeileder} />
 				</section>
 			</div>
 		</>

@@ -41,12 +41,12 @@ export const tiltakDeltakerDetaljerSchema = z.object({
 	registrertDato: dateSchema,
 	epost: z.string().email().nullable(),
 	telefonnummer: z.string().nullable(),
-	navKontor: z.custom<NavKontor>().nullable(),
+	navEnhet: z.custom<NavEnhet>().nullable(),
 	navVeileder: z.custom<NavVeileder>().nullable(),
 	gjennomforing: z.custom<Gjennomforing>()
 })
 
-export const navKontorSchema = z.object({
+export const navEnhetSchema = z.object({
 	navn: z.string(),
 })
 
@@ -66,7 +66,7 @@ export const tiltakDeltakereSchema = z.array(tiltakDeltakerSchema)
 
 export type NavVeileder = z.infer<typeof navVeilederSchema>
 
-export type NavKontor = z.infer<typeof navKontorSchema>
+export type NavEnhet = z.infer<typeof navEnhetSchema>
 
 export type TiltakDeltaker = z.infer<typeof tiltakDeltakerSchema>
 

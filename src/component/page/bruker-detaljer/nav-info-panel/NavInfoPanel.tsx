@@ -3,14 +3,14 @@ import { Heading, Panel } from '@navikt/ds-react'
 import cls from 'classnames'
 import React from 'react'
 
-import { NavKontor, NavVeileder } from '../../../../api/data/deltaker'
+import { NavEnhet, NavVeileder } from '../../../../api/data/deltaker'
 import globalStyles from '../../../../globals.module.scss'
 import { formaterTelefonnummer } from '../../../../utils/bruker-utils'
 import { IconLabel } from '../icon-label/IconLabel'
 import styles from './NavInfoPanel.module.scss'
 
-export function NavInfoPanel(props: { navKontor: NavKontor | null, navVeileder: NavVeileder | null }): React.ReactElement {
-	const { navKontor, navVeileder } = props
+export function NavInfoPanel(props: { navEnhet: NavEnhet | null, navVeileder: NavVeileder | null }): React.ReactElement {
+	const { navEnhet, navVeileder } = props
 
 	return (
 		<Panel border className={styles.infoPanel}>
@@ -18,7 +18,7 @@ export function NavInfoPanel(props: { navKontor: NavKontor | null, navVeileder: 
 
 			<div className={cls(styles.contentBlock, globalStyles.blokkM)}>
 				<IconLabel
-					labelValue={navKontor?.navn}
+					labelValue={navEnhet?.navn}
 					icon={<Home title="Nav-kontor" />}
 					iconWrapperClassName={styles.iconWrapper}
 				/>
