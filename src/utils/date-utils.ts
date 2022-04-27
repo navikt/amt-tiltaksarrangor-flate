@@ -1,26 +1,35 @@
 import dayjs from 'dayjs'
 
 import { EMDASH } from './constants'
-import { OrNothing } from './types/or-nothing'
+import { Nullable } from './types/or-nothing'
 
-export const formatDate = (dateStr: Date | null): string => {
+export const formatDate = (date: Nullable<Date>): string => {
+	if (!date) return EMDASH
+	return dayjs(date).format('DD.MM.YYYY')
+}
+
+export const formatDateStr = (dateStr: Nullable<string>): string => {
 	if (!dateStr) return EMDASH
 	return dayjs(dateStr).format('DD.MM.YYYY')
 }
 
-export const dateStrWithMonthName = (dateStr: Date | null): string => {
+export const dateStrWithMonthName = (dateStr: Nullable<Date>): string => {
 	if (!dateStr) return EMDASH
 	return dayjs(dateStr).format('DD. MMMM YYYY')
 }
 
-export const formatDateInputStr = (dateStr: OrNothing<string>): string => {
+export const formatDateInputStr = (dateStr: Nullable<string>): string => {
 	if (!dateStr) return EMDASH
 	return dayjs(dateStr).format('YYYY-MM-DD')
 }
 
+export const formatDateToApiStr = (date: Date): string => {
+	return dayjs(date).format('YYYY-MM-DD')
+}
+
 export const stringToDate = (dateStr: string): Date => dayjs(dateStr, 'YYYY-MM-DD').toDate()
 
-export const sortDateNullsFirst = (d1Str: OrNothing<string>, d2Str: OrNothing<string>): number => {
+export const sortDateNullsFirst = (d1Str: Nullable<string>, d2Str: Nullable<string>): number => {
 	if (d1Str == null) {
 		return -1
 	}

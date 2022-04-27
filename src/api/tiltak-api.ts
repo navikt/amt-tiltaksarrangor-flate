@@ -1,5 +1,6 @@
 import { AxiosError, AxiosPromise } from 'axios'
 
+import { formatDateToApiStr } from '../utils/date-utils'
 import { appUrl } from '../utils/url-utils'
 import { InnloggetAnsatt, innloggetAnsattSchema } from './data/ansatt'
 import {
@@ -64,5 +65,12 @@ export const fetchTilgangInvitasjonInfo = (invitasjonId: string): AxiosPromise<T
 export const aksepterTilgangInvitasjon = (invitasjonId: string): AxiosPromise => {
 	return axiosInstance
 		.patch(appUrl(`/amt-tiltak/api/tiltaksarrangor/tilgang/invitasjon/${invitasjonId}/aksepter`))
+		.catch(logAndThrowError)
+}
+
+export const opprettStartDatoEndringsmelding = (deltakerId: string, startDato: Date): AxiosPromise => {
+	const datoStr = formatDateToApiStr(startDato)
+	return axiosInstance
+		.post(appUrl(`/amt-tiltak/api/tiltaksarrangor/endringsmelding/deltaker/${deltakerId}/startdato?startDato=${datoStr}`))
 		.catch(logAndThrowError)
 }

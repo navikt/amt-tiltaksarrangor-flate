@@ -1,0 +1,48 @@
+.oppstartsdato {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: flex-start;
+
+  padding-bottom: 1rem;
+  width: 100%;
+
+  border-bottom: 1px solid #c9c9c9
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.visOppstartsdato {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 100%;
+}
+
+.endreOppstartsdato {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: flex-end;
+
+  margin-top: 2rem;
+}
+
+.oppdaterDatoKnapp {
+  margin-left: 2rem;
+  height: fit-content;
+}
+
+.iconWrapper {
+  margin-top: 0.25rem;
+  margin-right: 1rem;
+}
+
+.alert {
+  margin-top: 1.5rem;
+}
