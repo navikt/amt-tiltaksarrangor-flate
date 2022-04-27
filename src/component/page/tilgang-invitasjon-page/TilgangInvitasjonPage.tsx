@@ -1,7 +1,6 @@
 import { BodyShort, Button, Checkbox, Heading } from '@navikt/ds-react'
 import { AxiosResponse } from 'axios'
 import React, { useState } from 'react'
-import { useParams } from 'react-router-dom'
 
 import { aksepterTilgangInvitasjon, fetchTilgangInvitasjonInfo } from '../../../api/tiltak-api'
 import { isNotStartedOrPending, isPending, isRejected, isResolved, usePromise } from '../../../utils/use-promise'
@@ -9,9 +8,12 @@ import { AlertPage } from '../../felles/alert-page/AlertPage'
 import { SpinnerPage } from '../../felles/spinner-page/SpinnerPage'
 import styles from './TilgangInvitasjonPage.module.scss'
 
-export const TilgangInvitasjonPage = (): React.ReactElement => {
-	const params  = useParams<{ invitasjonId: string }>()
-	const invitasjonId = params.invitasjonId ?? ''
+interface TilgangInvitasjonPageProps {
+	invitasjonId: string
+}
+
+export const TilgangInvitasjonPage = (props: TilgangInvitasjonPageProps): React.ReactElement => {
+	const invitasjonId = props.invitasjonId
 
 	const [ bekreftet, setBekreftet ] = useState(false)
 	const aksepterInvitasjonPromise = usePromise<AxiosResponse>()
