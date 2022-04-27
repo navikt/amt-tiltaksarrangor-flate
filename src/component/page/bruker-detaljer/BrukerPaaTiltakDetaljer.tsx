@@ -11,6 +11,7 @@ import { gjennomforingDetaljerPageUrl } from '../../../navigation'
 import { formaterTelefonnummer, lagBrukerNavn } from '../../../utils/bruker-utils'
 import { formatDate } from '../../../utils/date-utils'
 import { deltakerSkalSkjulesFra } from '../../../utils/deltaker-status-utils'
+import toggle from '../../../utils/toggle'
 import { useStyle } from '../../../utils/use-style'
 import { Fnr } from '../../felles/fnr/Fnr'
 import { Show } from '../../felles/Show'
@@ -98,7 +99,10 @@ export const BrukerPaaTiltakDetaljer = (props: { bruker: TiltakDeltakerDetaljer 
 					</div>
 
 					<div className={styles.deltakerDetaljer}>
-						<Oppstartsdato deltakerId={deltakerId} deltakerOppstartsdato={formatDate(startDato)} />
+						{ toggle.visSendOppstartsDatoRedigering
+							? <Oppstartsdato deltakerId={deltakerId} deltakerOppstartsdato={formatDate(startDato)} />
+							: <DeltakerDetalj detaljeTittel="Oppstartsdato" detaljeVerdi={formatDate(startDato)} detaljeIcon={<Calender title="Kalender"/>}/>
+						}
 						<DeltakerDetalj detaljeTittel="Sluttdato" detaljeVerdi={formatDate(sluttDato)} detaljeIcon={<Calender title="Kalender"/>}/>
 					</div>
 				</section>

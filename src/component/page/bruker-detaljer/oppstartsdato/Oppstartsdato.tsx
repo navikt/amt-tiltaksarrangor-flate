@@ -48,8 +48,8 @@ export const Oppstartsdato = (props: OppstartsdatoProps): React.ReactElement => 
 
 					{
 						showEdit
-							? (<Button variant="tertiary" onClick={() => setShowEdit(false)}>Avbryt</Button>)
-							: (<Button variant="secondary" onClick={() => setShowEdit(true)}>Endre</Button>)
+							? <Button variant="tertiary" onClick={() => setShowEdit(false)}>Avbryt</Button>
+							: <Button variant="secondary" onClick={() => setShowEdit(true)}>Endre</Button>
 					}
 				</div>
 
