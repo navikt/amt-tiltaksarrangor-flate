@@ -3,7 +3,7 @@ import { Alert, BodyShort, Button, Heading, TextField } from '@navikt/ds-react'
 import { AxiosResponse } from 'axios'
 import cls from 'classnames'
 import dayjs from 'dayjs'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import { opprettStartDatoEndringsmelding } from '../../../../api/tiltak-api'
 import globalStyles from '../../../../globals.module.scss'
@@ -20,7 +20,7 @@ interface OppstartsdatoProps {
 
 export const Oppstartsdato = (props: OppstartsdatoProps): React.ReactElement => {
 	const [ showEdit, setShowEdit ] = useState(false)
-	const [ nyOppstartsdato, setNyOppstartsdato ] = useState<string>()
+	const [ nyOppstartsdato, setNyOppstartsdato ] = useState<string>('')
 	const [ sendtDato, setSendtDato ] = useState<string>()
 
 	const opprettEndringsmeldingPromise = usePromise<AxiosResponse>()
@@ -32,8 +32,18 @@ export const Oppstartsdato = (props: OppstartsdatoProps): React.ReactElement => 
 
 		opprettEndringsmeldingPromise.setPromise(
 			opprettStartDatoEndringsmelding(props.deltakerId, oppstartsdato)
+				.then(res => {
+					setShowEdit(false)
+					return res
+				})
 		)
 	}
+
+	useEffect(() => {
+		if (showEdit) {
+			setNyOppstartsdato('')
+		}
+	}, [ showEdit ])
 
 	return (
 		<div className={cls(styles.oppstartsdato, props.className)}>
@@ -78,7 +88,7 @@ export const Oppstartsdato = (props: OppstartsdatoProps): React.ReactElement => 
 				</Show>
 
 				<Show if={isResolved(opprettEndringsmeldingPromise)}>
-					<Alert variant="success" inline={true} className={styles.alert}>
+					<Alert variant="info" inline={true} className={styles.alert}>
 						Ny dato {formatDateStr(sendtDato)} er sendt til NAV
 					</Alert>
 				</Show>
