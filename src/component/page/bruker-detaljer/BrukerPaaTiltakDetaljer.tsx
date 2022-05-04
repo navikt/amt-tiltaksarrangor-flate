@@ -11,6 +11,7 @@ import { gjennomforingDetaljerPageUrl } from '../../../navigation'
 import { formaterTelefonnummer, lagBrukerNavn } from '../../../utils/bruker-utils'
 import { formatDate } from '../../../utils/date-utils'
 import { deltakerSkalSkjulesFra } from '../../../utils/deltaker-status-utils'
+import toggle from '../../../utils/toggle'
 import { useStyle } from '../../../utils/use-style'
 import { Fnr } from '../../felles/fnr/Fnr'
 import { Show } from '../../felles/Show'
@@ -21,6 +22,7 @@ import { DeltakerDetalj } from './deltaker-detalj/DeltakerDetalj'
 import { IconLabel } from './icon-label/IconLabel'
 import { KopierKnapp } from './kopier-knapp/KopierKnapp'
 import { NavInfoPanel } from './nav-info-panel/NavInfoPanel'
+import { Oppstartsdato } from './oppstartsdato/Oppstartsdato'
 
 function mapStatusTilAlertTekst(status: DeltakerStatus): string | null {
 	const skjulesFraDato = dayjs(deltakerSkalSkjulesFra(status)).format('DD.MM.YYYY')
@@ -43,7 +45,7 @@ const erVenterPaOppstartEllerDeltar = (status: TiltakDeltakerStatus): boolean =>
 
 export const BrukerPaaTiltakDetaljer = (props: { bruker: TiltakDeltakerDetaljer }): React.ReactElement => {
 	const {
-		navEnhet, navVeileder, fornavn, mellomnavn, etternavn, fodselsnummer, startDato,
+		id: deltakerId, navEnhet, navVeileder, fornavn, mellomnavn, etternavn, fodselsnummer, startDato,
 		sluttDato, gjennomforing, registrertDato, telefonnummer, epost, status
 	} = props.bruker
 
@@ -97,7 +99,10 @@ export const BrukerPaaTiltakDetaljer = (props: { bruker: TiltakDeltakerDetaljer 
 					</div>
 
 					<div className={styles.deltakerDetaljer}>
-						<DeltakerDetalj detaljeTittel="Oppstartsdato" detaljeVerdi={formatDate(startDato)} detaljeIcon={<Calender title="Kalender"/>}/>
+						{ toggle.visSendOppstartsDatoRedigering
+							? <Oppstartsdato deltakerId={deltakerId} deltakerOppstartsdato={formatDate(startDato)} />
+							: <DeltakerDetalj detaljeTittel="Oppstartsdato" detaljeVerdi={formatDate(startDato)} detaljeIcon={<Calender title="Kalender"/>}/>
+						}
 						<DeltakerDetalj detaljeTittel="Sluttdato" detaljeVerdi={formatDate(sluttDato)} detaljeIcon={<Calender title="Kalender"/>}/>
 					</div>
 				</section>

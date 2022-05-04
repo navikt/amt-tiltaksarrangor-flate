@@ -45,4 +45,7 @@ export const mockHandlers: RequestHandler[] = [
 	rest.patch(appUrl('/amt-tiltak/api/tiltaksarrangor/tilgang/invitasjon/:invitasjonId/aksepter'), (_req, res, ctx) => {
 		return res(ctx.delay(500), ctx.status(200))
 	}),
+	rest.post(appUrl('/amt-tiltak/api/tiltaksarrangor/endringsmelding/deltaker/:deltakerId/startdato'), (_req, res, ctx) => {
+		return res(ctx.delay(500), ctx.status(200))
+	})
 ]
