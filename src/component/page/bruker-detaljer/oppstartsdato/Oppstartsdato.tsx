@@ -66,6 +66,7 @@ export const Oppstartsdato = (props: OppstartsdatoProps): React.ReactElement => 
 				<Show if={showEdit}>
 					<div className={styles.endreOppstartsdato}>
 						<TextField
+							className={styles.datofelt}
 							label="Ny oppstartsdato"
 							type={'date' as any} // eslint-disable-line
 							value={nyOppstartsdato}
