@@ -100,7 +100,14 @@ export const BrukerPaaTiltakDetaljer = (props: { bruker: TiltakDeltakerDetaljer 
 
 					<div className={styles.deltakerDetaljer}>
 						{ toggle.visSendOppstartsDatoRedigering
-							? <Oppstartsdato deltakerId={deltakerId} deltakerOppstartsdato={formatDate(startDato)} />
+							? (
+								<Oppstartsdato
+									deltakerId={deltakerId}
+									deltakerOppstartsdato={formatDate(startDato)}
+									gjennomforingStartDato={gjennomforing.startDato}
+									gjennomforingSluttDato={gjennomforing.sluttDato}
+								/>
+							)
 							: <DeltakerDetalj detaljeTittel="Oppstartsdato" detaljeVerdi={formatDate(startDato)} detaljeIcon={<Calender title="Kalender"/>}/>
 						}
 						<DeltakerDetalj detaljeTittel="Sluttdato" detaljeVerdi={formatDate(sluttDato)} detaljeIcon={<Calender title="Kalender"/>}/>

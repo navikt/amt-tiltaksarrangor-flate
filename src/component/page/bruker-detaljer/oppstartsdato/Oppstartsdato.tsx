@@ -7,7 +7,8 @@ import React, { useEffect, useState } from 'react'
 
 import { opprettStartDatoEndringsmelding } from '../../../../api/tiltak-api'
 import globalStyles from '../../../../globals.module.scss'
-import { formatDateStr } from '../../../../utils/date-utils'
+import { formatDateStr, formatDateToDateStr } from '../../../../utils/date-utils'
+import { Nullable } from '../../../../utils/types/or-nothing'
 import { isPending, isRejected, isResolved, usePromise } from '../../../../utils/use-promise'
 import { Show } from '../../../felles/Show'
 import styles from './Oppstartsdato.module.scss'
@@ -15,7 +16,37 @@ import styles from './Oppstartsdato.module.scss'
 interface OppstartsdatoProps {
 	deltakerId: string
 	deltakerOppstartsdato: string
+	gjennomforingStartDato: Nullable<Date>
+	gjennomforingSluttDato: Nullable<Date>
 	className?: string
+}
+
+/*
+	Skal maksimum være 2 måneder tilbake i tid.
+	Hvis gjennomforingStartDato er satt så må datoen være etter.
+*/
+const kalkulerMinOppstartsdato = (gjennomforingStartDato: Nullable<Date>): Date => {
+	const twoMonthsAgo = dayjs().subtract(2, 'month')
+
+	if (gjennomforingStartDato && twoMonthsAgo.isBefore(gjennomforingStartDato)) {
+		return gjennomforingStartDato
+	} else {
+		return twoMonthsAgo.toDate()
+	}
+}
+
+/*
+	Skal maksimum være 2 måneder forover i tid.
+	Hvis gjennomforingSluttDato er satt så må datoen være før.
+*/
+const kalkulerMaxOppstartsdato = (gjennomforingSluttDato: Nullable<Date>): Date => {
+	const twoMonthsInTheFuture = dayjs().add(2, 'month')
+
+	if (gjennomforingSluttDato && twoMonthsInTheFuture.isAfter(gjennomforingSluttDato)) {
+		return gjennomforingSluttDato
+	} else {
+		return twoMonthsInTheFuture.toDate()
+	}
 }
 
 export const Oppstartsdato = (props: OppstartsdatoProps): React.ReactElement => {
@@ -24,6 +55,9 @@ export const Oppstartsdato = (props: OppstartsdatoProps): React.ReactElement => 
 	const [ sendtDato, setSendtDato ] = useState<string>()
 
 	const opprettEndringsmeldingPromise = usePromise<AxiosResponse>()
+
+	const minDato = formatDateToDateStr(kalkulerMinOppstartsdato(props.gjennomforingStartDato))
+	const maxDato = formatDateToDateStr(kalkulerMaxOppstartsdato(props.gjennomforingSluttDato))
 
 	const opprettEndringsmelding = () => {
 		const oppstartsdato = dayjs(nyOppstartsdato).toDate()
@@ -71,6 +105,8 @@ export const Oppstartsdato = (props: OppstartsdatoProps): React.ReactElement => 
 							type={'date' as any} // eslint-disable-line
 							value={nyOppstartsdato}
 							onChange={e => setNyOppstartsdato(e.target.value)}
+							min={minDato}
+							max={maxDato}
 						/>
 						<Button
 							variant="primary"
@@ -84,14 +120,14 @@ export const Oppstartsdato = (props: OppstartsdatoProps): React.ReactElement => 
 					</div>
 				</Show>
 
-				<Show if={isRejected(opprettEndringsmeldingPromise)}>
-					<Alert variant="error" className={styles.alert}>Klarte ikke å sende oppstartsdato</Alert>
-				</Show>
-
 				<Show if={isResolved(opprettEndringsmeldingPromise)}>
-					<Alert variant="info" inline={true} className={styles.alert}>
+					<Alert variant="info" className={styles.alert} inline>
 						Ny dato {formatDateStr(sendtDato)} er sendt til NAV
 					</Alert>
+				</Show>
+
+				<Show if={isRejected(opprettEndringsmeldingPromise)}>
+					<Alert variant="error" className={styles.alert}>Klarte ikke å sende oppstartsdato</Alert>
 				</Show>
 			</div>
 		</div>

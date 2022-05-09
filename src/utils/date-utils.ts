@@ -23,7 +23,7 @@ export const formatDateInputStr = (dateStr: Nullable<string>): string => {
 	return dayjs(dateStr).format('YYYY-MM-DD')
 }
 
-export const formatDateToApiStr = (date: Date): string => {
+export const formatDateToDateStr = (date: Date): string => {
 	return dayjs(date).format('YYYY-MM-DD')
 }
 
