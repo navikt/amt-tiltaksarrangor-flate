@@ -30,6 +30,12 @@ export const gjennomforingSchema = z.object({
 	arrangor: arrangorSchema
 })
 
+export const endringsmeldingSchema = z.object({
+	id: z.string().uuid(),
+	startDato: nullableDateSchema,
+	aktiv: z.boolean()
+})
+
 export const gjennomforingerSchema = z.array(gjennomforingSchema)
 
 export type Gjennomforing = z.infer<typeof gjennomforingSchema>
@@ -37,3 +43,7 @@ export type Gjennomforing = z.infer<typeof gjennomforingSchema>
 export type Tiltak = z.infer<typeof tiltakSchema>
 
 export type Arrangor = z.infer<typeof arrangorSchema>
+
+export const endringsmeldingerSchema = z.array(endringsmeldingSchema)
+
+export type Endringsmelding = z.infer<typeof endringsmeldingSchema>
