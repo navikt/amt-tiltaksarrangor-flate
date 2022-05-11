@@ -1,10 +1,12 @@
+import dayjs from 'dayjs'
 import { rest } from 'msw'
 import { RequestHandler } from 'msw/lib/types/handlers/RequestHandler'
 
 import { TilgangInvitasjonInfo } from '../../api/data/deltaker'
 import { appUrl } from '../../utils/url-utils'
-import { mockGjennomforinger, mockTiltakDeltagere } from '../data'
+import { mockEndringsmeldinger, mockGjennomforinger, mockTiltakDeltagere } from '../data'
 import { mockInnloggetAnsatt } from '../data/ansatt'
+import { randomUuid } from '../utils/faker'
 
 export const mockHandlers: RequestHandler[] = [
 	rest.get(appUrl('/amt-tiltak/api/arrangor/ansatt/meg'), (_req, res, ctx) => {
@@ -45,7 +47,25 @@ export const mockHandlers: RequestHandler[] = [
 	rest.patch(appUrl('/amt-tiltak/api/tiltaksarrangor/tilgang/invitasjon/:invitasjonId/aksepter'), (_req, res, ctx) => {
 		return res(ctx.delay(500), ctx.status(200))
 	}),
-	rest.post(appUrl('/amt-tiltak/api/tiltaksarrangor/endringsmelding/deltaker/:deltakerId/startdato'), (_req, res, ctx) => {
+	rest.get(appUrl('/amt-tiltak/api/tiltaksarrangor/endringsmelding'), (req, res, ctx) => {
+		const deltakerId = req.url.searchParams.get('deltakerId') as string
+
+		const meldinger = mockEndringsmeldinger[deltakerId] || []
+
+		return res(ctx.delay(500), ctx.json(meldinger))
+	}),
+	rest.post(appUrl('/amt-tiltak/api/tiltaksarrangor/endringsmelding/deltaker/:deltakerId/startdato'), (req, res, ctx) => {
+		const deltakerId = req.params.deltakerId as string
+
+		const startDatoStr = req.url.searchParams.get('startDato') as string
+
+		const startDato = dayjs(startDatoStr, 'YYYY-MM-DD').toDate()
+
+		mockEndringsmeldinger[deltakerId] = [
+			...(mockEndringsmeldinger[deltakerId] || []).map(e => ({ ...e, aktiv: false })),
+			{ id: randomUuid(), startDato: startDato, aktiv: true }
+		]
+
 		return res(ctx.delay(500), ctx.status(200))
 	})
 ]

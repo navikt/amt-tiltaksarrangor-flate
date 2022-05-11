@@ -5,11 +5,18 @@ import cls from 'classnames'
 import dayjs from 'dayjs'
 import React, { useEffect, useState } from 'react'
 
-import { opprettStartDatoEndringsmelding } from '../../../../api/tiltak-api'
+import { Endringsmelding } from '../../../../api/data/tiltak'
+import { hentEndringsmeldinger, opprettStartDatoEndringsmelding } from '../../../../api/tiltak-api'
 import globalStyles from '../../../../globals.module.scss'
-import { formatDateStr, formatDateToDateStr } from '../../../../utils/date-utils'
+import { formatDate, formatDateStr, formatDateToDateStr } from '../../../../utils/date-utils'
 import { Nullable } from '../../../../utils/types/or-nothing'
-import { isPending, isRejected, isResolved, usePromise } from '../../../../utils/use-promise'
+import {
+	isNotStarted,
+	isPending,
+	isRejected,
+	isResolved,
+	usePromise
+} from '../../../../utils/use-promise'
 import { Show } from '../../../felles/Show'
 import styles from './Oppstartsdato.module.scss'
 
@@ -54,6 +61,7 @@ export const Oppstartsdato = (props: OppstartsdatoProps): React.ReactElement => 
 	const [ nyOppstartsdato, setNyOppstartsdato ] = useState<string>('')
 	const [ sendtDato, setSendtDato ] = useState<string>()
 
+	const endringsmeldingerPromise = usePromise<AxiosResponse<Endringsmelding[]>>(() => hentEndringsmeldinger(props.deltakerId))
 	const opprettEndringsmeldingPromise = usePromise<AxiosResponse>()
 
 	const minDato = formatDateToDateStr(kalkulerMinOppstartsdato(props.gjennomforingStartDato))
@@ -78,6 +86,9 @@ export const Oppstartsdato = (props: OppstartsdatoProps): React.ReactElement => 
 			setNyOppstartsdato('')
 		}
 	}, [ showEdit ])
+
+	const aktivEndringsmelding = endringsmeldingerPromise.result?.data
+		.filter(e => e.aktiv)[0]
 
 	return (
 		<div className={cls(styles.oppstartsdato, props.className)}>
@@ -123,6 +134,12 @@ export const Oppstartsdato = (props: OppstartsdatoProps): React.ReactElement => 
 				<Show if={isResolved(opprettEndringsmeldingPromise)}>
 					<Alert variant="info" className={styles.alert} inline>
 						Ny dato {formatDateStr(sendtDato)} er sendt til NAV
+					</Alert>
+				</Show>
+
+				<Show if={aktivEndringsmelding && isNotStarted(opprettEndringsmeldingPromise)}>
+					<Alert variant="info" className={styles.alert} inline>
+						Ny dato {formatDate(aktivEndringsmelding?.startDato)} er sendt til NAV
 					</Alert>
 				</Show>
 

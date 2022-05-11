@@ -10,7 +10,13 @@ import {
 	tiltakDeltakerDetaljerSchema,
 	tiltakDeltakereSchema
 } from './data/deltaker'
-import { Gjennomforing, gjennomforingerSchema, gjennomforingSchema } from './data/tiltak'
+import {
+	Endringsmelding,
+	endringsmeldingerSchema,
+	Gjennomforing,
+	gjennomforingerSchema,
+	gjennomforingSchema
+} from './data/tiltak'
 import { axiosInstance, logAndThrowError, parse } from './utils'
 
 export const fetchInnloggetAnsatt = (): AxiosPromise<InnloggetAnsatt> => {
@@ -65,6 +71,13 @@ export const fetchTilgangInvitasjonInfo = (invitasjonId: string): AxiosPromise<T
 export const aksepterTilgangInvitasjon = (invitasjonId: string): AxiosPromise => {
 	return axiosInstance
 		.patch(appUrl(`/amt-tiltak/api/tiltaksarrangor/tilgang/invitasjon/${invitasjonId}/aksepter`))
+		.catch(logAndThrowError)
+}
+
+export const hentEndringsmeldinger = (deltakerId: string): AxiosPromise<Endringsmelding[]> => {
+	return axiosInstance
+		.get(appUrl(`/amt-tiltak/api/tiltaksarrangor/endringsmelding?deltakerId=${deltakerId}`))
+		.then(parse(endringsmeldingerSchema))
 		.catch(logAndThrowError)
 }
 

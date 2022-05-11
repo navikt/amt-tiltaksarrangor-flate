@@ -85,6 +85,10 @@ export const usePromise = <R, E = Error>(func?: () => Promise<R>, dependencies?:
 	}
 }
 
+export const isNotStarted = <R, E>(state: PromiseState<R, E>): state is NotStartedPromiseState => {
+	return state.status === Status.NOT_STARTED
+}
+
 export const isNotStartedOrPending = <R, E>(state: PromiseState<R, E>): state is NotStartedPromiseState | PendingPromiseState => {
 	return state.status === Status.NOT_STARTED || state.status === Status.PENDING
 }
