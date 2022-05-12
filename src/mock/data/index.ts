@@ -7,7 +7,7 @@ import { lagTiltakGjennomforinger } from './tiltak'
 export const mockGjennomforinger: Gjennomforing[] = lagTiltakGjennomforinger()
 
 export const mockTiltakDeltagere: TiltakDeltakerDetaljer[] = mockGjennomforinger
-	.map(gjennomforing => lagMockTiltakDeltagereForGjennomforing(gjennomforing))
+	.map(gjennomforing => lagMockTiltakDeltagereForGjennomforing(gjennomforing, 100))
 	.reduce((previousValue, currentValue) => previousValue.concat(currentValue), [])
 
 export const mockEndringsmeldinger = lagMockEndringsmelding(mockTiltakDeltagere)
