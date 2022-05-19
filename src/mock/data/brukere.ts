@@ -22,7 +22,7 @@ const lagMailFraNavn = (navn: string, mailDomain: string): string => {
 	return `${mailNavn}@${mailDomain}`
 }
 
-export const lagMockTiltakDeltagereForGjennomforing = (gjennomforing: Gjennomforing, antallDeltakere: number = 10): TiltakDeltakerDetaljer[] => {
+export const lagMockTiltakDeltagereForGjennomforing = (gjennomforing: Gjennomforing, antallDeltakere = 10): TiltakDeltakerDetaljer[] => {
 	const deltakere: TiltakDeltakerDetaljer[] = []
 
 	for (let i = 0; i < antallDeltakere; i++) {
@@ -38,8 +38,8 @@ const lagTelefonnummer = (): string => {
 const generateSluttDato = (status: TiltakDeltakerStatus, startDato: Date | null) =>  {
 	if(status === 'VENTER_PA_OPPSTART') {
 		return  null
-	} else if(status === 'HAR_SLUTTET') {
-		return  faker.date.between(startDato!!, Date())
+	} else if(status === 'HAR_SLUTTET' && startDato !== null) {
+		return  faker.date.between(startDato, Date())
 	} else {
 		return  faker.date.future()
 	}
