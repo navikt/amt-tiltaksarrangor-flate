@@ -22,10 +22,10 @@ const lagMailFraNavn = (navn: string, mailDomain: string): string => {
 	return `${mailNavn}@${mailDomain}`
 }
 
-export const lagMockTiltakDeltagereForGjennomforing = (gjennomforing: Gjennomforing): TiltakDeltakerDetaljer[] => {
+export const lagMockTiltakDeltagereForGjennomforing = (gjennomforing: Gjennomforing, antallDeltakere = 10): TiltakDeltakerDetaljer[] => {
 	const deltakere: TiltakDeltakerDetaljer[] = []
 
-	for (let i = 0; i < 10; i++) {
+	for (let i = 0; i < antallDeltakere; i++) {
 		deltakere.push(lagMockTiltakDeltagerForGjennomforing(gjennomforing))
 	}
 	return deltakere
@@ -35,14 +35,36 @@ const lagTelefonnummer = (): string => {
 	return faker.phone.phoneNumber().replaceAll(' ', '')
 }
 
-const lagMockTiltakDeltagerForGjennomforing = (gjennomforing: Gjennomforing): TiltakDeltakerDetaljer => {
-	const status = faker.random.objectElement(TiltakDeltakerStatus) as TiltakDeltakerStatus
+const generateSluttDato = (status: TiltakDeltakerStatus, startDato: Date | null) =>  {
+	if(startDato && status === TiltakDeltakerStatus.HAR_SLUTTET) faker.date.between(startDato, Date())
+	if(startDato) return faker.date.future(1, startDato) //dato etter startdato, innen 1 år
+	return null
+}
 
-	const brukerFornavn = faker.name.firstName()
-	const brukerMellomnavn = randBetween(0, 10) > 6 ? faker.name.middleName() : null
+const getStatus = (): TiltakDeltakerStatus => {
+	const i = randBetween(0, 10)
+
+	if(i < 5) return TiltakDeltakerStatus.DELTAR
+	if(i < 7) return TiltakDeltakerStatus.VENTER_PA_OPPSTART
+	if(i < 8) return TiltakDeltakerStatus.HAR_SLUTTET
+	if(i < 9) return TiltakDeltakerStatus.IKKE_AKTUELL
+
+	return TiltakDeltakerStatus.DELTAR
+
+}
+
+const lagMockTiltakDeltagerForGjennomforing = (gjennomforing: Gjennomforing): TiltakDeltakerDetaljer => {
+	const status = getStatus()
+
+	const gender = randBetween(0, 1)
+
+	const brukerFornavn = faker.name.firstName(gender)
+	const brukerMellomnavn = randBetween(0, 10) > 6 ? faker.name.firstName(gender) : null
 	const brukerEtternavn = faker.name.lastName()
 
 	const veilederNavn = faker.name.firstName() + ' ' + faker.name.lastName()
+
+	const startDato = status !== TiltakDeltakerStatus.VENTER_PA_OPPSTART ? faker.date.past() : null
 
 	return {
 		id: randomUuid(),
@@ -52,8 +74,8 @@ const lagMockTiltakDeltagerForGjennomforing = (gjennomforing: Gjennomforing): Ti
 		fodselsnummer: randomFnr(),
 		epost: lagMailFraNavn(`${brukerFornavn} ${brukerEtternavn}`, 'example.com'),
 		telefonnummer: lagTelefonnummer(),
-		startDato: faker.date.past(),
-		sluttDato: faker.date.future(),
+		startDato: startDato,
+		sluttDato: generateSluttDato(status, startDato),
 		status: {
 			type: status,
 			endretDato: faker.date.recent()
