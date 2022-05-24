@@ -36,7 +36,7 @@ const lagTelefonnummer = (): string => {
 }
 
 const generateSluttDato = (status: TiltakDeltakerStatus, startDato: Date | null) =>  {
-	if(startDato && status == TiltakDeltakerStatus.HAR_SLUTTET) faker.date.between(startDato, Date())
+	if(startDato && status === TiltakDeltakerStatus.HAR_SLUTTET) faker.date.between(startDato, Date())
 	if(startDato) return faker.date.future(1, startDato) //dato etter startdato, innen 1 år
 	return null
 }
