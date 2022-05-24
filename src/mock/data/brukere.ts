@@ -36,13 +36,9 @@ const lagTelefonnummer = (): string => {
 }
 
 const generateSluttDato = (status: TiltakDeltakerStatus, startDato: Date | null) =>  {
-	if(status === 'VENTER_PA_OPPSTART') {
-		return  null
-	} else if(status === 'HAR_SLUTTET' && startDato !== null) {
-		return  faker.date.between(startDato, Date())
-	} else {
-		return  faker.date.future()
-	}
+	if(startDato && status == TiltakDeltakerStatus.HAR_SLUTTET) faker.date.between(startDato, Date())
+	if(startDato) return faker.date.future(1, startDato) //dato etter startdato, innen 1 år
+	return null
 }
 
 const getStatus = (): TiltakDeltakerStatus => {
@@ -68,7 +64,7 @@ const lagMockTiltakDeltagerForGjennomforing = (gjennomforing: Gjennomforing): Ti
 
 	const veilederNavn = faker.name.firstName() + ' ' + faker.name.lastName()
 
-	const startDato = status !== 'VENTER_PA_OPPSTART' ? faker.date.past() : null
+	const startDato = status !== TiltakDeltakerStatus.VENTER_PA_OPPSTART ? faker.date.past() : null
 
 	return {
 		id: randomUuid(),
