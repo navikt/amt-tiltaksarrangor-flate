@@ -23,7 +23,7 @@ import styles from './Oppstartsdato.module.scss'
 interface OppstartsdatoProps {
 	erSkjermetPerson: boolean
 	deltakerId: string
-	deltakerOppstartsdato: string
+	deltakerOppstartsdato: Nullable<Date>
 	gjennomforingStartDato: Nullable<Date>
 	gjennomforingSluttDato: Nullable<Date>
 	className?: string
@@ -99,7 +99,7 @@ export const Oppstartsdato = (props: OppstartsdatoProps): React.ReactElement => 
 				<div className={styles.visOppstartsdato}>
 					<div>
 						<Heading size="small" level="4" className={globalStyles.blokkXxxs}>Oppstartsdato</Heading>
-						<BodyShort>{props.deltakerOppstartsdato}</BodyShort>
+						<BodyShort>{formatDate(props.deltakerOppstartsdato)}</BodyShort>
 					</div>
 
 					<Show if={props.erSkjermetPerson}>
@@ -112,7 +112,9 @@ export const Oppstartsdato = (props: OppstartsdatoProps): React.ReactElement => 
 						{
 							showEdit
 								? <Button variant="tertiary" onClick={() => setShowEdit(false)}>Avbryt</Button>
-								: <Button variant="secondary" onClick={() => setShowEdit(true)}>Endre</Button>
+								: <Button variant="secondary" onClick={() => setShowEdit(true)}>
+									{ props.deltakerOppstartsdato ? 'Endre' : 'Legg til' }
+								</Button>
 						}
 					</Show>
 				</div>
