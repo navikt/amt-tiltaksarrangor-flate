@@ -39,6 +39,7 @@ export const tiltakDeltakerDetaljerSchema = z.object({
 	sluttDato: nullableDateSchema,
 	status: deltakerStatusSchema,
 	registrertDato: dateSchema,
+	erSkjermetPerson: z.boolean(),
 	epost: z.string().email().nullable(),
 	telefonnummer: z.string().nullable(),
 	navEnhet: z.custom<NavEnhet>().nullable(),

@@ -80,6 +80,7 @@ const lagMockTiltakDeltagerForGjennomforing = (gjennomforing: Gjennomforing): Ti
 			type: status,
 			endretDato: faker.date.recent()
 		},
+		erSkjermetPerson: randBetween(0, 10) > 7,
 		navEnhet: faker.random.arrayElement(navEnheter),
 		navVeileder: {
 			epost: lagMailFraNavn(veilederNavn, 'nav.no'),
