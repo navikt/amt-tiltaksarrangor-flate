@@ -2,7 +2,6 @@ import dayjs from 'dayjs'
 import { rest } from 'msw'
 import { RequestHandler } from 'msw/lib/types/handlers/RequestHandler'
 
-import { TilgangInvitasjonInfo } from '../../api/data/deltaker'
 import { appUrl } from '../../utils/url-utils'
 import { mockEndringsmeldinger, mockGjennomforinger, mockTiltakDeltagere } from '../data'
 import { mockInnloggetAnsatt } from '../data/ansatt'
@@ -34,18 +33,6 @@ export const mockHandlers: RequestHandler[] = [
 	}),
 	rest.get(appUrl('/amt-tiltak/api/gjennomforing'), (_req, res, ctx) => {
 		return res(ctx.delay(500), ctx.json(mockGjennomforinger))
-	}),
-	rest.get(appUrl('/amt-tiltak/api/tiltaksarrangor/tilgang/invitasjon/:invitasjonId/info'), (_req, res, ctx) => {
-		const info: TilgangInvitasjonInfo = {
-			gjennomforingNavn: 'Oppfølging tjenesteområde 2 og 3',
-			overordnetEnhetNavn: 'Muligheter AS',
-			erBrukt: false
-		}
-
-		return res(ctx.delay(500), ctx.json(info))
-	}),
-	rest.patch(appUrl('/amt-tiltak/api/tiltaksarrangor/tilgang/invitasjon/:invitasjonId/aksepter'), (_req, res, ctx) => {
-		return res(ctx.delay(500), ctx.status(200))
 	}),
 	rest.get(appUrl('/amt-tiltak/api/tiltaksarrangor/endringsmelding'), (req, res, ctx) => {
 		const deltakerId = req.url.searchParams.get('deltakerId') as string

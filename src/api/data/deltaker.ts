@@ -57,12 +57,6 @@ export const navVeilederSchema = z.object({
 	epost: z.string(),
 })
 
-export const tilgangInvitasjonInfoSchema = z.object({
-	overordnetEnhetNavn: z.string(),
-	gjennomforingNavn: z.string(),
-	erBrukt: z.boolean()
-})
-
 export const tiltakDeltakereSchema = z.array(tiltakDeltakerSchema)
 
 export type NavVeileder = z.infer<typeof navVeilederSchema>
@@ -74,5 +68,3 @@ export type TiltakDeltaker = z.infer<typeof tiltakDeltakerSchema>
 export type TiltakDeltakerDetaljer = z.infer<typeof tiltakDeltakerDetaljerSchema>
 
 export type DeltakerStatus = z.infer<typeof deltakerStatusSchema>
-
-export type TilgangInvitasjonInfo = z.infer<typeof tilgangInvitasjonInfoSchema>

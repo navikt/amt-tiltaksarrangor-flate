@@ -4,7 +4,6 @@ export const BRUKER_DETALJER_PAGE_ROUTE = appUrl('/deltaker/:brukerId')
 export const GJENNOMFORING_DETALJER_PAGE_ROUTE = appUrl('/gjennomforing/:gjennomforingId')
 export const INFORMASJON_PAGE_ROUTE = appUrl('/informasjon')
 export const GJENNOMFORING_LISTE_PAGE_ROUTE = appUrl('/')
-export const TILGANG_INVITASJON_PAGE_ROUTE = appUrl('/tilgang/invitasjon/:invitasjonId')
 
 export const brukerDetaljerPageUrl = (brukerId: string): string => {
 	return BRUKER_DETALJER_PAGE_ROUTE.replace(':brukerId', brukerId)
