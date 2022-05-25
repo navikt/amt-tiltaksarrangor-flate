@@ -21,6 +21,7 @@ import { Show } from '../../../felles/Show'
 import styles from './Oppstartsdato.module.scss'
 
 interface OppstartsdatoProps {
+	erSkjermetPerson: boolean
 	deltakerId: string
 	deltakerOppstartsdato: string
 	gjennomforingStartDato: Nullable<Date>
@@ -101,11 +102,19 @@ export const Oppstartsdato = (props: OppstartsdatoProps): React.ReactElement => 
 						<BodyShort>{props.deltakerOppstartsdato}</BodyShort>
 					</div>
 
-					{
-						showEdit
-							? <Button variant="tertiary" onClick={() => setShowEdit(false)}>Avbryt</Button>
-							: <Button variant="secondary" onClick={() => setShowEdit(true)}>Endre</Button>
-					}
+					<Show if={props.erSkjermetPerson}>
+						<Alert variant="warning" className={styles.skjermetPersonAlert}>
+							Du kan ikke legge til oppstartsdato på denne deltakeren. Ta kontakt med NAV-veileder.
+						</Alert>
+					</Show>
+
+					<Show if={!props.erSkjermetPerson}>
+						{
+							showEdit
+								? <Button variant="tertiary" onClick={() => setShowEdit(false)}>Avbryt</Button>
+								: <Button variant="secondary" onClick={() => setShowEdit(true)}>Endre</Button>
+						}
+					</Show>
 				</div>
 
 				<Show if={showEdit}>

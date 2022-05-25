@@ -46,7 +46,7 @@ const erVenterPaOppstartEllerDeltar = (status: TiltakDeltakerStatus): boolean =>
 export const BrukerPaaTiltakDetaljer = (props: { bruker: TiltakDeltakerDetaljer }): React.ReactElement => {
 	const {
 		id: deltakerId, navEnhet, navVeileder, fornavn, mellomnavn, etternavn, fodselsnummer, startDato,
-		sluttDato, gjennomforing, registrertDato, telefonnummer, epost, status
+		sluttDato, gjennomforing, registrertDato, telefonnummer, epost, status, erSkjermetPerson
 	} = props.bruker
 
 	useTabTitle('Deltakerdetaljer')
@@ -102,6 +102,7 @@ export const BrukerPaaTiltakDetaljer = (props: { bruker: TiltakDeltakerDetaljer 
 						{ toggle.visSendOppstartsDatoRedigering
 							? (
 								<Oppstartsdato
+									erSkjermetPerson={erSkjermetPerson}
 									deltakerId={deltakerId}
 									deltakerOppstartsdato={formatDate(startDato)}
 									gjennomforingStartDato={gjennomforing.startDato}
