@@ -6,7 +6,7 @@ import { TiltakDeltaker } from '../../../api/data/deltaker'
 import { fetchDeltakerePaTiltakGjennomforing } from '../../../api/tiltak-api'
 import { useTabTitle } from '../../../hooks/use-tab-title'
 import { GJENNOMFORING_LISTE_PAGE_ROUTE } from '../../../navigation'
-import { getAntallDeltakerePerStatus, sluttaForOver2UkerSiden } from '../../../utils/deltaker-status-utils'
+import { getAntallDeltakerePerStatus } from '../../../utils/deltaker-status-utils'
 import { isNotStartedOrPending, isRejected, usePromise } from '../../../utils/use-promise'
 import { AlertPage } from '../../felles/alert-page/AlertPage'
 import { SpinnerPage } from '../../felles/spinner-page/SpinnerPage'
@@ -35,8 +35,7 @@ export const GjennomforingDetaljerPage = (): React.ReactElement => {
 	}
 
 	const deltakere = fetchDeltakerePaGjennomforingPromise.result.data
-	const deltakereIkkeUtdaterte = deltakere.filter( deltaker => !sluttaForOver2UkerSiden(deltaker.status))
-	const deltakerePerStatus = getAntallDeltakerePerStatus(deltakereIkkeUtdaterte)
+	const deltakerePerStatus = getAntallDeltakerePerStatus(deltakere)
 
 	return (
 		<main className={styles.tiltaksoversiktPage} data-testid="gjennomforing-detaljer-page">
@@ -46,7 +45,7 @@ export const GjennomforingDetaljerPage = (): React.ReactElement => {
 				<FilterMeny statusMap={deltakerePerStatus}/>
 			</section>
 
-			<DeltakerOversiktTabell deltakere={deltakereIkkeUtdaterte}/>
+			<DeltakerOversiktTabell deltakere={deltakere}/>
 		</main>
 	)
 }
