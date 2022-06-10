@@ -65,6 +65,7 @@ const lagMockTiltakDeltagerForGjennomforing = (gjennomforing: Gjennomforing): Ti
 	const veilederNavn = faker.name.firstName() + ' ' + faker.name.lastName()
 
 	const startDato = status !== TiltakDeltakerStatus.VENTER_PA_OPPSTART ? faker.date.past() : null
+	const fjernesDato = status === TiltakDeltakerStatus.IKKE_AKTUELL || status === TiltakDeltakerStatus.HAR_SLUTTET? faker.date.future() : null
 
 	return {
 		id: randomUuid(),
@@ -87,6 +88,7 @@ const lagMockTiltakDeltagerForGjennomforing = (gjennomforing: Gjennomforing): Ti
 			navn: veilederNavn,
 			telefon: lagTelefonnummer()
 		},
+		fjernesDato: fjernesDato,
 		gjennomforing: gjennomforing,
 		registrertDato: faker.date.past()
 	}

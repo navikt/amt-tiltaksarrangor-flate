@@ -4,13 +4,12 @@ import cls from 'classnames'
 import dayjs from 'dayjs'
 import React from 'react'
 
-import { DeltakerStatus, TiltakDeltakerDetaljer, TiltakDeltakerStatus } from '../../../api/data/deltaker'
+import { TiltakDeltakerDetaljer, TiltakDeltakerStatus } from '../../../api/data/deltaker'
 import globalStyles from '../../../globals.module.scss'
 import { useTabTitle } from '../../../hooks/use-tab-title'
 import { gjennomforingDetaljerPageUrl } from '../../../navigation'
 import { formaterTelefonnummer, lagBrukerNavn } from '../../../utils/bruker-utils'
 import { formatDate } from '../../../utils/date-utils'
-import { deltakerSkalSkjulesFra } from '../../../utils/deltaker-status-utils'
 import toggle from '../../../utils/toggle'
 import { useStyle } from '../../../utils/use-style'
 import { Fnr } from '../../felles/fnr/Fnr'
@@ -24,10 +23,10 @@ import { KopierKnapp } from './kopier-knapp/KopierKnapp'
 import { NavInfoPanel } from './nav-info-panel/NavInfoPanel'
 import { Oppstartsdato } from './oppstartsdato/Oppstartsdato'
 
-function mapStatusTilAlertTekst(status: DeltakerStatus): string | null {
-	const skjulesFraDato = dayjs(deltakerSkalSkjulesFra(status)).format('DD.MM.YYYY')
-	const brukerFjernesTekst = `Deltakeren fjernes fra listen ${skjulesFraDato}`
-	switch (status.type) {
+function mapStatusTilAlertTekst(fjernesDato: Date | null, status: TiltakDeltakerStatus): string | null {
+	const fjernesFraDato = dayjs(fjernesDato).format('DD.MM.YYYY')
+	const brukerFjernesTekst = `Deltakeren fjernes fra listen ${fjernesFraDato}`
+	switch (status) {
 		case TiltakDeltakerStatus.IKKE_AKTUELL:
 			return `Tiltaket er ikke aktuelt for denne personen.\n${brukerFjernesTekst}`
 		case TiltakDeltakerStatus.HAR_SLUTTET:
@@ -46,7 +45,7 @@ const erVenterPaOppstartEllerDeltar = (status: TiltakDeltakerStatus): boolean =>
 export const BrukerPaaTiltakDetaljer = (props: { bruker: TiltakDeltakerDetaljer }): React.ReactElement => {
 	const {
 		id: deltakerId, navEnhet, navVeileder, fornavn, mellomnavn, etternavn, fodselsnummer, startDato,
-		sluttDato, gjennomforing, registrertDato, telefonnummer, epost, status, erSkjermetPerson
+		sluttDato, gjennomforing, registrertDato, telefonnummer, epost, status, erSkjermetPerson, fjernesDato
 	} = props.bruker
 
 	useTabTitle('Deltakerdetaljer')
@@ -91,7 +90,7 @@ export const BrukerPaaTiltakDetaljer = (props: { bruker: TiltakDeltakerDetaljer 
 						<BodyShort className={globalStyles.blokkS}>Søkt inn: {formatDate(registrertDato)}</BodyShort>
 
 						<Show if={erIkkeAktuellEllerHarSluttet(status.type)}>
-							<Alert variant="warning" className={styles.statusAlert}>{mapStatusTilAlertTekst(status)}</Alert>
+							<Alert variant="warning" className={styles.statusAlert}>{mapStatusTilAlertTekst(fjernesDato, status.type)}</Alert>
 						</Show>
 						<Show if={erVenterPaOppstartEllerDeltar(status.type)}>
 							<StatusMerkelapp status={status} />
