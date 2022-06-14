@@ -10,7 +10,6 @@ import { useTabTitle } from '../../../hooks/use-tab-title'
 import { gjennomforingDetaljerPageUrl } from '../../../navigation'
 import { formaterTelefonnummer, lagBrukerNavn } from '../../../utils/bruker-utils'
 import { formatDate } from '../../../utils/date-utils'
-import toggle from '../../../utils/toggle'
 import { useStyle } from '../../../utils/use-style'
 import { Fnr } from '../../felles/fnr/Fnr'
 import { Show } from '../../felles/Show'
@@ -98,18 +97,13 @@ export const BrukerPaaTiltakDetaljer = (props: { bruker: TiltakDeltakerDetaljer 
 					</div>
 
 					<div className={styles.deltakerDetaljer}>
-						{ toggle.visSendOppstartsDatoRedigering
-							? (
-								<Oppstartsdato
-									erSkjermetPerson={erSkjermetPerson}
-									deltakerId={deltakerId}
-									deltakerOppstartsdato={startDato}
-									gjennomforingStartDato={gjennomforing.startDato}
-									gjennomforingSluttDato={gjennomforing.sluttDato}
-								/>
-							)
-							: <DeltakerDetalj detaljeTittel="Oppstartsdato" detaljeVerdi={formatDate(startDato)} detaljeIcon={<Calender title="Kalender"/>}/>
-						}
+						<Oppstartsdato
+							erSkjermetPerson={erSkjermetPerson}
+							deltakerId={deltakerId}
+							deltakerOppstartsdato={startDato}
+							gjennomforingStartDato={gjennomforing.startDato}
+							gjennomforingSluttDato={gjennomforing.sluttDato}
+						/>
 						<DeltakerDetalj detaljeTittel="Sluttdato" detaljeVerdi={formatDate(sluttDato)} detaljeIcon={<Calender title="Kalender"/>}/>
 					</div>
 				</section>
