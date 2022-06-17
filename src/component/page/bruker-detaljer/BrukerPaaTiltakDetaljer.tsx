@@ -10,11 +10,13 @@ import { useTabTitle } from '../../../hooks/use-tab-title'
 import { gjennomforingDetaljerPageUrl } from '../../../navigation'
 import { formaterTelefonnummer, lagBrukerNavn } from '../../../utils/bruker-utils'
 import { formatDate } from '../../../utils/date-utils'
+import toggle from '../../../utils/toggle'
 import { useStyle } from '../../../utils/use-style'
 import { Fnr } from '../../felles/fnr/Fnr'
 import { Show } from '../../felles/Show'
 import { StatusMerkelapp } from '../../felles/status-merkelapp/StatusMerkelapp'
 import { Tilbakelenke } from '../../felles/tilbakelenke/Tilbakelenke'
+import { Begrunnelse } from './begrunnelse/Begrunnelse'
 import styles from './BrukerPaaTiltakDetaljer.module.scss'
 import { DeltakerDetalj } from './deltaker-detalj/DeltakerDetalj'
 import { IconLabel } from './icon-label/IconLabel'
@@ -44,7 +46,8 @@ const erVenterPaOppstartEllerDeltar = (status: TiltakDeltakerStatus): boolean =>
 export const BrukerPaaTiltakDetaljer = (props: { bruker: TiltakDeltakerDetaljer }): React.ReactElement => {
 	const {
 		id: deltakerId, navEnhet, navVeileder, fornavn, mellomnavn, etternavn, fodselsnummer, startDato,
-		sluttDato, gjennomforing, registrertDato, telefonnummer, epost, status, erSkjermetPerson, fjernesDato
+		sluttDato, gjennomforing, registrertDato, telefonnummer, epost, status, erSkjermetPerson, fjernesDato,
+		begrunnelseForDeltakelse
 	} = props.bruker
 
 	useTabTitle('Deltakerdetaljer')
@@ -96,7 +99,7 @@ export const BrukerPaaTiltakDetaljer = (props: { bruker: TiltakDeltakerDetaljer 
 						</Show>
 					</div>
 
-					<div className={styles.deltakerDetaljer}>
+					<div className={cls(styles.deltakerDetaljer, globalStyles.blokkM)}>
 						<Oppstartsdato
 							erSkjermetPerson={erSkjermetPerson}
 							deltakerId={deltakerId}
@@ -106,6 +109,8 @@ export const BrukerPaaTiltakDetaljer = (props: { bruker: TiltakDeltakerDetaljer 
 						/>
 						<DeltakerDetalj detaljeTittel="Sluttdato" detaljeVerdi={formatDate(sluttDato)} detaljeIcon={<Calender title="Kalender"/>}/>
 					</div>
+
+					{ toggle.visBegrunnelse && <Begrunnelse begrunnelse={begrunnelseForDeltakelse}/> }
 				</section>
 
 				<section>

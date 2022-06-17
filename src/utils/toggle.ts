@@ -2,8 +2,7 @@ import env from './environment'
 
 class Toggle {
 
-	// Ikke i bruk
-	get visSendOppstartsDatoRedigering(): boolean {
+	get visBegrunnelse(): boolean {
 		return !env.isProd
 	}
 

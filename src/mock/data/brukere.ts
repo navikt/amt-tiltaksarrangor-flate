@@ -90,6 +90,7 @@ const lagMockTiltakDeltagerForGjennomforing = (gjennomforing: Gjennomforing): Ti
 		},
 		fjernesDato: fjernesDato,
 		gjennomforing: gjennomforing,
-		registrertDato: faker.date.past()
+		registrertDato: faker.date.past(),
+		begrunnelseForDeltakelse: faker.lorem.paragraphs(8, '\n\n')
 	}
 }
