@@ -23,11 +23,11 @@ export const mockHandlers: RequestHandler[] = [
 
 		return res(ctx.delay(500), ctx.json(brukere))
 	}),
-	rest.get(appUrl('/amt-tiltak/api/tiltak-deltaker/:brukerId'), (req, res, ctx) => {
-		const brukerId = req.params['brukerId']
-		const bruker = mockTiltakDeltagere.find((b) => b.id === brukerId)! // eslint-disable-line @typescript-eslint/no-non-null-assertion
-		const gjennomforing = mockGjennomforinger.find(g => g.id === bruker.gjennomforing.id)! // eslint-disable-line @typescript-eslint/no-non-null-assertion
-		const deltakerMedGjennomforing = { ...bruker, gjennomforing: gjennomforing }
+	rest.get(appUrl('/amt-tiltak/api/tiltak-deltaker/:deltakerId'), (req, res, ctx) => {
+		const deltakerId = req.params['deltakerId']
+		const deltaker = mockTiltakDeltagere.find((d) => d.id === deltakerId)! // eslint-disable-line @typescript-eslint/no-non-null-assertion
+		const gjennomforing = mockGjennomforinger.find(g => g.id === deltaker.gjennomforing.id)! // eslint-disable-line @typescript-eslint/no-non-null-assertion
+		const deltakerMedGjennomforing = { ...deltaker, gjennomforing: gjennomforing }
 
 		return res(ctx.delay(500), ctx.json(deltakerMedGjennomforing))
 	}),

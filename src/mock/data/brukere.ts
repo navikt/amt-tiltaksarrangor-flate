@@ -90,6 +90,21 @@ const lagMockTiltakDeltagerForGjennomforing = (gjennomforing: Gjennomforing): Ti
 		},
 		fjernesDato: fjernesDato,
 		gjennomforing: gjennomforing,
-		registrertDato: faker.date.past()
+		registrertDato: faker.date.past(),
+		begrunnelseForDeltakelse: genererBegrunnelse(brukerFornavn)
 	}
+}
+
+const genererBegrunnelse = (fornavn: string) => {
+	return `\
+${fornavn} har stått uten arbeid en lengre periode på grunn av helseutfordringer. Hen har mye arbeidserfaring og har spisskompetanse innen ledelse i salg og service. Hen har fått god hjelp fra helsevesenet og er nå klar for å starte prosessen med å finne nytt arbeid. ${fornavn} har et ønske om å bytte bransje, men er usikker på hvilke typer jobber som kan være aktuelle. Hen har trolig også behov for å kartlegge om hen har behov for tilrettelegging på arbeidsplassen.
+
+${fornavn} ønsker:
+- Yrkes- og karriereveiledning
+- Hjelp/sparring på å skrive søknader og intervjutrening
+- Hjelp, veiledning og vurdering av nødvendig tilrettelegging på arbeidsplassen
+
+${fornavn} håper at hen raskt kommer i kontakt med mulige arbeidsgivere for å starte å jobbe. Hen tror selv at hen har behov for hjelp i inntil 4 måneder, inklusiv oppfølging på arbeidsplassen.
+
+NAV kan vurdere tilskudd for å kompensere for utgifter arbeidsgiver skulle ha med tilrettelegging.`
 }
