@@ -14,7 +14,7 @@ export function NavInfoPanel(props: { navEnhet: NavEnhet | null, navVeileder: Na
 
 	return (
 		<Panel border className={styles.infoPanel}>
-			<Heading size="medium" level="3" className={globalStyles.blokkXs}>NAV-kontor</Heading>
+			<Heading size="small" level="4" className={globalStyles.blokkXs}>NAV-kontor</Heading>
 
 			<div className={cls(styles.contentBlock, globalStyles.blokkM)}>
 				<IconLabel
@@ -24,7 +24,7 @@ export function NavInfoPanel(props: { navEnhet: NavEnhet | null, navVeileder: Na
 				/>
 			</div>
 
-			<Heading size="medium" level="3" className={globalStyles.blokkXs}>NAV-veileder</Heading>
+			<Heading size="small" level="4" className={globalStyles.blokkXs}>NAV-veileder</Heading>
 
 			<div className={styles.contentBlock}>
 				<IconLabel

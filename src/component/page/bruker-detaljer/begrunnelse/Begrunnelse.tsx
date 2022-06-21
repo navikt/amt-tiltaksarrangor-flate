@@ -1,5 +1,5 @@
 import { Collapse, Expand } from '@navikt/ds-icons'
-import { BodyLong, Button, Heading } from '@navikt/ds-react'
+import { BodyLong, Heading } from '@navikt/ds-react'
 import React, { useState } from 'react'
 
 import { EMDASH } from '../../../../utils/constants'
@@ -29,7 +29,7 @@ export const Begrunnelse = (props: BegrunnelseProps) => {
 
 	return (
 		<div>
-			<Heading size="medium" level="3" spacing>Begrunnelse</Heading>
+			<Heading size="small" level="4" spacing>Begrunnelse</Heading>
 
 			<BodyLong className={styles.begrunnelseTekst}>
 				{begrunnelseTekst}
@@ -38,16 +38,16 @@ export const Begrunnelse = (props: BegrunnelseProps) => {
 			<Show if={erBegrunnelseOverMax}>
 				{
 					showAll && (
-						<Button variant="tertiary" onClick={toggleShowAll}>
+						<button className={styles.toggleKnapp} onClick={toggleShowAll}>
 							Skjul <Collapse/>
-						</Button>
+						</button>
 					)
 				}
 				{
 					!showAll && (
-						<Button variant="tertiary" onClick={toggleShowAll}>
+						<button className={styles.toggleKnapp} onClick={toggleShowAll}>
 							Les mer <Expand/>
-						</Button>
+						</button>
 					)
 				}
 			</Show>
