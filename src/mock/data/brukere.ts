@@ -91,7 +91,7 @@ const lagMockTiltakDeltagerForGjennomforing = (gjennomforing: Gjennomforing): Ti
 		fjernesDato: fjernesDato,
 		gjennomforing: gjennomforing,
 		registrertDato: faker.date.past(),
-		begrunnelseForDeltakelse: genererBegrunnelse(brukerFornavn)
+		innsokBegrunnelse: genererBegrunnelse(brukerFornavn)
 	}
 }
 

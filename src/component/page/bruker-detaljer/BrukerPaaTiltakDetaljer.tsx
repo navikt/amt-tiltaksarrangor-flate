@@ -47,7 +47,7 @@ export const BrukerPaaTiltakDetaljer = (props: { bruker: TiltakDeltakerDetaljer 
 	const {
 		id: deltakerId, navEnhet, navVeileder, fornavn, mellomnavn, etternavn, fodselsnummer, startDato,
 		sluttDato, gjennomforing, registrertDato, telefonnummer, epost, status, erSkjermetPerson, fjernesDato,
-		begrunnelseForDeltakelse
+		innsokBegrunnelse
 	} = props.bruker
 
 	useTabTitle('Deltakerdetaljer')
@@ -110,7 +110,7 @@ export const BrukerPaaTiltakDetaljer = (props: { bruker: TiltakDeltakerDetaljer 
 						<DeltakerDetalj detaljeTittel="Sluttdato" detaljeVerdi={formatDate(sluttDato)} detaljeIcon={<Calender title="Kalender"/>}/>
 					</div>
 
-					{ toggle.visBegrunnelse && <Begrunnelse begrunnelse={begrunnelseForDeltakelse}/> }
+					{ toggle.visBegrunnelse && <Begrunnelse begrunnelse={innsokBegrunnelse}/> }
 				</section>
 
 				<section>
