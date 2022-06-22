@@ -46,7 +46,7 @@ export const tiltakDeltakerDetaljerSchema = z.object({
 	navVeileder: z.custom<NavVeileder>().nullable(),
 	gjennomforing: z.custom<Gjennomforing>(),
 	fjernesDato: nullableDateSchema,
-	innsokBegrunnelse: z.string().optional()
+	innsokBegrunnelse: z.string().nullable()
 })
 
 export const navEnhetSchema = z.object({
