@@ -40,7 +40,7 @@ export const tiltakDeltakerDetaljerSchema = z.object({
 	status: deltakerStatusSchema,
 	registrertDato: dateSchema,
 	erSkjermetPerson: z.boolean(),
-	epost: z.string().email().nullable(),
+	epost: z.string().nullable(),
 	telefonnummer: z.string().nullable(),
 	navEnhet: z.custom<NavEnhet>().nullable(),
 	navVeileder: z.custom<NavVeileder>().nullable(),
@@ -55,8 +55,8 @@ export const navEnhetSchema = z.object({
 
 export const navVeilederSchema = z.object({
 	navn: z.string(),
-	telefon: z.string(),
-	epost: z.string(),
+	telefon: z.string().nullable(),
+	epost: z.string().nullable(),
 })
 
 export const tiltakDeltakereSchema = z.array(tiltakDeltakerSchema)
