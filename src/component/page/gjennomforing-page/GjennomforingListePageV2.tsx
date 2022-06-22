@@ -1,4 +1,4 @@
-import { Information } from '@navikt/ds-icons'
+import { Add, Information } from '@navikt/ds-icons'
 import { AxiosResponse } from 'axios'
 import React from 'react'
 import { Link } from 'react-router-dom'
@@ -13,8 +13,10 @@ import { AlertPage } from '../../felles/alert-page/AlertPage'
 import { SpinnerPage } from '../../felles/spinner-page/SpinnerPage'
 import { GjennomforingListe } from './gjennomforing-liste/GjennomforingListe'
 import styles from './GjennomforingListePage.module.scss'
+import globalStyles from '../../../globals.module.scss'
+import cls from 'classnames';
 
-export const GjennomforingListePage = (): React.ReactElement => {
+export const GjennomforingListePageV2 = (): React.ReactElement => {
 	useTabTitle('Tiltaksoversikt')
 
 	const fetchGjennomforingerPromise = usePromise<AxiosResponse<Gjennomforing[]>>(
@@ -37,19 +39,19 @@ export const GjennomforingListePage = (): React.ReactElement => {
 
 	return (
 		<main className={styles.page} data-testid="gjennomforing-oversikt-page">
-			<Link className="navds-link" to={LEGG_TIL_DELTAKERLISTE_PAGE_ROUTE}>
-				<Information title="Informasjon"/>Info om deltakeroversikten
-			</Link>
+			<div className={styles.leggTilDeltakerlisteWrapper}>
+				<Link className={styles.leggTilDeltakerlisteLenke} to={LEGG_TIL_DELTAKERLISTE_PAGE_ROUTE}>
+					Legg til deltakerliste <Add/>
+				</Link>
+			</div>
 
-			<section className={styles.seksjonGjennomforinger}>
-				<GjennomforingListe gjennomforinger={gjennomforinger}/>
+			<GjennomforingListe gjennomforinger={gjennomforinger}/>
 
-				<div className={styles.informasjonLenkeWrapper}>
-					<Link className="navds-link" to={INFORMASJON_PAGE_ROUTE}>
-						<Information title="Informasjon"/>Info om deltakeroversikten
-					</Link>
-				</div>
-			</section>
+			<div className={styles.informasjonLenkeWrapper}>
+				<Link className="navds-link" to={INFORMASJON_PAGE_ROUTE}>
+					<Information title="Informasjon"/>Info om deltakeroversikten
+				</Link>
+			</div>
 		</main>
 	)
 }

@@ -21,6 +21,7 @@ import {
 } from './navigation'
 import StoreProvider from './store/store-provider'
 import { isNotStartedOrPending, isRejected, usePromise } from './utils/use-promise'
+import { GjennomforingListePageV2 } from './component/page/gjennomforing-page/GjennomforingListePageV2';
 
 export const App = (): React.ReactElement => {
 	const fetchInnloggetAnsattPromise = usePromise<AxiosResponse<InnloggetAnsatt>, AxiosError>(fetchInnloggetAnsatt)
@@ -48,7 +49,7 @@ export const App = (): React.ReactElement => {
 					<Route path={BRUKER_DETALJER_PAGE_ROUTE} element={<BrukerDetaljerPage />} />
 					<Route path={GJENNOMFORING_DETALJER_PAGE_ROUTE} element={<GjennomforingDetaljerPage />} />
 					<Route path={INFORMASJON_PAGE_ROUTE} element={<InformasjonPage />} />
-					<Route path={GJENNOMFORING_LISTE_PAGE_ROUTE} element={<GjennomforingListePage/>}/>
+					<Route path={GJENNOMFORING_LISTE_PAGE_ROUTE} element={<GjennomforingListePageV2/>}/>
 					<Route path={LEGG_TIL_DELTAKERLISTE_PAGE_ROUTE} element={<LeggTilDeltakerlistePage/>}/>
 				</Routes>
 				<PageViewMetricCollector />
