@@ -1,7 +1,7 @@
 import * as faker from 'faker'
 
 import { Gjennomforing, TiltakGjennomforingStatus } from '../../api/data/tiltak'
-import { randomUuid } from '../utils/faker'
+import { gjennomforingId } from './id'
 
 export type MockGjennomforing = Gjennomforing & { virksomhetId: string }
 
@@ -56,7 +56,7 @@ export const lagTiltakGjennomforinger = (): Gjennomforing[] => {
 
 const lagGjennomforing = (gjennomforingInfo: GjennomforingInfo): Gjennomforing => {
 	return {
-		id: randomUuid(),
+		id: gjennomforingId(),
 		navn: gjennomforingInfo.gjennomforingNavn,
 		status: gjennomforingInfo.status,
 		tiltak: {

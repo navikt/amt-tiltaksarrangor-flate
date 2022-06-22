@@ -1,7 +1,8 @@
 import * as faker from 'faker'
 
 import { Endringsmelding } from '../../api/data/tiltak'
-import { randBetween, randomUuid } from '../utils/faker'
+import { randBetween } from '../utils/faker'
+import { endringsmeldingId } from './id'
 
 type MockEndringsmeldinger = { [id: string]: Endringsmelding[] }
 
@@ -22,7 +23,7 @@ export const lagMockEndringsmeldingForDeltaker = (): Endringsmelding[] => {
 
 	return [
 		{
-			id: randomUuid(),
+			id: endringsmeldingId(),
 			startDato: faker.date.soon(),
 			aktiv: faker.datatype.boolean()
 		}

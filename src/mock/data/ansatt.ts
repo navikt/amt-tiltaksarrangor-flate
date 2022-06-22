@@ -1,9 +1,9 @@
 import { InnloggetAnsatt, Virksomhet } from '../../api/data/ansatt'
-import { randomUuid } from '../utils/faker'
+import { ansattId, virksomhetId } from './id'
 
 export const mockInnloggetAnsattVirksomheter: Virksomhet[] = [
 	{
-		id: '4b26083d-c320-49e1-9104-b4dcdbcc8067',
+		id: virksomhetId(),
 		overordnetEnhetNavn: 'Muligheter Org',
 		overordnetEnhetOrganisasjonsnummer: '750863842',
 		navn: 'Muligheter AS',
@@ -11,7 +11,7 @@ export const mockInnloggetAnsattVirksomheter: Virksomhet[] = [
 		roller: [ 'KOORDINATOR', 'VEILEDER' ]
 	},
 	{
-		id: '7ee8b861-6dc7-4cc2-9706-252c82b63104',
+		id: virksomhetId(),
 		overordnetEnhetNavn: 'Tiltak Org',
 		overordnetEnhetOrganisasjonsnummer: '137603847',
 		navn: 'Tiltak til alle AS',
@@ -21,7 +21,7 @@ export const mockInnloggetAnsattVirksomheter: Virksomhet[] = [
 ]
 
 export const mockInnloggetAnsatt: InnloggetAnsatt = {
-	id: randomUuid(),
+	id: ansattId(),
 	fornavn: 'Karoline',
 	etternavn: 'Koordinatorsen',
 	arrangorer: mockInnloggetAnsattVirksomheter
