@@ -1,0 +1,9 @@
+.page {
+  padding: 2rem;
+  width: 100%;
+  margin: 0 auto;
+
+  @media(min-width: 600px) {
+    max-width: 600px;
+  }
+}

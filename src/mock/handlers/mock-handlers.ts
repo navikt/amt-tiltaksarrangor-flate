@@ -3,7 +3,12 @@ import { rest } from 'msw'
 import { RequestHandler } from 'msw/lib/types/handlers/RequestHandler'
 
 import { appUrl } from '../../utils/url-utils'
-import { mockEndringsmeldinger, mockGjennomforinger, mockTiltakDeltagere } from '../data'
+import {
+	mockEndringsmeldinger,
+	mockGjennomforinger,
+	mockTilgjengeligGjennomforinger,
+	mockTiltakDeltagere
+} from '../data'
 import { mockInnloggetAnsatt } from '../data/ansatt'
 import { randomUuid } from '../utils/faker'
 
@@ -33,6 +38,13 @@ export const mockHandlers: RequestHandler[] = [
 	}),
 	rest.get(appUrl('/amt-tiltak/api/gjennomforing'), (_req, res, ctx) => {
 		return res(ctx.delay(500), ctx.json(mockGjennomforinger))
+	}),
+	rest.get(appUrl('/amt-tiltak/api/test123'), (_req, res, ctx) => {
+		const gjennomforinger = [ mockGjennomforinger[0], ...mockTilgjengeligGjennomforinger ]
+		return res(ctx.delay(500), ctx.json(gjennomforinger))
+	}),
+	rest.post(appUrl('/amt-tiltak/api/gjennomforing/:gjennomforingId/deltakeroversikt'), (_req, res, ctx) => {
+		return res(ctx.delay(500), ctx.status(200))
 	}),
 	rest.get(appUrl('/amt-tiltak/api/tiltaksarrangor/endringsmelding'), (req, res, ctx) => {
 		const deltakerId = req.url.searchParams.get('deltakerId') as string

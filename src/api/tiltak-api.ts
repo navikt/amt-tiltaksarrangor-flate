@@ -40,6 +40,19 @@ export const fetchTiltakGjennomforinger = (): AxiosPromise<Gjennomforing[]> => {
 		.catch(logAndThrowError)
 }
 
+export const fetchTilgjengeligGjennomforinger = (): AxiosPromise<Gjennomforing[]> => {
+	return axiosInstance
+		.get(appUrl('/amt-tiltak/api/test123'))
+		.then(parse(gjennomforingerSchema))
+		.catch(logAndThrowError)
+}
+
+export const leggTilGjennomforingIDeltakeroversikt = (gjennomforingId: string): AxiosPromise => {
+	return axiosInstance
+		.post(appUrl(`/amt-tiltak/api/gjennomforing/${gjennomforingId}/deltakeroversikt`))
+		.catch(logAndThrowError)
+}
+
 export const fetchTiltakGjennomforing = (gjennomforingId: string): AxiosPromise<Gjennomforing> => {
 	return axiosInstance
 		.get(appUrl(`/amt-tiltak/api/gjennomforing/${gjennomforingId}`))

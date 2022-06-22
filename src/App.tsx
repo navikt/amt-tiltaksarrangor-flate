@@ -11,12 +11,13 @@ import { GjennomforingDetaljerPage } from './component/page/gjennomforing-detalj
 import { GjennomforingListePage } from './component/page/gjennomforing-page/GjennomforingListePage'
 import { InformasjonPage } from './component/page/informasjon-page/InformasjonPage'
 import { LandingPage, LandingPageView } from './component/page/landing-page/LandingPage'
+import { LeggTilDeltakerlistePage } from './component/page/legg-til-deltakerliste/LeggTilDeltakerlistePage'
 import { PageViewMetricCollector } from './component/PageViewMetricCollector'
 import {
 	BRUKER_DETALJER_PAGE_ROUTE,
 	GJENNOMFORING_DETALJER_PAGE_ROUTE,
 	GJENNOMFORING_LISTE_PAGE_ROUTE,
-	INFORMASJON_PAGE_ROUTE,
+	INFORMASJON_PAGE_ROUTE, LEGG_TIL_DELTAKERLISTE_PAGE_ROUTE
 } from './navigation'
 import StoreProvider from './store/store-provider'
 import { isNotStartedOrPending, isRejected, usePromise } from './utils/use-promise'
@@ -48,6 +49,7 @@ export const App = (): React.ReactElement => {
 					<Route path={GJENNOMFORING_DETALJER_PAGE_ROUTE} element={<GjennomforingDetaljerPage />} />
 					<Route path={INFORMASJON_PAGE_ROUTE} element={<InformasjonPage />} />
 					<Route path={GJENNOMFORING_LISTE_PAGE_ROUTE} element={<GjennomforingListePage/>}/>
+					<Route path={LEGG_TIL_DELTAKERLISTE_PAGE_ROUTE} element={<LeggTilDeltakerlistePage/>}/>
 				</Routes>
 				<PageViewMetricCollector />
 			</BrowserRouter>
