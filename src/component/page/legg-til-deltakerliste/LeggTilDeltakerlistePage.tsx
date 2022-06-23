@@ -18,7 +18,7 @@ export const LeggTilDeltakerlistePage = () => {
 
 			<Heading size="medium" level="2" className={globalStyles.blokkM}>Legg til deltakerliste</Heading>
 
-			<BodyShort>
+			<BodyShort className={globalStyles.blokkM}>
 				Hvilke deltakerlister koordinerer du? Det er viktig at du kun legger til deltakerlister som du er koordinator for.
 			</BodyShort>
 

@@ -48,6 +48,7 @@ export const GjennomforingPanel = (props: GjennomforingPanelProps) => {
 					{ isNotStartedOrPending(leggTilGjennomforingPromise) && (
 						<Button
 							variant="secondary"
+							size="small"
 							disabled={isPending(leggTilGjennomforingPromise)}
 							loading={isPending(leggTilGjennomforingPromise)}
 							onClick={handleOnLeggTilClicked}

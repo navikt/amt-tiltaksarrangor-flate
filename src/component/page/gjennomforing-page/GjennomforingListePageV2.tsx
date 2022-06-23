@@ -13,8 +13,6 @@ import { AlertPage } from '../../felles/alert-page/AlertPage'
 import { SpinnerPage } from '../../felles/spinner-page/SpinnerPage'
 import { GjennomforingListe } from './gjennomforing-liste/GjennomforingListe'
 import styles from './GjennomforingListePage.module.scss'
-import globalStyles from '../../../globals.module.scss'
-import cls from 'classnames';
 
 export const GjennomforingListePageV2 = (): React.ReactElement => {
 	useTabTitle('Tiltaksoversikt')
