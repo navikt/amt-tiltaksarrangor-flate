@@ -33,6 +33,7 @@ export const fetchInnloggetAnsatt = (): AxiosPromise<InnloggetAnsatt> => {
 		})
 }
 
+// Henter gjennomføringer som er lagt til i oversikten
 export const fetchTiltakGjennomforinger = (): AxiosPromise<Gjennomforing[]> => {
 	return axiosInstance
 		.get(appUrl('/amt-tiltak/api/gjennomforing'))
@@ -40,9 +41,10 @@ export const fetchTiltakGjennomforinger = (): AxiosPromise<Gjennomforing[]> => {
 		.catch(logAndThrowError)
 }
 
+// Henter alle gjennomføringer som er tilgjengelig, noen gjennomføringer kan allerede være lagt til i oversikten
 export const fetchTilgjengeligGjennomforinger = (): AxiosPromise<Gjennomforing[]> => {
 	return axiosInstance
-		.get(appUrl('/amt-tiltak/api/test123'))
+		.get(appUrl('/amt-tiltak/api/gjennomforing/tilgjengelig'))
 		.then(parse(gjennomforingerSchema))
 		.catch(logAndThrowError)
 }

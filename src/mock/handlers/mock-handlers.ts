@@ -16,6 +16,10 @@ export const mockHandlers: RequestHandler[] = [
 	rest.get(appUrl('/amt-tiltak/api/arrangor/ansatt/meg'), (_req, res, ctx) => {
 		return res(ctx.delay(500), ctx.json(mockInnloggetAnsatt))
 	}),
+	rest.get(appUrl('/amt-tiltak/api/gjennomforing/tilgjengelig'), (_req, res, ctx) => {
+		const gjennomforinger = [ mockGjennomforinger[0], ...mockTilgjengeligGjennomforinger ]
+		return res(ctx.delay(500), ctx.json(gjennomforinger))
+	}),
 	rest.get(appUrl('/amt-tiltak/api/gjennomforing/:gjennomforingId'), (req, res, ctx) => {
 		const gjennomforingId = req.params.gjennomforingId
 		const gjennomforing = mockGjennomforinger.find(g => g.id === gjennomforingId)
@@ -38,10 +42,6 @@ export const mockHandlers: RequestHandler[] = [
 	}),
 	rest.get(appUrl('/amt-tiltak/api/gjennomforing'), (_req, res, ctx) => {
 		return res(ctx.delay(500), ctx.json(mockGjennomforinger))
-	}),
-	rest.get(appUrl('/amt-tiltak/api/test123'), (_req, res, ctx) => {
-		const gjennomforinger = [ mockGjennomforinger[0], ...mockTilgjengeligGjennomforinger ]
-		return res(ctx.delay(500), ctx.json(gjennomforinger))
 	}),
 	rest.post(appUrl('/amt-tiltak/api/gjennomforing/:gjennomforingId/deltakeroversikt'), (_req, res, ctx) => {
 		return res(ctx.delay(500), ctx.status(200))
