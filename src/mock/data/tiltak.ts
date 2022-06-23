@@ -68,6 +68,10 @@ const lagGjennomforing = (gjennomforingInfo: GjennomforingInfo): Gjennomforing =
 		arrangor: {
 			virksomhetNavn: faker.company.companyName(),
 			organisasjonNavn: faker.company.companyName()
-		}
+		},
+		koordinatorer: [
+			faker.name.firstName() + ' ' + faker.name.lastName(),
+			faker.name.firstName() + ' ' + faker.name.lastName()
+		]
 	}
 }
