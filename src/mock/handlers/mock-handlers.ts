@@ -43,7 +43,7 @@ export const mockHandlers: RequestHandler[] = [
 	rest.get(appUrl('/amt-tiltak/api/gjennomforing'), (_req, res, ctx) => {
 		return res(ctx.delay(500), ctx.json(mockGjennomforinger))
 	}),
-	rest.post(appUrl('/amt-tiltak/api/gjennomforing/:gjennomforingId/deltakeroversikt'), (_req, res, ctx) => {
+	rest.post(appUrl('/amt-tiltak/api/gjennomforing/:gjennomforingId/tilgang'), (_req, res, ctx) => {
 		return res(ctx.delay(500), ctx.status(200))
 	}),
 	rest.get(appUrl('/amt-tiltak/api/tiltaksarrangor/endringsmelding'), (req, res, ctx) => {

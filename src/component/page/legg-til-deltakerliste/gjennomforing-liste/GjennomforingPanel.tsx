@@ -4,7 +4,7 @@ import { AxiosResponse } from 'axios'
 import cls from 'classnames'
 import React from 'react'
 
-import { leggTilGjennomforingIDeltakeroversikt } from '../../../../api/tiltak-api'
+import { opprettTilgangTilGjennomforing } from '../../../../api/tiltak-api'
 import globalStyles from '../../../../globals.module.scss'
 import { formatDate } from '../../../../utils/date-utils'
 import { Nullable } from '../../../../utils/types/or-nothing'
@@ -25,10 +25,10 @@ interface GjennomforingPanelProps {
 export const GjennomforingPanel = (props: GjennomforingPanelProps) => {
 	const { gjennomforingId, navn, tiltaksnavn, arrangorNavn, startDato, sluttDato, alleredeLagtTil } = props
 
-	const leggTilGjennomforingPromise = usePromise<AxiosResponse>()
+	const opprettTilgangTilGjennomforingPromise = usePromise<AxiosResponse>()
 
 	const handleOnLeggTilClicked = () => {
-		leggTilGjennomforingPromise.setPromise(leggTilGjennomforingIDeltakeroversikt(gjennomforingId))
+		opprettTilgangTilGjennomforingPromise.setPromise(opprettTilgangTilGjennomforing(gjennomforingId))
 	}
 
 	return (
@@ -45,19 +45,19 @@ export const GjennomforingPanel = (props: GjennomforingPanelProps) => {
 				</div>
 
 				<Show if={!alleredeLagtTil}>
-					{ isNotStartedOrPending(leggTilGjennomforingPromise) && (
+					{ isNotStartedOrPending(opprettTilgangTilGjennomforingPromise) && (
 						<Button
 							variant="secondary"
 							size="small"
-							disabled={isPending(leggTilGjennomforingPromise)}
-							loading={isPending(leggTilGjennomforingPromise)}
+							disabled={isPending(opprettTilgangTilGjennomforingPromise)}
+							loading={isPending(opprettTilgangTilGjennomforingPromise)}
 							onClick={handleOnLeggTilClicked}
 						>
 							<Add/> Legg til
 						</Button>
 					)}
-					{ isResolved(leggTilGjennomforingPromise) && <Alert size="small" variant="success">Lagt til</Alert> }
-					{ isRejected(leggTilGjennomforingPromise) && <Alert size="small" variant="error">Noe gikk galt</Alert> }
+					{ isResolved(opprettTilgangTilGjennomforingPromise) && <Alert size="small" variant="success">Lagt til</Alert> }
+					{ isRejected(opprettTilgangTilGjennomforingPromise) && <Alert size="small" variant="error">Noe gikk galt</Alert> }
 				</Show>
 
 				<Show if={alleredeLagtTil}>

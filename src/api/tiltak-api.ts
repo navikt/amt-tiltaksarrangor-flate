@@ -49,9 +49,9 @@ export const fetchTilgjengeligGjennomforinger = (): AxiosPromise<Gjennomforing[]
 		.catch(logAndThrowError)
 }
 
-export const leggTilGjennomforingIDeltakeroversikt = (gjennomforingId: string): AxiosPromise => {
+export const opprettTilgangTilGjennomforing = (gjennomforingId: string): AxiosPromise => {
 	return axiosInstance
-		.post(appUrl(`/amt-tiltak/api/gjennomforing/${gjennomforingId}/deltakeroversikt`))
+		.post(appUrl(`/amt-tiltak/api/gjennomforing/${gjennomforingId}/tilgang`))
 		.catch(logAndThrowError)
 }
 
