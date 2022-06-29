@@ -20,7 +20,7 @@ export const GjennomforingListe = (props: GjennomforingListeProps): React.ReactE
 	if (props.gjennomforinger.length === 0) {
 		return (
 			<div>
-				<Alert variant="info">Du har ikke tilgang til noen arbeidsmarkedstiltak.</Alert>
+				<Alert variant="info">For å se deltakere må du legge til en deltakerliste.</Alert>
 			</div>
 		)
 	}

@@ -6,6 +6,10 @@ class Toggle {
 		return !env.isProd
 	}
 
+	get visNyTilgangskontroll(): boolean {
+		return !env.isProd
+	}
+
 }
 
 const toggle = new Toggle()

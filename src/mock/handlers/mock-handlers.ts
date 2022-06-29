@@ -3,13 +3,22 @@ import { rest } from 'msw'
 import { RequestHandler } from 'msw/lib/types/handlers/RequestHandler'
 
 import { appUrl } from '../../utils/url-utils'
-import { mockEndringsmeldinger, mockGjennomforinger, mockTiltakDeltagere } from '../data'
+import {
+	mockEndringsmeldinger,
+	mockGjennomforinger,
+	mockTilgjengeligGjennomforinger,
+	mockTiltakDeltagere
+} from '../data'
 import { mockInnloggetAnsatt } from '../data/ansatt'
 import { randomUuid } from '../utils/faker'
 
 export const mockHandlers: RequestHandler[] = [
 	rest.get(appUrl('/amt-tiltak/api/arrangor/ansatt/meg'), (_req, res, ctx) => {
 		return res(ctx.delay(500), ctx.json(mockInnloggetAnsatt))
+	}),
+	rest.get(appUrl('/amt-tiltak/api/gjennomforing/tilgjengelig'), (_req, res, ctx) => {
+		const gjennomforinger = [ mockGjennomforinger[0], ...mockTilgjengeligGjennomforinger ]
+		return res(ctx.delay(500), ctx.json(gjennomforinger))
 	}),
 	rest.get(appUrl('/amt-tiltak/api/gjennomforing/:gjennomforingId'), (req, res, ctx) => {
 		const gjennomforingId = req.params.gjennomforingId
@@ -33,6 +42,9 @@ export const mockHandlers: RequestHandler[] = [
 	}),
 	rest.get(appUrl('/amt-tiltak/api/gjennomforing'), (_req, res, ctx) => {
 		return res(ctx.delay(500), ctx.json(mockGjennomforinger))
+	}),
+	rest.post(appUrl('/amt-tiltak/api/gjennomforing/:gjennomforingId/tilgang'), (_req, res, ctx) => {
+		return res(ctx.delay(500), ctx.status(200))
 	}),
 	rest.get(appUrl('/amt-tiltak/api/tiltaksarrangor/endringsmelding'), (req, res, ctx) => {
 		const deltakerId = req.url.searchParams.get('deltakerId') as string

@@ -1,0 +1,30 @@
+@import '/src/colors.scss';
+
+.muted {
+  color: $textMuted;
+  font-size: 1rem;
+}
+
+.rad {
+  display: flex;
+  flex-direction: row;
+}
+
+.innhold {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.tiltaknavn {
+  margin-right: 2rem;
+}
+
+.alleredeLagtTilAlert {
+  height: 2rem;
+
+  svg {
+    margin: auto 0;
+  }
+}

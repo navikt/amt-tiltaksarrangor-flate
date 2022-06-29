@@ -1,4 +1,4 @@
-import { Information } from '@navikt/ds-icons'
+import { Add, Information } from '@navikt/ds-icons'
 import { AxiosResponse } from 'axios'
 import React from 'react'
 import { Link } from 'react-router-dom'
@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom'
 import { Gjennomforing, TiltakGjennomforingStatus } from '../../../api/data/tiltak'
 import { fetchTiltakGjennomforinger } from '../../../api/tiltak-api'
 import { useTabTitle } from '../../../hooks/use-tab-title'
-import { INFORMASJON_PAGE_ROUTE } from '../../../navigation'
+import { INFORMASJON_PAGE_ROUTE, LEGG_TIL_DELTAKERLISTE_PAGE_ROUTE } from '../../../navigation'
 import { sortAlphabeticAsc } from '../../../utils/sortering-utils'
 import { isNotStartedOrPending, isRejected, usePromise } from '../../../utils/use-promise'
 import { AlertPage } from '../../felles/alert-page/AlertPage'
@@ -14,7 +14,7 @@ import { SpinnerPage } from '../../felles/spinner-page/SpinnerPage'
 import { GjennomforingListe } from './gjennomforing-liste/GjennomforingListe'
 import styles from './GjennomforingListePage.module.scss'
 
-export const GjennomforingListePage = (): React.ReactElement => {
+export const GjennomforingListePageV2 = (): React.ReactElement => {
 	useTabTitle('Tiltaksoversikt')
 
 	const fetchGjennomforingerPromise = usePromise<AxiosResponse<Gjennomforing[]>>(
@@ -37,6 +37,12 @@ export const GjennomforingListePage = (): React.ReactElement => {
 
 	return (
 		<main className={styles.page} data-testid="gjennomforing-oversikt-page">
+			<div className={styles.leggTilDeltakerlisteWrapper}>
+				<Link className={styles.leggTilDeltakerlisteLenke} to={LEGG_TIL_DELTAKERLISTE_PAGE_ROUTE}>
+					Legg til deltakerliste <Add/>
+				</Link>
+			</div>
+
 			<GjennomforingListe gjennomforinger={gjennomforinger}/>
 
 			<div className={styles.informasjonLenkeWrapper}>
