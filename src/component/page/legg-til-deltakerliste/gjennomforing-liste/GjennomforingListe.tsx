@@ -1,4 +1,4 @@
-import { Heading } from '@navikt/ds-react'
+import { Alert, Heading } from '@navikt/ds-react'
 import { AxiosResponse } from 'axios'
 import React, { useMemo } from 'react'
 
@@ -8,6 +8,7 @@ import globalStyles from '../../../../globals.module.scss'
 import { sortAlphabeticAsc } from '../../../../utils/sortering-utils'
 import { isNotStartedOrPending, isRejected, usePromise } from '../../../../utils/use-promise'
 import { AlertPage } from '../../../felles/alert-page/AlertPage'
+import { Show } from '../../../felles/Show'
 import { SpinnerPage } from '../../../felles/spinner-page/SpinnerPage'
 import styles from './GjennomforingListe.module.scss'
 import { GjennomforingPanel } from './GjennomforingPanel'
@@ -58,6 +59,9 @@ export const GjennomforingListe = () => {
 
 	return (
 		<>
+			<Show if={Object.keys(gjennomforingerPaVirksomhet).length === 0}>
+				<Alert variant="info">Fant ingen gjennomføringer</Alert>
+			</Show>
 			{ Object.entries(gjennomforingerPaVirksomhet).map(([ virksomhetNavn, gjennomforinger ]) => {
 				return (
 					<div key={virksomhetNavn} className={globalStyles.blokkM}>
