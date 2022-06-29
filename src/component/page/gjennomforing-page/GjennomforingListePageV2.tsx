@@ -39,7 +39,7 @@ export const GjennomforingListePageV2 = (): React.ReactElement => {
 		<main className={styles.page} data-testid="gjennomforing-oversikt-page">
 			<div className={styles.leggTilDeltakerlisteWrapper}>
 				<Link className={styles.leggTilDeltakerlisteLenke} to={LEGG_TIL_DELTAKERLISTE_PAGE_ROUTE}>
-					Legg til deltakerliste <Add/>
+					<Add/> Legg til deltakerliste
 				</Link>
 			</div>
 

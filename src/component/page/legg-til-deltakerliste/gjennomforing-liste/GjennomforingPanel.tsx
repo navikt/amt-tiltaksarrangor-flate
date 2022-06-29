@@ -37,11 +37,11 @@ export const GjennomforingPanel = (props: GjennomforingPanelProps) => {
 			<div className={styles.innhold}>
 				<div>
 					<div className={cls(styles.rad, globalStyles.blokkXxs)}>
-						<BodyShort className={cls(styles.muted, styles.tiltaknavn)}>{tiltaksnavn}</BodyShort>
-						<BodyShort className={styles.muted}>{arrangorNavn}</BodyShort>
+						<BodyShort className={styles.tiltaknavn}>{tiltaksnavn}</BodyShort>
+						<BodyShort>{arrangorNavn}</BodyShort>
 					</div>
 
-					<BodyShort className={styles.muted}>{formatDate(startDato)} - {formatDate(sluttDato)}</BodyShort>
+					<BodyShort>{formatDate(startDato)} - {formatDate(sluttDato)}</BodyShort>
 				</div>
 
 				<Show if={!alleredeLagtTil}>
