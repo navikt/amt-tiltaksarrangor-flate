@@ -15,7 +15,7 @@ import { GjennomforingListe } from './gjennomforing-liste/GjennomforingListe'
 import styles from './GjennomforingListePage.module.scss'
 
 export const GjennomforingListePage = (): React.ReactElement => {
-	useTabTitle('Tiltaksoversikt')
+	useTabTitle('Deltakeroversikt')
 
 	const fetchGjennomforingerPromise = usePromise<AxiosResponse<Gjennomforing[]>>(
 		() => fetchTiltakGjennomforinger()
@@ -40,7 +40,7 @@ export const GjennomforingListePage = (): React.ReactElement => {
 			<GjennomforingListe gjennomforinger={gjennomforinger}/>
 
 			<div className={styles.informasjonLenkeWrapper}>
-				<Link className="navds-link" to={INFORMASJON_PAGE_ROUTE}>
+				<Link className={styles.lenke} to={INFORMASJON_PAGE_ROUTE}>
 					<Information title="Informasjon"/>Info om deltakeroversikten
 				</Link>
 			</div>

@@ -60,7 +60,7 @@ export const GjennomforingListe = () => {
 	return (
 		<>
 			<Show if={Object.keys(gjennomforingerPaVirksomhet).length === 0}>
-				<Alert variant="info">Fant ingen gjennomføringer</Alert>
+				<Alert variant="info">Det finnes ingen aktive deltakerlister hos din virksomhet.</Alert>
 			</Show>
 			{ Object.entries(gjennomforingerPaVirksomhet).map(([ virksomhetNavn, gjennomforinger ]) => {
 				return (

@@ -10,13 +10,13 @@ import styles from './LeggTilDeltakerliset.module.scss'
 
 
 export const LeggTilDeltakerlistePage = () => {
-	useTabTitle('Legg til deltakerliste')
+	useTabTitle('Legg til og fjern deltakerlister')
 
 	return (
 		<main className={styles.page}>
 			<Tilbakelenke to={GJENNOMFORING_LISTE_PAGE_ROUTE} className={globalStyles.blokkM}/>
 
-			<Heading size="medium" level="2" className={globalStyles.blokkM}>Legg til deltakerliste</Heading>
+			<Heading size="medium" level="2" className={globalStyles.blokkM}>Legg til og fjern deltakerlister</Heading>
 
 			<BodyShort className={globalStyles.blokkM}>
 				Hvilke deltakerlister koordinerer du? Det er viktig at du kun legger til deltakerlister som du er koordinator for.

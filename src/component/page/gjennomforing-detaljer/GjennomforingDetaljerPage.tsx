@@ -17,7 +17,7 @@ import styles from './GjennomforingDetaljerPage.module.scss'
 import { TiltakInfo } from './TiltakInfo'
 
 export const GjennomforingDetaljerPage = (): React.ReactElement => {
-	useTabTitle('Deltakeroversikt')
+	useTabTitle('Deltakerliste')
 
 	const params  = useParams<{ gjennomforingId: string }>()
 	const gjennomforingId = params.gjennomforingId || ''
