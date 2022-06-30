@@ -33,7 +33,7 @@ export const GjennomforingPanel = (props: GjennomforingPanelProps) => {
 
 	return (
 		<Panel border className={styles.panel}>
-			<Heading size="xsmall" level="3" className={globalStyles.blokkXxs}>{navn}</Heading>
+			<Heading size="xsmall" level="4" className={globalStyles.blokkXxs}>{navn}</Heading>
 			<div className={styles.innhold}>
 				<div>
 					<div className={cls(styles.rad, globalStyles.blokkXxs)}>
