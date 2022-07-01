@@ -2,6 +2,7 @@ import dayjs from 'dayjs'
 import { rest } from 'msw'
 import { RequestHandler } from 'msw/lib/types/handlers/RequestHandler'
 
+import { TiltakDeltaker } from '../../api/data/deltaker'
 import { appUrl } from '../../utils/url-utils'
 import {
 	mockEndringsmeldinger,
@@ -28,9 +29,11 @@ export const mockHandlers: RequestHandler[] = [
 	}),
 	rest.get(appUrl('/amt-tiltak/api/gjennomforing/:gjennomforingId/deltakere'), (req, res, ctx) => {
 		const gjennomforingId = req.params.gjennomforingId
-		const brukere = mockTiltakDeltagere.filter(deltaker => deltaker.gjennomforing.id === gjennomforingId)
 
-		return res(ctx.delay(500), ctx.json(brukere))
+		const data: TiltakDeltaker[] = mockTiltakDeltagere
+			.filter(deltaker => deltaker.gjennomforing.id === gjennomforingId)
+
+		return res(ctx.delay(500), ctx.json(data))
 	}),
 	rest.get(appUrl('/amt-tiltak/api/tiltak-deltaker/:deltakerId'), (req, res, ctx) => {
 		const deltakerId = req.params['deltakerId']

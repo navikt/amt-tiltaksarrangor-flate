@@ -3,7 +3,7 @@ import * as faker from 'faker'
 import { Gjennomforing, TiltakGjennomforingStatus } from '../../api/data/tiltak'
 import { gjennomforingId } from './id'
 
-export type MockGjennomforing = Gjennomforing & { virksomhetId: string }
+export type MockGjennomforing = Gjennomforing
 
 interface GjennomforingInfo {
 	gjennomforingNavn: string;
@@ -60,16 +60,16 @@ export const tilgjengeligGjennomforinger: GjennomforingInfo[] = [
 	},
 ]
 
-export const lagTiltakGjennomforinger = (gjennomforingInfo: GjennomforingInfo[]): Gjennomforing[] => {
+export const lagMockGjennomforinger = (gjennomforingInfoer: GjennomforingInfo[]): MockGjennomforing[] => {
 	const gjennomforinger: Gjennomforing[] = []
 
-	gjennomforingInfo
-		.forEach(t => gjennomforinger.push(lagGjennomforing(t)))
+	gjennomforingInfoer
+		.forEach(t => gjennomforinger.push(lagMockGjennomforing(t)))
 
 	return gjennomforinger
 }
 
-const lagGjennomforing = (gjennomforingInfo: GjennomforingInfo): Gjennomforing => {
+const lagMockGjennomforing = (gjennomforingInfo: GjennomforingInfo): MockGjennomforing => {
 	return {
 		id: gjennomforingId(),
 		navn: gjennomforingInfo.gjennomforingNavn,
