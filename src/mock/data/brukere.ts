@@ -1,11 +1,46 @@
 import faker from 'faker'
 
-import { NavEnhet, TiltakDeltakerDetaljer, TiltakDeltakerStatus } from '../../api/data/deltaker'
+import { TiltakDeltakerStatus } from '../../api/data/deltaker'
 import { Gjennomforing } from '../../api/data/tiltak'
 import { randBetween, randomFnr } from '../utils/faker'
 import { deltakerId } from './id'
+import { MockGjennomforing } from './tiltak'
 
-const navEnheter: NavEnhet[] = [
+export interface MockNavEnhet {
+	navn: string
+}
+
+export interface MockNavVeileder {
+	navn: string,
+	telefon: string | null,
+	epost: string | null,
+}
+
+export interface MockTiltakDeltaker {
+	id: string,
+	fornavn: string,
+	mellomnavn: string | null,
+	etternavn: string,
+	fodselsnummer: string,
+	startDato: Date | null,
+	sluttDato: Date | null,
+	status: {
+		type: TiltakDeltakerStatus,
+		endretDato: Date,
+	},
+	registrertDato: Date,
+	erSkjermetPerson: boolean,
+	epost: string | null,
+	telefonnummer: string | null,
+	navEnhet: MockNavEnhet| null,
+	navVeileder: MockNavVeileder | null,
+	gjennomforing: MockGjennomforing,
+	fjernesDato: Date | null,
+	innsokBegrunnelse: string | null,
+	aktivEndringsmelding: { startDato: Date } | null
+}
+
+const navEnheter: MockNavEnhet[] = [
 	{ navn: 'NAV Bærum' },
 	{ navn: 'NAV Åsnes' },
 	{ navn: 'NAV Møre og Romsdal' },
@@ -23,12 +58,13 @@ const lagMailFraNavn = (navn: string, mailDomain: string): string => {
 	return `${mailNavn}@${mailDomain}`
 }
 
-export const lagMockTiltakDeltagereForGjennomforing = (gjennomforing: Gjennomforing, antallDeltakere = 10): TiltakDeltakerDetaljer[] => {
-	const deltakere: TiltakDeltakerDetaljer[] = []
+export const lagMockTiltakDeltagereForGjennomforing = (gjennomforing: Gjennomforing, antallDeltakere = 10): MockTiltakDeltaker[] => {
+	const deltakere: MockTiltakDeltaker[] = []
 
 	for (let i = 0; i < antallDeltakere; i++) {
 		deltakere.push(lagMockTiltakDeltagerForGjennomforing(gjennomforing))
 	}
+
 	return deltakere
 }
 
@@ -53,7 +89,7 @@ const getStatus = (): TiltakDeltakerStatus => {
 	return TiltakDeltakerStatus.DELTAR
 }
 
-const lagMockTiltakDeltagerForGjennomforing = (gjennomforing: Gjennomforing): TiltakDeltakerDetaljer => {
+const lagMockTiltakDeltagerForGjennomforing = (gjennomforing: Gjennomforing): MockTiltakDeltaker => {
 	const status = getStatus()
 
 	const gender = randBetween(0, 1)
@@ -91,7 +127,10 @@ const lagMockTiltakDeltagerForGjennomforing = (gjennomforing: Gjennomforing): Ti
 		fjernesDato: fjernesDato,
 		gjennomforing: gjennomforing,
 		registrertDato: faker.date.past(),
-		innsokBegrunnelse: genererBegrunnelse(brukerFornavn)
+		innsokBegrunnelse: genererBegrunnelse(brukerFornavn),
+		aktivEndringsmelding: randBetween(0, 10) > 7 ? {
+			startDato: faker.date.soon()
+		} : null
 	}
 }
 
