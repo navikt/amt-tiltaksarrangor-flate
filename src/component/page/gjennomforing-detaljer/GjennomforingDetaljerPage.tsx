@@ -19,7 +19,7 @@ import { KoordinatorInfo } from './KoordinatorInfo'
 import { TiltakInfo } from './TiltakInfo'
 
 export const GjennomforingDetaljerPage = (): React.ReactElement => {
-	useTabTitle('Deltakeroversikt')
+	useTabTitle('Deltakerliste')
 
 	const params = useParams<{ gjennomforingId: string }>()
 	const gjennomforingId = params.gjennomforingId || ''

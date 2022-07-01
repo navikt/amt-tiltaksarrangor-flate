@@ -1,7 +1,7 @@
 import * as faker from 'faker'
 
 import { Gjennomforing, TiltakGjennomforingStatus } from '../../api/data/tiltak'
-import { randomUuid } from '../utils/faker'
+import { gjennomforingId } from './id'
 
 export type MockGjennomforing = Gjennomforing & { virksomhetId: string }
 
@@ -12,7 +12,7 @@ interface GjennomforingInfo {
 	status: TiltakGjennomforingStatus
 }
 
-const GjennomforingInfoListe: GjennomforingInfo[] = [
+export const gjennomforingInfoListe: GjennomforingInfo[] = [
 	{
 		gjennomforingNavn: 'Oppfølging Åsedalen',
 		tiltakskode: 'OPPFOLG',
@@ -26,12 +26,6 @@ const GjennomforingInfoListe: GjennomforingInfo[] = [
 		status: TiltakGjennomforingStatus.GJENNOMFORES
 	},
 	{
-		gjennomforingNavn: 'Oppfølging Region Nordsør',
-		tiltakskode: 'OPPFOLG',
-		tiltaksnavn: 'Oppfølging',
-		status: TiltakGjennomforingStatus.IKKE_STARTET
-	},
-	{
 		gjennomforingNavn: 'Oppfølging Region Test',
 		tiltakskode: 'OPPFOLG',
 		tiltaksnavn: 'Oppfølging',
@@ -43,12 +37,33 @@ const GjennomforingInfoListe: GjennomforingInfo[] = [
 		tiltaksnavn: 'Oppfølging',
 		status: TiltakGjennomforingStatus.AVSLUTTET
 	},
+	{
+		gjennomforingNavn: 'Oppfølging Region Nordsør',
+		tiltakskode: 'OPPFOLG',
+		tiltaksnavn: 'Oppfølging',
+		status: TiltakGjennomforingStatus.IKKE_STARTET
+	}
 ]
 
-export const lagTiltakGjennomforinger = (): Gjennomforing[] => {
+export const tilgjengeligGjennomforinger: GjennomforingInfo[] = [
+	{
+		gjennomforingNavn: 'Oppfølging Test 1',
+		tiltakskode: 'OPPFOLG',
+		tiltaksnavn: 'Oppfølging',
+		status: TiltakGjennomforingStatus.GJENNOMFORES
+	},
+	{
+		gjennomforingNavn: 'Oppfølging Test 2',
+		tiltakskode: 'OPPFOLG',
+		tiltaksnavn: 'Oppfølging',
+		status: TiltakGjennomforingStatus.GJENNOMFORES
+	},
+]
+
+export const lagTiltakGjennomforinger = (gjennomforingInfo: GjennomforingInfo[]): Gjennomforing[] => {
 	const gjennomforinger: Gjennomforing[] = []
 
-	GjennomforingInfoListe
+	gjennomforingInfo
 		.forEach(t => gjennomforinger.push(lagGjennomforing(t)))
 
 	return gjennomforinger
@@ -56,7 +71,7 @@ export const lagTiltakGjennomforinger = (): Gjennomforing[] => {
 
 const lagGjennomforing = (gjennomforingInfo: GjennomforingInfo): Gjennomforing => {
 	return {
-		id: randomUuid(),
+		id: gjennomforingId(),
 		navn: gjennomforingInfo.gjennomforingNavn,
 		status: gjennomforingInfo.status,
 		tiltak: {

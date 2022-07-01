@@ -2,7 +2,8 @@ import faker from 'faker'
 
 import { NavEnhet, TiltakDeltakerDetaljer, TiltakDeltakerStatus } from '../../api/data/deltaker'
 import { Gjennomforing } from '../../api/data/tiltak'
-import { randBetween, randomFnr, randomUuid } from '../utils/faker'
+import { randBetween, randomFnr } from '../utils/faker'
+import { deltakerId } from './id'
 
 const navEnheter: NavEnhet[] = [
 	{ navn: 'NAV Bærum' },
@@ -50,7 +51,6 @@ const getStatus = (): TiltakDeltakerStatus => {
 	if(i < 9) return TiltakDeltakerStatus.IKKE_AKTUELL
 
 	return TiltakDeltakerStatus.DELTAR
-
 }
 
 const lagMockTiltakDeltagerForGjennomforing = (gjennomforing: Gjennomforing): TiltakDeltakerDetaljer => {
@@ -68,7 +68,7 @@ const lagMockTiltakDeltagerForGjennomforing = (gjennomforing: Gjennomforing): Ti
 	const fjernesDato = status === TiltakDeltakerStatus.IKKE_AKTUELL || status === TiltakDeltakerStatus.HAR_SLUTTET? faker.date.future() : null
 
 	return {
-		id: randomUuid(),
+		id: deltakerId(),
 		fornavn: brukerFornavn,
 		mellomnavn: brukerMellomnavn,
 		etternavn: brukerEtternavn,
