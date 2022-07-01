@@ -46,7 +46,7 @@ function sjekkUU() {
 
 function gaTilTiltakGjennomforingOversikt() {
     cy.visit('/')
-    cy.get('[data-testid=gjennomforing-oversikt-page]')
+    cy.get('[data-testid=gjennomforing-oversikt-page]', { timeout: 40000 })
 }
 
 function navigerTilTiltakGjennomforingDetaljer() {
