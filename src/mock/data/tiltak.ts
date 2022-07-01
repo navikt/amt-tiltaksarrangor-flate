@@ -83,6 +83,10 @@ const lagMockGjennomforing = (gjennomforingInfo: GjennomforingInfo): MockGjennom
 		arrangor: {
 			virksomhetNavn: faker.company.companyName(),
 			organisasjonNavn: faker.company.companyName()
-		}
+		},
+		koordinatorer: [
+			faker.name.firstName() + ' ' + faker.name.lastName(),
+			faker.name.firstName() + ' ' + faker.name.lastName()
+		]
 	}
 }

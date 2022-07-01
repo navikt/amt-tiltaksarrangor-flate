@@ -27,7 +27,8 @@ export const gjennomforingSchema = z.object({
 	sluttDato: nullableDateSchema,
 	status: tiltakGjennomforingStatusSchema,
 	tiltak: tiltakSchema,
-	arrangor: arrangorSchema
+	arrangor: arrangorSchema,
+	koordinatorer: z.array(z.string())
 })
 
 export const endringsmeldingSchema = z.object({

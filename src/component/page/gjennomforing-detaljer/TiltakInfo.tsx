@@ -1,34 +1,17 @@
-import { Alert, BodyLong, BodyShort, Heading, Loader } from '@navikt/ds-react'
-import { AxiosResponse } from 'axios'
+import { Alert, BodyLong, BodyShort, Heading } from '@navikt/ds-react'
 import React from 'react'
 
 import { Gjennomforing, TiltakGjennomforingStatus } from '../../../api/data/tiltak'
-import { fetchTiltakGjennomforing } from '../../../api/tiltak-api'
 import globalStyles from '../../../globals.module.scss'
 import { dateStrWithMonthName } from '../../../utils/date-utils'
-import { isNotStartedOrPending, isRejected, usePromise } from '../../../utils/use-promise'
 import { Show } from '../../felles/Show'
 import styles from './GjennomforingDetaljerPage.module.scss'
 
 interface TiltakInfoProps {
-    gjennomforingId: string
+	gjennomforing: Gjennomforing
 }
 
-export const TiltakInfo = ({ gjennomforingId }: TiltakInfoProps) => {
-	const fetchGjennomforingPromise = usePromise<AxiosResponse<Gjennomforing>>(
-		() => fetchTiltakGjennomforing(gjennomforingId), [ gjennomforingId ]
-	)
-
-	if (isNotStartedOrPending(fetchGjennomforingPromise)) {
-		return <Loader size="2xlarge" className={globalStyles.blokkS} />
-	}
-
-	if (isRejected(fetchGjennomforingPromise)) {
-		return <Alert variant="error">Noe gikk galt</Alert>
-	}
-
-	const gjennomforing = fetchGjennomforingPromise.result.data
-
+export const TiltakInfo = ({ gjennomforing }: TiltakInfoProps) => {
 	return (
 		<div className={globalStyles.blokkM}>
 			<Heading size="medium" level="2" className={globalStyles.blokkXxs}>{gjennomforing.navn}</Heading>
