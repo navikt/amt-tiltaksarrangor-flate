@@ -1,9 +1,15 @@
-import { Gjennomforing } from '../../api/data/tiltak'
 import { lagMockTiltakDeltagereForGjennomforing, MockTiltakDeltaker } from './brukere'
 import { lagMockEndringsmelding } from './endringsmelding'
-import { lagMockGjennomforinger } from './tiltak'
+import {
+	gjennomforingInfoListe,
+	lagMockGjennomforinger,
+	MockGjennomforing,
+	tilgjengeligGjennomforinger
+} from './tiltak'
 
-export const mockGjennomforinger: Gjennomforing[] = lagMockGjennomforinger()
+export const mockGjennomforinger: MockGjennomforing[] = lagMockGjennomforinger(gjennomforingInfoListe)
+
+export const mockTilgjengeligGjennomforinger: MockGjennomforing[] = lagMockGjennomforinger(tilgjengeligGjennomforinger)
 
 export const mockTiltakDeltagere: MockTiltakDeltaker[] = mockGjennomforinger
 	.map(gjennomforing => lagMockTiltakDeltagereForGjennomforing(gjennomforing, 100))

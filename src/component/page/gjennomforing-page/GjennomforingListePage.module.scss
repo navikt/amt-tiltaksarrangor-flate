@@ -1,21 +1,35 @@
 .page {
   padding: 2rem;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: center;
-}
-
-.seksjonGjennomforinger {
   width: 100%;
+  margin: 0 auto;
 
   @media(min-width: 600px) {
     max-width: 600px;
   }
-
 }
 
 .informasjonLenkeWrapper {
   display: flex;
   justify-content: center;
   margin-top: 4rem;
+}
+
+.leggTilDeltakerlisteWrapper {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 3rem;
+}
+
+.lenke {
+  text-decoration: none;
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+
+  &:hover {
+    text-decoration: underline;
+  }
 }

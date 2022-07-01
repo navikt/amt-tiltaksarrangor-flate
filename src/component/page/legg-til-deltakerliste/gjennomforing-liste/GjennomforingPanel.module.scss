@@ -1,0 +1,27 @@
+.rad {
+  display: flex;
+  flex-direction: row;
+}
+
+.panel {
+  padding: 1rem 1.5rem;
+}
+
+.innhold {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.tiltaknavn {
+  margin-right: 2rem;
+}
+
+.alleredeLagtTilAlert {
+  height: 2rem;
+
+  svg {
+    margin: auto 0;
+  }
+}

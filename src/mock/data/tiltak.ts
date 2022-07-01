@@ -12,7 +12,7 @@ interface GjennomforingInfo {
 	status: TiltakGjennomforingStatus
 }
 
-const GjennomforingInfoListe: GjennomforingInfo[] = [
+export const gjennomforingInfoListe: GjennomforingInfo[] = [
 	{
 		gjennomforingNavn: 'Oppfølging Åsedalen',
 		tiltakskode: 'OPPFOLG',
@@ -26,12 +26,6 @@ const GjennomforingInfoListe: GjennomforingInfo[] = [
 		status: TiltakGjennomforingStatus.GJENNOMFORES
 	},
 	{
-		gjennomforingNavn: 'Oppfølging Region Nordsør',
-		tiltakskode: 'OPPFOLG',
-		tiltaksnavn: 'Oppfølging',
-		status: TiltakGjennomforingStatus.IKKE_STARTET
-	},
-	{
 		gjennomforingNavn: 'Oppfølging Region Test',
 		tiltakskode: 'OPPFOLG',
 		tiltaksnavn: 'Oppfølging',
@@ -43,12 +37,33 @@ const GjennomforingInfoListe: GjennomforingInfo[] = [
 		tiltaksnavn: 'Oppfølging',
 		status: TiltakGjennomforingStatus.AVSLUTTET
 	},
+	{
+		gjennomforingNavn: 'Oppfølging Region Nordsør',
+		tiltakskode: 'OPPFOLG',
+		tiltaksnavn: 'Oppfølging',
+		status: TiltakGjennomforingStatus.IKKE_STARTET
+	}
 ]
 
-export const lagMockGjennomforinger = (): MockGjennomforing[] => {
+export const tilgjengeligGjennomforinger: GjennomforingInfo[] = [
+	{
+		gjennomforingNavn: 'Oppfølging Test 1',
+		tiltakskode: 'OPPFOLG',
+		tiltaksnavn: 'Oppfølging',
+		status: TiltakGjennomforingStatus.GJENNOMFORES
+	},
+	{
+		gjennomforingNavn: 'Oppfølging Test 2',
+		tiltakskode: 'OPPFOLG',
+		tiltaksnavn: 'Oppfølging',
+		status: TiltakGjennomforingStatus.GJENNOMFORES
+	},
+]
+
+export const lagMockGjennomforinger = (gjennomforingInfoer: GjennomforingInfo[]): MockGjennomforing[] => {
 	const gjennomforinger: Gjennomforing[] = []
 
-	GjennomforingInfoListe
+	gjennomforingInfoer
 		.forEach(t => gjennomforinger.push(lagMockGjennomforing(t)))
 
 	return gjennomforinger
