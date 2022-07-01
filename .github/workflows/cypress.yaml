@@ -29,4 +29,5 @@ jobs:
           headless: true
           start: npm start
           wait-on: http://localhost:3000
+          wait-on-timeout: 3000
           record: false
