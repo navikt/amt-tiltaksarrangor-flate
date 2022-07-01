@@ -52,7 +52,7 @@ export const GjennomforingDetaljerPage = (): React.ReactElement => {
 			<section>
 				<Tilbakelenke to={GJENNOMFORING_LISTE_PAGE_ROUTE} className={styles.tilbakelenke}/>
 				<TiltakInfo gjennomforing={gjennomforing}/>
-				<KoordinatorInfo gjennomforing={gjennomforing}/>
+				<KoordinatorInfo koordinatorer={gjennomforing.koordinatorer}/>
 				<FilterMeny statusMap={deltakerePerStatus}/>
 			</section>
 
