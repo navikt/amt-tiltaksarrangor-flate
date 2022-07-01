@@ -1,14 +1,13 @@
-import { Add } from '@navikt/ds-icons'
+import { Add, Close } from '@navikt/ds-icons'
 import { Alert, BodyShort, Button, Heading, Panel } from '@navikt/ds-react'
-import { AxiosResponse } from 'axios'
 import cls from 'classnames'
-import React from 'react'
+import React, { useState } from 'react'
 
-import { opprettTilgangTilGjennomforing } from '../../../../api/tiltak-api'
+import { fjernTilgangTilGjennomforing, opprettTilgangTilGjennomforing } from '../../../../api/tiltak-api'
 import globalStyles from '../../../../globals.module.scss'
 import { formatDate } from '../../../../utils/date-utils'
 import { Nullable } from '../../../../utils/types/or-nothing'
-import { isNotStartedOrPending, isPending, isRejected, isResolved, usePromise } from '../../../../utils/use-promise'
+import { isNotStartedOrPending, isPending, isRejected, usePromise } from '../../../../utils/use-promise'
 import { Show } from '../../../felles/Show'
 import styles from './GjennomforingPanel.module.scss'
 
@@ -22,13 +21,42 @@ interface GjennomforingPanelProps {
 	alleredeLagtTil: boolean
 }
 
+const SUCCESS_ALERT_TIMEOUT_MS = 2000
+
 export const GjennomforingPanel = (props: GjennomforingPanelProps) => {
 	const { gjennomforingId, navn, tiltaksnavn, arrangorNavn, startDato, sluttDato, alleredeLagtTil } = props
 
-	const opprettTilgangTilGjennomforingPromise = usePromise<AxiosResponse>()
+	const [ erLagtTil, setErLagtTil ] = useState(alleredeLagtTil)
+	const [ showSuccessAlert, setShowSuccessAlert ] = useState(false)
+
+	const opprettTilgangTilGjennomforingPromise = usePromise()
+	const fjernTilgangTilGjennomforingPromise = usePromise()
 
 	const handleOnLeggTilClicked = () => {
-		opprettTilgangTilGjennomforingPromise.setPromise(opprettTilgangTilGjennomforing(gjennomforingId))
+		fjernTilgangTilGjennomforingPromise.reset()
+
+		opprettTilgangTilGjennomforingPromise.setPromise(
+			opprettTilgangTilGjennomforing(gjennomforingId)
+				.then(() => endreErLagtTil(true))
+		)
+	}
+
+	const handleOnFjernClicked = () => {
+		opprettTilgangTilGjennomforingPromise.reset()
+
+		fjernTilgangTilGjennomforingPromise.setPromise(
+			fjernTilgangTilGjennomforing(gjennomforingId)
+				.then(() => endreErLagtTil(false))
+		)
+	}
+
+	const endreErLagtTil = (lagtTil: boolean) => {
+		setShowSuccessAlert(true)
+
+		setTimeout(() => {
+			setErLagtTil(lagtTil)
+			setShowSuccessAlert(false)
+		}, SUCCESS_ALERT_TIMEOUT_MS)
 	}
 
 	return (
@@ -44,10 +72,10 @@ export const GjennomforingPanel = (props: GjennomforingPanelProps) => {
 					<BodyShort>{formatDate(startDato)} - {formatDate(sluttDato)}</BodyShort>
 				</div>
 
-				<Show if={!alleredeLagtTil}>
+				<Show if={!erLagtTil}>
 					{ isNotStartedOrPending(opprettTilgangTilGjennomforingPromise) && (
 						<Button
-							variant="secondary"
+							variant="primary"
 							size="small"
 							disabled={isPending(opprettTilgangTilGjennomforingPromise)}
 							loading={isPending(opprettTilgangTilGjennomforingPromise)}
@@ -56,12 +84,24 @@ export const GjennomforingPanel = (props: GjennomforingPanelProps) => {
 							<Add/> Legg til
 						</Button>
 					)}
-					{ isResolved(opprettTilgangTilGjennomforingPromise) && <Alert size="small" variant="success">Lagt til</Alert> }
+					{ showSuccessAlert && <Alert size="small" variant="success">Lagt til</Alert> }
 					{ isRejected(opprettTilgangTilGjennomforingPromise) && <Alert size="small" variant="error">Noe gikk galt</Alert> }
 				</Show>
 
-				<Show if={alleredeLagtTil}>
-					<Alert size="small" variant="info" className={styles.alleredeLagtTilAlert}>Allerede lagt til</Alert>
+				<Show if={erLagtTil}>
+					{ isNotStartedOrPending(fjernTilgangTilGjennomforingPromise) && (
+						<Button
+							variant="secondary"
+							size="small"
+							disabled={isPending(fjernTilgangTilGjennomforingPromise)}
+							loading={isPending(fjernTilgangTilGjennomforingPromise)}
+							onClick={handleOnFjernClicked}
+						>
+							<Close/> Fjern
+						</Button>
+					)}
+					{ showSuccessAlert && <Alert size="small" variant="success">Fjernet</Alert> }
+					{ isRejected(fjernTilgangTilGjennomforingPromise) && <Alert size="small" variant="error">Noe gikk galt</Alert> }
 				</Show>
 			</div>
 		</Panel>

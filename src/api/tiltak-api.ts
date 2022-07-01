@@ -55,6 +55,12 @@ export const opprettTilgangTilGjennomforing = (gjennomforingId: string): AxiosPr
 		.catch(logAndThrowError)
 }
 
+export const fjernTilgangTilGjennomforing = (gjennomforingId: string): AxiosPromise => {
+	return axiosInstance
+		.delete(appUrl(`/amt-tiltak/api/gjennomforing/${gjennomforingId}/tilgang`))
+		.catch(logAndThrowError)
+}
+
 export const fetchTiltakGjennomforing = (gjennomforingId: string): AxiosPromise<Gjennomforing> => {
 	return axiosInstance
 		.get(appUrl(`/amt-tiltak/api/gjennomforing/${gjennomforingId}`))
