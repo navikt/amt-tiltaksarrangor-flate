@@ -7,6 +7,7 @@ import { appUrl } from '../../utils/url-utils'
 import {
 	mockEndringsmeldinger,
 	mockGjennomforinger,
+	mockKoordinatorer,
 	mockTilgjengeligGjennomforinger,
 	mockTiltakDeltagere
 } from '../data'
@@ -34,6 +35,9 @@ export const mockHandlers: RequestHandler[] = [
 			.filter(deltaker => deltaker.gjennomforing.id === gjennomforingId)
 
 		return res(ctx.delay(500), ctx.json(data))
+	}),
+	rest.get(appUrl('/amt-tiltak/api/gjennomforing/:gjennomforingId/koordinatorer'), (req, res, ctx) => {
+		return res(ctx.delay(500), ctx.json(mockKoordinatorer))
 	}),
 	rest.get(appUrl('/amt-tiltak/api/tiltak-deltaker/:deltakerId'), (req, res, ctx) => {
 		const deltakerId = req.params['deltakerId']

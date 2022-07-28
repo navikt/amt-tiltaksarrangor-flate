@@ -1,8 +1,9 @@
+import { Koordinator } from '../../api/data/tiltak'
 import { lagMockTiltakDeltagereForGjennomforing, MockTiltakDeltaker } from './brukere'
 import { lagMockEndringsmelding } from './endringsmelding'
 import {
 	gjennomforingInfoListe,
-	lagMockGjennomforinger,
+	lagMockGjennomforinger, lagMockKoordinatorer,
 	MockGjennomforing,
 	tilgjengeligGjennomforinger
 } from './tiltak'
@@ -10,6 +11,8 @@ import {
 export const mockGjennomforinger: MockGjennomforing[] = lagMockGjennomforinger(gjennomforingInfoListe)
 
 export const mockTilgjengeligGjennomforinger: MockGjennomforing[] = lagMockGjennomforinger(tilgjengeligGjennomforinger)
+
+export const mockKoordinatorer: Koordinator[] = lagMockKoordinatorer()
 
 export const mockTiltakDeltagere: MockTiltakDeltaker[] = mockGjennomforinger
 	.map(gjennomforing => lagMockTiltakDeltagereForGjennomforing(gjennomforing, 100))

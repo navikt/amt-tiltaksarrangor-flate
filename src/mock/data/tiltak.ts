@@ -1,6 +1,6 @@
 import * as faker from 'faker'
 
-import { Gjennomforing, TiltakGjennomforingStatus } from '../../api/data/tiltak'
+import { Gjennomforing, Koordinator, TiltakGjennomforingStatus } from '../../api/data/tiltak'
 import { gjennomforingId } from './id'
 
 export type MockGjennomforing = Gjennomforing
@@ -83,10 +83,21 @@ const lagMockGjennomforing = (gjennomforingInfo: GjennomforingInfo): MockGjennom
 		arrangor: {
 			virksomhetNavn: faker.company.companyName(),
 			organisasjonNavn: faker.company.companyName()
-		},
-		koordinatorer: [
-			faker.name.firstName() + ' ' + faker.name.lastName(),
-			faker.name.firstName() + ' ' + faker.name.lastName()
-		]
+		}
 	}
+}
+
+export const lagMockKoordinatorer = (): Koordinator[] => {
+	return [
+		{
+			fornavn: 'Per',
+			mellomnavn: null,
+			etternavn: 'Koordinatorsen'
+		},
+		{
+			fornavn: 'Karoline',
+			mellomnavn: 'Ann',
+			etternavn: 'Koordinatorsdottir'
+		}
+	]
 }
