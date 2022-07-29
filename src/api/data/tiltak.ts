@@ -27,8 +27,7 @@ export const gjennomforingSchema = z.object({
 	sluttDato: nullableDateSchema,
 	status: tiltakGjennomforingStatusSchema,
 	tiltak: tiltakSchema,
-	arrangor: arrangorSchema,
-	koordinatorer: z.array(z.string())
+	arrangor: arrangorSchema
 })
 
 export const endringsmeldingSchema = z.object({
@@ -37,6 +36,14 @@ export const endringsmeldingSchema = z.object({
 	aktiv: z.boolean()
 })
 
+export const koordinatorSchema = z.object({
+	fornavn: z.string(),
+	mellomnavn: z.string().nullable(),
+	etternavn: z.string()
+})
+
+export const koordinatorListSchema = z.array(koordinatorSchema)
+
 export const gjennomforingerSchema = z.array(gjennomforingSchema)
 
 export type Gjennomforing = z.infer<typeof gjennomforingSchema>
@@ -44,6 +51,8 @@ export type Gjennomforing = z.infer<typeof gjennomforingSchema>
 export type Tiltak = z.infer<typeof tiltakSchema>
 
 export type Arrangor = z.infer<typeof arrangorSchema>
+
+export type Koordinator = z.infer<typeof koordinatorSchema>
 
 export const endringsmeldingerSchema = z.array(endringsmeldingSchema)
 

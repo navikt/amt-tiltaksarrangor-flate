@@ -14,7 +14,8 @@ import {
 	endringsmeldingerSchema,
 	Gjennomforing,
 	gjennomforingerSchema,
-	gjennomforingSchema
+	gjennomforingSchema,
+	Koordinator, koordinatorListSchema,
 } from './data/tiltak'
 import { axiosInstance, logAndThrowError, parse } from './utils'
 
@@ -65,6 +66,13 @@ export const fetchTiltakGjennomforing = (gjennomforingId: string): AxiosPromise<
 	return axiosInstance
 		.get(appUrl(`/amt-tiltak/api/gjennomforing/${gjennomforingId}`))
 		.then(parse(gjennomforingSchema))
+		.catch(logAndThrowError)
+}
+
+export const fetchKoordinatorerForGjennfomforing = (gjennomforingId: string): AxiosPromise<Koordinator[]> => {
+	return axiosInstance
+		.get(appUrl(`/amt-tiltak/api/gjennomforing/${gjennomforingId}/koordinatorer`))
+		.then(parse(koordinatorListSchema))
 		.catch(logAndThrowError)
 }
 
