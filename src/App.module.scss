@@ -1,0 +1,12 @@
+.page {
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  margin: 0 auto;
+
+  @media(min-width: 600px) {
+    max-width: 600px;
+  }
+}

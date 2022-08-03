@@ -24,5 +24,6 @@ export const mockInnloggetAnsatt: InnloggetAnsatt = {
 	id: ansattId(),
 	fornavn: 'Karoline',
 	etternavn: 'Koordinatorsen',
+	harAltinnTilgang: true,
 	arrangorer: mockInnloggetAnsattVirksomheter
 }
