@@ -14,6 +14,7 @@ import { InformasjonPage } from './component/page/informasjon-page/InformasjonPa
 import { LandingPage, LandingPageView } from './component/page/landing-page/LandingPage'
 import { LeggTilDeltakerlistePage } from './component/page/legg-til-deltakerliste/LeggTilDeltakerlistePage'
 import { PageViewMetricCollector } from './component/PageViewMetricCollector'
+import { SesjonNotifikasjon } from './component/sesjon-notifikasjon/SesjonNotifikasjon'
 import {
 	BRUKER_DETALJER_PAGE_ROUTE,
 	GJENNOMFORING_DETALJER_PAGE_ROUTE,
@@ -46,6 +47,7 @@ export const App = (): React.ReactElement => {
 		<StoreProvider innloggetAnsatt={innloggetAnsatt}>
 			<BrowserRouter>
 				<Banner/>
+				<SesjonNotifikasjon/>
 				<Routes>
 					<Route path={BRUKER_DETALJER_PAGE_ROUTE} element={<BrukerDetaljerPage />} />
 					<Route path={GJENNOMFORING_DETALJER_PAGE_ROUTE} element={<GjennomforingDetaljerPage />} />
