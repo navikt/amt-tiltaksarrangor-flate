@@ -18,6 +18,9 @@ export const SesjonNotifikasjon = (): React.ReactElement | null => {
 	const fetchAuthInfo = usePromise<AxiosResponse<AuthInfo>, AxiosError>(hentAuthInfo)
 	const expirationTime = fetchAuthInfo.result?.data.expirationTime
 	const tvungenUtloggingTimeoutRef = useRef<number>()
+	const tvungenUtloggingAlertTimeoutRef = useRef<number>()
+	const utloperSnartAlertTimeoutRef = useRef<number>()
+
 	const [ sesjonStatus, setSesjonStatus ] = React.useState<SesjonStatus>()
 	const [ utlopOmMs, setUtlopOmMs ] = useState<number>()
 	const [ utloggingOmMs, setUtloggingOmMs ] = useState<number>()
@@ -25,7 +28,7 @@ export const SesjonNotifikasjon = (): React.ReactElement | null => {
 	const visUtloper = sesjonStatus === SesjonStatus.UTLOPER_SNART
 
 	useEffect(() => {
-		if(expirationTime === undefined) return
+		if(!expirationTime) return
 		const now = dayjs()
 		const msTilUtlop =  dayjs(expirationTime)
 			.subtract(5, 'minutes').diff(now)
@@ -33,26 +36,29 @@ export const SesjonNotifikasjon = (): React.ReactElement | null => {
 		const msTilUtlogging = dayjs(expirationTime)
 			.subtract(40, 'seconds').diff(now)
 
-		setUtlopOmMs(msTilUtlop > 0? msTilUtlop : 0)
-		setUtloggingOmMs(msTilUtlogging > 0? msTilUtlogging : 0)
+		setUtlopOmMs(Math.max(msTilUtlop, 0))
+		setUtloggingOmMs(Math.max(msTilUtlogging, 0))
 
 	}, [ expirationTime ])
 
 	useEffect(() => {
 		if(utlopOmMs === undefined) return
+		if(utloperSnartAlertTimeoutRef.current) clearTimeout(utloperSnartAlertTimeoutRef.current)
 
-		setTimeout(() => {
+		utloperSnartAlertTimeoutRef.current = setTimeout(() => {
 			setSesjonStatus(SesjonStatus.UTLOPER_SNART)
-		}, utlopOmMs)
+
+		}, utlopOmMs) as unknown as number
 
 	}, [ utlopOmMs ])
 
 	useEffect(() => {
 		if(utloggingOmMs === undefined) return
+		if(tvungenUtloggingAlertTimeoutRef.current) clearTimeout(tvungenUtloggingAlertTimeoutRef.current)
 
-		setTimeout(() => {
+		tvungenUtloggingAlertTimeoutRef.current = setTimeout(() => {
 			setSesjonStatus(SesjonStatus.TVUNGEN_UTLOGGING_SNART)
-		}, utloggingOmMs)
+		}, utloggingOmMs) as unknown as number
 
 	}, [ utloggingOmMs ])
 
