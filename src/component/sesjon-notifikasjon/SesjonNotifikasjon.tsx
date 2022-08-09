@@ -15,15 +15,16 @@ enum SesjonStatus {
 }
 
 export const SesjonNotifikasjon = (): React.ReactElement | null => {
+	const [ sesjonStatus, setSesjonStatus ] = useState<SesjonStatus>()
+	const [ utlopOmMs, setUtlopOmMs ] = useState<number>()
+	const [ utloggingOmMs, setUtloggingOmMs ] = useState<number>()
 	const fetchAuthInfo = usePromise<AxiosResponse<AuthInfo>, AxiosError>(hentAuthInfo)
-	const expirationTime = fetchAuthInfo.result?.data.expirationTime
+
 	const tvungenUtloggingTimeoutRef = useRef<number>()
 	const tvungenUtloggingAlertTimeoutRef = useRef<number>()
 	const utloperSnartAlertTimeoutRef = useRef<number>()
 
-	const [ sesjonStatus, setSesjonStatus ] = React.useState<SesjonStatus>()
-	const [ utlopOmMs, setUtlopOmMs ] = useState<number>()
-	const [ utloggingOmMs, setUtloggingOmMs ] = useState<number>()
+	const expirationTime = fetchAuthInfo.result?.data.expirationTime
 	const visTvungen = sesjonStatus === SesjonStatus.TVUNGEN_UTLOGGING_SNART
 	const visUtloper = sesjonStatus === SesjonStatus.UTLOPER_SNART
 
@@ -38,28 +39,27 @@ export const SesjonNotifikasjon = (): React.ReactElement | null => {
 
 		setUtlopOmMs(Math.max(msTilUtlop, 0))
 		setUtloggingOmMs(Math.max(msTilUtlogging, 0))
-
 	}, [ expirationTime ])
 
 	useEffect(() => {
 		if(utlopOmMs === undefined) return
-		if(utloperSnartAlertTimeoutRef.current) clearTimeout(utloperSnartAlertTimeoutRef.current)
 
 		utloperSnartAlertTimeoutRef.current = setTimeout(() => {
 			setSesjonStatus(SesjonStatus.UTLOPER_SNART)
 
 		}, utlopOmMs) as unknown as number
 
+		return () => clearTimeout(utloperSnartAlertTimeoutRef.current)
 	}, [ utlopOmMs ])
 
 	useEffect(() => {
 		if(utloggingOmMs === undefined) return
-		if(tvungenUtloggingAlertTimeoutRef.current) clearTimeout(tvungenUtloggingAlertTimeoutRef.current)
 
 		tvungenUtloggingAlertTimeoutRef.current = setTimeout(() => {
 			setSesjonStatus(SesjonStatus.TVUNGEN_UTLOGGING_SNART)
 		}, utloggingOmMs) as unknown as number
 
+		return () => clearTimeout(tvungenUtloggingAlertTimeoutRef.current)
 	}, [ utloggingOmMs ])
 
 	useEffect(() => {
@@ -70,6 +70,7 @@ export const SesjonNotifikasjon = (): React.ReactElement | null => {
 			window.location.href = loginUrl()
 		}, 10000) as unknown as number
 
+		return () => clearTimeout(tvungenUtloggingTimeoutRef.current)
 	}, [ sesjonStatus ])
 
 	if (sesjonStatus === undefined) return null
