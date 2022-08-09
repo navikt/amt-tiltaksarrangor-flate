@@ -44,8 +44,11 @@ export const App = (): React.ReactElement => {
 	}
 
 	const innloggetAnsatt = fetchInnloggetAnsattPromise.result.data
+	const harAltinnTilgang = fetchInnloggetAnsattPromise.result.data.arrangorer
+		.filter(arrangor => arrangor.harAltinnTilgang)
+		.length > 0
 
-	if (!innloggetAnsatt.harAltinnTilgang) {
+	if (!harAltinnTilgang) {
 		return (
 			<StoreProvider innloggetAnsatt={innloggetAnsatt}>
 				<Banner/>

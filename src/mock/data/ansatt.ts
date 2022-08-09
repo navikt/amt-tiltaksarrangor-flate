@@ -8,6 +8,7 @@ export const mockInnloggetAnsattVirksomheter: Virksomhet[] = [
 		overordnetEnhetOrganisasjonsnummer: '750863842',
 		navn: 'Muligheter AS',
 		organisasjonsnummer: '123456789',
+		harAltinnTilgang: true,
 		roller: [ 'KOORDINATOR', 'VEILEDER' ]
 	},
 	{
@@ -16,6 +17,7 @@ export const mockInnloggetAnsattVirksomheter: Virksomhet[] = [
 		overordnetEnhetOrganisasjonsnummer: '137603847',
 		navn: 'Tiltak til alle AS',
 		organisasjonsnummer: '987654321',
+		harAltinnTilgang: true,
 		roller: [ 'VEILEDER' ]
 	}
 ]
@@ -24,6 +26,5 @@ export const mockInnloggetAnsatt: InnloggetAnsatt = {
 	id: ansattId(),
 	fornavn: 'Karoline',
 	etternavn: 'Koordinatorsen',
-	harAltinnTilgang: true,
 	arrangorer: mockInnloggetAnsattVirksomheter
 }
