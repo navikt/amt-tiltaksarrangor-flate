@@ -45,7 +45,7 @@ export const App = (): React.ReactElement => {
 
 	const innloggetAnsatt = fetchInnloggetAnsattPromise.result.data
 	const harAltinnTilgang = fetchInnloggetAnsattPromise.result.data.arrangorer
-		.filter(arrangor => arrangor.harAltinnTilgang)
+		.filter(arrangor => arrangor.harAltinnKoordinatorRettighet)
 		.length > 0
 
 	if (!harAltinnTilgang) {
