@@ -5,7 +5,6 @@ export const virksomhetSchema = z.object({
 	overordnetEnhetOrganisasjonsnummer: z.string().nullable(),
 	overordnetEnhetNavn: z.string().nullable(),
 	organisasjonsnummer: z.string(),
-	harAltinnKoordinatorRettighet: z.boolean(),
 	navn: z.string(),
 	roller: z.array(z.string()),
 })

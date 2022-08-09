@@ -8,7 +8,6 @@ export const mockInnloggetAnsattVirksomheter: Virksomhet[] = [
 		overordnetEnhetOrganisasjonsnummer: '750863842',
 		navn: 'Muligheter AS',
 		organisasjonsnummer: '123456789',
-		harAltinnKoordinatorRettighet: true,
 		roller: [ 'KOORDINATOR', 'VEILEDER' ]
 	},
 	{
@@ -17,7 +16,6 @@ export const mockInnloggetAnsattVirksomheter: Virksomhet[] = [
 		overordnetEnhetOrganisasjonsnummer: '137603847',
 		navn: 'Tiltak til alle AS',
 		organisasjonsnummer: '987654321',
-		harAltinnKoordinatorRettighet: true,
 		roller: [ 'VEILEDER' ]
 	}
 ]

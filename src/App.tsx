@@ -1,30 +1,14 @@
-import { Alert } from '@navikt/ds-react'
 import { AxiosError, AxiosResponse } from 'axios'
 import React from 'react'
-import { BrowserRouter, Route, Routes } from 'react-router-dom'
 
 import { InnloggetAnsatt } from './api/data/ansatt'
 import { fetchInnloggetAnsatt } from './api/tiltak-api'
-import styles from './App.module.scss'
 import { Banner } from './component/felles/menu/Banner'
 import { SpinnerPage } from './component/felles/spinner-page/SpinnerPage'
-import { BrukerDetaljerPage } from './component/page/bruker-detaljer/BrukerDetaljerPage'
-import { GjennomforingDetaljerPage } from './component/page/gjennomforing-detaljer/GjennomforingDetaljerPage'
-import { GjennomforingListePage } from './component/page/gjennomforing-page/GjennomforingListePage'
-import { GjennomforingListePageV2 } from './component/page/gjennomforing-page/GjennomforingListePageV2'
-import { InformasjonPage } from './component/page/informasjon-page/InformasjonPage'
+import { IngenRollePage } from './component/page/ingen-rolle-page/IngenRollePage'
 import { LandingPage, LandingPageView } from './component/page/landing-page/LandingPage'
-import { LeggTilDeltakerlistePage } from './component/page/legg-til-deltakerliste/LeggTilDeltakerlistePage'
-import { PageViewMetricCollector } from './component/PageViewMetricCollector'
-import {
-	BRUKER_DETALJER_PAGE_ROUTE,
-	GJENNOMFORING_DETALJER_PAGE_ROUTE,
-	GJENNOMFORING_LISTE_PAGE_ROUTE,
-	INFORMASJON_PAGE_ROUTE,
-	LEGG_TIL_DELTAKERLISTE_PAGE_ROUTE
-} from './navigation'
+import { RouteProvider } from './RouteProvider'
 import StoreProvider from './store/store-provider'
-import toggle from './utils/toggle'
 import { isNotStartedOrPending, isRejected, usePromise } from './utils/use-promise'
 
 export const App = (): React.ReactElement => {
@@ -44,40 +28,22 @@ export const App = (): React.ReactElement => {
 	}
 
 	const innloggetAnsatt = fetchInnloggetAnsattPromise.result.data
-	const harAltinnTilgang = fetchInnloggetAnsattPromise.result.data.arrangorer
-		.filter(arrangor => arrangor.harAltinnKoordinatorRettighet)
+
+	let feilmelding = null
+
+	const harTilgang = fetchInnloggetAnsattPromise.result.data.arrangorer
+		.filter(arrangor => arrangor.roller.length > 0)
 		.length > 0
 
-	if (!harAltinnTilgang) {
-		return (
-			<StoreProvider innloggetAnsatt={innloggetAnsatt}>
-				<Banner/>
-				<main className={styles.page}>
-					<Alert variant="warning">Du har ikke tilgang til Deltakeroversikten for tiltaksarrangører. Hvis du
-						skal
-						ha tilgang så må noen i din organisasjon sette opp tilgang til deg i Altinn.</Alert>
-				</main>
-			</StoreProvider>
-		)
+	if (!harTilgang) {
+		feilmelding = <IngenRollePage/>
 	}
 
 	return (
 		<StoreProvider innloggetAnsatt={innloggetAnsatt}>
-			<BrowserRouter>
-				<Banner/>
-				<Routes>
-					<Route path={BRUKER_DETALJER_PAGE_ROUTE} element={<BrukerDetaljerPage/>}/>
-					<Route path={GJENNOMFORING_DETALJER_PAGE_ROUTE} element={<GjennomforingDetaljerPage/>}/>
-					<Route path={INFORMASJON_PAGE_ROUTE} element={<InformasjonPage/>}/>
-					<Route path={GJENNOMFORING_LISTE_PAGE_ROUTE} element={
-						toggle.visNyTilgangskontroll
-							? <GjennomforingListePageV2/>
-							: <GjennomforingListePage/>
-					}/>
-					<Route path={LEGG_TIL_DELTAKERLISTE_PAGE_ROUTE} element={<LeggTilDeltakerlistePage/>}/>
-				</Routes>
-				<PageViewMetricCollector/>
-			</BrowserRouter>
+			<Banner/>
+			{feilmelding && feilmelding}
+			{!feilmelding && <RouteProvider/>}
 		</StoreProvider>
 	)
 }
