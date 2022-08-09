@@ -42,7 +42,7 @@ export const App = (): React.ReactElement => {
 	return (
 		<StoreProvider innloggetAnsatt={innloggetAnsatt}>
 			<Banner/>
-			{feilmelding && feilmelding}
+			{!!feilmelding && feilmelding}
 			{!feilmelding && <RouteProvider/>}
 		</StoreProvider>
 	)
