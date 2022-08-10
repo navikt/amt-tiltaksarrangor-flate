@@ -7,6 +7,8 @@ import { GjennomforingListePage } from './component/page/gjennomforing-page/Gjen
 import { GjennomforingListePageV2 } from './component/page/gjennomforing-page/GjennomforingListePageV2'
 import { InformasjonPage } from './component/page/informasjon-page/InformasjonPage'
 import { LeggTilDeltakerlistePage } from './component/page/legg-til-deltakerliste/LeggTilDeltakerlistePage'
+import { PageViewMetricCollector } from './component/PageViewMetricCollector'
+import { SesjonNotifikasjon } from './component/sesjon-notifikasjon/SesjonNotifikasjon'
 import {
 	BRUKER_DETALJER_PAGE_ROUTE,
 	GJENNOMFORING_DETALJER_PAGE_ROUTE,
@@ -19,6 +21,7 @@ import toggle from './utils/toggle'
 export const Routes = (): React.ReactElement => {
 	return (
 		<BrowserRouter>
+			<SesjonNotifikasjon/>
 			<ReactRoutes>
 				<Route path={BRUKER_DETALJER_PAGE_ROUTE} element={<BrukerDetaljerPage/>}/>
 				<Route path={GJENNOMFORING_DETALJER_PAGE_ROUTE} element={<GjennomforingDetaljerPage/>}/>
@@ -30,6 +33,7 @@ export const Routes = (): React.ReactElement => {
 				}/>
 				<Route path={LEGG_TIL_DELTAKERLISTE_PAGE_ROUTE} element={<LeggTilDeltakerlistePage/>}/>
 			</ReactRoutes>
+			<PageViewMetricCollector/>
 		</BrowserRouter>
 	)
 }
