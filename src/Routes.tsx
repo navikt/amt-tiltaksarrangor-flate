@@ -1,5 +1,5 @@
 import React from 'react'
-import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import { BrowserRouter, Route, Routes as ReactRoutes } from 'react-router-dom'
 
 import { BrukerDetaljerPage } from './component/page/bruker-detaljer/BrukerDetaljerPage'
 import { GjennomforingDetaljerPage } from './component/page/gjennomforing-detaljer/GjennomforingDetaljerPage'
@@ -16,10 +16,10 @@ import {
 } from './navigation'
 import toggle from './utils/toggle'
 
-export const RouteProvider = (): React.ReactElement => {
+export const Routes = (): React.ReactElement => {
 	return (
 		<BrowserRouter>
-			<Routes>
+			<ReactRoutes>
 				<Route path={BRUKER_DETALJER_PAGE_ROUTE} element={<BrukerDetaljerPage/>}/>
 				<Route path={GJENNOMFORING_DETALJER_PAGE_ROUTE} element={<GjennomforingDetaljerPage/>}/>
 				<Route path={INFORMASJON_PAGE_ROUTE} element={<InformasjonPage/>}/>
@@ -29,7 +29,7 @@ export const RouteProvider = (): React.ReactElement => {
 						: <GjennomforingListePage/>
 				}/>
 				<Route path={LEGG_TIL_DELTAKERLISTE_PAGE_ROUTE} element={<LeggTilDeltakerlistePage/>}/>
-			</Routes>
+			</ReactRoutes>
 		</BrowserRouter>
 	)
 }

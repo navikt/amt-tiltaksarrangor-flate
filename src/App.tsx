@@ -3,11 +3,12 @@ import React from 'react'
 
 import { InnloggetAnsatt } from './api/data/ansatt'
 import { fetchInnloggetAnsatt } from './api/tiltak-api'
+import { IfElse } from './component/felles/IfElse'
 import { Banner } from './component/felles/menu/Banner'
 import { SpinnerPage } from './component/felles/spinner-page/SpinnerPage'
 import { IngenRollePage } from './component/page/ingen-rolle-page/IngenRollePage'
 import { LandingPage, LandingPageView } from './component/page/landing-page/LandingPage'
-import { RouteProvider } from './RouteProvider'
+import { Routes } from './Routes'
 import StoreProvider from './store/store-provider'
 import { isNotStartedOrPending, isRejected, usePromise } from './utils/use-promise'
 
@@ -42,8 +43,9 @@ export const App = (): React.ReactElement => {
 	return (
 		<StoreProvider innloggetAnsatt={innloggetAnsatt}>
 			<Banner/>
-			{!!feilmelding && feilmelding}
-			{!feilmelding && <RouteProvider/>}
+			<IfElse condition={!!feilmelding}
+				conditionTrueElement={feilmelding}
+				conditionFalseElement={<Routes/>}/>
 		</StoreProvider>
 	)
 }
