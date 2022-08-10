@@ -76,5 +76,14 @@ export const mockHandlers: RequestHandler[] = [
 		]
 
 		return res(ctx.delay(500), ctx.status(200))
-	})
+	}),
+	rest.get(appUrl('/auth/info'), (_req, res, ctx) => {
+		const authInfo = {
+			expirationTime: dayjs().add(1, 'day').toISOString(),
+			loggedIn: true,
+			remainingSeconds: 3600,
+			securityLevel: 'Level 4'
+		}
+		return res(ctx.delay(500), ctx.json(authInfo))
+	}),
 ]
