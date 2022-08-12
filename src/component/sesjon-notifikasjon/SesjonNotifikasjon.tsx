@@ -16,8 +16,9 @@ enum SesjonStatus {
 
 export const SesjonNotifikasjon = (): React.ReactElement | null => {
 	const [ sesjonStatus, setSesjonStatus ] = useState<SesjonStatus>()
-	const [ utlopOmMs, setUtlopOmMs ] = useState<number>()
-	const [ utloggingOmMs, setUtloggingOmMs ] = useState<number>()
+	const [ utlopAlertOmMs, setUtlopAlertOmMs ] = useState<number>()
+	const [ utloggingAlertOmMs, setUtloggingAlertOmMs ] = useState<number>()
+	const [ tvungenUtloggingOmMs, setTvungenUtloggingOmMs ] = useState<number>()
 	const fetchAuthInfo = usePromise<AxiosResponse<AuthInfo>, AxiosError>(hentAuthInfo)
 
 	const tvungenUtloggingTimeoutRef = useRef<number>()
@@ -31,54 +32,59 @@ export const SesjonNotifikasjon = (): React.ReactElement | null => {
 	useEffect(() => {
 		if(!expirationTime) return
 		const now = dayjs()
-		const msTilUtlop =  dayjs(expirationTime)
+		const msTilUtloperSnartAlert =  dayjs(expirationTime)
 			.subtract(5, 'minutes').diff(now)
 
-		const msTilUtlogging = dayjs(expirationTime)
-			.subtract(40, 'seconds').diff(now)
+		const msTilUtloggingAlert = dayjs(expirationTime)
+			.subtract(1, 'minutes').diff(now)
 
-		setUtlopOmMs(Math.max(msTilUtlop, 0))
-		setUtloggingOmMs(Math.max(msTilUtlogging, 0))
+		const msTilUtlogging = dayjs(expirationTime)
+			.subtract(10, 'seconds').diff(now)
+
+		setUtlopAlertOmMs(Math.max(msTilUtloperSnartAlert, 0))
+		setUtloggingAlertOmMs(Math.max(msTilUtloggingAlert, 0))
+		setTvungenUtloggingOmMs(Math.max(msTilUtlogging, 0))
 	}, [ expirationTime ])
 
 	useEffect(() => {
-		if(utlopOmMs === undefined) return
+		if(utlopAlertOmMs === undefined) return
 
 		utloperSnartAlertTimeoutRef.current = setTimeout(() => {
 			setSesjonStatus(SesjonStatus.UTLOPER_SNART)
 
-		}, utlopOmMs) as unknown as number
+		}, utlopAlertOmMs) as unknown as number
 
 		return () => clearTimeout(utloperSnartAlertTimeoutRef.current)
-	}, [ utlopOmMs ])
+	}, [ utlopAlertOmMs ])
 
 	useEffect(() => {
-		if(utloggingOmMs === undefined) return
+		if(utloggingAlertOmMs === undefined) return
 
 		tvungenUtloggingAlertTimeoutRef.current = setTimeout(() => {
 			setSesjonStatus(SesjonStatus.TVUNGEN_UTLOGGING_SNART)
-		}, utloggingOmMs) as unknown as number
+		}, utloggingAlertOmMs) as unknown as number
 
 		return () => clearTimeout(tvungenUtloggingAlertTimeoutRef.current)
-	}, [ utloggingOmMs ])
+	}, [ utloggingAlertOmMs ])
 
 	useEffect(() => {
 		if (sesjonStatus !== SesjonStatus.TVUNGEN_UTLOGGING_SNART) return
 		if (tvungenUtloggingTimeoutRef.current) return
+		if (!tvungenUtloggingOmMs) return
 
 		tvungenUtloggingTimeoutRef.current = setTimeout(() => {
 			window.location.href = loginUrl()
-		}, 10000) as unknown as number
+		}, tvungenUtloggingOmMs) as unknown as number
 
 		return () => clearTimeout(tvungenUtloggingTimeoutRef.current)
-	}, [ sesjonStatus ])
+	}, [ sesjonStatus, tvungenUtloggingOmMs ])
 
 	if (sesjonStatus === undefined) return null
 
-	return <div className={styles.alertWrapper}>
-		{visTvungen && <Alert variant="error">Sesjonen din har utløpt. Du blir snart logget inn på nytt.</Alert>}
+	return <div className={styles.alertWrapper} >
+		{visTvungen && <Alert variant="error" role="alert">Du blir logget ut nå, og må logge inn på ny. </Alert>}
 		{visUtloper &&
-			<Alert variant="warning">Din sesjon utløper snart. Ønsker du fortsatt å være innlogget?
+			<Alert variant="warning" role="alert">Din sesjon utløper snart. Ønsker du fortsatt å være innlogget?
 				<Link href={loginUrl()} className={styles.loginLenke}>Ja, jeg vil fortsette</Link>
 			</Alert>
 		}
