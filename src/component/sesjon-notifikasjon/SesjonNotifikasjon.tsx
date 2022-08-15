@@ -30,9 +30,9 @@ export const SesjonNotifikasjon = (): React.ReactElement | null => {
 	const visUtloper = sesjonStatus === SesjonStatus.UTLOPER_SNART
 
 	useEffect(() => {
-		if(!expirationTime) return
+		if (!expirationTime) return
 		const now = dayjs()
-		const msTilUtloperSnartAlert =  dayjs(expirationTime)
+		const msTilUtloperSnartAlert = dayjs(expirationTime)
 			.subtract(5, 'minutes').diff(now)
 
 		const msTilUtloggingAlert = dayjs(expirationTime)
@@ -47,7 +47,7 @@ export const SesjonNotifikasjon = (): React.ReactElement | null => {
 	}, [ expirationTime ])
 
 	useEffect(() => {
-		if(utlopAlertOmMs === undefined) return
+		if (utlopAlertOmMs === undefined) return
 
 		utloperSnartAlertTimeoutRef.current = setTimeout(() => {
 			setSesjonStatus(SesjonStatus.UTLOPER_SNART)
@@ -58,7 +58,7 @@ export const SesjonNotifikasjon = (): React.ReactElement | null => {
 	}, [ utlopAlertOmMs ])
 
 	useEffect(() => {
-		if(utloggingAlertOmMs === undefined) return
+		if (utloggingAlertOmMs === undefined) return
 
 		tvungenUtloggingAlertTimeoutRef.current = setTimeout(() => {
 			setSesjonStatus(SesjonStatus.TVUNGEN_UTLOGGING_SNART)
@@ -81,13 +81,23 @@ export const SesjonNotifikasjon = (): React.ReactElement | null => {
 
 	if (sesjonStatus === undefined) return null
 
-	return <div className={styles.alertWrapper} >
-		{visTvungen && <Alert variant="error" role="alert">Du blir logget ut nå, og må logge inn på ny. </Alert>}
-		{visUtloper &&
-			<Alert variant="warning" role="alert">Din sesjon utløper snart. Ønsker du fortsatt å være innlogget?
-				<Link href={loginUrl()} className={styles.loginLenke}>Ja, jeg vil fortsette</Link>
-			</Alert>
-		}
-	</div>
+	const LoginLenke = () => <Link href={loginUrl()} className={styles.loginLenke}>Logg inn på nytt</Link>
+
+	return (
+		<div className={styles.alertWrapper}>
+			{visTvungen &&
+				<Alert variant="error" role="alert">
+					Du blir logget ut nå, og må logge inn på ny.
+					<LoginLenke />
+				</Alert>
+			}
+			{visUtloper &&
+				<Alert variant="warning" role="alert">
+					Du blir snart logget ut
+					<LoginLenke />
+				</Alert>
+			}
+		</div>
+	)
 
 }
