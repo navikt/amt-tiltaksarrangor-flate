@@ -7,10 +7,10 @@ import { NavEnhet, NavVeileder } from '../../../../api/data/deltaker'
 import globalStyles from '../../../../globals.module.scss'
 import { IconLabel } from '../icon-label/IconLabel'
 import styles from './NavInfoPanel.module.scss'
-import { NavInfoVeileder } from './NavInfoVeileder';
+import { NavInfoVeileder } from './NavInfoVeileder'
 
 export function NavInfoPanel(props: { navEnhet: NavEnhet | null, navVeileder: NavVeileder | null }): React.ReactElement {
-	const {navEnhet, navVeileder} = props
+	const { navEnhet, navVeileder } = props
 
 	return (
 		<Panel border className={styles.infoPanel}>
