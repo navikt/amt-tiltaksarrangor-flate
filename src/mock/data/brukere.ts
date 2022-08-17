@@ -103,6 +103,12 @@ const lagMockTiltakDeltagerForGjennomforing = (gjennomforing: Gjennomforing): Mo
 	const startDato = status !== TiltakDeltakerStatus.VENTER_PA_OPPSTART ? faker.date.past() : null
 	const fjernesDato = status === TiltakDeltakerStatus.IKKE_AKTUELL || status === TiltakDeltakerStatus.HAR_SLUTTET? faker.date.future() : null
 
+	const veileder = randBetween(0, 10) > 1 ? {
+		epost: lagMailFraNavn(veilederNavn, 'nav.no'),
+		navn: veilederNavn,
+		telefon: lagTelefonnummer()
+	} : null
+
 	return {
 		id: deltakerId(),
 		fornavn: brukerFornavn,
@@ -119,11 +125,7 @@ const lagMockTiltakDeltagerForGjennomforing = (gjennomforing: Gjennomforing): Mo
 		},
 		erSkjermetPerson: randBetween(0, 10) > 7,
 		navEnhet: faker.random.arrayElement(navEnheter),
-		navVeileder: {
-			epost: lagMailFraNavn(veilederNavn, 'nav.no'),
-			navn: veilederNavn,
-			telefon: lagTelefonnummer()
-		},
+		navVeileder: veileder,
 		fjernesDato: fjernesDato,
 		gjennomforing: gjennomforing,
 		registrertDato: faker.date.past(),
