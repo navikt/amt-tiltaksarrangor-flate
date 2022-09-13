@@ -28,8 +28,6 @@ const endringsmeldingIder = genererIder(500)
 
 const virksomhetIder = genererIder(500)
 
-const ansattIder = genererIder(10)
-
 export const gjennomforingId = (): string => {
 	return getId(gjennomforingIder)
 }
@@ -44,8 +42,4 @@ export const endringsmeldingId = (): string => {
 
 export const virksomhetId = (): string => {
 	return getId(virksomhetIder)
-}
-
-export const ansattId = (): string => {
-	return getId(ansattIder)
 }
