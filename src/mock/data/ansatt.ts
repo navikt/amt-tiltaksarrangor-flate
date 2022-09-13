@@ -21,7 +21,6 @@ export const mockInnloggetAnsattVirksomheter: Virksomhet[] = [
 ]
 
 export const mockInnloggetAnsatt: InnloggetAnsatt = {
-	id: ansattId(),
 	fornavn: 'Karoline',
 	etternavn: 'Koordinatorsen',
 	arrangorer: mockInnloggetAnsattVirksomheter
