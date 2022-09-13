@@ -1,5 +1,5 @@
 import { InnloggetAnsatt, Virksomhet } from '../../api/data/ansatt'
-import { ansattId, virksomhetId } from './id'
+import { virksomhetId } from './id'
 
 export const mockInnloggetAnsattVirksomheter: Virksomhet[] = [
 	{
@@ -21,7 +21,6 @@ export const mockInnloggetAnsattVirksomheter: Virksomhet[] = [
 ]
 
 export const mockInnloggetAnsatt: InnloggetAnsatt = {
-	id: ansattId(),
 	fornavn: 'Karoline',
 	etternavn: 'Koordinatorsen',
 	arrangorer: mockInnloggetAnsattVirksomheter

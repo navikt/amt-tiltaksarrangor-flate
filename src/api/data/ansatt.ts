@@ -10,7 +10,6 @@ export const virksomhetSchema = z.object({
 })
 
 export const innloggetAnsattSchema = z.object({
-	id: z.string().uuid(),
 	fornavn: z.string(),
 	etternavn: z.string(),
 	arrangorer: z.array(virksomhetSchema),
