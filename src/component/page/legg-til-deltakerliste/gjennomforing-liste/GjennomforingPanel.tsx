@@ -77,6 +77,7 @@ export const GjennomforingPanel = (props: GjennomforingPanelProps) => {
 						<Button
 							variant="primary"
 							size="small"
+							className={styles.knapp}
 							disabled={isPending(opprettTilgangTilGjennomforingPromise)}
 							loading={isPending(opprettTilgangTilGjennomforingPromise)}
 							onClick={handleOnLeggTilClicked}
@@ -93,6 +94,7 @@ export const GjennomforingPanel = (props: GjennomforingPanelProps) => {
 						<Button
 							variant="secondary"
 							size="small"
+							className={styles.knapp}
 							disabled={isPending(fjernTilgangTilGjennomforingPromise)}
 							loading={isPending(fjernTilgangTilGjennomforingPromise)}
 							onClick={handleOnFjernClicked}
