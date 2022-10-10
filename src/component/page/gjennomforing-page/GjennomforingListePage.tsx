@@ -1,4 +1,4 @@
-import { Information } from '@navikt/ds-icons'
+import { Add, Information } from '@navikt/ds-icons'
 import { AxiosResponse } from 'axios'
 import React from 'react'
 import { Link } from 'react-router-dom'
@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom'
 import { Gjennomforing, TiltakGjennomforingStatus } from '../../../api/data/tiltak'
 import { fetchTiltakGjennomforinger } from '../../../api/tiltak-api'
 import { useTabTitle } from '../../../hooks/use-tab-title'
-import { INFORMASJON_PAGE_ROUTE } from '../../../navigation'
+import { INFORMASJON_PAGE_ROUTE, LEGG_TIL_DELTAKERLISTE_PAGE_ROUTE } from '../../../navigation'
 import { sortAlphabeticAsc } from '../../../utils/sortering-utils'
 import { isNotStartedOrPending, isRejected, usePromise } from '../../../utils/use-promise'
 import { AlertPage } from '../../felles/alert-page/AlertPage'
@@ -38,6 +38,12 @@ export const GjennomforingListePage = (): React.ReactElement => {
 	return (
 		<main className={styles.page} data-testid="gjennomforing-oversikt-page">
 			<GjennomforingListe gjennomforinger={gjennomforinger}/>
+
+			<div className={styles.leggTilDeltakerlisteWrapper}>
+				<Link className={styles.lenke} to={LEGG_TIL_DELTAKERLISTE_PAGE_ROUTE}>
+					<Add/> Legg til deltakerliste
+				</Link>
+			</div>
 
 			<div className={styles.informasjonLenkeWrapper}>
 				<Link className={styles.lenke} to={INFORMASJON_PAGE_ROUTE}>
