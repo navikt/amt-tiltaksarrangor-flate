@@ -2,7 +2,7 @@ import env from './environment'
 
 class Toggle {
 
-	get visNyTilgangskontroll(): boolean {
+	get exampleToggle(): boolean {
 		return !env.isProd
 	}
 
