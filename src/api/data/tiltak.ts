@@ -33,6 +33,7 @@ export const gjennomforingSchema = z.object({
 export const endringsmeldingSchema = z.object({
 	id: z.string().uuid(),
 	startDato: nullableDateSchema,
+	sluttDato: nullableDateSchema,
 	aktiv: z.boolean()
 })
 

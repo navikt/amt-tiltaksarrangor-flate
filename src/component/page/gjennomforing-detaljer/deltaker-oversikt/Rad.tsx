@@ -30,9 +30,13 @@ export const Rad = (props: RadProps): React.ReactElement<RadProps> => {
 		aktivEndringsmelding
 	} = props.bruker
 
-	const startDatoTekst = aktivEndringsmelding
+	const startDatoTekst = aktivEndringsmelding?.startDato 
 		? formatDate(aktivEndringsmelding.startDato) + '*'
 		: formatDate(startDato)
+
+	const sluttDatoTekst = aktivEndringsmelding?.sluttDato 
+		? formatDate(aktivEndringsmelding.sluttDato) + '*'
+		: formatDate(sluttDato)
 
 	return (
 		<Table.Row key={id}>
@@ -44,7 +48,7 @@ export const Rad = (props: RadProps): React.ReactElement<RadProps> => {
 			<Table.DataCell><Fnr fnr={fodselsnummer}/></Table.DataCell>
 			<Table.DataCell>{formatDate(registrertDato)}</Table.DataCell>
 			<Table.DataCell>{startDatoTekst}</Table.DataCell>
-			<Table.DataCell>{formatDate(sluttDato)}</Table.DataCell>
+			<Table.DataCell>{sluttDatoTekst}</Table.DataCell>
 			<Table.DataCell>
 				<StatusMerkelapp status={status}/>
 			</Table.DataCell>

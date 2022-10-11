@@ -1,4 +1,4 @@
-import { Calender, Email, Telephone } from '@navikt/ds-icons'
+import { Email, Telephone } from '@navikt/ds-icons'
 import { Alert, BodyShort, Heading } from '@navikt/ds-react'
 import cls from 'classnames'
 import dayjs from 'dayjs'
@@ -17,11 +17,10 @@ import { StatusMerkelapp } from '../../felles/status-merkelapp/StatusMerkelapp'
 import { Tilbakelenke } from '../../felles/tilbakelenke/Tilbakelenke'
 import { Begrunnelse } from './begrunnelse/Begrunnelse'
 import styles from './BrukerPaaTiltakDetaljer.module.scss'
-import { DeltakerDetalj } from './deltaker-detalj/DeltakerDetalj'
+import { DeltakelsesPeriode } from './deltakelses-periode/DeltakelsesPeriode'
 import { IconLabel } from './icon-label/IconLabel'
 import { KopierKnapp } from './kopier-knapp/KopierKnapp'
 import { NavInfoPanel } from './nav-info-panel/NavInfoPanel'
-import { Oppstartsdato } from './oppstartsdato/Oppstartsdato'
 
 function mapStatusTilAlertTekst(fjernesDato: Date | null, status: TiltakDeltakerStatus): string | null {
 	const fjernesFraDato = dayjs(fjernesDato).format('DD.MM.YYYY')
@@ -64,19 +63,19 @@ export const BrukerPaaTiltakDetaljer = (props: { bruker: TiltakDeltakerDetaljer 
 					<div className={styles.headerInfoWrapper}>
 						<div className={cls(styles.headerTitleWrapper, globalStyles.blokkXs)}>
 							<Heading size="medium" level="2" className={styles.headerTitle}>{lagBrukerNavn(fornavn, mellomnavn, etternavn)}</Heading>
-							{ fodselsnummer && (
+							{fodselsnummer && (
 								<KopierKnapp
 									kopierTekst={fodselsnummer}
 									ariaLabel={`Kopier fødselsnummer ${fodselsnummer.split('').join(' ')}`}
 								>
-									<Fnr fnr={fodselsnummer}/>
+									<Fnr fnr={fodselsnummer} />
 								</KopierKnapp>
-							) }
+							)}
 						</div>
 
 						<div className={styles.headerInfo}>
-							<IconLabel labelValue={formaterTelefonnummer(telefonnummer)} icon={<Telephone title="Deltaker telefonnummer"/>}/>
-							<IconLabel labelValue={epost} icon={<Email title="Deltaker e-post"/>}/>
+							<IconLabel labelValue={formaterTelefonnummer(telefonnummer)} icon={<Telephone title="Deltaker telefonnummer" />} />
+							<IconLabel labelValue={epost} icon={<Email title="Deltaker e-post" />} />
 						</div>
 					</div>
 
@@ -99,17 +98,17 @@ export const BrukerPaaTiltakDetaljer = (props: { bruker: TiltakDeltakerDetaljer 
 					</div>
 
 					<div className={cls(styles.deltakerDetaljer, globalStyles.blokkM)}>
-						<Oppstartsdato
+						<DeltakelsesPeriode
 							erSkjermetPerson={erSkjermetPerson}
 							deltakerId={deltakerId}
-							deltakerOppstartsdato={startDato}
+							startDato={startDato}
+							sluttDato={sluttDato}
 							gjennomforingStartDato={gjennomforing.startDato}
 							gjennomforingSluttDato={gjennomforing.sluttDato}
 						/>
-						<DeltakerDetalj detaljeTittel="Sluttdato" detaljeVerdi={formatDate(sluttDato)} detaljeIcon={<Calender title="Kalender"/>}/>
 					</div>
 
-					<Begrunnelse begrunnelse={innsokBegrunnelse}/>
+					<Begrunnelse begrunnelse={innsokBegrunnelse} />
 				</section>
 
 				<section>

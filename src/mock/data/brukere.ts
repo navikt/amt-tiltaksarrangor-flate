@@ -7,37 +7,42 @@ import { deltakerId } from './id'
 import { MockGjennomforing } from './tiltak'
 
 export interface MockNavEnhet {
-	navn: string
+    navn: string
 }
 
 export interface MockNavVeileder {
-	navn: string,
-	telefon: string | null,
-	epost: string | null,
+    navn: string,
+    telefon: string | null,
+    epost: string | null,
+}
+
+interface AktivEndringsmelding {
+    startDato: Date | null,
+    sluttDato: Date | null,
 }
 
 export interface MockTiltakDeltaker {
-	id: string,
-	fornavn: string,
-	mellomnavn: string | null,
-	etternavn: string,
-	fodselsnummer: string,
-	startDato: Date | null,
-	sluttDato: Date | null,
-	status: {
-		type: TiltakDeltakerStatus,
-		endretDato: Date,
-	},
-	registrertDato: Date,
-	erSkjermetPerson: boolean,
-	epost: string | null,
-	telefonnummer: string | null,
-	navEnhet: MockNavEnhet| null,
-	navVeileder: MockNavVeileder | null,
-	gjennomforing: MockGjennomforing,
-	fjernesDato: Date | null,
-	innsokBegrunnelse: string | null,
-	aktivEndringsmelding: { startDato: Date } | null
+    id: string,
+    fornavn: string,
+    mellomnavn: string | null,
+    etternavn: string,
+    fodselsnummer: string,
+    startDato: Date | null,
+    sluttDato: Date | null,
+    status: {
+        type: TiltakDeltakerStatus,
+        endretDato: Date,
+    },
+    registrertDato: Date,
+    erSkjermetPerson: boolean,
+    epost: string | null,
+    telefonnummer: string | null,
+    navEnhet: MockNavEnhet | null,
+    navVeileder: MockNavVeileder | null,
+    gjennomforing: MockGjennomforing,
+    fjernesDato: Date | null,
+    innsokBegrunnelse: string | null,
+    aktivEndringsmelding: AktivEndringsmelding | null
 }
 
 const navEnheter: MockNavEnhet[] = [
@@ -72,19 +77,19 @@ const lagTelefonnummer = (): string => {
 	return faker.phone.phoneNumber().replaceAll(' ', '')
 }
 
-const generateSluttDato = (status: TiltakDeltakerStatus, startDato: Date | null) =>  {
-	if(startDato && status === TiltakDeltakerStatus.HAR_SLUTTET) faker.date.between(startDato, Date())
-	if(startDato) return faker.date.future(1, startDato) //dato etter startdato, innen 1 år
+const generateSluttDato = (status: TiltakDeltakerStatus, startDato: Date | null) => {
+	if (startDato && status === TiltakDeltakerStatus.HAR_SLUTTET) faker.date.between(startDato, Date())
+	if (startDato) return faker.date.future(1, startDato) //dato etter startdato, innen 1 år
 	return null
 }
 
 const getStatus = (): TiltakDeltakerStatus => {
 	const i = randBetween(0, 10)
 
-	if(i < 5) return TiltakDeltakerStatus.DELTAR
-	if(i < 7) return TiltakDeltakerStatus.VENTER_PA_OPPSTART
-	if(i < 8) return TiltakDeltakerStatus.HAR_SLUTTET
-	if(i < 9) return TiltakDeltakerStatus.IKKE_AKTUELL
+	if (i < 5) return TiltakDeltakerStatus.DELTAR
+	if (i < 7) return TiltakDeltakerStatus.VENTER_PA_OPPSTART
+	if (i < 8) return TiltakDeltakerStatus.HAR_SLUTTET
+	if (i < 9) return TiltakDeltakerStatus.IKKE_AKTUELL
 
 	return TiltakDeltakerStatus.DELTAR
 }
@@ -101,13 +106,29 @@ const lagMockTiltakDeltagerForGjennomforing = (gjennomforing: Gjennomforing): Mo
 	const veilederNavn = faker.name.firstName() + ' ' + faker.name.lastName()
 
 	const startDato = status !== TiltakDeltakerStatus.VENTER_PA_OPPSTART ? faker.date.past() : null
-	const fjernesDato = status === TiltakDeltakerStatus.IKKE_AKTUELL || status === TiltakDeltakerStatus.HAR_SLUTTET? faker.date.future() : null
+	const fjernesDato = status === TiltakDeltakerStatus.IKKE_AKTUELL || status === TiltakDeltakerStatus.HAR_SLUTTET ? faker.date.future() : null
 
 	const veileder = randBetween(0, 10) > 1 ? {
 		epost: lagMailFraNavn(veilederNavn, 'nav.no'),
 		navn: veilederNavn,
 		telefon: lagTelefonnummer()
 	} : null
+
+	const aktivEndringsmelding = (): AktivEndringsmelding | null => {
+		let startDato: null | Date = null
+		let sluttDato: null | Date = null
+		const n = randBetween(0, 10)
+		if (n < 3) {
+			startDato = faker.date.soon()
+		} else if (n < 7) {
+			sluttDato = faker.date.soon()
+		} else {
+			return null
+		}
+		return { startDato, sluttDato }
+
+
+	}
 
 	return {
 		id: deltakerId(),
@@ -130,9 +151,7 @@ const lagMockTiltakDeltagerForGjennomforing = (gjennomforing: Gjennomforing): Mo
 		gjennomforing: gjennomforing,
 		registrertDato: faker.date.past(),
 		innsokBegrunnelse: genererBegrunnelse(brukerFornavn),
-		aktivEndringsmelding: randBetween(0, 10) > 7 ? {
-			startDato: faker.date.soon()
-		} : null
+		aktivEndringsmelding: aktivEndringsmelding()
 	}
 }
 
