@@ -103,3 +103,10 @@ export const opprettStartDatoEndringsmelding = (deltakerId: string, startDato: D
 		.post(appUrl(`/amt-tiltak/api/tiltaksarrangor/endringsmelding/deltaker/${deltakerId}/startdato?startDato=${datoStr}`))
 		.catch(logAndThrowError)
 }
+
+export const opprettSluttDatoEndringsmelding = (deltakerId: string, sluttDato: Date): AxiosPromise => {
+	const datoStr = formatDateToDateStr(sluttDato)
+	return axiosInstance
+		.post(appUrl(`/amt-tiltak/api/tiltaksarrangor/endringsmelding/deltaker/${deltakerId}/sluttdato?sluttDato=${datoStr}`))
+		.catch(logAndThrowError)
+}

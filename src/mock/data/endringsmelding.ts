@@ -17,14 +17,25 @@ export const lagMockEndringsmelding = (deltakere: { id: string }[]): MockEndring
 }
 
 export const lagMockEndringsmeldingForDeltaker = (): Endringsmelding[] => {
-	if (randBetween(0, 10) > 5) {
+	const n = randBetween(0, 10)
+	if (n < 2) {
 		return []
 	}
-
+	if (n < 5) {
+		return [
+			{
+				id: endringsmeldingId(),
+				startDato: null,
+				sluttDato: faker.date.soon(),
+				aktiv: faker.datatype.boolean()
+			}
+		]
+	}
 	return [
 		{
 			id: endringsmeldingId(),
 			startDato: faker.date.soon(),
+			sluttDato: null,
 			aktiv: faker.datatype.boolean()
 		}
 	]
