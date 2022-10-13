@@ -64,7 +64,7 @@ export const StartdatoPanel = ({
 
 	return (
 		<div className={styles.datoPanel}>
-			<DatoPanel tittel={'Startdato'}
+			<DatoPanel tittel={'Oppstartsdato'}
 				disabled={disabled}
 				dato={startDato}
 				ekspandert={ekspandert}
@@ -73,7 +73,7 @@ export const StartdatoPanel = ({
 				<div className={styles.endreDato}>
 					<TextField
 						className={styles.datofelt}
-						label="Ny startdato"
+						label="Ny oppstartsdato"
 						type={'date' as any} // eslint-disable-line
 						value={nyDato}
 						onChange={e => setNyDato(e.target.value)}
