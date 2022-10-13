@@ -17,7 +17,7 @@ import { StatusMerkelapp } from '../../felles/status-merkelapp/StatusMerkelapp'
 import { Tilbakelenke } from '../../felles/tilbakelenke/Tilbakelenke'
 import { Begrunnelse } from './begrunnelse/Begrunnelse'
 import styles from './BrukerPaaTiltakDetaljer.module.scss'
-import { DeltakelsesPeriode } from './deltakelses-periode/DeltakelsesPeriode'
+import { Deltakelsesperiode } from './deltakelses-periode/Deltakelsesperiode'
 import { IconLabel } from './icon-label/IconLabel'
 import { KopierKnapp } from './kopier-knapp/KopierKnapp'
 import { NavInfoPanel } from './nav-info-panel/NavInfoPanel'
@@ -95,10 +95,15 @@ export const BrukerPaaTiltakDetaljer = (props: { bruker: TiltakDeltakerDetaljer 
 						<Show if={erVenterPaOppstartEllerDeltar(status.type)}>
 							<StatusMerkelapp status={status} />
 						</Show>
+						<Show if={erSkjermetPerson}>
+							<Alert variant="warning" className={styles.skjermetPersonAlert}>
+								Du kan ikke endre datoer på denne deltakeren. Ta kontakt med NAV-veileder.
+							</Alert>
+						</Show>
 					</div>
 
 					<div className={cls(styles.deltakerDetaljer, globalStyles.blokkM)}>
-						<DeltakelsesPeriode
+						<Deltakelsesperiode
 							erSkjermetPerson={erSkjermetPerson}
 							deltakerId={deltakerId}
 							startDato={startDato}
