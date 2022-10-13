@@ -41,8 +41,8 @@ export const DatoPanel = ({
 					<Show if={!disabled}>
 						{
 							ekspandert
-								? <Button variant="tertiary" className={styles.ekspanderKnapp} onClick={onEkspanderToggle}>Avbryt</Button>
-								: <Button variant="secondary" className={styles.ekspanderKnapp} onClick={onEkspanderToggle}>
+								? <Button variant="tertiary"  size="small" className={styles.ekspanderKnapp} onClick={onEkspanderToggle}>Avbryt</Button>
+								: <Button variant="secondary" size="small" className={styles.ekspanderKnapp} onClick={onEkspanderToggle}>
 									{dato ? 'Endre' : 'Legg til'}
 								</Button>
 						}

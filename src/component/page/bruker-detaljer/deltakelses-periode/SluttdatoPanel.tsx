@@ -5,7 +5,7 @@ import React, { useEffect, useState } from 'react'
 
 import { Endringsmelding } from '../../../../api/data/tiltak'
 import { opprettSluttDatoEndringsmelding } from '../../../../api/tiltak-api'
-import { formatDate } from '../../../../utils/date-utils'
+import { formatDate, formatDateToDateStr } from '../../../../utils/date-utils'
 import { Nullable } from '../../../../utils/types/or-nothing'
 import { isPending, isRejected, usePromise } from '../../../../utils/use-promise'
 import { Show } from '../../../felles/Show'
@@ -76,8 +76,8 @@ export const SluttdatoPanel = ({
 						type={'date' as any} // eslint-disable-line
 						value={nyDato}
 						onChange={e => setNyDato(e.target.value)}
-						min={formatDate(gjennomforingStartDato)}
-						max={formatDate(gjennomforingSluttDato)}
+						min={formatDateToDateStr(gjennomforingStartDato)}
+						max={formatDateToDateStr(gjennomforingSluttDato)}
 					/>
 				</div>
 				<ConfirmationPanel
