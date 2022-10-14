@@ -18,13 +18,11 @@ export const dateStrWithMonthName = (dateStr: Nullable<Date>): string => {
 	return dayjs(dateStr).format('DD. MMMM YYYY')
 }
 
-export const formatDateInputStr = (dateStr: Nullable<string>): string => {
-	if (!dateStr) return EMDASH
+export const formatDateStrToDateInputStr = (dateStr: string): string => {
 	return dayjs(dateStr).format('YYYY-MM-DD')
 }
 
-export const formatDateToDateStr = (date: Nullable<Date>): string => {
-	if (!date) return EMDASH
+export const formatDateToDateInputStr = (date: Date): string => {
 	return dayjs(date).format('YYYY-MM-DD')
 }
 

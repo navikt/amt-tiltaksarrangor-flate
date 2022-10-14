@@ -1,6 +1,6 @@
 import { AxiosError, AxiosPromise } from 'axios'
 
-import { formatDateToDateStr } from '../utils/date-utils'
+import { formatDateToDateInputStr } from '../utils/date-utils'
 import { appUrl } from '../utils/url-utils'
 import { InnloggetAnsatt, innloggetAnsattSchema } from './data/ansatt'
 import {
@@ -98,14 +98,14 @@ export const hentEndringsmeldinger = (deltakerId: string): AxiosPromise<Endrings
 }
 
 export const opprettStartDatoEndringsmelding = (deltakerId: string, startDato: Date): AxiosPromise => {
-	const datoStr = formatDateToDateStr(startDato)
+	const datoStr = formatDateToDateInputStr(startDato)
 	return axiosInstance
 		.post(appUrl(`/amt-tiltak/api/tiltaksarrangor/endringsmelding/deltaker/${deltakerId}/startdato?startDato=${datoStr}`))
 		.catch(logAndThrowError)
 }
 
 export const opprettSluttDatoEndringsmelding = (deltakerId: string, sluttDato: Date): AxiosPromise => {
-	const datoStr = formatDateToDateStr(sluttDato)
+	const datoStr = formatDateToDateInputStr(sluttDato)
 	return axiosInstance
 		.post(appUrl(`/amt-tiltak/api/tiltaksarrangor/endringsmelding/deltaker/${deltakerId}/sluttdato?sluttDato=${datoStr}`))
 		.catch(logAndThrowError)

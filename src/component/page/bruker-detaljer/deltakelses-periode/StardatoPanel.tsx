@@ -5,7 +5,7 @@ import React, { useEffect, useState } from 'react'
 
 import { Endringsmelding } from '../../../../api/data/tiltak'
 import { opprettStartDatoEndringsmelding } from '../../../../api/tiltak-api'
-import { formatDate, formatDateToDateStr } from '../../../../utils/date-utils'
+import { formatDate, formatDateToDateInputStr } from '../../../../utils/date-utils'
 import { Nullable } from '../../../../utils/types/or-nothing'
 import { isPending, isRejected, usePromise } from '../../../../utils/use-promise'
 import { Show } from '../../../felles/Show'
@@ -77,11 +77,12 @@ export const StartdatoPanel = ({
 						type={'date' as any} // eslint-disable-line
 						value={nyDato}
 						onChange={e => setNyDato(e.target.value)}
-						min={formatDateToDateStr(minDato)}
-						max={formatDateToDateStr(maxDato)}
+						min={formatDateToDateInputStr(minDato)}
+						max={formatDateToDateInputStr(maxDato)}
 					/>
 					<Button
 						variant="primary"
+						size="small"
 						className={styles.sendStartDatoKnapp}
 						loading={isPending(opprettEndringsmeldingPromise)}
 						onClick={opprettEndringsmelding}

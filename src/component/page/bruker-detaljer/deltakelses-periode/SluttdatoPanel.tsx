@@ -5,7 +5,7 @@ import React, { useEffect, useState } from 'react'
 
 import { Endringsmelding } from '../../../../api/data/tiltak'
 import { opprettSluttDatoEndringsmelding } from '../../../../api/tiltak-api'
-import { formatDate, formatDateToDateStr } from '../../../../utils/date-utils'
+import { formatDate, formatDateToDateInputStr } from '../../../../utils/date-utils'
 import { Nullable } from '../../../../utils/types/or-nothing'
 import { isPending, isRejected, usePromise } from '../../../../utils/use-promise'
 import { Show } from '../../../felles/Show'
@@ -15,6 +15,7 @@ import styles from './DatoPanel.module.scss'
 interface SluttdatoPanelProps {
 	deltakerId: string
 	disabled: boolean
+	startDato: Nullable<Date>
 	sluttDato: Nullable<Date>
 	aktivEndringsmelding: Nullable<Endringsmelding>
 	gjennomforingStartDato: Nullable<Date>
@@ -24,6 +25,7 @@ interface SluttdatoPanelProps {
 export const SluttdatoPanel = ({
 	deltakerId,
 	disabled,
+	startDato,
 	sluttDato,
 	aktivEndringsmelding,
 	gjennomforingStartDato,
@@ -34,6 +36,8 @@ export const SluttdatoPanel = ({
 	const [ sendtDato, setSendtDato ] = useState<Nullable<Date>>()
 	const [ confirm, setConfirm ] = useState(false)
 	const opprettEndringsmeldingPromise = usePromise<AxiosResponse>()
+
+	const minDato = startDato || gjennomforingStartDato
 
 	const opprettEndringsmelding = () => {
 		const dato = dayjs(nyDato).toDate()
@@ -61,6 +65,7 @@ export const SluttdatoPanel = ({
 		}
 	}, [ ekspandert ])
 
+
 	return (
 		<div className={styles.datoPanel}>
 			<DatoPanel tittel={'Sluttdato'}
@@ -76,8 +81,8 @@ export const SluttdatoPanel = ({
 						type={'date' as any} // eslint-disable-line
 						value={nyDato}
 						onChange={e => setNyDato(e.target.value)}
-						min={formatDateToDateStr(gjennomforingStartDato)}
-						max={formatDateToDateStr(gjennomforingSluttDato)}
+						min={minDato ? formatDateToDateInputStr(minDato) : undefined}
+						max={gjennomforingSluttDato ? formatDateToDateInputStr(gjennomforingSluttDato) : undefined}
 					/>
 				</div>
 				<ConfirmationPanel
@@ -89,6 +94,7 @@ export const SluttdatoPanel = ({
 				</ConfirmationPanel>
 				<Button
 					variant="primary"
+					size="small"
 					className={styles.sendSluttDatoKnapp}
 					loading={isPending(opprettEndringsmeldingPromise)}
 					onClick={opprettEndringsmelding}

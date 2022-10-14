@@ -50,6 +50,7 @@ export const Deltakelsesperiode = ({
 			<SluttdatoPanel 
 				deltakerId={deltakerId}
 				disabled={erSkjermetPerson || sluttDatoKanIkkeEndres}
+				startDato={startDato}
 				sluttDato={sluttDato}
 				aktivEndringsmelding={aktivSluttdatoEndringsmelding}
 				gjennomforingStartDato={gjennomforingStartDato}
