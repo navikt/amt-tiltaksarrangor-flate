@@ -1,13 +1,13 @@
-import { Alert, Button, ConfirmationPanel, TextField } from '@navikt/ds-react'
+import { Alert, Button, ConfirmationPanel } from '@navikt/ds-react'
 import { AxiosResponse } from 'axios'
-import dayjs from 'dayjs'
 import React, { useEffect, useState } from 'react'
 
 import { Endringsmelding } from '../../../../api/data/tiltak'
 import { opprettSluttDatoEndringsmelding } from '../../../../api/tiltak-api'
-import { formatDate, formatDateToDateInputStr } from '../../../../utils/date-utils'
+import { formatDate } from '../../../../utils/date-utils'
 import { Nullable } from '../../../../utils/types/or-nothing'
 import { isPending, isRejected, usePromise } from '../../../../utils/use-promise'
+import { DateField } from '../../../felles/DateField'
 import { Show } from '../../../felles/Show'
 import { DatoPanel } from './DatoPanel'
 import styles from './DatoPanel.module.scss'
@@ -32,7 +32,7 @@ export const SluttdatoPanel = ({
 	gjennomforingSluttDato,
 }: SluttdatoPanelProps): React.ReactElement => {
 	const [ ekspandert, setEkspandert ] = useState(false)
-	const [ nyDato, setNyDato ] = useState('')
+	const [ valgtDato, setValgtDato ] = useState<Nullable<Date>>()
 	const [ sendtDato, setSendtDato ] = useState<Nullable<Date>>()
 	const [ confirm, setConfirm ] = useState(false)
 	const opprettEndringsmeldingPromise = usePromise<AxiosResponse>()
@@ -40,12 +40,14 @@ export const SluttdatoPanel = ({
 	const minDato = startDato || gjennomforingStartDato
 
 	const opprettEndringsmelding = () => {
-		const dato = dayjs(nyDato).toDate()
+		if (!valgtDato) {
+			return
+		}
 		opprettEndringsmeldingPromise.setPromise(
-			opprettSluttDatoEndringsmelding(deltakerId, dato)
+			opprettSluttDatoEndringsmelding(deltakerId, valgtDato)
 				.then(res => {
 					setEkspandert(false)
-					setSendtDato(dato)
+					setSendtDato(valgtDato)
 					return res
 				})
 		)
@@ -60,7 +62,7 @@ export const SluttdatoPanel = ({
 
 	useEffect(() => {
 		if (ekspandert) {
-			setNyDato('')
+			setValgtDato(undefined)
 			setConfirm(false)
 		}
 	}, [ ekspandert ])
@@ -75,14 +77,13 @@ export const SluttdatoPanel = ({
 				onEkspanderToggle={() => setEkspandert(e => !e)}
 			>
 				<div className={styles.endreDato}>
-					<TextField
+					<DateField
 						className={styles.datofelt}
 						label="Ny sluttdato"
-						type={'date' as any} // eslint-disable-line
-						value={nyDato}
-						onChange={e => setNyDato(e.target.value)}
-						min={minDato ? formatDateToDateInputStr(minDato) : undefined}
-						max={gjennomforingSluttDato ? formatDateToDateInputStr(gjennomforingSluttDato) : undefined}
+						date={valgtDato}
+						min={minDato}
+						max={gjennomforingSluttDato}
+						onDateChanged={d => setValgtDato(d)}
 					/>
 				</div>
 				<ConfirmationPanel
@@ -98,7 +99,7 @@ export const SluttdatoPanel = ({
 					className={styles.sendSluttDatoKnapp}
 					loading={isPending(opprettEndringsmeldingPromise)}
 					onClick={opprettEndringsmelding}
-					disabled={!nyDato || !confirm}
+					disabled={!valgtDato || !confirm}
 				>
 					Send til NAV
 				</Button>

@@ -26,6 +26,11 @@ export const formatDateToDateInputStr = (date: Date): string => {
 	return dayjs(date).format('YYYY-MM-DD')
 }
 
+export const formatNullableDateToDateInputStr = (date: Nullable<Date>): string | undefined => {
+	if (!date) return undefined
+	return dayjs(date).format('YYYY-MM-DD')
+}
+
 export const stringToDate = (dateStr: string): Date => dayjs(dateStr, 'YYYY-MM-DD').toDate()
 
 export const sortDateNullsFirst = (d1Str: Nullable<string>, d2Str: Nullable<string>): number => {

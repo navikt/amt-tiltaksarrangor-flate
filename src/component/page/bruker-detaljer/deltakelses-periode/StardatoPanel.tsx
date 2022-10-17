@@ -1,13 +1,14 @@
-import { Alert, Button, TextField } from '@navikt/ds-react'
+import { Alert, Button } from '@navikt/ds-react'
 import { AxiosResponse } from 'axios'
 import dayjs from 'dayjs'
 import React, { useEffect, useState } from 'react'
 
 import { Endringsmelding } from '../../../../api/data/tiltak'
 import { opprettStartDatoEndringsmelding } from '../../../../api/tiltak-api'
-import { formatDate, formatDateToDateInputStr } from '../../../../utils/date-utils'
+import { formatDate } from '../../../../utils/date-utils'
 import { Nullable } from '../../../../utils/types/or-nothing'
 import { isPending, isRejected, usePromise } from '../../../../utils/use-promise'
+import { DateField } from '../../../felles/DateField'
 import { Show } from '../../../felles/Show'
 import { DatoPanel } from './DatoPanel'
 import styles from './DatoPanel.module.scss'
@@ -30,7 +31,7 @@ export const StartdatoPanel = ({
 	gjennomforingSluttDato,
 }: StartdatoPanelProps): React.ReactElement => {
 	const [ ekspandert, setEkspandert ] = useState(false)
-	const [ nyDato, setNyDato ] = useState('')
+	const [ valgtDato, setNyDato ] = useState<Nullable<Date>>()
 	const [ sendtDato, setSendtDato ] = useState<Nullable<Date>>()
 	const opprettEndringsmeldingPromise = usePromise<AxiosResponse>()
 
@@ -38,12 +39,14 @@ export const StartdatoPanel = ({
 	const maxDato = kalkulerMaxOppstartsdato(gjennomforingSluttDato)
 
 	const opprettEndringsmelding = () => {
-		const dato = dayjs(nyDato).toDate()
+		if (!valgtDato) {
+			return
+		}
 		opprettEndringsmeldingPromise.setPromise(
-			opprettStartDatoEndringsmelding(deltakerId, dato)
+			opprettStartDatoEndringsmelding(deltakerId, valgtDato)
 				.then(res => {
 					setEkspandert(false)
-					setSendtDato(dato)
+					setSendtDato(valgtDato)
 					return res
 				})
 		)
@@ -58,7 +61,7 @@ export const StartdatoPanel = ({
 
 	useEffect(() => {
 		if (ekspandert) {
-			setNyDato('')
+			setNyDato(undefined)
 		}
 	}, [ ekspandert ])
 
@@ -71,14 +74,13 @@ export const StartdatoPanel = ({
 				onEkspanderToggle={() => setEkspandert(e => !e)}
 			>
 				<div className={styles.endreDato}>
-					<TextField
+					<DateField
 						className={styles.datofelt}
 						label="Ny oppstartsdato"
-						type={'date' as any} // eslint-disable-line
-						value={nyDato}
-						onChange={e => setNyDato(e.target.value)}
-						min={formatDateToDateInputStr(minDato)}
-						max={formatDateToDateInputStr(maxDato)}
+						date={valgtDato}
+						onDateChanged={d => setNyDato(d)}
+						min={minDato}
+						max={maxDato}
 					/>
 					<Button
 						variant="primary"
@@ -86,7 +88,7 @@ export const StartdatoPanel = ({
 						className={styles.sendStartDatoKnapp}
 						loading={isPending(opprettEndringsmeldingPromise)}
 						onClick={opprettEndringsmelding}
-						disabled={!nyDato}
+						disabled={!valgtDato}
 					>
 						Send til NAV
 					</Button>
@@ -94,11 +96,11 @@ export const StartdatoPanel = ({
 			</DatoPanel>
 			<Show if={sendtDato}>
 				<Alert variant="info" className={styles.alert} inline>
-					Ny startdato {formatDate(sendtDato)} er sendt til NAV
+					Ny oppstartsdato {formatDate(sendtDato)} er sendt til NAV
 				</Alert>
 			</Show>
 			<Show if={isRejected(opprettEndringsmeldingPromise)}>
-				<Alert variant="error" className={styles.alert}>Klarte ikke å sende sluttdato</Alert>
+				<Alert variant="error" className={styles.alert}>Klarte ikke å sende oppstartsdato</Alert>
 			</Show>
 
 
