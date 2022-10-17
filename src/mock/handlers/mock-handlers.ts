@@ -70,9 +70,27 @@ export const mockHandlers: RequestHandler[] = [
 
 		const startDato = dayjs(startDatoStr, 'YYYY-MM-DD').toDate()
 
+		const sluttDato = null
+
 		mockEndringsmeldinger[deltakerId] = [
 			...(mockEndringsmeldinger[deltakerId] || []).map(e => ({ ...e, aktiv: false })),
-			{ id: randomUuid(), startDato: startDato, aktiv: true }
+			{ id: randomUuid(), startDato: startDato, sluttDato: sluttDato, aktiv: true }
+		]
+
+		return res(ctx.delay(500), ctx.status(200))
+	}),
+	rest.post(appUrl('/amt-tiltak/api/tiltaksarrangor/endringsmelding/deltaker/:deltakerId/sluttdato'), (req, res, ctx) => {
+		const deltakerId = req.params.deltakerId as string
+
+		const sluttDatoStr = req.url.searchParams.get('sluttDato') as string
+
+		const startDato = null
+		const sluttDato = dayjs(sluttDatoStr, 'YYYY-MM-DD').toDate()
+
+
+		mockEndringsmeldinger[deltakerId] = [
+			...(mockEndringsmeldinger[deltakerId] || []).map(e => ({ ...e, aktiv: false })),
+			{ id: randomUuid(), startDato: startDato, sluttDato: sluttDato, aktiv: true }
 		]
 
 		return res(ctx.delay(500), ctx.status(200))

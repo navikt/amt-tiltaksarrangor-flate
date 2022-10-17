@@ -28,7 +28,8 @@ export const tiltakDeltakerSchema = z.object({
 	status: deltakerStatusSchema,
 	registrertDato: dateSchema,
 	aktivEndringsmelding: z.object({
-		startDato: nullableDateSchema
+		startDato: nullableDateSchema,
+		sluttDato: nullableDateSchema
 	}).nullable()
 })
 
