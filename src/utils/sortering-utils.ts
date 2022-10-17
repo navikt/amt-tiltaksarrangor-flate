@@ -2,8 +2,8 @@
 export type SorteringRetning = 'ascending' | 'descending'
 
 export interface Sortering {
-	orderBy: string,
-	direction: SorteringRetning
+    orderBy: string,
+    direction: SorteringRetning
 }
 
 export const DEFAULT_SORTERING_RETNING = 'ascending'
@@ -43,15 +43,8 @@ export const sortAlphabeticAsc = (s1: string, s2: string): number => {
 	const s1Lower = s1.toLowerCase()
 	const s2Lower = s2.toLowerCase()
 
-	if (s1Lower < s2Lower) {
-		return -1
-	}
-
-	if (s2Lower < s1Lower) {
-		return 1
-	}
-
-	return 0
+	if (s1Lower === s2Lower) return 0
+	return s1Lower > s2Lower ? 1 : -1
 }
 
 export function compareAsc<Type>(a: Type, b: Type): number {
