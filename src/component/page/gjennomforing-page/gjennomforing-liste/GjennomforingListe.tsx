@@ -3,6 +3,7 @@ import React, { useMemo } from 'react'
 
 import { Gjennomforing, Tiltak } from '../../../../api/data/tiltak'
 import globalStyles from '../../../../globals.module.scss'
+import { sortAlphabeticAsc } from '../../../../utils/sortering-utils'
 import { finnTiltakGjennomforinger, finnUnikeTiltak } from '../../../../utils/tiltak-utils'
 import styles from './GjennomforingListe.module.scss'
 import { GjennomforingListePanel } from './GjennomforingListePanel'
@@ -27,25 +28,29 @@ export const GjennomforingListe = (props: GjennomforingListeProps): React.ReactE
 
 	return (
 		<div className={styles.cleanList}>
-			{unikeTiltak.map((tiltak, tiltakIdx) => {
-				return (
-					<div key={tiltakIdx} className={globalStyles.blokkL}>
-						<Heading className={globalStyles.blokkS} size="xsmall" level="2">{tiltak.tiltaksnavn}</Heading>
-						<ul className={styles.cleanList}>
-							{finnTiltakGjennomforinger(tiltak.tiltakskode, props.gjennomforinger).map((gjennomforing) => {
-								return (
-									<li key={gjennomforing.id} className={globalStyles.blokkS}>
-										<GjennomforingListePanel
-											id={gjennomforing.id}
-											navn={gjennomforing.navn}
-										/>
-									</li>
-								)
-							})}
-						</ul>
-					</div>
-				)
-			})}
+			{unikeTiltak
+				.sort((t1, t2) => sortAlphabeticAsc(t1.tiltaksnavn, t2.tiltaksnavn))
+				.map((tiltak, tiltakIdx) => {
+					return (
+						<div key={tiltakIdx} className={globalStyles.blokkL}>
+							<Heading className={globalStyles.blokkS} size="xsmall" level="2">{tiltak.tiltaksnavn}</Heading>
+							<ul className={styles.cleanList}>
+								{finnTiltakGjennomforinger(tiltak.tiltakskode, props.gjennomforinger)
+									.sort((g1, g2) => sortAlphabeticAsc(g1.navn, g2.navn))
+									.map((gjennomforing) => {
+										return (
+											<li key={gjennomforing.id} className={globalStyles.blokkS}>
+												<GjennomforingListePanel
+													id={gjennomforing.id}
+													navn={gjennomforing.navn}
+												/>
+											</li>
+										)
+									})}
+							</ul>
+						</div>
+					)
+				})}
 		</div>
 	)
 }

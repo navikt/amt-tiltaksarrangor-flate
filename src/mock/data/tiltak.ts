@@ -15,31 +15,31 @@ interface GjennomforingInfo {
 export const gjennomforingInfoListe: GjennomforingInfo[] = [
 	{
 		gjennomforingNavn: 'Oppfølging Åsedalen',
-		tiltakskode: 'OPPFOLG',
+		tiltakskode: 'INDOPPFAG',
 		tiltaksnavn: 'Oppfølging',
 		status: TiltakGjennomforingStatus.GJENNOMFORES
 	},
 	{
 		gjennomforingNavn: 'Oppfølging Region Østvest',
-		tiltakskode: 'OPPFOLG',
+		tiltakskode: 'INDOPPFAG',
 		tiltaksnavn: 'Oppfølging',
 		status: TiltakGjennomforingStatus.GJENNOMFORES
 	},
 	{
-		gjennomforingNavn: 'Oppfølging Region Test',
-		tiltakskode: 'OPPFOLG',
-		tiltaksnavn: 'Oppfølging',
+		gjennomforingNavn: 'Avklaring Region Test',
+		tiltakskode: 'AVKLARAG',
+		tiltaksnavn: 'Avklaring',
 		status: TiltakGjennomforingStatus.GJENNOMFORES
 	},
 	{
-		gjennomforingNavn: 'Oppfølging Region Vestøst',
-		tiltakskode: 'OPPFOLG',
-		tiltaksnavn: 'Oppfølging',
-		status: TiltakGjennomforingStatus.AVSLUTTET
+		gjennomforingNavn: 'AFT Region Vestøst',
+		tiltakskode: 'ARBFORB',
+		tiltaksnavn: 'Arbeidsforberedende trening (AFT)',
+		status: TiltakGjennomforingStatus.GJENNOMFORES
 	},
 	{
 		gjennomforingNavn: 'Oppfølging Region Nordsør',
-		tiltakskode: 'OPPFOLG',
+		tiltakskode: 'INDOPPFAG',
 		tiltaksnavn: 'Oppfølging',
 		status: TiltakGjennomforingStatus.IKKE_STARTET
 	}
@@ -48,14 +48,26 @@ export const gjennomforingInfoListe: GjennomforingInfo[] = [
 export const tilgjengeligGjennomforinger: GjennomforingInfo[] = [
 	{
 		gjennomforingNavn: 'Oppfølging Test 1',
-		tiltakskode: 'OPPFOLG',
+		tiltakskode: 'INDOPPFAG',
 		tiltaksnavn: 'Oppfølging',
 		status: TiltakGjennomforingStatus.GJENNOMFORES
 	},
 	{
 		gjennomforingNavn: 'Oppfølging Test 2',
-		tiltakskode: 'OPPFOLG',
+		tiltakskode: 'INDOPPFAG',
 		tiltaksnavn: 'Oppfølging',
+		status: TiltakGjennomforingStatus.GJENNOMFORES
+	},
+	{
+		gjennomforingNavn: 'Avklaring Region Test 2',
+		tiltakskode: 'AVKLARAG',
+		tiltaksnavn: 'Avklaring',
+		status: TiltakGjennomforingStatus.GJENNOMFORES
+	},
+	{
+		gjennomforingNavn: 'AFT Region Vestøst 2',
+		tiltakskode: 'ARBFORB',
+		tiltaksnavn: 'Arbeidsforberedende trening (AFT)',
 		status: TiltakGjennomforingStatus.GJENNOMFORES
 	},
 ]

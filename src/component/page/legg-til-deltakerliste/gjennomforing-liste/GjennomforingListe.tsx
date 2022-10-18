@@ -43,14 +43,14 @@ export const GjennomforingListe = () => {
 		isNotStartedOrPending(fetchGjennomforingerPromise) ||
 		isNotStartedOrPending(fetchTilgjengeligGjennomforingerPromise)
 	) {
-		return <SpinnerPage/>
+		return <SpinnerPage />
 	}
 
 	if (
 		isRejected(fetchGjennomforingerPromise) ||
 		isRejected(fetchTilgjengeligGjennomforingerPromise)
 	) {
-		return <AlertPage variant="error" tekst="Noe gikk galt"/>
+		return <AlertPage variant="error" tekst="Noe gikk galt" />
 	}
 
 	const gjennomforingIderAlleredeLagtTil = fetchGjennomforingerPromise.result.data.map(g => g.id)
@@ -62,26 +62,31 @@ export const GjennomforingListe = () => {
 			<Show if={Object.keys(gjennomforingerPaVirksomhet).length === 0}>
 				<Alert variant="info">Det finnes ingen aktive deltakerlister hos din virksomhet.</Alert>
 			</Show>
-			{ Object.entries(gjennomforingerPaVirksomhet).map(([ virksomhetNavn, gjennomforinger ]) => {
+			{Object.entries(gjennomforingerPaVirksomhet).map(([ virksomhetNavn, gjennomforinger ]) => {
 				return (
 					<div key={virksomhetNavn} className={globalStyles.blokkM}>
 						<Heading size="small" level="3" spacing>{virksomhetNavn}</Heading>
 						<ul className={styles.list}>
-							{gjennomforinger.map(g => {
-								return (
-									<li key={g.id}>
-										<GjennomforingPanel
-											gjennomforingId={g.id}
-											navn={g.navn}
-											tiltaksnavn={g.tiltak.tiltaksnavn}
-											arrangorNavn={g.arrangor.virksomhetNavn}
-											startDato={g.startDato}
-											sluttDato={g.sluttDato}
-											alleredeLagtTil={erAlleredeLagtTil(g.id)}
-										/>
-									</li>
-								)
-							})}
+							{gjennomforinger
+								.sort((g1, g2) => {
+									const sortTiltaksnavn = sortAlphabeticAsc(g1.tiltak.tiltaksnavn, g2.tiltak.tiltaksnavn)
+									return sortTiltaksnavn === 0 ? sortAlphabeticAsc(g1.navn, g2.navn) : sortTiltaksnavn
+								})
+								.map(g => {
+									return (
+										<li key={g.id}>
+											<GjennomforingPanel
+												gjennomforingId={g.id}
+												navn={g.navn}
+												tiltaksnavn={g.tiltak.tiltaksnavn}
+												arrangorNavn={g.arrangor.virksomhetNavn}
+												startDato={g.startDato}
+												sluttDato={g.sluttDato}
+												alleredeLagtTil={erAlleredeLagtTil(g.id)}
+											/>
+										</li>
+									)
+								})}
 						</ul>
 					</div>
 				)
