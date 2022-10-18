@@ -11,7 +11,7 @@ services:
           "proxies": [
             {
               "fromPath": "/tiltaksarrangor/deltakeroversikt/amt-tiltak",
-              "toUrl": "https://amt-tiltaksarrangor-flate.dev.intern.nav.no/tiltaksarrangor/deltakeroversikt/amt-tiltak",
+              "toUrl": "https://amt.dev.nav.no/tiltaksarrangor/deltakeroversikt/amt-tiltak",
               "preserveFromPath": false
             }
           ]
