@@ -1,9 +1,11 @@
+import { Information } from '@navikt/ds-icons'
 import { BodyLong, Heading } from '@navikt/ds-react'
 import React from 'react'
 
 import { useTabTitle } from '../../../hooks/use-tab-title'
-import { GJENNOMFORING_LISTE_PAGE_ROUTE } from '../../../navigation'
+import { GJENNOMFORING_LISTE_PAGE_ROUTE, PERSONOPPLYSNINGER_PAGE_ROUTE } from '../../../navigation'
 import { Card } from '../../felles/card/Card'
+import { IkonLenke } from '../../felles/ikon-lenke/IkonLenke'
 import { Tilbakelenke } from '../../felles/tilbakelenke/Tilbakelenke'
 import clipboardImg from './clipboard.svg'
 import styles from './InformasjonPage.module.scss'
@@ -20,7 +22,7 @@ interface InfoElementProps {
 export const InfoElement = (props: InfoElementProps): React.ReactElement<InfoElementProps> => {
 	return (
 		<div className={styles.infoElement}>
-			<img className={styles.infoElementImg} src={props.image} alt={props.alt}/>
+			<img className={styles.infoElementImg} src={props.image} alt={props.alt} />
 			<div>
 				<Heading className={styles.infoElementTitle} spacing size="xsmall" level="3">{props.title}</Heading>
 				{props.children}
@@ -74,6 +76,13 @@ export const InformasjonPage = (): React.ReactElement => {
 						</BodyLong>
 					</InfoElement>
 				</Card>
+
+				<IkonLenke
+					to={PERSONOPPLYSNINGER_PAGE_ROUTE}
+					className={styles.informasjonLenkeWrapper}
+					ikon={<Information title="Informasjon" />}
+					text="Slik behandles personopplysningene dine når du bruker deltakeroversikten"
+				/>
 			</div>
 
 		</main>

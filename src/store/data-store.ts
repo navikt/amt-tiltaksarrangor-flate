@@ -2,12 +2,16 @@ import constate from 'constate'
 import { useState } from 'react'
 
 import { InnloggetAnsatt } from '../api/data/ansatt'
+import { Nullable } from '../utils/types/or-nothing'
 
-export const [ DataStoreProvider, useDataStore ] = constate((props: {initialInnloggetAnsatt: InnloggetAnsatt}) => {
-	const [ innloggetAnsatt, setInnloggetAnsatt ] = useState<InnloggetAnsatt>(props.initialInnloggetAnsatt)
+export const [ AuthStoreProvider, useAuthStore ] = constate(() => {
+	const [ innloggetAnsatt, setInnloggetAnsatt ] = useState<Nullable<InnloggetAnsatt>>()
+
+	const erInnlogget = innloggetAnsatt !== null
 
 	return {
 		innloggetAnsatt,
 		setInnloggetAnsatt,
+		erInnlogget,
 	}
 })

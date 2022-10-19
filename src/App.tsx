@@ -1,5 +1,5 @@
 import { AxiosError, AxiosResponse } from 'axios'
-import React from 'react'
+import React, { useEffect } from 'react'
 
 import { InnloggetAnsatt } from './api/data/ansatt'
 import { fetchInnloggetAnsatt } from './api/tiltak-api'
@@ -7,28 +7,36 @@ import { IfElse } from './component/felles/IfElse'
 import { Banner } from './component/felles/menu/Banner'
 import { SpinnerPage } from './component/felles/spinner-page/SpinnerPage'
 import { IngenRollePage } from './component/page/ingen-rolle-page/IngenRollePage'
-import { LandingPage, LandingPageView } from './component/page/landing-page/LandingPage'
-import { Routes } from './Routes'
-import StoreProvider from './store/store-provider'
-import { isNotStartedOrPending, isRejected, usePromise } from './utils/use-promise'
+import { LandingPageView } from './component/page/landing-page/LandingPage'
+import { PrivateRoutes, PublicRoutes } from './Routes'
+import { useAuthStore } from './store/data-store'
+import { isNotStartedOrPending, isRejected, isResolved, usePromise } from './utils/use-promise'
 
 export const App = (): React.ReactElement => {
 	const fetchInnloggetAnsattPromise = usePromise<AxiosResponse<InnloggetAnsatt>, AxiosError>(fetchInnloggetAnsatt)
 	const erIkkeInnlogget = fetchInnloggetAnsattPromise.error?.response?.status === 401
+	const { setInnloggetAnsatt } = useAuthStore()
+
+	useEffect(() => {
+		if (isResolved(fetchInnloggetAnsattPromise)) {
+			setInnloggetAnsatt(fetchInnloggetAnsattPromise.result.data)
+		}
+
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [ fetchInnloggetAnsattPromise ])
 
 	if (isNotStartedOrPending(fetchInnloggetAnsattPromise)) {
-		return <SpinnerPage/>
+		return <SpinnerPage />
 	}
 
 	if (erIkkeInnlogget) {
-		return <LandingPage view={LandingPageView.LOGIN}/>
+		return <PublicRoutes landingPageView={LandingPageView.LOGIN} />
 	}
 
 	if (isRejected(fetchInnloggetAnsattPromise)) {
-		return <LandingPage view={LandingPageView.IKKE_TILGANG}/>
+		return <PublicRoutes landingPageView={LandingPageView.IKKE_TILGANG} />
 	}
 
-	const innloggetAnsatt = fetchInnloggetAnsattPromise.result.data
 
 	let feilmelding = null
 
@@ -37,15 +45,15 @@ export const App = (): React.ReactElement => {
 		.length > 0
 
 	if (!harTilgang) {
-		feilmelding = <IngenRollePage/>
+		feilmelding = <IngenRollePage />
 	}
 
 	return (
-		<StoreProvider innloggetAnsatt={innloggetAnsatt}>
-			<Banner/>
+		<>
+			<Banner />
 			<IfElse condition={!!feilmelding}
 				conditionTrueElement={feilmelding}
-				conditionFalseElement={<Routes/>}/>
-		</StoreProvider>
+				conditionFalseElement={<PrivateRoutes />} />
+		</>
 	)
 }
