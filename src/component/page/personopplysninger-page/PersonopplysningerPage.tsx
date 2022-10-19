@@ -62,7 +62,7 @@ export const PersonopplysningerPage = (): React.ReactElement => {
 					</Heading>
 
 					<BodyLong size="small" className={globalStyles.blokkM}>
-						Du kan kreve innsyn og retting i personopplysningene NAV behandler om deg. I gitte situasjoner har du også rett til sletting av dine personopplysninger. Du kan lese mer om dine rettigheter på <Link href="https://www.datatilsynet.no/" className={styles.eksternLenke}><ExternalLink /> Datatilsynets nettside</Link>.
+						Du kan kreve innsyn og retting i personopplysningene NAV behandler om deg. I gitte situasjoner har du også rett til sletting av dine personopplysninger. Du kan lese mer om dine rettigheter på <Link href="https://www.datatilsynet.no/" className={styles.eksternLenke}>Datatilsynets nettside <ExternalLink /></Link>.
 					</BodyLong>
 
 					<Heading size="xsmall" level="2" className={globalStyles.blokkXxs}>

@@ -3,7 +3,6 @@ import React, { useEffect } from 'react'
 
 import { InnloggetAnsatt } from './api/data/ansatt'
 import { fetchInnloggetAnsatt } from './api/tiltak-api'
-import { IfElse } from './component/felles/IfElse'
 import { Banner } from './component/felles/menu/Banner'
 import { SpinnerPage } from './component/felles/spinner-page/SpinnerPage'
 import { IngenRollePage } from './component/page/ingen-rolle-page/IngenRollePage'
@@ -37,23 +36,14 @@ export const App = (): React.ReactElement => {
 		return <PublicRoutes landingPageView={LandingPageView.IKKE_TILGANG} />
 	}
 
-
-	let feilmelding = null
-
 	const harTilgang = fetchInnloggetAnsattPromise.result.data.arrangorer
 		.filter(arrangor => arrangor.roller.length > 0)
 		.length > 0
 
-	if (!harTilgang) {
-		feilmelding = <IngenRollePage />
-	}
-
 	return (
 		<>
 			<Banner />
-			<IfElse condition={!!feilmelding}
-				conditionTrueElement={feilmelding}
-				conditionFalseElement={<PrivateRoutes />} />
+			{harTilgang ? <PrivateRoutes /> : <IngenRollePage />}
 		</>
 	)
 }
