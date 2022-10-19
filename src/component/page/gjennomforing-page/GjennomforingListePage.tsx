@@ -1,7 +1,6 @@
 import { Add, Information } from '@navikt/ds-icons'
 import { AxiosResponse } from 'axios'
 import React from 'react'
-import { Link } from 'react-router-dom'
 
 import { Gjennomforing, TiltakGjennomforingStatus } from '../../../api/data/tiltak'
 import { fetchTiltakGjennomforinger } from '../../../api/tiltak-api'
@@ -10,6 +9,7 @@ import { INFORMASJON_PAGE_ROUTE, LEGG_TIL_DELTAKERLISTE_PAGE_ROUTE } from '../..
 import { sortAlphabeticAsc } from '../../../utils/sortering-utils'
 import { isNotStartedOrPending, isRejected, usePromise } from '../../../utils/use-promise'
 import { AlertPage } from '../../felles/alert-page/AlertPage'
+import { IkonLenke } from '../../felles/ikon-lenke/IkonLenke'
 import { SpinnerPage } from '../../felles/spinner-page/SpinnerPage'
 import { GjennomforingListe } from './gjennomforing-liste/GjennomforingListe'
 import styles from './GjennomforingListePage.module.scss'
@@ -22,11 +22,11 @@ export const GjennomforingListePage = (): React.ReactElement => {
 	)
 
 	if (isNotStartedOrPending(fetchGjennomforingerPromise)) {
-		return <SpinnerPage/>
+		return <SpinnerPage />
 	}
 
 	if (isRejected(fetchGjennomforingerPromise)) {
-		return <AlertPage variant="error" tekst="Noe gikk galt"/>
+		return <AlertPage variant="error" tekst="Noe gikk galt" />
 	}
 
 	const alleGjennomforinger = fetchGjennomforingerPromise.result.data
@@ -37,19 +37,21 @@ export const GjennomforingListePage = (): React.ReactElement => {
 
 	return (
 		<main className={styles.page} data-testid="gjennomforing-oversikt-page">
-			<GjennomforingListe gjennomforinger={gjennomforinger}/>
+			<GjennomforingListe gjennomforinger={gjennomforinger} />
 
-			<div className={styles.leggTilDeltakerlisteWrapper}>
-				<Link className={styles.lenke} to={LEGG_TIL_DELTAKERLISTE_PAGE_ROUTE}>
-					<Add/> Legg til deltakerliste
-				</Link>
-			</div>
+			<IkonLenke
+				to={LEGG_TIL_DELTAKERLISTE_PAGE_ROUTE}
+				className={styles.leggTilDeltakerlisteWrapper}
+				ikon={<Add />}
+				text="Legg til deltakerliste"
+			/>
 
-			<div className={styles.informasjonLenkeWrapper}>
-				<Link className={styles.lenke} to={INFORMASJON_PAGE_ROUTE}>
-					<Information title="Informasjon"/>Info om deltakeroversikten
-				</Link>
-			</div>
+			<IkonLenke
+				to={INFORMASJON_PAGE_ROUTE}
+				className={styles.informasjonLenkeWrapper}
+				ikon={<Information title="Informasjon" />}
+				text="Info om deltakeroversikten"
+			/>
 		</main>
 	)
 }

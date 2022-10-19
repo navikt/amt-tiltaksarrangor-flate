@@ -1,9 +1,12 @@
+import { Information } from '@navikt/ds-icons'
 import { Alert, Heading } from '@navikt/ds-react'
 import cls from 'classnames'
 import React from 'react'
 
 import globalStyles from '../../../globals.module.scss'
+import { PERSONOPPLYSNINGER_PAGE_ROUTE } from '../../../navigation'
 import { loginUrl } from '../../../utils/url-utils'
+import { IkonLenke } from '../../felles/ikon-lenke/IkonLenke'
 import { Show } from '../../felles/Show'
 import styles from './LandingPage.module.scss'
 
@@ -45,6 +48,13 @@ export const LandingPage = (props: LandingPageProps): React.ReactElement => {
 			<Show if={props.view === LandingPageView.LOGIN}>
 				<a className={cls('navds-button', 'navds-button--primary', 'navds-button--medium')} href={loginUrl()}>Logg inn</a>
 			</Show>
+			<IkonLenke
+				to={PERSONOPPLYSNINGER_PAGE_ROUTE}
+				className={styles.informasjonLenkeWrapper}
+				ikon={<Information title="Informasjon" />}
+				text="Slik behandles personopplysningene dine når du bruker deltakeroversikten"
+			/>
+
 		</main>
 	)
 }
