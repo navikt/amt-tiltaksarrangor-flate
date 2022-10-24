@@ -23,5 +23,5 @@ export const mockInnloggetAnsattVirksomheter: Virksomhet[] = [
 export const mockInnloggetAnsatt: InnloggetAnsatt = {
 	fornavn: 'Karoline',
 	etternavn: 'Koordinatorsen',
-	arrangorer: []
+	arrangorer: mockInnloggetAnsattVirksomheter
 }
