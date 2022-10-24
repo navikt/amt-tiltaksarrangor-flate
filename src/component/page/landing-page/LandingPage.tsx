@@ -35,8 +35,7 @@ export const LandingPage = (props: LandingPageProps): React.ReactElement => {
 			</div>
 
 			<Alert variant="warning" className={cls(styles.alertstripe, globalStyles.blokkM)}>
-				Denne tjenesten er en pilot og er under utvikling. Nå i førsteomgang er det bare de
-				som har en avtale om bruk som har tilgang.
+				Deltakeroversikten er under arbeid, og enkelte tiltaksarrangører prøver nå tjenesten.
 			</Alert>
 
 			<Show if={props.view === LandingPageView.IKKE_TILGANG}>
