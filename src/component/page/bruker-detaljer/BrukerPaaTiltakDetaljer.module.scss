@@ -23,12 +23,18 @@
 
 .headerInfoWrapper {
 	display: flex;
-	flex-direction: column;
+	flex-direction: row;
+	flex-wrap: wrap;
+
+	> *:not(:last-child) {
+		margin-right: 2rem;
+	}
 }
 
 .headerInfo {
 	display: flex;
 	flex-direction: row;
+	align-items: center;
 
 	> *:not(:last-child) {
 		margin-right: 2rem;

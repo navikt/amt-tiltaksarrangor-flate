@@ -61,7 +61,7 @@ export const BrukerPaaTiltakDetaljer = (props: { bruker: TiltakDeltakerDetaljer 
 					</div>
 
 					<div className={styles.headerInfoWrapper}>
-						<div className={cls(styles.headerTitleWrapper, globalStyles.blokkXs)}>
+						<div className={cls(styles.headerTitleWrapper)}>
 							<Heading size="medium" level="2" className={styles.headerTitle}>{lagBrukerNavn(fornavn, mellomnavn, etternavn)}</Heading>
 							{fodselsnummer && (
 								<KopierKnapp
