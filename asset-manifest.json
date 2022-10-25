@@ -1,17 +1,17 @@
 {
   "files": {
-    "main.css": "/amt-tiltaksarrangor-flate/static/css/main.837468da.css",
-    "main.js": "/amt-tiltaksarrangor-flate/static/js/main.3e094616.js",
+    "main.css": "/amt-tiltaksarrangor-flate/static/css/main.65a92edb.css",
+    "main.js": "/amt-tiltaksarrangor-flate/static/js/main.d09ad78a.js",
     "static/media/clipboard.svg": "/amt-tiltaksarrangor-flate/static/media/clipboard.2d1cae403a5b54cdfc122db67abb68c9.svg",
     "static/media/lightbulb.svg": "/amt-tiltaksarrangor-flate/static/media/lightbulb.62039286e19ef154df0d8e6f387e3758.svg",
     "static/media/nav-logo.svg": "/amt-tiltaksarrangor-flate/static/media/nav-logo.1e630d5f66984cbf05e1733ac78b91b2.svg",
     "static/media/mobilephone.svg": "/amt-tiltaksarrangor-flate/static/media/mobilephone.0951f556be3590873bb862cc3aecbe35.svg",
     "index.html": "/amt-tiltaksarrangor-flate/index.html",
-    "main.837468da.css.map": "/amt-tiltaksarrangor-flate/static/css/main.837468da.css.map",
-    "main.3e094616.js.map": "/amt-tiltaksarrangor-flate/static/js/main.3e094616.js.map"
+    "main.65a92edb.css.map": "/amt-tiltaksarrangor-flate/static/css/main.65a92edb.css.map",
+    "main.d09ad78a.js.map": "/amt-tiltaksarrangor-flate/static/js/main.d09ad78a.js.map"
   },
   "entrypoints": [
-    "static/css/main.837468da.css",
-    "static/js/main.3e094616.js"
+    "static/css/main.65a92edb.css",
+    "static/js/main.d09ad78a.js"
   ]
 }
