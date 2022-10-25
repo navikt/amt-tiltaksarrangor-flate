@@ -3,10 +3,13 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: center;
   width: 100%;
   margin: 0 auto;
+  max-width: 600px;
 
-  @media(min-width: 600px) {
-    max-width: 600px;
-  }
+}
+
+.eksternLenke {
+  vertical-align: bottom;
 }
