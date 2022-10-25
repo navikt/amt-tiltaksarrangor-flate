@@ -5,6 +5,7 @@ import { BrukerDetaljerPage } from './component/page/bruker-detaljer/BrukerDetal
 import { GjennomforingDetaljerPage } from './component/page/gjennomforing-detaljer/GjennomforingDetaljerPage'
 import { GjennomforingListePage } from './component/page/gjennomforing-page/GjennomforingListePage'
 import { InformasjonPage } from './component/page/informasjon-page/InformasjonPage'
+import { IngenRollePage } from './component/page/ingen-rolle-page/IngenRollePage'
 import { LandingPage, LandingPageView } from './component/page/landing-page/LandingPage'
 import { LeggTilDeltakerlistePage } from './component/page/legg-til-deltakerliste/LeggTilDeltakerlistePage'
 import { PersonopplysningerPage } from './component/page/personopplysninger-page/PersonopplysningerPage'
@@ -13,7 +14,7 @@ import {
 	BRUKER_DETALJER_PAGE_ROUTE,
 	GJENNOMFORING_DETALJER_PAGE_ROUTE,
 	GJENNOMFORING_LISTE_PAGE_ROUTE,
-	INFORMASJON_PAGE_ROUTE,
+	INFORMASJON_PAGE_ROUTE, INGEN_ROLLE_PAGE_ROUTE,
 	LEGG_TIL_DELTAKERLISTE_PAGE_ROUTE,
 	PERSONOPPLYSNINGER_PAGE_ROUTE
 } from './navigation'
@@ -29,6 +30,7 @@ export const PrivateRoutes = (): React.ReactElement => {
 				<Route path={GJENNOMFORING_LISTE_PAGE_ROUTE} element={<GjennomforingListePage />} />
 				<Route path={LEGG_TIL_DELTAKERLISTE_PAGE_ROUTE} element={<LeggTilDeltakerlistePage />} />
 				<Route path={PERSONOPPLYSNINGER_PAGE_ROUTE} element={<PersonopplysningerPage />} />
+				<Route path={INGEN_ROLLE_PAGE_ROUTE} element={<IngenRollePage/>} />
 				<Route path="*" element={<Navigate replace to={GJENNOMFORING_LISTE_PAGE_ROUTE}/>} />
 			</Routes>
 		</>

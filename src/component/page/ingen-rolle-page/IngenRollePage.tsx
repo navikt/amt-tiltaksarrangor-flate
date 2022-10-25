@@ -27,7 +27,7 @@ export const IngenRollePage = (): React.ReactElement => {
 					</BodyLong>
 				</section>
 
-				<Link href="https://www.altinn.no/hjelp/profil/roller-og-rettigheter" className={styles.eksternLenke}>Les
+				<Link target="_blank" rel="noopener noreferrer" href="https://www.altinn.no/hjelp/profil/roller-og-rettigheter" className={styles.eksternLenke}>Les
 					mer om roller og rettigheter på Altinn.no <ExternalLink/></Link>
 
 			</Panel>

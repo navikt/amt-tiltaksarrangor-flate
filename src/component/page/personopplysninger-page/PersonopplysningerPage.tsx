@@ -24,14 +24,15 @@ export const PersonopplysningerPage = (): React.ReactElement => {
 				<Card className={styles.contentCard}>
 					<Heading size="large" level="1" className={globalStyles.blokkXxs}>Behandling av dine personopplysninger</Heading>
 					<Heading size="xsmall" level="2" className={globalStyles.blokkXxs}>Hvordan behandler NAV personopplysningene dine?  </Heading>
-					<BodyLong size="small" className={globalStyles.blokkM}>
+					<BodyLong size="small" className={globalStyles.blokkS}>
 						Som ansatt hos en tiltaksarrangør har du i tjenesten “Deltakeroversikt” tilgang til å se deltakere som er på arbeidsmarkedstiltak hos dere. For at du skal kunne bruke denne tjenesten, må NAV behandle følgende personopplysninger om deg:
-						<ul>
-							<li>Navn</li>
-							<li>Fødselsnummer</li>
-							<li>Virksomheten du jobber for</li>
-						</ul>
 					</BodyLong>
+
+					<ul className={styles.list}>
+						<li>Navn</li>
+						<li>Fødselsnummer</li>
+						<li>Virksomheten du jobber for</li>
+					</ul>
 
 					<BodyLong size="small" className={globalStyles.blokkM}>
 						Når du logger inn med ID-porten, behandler NAV ditt fødselsnummer for å sjekke om du skal ha tilgang til tjenesten. Ved bruk av tjenesten lagres ditt navn og fødselsnummer. Disse personopplysningene, sammen organisasjonsnummeret på virksomheten, brukes også for å forhindre uberettiget bruk av tjenesten.
@@ -41,14 +42,13 @@ export const PersonopplysningerPage = (): React.ReactElement => {
 						Behandlingen følger av en rettslig forpliktelse som påhviler NAV som behandlingsansvarlig jf. personvernforordningen art. 6 nr. 1 bokstav c. Behandlingen er nødvendig for å oppfylle kravet til personopplysningssikkerhet i personvernforordningen art. 32 og den registrertes rett til innsyn jf. GDPR art. 15 c.
 					</BodyLong>
 
-					<Heading size="xsmall" level="2" className={globalStyles.blokkXxs}>Hvem har tilgang til dine personopplysninger?</Heading>
-					<BodyLong size="small" className={globalStyles.blokkM}>
-						<ul>
-							<li>Utviklingsteamet som drifter deltakeroversikten i NAV</li>
-							<li>Utviklingsteamet som drifter innsynsloggtjenesten i NAV</li>
-							<li>Dersom dere er flere som jobber med samme tiltak, vil dere se hverandres navn tilknyttet deltakerlisten</li>
-						</ul>
-					</BodyLong>
+					<Heading size="xsmall" level="2" className={globalStyles.blokkS}>Hvem har tilgang til dine personopplysninger?</Heading>
+
+					<ul className={styles.list}>
+						<li>Utviklingsteamet som drifter deltakeroversikten i NAV</li>
+						<li>Utviklingsteamet som drifter innsynsloggtjenesten i NAV</li>
+						<li>Dersom dere er flere som jobber med samme tiltak, vil dere se hverandres navn tilknyttet deltakerlisten</li>
+					</ul>
 
 					<Heading size="xsmall" level="2" className={globalStyles.blokkXxs}>
 						Lagring og sletting
