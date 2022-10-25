@@ -20,9 +20,7 @@ export const GjennomforingListe = (props: GjennomforingListeProps): React.ReactE
 
 	if (props.gjennomforinger.length === 0) {
 		return (
-			<div>
-				<Alert variant="info">For å se deltakere må du legge til en deltakerliste.</Alert>
-			</div>
+			<Alert variant="info" className={globalStyles.blokkM}>For å se deltakere må du legge til en deltakerliste.</Alert>
 		)
 	}
 
