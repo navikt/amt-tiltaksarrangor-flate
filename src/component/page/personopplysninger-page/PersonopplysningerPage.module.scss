@@ -20,6 +20,12 @@
   margin-bottom: 2rem !important;
 }
 
+.list {
+  font-size: var(--navds-font-size-medium);
+  margin-top: 0;
+  margin-bottom: 2rem;
+}
+
 .contentCard {
   margin-top: 2rem;
   padding: 2rem;
@@ -51,5 +57,5 @@
 }
 
 .eksternLenke {
-    vertical-align: bottom;
+  vertical-align: bottom;
 }
