@@ -97,7 +97,7 @@ export const BrukerPaaTiltakDetaljer = (props: { bruker: TiltakDeltakerDetaljer 
 						</Show>
 						<Show if={erSkjermetPerson}>
 							<Alert variant="warning" className={styles.skjermetPersonAlert}>
-								Du kan ikke endre datoer på denne deltakeren. Ta kontakt med NAV-veileder.
+								Du kan ikke endre datoer på denne deltakeren fordi deltakeren er ansatt i NAV. Ta kontakt med NAV-veileder.
 							</Alert>
 						</Show>
 					</div>
