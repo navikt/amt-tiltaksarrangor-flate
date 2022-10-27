@@ -2,30 +2,39 @@ import { TiltakDeltaker } from '../../../../api/data/deltaker'
 import { compareAsc, Sortering } from '../../../../utils/sortering-utils'
 
 export enum DeltakerKolonne {
-	NAVN = 'NAVN',
-	FODSELSNUMMER = 'FODSELSNUMMER',
-	STATUS = 'STATUS',
-	OPPSTART = 'OPPSTART',
-	SLUTT = 'SLUTT',
-	SOKT_INN = 'SOKT_INN'
+    NAVN = 'NAVN',
+    FODSELSNUMMER = 'FODSELSNUMMER',
+    STATUS = 'STATUS',
+    OPPSTART = 'OPPSTART',
+    SLUTT = 'SLUTT',
+    SOKT_INN = 'SOKT_INN'
 }
 
 export const sorterDeltakere = (deltakere: TiltakDeltaker[], sortering: Sortering | undefined): TiltakDeltaker[] => {
 	if (!sortering) {
-		return sorterStatusEndringAsc(deltakere).reverse()
+		return sorterStatusEndringDesc(deltakere)
 	}
 
-	const propName = getDeltakerPropName(sortering.orderBy)
-
-	if (sortering.direction === undefined || !deltakere || !propName) {
+	if (sortering.direction === undefined) {
 		return deltakere
 	}
 
 	const sorterteDeltakereAsc = [ ...deltakere ].sort((a, b) => {
-		if (propName === 'status') {
-			return compareAsc(a.status.type, b.status.type)
-		} else {
-			return compareAsc(a[propName], b[propName])
+		switch (sortering.orderBy) {
+			case DeltakerKolonne.NAVN: return compareAsc(a.etternavn, b.etternavn)
+			case DeltakerKolonne.STATUS: return compareAsc(a.status.type, b.status.type)
+			case DeltakerKolonne.OPPSTART: return compareAsc(
+				a.aktivEndringsmelding?.startDato || a.startDato,
+				b.aktivEndringsmelding?.startDato || b.startDato
+			)
+			case DeltakerKolonne.SLUTT: return compareAsc(
+				a.aktivEndringsmelding?.sluttDato || a.sluttDato,
+				b.aktivEndringsmelding?.sluttDato || b.sluttDato
+			)
+			case DeltakerKolonne.FODSELSNUMMER: return compareAsc(a.fodselsnummer, b.fodselsnummer)
+			case DeltakerKolonne.SOKT_INN: return compareAsc(a.registrertDato, b.registrertDato)
+			default: return 0
+
 		}
 	})
 
@@ -36,21 +45,9 @@ export const sorterDeltakere = (deltakere: TiltakDeltaker[], sortering: Sorterin
 	return sorterteDeltakereAsc
 }
 
-const sorterStatusEndringAsc = (deltakere: TiltakDeltaker[]): TiltakDeltaker[] => {
+const sorterStatusEndringDesc = (deltakere: TiltakDeltaker[]): TiltakDeltaker[] => {
 	return [ ...deltakere ].sort((d1, d2) => {
 		return compareAsc(d1.status.endretDato, d2.status.endretDato)
-	})
-}
+	}).reverse()
 
-const getDeltakerPropName = (kolonne: string): keyof TiltakDeltaker => {
-	switch (kolonne){
-		case DeltakerKolonne.NAVN: return 'etternavn'
-		case DeltakerKolonne.OPPSTART: return 'startDato'
-		case DeltakerKolonne.SLUTT: return 'sluttDato'
-		case DeltakerKolonne.SOKT_INN: return 'registrertDato'
-		case DeltakerKolonne.FODSELSNUMMER: return 'fodselsnummer'
-		case DeltakerKolonne.STATUS: return 'status'
-		default:
-			throw Error('Ukjent kolonne ' + kolonne)
-	}
 }

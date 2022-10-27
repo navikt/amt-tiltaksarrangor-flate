@@ -87,11 +87,11 @@ export const SluttdatoPanel = ({
 					/>
 				</div>
 				<ConfirmationPanel
-					label={'Ja, dette har vi avklart allerede'}
+					label={'Ja, NAV-veileder har godkjent'}
 					checked={confirm}
 					onChange={() => setConfirm(x => !x)}
 				>
-					Forlengelse og avslutning må først avtales med NAV-veileder, og så kan ny sluttdato sendes inn her. Er ny sluttdato godkjent av NAV-veileder?
+					Forlengelse og avslutning må først avtales med NAV-veileder. Når dette er gjort kan du sende ny sluttdato her. Er ny sluttdato godkjent av NAV-veileder?
 				</ConfirmationPanel>
 				<Button
 					variant="primary"
