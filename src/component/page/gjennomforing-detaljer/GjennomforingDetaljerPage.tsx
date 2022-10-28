@@ -1,9 +1,12 @@
+import { Heading } from '@navikt/ds-react'
 import { AxiosResponse } from 'axios'
 import React from 'react'
 import { useParams } from 'react-router-dom'
 
 import { TiltakDeltaker } from '../../../api/data/deltaker'
-import { fetchDeltakerePaTiltakGjennomforing } from '../../../api/tiltak-api'
+import { Gjennomforing } from '../../../api/data/tiltak'
+import { fetchDeltakerePaTiltakGjennomforing, fetchTiltakGjennomforing } from '../../../api/tiltak-api'
+import globalStyles from '../../../globals.module.scss'
 import { useTabTitle } from '../../../hooks/use-tab-title'
 import { GJENNOMFORING_LISTE_PAGE_ROUTE } from '../../../navigation'
 import { getAntallDeltakerePerStatus } from '../../../utils/deltaker-status-utils'
@@ -14,6 +17,7 @@ import { Tilbakelenke } from '../../felles/tilbakelenke/Tilbakelenke'
 import { DeltakerOversiktTabell } from './deltaker-oversikt/DeltakerOversiktTabell'
 import { FilterMeny } from './FilterMeny'
 import styles from './GjennomforingDetaljerPage.module.scss'
+import { KoordinatorInfo } from './KoordinatorInfo'
 import { TiltakInfo } from './TiltakInfo'
 
 export const GjennomforingDetaljerPage = (): React.ReactElement => {
@@ -26,15 +30,27 @@ export const GjennomforingDetaljerPage = (): React.ReactElement => {
 		() => fetchDeltakerePaTiltakGjennomforing(gjennomforingId), [ gjennomforingId ]
 	)
 
-	if (isNotStartedOrPending(fetchDeltakerePaGjennomforingPromise)) {
+	const fetchGjennomforingPromise = usePromise<AxiosResponse<Gjennomforing>>(
+		() => fetchTiltakGjennomforing(gjennomforingId), [ gjennomforingId ]
+	)
+
+	if (
+		isNotStartedOrPending(fetchDeltakerePaGjennomforingPromise)
+		|| isNotStartedOrPending(fetchGjennomforingPromise)
+	) {
 		return <SpinnerPage/>
 	}
 
-	if (isRejected(fetchDeltakerePaGjennomforingPromise)) {
+	if (
+		isRejected(fetchDeltakerePaGjennomforingPromise)
+		|| isRejected(fetchGjennomforingPromise)
+	) {
 		return <AlertPage variant="error" tekst="Noe gikk galt"/>
 	}
 
 	const deltakere = fetchDeltakerePaGjennomforingPromise.result.data
+
+	const gjennomforing = fetchGjennomforingPromise.result.data
 
 	const deltakerePerStatus = getAntallDeltakerePerStatus(deltakere)
 
@@ -42,8 +58,10 @@ export const GjennomforingDetaljerPage = (): React.ReactElement => {
 		<main className={styles.tiltaksoversiktPage} data-testid="gjennomforing-detaljer-page">
 			<section>
 				<Tilbakelenke to={GJENNOMFORING_LISTE_PAGE_ROUTE} className={styles.tilbakelenke}/>
-				<TiltakInfo gjennomforingId={gjennomforingId}/>
-				<FilterMeny statusMap={deltakerePerStatus}/>
+				<Heading size="medium" level="2" className={globalStyles.blokkXs}>{gjennomforing.navn}</Heading>
+				<FilterMeny statusMap={deltakerePerStatus} className={globalStyles.blokkXs}/>
+				<TiltakInfo gjennomforing={gjennomforing} className={globalStyles.blokkXs}/>
+				<KoordinatorInfo gjennomforingId={gjennomforing.id}/>
 			</section>
 
 			<DeltakerOversiktTabell deltakere={deltakere}/>
