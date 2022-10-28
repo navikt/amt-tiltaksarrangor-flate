@@ -1,3 +1,4 @@
+import { People } from '@navikt/ds-icons'
 import { Alert, Heading, Loader } from '@navikt/ds-react'
 import { AxiosResponse } from 'axios'
 import React from 'react'
@@ -7,6 +8,13 @@ import { fetchKoordinatorerForGjennfomforing } from '../../../api/tiltak-api'
 import globalStyles from '../../../globals.module.scss'
 import { isNotStartedOrPending, isRejected, usePromise } from '../../../utils/use-promise'
 import styles from './KoordinatorInfo.module.scss'
+
+const koordinatorDisplayString = (k: Koordinator): string => {
+	if (k.mellomnavn != null) {
+		return `${k.fornavn} ${k.mellomnavn} ${k.etternavn}`
+	}
+	return `${k.fornavn} ${k.etternavn}`
+}
 
 interface KoordinatorInfoProps {
 	gjennomforingId: string
@@ -33,19 +41,14 @@ export const KoordinatorInfo = (props: KoordinatorInfoProps) => {
 		return <></>
 	}
 
-	const koordinatorDisplayString = (k: Koordinator): string => {
-		if (k.mellomnavn != null) {
-			return `${k.fornavn} ${k.mellomnavn} ${k.etternavn}`
-		}
-		return `${k.fornavn} ${k.etternavn}`
-	}
-
 	return (
 		<div className={globalStyles.blokkM}>
 			<Heading size="xsmall" level="3" className={globalStyles.blokkXxs}>Koordinatorer</Heading>
 			<ul className={styles.koordinatorList}>
-				{koordinatorer.map(k => <li className={styles.koordinator}
-					key={koordinatorDisplayString(k)}>{koordinatorDisplayString(k)}</li>)}
+				{koordinatorer.map(k =>
+					<li className={styles.koordinator} key={koordinatorDisplayString(k)}>
+						<People/> {koordinatorDisplayString(k)}
+					</li>)}
 			</ul>
 
 		</div>
