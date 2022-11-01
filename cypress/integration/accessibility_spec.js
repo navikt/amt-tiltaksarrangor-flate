@@ -1,3 +1,4 @@
+import { mockInnloggetAnsatt } from '../../src/mock/data/ansatt';
 import { logViolations } from '../log-utils'
 
 function sjekkUU() {
@@ -37,11 +38,7 @@ function navigerTilBrukerDetaljer() {
 
 
 function initialize() {
-	// Authentication always fails on first api call, therefore we need to initialize
-	cy.visit('/')
-	cy.get('#root', { timeout: 30_000 })
-	cy.screenshot('initialize-done')
-
+	cy.intercept('/tiltaksarrangor/deltakeroversikt/amt-tiltak/api/arrangor/ansatt/meg', mockInnloggetAnsatt).as('getInnloggetAnsatt')
 }
 
 describe('Cypress+Axe accessibility tests', () => {
