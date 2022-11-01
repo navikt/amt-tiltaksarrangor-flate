@@ -1,12 +1,13 @@
 {
     "baseUrl": "http://localhost:3000/tiltaksarrangor/deltakeroversikt",
+    "projectId": "r9b3yw",
     "fixturesFolder": false,
     "viewportHeight": 1300,
     "viewportWidth": 1800,
     "requestTimeout": 20000,
     "pageLoadTimeout": 20000,
     "defaultCommandTimeout": 20000,
-    "screenshotOnRunFailure": false,
-    "video": false,
+    "screenshotOnRunFailure": true,
+    "video": true,
     "videoUploadOnPasses": false
 }
