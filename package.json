@@ -6,7 +6,7 @@
     "@navikt/ds-css": "^0.17.3",
     "@navikt/ds-icons": "^0.8.11",
     "@navikt/ds-react": "^0.19.8",
-    "@navikt/ds-tokens": "^0.8.7",
+    "@navikt/ds-tokens": "^0.9.8",
     "@sentry/react": "^7.3.1",
     "@sentry/tracing": "^7.3.1",
     "@testing-library/jest-dom": "^5.16.1",
