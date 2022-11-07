@@ -8,7 +8,7 @@ interface TabellBodyProps {
 	brukere: TiltakDeltaker[];
 }
 
-export const TabellBody = (props: TabellBodyProps) : JSX.Element => {
+export const TabellBody = (props: TabellBodyProps): JSX.Element => {
 	return (
 		<Table.Body>
 			{props.brukere.map((bruker, idx) => (

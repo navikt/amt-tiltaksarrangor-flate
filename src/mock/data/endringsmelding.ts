@@ -1,6 +1,6 @@
 import * as faker from 'faker'
 
-import { Endringsmelding } from '../../api/data/tiltak'
+import { Endringsmelding, EndringsmeldingType } from '../../api/data/endringsmelding'
 import { randBetween } from '../utils/faker'
 import { endringsmeldingId } from './id'
 
@@ -25,18 +25,16 @@ export const lagMockEndringsmeldingForDeltaker = (): Endringsmelding[] => {
 		return [
 			{
 				id: endringsmeldingId(),
-				startDato: null,
-				sluttDato: faker.date.soon(),
-				aktiv: faker.datatype.boolean()
+				type: EndringsmeldingType.LEGG_TIL_OPPSTARTSDATO,
+				innhold: { oppstartsdato: faker.date.soon() }
 			}
 		]
 	}
 	return [
 		{
 			id: endringsmeldingId(),
-			startDato: faker.date.soon(),
-			sluttDato: null,
-			aktiv: faker.datatype.boolean()
+			type: EndringsmeldingType.AVSLUTT_DELTAKELSE,
+			innhold: { sluttdato: faker.date.soon() }
 		}
 	]
 }

@@ -24,7 +24,7 @@ const gjennomforingIder = genererIder(500)
 
 const deltakerIder = genererIder(500)
 
-const endringsmeldingIder = genererIder(500)
+const endringsmeldingIder = genererIder(5000)
 
 const virksomhetIder = genererIder(500)
 

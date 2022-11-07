@@ -3,6 +3,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 
 import { TiltakDeltaker } from '../../../../api/data/deltaker'
+import { EndringsmeldingType } from '../../../../api/data/endringsmelding'
 import { brukerDetaljerPageUrl } from '../../../../navigation'
 import { klikkDeltakerRadOversikt, loggKlikk } from '../../../../utils/amplitude-utils'
 import { lagKommaSeparertBrukerNavn } from '../../../../utils/bruker-utils'
@@ -27,15 +28,22 @@ export const Rad = (props: RadProps): React.ReactElement<RadProps> => {
 		sluttDato,
 		registrertDato,
 		status,
-		aktivEndringsmelding
+		aktiveEndringsmeldinger,
 	} = props.bruker
 
-	const startDatoTekst = aktivEndringsmelding?.startDato 
-		? formatDate(aktivEndringsmelding.startDato) + '*'
+	const aktivSluttdato = aktiveEndringsmeldinger?.flatMap(e => {
+		return e.type === EndringsmeldingType.AVSLUTT_DELTAKELSE ? e.innhold.sluttdato : []
+	})[0]
+	const aktivStartdato = aktiveEndringsmeldinger?.flatMap(e => {
+		return e.type === EndringsmeldingType.LEGG_TIL_OPPSTARTSDATO ? e.innhold.oppstartsdato : []
+	})[0]
+
+	const startDatoTekst = aktivStartdato
+		? formatDate(aktivStartdato) + '*'
 		: formatDate(startDato)
 
-	const sluttDatoTekst = aktivEndringsmelding?.sluttDato 
-		? formatDate(aktivEndringsmelding.sluttDato) + '*'
+	const sluttDatoTekst = aktivSluttdato
+		? formatDate(aktivSluttdato) + '*'
 		: formatDate(sluttDato)
 
 	return (
@@ -45,12 +53,12 @@ export const Rad = (props: RadProps): React.ReactElement<RadProps> => {
 					{lagKommaSeparertBrukerNavn(fornavn, mellomnavn, etternavn)}
 				</Link>
 			</Table.DataCell>
-			<Table.DataCell><Fnr fnr={fodselsnummer}/></Table.DataCell>
+			<Table.DataCell><Fnr fnr={fodselsnummer} /></Table.DataCell>
 			<Table.DataCell>{formatDate(registrertDato)}</Table.DataCell>
 			<Table.DataCell>{startDatoTekst}</Table.DataCell>
 			<Table.DataCell>{sluttDatoTekst}</Table.DataCell>
 			<Table.DataCell>
-				<StatusMerkelapp status={status}/>
+				<StatusMerkelapp status={status} />
 			</Table.DataCell>
 		</Table.Row>
 	)

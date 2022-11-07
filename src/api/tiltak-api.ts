@@ -9,9 +9,8 @@ import {
 	tiltakDeltakerDetaljerSchema,
 	tiltakDeltakereSchema
 } from './data/deltaker'
+import { Endringsmelding, endringsmeldingerSchema } from './data/endringsmelding'
 import {
-	Endringsmelding,
-	endringsmeldingerSchema,
 	Gjennomforing,
 	gjennomforingerSchema,
 	gjennomforingSchema,
@@ -78,7 +77,7 @@ export const fetchKoordinatorerForGjennfomforing = (gjennomforingId: string): Ax
 
 export const fetchDeltakerePaTiltakGjennomforing = (gjennomforingId: string): AxiosPromise<TiltakDeltaker[]> => {
 	return axiosInstance
-		.get(appUrl(`/amt-tiltak/api/gjennomforing/${gjennomforingId}/deltakere`))
+		.get(appUrl(`/amt-tiltak/api/tiltak-deltaker?gjennomforingId=${gjennomforingId}`))
 		.then(parse(tiltakDeltakereSchema))
 		.catch(logAndThrowError)
 }
@@ -92,21 +91,25 @@ export const fetchTiltakDeltagerDetaljer = (tiltakDeltagerId: string): AxiosProm
 
 export const hentEndringsmeldinger = (deltakerId: string): AxiosPromise<Endringsmelding[]> => {
 	return axiosInstance
-		.get(appUrl(`/amt-tiltak/api/tiltaksarrangor/endringsmelding?deltakerId=${deltakerId}`))
+		.get(appUrl(`/amt-tiltak/api/tiltaksarrangor/endringsmelding/aktiv?deltakerId=${deltakerId}`))
 		.then(parse(endringsmeldingerSchema))
 		.catch(logAndThrowError)
 }
 
-export const opprettStartDatoEndringsmelding = (deltakerId: string, startDato: Date): AxiosPromise => {
-	const datoStr = formatDateToDateInputStr(startDato)
+export const leggTilOppstartsdato = (deltakerId: string, startDato: Date): AxiosPromise => {
 	return axiosInstance
-		.post(appUrl(`/amt-tiltak/api/tiltaksarrangor/endringsmelding/deltaker/${deltakerId}/startdato?startDato=${datoStr}`))
+		.post(
+			appUrl(`/amt-tiltak/api/tiltaksarrangor/tiltak-deltaker/${deltakerId}/oppstartsdato`),
+			{ oppstartsdato: formatDateToDateInputStr(startDato) },
+		)
 		.catch(logAndThrowError)
 }
 
-export const opprettSluttDatoEndringsmelding = (deltakerId: string, sluttDato: Date): AxiosPromise => {
-	const datoStr = formatDateToDateInputStr(sluttDato)
+export const avsluttDeltakelse = (deltakerId: string, sluttDato: Date): AxiosPromise => {
 	return axiosInstance
-		.post(appUrl(`/amt-tiltak/api/tiltaksarrangor/endringsmelding/deltaker/${deltakerId}/sluttdato?sluttDato=${datoStr}`))
+		.patch(
+			appUrl(`/amt-tiltak/api/tiltaksarrangor/tiltak-deltaker/${deltakerId}/avslutt-deltakelse`),
+			{ sluttdato: formatDateToDateInputStr(sluttDato), aarsak: 'ANNET' },
+		)
 		.catch(logAndThrowError)
 }

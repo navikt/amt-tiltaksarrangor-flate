@@ -106,8 +106,8 @@ export const BrukerPaaTiltakDetaljer = (props: { bruker: TiltakDeltakerDetaljer 
 						<Deltakelsesperiode
 							erSkjermetPerson={erSkjermetPerson}
 							deltakerId={deltakerId}
-							startDato={startDato}
-							sluttDato={sluttDato}
+							deltakerStartdato={startDato}
+							deltakerSluttdato={sluttDato}
 							gjennomforingStartDato={gjennomforing.startDato}
 							gjennomforingSluttDato={gjennomforing.sluttDato}
 						/>
