@@ -85,7 +85,7 @@ export const mockHandlers: RequestHandler[] = [
 		mockEndringsmeldinger[deltakerId].push({
 			id: randomUuid(),
 			type: EndringsmeldingType.AVSLUTT_DELTAKELSE,
-			innhold: { sluttdato: dayjs(body.sluttdato).toDate() }
+			innhold: { sluttdato: dayjs(body.sluttdato).toDate(), aarsak: 'ANNET' }
 		})
 		return res(ctx.delay(500), ctx.status(200))
 	}),

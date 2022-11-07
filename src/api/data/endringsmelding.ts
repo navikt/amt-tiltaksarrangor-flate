@@ -22,7 +22,7 @@ export const leggTilOppstartsdatoEndringsmeldingSchema = z.intersection(endrings
 export const avsluttDeltakelseEndringsmeldingSchema = z.intersection(endringsmeldingBaseSchema, z.object({
 	id: z.string().uuid(),
 	type: z.literal(EndringsmeldingType.AVSLUTT_DELTAKELSE),
-	innhold: z.object({ sluttdato: dateSchema }),
+	innhold: z.object({ sluttdato: dateSchema, aarsak: z.string() }),
 }))
 
 

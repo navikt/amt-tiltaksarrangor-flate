@@ -34,7 +34,7 @@ export const lagMockEndringsmeldingForDeltaker = (): Endringsmelding[] => {
 		{
 			id: endringsmeldingId(),
 			type: EndringsmeldingType.AVSLUTT_DELTAKELSE,
-			innhold: { sluttdato: faker.date.soon() }
+			innhold: { sluttdato: faker.date.soon(), aarsak: 'ANNET' }
 		}
 	]
 }
