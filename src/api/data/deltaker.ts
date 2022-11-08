@@ -1,13 +1,14 @@
 import { z } from 'zod'
 
 import { dateSchema, nullableDateSchema } from '../utils'
+import { endringsmeldingSchema } from './endringsmelding'
 import { Gjennomforing } from './tiltak'
 
 export enum TiltakDeltakerStatus {
-	VENTER_PA_OPPSTART = 'VENTER_PA_OPPSTART',
-	DELTAR = 'DELTAR',
-	HAR_SLUTTET = 'HAR_SLUTTET',
-	IKKE_AKTUELL = 'IKKE_AKTUELL'
+    VENTER_PA_OPPSTART = 'VENTER_PA_OPPSTART',
+    DELTAR = 'DELTAR',
+    HAR_SLUTTET = 'HAR_SLUTTET',
+    IKKE_AKTUELL = 'IKKE_AKTUELL'
 }
 
 const tiltakDeltakerStatusSchema = z.nativeEnum(TiltakDeltakerStatus)
@@ -27,10 +28,7 @@ export const tiltakDeltakerSchema = z.object({
 	sluttDato: nullableDateSchema,
 	status: deltakerStatusSchema,
 	registrertDato: dateSchema,
-	aktivEndringsmelding: z.object({
-		startDato: nullableDateSchema,
-		sluttDato: nullableDateSchema
-	}).nullable()
+	aktiveEndringsmeldinger: z.array(endringsmeldingSchema)
 })
 
 export const tiltakDeltakerDetaljerSchema = z.object({

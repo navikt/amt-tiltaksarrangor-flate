@@ -1,8 +1,10 @@
 import faker from 'faker'
 
 import { TiltakDeltakerStatus } from '../../api/data/deltaker'
+import { Endringsmelding } from '../../api/data/endringsmelding'
 import { Gjennomforing } from '../../api/data/tiltak'
 import { randBetween, randomFnr } from '../utils/faker'
+import { lagMockEndringsmeldingForDeltaker } from './endringsmelding'
 import { deltakerId } from './id'
 import { MockGjennomforing } from './tiltak'
 
@@ -14,11 +16,6 @@ export interface MockNavVeileder {
     navn: string,
     telefon: string | null,
     epost: string | null,
-}
-
-interface AktivEndringsmelding {
-    startDato: Date | null,
-    sluttDato: Date | null,
 }
 
 export interface MockTiltakDeltaker {
@@ -42,7 +39,7 @@ export interface MockTiltakDeltaker {
     gjennomforing: MockGjennomforing,
     fjernesDato: Date | null,
     innsokBegrunnelse: string | null,
-    aktivEndringsmelding: AktivEndringsmelding | null
+    aktiveEndringsmeldinger: Endringsmelding[]
 }
 
 const navEnheter: MockNavEnhet[] = [
@@ -114,22 +111,6 @@ const lagMockTiltakDeltagerForGjennomforing = (gjennomforing: Gjennomforing): Mo
 		telefon: lagTelefonnummer()
 	} : null
 
-	const aktivEndringsmelding = (): AktivEndringsmelding | null => {
-		let startDato: null | Date = null
-		let sluttDato: null | Date = null
-		const n = randBetween(0, 10)
-		if (n < 3) {
-			startDato = faker.date.soon()
-		} else if (n < 7) {
-			sluttDato = faker.date.soon()
-		} else {
-			return null
-		}
-		return { startDato, sluttDato }
-
-
-	}
-
 	return {
 		id: deltakerId(),
 		fornavn: brukerFornavn,
@@ -151,7 +132,7 @@ const lagMockTiltakDeltagerForGjennomforing = (gjennomforing: Gjennomforing): Mo
 		gjennomforing: gjennomforing,
 		registrertDato: faker.date.past(),
 		innsokBegrunnelse: genererBegrunnelse(brukerFornavn),
-		aktivEndringsmelding: aktivEndringsmelding()
+		aktiveEndringsmeldinger: lagMockEndringsmeldingForDeltaker()
 	}
 }
 

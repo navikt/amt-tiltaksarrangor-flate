@@ -2,8 +2,7 @@ import { Alert, Button, ConfirmationPanel } from '@navikt/ds-react'
 import { AxiosResponse } from 'axios'
 import React, { useEffect, useState } from 'react'
 
-import { Endringsmelding } from '../../../../api/data/tiltak'
-import { opprettSluttDatoEndringsmelding } from '../../../../api/tiltak-api'
+import { forlengDeltakelse } from '../../../../api/tiltak-api'
 import { formatDate } from '../../../../utils/date-utils'
 import { Nullable } from '../../../../utils/types/or-nothing'
 import { isPending, isRejected, usePromise } from '../../../../utils/use-promise'
@@ -15,9 +14,9 @@ import styles from './DatoPanel.module.scss'
 interface SluttdatoPanelProps {
 	deltakerId: string
 	disabled: boolean
-	startDato: Nullable<Date>
-	sluttDato: Nullable<Date>
-	aktivEndringsmelding: Nullable<Endringsmelding>
+	deltakerStartdato: Nullable<Date>
+	deltakerSluttdato: Nullable<Date>
+	endringsmeldingSluttdato: Nullable<Date>
 	gjennomforingStartDato: Nullable<Date>
 	gjennomforingSluttDato: Nullable<Date>
 }
@@ -25,9 +24,9 @@ interface SluttdatoPanelProps {
 export const SluttdatoPanel = ({
 	deltakerId,
 	disabled,
-	startDato,
-	sluttDato,
-	aktivEndringsmelding,
+	deltakerStartdato,
+	deltakerSluttdato,
+	endringsmeldingSluttdato,
 	gjennomforingStartDato,
 	gjennomforingSluttDato,
 }: SluttdatoPanelProps): React.ReactElement => {
@@ -35,16 +34,16 @@ export const SluttdatoPanel = ({
 	const [ valgtDato, setValgtDato ] = useState<Nullable<Date>>()
 	const [ sendtDato, setSendtDato ] = useState<Nullable<Date>>()
 	const [ confirm, setConfirm ] = useState(false)
-	const opprettEndringsmeldingPromise = usePromise<AxiosResponse>()
+	const forlengDeltakelsePromise = usePromise<AxiosResponse>()
 
-	const minDato = startDato || gjennomforingStartDato
+	const minDato = deltakerStartdato || gjennomforingStartDato
 
-	const opprettEndringsmelding = () => {
+	const sendEndreSluttdatoEndringsmelding = () => {
 		if (!valgtDato) {
 			return
 		}
-		opprettEndringsmeldingPromise.setPromise(
-			opprettSluttDatoEndringsmelding(deltakerId, valgtDato)
+		forlengDeltakelsePromise.setPromise(
+			forlengDeltakelse(deltakerId, valgtDato)
 				.then(res => {
 					setEkspandert(false)
 					setSendtDato(valgtDato)
@@ -55,10 +54,10 @@ export const SluttdatoPanel = ({
 
 	useEffect(() => {
 		if (!sendtDato) {
-			setSendtDato(aktivEndringsmelding?.sluttDato)
+			setSendtDato(endringsmeldingSluttdato)
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [ aktivEndringsmelding ])
+	}, [ endringsmeldingSluttdato ])
 
 	useEffect(() => {
 		if (ekspandert) {
@@ -72,7 +71,7 @@ export const SluttdatoPanel = ({
 		<div className={styles.datoPanel}>
 			<DatoPanel tittel={'Sluttdato'}
 				disabled={disabled}
-				dato={sluttDato}
+				dato={deltakerSluttdato}
 				ekspandert={ekspandert}
 				onEkspanderToggle={() => setEkspandert(e => !e)}
 			>
@@ -97,8 +96,8 @@ export const SluttdatoPanel = ({
 					variant="primary"
 					size="small"
 					className={styles.sendSluttDatoKnapp}
-					loading={isPending(opprettEndringsmeldingPromise)}
-					onClick={opprettEndringsmelding}
+					loading={isPending(forlengDeltakelsePromise)}
+					onClick={sendEndreSluttdatoEndringsmelding}
 					disabled={!valgtDato || !confirm}
 				>
 					Send til NAV
@@ -109,7 +108,7 @@ export const SluttdatoPanel = ({
 					Ny sluttdato {formatDate(sendtDato)} er sendt til NAV
 				</Alert>
 			</Show>
-			<Show if={isRejected(opprettEndringsmeldingPromise)}>
+			<Show if={isRejected(forlengDeltakelsePromise)}>
 				<Alert variant="error" className={styles.alert}>Klarte ikke å sende sluttdato</Alert>
 			</Show>
 

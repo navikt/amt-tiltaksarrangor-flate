@@ -23,14 +23,15 @@ export const sorterDeltakere = (deltakere: TiltakDeltaker[], sortering: Sorterin
 		switch (sortering.orderBy) {
 			case DeltakerKolonne.NAVN: return compareAsc(a.etternavn, b.etternavn)
 			case DeltakerKolonne.STATUS: return compareAsc(a.status.type, b.status.type)
-			case DeltakerKolonne.OPPSTART: return compareAsc(
-				a.aktivEndringsmelding?.startDato || a.startDato,
-				b.aktivEndringsmelding?.startDato || b.startDato
-			)
-			case DeltakerKolonne.SLUTT: return compareAsc(
-				a.aktivEndringsmelding?.sluttDato || a.sluttDato,
-				b.aktivEndringsmelding?.sluttDato || b.sluttDato
-			)
+			case DeltakerKolonne.OPPSTART: return 0
+				//    compareAsc(
+				//		a.aktivEndringsmelding?.startDato || a.startDato,
+				//		b.aktivEndringsmelding?.startDato || b.startDato
+				//	)
+			case DeltakerKolonne.SLUTT: return 0 //compareAsc(
+				//				a.aktivEndringsmelding?.sluttDato || a.sluttDato,
+				//				b.aktivEndringsmelding?.sluttDato || b.sluttDato
+				//			)
 			case DeltakerKolonne.FODSELSNUMMER: return compareAsc(a.fodselsnummer, b.fodselsnummer)
 			case DeltakerKolonne.SOKT_INN: return compareAsc(a.registrertDato, b.registrertDato)
 			default: return 0

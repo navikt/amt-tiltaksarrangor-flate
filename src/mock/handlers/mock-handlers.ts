@@ -3,6 +3,7 @@ import { rest } from 'msw'
 import { RequestHandler } from 'msw/lib/types/handlers/RequestHandler'
 
 import { TiltakDeltaker } from '../../api/data/deltaker'
+import { DeltakerStatusAarsak, EndringsmeldingType } from '../../api/data/endringsmelding'
 import { appUrl } from '../../utils/url-utils'
 import {
 	mockEndringsmeldinger,
@@ -12,9 +13,13 @@ import {
 	mockTiltakDeltagere
 } from '../data'
 import { mockInnloggetAnsatt } from '../data/ansatt'
+import { mockAuthInfo } from '../data/auth'
 import { randomUuid } from '../utils/faker'
 
 export const mockHandlers: RequestHandler[] = [
+	rest.get(appUrl('/auth/info'), (_req, res, ctx) => {
+		return res(ctx.delay(500), ctx.json(mockAuthInfo))
+	}),
 	rest.get(appUrl('/amt-tiltak/api/arrangor/ansatt/meg'), (_req, res, ctx) => {
 		return res(ctx.delay(500), ctx.json(mockInnloggetAnsatt))
 	}),
@@ -28,9 +33,8 @@ export const mockHandlers: RequestHandler[] = [
 
 		return res(ctx.delay(500), ctx.json(gjennomforing))
 	}),
-	rest.get(appUrl('/amt-tiltak/api/gjennomforing/:gjennomforingId/deltakere'), (req, res, ctx) => {
-		const gjennomforingId = req.params.gjennomforingId
-
+	rest.get(appUrl('/amt-tiltak/api/tiltak-deltaker'), (req, res, ctx) => {
+		const gjennomforingId = req.url.searchParams.get('gjennomforingId') as string
 		const data: TiltakDeltaker[] = mockTiltakDeltagere
 			.filter(deltaker => deltaker.gjennomforing.id === gjennomforingId)
 
@@ -63,45 +67,59 @@ export const mockHandlers: RequestHandler[] = [
 
 		return res(ctx.delay(500), ctx.json(meldinger))
 	}),
-	rest.post(appUrl('/amt-tiltak/api/tiltaksarrangor/endringsmelding/deltaker/:deltakerId/startdato'), (req, res, ctx) => {
+	rest.post(appUrl('/amt-tiltak/api/tiltaksarrangor/tiltak-deltaker/:deltakerId/oppstartsdato'), (req, res, ctx) => {
 		const deltakerId = req.params.deltakerId as string
+		const body = req.body as { oppstartsdato: string }
 
-		const startDatoStr = req.url.searchParams.get('startDato') as string
-
-		const startDato = dayjs(startDatoStr, 'YYYY-MM-DD').toDate()
-
-		const sluttDato = null
-
-		mockEndringsmeldinger[deltakerId] = [
-			...(mockEndringsmeldinger[deltakerId] || []).map(e => ({ ...e, aktiv: false })),
-			{ id: randomUuid(), startDato: startDato, sluttDato: sluttDato, aktiv: true }
-		]
-
+		mockEndringsmeldinger[deltakerId].push({
+			id: randomUuid(),
+			type: EndringsmeldingType.LEGG_TIL_OPPSTARTSDATO,
+			innhold: { oppstartsdato: dayjs(body.oppstartsdato).toDate() }
+		})
 		return res(ctx.delay(500), ctx.status(200))
 	}),
-	rest.post(appUrl('/amt-tiltak/api/tiltaksarrangor/endringsmelding/deltaker/:deltakerId/sluttdato'), (req, res, ctx) => {
+	rest.patch(appUrl('/amt-tiltak/api/tiltaksarrangor/tiltak-deltaker/:deltakerId/oppstartsdato'), (req, res, ctx) => {
 		const deltakerId = req.params.deltakerId as string
+		const body = req.body as { oppstartsdato: string }
 
-		const sluttDatoStr = req.url.searchParams.get('sluttDato') as string
-
-		const startDato = null
-		const sluttDato = dayjs(sluttDatoStr, 'YYYY-MM-DD').toDate()
-
-
-		mockEndringsmeldinger[deltakerId] = [
-			...(mockEndringsmeldinger[deltakerId] || []).map(e => ({ ...e, aktiv: false })),
-			{ id: randomUuid(), startDato: startDato, sluttDato: sluttDato, aktiv: true }
-		]
-
+		mockEndringsmeldinger[deltakerId].push({
+			id: randomUuid(),
+			type: EndringsmeldingType.ENDRE_OPPSTARTSDATO,
+			innhold: { oppstartsdato: dayjs(body.oppstartsdato).toDate() }
+		})
 		return res(ctx.delay(500), ctx.status(200))
 	}),
-	rest.get(appUrl('/auth/info'), (_req, res, ctx) => {
-		const authInfo = {
-			expirationTime: dayjs().add(1, 'day').toISOString(),
-			loggedIn: true,
-			remainingSeconds: 3600,
-			securityLevel: 'Level 4'
-		}
-		return res(ctx.delay(500), ctx.json(authInfo))
+	rest.patch(appUrl('/amt-tiltak/api/tiltaksarrangor/tiltak-deltaker/:deltakerId/forleng-deltakelse'), (req, res, ctx) => {
+		const deltakerId = req.params.deltakerId as string
+		const body = req.body as { sluttdato: string }
+
+		mockEndringsmeldinger[deltakerId].push({
+			id: randomUuid(),
+			type: EndringsmeldingType.FORLENG_DELTAKELSE,
+			innhold: { sluttdato: dayjs(body.sluttdato).toDate() }
+		})
+		return res(ctx.delay(500), ctx.status(200))
+	}),
+	rest.patch(appUrl('/amt-tiltak/api/tiltaksarrangor/tiltak-deltaker/:deltakerId/avslutt-deltakelse'), (req, res, ctx) => {
+		const deltakerId = req.params.deltakerId as string
+		const body = req.body as { sluttdato: string, aarsak: DeltakerStatusAarsak }
+
+		mockEndringsmeldinger[deltakerId].push({
+			id: randomUuid(),
+			type: EndringsmeldingType.AVSLUTT_DELTAKELSE,
+			innhold: { sluttdato: dayjs(body.sluttdato).toDate(), aarsak: body.aarsak }
+		})
+		return res(ctx.delay(500), ctx.status(200))
+	}),
+	rest.patch(appUrl('/amt-tiltak/api/tiltaksarrangor/tiltak-deltaker/:deltakerId/ikke-aktuell'), (req, res, ctx) => {
+		const deltakerId = req.params.deltakerId as string
+		const body = req.body as { aarsak: DeltakerStatusAarsak }
+
+		mockEndringsmeldinger[deltakerId].push({
+			id: randomUuid(),
+			type: EndringsmeldingType.DELTAKER_IKKE_AKTUELL,
+			innhold: { aarsak: body.aarsak }
+		})
+		return res(ctx.delay(500), ctx.status(200))
 	}),
 ]
