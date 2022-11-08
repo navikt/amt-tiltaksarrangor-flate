@@ -2,7 +2,7 @@ import { Alert, Button, ConfirmationPanel } from '@navikt/ds-react'
 import { AxiosResponse } from 'axios'
 import React, { useEffect, useState } from 'react'
 
-import { avsluttDeltakelse } from '../../../../api/tiltak-api'
+import { forlengDeltakelse } from '../../../../api/tiltak-api'
 import { formatDate } from '../../../../utils/date-utils'
 import { Nullable } from '../../../../utils/types/or-nothing'
 import { isPending, isRejected, usePromise } from '../../../../utils/use-promise'
@@ -34,7 +34,7 @@ export const SluttdatoPanel = ({
 	const [ valgtDato, setValgtDato ] = useState<Nullable<Date>>()
 	const [ sendtDato, setSendtDato ] = useState<Nullable<Date>>()
 	const [ confirm, setConfirm ] = useState(false)
-	const avsluttDeltakelsePromise = usePromise<AxiosResponse>()
+	const forlengDeltakelsePromise = usePromise<AxiosResponse>()
 
 	const minDato = deltakerStartdato || gjennomforingStartDato
 
@@ -42,8 +42,8 @@ export const SluttdatoPanel = ({
 		if (!valgtDato) {
 			return
 		}
-		avsluttDeltakelsePromise.setPromise(
-			avsluttDeltakelse(deltakerId, valgtDato)
+		forlengDeltakelsePromise.setPromise(
+			forlengDeltakelse(deltakerId, valgtDato)
 				.then(res => {
 					setEkspandert(false)
 					setSendtDato(valgtDato)
@@ -96,7 +96,7 @@ export const SluttdatoPanel = ({
 					variant="primary"
 					size="small"
 					className={styles.sendSluttDatoKnapp}
-					loading={isPending(avsluttDeltakelsePromise)}
+					loading={isPending(forlengDeltakelsePromise)}
 					onClick={sendEndreSluttdatoEndringsmelding}
 					disabled={!valgtDato || !confirm}
 				>
@@ -108,7 +108,7 @@ export const SluttdatoPanel = ({
 					Ny sluttdato {formatDate(sendtDato)} er sendt til NAV
 				</Alert>
 			</Show>
-			<Show if={isRejected(avsluttDeltakelsePromise)}>
+			<Show if={isRejected(forlengDeltakelsePromise)}>
 				<Alert variant="error" className={styles.alert}>Klarte ikke å sende sluttdato</Alert>
 			</Show>
 

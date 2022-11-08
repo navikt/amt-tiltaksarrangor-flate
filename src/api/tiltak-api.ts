@@ -9,7 +9,7 @@ import {
 	tiltakDeltakerDetaljerSchema,
 	tiltakDeltakereSchema
 } from './data/deltaker'
-import { Endringsmelding, endringsmeldingerSchema } from './data/endringsmelding'
+import { DeltakerStatusAarsak, Endringsmelding, endringsmeldingerSchema } from './data/endringsmelding'
 import {
 	Gjennomforing,
 	gjennomforingerSchema,
@@ -105,11 +105,38 @@ export const leggTilOppstartsdato = (deltakerId: string, startDato: Date): Axios
 		.catch(logAndThrowError)
 }
 
-export const avsluttDeltakelse = (deltakerId: string, sluttDato: Date): AxiosPromise => {
+export const endreOppstartsdato = (deltakerId: string, startDato: Date): AxiosPromise => {
+	return axiosInstance
+		.patch(
+			appUrl(`/amt-tiltak/api/tiltaksarrangor/tiltak-deltaker/${deltakerId}/oppstartsdato`),
+			{ oppstartsdato: formatDateToDateInputStr(startDato) },
+		)
+		.catch(logAndThrowError)
+}
+
+export const forlengDeltakelse = (deltakerId: string, sluttDato: Date): AxiosPromise => {
+	return axiosInstance
+		.patch(
+			appUrl(`/amt-tiltak/api/tiltaksarrangor/tiltak-deltaker/${deltakerId}/forleng-deltakelse`),
+			{ sluttdato: formatDateToDateInputStr(sluttDato) },
+		)
+		.catch(logAndThrowError)
+}
+
+export const avsluttDeltakelse = (deltakerId: string, sluttDato: Date, aarsak: DeltakerStatusAarsak): AxiosPromise => {
 	return axiosInstance
 		.patch(
 			appUrl(`/amt-tiltak/api/tiltaksarrangor/tiltak-deltaker/${deltakerId}/avslutt-deltakelse`),
-			{ sluttdato: formatDateToDateInputStr(sluttDato), aarsak: 'ANNET' },
+			{ sluttdato: formatDateToDateInputStr(sluttDato), aarsak: aarsak },
+		)
+		.catch(logAndThrowError)
+}
+
+export const deltakerIkkeAktuell = (deltakerId: string, aarsak: DeltakerStatusAarsak): AxiosPromise => {
+	return axiosInstance
+		.patch(
+			appUrl(`/amt-tiltak/api/tiltaksarrangor/tiltak-deltaker/${deltakerId}/ikke-aktuell`),
+			{ aarsak: aarsak },
 		)
 		.catch(logAndThrowError)
 }

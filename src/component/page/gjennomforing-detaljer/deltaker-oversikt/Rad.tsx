@@ -32,10 +32,10 @@ export const Rad = (props: RadProps): React.ReactElement<RadProps> => {
 	} = props.bruker
 
 	const aktivSluttdato = aktiveEndringsmeldinger?.flatMap(e => {
-		return e.type === EndringsmeldingType.AVSLUTT_DELTAKELSE ? e.innhold.sluttdato : []
+		return e.type === EndringsmeldingType.FORLENG_DELTAKELSE || e.type === EndringsmeldingType.AVSLUTT_DELTAKELSE ? e.innhold.sluttdato : []
 	})[0]
 	const aktivStartdato = aktiveEndringsmeldinger?.flatMap(e => {
-		return e.type === EndringsmeldingType.LEGG_TIL_OPPSTARTSDATO ? e.innhold.oppstartsdato : []
+		return e.type === EndringsmeldingType.ENDRE_OPPSTARTSDATO || e.type === EndringsmeldingType.LEGG_TIL_OPPSTARTSDATO ? e.innhold.oppstartsdato : []
 	})[0]
 
 	const startDatoTekst = aktivStartdato

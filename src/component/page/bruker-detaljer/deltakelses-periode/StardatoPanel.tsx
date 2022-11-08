@@ -3,7 +3,7 @@ import { AxiosResponse } from 'axios'
 import dayjs from 'dayjs'
 import React, { useEffect, useState } from 'react'
 
-import { leggTilOppstartsdato } from '../../../../api/tiltak-api'
+import { endreOppstartsdato } from '../../../../api/tiltak-api'
 import { formatDate } from '../../../../utils/date-utils'
 import { Nullable } from '../../../../utils/types/or-nothing'
 import { isPending, isRejected, usePromise } from '../../../../utils/use-promise'
@@ -42,7 +42,7 @@ export const StartdatoPanel = ({
 			return
 		}
 		opprettEndringsmeldingPromise.setPromise(
-			leggTilOppstartsdato(deltakerId, valgtDato)
+			endreOppstartsdato(deltakerId, valgtDato)
 				.then(res => {
 					setEkspandert(false)
 					setSendtDato(valgtDato)

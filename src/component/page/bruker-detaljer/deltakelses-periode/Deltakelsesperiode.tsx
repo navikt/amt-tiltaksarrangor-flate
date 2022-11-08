@@ -30,13 +30,13 @@ export const Deltakelsesperiode = ({
 }: DeltakelsesperiodeProps): React.ReactElement => {
 	const endringsmeldingerPromise = usePromise<AxiosResponse<Endringsmelding[]>>(() => hentEndringsmeldinger(deltakerId))
 
-	const aktiveEndringsmeldinger: Endringsmelding[] | undefined = endringsmeldingerPromise.result?.data
-	const aktivSluttdato = aktiveEndringsmeldinger?.flatMap(e => {
-		return e.type === EndringsmeldingType.AVSLUTT_DELTAKELSE ? e.innhold.sluttdato : []
-	})[0]
+	const aktiveEndringsmeldinger = endringsmeldingerPromise.result?.data
 
+	const aktivSluttdato = aktiveEndringsmeldinger?.flatMap(e => {
+		return e.type === EndringsmeldingType.FORLENG_DELTAKELSE || e.type === EndringsmeldingType.AVSLUTT_DELTAKELSE ? e.innhold.sluttdato : []
+	})[0]
 	const aktivStartdato = aktiveEndringsmeldinger?.flatMap(e => {
-		return e.type === EndringsmeldingType.LEGG_TIL_OPPSTARTSDATO ? e.innhold.oppstartsdato : []
+		return e.type === EndringsmeldingType.ENDRE_OPPSTARTSDATO || e.type === EndringsmeldingType.LEGG_TIL_OPPSTARTSDATO ? e.innhold.oppstartsdato : []
 	})[0]
 
 
