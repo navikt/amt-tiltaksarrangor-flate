@@ -2,7 +2,7 @@ import dayjs from 'dayjs'
 import { rest } from 'msw'
 import { RequestHandler } from 'msw/lib/types/handlers/RequestHandler'
 
-import { TiltakDeltaker } from '../../api/data/deltaker'
+import { TiltakDeltaker, TiltakDeltakerDetaljer } from '../../api/data/deltaker'
 import { DeltakerStatusAarsak, EndringsmeldingType } from '../../api/data/endringsmelding'
 import { appUrl } from '../../utils/url-utils'
 import {
@@ -14,6 +14,7 @@ import {
 } from '../data'
 import { mockInnloggetAnsatt } from '../data/ansatt'
 import { mockAuthInfo } from '../data/auth'
+import { MockTiltakDeltaker } from '../data/brukere'
 import { randomUuid } from '../utils/faker'
 
 export const mockHandlers: RequestHandler[] = [
@@ -37,6 +38,7 @@ export const mockHandlers: RequestHandler[] = [
 		const gjennomforingId = req.url.searchParams.get('gjennomforingId') as string
 		const data: TiltakDeltaker[] = mockTiltakDeltagere
 			.filter(deltaker => deltaker.gjennomforing.id === gjennomforingId)
+			.map(deltaker => mapToDeltakerListView(deltaker))
 
 		return res(ctx.delay(500), ctx.json(data))
 	}),
@@ -46,8 +48,7 @@ export const mockHandlers: RequestHandler[] = [
 	rest.get(appUrl('/amt-tiltak/api/tiltak-deltaker/:deltakerId'), (req, res, ctx) => {
 		const deltakerId = req.params['deltakerId']
 		const deltaker = mockTiltakDeltagere.find((d) => d.id === deltakerId)! // eslint-disable-line @typescript-eslint/no-non-null-assertion
-		const gjennomforing = mockGjennomforinger.find(g => g.id === deltaker.gjennomforing.id)! // eslint-disable-line @typescript-eslint/no-non-null-assertion
-		const deltakerMedGjennomforing = { ...deltaker, gjennomforing: gjennomforing }
+		const deltakerMedGjennomforing = mapToDeltakerDetaljerView(deltaker)
 
 		return res(ctx.delay(500), ctx.json(deltakerMedGjennomforing))
 	}),
@@ -122,4 +123,51 @@ export const mockHandlers: RequestHandler[] = [
 		})
 		return res(ctx.delay(500), ctx.status(200))
 	}),
+	rest.get(appUrl('/amt-tiltak/api/tiltaksarrangor/endringsmelding/aktiv?deltakerId=:deltakerId'), (req, res, ctx) => {
+		const deltakerId = req.url.searchParams.get('deltakerId') as string
+		const endringsmelding = mockEndringsmeldinger[deltakerId]
+
+		if(endringsmelding != null) {
+			return res(ctx.delay(500), ctx.json(endringsmelding))
+		}
+
+		return res(ctx.delay(500), ctx.status(404))
+	})
 ]
+
+const mapToDeltakerListView = (deltaker: MockTiltakDeltaker): TiltakDeltaker => {
+	return {
+		id: deltaker.id,
+		fornavn: deltaker.fornavn,
+		mellomnavn: deltaker.mellomnavn,
+		etternavn: deltaker.etternavn,
+		fodselsnummer: deltaker.fodselsnummer,
+		startDato: deltaker.startDato,
+		sluttDato: deltaker.sluttDato,
+		status: deltaker.status,
+		registrertDato: deltaker.registrertDato,
+		aktiveEndringsmeldinger: deltaker.aktiveEndringsmeldinger
+	}
+}
+
+const mapToDeltakerDetaljerView = (deltaker: MockTiltakDeltaker): TiltakDeltakerDetaljer => {
+	return {
+		id: deltaker.id,
+		fornavn: deltaker.fornavn,
+		mellomnavn: deltaker.mellomnavn,
+		etternavn: deltaker.etternavn,
+		fodselsnummer: deltaker.fodselsnummer,
+		startDato: deltaker.startDato,
+		sluttDato: deltaker.sluttDato,
+		status: deltaker.status,
+		registrertDato: deltaker.registrertDato,
+		erSkjermetPerson: deltaker.erSkjermetPerson,
+		epost: deltaker.epost,
+		telefonnummer: deltaker.telefonnummer,
+		navEnhet: deltaker.navEnhet,
+		navVeileder: deltaker.navVeileder,
+		gjennomforing: deltaker.gjennomforing,
+		fjernesDato: deltaker.fjernesDato,
+		innsokBegrunnelse: deltaker.innsokBegrunnelse
+	}
+}
