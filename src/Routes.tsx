@@ -1,7 +1,7 @@
 import React from 'react'
 import { Navigate, Route, Routes } from 'react-router-dom'
 
-import { BrukerDetaljerPage } from './component/page/bruker-detaljer/BrukerDetaljerPage'
+import { DeltakerDetaljerPage } from './component/page/bruker-detaljer/DeltakerDetaljerPage'
 import { GjennomforingDetaljerPage } from './component/page/gjennomforing-detaljer/GjennomforingDetaljerPage'
 import { GjennomforingListePage } from './component/page/gjennomforing-page/GjennomforingListePage'
 import { InformasjonPage } from './component/page/informasjon-page/InformasjonPage'
@@ -24,7 +24,7 @@ export const PrivateRoutes = (): React.ReactElement => {
 		<>
 			<SesjonNotifikasjon />
 			<Routes>
-				<Route path={BRUKER_DETALJER_PAGE_ROUTE} element={<BrukerDetaljerPage />} />
+				<Route path={BRUKER_DETALJER_PAGE_ROUTE} element={<DeltakerDetaljerPage />} />
 				<Route path={GJENNOMFORING_DETALJER_PAGE_ROUTE} element={<GjennomforingDetaljerPage />} />
 				<Route path={INFORMASJON_PAGE_ROUTE} element={<InformasjonPage />} />
 				<Route path={GJENNOMFORING_LISTE_PAGE_ROUTE} element={<GjennomforingListePage />} />
