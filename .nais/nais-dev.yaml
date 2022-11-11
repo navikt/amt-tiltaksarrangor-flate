@@ -6,7 +6,7 @@ metadata:
   labels:
     team: amt
 spec:
-  image: ghcr.io/navikt/poao-frontend/poao-frontend:2022.02.02_15.00-1cb75dc2fe84
+  image: ghcr.io/navikt/poao-frontend/poao-frontend:2022.11.08_13.27-623b02257593  
   port: 8080
   ingresses:
     - https://amt.dev.nav.no/tiltaksarrangor/deltakeroversikt
