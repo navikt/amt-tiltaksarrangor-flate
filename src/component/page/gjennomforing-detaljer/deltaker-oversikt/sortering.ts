@@ -1,13 +1,20 @@
 import { TiltakDeltaker } from '../../../../api/data/deltaker'
+import {
+	AvsluttDeltakelseEndringsmelding,
+	EndreOppstartsdatoEndringsmelding,
+	Endringsmelding,
+	EndringsmeldingType, ForlengDeltakelseEndringsmelding,
+	LeggTilOppstartsdatoEndringsmelding
+} from '../../../../api/data/endringsmelding'
 import { compareAsc, Sortering } from '../../../../utils/sortering-utils'
 
 export enum DeltakerKolonne {
-    NAVN = 'NAVN',
-    FODSELSNUMMER = 'FODSELSNUMMER',
-    STATUS = 'STATUS',
-    OPPSTART = 'OPPSTART',
-    SLUTT = 'SLUTT',
-    SOKT_INN = 'SOKT_INN'
+	NAVN = 'NAVN',
+	FODSELSNUMMER = 'FODSELSNUMMER',
+	STATUS = 'STATUS',
+	OPPSTART = 'OPPSTART',
+	SLUTT = 'SLUTT',
+	SOKT_INN = 'SOKT_INN'
 }
 
 export const sorterDeltakere = (deltakere: TiltakDeltaker[], sortering: Sortering | undefined): TiltakDeltaker[] => {
@@ -19,22 +26,44 @@ export const sorterDeltakere = (deltakere: TiltakDeltaker[], sortering: Sorterin
 		return deltakere
 	}
 
+	const finnEndringsmeldingMedStartDato = (endringsmeldinger: Endringsmelding[]) : LeggTilOppstartsdatoEndringsmelding | EndreOppstartsdatoEndringsmelding | undefined => {
+		return endringsmeldinger
+			.filter(endringsmelding =>
+				endringsmelding.type === EndringsmeldingType.LEGG_TIL_OPPSTARTSDATO ||
+				endringsmelding.type === EndringsmeldingType.ENDRE_OPPSTARTSDATO
+			)[0] as LeggTilOppstartsdatoEndringsmelding | EndreOppstartsdatoEndringsmelding
+	}
+
+	const finnEndringsmeldingMedSluttDato = (endringsmeldinger: Endringsmelding[]) : ForlengDeltakelseEndringsmelding | AvsluttDeltakelseEndringsmelding | undefined => {
+		return endringsmeldinger
+			.filter(endringsmelding =>
+				endringsmelding.type === EndringsmeldingType.FORLENG_DELTAKELSE ||
+				endringsmelding.type === EndringsmeldingType.AVSLUTT_DELTAKELSE
+			)[0] as ForlengDeltakelseEndringsmelding | AvsluttDeltakelseEndringsmelding
+	}
+
 	const sorterteDeltakereAsc = [ ...deltakere ].sort((a, b) => {
 		switch (sortering.orderBy) {
-			case DeltakerKolonne.NAVN: return compareAsc(a.etternavn, b.etternavn)
-			case DeltakerKolonne.STATUS: return compareAsc(a.status.type, b.status.type)
-			case DeltakerKolonne.OPPSTART: return 0
-				//    compareAsc(
-				//		a.aktivEndringsmelding?.startDato || a.startDato,
-				//		b.aktivEndringsmelding?.startDato || b.startDato
-				//	)
-			case DeltakerKolonne.SLUTT: return 0 //compareAsc(
-				//				a.aktivEndringsmelding?.sluttDato || a.sluttDato,
-				//				b.aktivEndringsmelding?.sluttDato || b.sluttDato
-				//			)
-			case DeltakerKolonne.FODSELSNUMMER: return compareAsc(a.fodselsnummer, b.fodselsnummer)
-			case DeltakerKolonne.SOKT_INN: return compareAsc(a.registrertDato, b.registrertDato)
-			default: return 0
+			case DeltakerKolonne.NAVN:
+				return compareAsc(a.etternavn, b.etternavn)
+			case DeltakerKolonne.STATUS:
+				return compareAsc(a.status.type, b.status.type)
+			case DeltakerKolonne.OPPSTART:
+				return compareAsc(
+					finnEndringsmeldingMedStartDato(a.aktiveEndringsmeldinger)?.innhold.oppstartsdato || a.startDato,
+					finnEndringsmeldingMedStartDato(b.aktiveEndringsmeldinger)?.innhold.oppstartsdato || b.startDato
+				)
+			case DeltakerKolonne.SLUTT:
+				return compareAsc(
+					finnEndringsmeldingMedSluttDato(a.aktiveEndringsmeldinger)?.innhold.sluttdato || a.sluttDato,
+					finnEndringsmeldingMedSluttDato(b.aktiveEndringsmeldinger)?.innhold.sluttdato || b.sluttDato
+				)
+			case DeltakerKolonne.FODSELSNUMMER:
+				return compareAsc(a.fodselsnummer, b.fodselsnummer)
+			case DeltakerKolonne.SOKT_INN:
+				return compareAsc(a.registrertDato, b.registrertDato)
+			default:
+				return 0
 
 		}
 	})
