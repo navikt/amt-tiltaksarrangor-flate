@@ -2,7 +2,7 @@ import { Add, Information } from '@navikt/ds-icons'
 import { AxiosResponse } from 'axios'
 import React from 'react'
 
-import { Gjennomforing, TiltakGjennomforingStatus } from '../../../api/data/tiltak'
+import { Gjennomforing } from '../../../api/data/tiltak'
 import { fetchTiltakGjennomforinger } from '../../../api/tiltak-api'
 import { useTabTitle } from '../../../hooks/use-tab-title'
 import { INFORMASJON_PAGE_ROUTE, LEGG_TIL_DELTAKERLISTE_PAGE_ROUTE } from '../../../navigation'
@@ -32,7 +32,6 @@ export const GjennomforingListePage = (): React.ReactElement => {
 	const alleGjennomforinger = fetchGjennomforingerPromise.result.data
 
 	const gjennomforinger = alleGjennomforinger
-		.filter(g => g.status === TiltakGjennomforingStatus.GJENNOMFORES)
 		.sort((g1, g2) => sortAlphabeticAsc(g1.navn, g2.navn))
 
 	return (
