@@ -1,7 +1,7 @@
 import { AxiosResponse } from 'axios'
 import React from 'react'
 
-import { Endringsmelding } from '../../../../api/data/tiltak'
+import { Endringsmelding, EndringsmeldingType } from '../../../../api/data/endringsmelding'
 import { hentEndringsmeldinger } from '../../../../api/tiltak-api'
 import { Nullable } from '../../../../utils/types/or-nothing'
 import { usePromise } from '../../../../utils/use-promise'
@@ -11,8 +11,8 @@ import { StartdatoPanel } from './StardatoPanel'
 interface DeltakelsesperiodeProps {
 	erSkjermetPerson: boolean
 	deltakerId: string
-	startDato: Nullable<Date>
-	sluttDato: Nullable<Date>
+	deltakerStartdato: Nullable<Date>
+	deltakerSluttdato: Nullable<Date>
 	gjennomforingStartDato: Nullable<Date>
 	gjennomforingSluttDato: Nullable<Date>
 	className?: string
@@ -22,18 +22,23 @@ interface DeltakelsesperiodeProps {
 export const Deltakelsesperiode = ({
 	erSkjermetPerson,
 	deltakerId,
-	startDato,
-	sluttDato,
+	deltakerStartdato: startDato,
+	deltakerSluttdato: sluttDato,
 	gjennomforingStartDato,
 	gjennomforingSluttDato,
 	className
 }: DeltakelsesperiodeProps): React.ReactElement => {
 	const endringsmeldingerPromise = usePromise<AxiosResponse<Endringsmelding[]>>(() => hentEndringsmeldinger(deltakerId))
 
-	const aktiveEndringsmeldinger: Endringsmelding[] | undefined = endringsmeldingerPromise.result?.data
-		.filter(e => e.aktiv)
-	const aktivStartdatoEndringsmelding = aktiveEndringsmeldinger?.filter(e => e.startDato != null)[0]
-	const aktivSluttdatoEndringsmelding = aktiveEndringsmeldinger?.filter(e => e.sluttDato != null)[0]
+	const aktiveEndringsmeldinger = endringsmeldingerPromise.result?.data
+
+	const aktivSluttdato = aktiveEndringsmeldinger?.flatMap(e => {
+		return e.type === EndringsmeldingType.FORLENG_DELTAKELSE || e.type === EndringsmeldingType.AVSLUTT_DELTAKELSE ? e.innhold.sluttdato : []
+	})[0]
+	const aktivStartdato = aktiveEndringsmeldinger?.flatMap(e => {
+		return e.type === EndringsmeldingType.ENDRE_OPPSTARTSDATO || e.type === EndringsmeldingType.LEGG_TIL_OPPSTARTSDATO ? e.innhold.oppstartsdato : []
+	})[0]
+
 
 	const sluttDatoKanIkkeEndres = !startDato && !sluttDato
 
@@ -42,17 +47,17 @@ export const Deltakelsesperiode = ({
 			<StartdatoPanel
 				deltakerId={deltakerId}
 				disabled={erSkjermetPerson}
-				startDato={startDato}
-				aktivEndringsmelding={aktivStartdatoEndringsmelding}
+				deltakerStartdato={startDato}
+				endringsmeldingStartdato={aktivStartdato}
 				gjennomforingStartDato={gjennomforingStartDato}
 				gjennomforingSluttDato={gjennomforingSluttDato}
 			/>
-			<SluttdatoPanel 
+			<SluttdatoPanel
 				deltakerId={deltakerId}
 				disabled={erSkjermetPerson || sluttDatoKanIkkeEndres}
-				startDato={startDato}
-				sluttDato={sluttDato}
-				aktivEndringsmelding={aktivSluttdatoEndringsmelding}
+				deltakerStartdato={startDato}
+				deltakerSluttdato={sluttDato}
+				endringsmeldingSluttdato={aktivSluttdato}
 				gjennomforingStartDato={gjennomforingStartDato}
 				gjennomforingSluttDato={gjennomforingSluttDato}
 			/>

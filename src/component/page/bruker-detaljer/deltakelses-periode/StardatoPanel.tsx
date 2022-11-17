@@ -3,8 +3,7 @@ import { AxiosResponse } from 'axios'
 import dayjs from 'dayjs'
 import React, { useEffect, useState } from 'react'
 
-import { Endringsmelding } from '../../../../api/data/tiltak'
-import { opprettStartDatoEndringsmelding } from '../../../../api/tiltak-api'
+import { endreOppstartsdato } from '../../../../api/tiltak-api'
 import { formatDate } from '../../../../utils/date-utils'
 import { Nullable } from '../../../../utils/types/or-nothing'
 import { isPending, isRejected, usePromise } from '../../../../utils/use-promise'
@@ -16,8 +15,8 @@ import styles from './DatoPanel.module.scss'
 interface StartdatoPanelProps {
 	deltakerId: string
 	disabled: boolean
-	startDato: Nullable<Date>
-	aktivEndringsmelding: Nullable<Endringsmelding>
+	deltakerStartdato: Nullable<Date>
+	endringsmeldingStartdato: Nullable<Date>
 	gjennomforingStartDato: Nullable<Date>
 	gjennomforingSluttDato: Nullable<Date>
 }
@@ -25,8 +24,8 @@ interface StartdatoPanelProps {
 export const StartdatoPanel = ({
 	deltakerId,
 	disabled,
-	startDato,
-	aktivEndringsmelding,
+	deltakerStartdato,
+	endringsmeldingStartdato,
 	gjennomforingStartDato,
 	gjennomforingSluttDato,
 }: StartdatoPanelProps): React.ReactElement => {
@@ -43,7 +42,7 @@ export const StartdatoPanel = ({
 			return
 		}
 		opprettEndringsmeldingPromise.setPromise(
-			opprettStartDatoEndringsmelding(deltakerId, valgtDato)
+			endreOppstartsdato(deltakerId, valgtDato)
 				.then(res => {
 					setEkspandert(false)
 					setSendtDato(valgtDato)
@@ -54,10 +53,10 @@ export const StartdatoPanel = ({
 
 	useEffect(() => {
 		if (!sendtDato) {
-			setSendtDato(aktivEndringsmelding?.startDato)
+			setSendtDato(endringsmeldingStartdato)
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [ aktivEndringsmelding ])
+	}, [ endringsmeldingStartdato ])
 
 	useEffect(() => {
 		if (ekspandert) {
@@ -69,7 +68,7 @@ export const StartdatoPanel = ({
 		<div className={styles.datoPanel}>
 			<DatoPanel tittel={'Oppstartsdato'}
 				disabled={disabled}
-				dato={startDato}
+				dato={deltakerStartdato}
 				ekspandert={ekspandert}
 				onEkspanderToggle={() => setEkspandert(e => !e)}
 			>

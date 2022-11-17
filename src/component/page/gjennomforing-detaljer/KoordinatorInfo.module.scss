@@ -3,11 +3,18 @@
 .koordinatorList {
   margin-block: 0;
   padding-inline: 0;
+
+  > :not(:last-child) {
+    margin-bottom: 0.25rem;
+  }
 }
 
 .koordinator {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
   list-style-type: none;
-  font-size: var(--navds-font-size-large);
+  font-size: var(--navds-font-size-medium);
   font-weight: var(--navds-font-weight-regular);
   line-height: var(--navds-font-line-height-large);
 }

@@ -9,6 +9,7 @@ import styles from './FilterMeny.module.scss'
 
 interface Props {
 	statusMap: Map<TiltakDeltakerStatus, number>
+	className?: string
 }
 
 export const FilterMeny = (props: Props): React.ReactElement => {
@@ -19,7 +20,7 @@ export const FilterMeny = (props: Props): React.ReactElement => {
 	} = useTiltaksoversiktSokStore()
 
 	return (
-		<Panel border>
+		<Panel border className={props.className}>
 			<CheckboxGroup legend="Status">
 				{Object.values(TiltakDeltakerStatus).map((status) => (
 					<Checkbox
@@ -31,7 +32,6 @@ export const FilterMeny = (props: Props): React.ReactElement => {
 							if (e.target.checked) {
 								leggTilTiltakStatus(status)
 								loggKlikk(klikkFilterMeny, status, 'checked')
-
 							} else {
 								fjernFraTiltakStatus(status)
 								loggKlikk(klikkFilterMeny, status, 'unchecked')
