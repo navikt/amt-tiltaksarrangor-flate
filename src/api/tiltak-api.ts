@@ -99,7 +99,7 @@ export const hentEndringsmeldinger = (deltakerId: string): AxiosPromise<Endrings
 export const leggTilOppstartsdato = (deltakerId: string, startDato: Date): AxiosPromise => {
 	return axiosInstance
 		.post(
-			appUrl(`/amt-tiltak/api/tiltaksarrangor/tiltak-deltaker/${deltakerId}/oppstartsdato`),
+			appUrl(`/amt-tiltak/api/tiltaksarrangor/deltaker/${deltakerId}/oppstartsdato`),
 			{ oppstartsdato: formatDateToDateInputStr(startDato) },
 		)
 		.catch(logAndThrowError)
@@ -108,7 +108,7 @@ export const leggTilOppstartsdato = (deltakerId: string, startDato: Date): Axios
 export const endreOppstartsdato = (deltakerId: string, startDato: Date): AxiosPromise => {
 	return axiosInstance
 		.patch(
-			appUrl(`/amt-tiltak/api/tiltaksarrangor/tiltak-deltaker/${deltakerId}/oppstartsdato`),
+			appUrl(`/amt-tiltak/api/tiltaksarrangor/deltaker/${deltakerId}/oppstartsdato`),
 			{ oppstartsdato: formatDateToDateInputStr(startDato) },
 		)
 		.catch(logAndThrowError)
@@ -117,7 +117,7 @@ export const endreOppstartsdato = (deltakerId: string, startDato: Date): AxiosPr
 export const forlengDeltakelse = (deltakerId: string, sluttDato: Date): AxiosPromise => {
 	return axiosInstance
 		.patch(
-			appUrl(`/amt-tiltak/api/tiltaksarrangor/tiltak-deltaker/${deltakerId}/forleng-deltakelse`),
+			appUrl(`/amt-tiltak/api/tiltaksarrangor/deltaker/${deltakerId}/forleng-deltakelse`),
 			{ sluttdato: formatDateToDateInputStr(sluttDato) },
 		)
 		.catch(logAndThrowError)
@@ -126,7 +126,7 @@ export const forlengDeltakelse = (deltakerId: string, sluttDato: Date): AxiosPro
 export const avsluttDeltakelse = (deltakerId: string, sluttDato: Date, aarsak: DeltakerStatusAarsak): AxiosPromise => {
 	return axiosInstance
 		.patch(
-			appUrl(`/amt-tiltak/api/tiltaksarrangor/tiltak-deltaker/${deltakerId}/avslutt-deltakelse`),
+			appUrl(`/amt-tiltak/api/tiltaksarrangor/deltaker/${deltakerId}/avslutt-deltakelse`),
 			{ sluttdato: formatDateToDateInputStr(sluttDato), aarsak: aarsak },
 		)
 		.catch(logAndThrowError)
@@ -135,7 +135,7 @@ export const avsluttDeltakelse = (deltakerId: string, sluttDato: Date, aarsak: D
 export const deltakerIkkeAktuell = (deltakerId: string, aarsak: DeltakerStatusAarsak): AxiosPromise => {
 	return axiosInstance
 		.patch(
-			appUrl(`/amt-tiltak/api/tiltaksarrangor/tiltak-deltaker/${deltakerId}/ikke-aktuell`),
+			appUrl(`/amt-tiltak/api/tiltaksarrangor/deltaker/${deltakerId}/ikke-aktuell`),
 			{ aarsak: aarsak },
 		)
 		.catch(logAndThrowError)

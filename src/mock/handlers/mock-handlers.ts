@@ -21,7 +21,7 @@ export const mockHandlers: RequestHandler[] = [
 	rest.get(appUrl('/auth/info'), (_req, res, ctx) => {
 		return res(ctx.delay(500), ctx.json(mockAuthInfo))
 	}),
-	rest.get(appUrl('/amt-tiltak/api/arrangor/ansatt/meg'), (_req, res, ctx) => {
+	rest.get(appUrl('/amt-tiltak/api/tiltaksarrangor/ansatt/meg'), (_req, res, ctx) => {
 		return res(ctx.delay(500), ctx.json(mockInnloggetAnsatt))
 	}),
 	rest.get(appUrl('/amt-tiltak/api/tiltaksarrangor/gjennomforing/tilgjengelig'), (_req, res, ctx) => {
@@ -68,7 +68,7 @@ export const mockHandlers: RequestHandler[] = [
 
 		return res(ctx.delay(500), ctx.json(meldinger))
 	}),
-	rest.post(appUrl('/amt-tiltak/api/tiltaksarrangor/tiltak-deltaker/:deltakerId/oppstartsdato'), (req, res, ctx) => {
+	rest.post(appUrl('/amt-tiltak/api/tiltaksarrangor/deltaker/:deltakerId/oppstartsdato'), (req, res, ctx) => {
 		const deltakerId = req.params.deltakerId as string
 		const body = req.body as { oppstartsdato: string }
 
@@ -79,7 +79,7 @@ export const mockHandlers: RequestHandler[] = [
 		})
 		return res(ctx.delay(500), ctx.status(200))
 	}),
-	rest.patch(appUrl('/amt-tiltak/api/tiltaksarrangor/tiltak-deltaker/:deltakerId/oppstartsdato'), (req, res, ctx) => {
+	rest.patch(appUrl('/amt-tiltak/api/tiltaksarrangor/deltaker/:deltakerId/oppstartsdato'), (req, res, ctx) => {
 		const deltakerId = req.params.deltakerId as string
 		const body = req.body as { oppstartsdato: string }
 
@@ -90,7 +90,7 @@ export const mockHandlers: RequestHandler[] = [
 		})
 		return res(ctx.delay(500), ctx.status(200))
 	}),
-	rest.patch(appUrl('/amt-tiltak/api/tiltaksarrangor/tiltak-deltaker/:deltakerId/forleng-deltakelse'), (req, res, ctx) => {
+	rest.patch(appUrl('/amt-tiltak/api/tiltaksarrangor/deltaker/:deltakerId/forleng-deltakelse'), (req, res, ctx) => {
 		const deltakerId = req.params.deltakerId as string
 		const body = req.body as { sluttdato: string }
 
@@ -101,7 +101,7 @@ export const mockHandlers: RequestHandler[] = [
 		})
 		return res(ctx.delay(500), ctx.status(200))
 	}),
-	rest.patch(appUrl('/amt-tiltak/api/tiltaksarrangor/tiltak-deltaker/:deltakerId/avslutt-deltakelse'), (req, res, ctx) => {
+	rest.patch(appUrl('/amt-tiltak/api/tiltaksarrangor/deltaker/:deltakerId/avslutt-deltakelse'), (req, res, ctx) => {
 		const deltakerId = req.params.deltakerId as string
 		const body = req.body as { sluttdato: string, aarsak: DeltakerStatusAarsak }
 
@@ -112,7 +112,7 @@ export const mockHandlers: RequestHandler[] = [
 		})
 		return res(ctx.delay(500), ctx.status(200))
 	}),
-	rest.patch(appUrl('/amt-tiltak/api/tiltaksarrangor/tiltak-deltaker/:deltakerId/ikke-aktuell'), (req, res, ctx) => {
+	rest.patch(appUrl('/amt-tiltak/api/tiltaksarrangor/deltaker/:deltakerId/ikke-aktuell'), (req, res, ctx) => {
 		const deltakerId = req.params.deltakerId as string
 		const body = req.body as { aarsak: DeltakerStatusAarsak }
 
