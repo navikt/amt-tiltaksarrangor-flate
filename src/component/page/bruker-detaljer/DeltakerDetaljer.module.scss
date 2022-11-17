@@ -1,0 +1,59 @@
+@import '/src/globals.module.scss';
+
+.gjennomforingTitle {
+	word-break: break-word;
+}
+
+
+.tilbakelenke {
+	margin-right: 2rem;
+	margin-top: 0.5rem;
+}
+
+.statusAlert {
+	max-width: 400px;
+}
+
+.skjermetPersonAlert {
+    margin-top: 1rem;
+	max-width: 400px;
+}
+
+.detaljer {
+	display: grid;
+	padding: 2.5rem 1.5rem;
+	max-width: $max-bredde;
+	margin: 0 auto;
+
+	grid-template-columns: 1fr;
+
+	@media(min-width: 800px) {
+		grid-template-columns: 1fr 300px;
+		grid-column-gap: 4rem;
+	}
+}
+
+.deltakerDetaljer {
+	> *:not(:last-child) {
+		margin-bottom: 1.5rem;
+	}
+}
+
+.tiltakCard {
+	width: 100%;
+	margin-bottom: 2rem;
+
+	display: flex;
+	flex-direction: row;
+
+	> :not(:first-child) {
+		margin-left: 4rem;
+	}
+}
+
+.userInfoContent {
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr;
+	grid-column-gap: 2rem;
+	grid-row-gap: 2rem;
+}
