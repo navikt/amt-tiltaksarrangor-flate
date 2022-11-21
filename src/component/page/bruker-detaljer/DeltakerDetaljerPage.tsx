@@ -29,14 +29,22 @@ export const DeltakerDetaljerPage = (): React.ReactElement => {
 	}
 
 	if (isRejected(fetchTiltakDeltagerDetaljerPromise)) {
-		return <AlertPage variant="error" tekst="En feil oppstod"/>
+		return <AlertPage variant="error" tekst="En feil oppstod" />
 	}
 
 	const bruker = fetchTiltakDeltagerDetaljerPromise.result.data
 
 	return (
 		<main data-testid="bruker-detaljer-page">
-			<DeltakerDetaljerHeader gjennomforingId={bruker.gjennomforing.id} fornavn={bruker.fornavn} etternavn={bruker.etternavn} fodselsnummer={bruker.fodselsnummer} telefonnummer={bruker.telefonnummer} epost={bruker.epost}/>
+			<DeltakerDetaljerHeader
+				gjennomforingId={bruker.gjennomforing.id}
+				fornavn={bruker.fornavn}
+				mellomnavn={bruker.mellomnavn}
+				etternavn={bruker.etternavn}
+				fodselsnummer={bruker.fodselsnummer}
+				telefonnummer={bruker.telefonnummer}
+				epost={bruker.epost}
+			/>
 			<DeltakerDetaljer bruker={bruker} />
 		</main>
 	)
