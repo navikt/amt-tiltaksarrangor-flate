@@ -14,7 +14,7 @@ import { KopierKnapp } from './kopier-knapp/KopierKnapp'
 interface BrukerPaaTiltakHeaderProps {
 	gjennomforingId: string,
 	fornavn: string,
-	mellomnavn?: string,
+	mellomnavn: string | null,
 	etternavn: string,
 	fodselsnummer: string,
 	telefonnummer: string | null,
@@ -28,7 +28,7 @@ export const DeltakerDetaljerHeader = (props: BrukerPaaTiltakHeaderProps): React
 		<div className={styles.header}>
 			<div className={styles.headerContent}>
 				<div className={styles.tilbakelenkeWrapper}>
-					<Tilbakelenke to={gjennomforingDetaljerPageUrl(gjennomforingId)} className={styles.tilbakelenke}/>
+					<Tilbakelenke to={gjennomforingDetaljerPageUrl(gjennomforingId)} className={styles.tilbakelenke} />
 				</div>
 
 				<div className={styles.headerInfoWrapper}>
@@ -39,14 +39,14 @@ export const DeltakerDetaljerHeader = (props: BrukerPaaTiltakHeaderProps): React
 								kopierTekst={fodselsnummer}
 								ariaLabel={`Kopier fødselsnummer ${fodselsnummer.split('').join(' ')}`}
 							>
-								<Fnr fnr={fodselsnummer}/>
+								<Fnr fnr={fodselsnummer} />
 							</KopierKnapp>
 						)}
 					</div>
 
 					<div className={styles.headerInfo}>
-						<IconLabel labelValue={formaterTelefonnummer(telefonnummer)} icon={<Telephone title="Deltaker telefonnummer"/>}/>
-						<IconLabel labelValue={epost} icon={<Email title="Deltaker e-post"/>}/>
+						<IconLabel labelValue={formaterTelefonnummer(telefonnummer)} icon={<Telephone title="Deltaker telefonnummer" />} />
+						<IconLabel labelValue={epost} icon={<Email title="Deltaker e-post" />} />
 					</div>
 				</div>
 
