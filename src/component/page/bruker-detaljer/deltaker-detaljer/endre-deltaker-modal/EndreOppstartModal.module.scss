@@ -1,0 +1,13 @@
+.datofelt {
+  max-width: fit-content;
+  margin-bottom: 1rem;
+  label {
+    font-size: var(--navds-font-size-large);
+    font-weight: var(--navds-font-weight-bold);
+    line-height: var(--navds-font-line-height-large);
+  }
+}
+
+.content > * {
+  margin-bottom: 1rem;
+}

@@ -7,9 +7,8 @@ import { TiltakDeltakerDetaljer, TiltakDeltakerStatus } from '../../../api/data/
 import globalStyles from '../../../globals.module.scss'
 import { formatDate } from '../../../utils/date-utils'
 import { Show } from '../../felles/Show'
-import { StatusMerkelapp } from '../../felles/status-merkelapp/StatusMerkelapp'
 import { Begrunnelse } from './begrunnelse/Begrunnelse'
-import { Deltakelsesperiode } from './deltakelses-periode/Deltakelsesperiode'
+import { DeltakelseInfo } from './deltaker-detaljer/DeltakelseInfo'
 import styles from './DeltakerDetaljer.module.scss'
 import { NavInfoPanel } from './nav-info-panel/NavInfoPanel'
 
@@ -29,29 +28,22 @@ function mapStatusTilAlertTekst(fjernesDato: Date | null, status: TiltakDeltaker
 const erIkkeAktuellEllerHarSluttet = (status: TiltakDeltakerStatus): boolean =>
 	[ TiltakDeltakerStatus.IKKE_AKTUELL, TiltakDeltakerStatus.HAR_SLUTTET ].includes(status)
 
-const erVenterPaOppstartEllerDeltar = (status: TiltakDeltakerStatus): boolean =>
-	[ TiltakDeltakerStatus.VENTER_PA_OPPSTART, TiltakDeltakerStatus.DELTAR ].includes(status)
-
-export const DeltakerDetaljer = (props: { bruker: TiltakDeltakerDetaljer }): React.ReactElement => {
+export const DeltakerDetaljer = (props: { deltaker: TiltakDeltakerDetaljer }): React.ReactElement => {
 	const {
-		id: deltakerId, navEnhet, navVeileder, startDato,
-		sluttDato, gjennomforing, registrertDato, status, erSkjermetPerson, fjernesDato,
+		navEnhet, navVeileder, gjennomforing, registrertDato, status, erSkjermetPerson, fjernesDato,
 		innsokBegrunnelse
-	} = props.bruker
+	} = props.deltaker
 
 	return (
 		<div className={styles.detaljer}>
 			<section>
 				<div className={globalStyles.blokkM}>
 					<Heading size="medium" level="3" className={cls(globalStyles.blokkXs, styles.gjennomforingTitle)}>{(gjennomforing.navn)}</Heading>
-					<BodyShort className={globalStyles.blokkXxs}>{gjennomforing.tiltak.tiltaksnavn}</BodyShort>
-					<BodyShort className={globalStyles.blokkS}>Søkt inn: {formatDate(registrertDato)}</BodyShort>
+					<BodyShort size="small" className={globalStyles.blokkXxs}>{gjennomforing.tiltak.tiltaksnavn}</BodyShort>
+					<BodyShort size="small" className={globalStyles.blokkS}>Søkt inn: {formatDate(registrertDato)}</BodyShort>
 
 					<Show if={erIkkeAktuellEllerHarSluttet(status.type)}>
 						<Alert variant="warning" className={styles.statusAlert}>{mapStatusTilAlertTekst(fjernesDato, status.type)}</Alert>
-					</Show>
-					<Show if={erVenterPaOppstartEllerDeltar(status.type)}>
-						<StatusMerkelapp status={status}/>
 					</Show>
 					<Show if={erSkjermetPerson}>
 						<Alert variant="warning" className={styles.skjermetPersonAlert}>
@@ -61,16 +53,11 @@ export const DeltakerDetaljer = (props: { bruker: TiltakDeltakerDetaljer }): Rea
 					</Show>
 				</div>
 
-				<div className={cls(styles.deltakerDetaljer, globalStyles.blokkM)}>
-					<Deltakelsesperiode
-						erSkjermetPerson={erSkjermetPerson}
-						deltakerId={deltakerId}
-						deltakerStartdato={startDato}
-						deltakerSluttdato={sluttDato}
-						gjennomforingStartDato={gjennomforing.startDato}
-						gjennomforingSluttDato={gjennomforing.sluttDato}
-					/>
-				</div>
+				<DeltakelseInfo
+					erSkjermetPerson={erSkjermetPerson}
+					deltaker={props.deltaker}
+					status={status}
+				/>
 
 				<Begrunnelse begrunnelse={innsokBegrunnelse}/>
 			</section>

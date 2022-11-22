@@ -1,0 +1,17 @@
+.endreIkon {
+  color: var(--navds-global-color-deepblue-300);
+}
+
+.forlengIkon {
+  color: var(--navds-semantic-color-feedback-success-icon);
+}
+
+.ikkeAktuellIkon {
+  color: var(--navds-semantic-color-feedback-warning-icon);
+  transform: rotate(45deg);
+
+}
+
+.avsluttIkon {
+  color: var(--navds-global-color-gray-600);
+}

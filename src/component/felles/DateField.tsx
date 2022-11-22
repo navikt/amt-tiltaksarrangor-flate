@@ -6,7 +6,7 @@ import { formatDate, formatNullableDateToDateInputStr } from '../../utils/date-u
 import { Nullable } from '../../utils/types/or-nothing'
 
 interface IProps {
-	label: string
+	label: Nullable<string>
 	date?: Nullable<Date>
 	min?: Nullable<Date>
 	max?: Nullable<Date>

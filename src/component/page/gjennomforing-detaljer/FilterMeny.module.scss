@@ -1,19 +1,17 @@
 .checkbox {
-  display: flex;
   width: 100%;
 
-  & label {
+  label > span {
     display: flex;
-    width: 100%;
-  }
-
-  & label div {
-    display: flex;
-    justify-content: space-between;
     width: 100%;
   }
 }
 
 .occurrences {
   font-weight: bolder;
+}
+
+.content {
+  display: flex;
+  justify-content: space-between;
 }

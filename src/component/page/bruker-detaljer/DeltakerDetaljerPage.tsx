@@ -10,6 +10,7 @@ import { isNotStartedOrPending, isRejected, usePromise } from '../../../utils/us
 import { useStyle } from '../../../utils/use-style'
 import { AlertPage } from '../../felles/alert-page/AlertPage'
 import { SpinnerPage } from '../../felles/spinner-page/SpinnerPage'
+import { GjennomforingStoreProvider } from './deltaker-detaljer/gjennomforing-store'
 import { DeltakerDetaljer } from './DeltakerDetaljer'
 import { DeltakerDetaljerHeader } from './DeltakerDetaljerHeader'
 
@@ -32,20 +33,22 @@ export const DeltakerDetaljerPage = (): React.ReactElement => {
 		return <AlertPage variant="error" tekst="En feil oppstod" />
 	}
 
-	const bruker = fetchTiltakDeltagerDetaljerPromise.result.data
+	const deltaker = fetchTiltakDeltagerDetaljerPromise.result.data
 
 	return (
 		<main data-testid="bruker-detaljer-page">
 			<DeltakerDetaljerHeader
-				gjennomforingId={bruker.gjennomforing.id}
-				fornavn={bruker.fornavn}
-				mellomnavn={bruker.mellomnavn}
-				etternavn={bruker.etternavn}
-				fodselsnummer={bruker.fodselsnummer}
-				telefonnummer={bruker.telefonnummer}
-				epost={bruker.epost}
+				gjennomforingId={deltaker.gjennomforing.id}
+				fornavn={deltaker.fornavn}
+				mellomnavn={deltaker.mellomnavn}
+				etternavn={deltaker.etternavn}
+				fodselsnummer={deltaker.fodselsnummer}
+				telefonnummer={deltaker.telefonnummer}
+				epost={deltaker.epost}
 			/>
-			<DeltakerDetaljer bruker={bruker} />
+			<GjennomforingStoreProvider gjennomforing={deltaker.gjennomforing}>
+				<DeltakerDetaljer deltaker={deltaker} />
+			</GjennomforingStoreProvider>
 		</main>
 	)
 }

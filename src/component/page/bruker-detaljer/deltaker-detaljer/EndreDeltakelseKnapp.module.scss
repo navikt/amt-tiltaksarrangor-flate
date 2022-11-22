@@ -1,0 +1,18 @@
+.knapp {
+  height: fit-content;
+  align-items: center;
+  span:not(:first-child){
+    margin-left: 0.3rem;
+  }
+}
+
+.knappTekst {
+  margin-left: 1rem;
+}
+
+.dropdown {
+  dd {
+    padding-bottom: 0.4rem;
+    padding-top: 0.4rem
+  }
+}

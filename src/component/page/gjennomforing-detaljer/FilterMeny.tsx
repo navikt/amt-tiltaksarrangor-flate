@@ -39,8 +39,10 @@ export const FilterMeny = (props: Props): React.ReactElement => {
 						}}
 						value={mapTiltakDeltagerStatusTilTekst(status) }
 					>
-						<span>{mapTiltakDeltagerStatusTilTekst(status)}</span>
-						<span className={styles.occurrences}>{props.statusMap.get(status) ?? 0}</span>
+						<div className={styles.content}>
+							<span>{mapTiltakDeltagerStatusTilTekst(status)}</span>
+							<span className={styles.occurrences}>{props.statusMap.get(status) ?? 0}</span>
+						</div>
 					</Checkbox>
 				))}
 			</CheckboxGroup>

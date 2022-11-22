@@ -3,7 +3,7 @@ import { rest } from 'msw'
 import { RequestHandler } from 'msw/lib/types/handlers/RequestHandler'
 
 import { TiltakDeltaker, TiltakDeltakerDetaljer } from '../../api/data/deltaker'
-import { DeltakerStatusAarsak, EndringsmeldingType } from '../../api/data/endringsmelding'
+import { DeltakerStatusAarsakType, EndringsmeldingType } from '../../api/data/endringsmelding'
 import { appUrl } from '../../utils/url-utils'
 import {
 	mockEndringsmeldinger,
@@ -103,7 +103,7 @@ export const mockHandlers: RequestHandler[] = [
 	}),
 	rest.patch(appUrl('/amt-tiltak/api/tiltaksarrangor/deltaker/:deltakerId/avslutt-deltakelse'), (req, res, ctx) => {
 		const deltakerId = req.params.deltakerId as string
-		const body = req.body as { sluttdato: string, aarsak: DeltakerStatusAarsak }
+		const body = req.body as { sluttdato: string, aarsak: { type: DeltakerStatusAarsakType, beskrivelse: string | null } }
 
 		mockEndringsmeldinger[deltakerId].push({
 			id: randomUuid(),
@@ -114,7 +114,7 @@ export const mockHandlers: RequestHandler[] = [
 	}),
 	rest.patch(appUrl('/amt-tiltak/api/tiltaksarrangor/deltaker/:deltakerId/ikke-aktuell'), (req, res, ctx) => {
 		const deltakerId = req.params.deltakerId as string
-		const body = req.body as { aarsak: DeltakerStatusAarsak }
+		const body = req.body as { aarsak: {type: DeltakerStatusAarsakType, beskrivelse: string | null} }
 
 		mockEndringsmeldinger[deltakerId].push({
 			id: randomUuid(),
@@ -125,13 +125,9 @@ export const mockHandlers: RequestHandler[] = [
 	}),
 	rest.get(appUrl('/amt-tiltak/api/tiltaksarrangor/endringsmelding/aktiv?deltakerId=:deltakerId'), (req, res, ctx) => {
 		const deltakerId = req.url.searchParams.get('deltakerId') as string
-		const endringsmelding = mockEndringsmeldinger[deltakerId]
+		const endringsmeldinger = mockEndringsmeldinger[deltakerId]
 
-		if(endringsmelding != null) {
-			return res(ctx.delay(500), ctx.json(endringsmelding))
-		}
-
-		return res(ctx.delay(500), ctx.status(404))
+		return res(ctx.delay(500), ctx.json(endringsmeldinger))
 	})
 ]
 
