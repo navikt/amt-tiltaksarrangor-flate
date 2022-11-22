@@ -2,8 +2,10 @@ import React, { useState } from 'react'
 
 import { DeltakerStatusAarsakType } from '../../../../../api/data/endringsmelding'
 import { avsluttDeltakelse } from '../../../../../api/tiltak-api'
+import { maxDate } from '../../../../../utils/date-utils'
 import { Nullable } from '../../../../../utils/types/or-nothing'
 import { DateField } from '../../../../felles/DateField'
+import { useGjennomforingStore } from '../gjennomforing-store'
 import { AarsakSelector } from './AarsakSelector'
 import { BaseModal } from './BaseModal'
 import styles from './EndreOppstartModal.module.scss'
@@ -16,15 +18,19 @@ interface AvsluttDeltakelseModalProps {
 
 export interface AvsluttDeltakelseModalDataProps {
 	deltakerId: string
+	startDato: Nullable<Date>
 	onEndringUtfort: () => void
 }
 
 export const AvsluttDeltakelseModal = (props: AvsluttDeltakelseModalProps & AvsluttDeltakelseModalDataProps) => {
-	const { onClose, deltakerId, onEndringUtfort } = props
+	const { onClose, deltakerId, startDato, onEndringUtfort } = props
 	const [ sluttDato, settSluttDato ] = useState<Nullable<Date>>()
 	const [ aarsak, settAarsak ] = useState<DeltakerStatusAarsakType>()
 	const [ beskrivelse, settBeskrivelse ] = useState<Nullable<string>>()
 	const [ vilkaarGodkjent, settVilkaarGodkjent ] = useState(false)
+	const { gjennomforing } = useGjennomforingStore()
+
+	const minDato = maxDate(startDato, gjennomforing.startDato)
 	const kanSendeEndringsmelding = aarsak === DeltakerStatusAarsakType.ANNET?
 		aarsak && vilkaarGodkjent && sluttDato && beskrivelse :
 		aarsak && vilkaarGodkjent && sluttDato
@@ -52,6 +58,8 @@ export const AvsluttDeltakelseModal = (props: AvsluttDeltakelseModalProps & Avsl
 				className={styles.datofelt}
 				label="Hva er ny sluttdato?"
 				date={sluttDato}
+				min={minDato}
+				max={gjennomforing.sluttDato}
 				onDateChanged={d => settSluttDato(d)}
 			/>
 			<VeilederConfirmationPanel vilkaarGodkjent={vilkaarGodkjent} setVilkaarGodkjent={settVilkaarGodkjent}/>

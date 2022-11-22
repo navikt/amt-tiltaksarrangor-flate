@@ -43,7 +43,10 @@ export const EndreDeltakelseKnapp = (props: EndreDeltakelseKnappProps) => {
 						{ !deltaker.startDato && deltaker.status.type === TiltakDeltakerStatus.VENTER_PA_OPPSTART &&
 							<DropDownButton
 								endringstype={EndringType.LEGG_TIL_OPPSTARTSDATO}
-								onClick={() => visLeggTilOppstartModal(deltaker.id, props.onEndringUtfort)}/>
+								onClick={() => visLeggTilOppstartModal({
+									deltakerId: deltaker.id,
+									onEndringUtfort: props.onEndringUtfort
+								})}/>
 						}
 
 						{ deltaker.startDato && (deltaker.status.type === TiltakDeltakerStatus.VENTER_PA_OPPSTART
@@ -51,7 +54,10 @@ export const EndreDeltakelseKnapp = (props: EndreDeltakelseKnappProps) => {
 								|| deltaker.status.type === TiltakDeltakerStatus.DELTAR) &&
 							<DropDownButton
 								endringstype={EndringType.ENDRE_OPPSTARTSDATO}
-								onClick={() => visEndreOppstartModal(deltaker.id, props.onEndringUtfort)}/>
+								onClick={() => visEndreOppstartModal({
+									deltakerId: deltaker.id,
+									onEndringUtfort: props.onEndringUtfort
+								})}/>
 						}
 
 						{(deltaker.status.type === TiltakDeltakerStatus.HAR_SLUTTET
@@ -59,18 +65,30 @@ export const EndreDeltakelseKnapp = (props: EndreDeltakelseKnappProps) => {
 								|| deltaker.status.type === TiltakDeltakerStatus.DELTAR) &&
 							<DropDownButton
 								endringstype={EndringType.FORLENG_DELTAKELSE}
-								onClick={() => visForlengDeltakelseModal(deltaker.id, deltaker.sluttDato, props.onEndringUtfort)}/>
+								onClick={() => visForlengDeltakelseModal({
+									deltakerId: deltaker.id,
+									startDato: deltaker.startDato,
+									sluttDato: deltaker.sluttDato,
+									onEndringUtfort: props.onEndringUtfort
+								})}/>
 						}
 
 						{ deltaker.status.type === TiltakDeltakerStatus.VENTER_PA_OPPSTART &&
 							<DropDownButton
 								endringstype={EndringType.DELTAKER_IKKE_AKTUELL}
-								onClick={() => visSettDeltakerIkkeAktuellModal(deltaker.id, props.onEndringUtfort)}/>
+								onClick={() => visSettDeltakerIkkeAktuellModal({
+									deltakerId: deltaker.id,
+									onEndringUtfort: props.onEndringUtfort
+								})}/>
 						}
 						{deltaker.status.type === TiltakDeltakerStatus.DELTAR &&
 							<DropDownButton
 								endringstype={EndringType.AVSLUTT_DELTAKELSE}
-								onClick={() => visAvsluttDeltakerModal(deltaker.id, props.onEndringUtfort)}/>
+								onClick={() => visAvsluttDeltakerModal({
+									deltakerId: deltaker.id,
+									startDato: deltaker.startDato,
+									onEndringUtfort: props.onEndringUtfort
+								})}/>
 						}
 
 					</Dropdown.Menu.GroupedList>

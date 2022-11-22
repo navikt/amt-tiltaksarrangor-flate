@@ -1,6 +1,5 @@
 import { useState } from 'react'
 
-import { Nullable } from '../../../../utils/types/or-nothing'
 import { AvsluttDeltakelseModalDataProps } from './endre-deltaker-modal/AvsluttDeltakelseModal'
 import { EndreOppstartModalDataProps } from './endre-deltaker-modal/EndreOppstartModal'
 import { ForlengDeltakelseModalDataProps } from './endre-deltaker-modal/ForlengDeltakelseModal'
@@ -41,37 +40,37 @@ export const useModalData = () => {
 		setModalData(undefined)
 	}
 
-	const visEndreOppstartModal = (deltakerId: string, onEndringUtfort: () => void) => {
+	const visEndreOppstartModal = (props: EndreOppstartModalDataProps) => {
 		setModalData({
 			type: ModalType.EndreOppstart,
-			props: { deltakerId, onEndringUtfort } })
+			props: props })
 	}
 
-	const visLeggTilOppstartModal = (deltakerId: string, onEndringUtfort: () => void) => {
+	const visLeggTilOppstartModal = (props: LeggTilOppstartModalDataProps) => {
 		setModalData({
 			type: ModalType.LeggTilOppstart,
-			props: { deltakerId, onEndringUtfort }
+			props: props
 		})
 	}
 
-	const visForlengDeltakelseModal = (deltakerId: string, sluttDato: Nullable<Date>, onEndringUtfort: () => void) => {
+	const visForlengDeltakelseModal = (props: ForlengDeltakelseModalDataProps) => {
 		setModalData({
 			type: ModalType.ForlengDeltakelse,
-			props: { deltakerId, sluttDato, onEndringUtfort }
+			props: props
 		})
 	}
 
-	const visSettDeltakerIkkeAktuellModal = (deltakerId: string, onEndringUtfort: () => void) => {
+	const visSettDeltakerIkkeAktuellModal = (props: SettIkkeAktuellModalDataProps) => {
 		setModalData({
 			type: ModalType.SettDeltakerIkkeAktuell,
-			props: { deltakerId, onEndringUtfort }
+			props: props
 		})
 	}
 
-	const visAvsluttDeltakerModal = (deltakerId: string, onEndringUtfort: () => void) => {
+	const visAvsluttDeltakerModal = (props: AvsluttDeltakelseModalDataProps) => {
 		setModalData({
 			type: ModalType.AvsluttDeltaker,
-			props: { deltakerId, onEndringUtfort }
+			props: props
 		})
 	}
 
