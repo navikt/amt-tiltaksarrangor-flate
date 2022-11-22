@@ -28,7 +28,7 @@ export const DeltakelseInfo = ({
 	return (
 		<div className={styles.wrapper}>
 			<div className={styles.section}>
-				<ElementPanel tittel="Status:">
+				<ElementPanel tittel="Status:" className={styles.margin}>
 					<StatusMerkelapp status={status}/>
 				</ElementPanel>
 				<ElementPanel tittel="Dato:">
