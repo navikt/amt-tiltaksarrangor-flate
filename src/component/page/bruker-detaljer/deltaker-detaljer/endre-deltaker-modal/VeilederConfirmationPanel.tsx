@@ -13,7 +13,7 @@ export const VeilederConfirmationPanel = ({ vilkaarGodkjent, setVilkaarGodkjent 
 			size="small"
 			className={styles.confirmation}
 			checked={vilkaarGodkjent}
-			label="Ja, Nav-veileder har godkjent"
+			label="Ja, NAV-veileder har godkjent"
 			onChange={() => setVilkaarGodkjent(!vilkaarGodkjent)}>
 			Endringer må først avtales med NAV-veileder. Er endringen godkjent av NAV-veileder?
 		</ConfirmationPanel>
