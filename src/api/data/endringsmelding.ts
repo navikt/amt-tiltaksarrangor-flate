@@ -10,7 +10,7 @@ export enum EndringsmeldingType {
     DELTAKER_IKKE_AKTUELL = 'DELTAKER_IKKE_AKTUELL',
 }
 
-export enum DeltakerStatusAarsak {
+export enum DeltakerStatusAarsakType {
     SYK = 'SYK',
     FATT_JOBB = 'FATT_JOBB',
     TRENGER_ANNEN_STOTTE = 'TRENGER_ANNEN_STOTTE',
@@ -23,7 +23,11 @@ export enum DeltakerStatusAarsak {
     ANNET = 'ANNET'
 }
 
-export const deltakerStatusAarsakSchema = z.nativeEnum(DeltakerStatusAarsak)
+
+export const deltakerStatusAarsakSchema = z.object({
+	type: z.nativeEnum(DeltakerStatusAarsakType),
+	beskrivelse: z.string().nullable()
+})
 
 export const endringsmeldingBaseSchema = z.object({
 	id: z.string().uuid(),
@@ -69,6 +73,8 @@ export const endringsmeldingSchema = z.union([
 export const endringsmeldingerSchema = z.array(endringsmeldingSchema)
 
 export type Endringsmelding = z.infer<typeof endringsmeldingSchema>
+
+export type DeltakerStatusAarsak = z.infer<typeof deltakerStatusAarsakSchema>
 
 export type LeggTilOppstartsdatoEndringsmelding = z.infer<typeof leggTilOppstartsdatoEndringsmeldingSchema>
 

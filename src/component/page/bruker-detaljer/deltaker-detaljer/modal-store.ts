@@ -1,0 +1,86 @@
+import { useState } from 'react'
+
+import { AvsluttDeltakelseModalDataProps } from './endre-deltaker-modal/AvsluttDeltakelseModal'
+import { EndreOppstartModalDataProps } from './endre-deltaker-modal/EndreOppstartModal'
+import { ForlengDeltakelseModalDataProps } from './endre-deltaker-modal/ForlengDeltakelseModal'
+import { LeggTilOppstartModalDataProps } from './endre-deltaker-modal/LeggTilOppstartModal'
+import { SettIkkeAktuellModalDataProps } from './endre-deltaker-modal/SettIkkeAktuellModal'
+
+export enum ModalType {
+	LeggTilOppstart,
+	EndreOppstart,
+	ForlengDeltakelse,
+	SettDeltakerIkkeAktuell,
+	AvsluttDeltaker
+}
+
+
+interface BaseModalData<T extends ModalType, P> {
+	type: T
+	props: P
+}
+
+type LeggTilOppstartData = BaseModalData<ModalType.LeggTilOppstart, LeggTilOppstartModalDataProps>
+type EndreOppstartModalData = BaseModalData<ModalType.EndreOppstart, EndreOppstartModalDataProps>
+type ForlengDeltakelseModalData = BaseModalData<ModalType.ForlengDeltakelse, ForlengDeltakelseModalDataProps>
+type SettDeltakerIkkeAktuellModalData = BaseModalData<ModalType.SettDeltakerIkkeAktuell, SettIkkeAktuellModalDataProps>
+type AvsluttDeltakerModalData = BaseModalData<ModalType.AvsluttDeltaker, AvsluttDeltakelseModalDataProps>
+
+export type ModalData = LeggTilOppstartData |
+	EndreOppstartModalData |
+	ForlengDeltakelseModalData |
+	SettDeltakerIkkeAktuellModalData |
+	AvsluttDeltakerModalData
+
+
+export const useModalData = () => {
+	const [ modalData, setModalData ] = useState<ModalData>()
+
+	const lukkModal = () => {
+		setModalData(undefined)
+	}
+
+	const visEndreOppstartModal = (props: EndreOppstartModalDataProps) => {
+		setModalData({
+			type: ModalType.EndreOppstart,
+			props: props })
+	}
+
+	const visLeggTilOppstartModal = (props: LeggTilOppstartModalDataProps) => {
+		setModalData({
+			type: ModalType.LeggTilOppstart,
+			props: props
+		})
+	}
+
+	const visForlengDeltakelseModal = (props: ForlengDeltakelseModalDataProps) => {
+		setModalData({
+			type: ModalType.ForlengDeltakelse,
+			props: props
+		})
+	}
+
+	const visSettDeltakerIkkeAktuellModal = (props: SettIkkeAktuellModalDataProps) => {
+		setModalData({
+			type: ModalType.SettDeltakerIkkeAktuell,
+			props: props
+		})
+	}
+
+	const visAvsluttDeltakerModal = (props: AvsluttDeltakelseModalDataProps) => {
+		setModalData({
+			type: ModalType.AvsluttDeltaker,
+			props: props
+		})
+	}
+
+	return {
+		modalData,
+		lukkModal,
+		visEndreOppstartModal,
+		visLeggTilOppstartModal,
+		visForlengDeltakelseModal,
+		visSettDeltakerIkkeAktuellModal,
+		visAvsluttDeltakerModal
+	}
+}

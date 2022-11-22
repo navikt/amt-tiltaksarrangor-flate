@@ -1,6 +1,6 @@
 import * as faker from 'faker'
 
-import { DeltakerStatusAarsak, Endringsmelding, EndringsmeldingType } from '../../api/data/endringsmelding'
+import { DeltakerStatusAarsakType, Endringsmelding, EndringsmeldingType } from '../../api/data/endringsmelding'
 import { randBetween } from '../utils/faker'
 import { endringsmeldingId } from './id'
 
@@ -30,11 +30,28 @@ export const lagMockEndringsmeldingForDeltaker = (): Endringsmelding[] => {
 			}
 		]
 	}
+	if (n < 8) {
+		return [
+			{
+				id: endringsmeldingId(),
+				type: EndringsmeldingType.ENDRE_OPPSTARTSDATO,
+				innhold: { oppstartsdato: faker.date.soon() }
+			},
+			{
+				id: endringsmeldingId(),
+				type: EndringsmeldingType.AVSLUTT_DELTAKELSE,
+				innhold: { sluttdato: faker.date.soon(), aarsak: { type: DeltakerStatusAarsakType.SYK, beskrivelse: null } }
+			}
+		]
+	}
 	return [
 		{
 			id: endringsmeldingId(),
 			type: EndringsmeldingType.AVSLUTT_DELTAKELSE,
-			innhold: { sluttdato: faker.date.soon(), aarsak: DeltakerStatusAarsak.ANNET }
+			innhold: { sluttdato: faker.date.soon(), aarsak: {
+				type: DeltakerStatusAarsakType.ANNET,
+				beskrivelse: 'Har flyttet til annen kommune'
+			} }
 		}
 	]
 }

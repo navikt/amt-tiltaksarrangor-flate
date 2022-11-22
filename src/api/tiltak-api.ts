@@ -9,7 +9,11 @@ import {
 	tiltakDeltakerDetaljerSchema,
 	tiltakDeltakereSchema
 } from './data/deltaker'
-import { DeltakerStatusAarsak, Endringsmelding, endringsmeldingerSchema } from './data/endringsmelding'
+import {
+	DeltakerStatusAarsak,
+	Endringsmelding,
+	endringsmeldingerSchema
+} from './data/endringsmelding'
 import {
 	Gjennomforing,
 	gjennomforingerSchema,
@@ -136,7 +140,7 @@ export const deltakerIkkeAktuell = (deltakerId: string, aarsak: DeltakerStatusAa
 	return axiosInstance
 		.patch(
 			appUrl(`/amt-tiltak/api/tiltaksarrangor/deltaker/${deltakerId}/ikke-aktuell`),
-			{ aarsak: aarsak },
+			{ aarsak },
 		)
 		.catch(logAndThrowError)
 }

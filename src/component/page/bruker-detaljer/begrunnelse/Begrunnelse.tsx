@@ -28,10 +28,10 @@ export const Begrunnelse = (props: BegrunnelseProps) => {
 	}
 
 	return (
-		<div>
+		<div className={styles.wrapper}>
 			<Heading size="small" level="4" spacing>Begrunnelse</Heading>
 
-			<BodyLong className={styles.begrunnelseTekst}>
+			<BodyLong size="small" className={styles.begrunnelseTekst}>
 				{begrunnelseTekst}
 			</BodyLong>
 

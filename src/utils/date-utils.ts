@@ -51,3 +51,10 @@ export const sortDateNullsFirst = (d1Str: Nullable<string>, d2Str: Nullable<stri
 
 	return date1.isBefore(date2) ? -1 : 1
 }
+
+export const maxDate = (date1: Nullable<Date>, date2: Nullable<Date>) : Nullable<Date> => {
+	if(date1 == null) return date2
+	if(date2 == null) return date1
+
+	return dayjs(date1).isAfter(dayjs(date2))? date1 : date2
+}
