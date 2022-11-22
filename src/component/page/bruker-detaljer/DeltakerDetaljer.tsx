@@ -1,6 +1,5 @@
 import { Alert, BodyShort, Heading } from '@navikt/ds-react'
 import cls from 'classnames'
-import dayjs from 'dayjs'
 import React from 'react'
 
 import { TiltakDeltakerDetaljer, TiltakDeltakerStatus } from '../../../api/data/deltaker'
@@ -11,19 +10,6 @@ import { Begrunnelse } from './begrunnelse/Begrunnelse'
 import { DeltakelseInfo } from './deltaker-detaljer/DeltakelseInfo'
 import styles from './DeltakerDetaljer.module.scss'
 import { NavInfoPanel } from './nav-info-panel/NavInfoPanel'
-
-function mapStatusTilAlertTekst(fjernesDato: Date | null, status: TiltakDeltakerStatus): string | null {
-	const fjernesFraDato = dayjs(fjernesDato).format('DD.MM.YYYY')
-	const brukerFjernesTekst = `Deltakeren fjernes fra listen ${fjernesFraDato}`
-	switch (status) {
-		case TiltakDeltakerStatus.IKKE_AKTUELL:
-			return `Tiltaket er ikke aktuelt for denne personen.\n${brukerFjernesTekst}`
-		case TiltakDeltakerStatus.HAR_SLUTTET:
-			return `Personen har sluttet i dette tiltaket.\n${brukerFjernesTekst}`
-		default:
-			return null
-	}
-}
 
 const erIkkeAktuellEllerHarSluttet = (status: TiltakDeltakerStatus): boolean =>
 	[ TiltakDeltakerStatus.IKKE_AKTUELL, TiltakDeltakerStatus.HAR_SLUTTET ].includes(status)
@@ -43,7 +29,7 @@ export const DeltakerDetaljer = (props: { deltaker: TiltakDeltakerDetaljer }): R
 					<BodyShort size="small" className={globalStyles.blokkS}>Søkt inn: {formatDate(registrertDato)}</BodyShort>
 
 					<Show if={erIkkeAktuellEllerHarSluttet(status.type)}>
-						<Alert variant="warning" className={styles.statusAlert}>{mapStatusTilAlertTekst(fjernesDato, status.type)}</Alert>
+						<Alert variant="warning" className={styles.statusAlert} size="small">Deltakeren fjernes fra listen {formatDate(fjernesDato)}</Alert>
 					</Show>
 					<Show if={erSkjermetPerson}>
 						<Alert variant="warning" className={styles.skjermetPersonAlert}>

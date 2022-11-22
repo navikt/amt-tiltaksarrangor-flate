@@ -35,8 +35,11 @@ export const EndreDeltakelseKnapp = (props: EndreDeltakelseKnappProps) => {
 			<ModalController modalData={modalData} onClose={lukkModal}/>
 			<Dropdown>
 				<Button className={styles.knapp} as={Dropdown.Toggle} variant="secondary" size="small"
-					disabled={props.disabled} icon={<Edit aria-hidden/>}>
-					Endre deltakelse
+					disabled={props.disabled}>
+					<span className={styles.knappTekst}>
+						<Edit aria-hidden/>
+						Endre deltakelse
+					</span>
 				</Button>
 				<Dropdown.Menu>
 					<Dropdown.Menu.GroupedList className={styles.dropdown}>

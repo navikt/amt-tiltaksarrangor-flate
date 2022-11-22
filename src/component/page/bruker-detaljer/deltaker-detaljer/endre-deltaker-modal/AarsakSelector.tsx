@@ -5,6 +5,7 @@ import { DeltakerStatusAarsakType } from '../../../../../api/data/endringsmeldin
 import { Nullable } from '../../../../../utils/types/or-nothing'
 import { aarsakTekstMapper } from '../tekst-mappers'
 import { AarsakRadio } from './AarsakRadio'
+import styles from './AarsakSelector.module.scss'
 
 interface AarsakSelectorProps {
 	tittel: string
@@ -37,6 +38,8 @@ export const AarsakSelector = ({ tittel, onAarsakSelected }: AarsakSelectorProps
 						value={beskrivelse??''}
 						size="small"
 						label={null}
+						maxLength={40}
+						className={styles.tekstboks}
 						aria-label={aarsakTekstMapper(DeltakerStatusAarsakType.ANNET)}/> : <></>
 				}
 			</AarsakRadio>
