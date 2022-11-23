@@ -6,7 +6,7 @@ import { TiltakDeltakerDetaljer, TiltakDeltakerStatus } from '../../../api/data/
 import globalStyles from '../../../globals.module.scss'
 import { formatDate } from '../../../utils/date-utils'
 import { Show } from '../../felles/Show'
-import { Begrunnelse } from './begrunnelse/Begrunnelse'
+import { Bestilling } from './begrunnelse/Bestilling'
 import { DeltakelseInfo } from './deltaker-detaljer/DeltakelseInfo'
 import styles from './DeltakerDetaljer.module.scss'
 import { NavInfoPanel } from './nav-info-panel/NavInfoPanel'
@@ -32,7 +32,7 @@ export const DeltakerDetaljer = (props: { deltaker: TiltakDeltakerDetaljer }): R
 						<Alert variant="warning" className={styles.statusAlert} size="small">Deltakeren fjernes fra listen {formatDate(fjernesDato)}</Alert>
 					</Show>
 					<Show if={erSkjermetPerson}>
-						<Alert variant="warning" className={styles.skjermetPersonAlert}>
+						<Alert variant="warning" className={styles.skjermetPersonAlert} size="small">
 							Du kan ikke endre datoer på denne deltakeren fordi deltakeren er ansatt i NAV. Ta kontakt
 							med NAV-veileder.
 						</Alert>
@@ -45,7 +45,7 @@ export const DeltakerDetaljer = (props: { deltaker: TiltakDeltakerDetaljer }): R
 					status={status}
 				/>
 
-				<Begrunnelse begrunnelse={innsokBegrunnelse}/>
+				<Bestilling tekst={innsokBegrunnelse}/>
 			</section>
 
 			<section>
