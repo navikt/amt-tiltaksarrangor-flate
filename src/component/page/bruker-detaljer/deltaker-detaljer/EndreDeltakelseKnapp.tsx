@@ -26,16 +26,17 @@ export const EndreDeltakelseKnapp = (props: EndreDeltakelseKnappProps) => {
 		visForlengDeltakelseModal,
 		visSettDeltakerIkkeAktuellModal,
 		visAvsluttDeltakerModal,
+		visEndreProsentDeltakelseModal,
 		lukkModal
 	} = useModalData()
-	const { deltaker } = props
+	const {deltaker} = props
 
 	return (
 		<>
 			<ModalController modalData={modalData} onClose={lukkModal}/>
 			<Dropdown>
 				<Button className={styles.knapp} as={Dropdown.Toggle} variant="secondary" size="small"
-					disabled={props.disabled}>
+						disabled={props.disabled}>
 					<span className={styles.knappTekst}>
 						<Edit aria-hidden/>
 						Endre deltakelse
@@ -43,7 +44,7 @@ export const EndreDeltakelseKnapp = (props: EndreDeltakelseKnappProps) => {
 				</Button>
 				<Dropdown.Menu>
 					<Dropdown.Menu.GroupedList className={styles.dropdown}>
-						{ !deltaker.startDato && deltaker.status.type === TiltakDeltakerStatus.VENTER_PA_OPPSTART &&
+						{!deltaker.startDato && deltaker.status.type === TiltakDeltakerStatus.VENTER_PA_OPPSTART &&
 							<DropDownButton
 								endringstype={EndringType.LEGG_TIL_OPPSTARTSDATO}
 								onClick={() => visLeggTilOppstartModal({
@@ -52,7 +53,7 @@ export const EndreDeltakelseKnapp = (props: EndreDeltakelseKnappProps) => {
 								})}/>
 						}
 
-						{ deltaker.startDato && (deltaker.status.type === TiltakDeltakerStatus.VENTER_PA_OPPSTART
+						{deltaker.startDato && (deltaker.status.type === TiltakDeltakerStatus.VENTER_PA_OPPSTART
 								|| deltaker.status.type === TiltakDeltakerStatus.IKKE_AKTUELL
 								|| deltaker.status.type === TiltakDeltakerStatus.DELTAR) &&
 							<DropDownButton
@@ -76,7 +77,7 @@ export const EndreDeltakelseKnapp = (props: EndreDeltakelseKnappProps) => {
 								})}/>
 						}
 
-						{ deltaker.status.type === TiltakDeltakerStatus.VENTER_PA_OPPSTART &&
+						{deltaker.status.type === TiltakDeltakerStatus.VENTER_PA_OPPSTART &&
 							<DropDownButton
 								endringstype={EndringType.DELTAKER_IKKE_AKTUELL}
 								onClick={() => visSettDeltakerIkkeAktuellModal({
@@ -90,6 +91,16 @@ export const EndreDeltakelseKnapp = (props: EndreDeltakelseKnappProps) => {
 								onClick={() => visAvsluttDeltakerModal({
 									deltakerId: deltaker.id,
 									startDato: deltaker.startDato,
+									onEndringUtfort: props.onEndringUtfort
+								})}/>
+						}
+						{(deltaker.gjennomforing.tiltak.tiltakskode === 'ARBFORB'
+								|| deltaker.gjennomforing.tiltak.tiltakskode === 'VASV') &&
+							<DropDownButton
+								endringstype={EndringType.ENDRE_PROSENT_DELTAKELSE}
+								onClick={() => visEndreProsentDeltakelseModal({
+									deltakerId: deltaker.id,
+									gammelProsentDeltakelse: deltaker.prosentDeltakselse,
 									onEndringUtfort: props.onEndringUtfort
 								})}/>
 						}

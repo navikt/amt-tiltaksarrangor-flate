@@ -21,6 +21,7 @@ import {
 	Koordinator, koordinatorListSchema,
 } from './data/tiltak'
 import { axiosInstance, logAndThrowError, parse } from './utils'
+import exp from 'constants';
 
 export const fetchInnloggetAnsatt = (): AxiosPromise<InnloggetAnsatt> => {
 	return axiosInstance
@@ -114,6 +115,15 @@ export const endreOppstartsdato = (deltakerId: string, startDato: Date): AxiosPr
 		.patch(
 			appUrl(`/amt-tiltak/api/tiltaksarrangor/deltaker/${deltakerId}/oppstartsdato`),
 			{ oppstartsdato: formatDateToDateInputStr(startDato) },
+		)
+		.catch(logAndThrowError)
+}
+
+export const endreDeltakelsesprosent = (deltakerId: string, deltakerProsent: number): AxiosPromise => {
+	return axiosInstance
+		.patch(
+			appUrl(`/amt-tiltak/api/tiltaksarrangor/deltaker/${deltakerId}/deltaker-prosent`),
+			{deltakerProsent: deltakerProsent}
 		)
 		.catch(logAndThrowError)
 }

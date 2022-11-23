@@ -5,13 +5,15 @@ import { EndreOppstartModalDataProps } from './endre-deltaker-modal/EndreOppstar
 import { ForlengDeltakelseModalDataProps } from './endre-deltaker-modal/ForlengDeltakelseModal'
 import { LeggTilOppstartModalDataProps } from './endre-deltaker-modal/LeggTilOppstartModal'
 import { SettIkkeAktuellModalDataProps } from './endre-deltaker-modal/SettIkkeAktuellModal'
+import { EndreProsentDeltakelseModalDataProps } from './endre-deltaker-modal/EndreProsentDeltakelseModal';
 
 export enum ModalType {
 	LeggTilOppstart,
 	EndreOppstart,
 	ForlengDeltakelse,
 	SettDeltakerIkkeAktuell,
-	AvsluttDeltaker
+	AvsluttDeltaker,
+	EndreProsentDeltakelse
 }
 
 
@@ -25,12 +27,14 @@ type EndreOppstartModalData = BaseModalData<ModalType.EndreOppstart, EndreOppsta
 type ForlengDeltakelseModalData = BaseModalData<ModalType.ForlengDeltakelse, ForlengDeltakelseModalDataProps>
 type SettDeltakerIkkeAktuellModalData = BaseModalData<ModalType.SettDeltakerIkkeAktuell, SettIkkeAktuellModalDataProps>
 type AvsluttDeltakerModalData = BaseModalData<ModalType.AvsluttDeltaker, AvsluttDeltakelseModalDataProps>
+type EndreProsentDeltakelse = BaseModalData<ModalType.EndreProsentDeltakelse, EndreProsentDeltakelseModalDataProps>
 
 export type ModalData = LeggTilOppstartData |
 	EndreOppstartModalData |
 	ForlengDeltakelseModalData |
 	SettDeltakerIkkeAktuellModalData |
-	AvsluttDeltakerModalData
+	AvsluttDeltakerModalData |
+	EndreProsentDeltakelse
 
 
 export const useModalData = () => {
@@ -74,6 +78,13 @@ export const useModalData = () => {
 		})
 	}
 
+	const visEndreProsentDeltakelseModal = (props: EndreProsentDeltakelseModalDataProps) => {
+		setModalData({
+			type: ModalType.EndreProsentDeltakelse,
+			props: props
+		})
+	}
+
 	return {
 		modalData,
 		lukkModal,
@@ -81,6 +92,7 @@ export const useModalData = () => {
 		visLeggTilOppstartModal,
 		visForlengDeltakelseModal,
 		visSettDeltakerIkkeAktuellModal,
-		visAvsluttDeltakerModal
+		visAvsluttDeltakerModal,
+		visEndreProsentDeltakelseModal
 	}
 }

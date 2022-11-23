@@ -25,6 +25,11 @@ export const DeltakelseInfo = ({
 		setKey((pk) => pk+1)
 	}
 
+	const skalViseDeltakelsesprosent = (): boolean => {
+		return deltaker.gjennomforing.tiltak.tiltakskode === 'ARBFORB'
+			|| deltaker.gjennomforing.tiltak.tiltakskode === 'VASV'
+	}
+
 	return (
 		<div className={styles.wrapper}>
 			<div className={styles.section}>
@@ -34,6 +39,14 @@ export const DeltakelseInfo = ({
 				<ElementPanel tittel="Dato:">
 					<BodyShort size="small" >{formatDate(deltaker.startDato)} - {formatDate(deltaker.sluttDato)}</BodyShort>
 				</ElementPanel>
+				{skalViseDeltakelsesprosent() && (
+					<ElementPanel tittel={"Deltakelsesprosent:"}>
+						<BodyShort size="small">{deltaker.prosentDeltakselse !== null
+							? `${deltaker.prosentDeltakselse}%`
+							: 'Ikke satt'}
+						</BodyShort>
+					</ElementPanel>
+				)}
 				<Endringsmeldinger deltakerId={deltaker.id} key={key}/>
 			</div>
 			<EndreDeltakelseKnapp disabled={erSkjermetPerson} deltaker={deltaker} onEndringUtfort={reInstansierEndringsmeldinger}/>

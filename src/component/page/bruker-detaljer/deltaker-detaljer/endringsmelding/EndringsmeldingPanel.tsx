@@ -1,10 +1,7 @@
 import { Heading, Panel } from '@navikt/ds-react'
 import React, { ReactElement } from 'react'
 
-import {
-	Endringsmelding,
-	EndringsmeldingType
-} from '../../../../../api/data/endringsmelding'
+import { Endringsmelding, EndringsmeldingType } from '../../../../../api/data/endringsmelding'
 import { EndringTypeIkon } from '../EndringTypeIkon'
 import { EndringType } from '../types'
 import styles from './EndringsmeldingPanel.module.scss'
@@ -34,6 +31,7 @@ const mapTilEndringType = (endringsmeldingType: EndringsmeldingType) => {
 		case EndringsmeldingType.FORLENG_DELTAKELSE: return EndringType.FORLENG_DELTAKELSE
 		case EndringsmeldingType.DELTAKER_IKKE_AKTUELL: return EndringType.DELTAKER_IKKE_AKTUELL
 		case EndringsmeldingType.AVSLUTT_DELTAKELSE: return EndringType.AVSLUTT_DELTAKELSE
+		case EndringsmeldingType.ENDRE_PROSENT_DELTAKELSE: return EndringType.ENDRE_PROSENT_DELTAKELSE
 		default: throw Error(`Kan ikke finne endringsmeldingtype: ${endringsmeldingType}`)
 	}
 }

@@ -8,6 +8,7 @@ import React from 'react'
 
 import styles from './EndringTypeIkon.module.scss'
 import { EndringType } from './types'
+import SvgDivideFilled from '@navikt/ds-icons/esm/DivideFilled';
 
 interface EndringTypeIkonProps {
 	type: EndringType
@@ -23,6 +24,8 @@ export const EndringTypeIkon = (props: EndringTypeIkonProps) => {
 			return <ChevronRightDoubleFilled className={styles.forlengIkon} aria-hidden/>
 		case EndringType.AVSLUTT_DELTAKELSE:
 			return <MinusCircleFilled className={styles.avsluttIkon} aria-hidden/>
+		case EndringType.ENDRE_PROSENT_DELTAKELSE:
+			return <SvgDivideFilled className={styles.endreProsentDeltakelseIkon} aria-hidden/>
 		case EndringType.DELTAKER_IKKE_AKTUELL:
 			return <AddCircleFilled className={styles.ikkeAktuellIkon} aria-hidden/>
 

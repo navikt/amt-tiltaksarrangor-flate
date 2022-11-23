@@ -7,6 +7,7 @@ import { ForlengDeltakelseModal } from './endre-deltaker-modal/ForlengDeltakelse
 import { LeggTilOppstartModal } from './endre-deltaker-modal/LeggTilOppstartModal'
 import { SettIkkeAktuellModal } from './endre-deltaker-modal/SettIkkeAktuellModal'
 import { ModalData, ModalType } from './modal-store'
+import { EndreProsentDeltakelseModal } from './endre-deltaker-modal/EndreProsentDeltakelseModal';
 
 export const ModalController = (props : { modalData: ModalData | undefined, onClose: () => void }) : React.ReactElement | null => {
 	const { modalData, onClose }  = props
@@ -27,6 +28,8 @@ export const ModalController = (props : { modalData: ModalData | undefined, onCl
 			return <SettIkkeAktuellModal onClose={onClose} { ...modalData.props }/>
 		case ModalType.AvsluttDeltaker:
 			return <AvsluttDeltakelseModal onClose={onClose} { ...modalData.props }/>
+		case ModalType.EndreProsentDeltakelse:
+			return <EndreProsentDeltakelseModal onClose={onClose} {...modalData.props}/>
 		default: return null
 	}
 
