@@ -45,7 +45,7 @@ export const DeltakerDetaljer = (props: { deltaker: TiltakDeltakerDetaljer }): R
 					status={status}
 				/>
 
-				<Bestilling bestilling={innsokBegrunnelse}/>
+				<Bestilling tekst={innsokBegrunnelse}/>
 			</section>
 
 			<section>

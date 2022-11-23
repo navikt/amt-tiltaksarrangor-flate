@@ -8,7 +8,7 @@ import { Show } from '../../../felles/Show'
 import styles from './Bestilling.module.scss'
 
 interface BestillingProps {
-	bestilling: Nullable<string>
+	tekst: Nullable<string>
 }
 
 const MAX_LENGTH = 350
@@ -16,8 +16,8 @@ const MAX_LENGTH = 350
 export const Bestilling = (props: BestillingProps) => {
 	const [ showAll, setShowAll ] = useState(false)
 
-	const erBestillingOverMax = (props.bestilling?.length || 0) > MAX_LENGTH
-	let bestillingTekst = props.bestilling || EMDASH
+	const erBestillingOverMax = (props.tekst?.length || 0) > MAX_LENGTH
+	let bestillingTekst = props.tekst || EMDASH
 
 	if (!showAll && erBestillingOverMax) {
 		bestillingTekst = bestillingTekst.substring(0, MAX_LENGTH) + '...'
