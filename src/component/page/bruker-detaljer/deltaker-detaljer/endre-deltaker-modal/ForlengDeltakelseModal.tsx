@@ -58,6 +58,7 @@ export const ForlengDeltakelseModal = (props: ForlengDeltakelseModalProps & Forl
 				legend="Hvor lenge skal deltakelsen forlenges?"
 				onChange={(val) => settValgtVarighet(val)}>
 				<Radio value={VarighetValg.FIRE_UKER}>4 uker</Radio>
+				<Radio value={VarighetValg.FIRE_UKER}>6 uker</Radio>
 				<Radio value={VarighetValg.ATTE_UKER}>8 uker</Radio>
 				<Radio value={VarighetValg.TRE_MANEDER}>3 måneder</Radio>
 				<Radio value={VarighetValg.SEKS_MANEDER}>6 måneder</Radio>
