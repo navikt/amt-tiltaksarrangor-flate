@@ -33,7 +33,7 @@ export const ForlengDeltakelseModal = (props: ForlengDeltakelseModalProps & Forl
 	const minDato = maxDate(startDato, gjennomforing.startDato)
 
 	const kalkulerDato = (sluttdato: Nullable<Date>, varighet: Varighet): Date => {
-		return dayjs(sluttdato).add(varighet.antall, varighet.tidsenhet).toDate()
+		return dayjs(sluttdato).add(varighet.antall, varighet.tidsenhet).subtract(1, 'day').toDate()
 	}
 
 	const sendEndringsmelding = () => {
