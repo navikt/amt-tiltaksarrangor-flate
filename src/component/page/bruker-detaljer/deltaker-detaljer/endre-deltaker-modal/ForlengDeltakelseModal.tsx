@@ -9,6 +9,7 @@ import { DateField } from '../../../../felles/DateField'
 import { useGjennomforingStore } from '../gjennomforing-store'
 import { BaseModal } from './BaseModal'
 import { SendTilNavKnapp } from './SendTilNavKnapp'
+import { Varighet, varigheter, VarighetValg } from './varighet'
 import { VeilederConfirmationPanel } from './VeilederConfirmationPanel'
 
 export interface ForlengDeltakelseModalProps {
@@ -24,19 +25,19 @@ export interface ForlengDeltakelseModalDataProps {
 
 export const ForlengDeltakelseModal = (props: ForlengDeltakelseModalProps & ForlengDeltakelseModalDataProps) => {
 	const { deltakerId, startDato, sluttDato, onClose, onEndringUtfort } = props
-	const [ valgtVarighet, settValgtVarighet ] = useState()
+	const [ valgtVarighet, settValgtVarighet ] = useState(VarighetValg.IKKE_VALGT)
 	const [ nySluttDato, settNySluttDato ] = useState<Nullable<Date>>()
 	const [ vilkaarGodkjent, settVilkaarGodkjent ] = useState(false)
 	const { gjennomforing } = useGjennomforingStore()
-	const visDatoVelger = valgtVarighet === 'Annet'
+	const visDatoVelger = valgtVarighet === VarighetValg.ANNET
 	const minDato = maxDate(startDato, gjennomforing.startDato)
 
-	const kalkulerDato = (sluttdato: Nullable<Date>, forlengMnd: number) : Date => {
-		return dayjs(sluttdato).add(forlengMnd, 'month').toDate()
+	const kalkulerDato = (sluttdato: Nullable<Date>, varighet: Varighet): Date => {
+		return dayjs(sluttdato).add(varighet.antall, varighet.tidsenhet).toDate()
 	}
 
 	const sendEndringsmelding = () => {
-		if(!nySluttDato) {
+		if (!nySluttDato) {
 			return Promise.reject('Kan ikke sende ForlengDeltakelse endringsmelding uten sluttdato')
 		}
 		return forlengDeltakelse(deltakerId, nySluttDato)
@@ -44,8 +45,8 @@ export const ForlengDeltakelseModal = (props: ForlengDeltakelseModalProps & Forl
 	}
 
 	useEffect(() => {
-		const varighet = Number(valgtVarighet)
-		if(varighet) {
+		const varighet = varigheter[valgtVarighet]
+		if (varighet) {
 			settNySluttDato(kalkulerDato(sluttDato, varighet))
 		}
 		else settNySluttDato(null)
@@ -56,10 +57,12 @@ export const ForlengDeltakelseModal = (props: ForlengDeltakelseModalProps & Forl
 			<RadioGroup
 				legend="Hvor lenge skal deltakelsen forlenges?"
 				onChange={(val) => settValgtVarighet(val)}>
-				<Radio value="1">1 måned</Radio>
-				<Radio value="2">2 måneder</Radio>
-				<Radio value="6">6 måneder</Radio>
-				<Radio value="Annet">
+				<Radio value={VarighetValg.FIRE_UKER}>4 uker</Radio>
+				<Radio value={VarighetValg.ATTE_UKER}>8 uker</Radio>
+				<Radio value={VarighetValg.TRE_MANEDER}>3 måneder</Radio>
+				<Radio value={VarighetValg.SEKS_MANEDER}>6 måneder</Radio>
+				<Radio value={VarighetValg.TOLV_MANEDER}>12 måneder</Radio>
+				<Radio value={VarighetValg.ANNET}>
 					Annet - velg dato:
 					{visDatoVelger &&
 						<DateField
@@ -67,17 +70,17 @@ export const ForlengDeltakelseModal = (props: ForlengDeltakelseModalProps & Forl
 							max={gjennomforing.sluttDato}
 							label={null}
 							onDateChanged={d => settNySluttDato(d)}
-							aria-label="Annet - velg dato"/>
+							aria-label="Annet - velg dato" />
 					}
 				</Radio>
 			</RadioGroup>
 			{nySluttDato && !visDatoVelger &&
 				<BodyShort>Ny sluttdato: {formatDate(nySluttDato)}</BodyShort>}
-			<VeilederConfirmationPanel vilkaarGodkjent={vilkaarGodkjent} setVilkaarGodkjent={settVilkaarGodkjent}/>
+			<VeilederConfirmationPanel vilkaarGodkjent={vilkaarGodkjent} setVilkaarGodkjent={settVilkaarGodkjent} />
 			<SendTilNavKnapp
 				onEndringSendt={onClose}
 				sendEndring={sendEndringsmelding}
-				disabled={!nySluttDato || !vilkaarGodkjent}/>
+				disabled={!nySluttDato || !vilkaarGodkjent} />
 
 		</BaseModal>
 	)
