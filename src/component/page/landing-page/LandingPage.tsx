@@ -24,7 +24,7 @@ export const LandingPage = (props: LandingPageProps): React.ReactElement => {
 	return (
 		<main className={styles.landingPage}>
 			<Heading size="xlarge" className={cls(styles.title, styles.mainTitle, globalStyles.blokkM)}>Deltakeroversikt</Heading>
-			<Heading size="small" className={cls(styles.title, globalStyles.blokkM)}>Pilot for tiltaksarrangør</Heading>
+			<Heading size="small" className={cls(styles.title, globalStyles.blokkM)}>Pilot for tiltaksarrangør TESTTEST</Heading>
 
 			<div className={cls(styles.infoBoks, globalStyles.blokkM)}>
 				NAV lager digitale løsninger for tiltaksarrangører, deltakere i tiltakene og NAV.
