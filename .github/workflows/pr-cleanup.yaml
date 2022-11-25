@@ -1,3 +1,4 @@
+# Jeg er en endring
 name: Rydd applikasjon for PR
 on:
   pull_request:
