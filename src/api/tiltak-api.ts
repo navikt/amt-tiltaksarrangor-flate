@@ -21,7 +21,6 @@ import {
 	Koordinator, koordinatorListSchema,
 } from './data/tiltak'
 import { axiosInstance, logAndThrowError, parse } from './utils'
-import exp from 'constants';
 
 export const fetchInnloggetAnsatt = (): AxiosPromise<InnloggetAnsatt> => {
 	return axiosInstance
@@ -123,7 +122,7 @@ export const endreDeltakelsesprosent = (deltakerId: string, deltakerProsent: num
 	return axiosInstance
 		.patch(
 			appUrl(`/amt-tiltak/api/tiltaksarrangor/deltaker/${deltakerId}/deltaker-prosent`),
-			{deltakerProsent: deltakerProsent}
+			{ deltakerProsent: deltakerProsent }
 		)
 		.catch(logAndThrowError)
 }

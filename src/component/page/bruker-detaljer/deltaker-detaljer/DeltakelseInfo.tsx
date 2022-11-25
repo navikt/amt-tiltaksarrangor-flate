@@ -40,7 +40,7 @@ export const DeltakelseInfo = ({
 					<BodyShort size="small" >{formatDate(deltaker.startDato)} - {formatDate(deltaker.sluttDato)}</BodyShort>
 				</ElementPanel>
 				{skalViseDeltakelsesprosent() && (
-					<ElementPanel tittel={"Deltakelsesprosent:"}>
+					<ElementPanel tittel={'Deltakelsesprosent:'}>
 						<BodyShort size="small">{deltaker.prosentDeltakselse !== null
 							? `${deltaker.prosentDeltakselse}%`
 							: 'Ikke satt'}

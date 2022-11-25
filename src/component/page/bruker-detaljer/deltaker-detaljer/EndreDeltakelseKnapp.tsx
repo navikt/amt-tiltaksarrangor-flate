@@ -29,14 +29,14 @@ export const EndreDeltakelseKnapp = (props: EndreDeltakelseKnappProps) => {
 		visEndreProsentDeltakelseModal,
 		lukkModal
 	} = useModalData()
-	const {deltaker} = props
+	const { deltaker } = props
 
 	return (
 		<>
 			<ModalController modalData={modalData} onClose={lukkModal}/>
 			<Dropdown>
 				<Button className={styles.knapp} as={Dropdown.Toggle} variant="secondary" size="small"
-						disabled={props.disabled}>
+					disabled={props.disabled}>
 					<span className={styles.knappTekst}>
 						<Edit aria-hidden/>
 						Endre deltakelse

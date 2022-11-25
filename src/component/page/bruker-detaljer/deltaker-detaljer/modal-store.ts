@@ -2,10 +2,10 @@ import { useState } from 'react'
 
 import { AvsluttDeltakelseModalDataProps } from './endre-deltaker-modal/AvsluttDeltakelseModal'
 import { EndreOppstartModalDataProps } from './endre-deltaker-modal/EndreOppstartModal'
+import { EndreProsentDeltakelseModalDataProps } from './endre-deltaker-modal/EndreProsentDeltakelseModal'
 import { ForlengDeltakelseModalDataProps } from './endre-deltaker-modal/ForlengDeltakelseModal'
 import { LeggTilOppstartModalDataProps } from './endre-deltaker-modal/LeggTilOppstartModal'
 import { SettIkkeAktuellModalDataProps } from './endre-deltaker-modal/SettIkkeAktuellModal'
-import { EndreProsentDeltakelseModalDataProps } from './endre-deltaker-modal/EndreProsentDeltakelseModal';
 
 export enum ModalType {
 	LeggTilOppstart,

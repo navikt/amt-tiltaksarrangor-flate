@@ -4,11 +4,11 @@ import {
 	ChevronRightDoubleFilled,
 	MinusCircleFilled
 } from '@navikt/ds-icons'
+import SvgDivideFilled from '@navikt/ds-icons/esm/DivideFilled'
 import React from 'react'
 
 import styles from './EndringTypeIkon.module.scss'
 import { EndringType } from './types'
-import SvgDivideFilled from '@navikt/ds-icons/esm/DivideFilled';
 
 interface EndringTypeIkonProps {
 	type: EndringType
