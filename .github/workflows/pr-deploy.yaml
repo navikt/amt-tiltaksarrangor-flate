@@ -1,9 +1,8 @@
 name: Deploy Pull Request Branch
 on:
   pull_request:
-    types:
-      - opened
-      - synchronize
+    branches:
+      - main
 env:
   CI: true
   TZ: Europe/Oslo
@@ -13,6 +12,8 @@ jobs:
     name: Deploy Pull Request Branch
     runs-on: ubuntu-latest
     steps:
+      - name: hallo test Slett meg!
+        run: echo "Main"
       - name: Checkout
         uses: actions/checkout@v2
       - name: Setup node
