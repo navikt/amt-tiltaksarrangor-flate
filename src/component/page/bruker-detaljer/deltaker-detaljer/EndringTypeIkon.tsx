@@ -19,7 +19,7 @@ export const EndringTypeIkon = (props: EndringTypeIkonProps) => {
 		case EndringType.LEGG_TIL_OPPSTARTSDATO:
 			return <ChevronRightCircleFilled className={styles.endreIkon} aria-hidden/>
 		case EndringType.ENDRE_OPPSTARTSDATO:
-			return <ChevronRightDoubleFilled className={styles.endreIkon} aria-hidden/>
+			return <ChevronRightCircleFilled className={styles.endreIkon} aria-hidden/>
 		case  EndringType.FORLENG_DELTAKELSE:
 			return <ChevronRightDoubleFilled className={styles.forlengIkon} aria-hidden/>
 		case EndringType.AVSLUTT_DELTAKELSE:

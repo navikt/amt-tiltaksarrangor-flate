@@ -5,22 +5,22 @@ import React, { useState } from 'react'
 import { EMDASH } from '../../../../utils/constants'
 import { Nullable } from '../../../../utils/types/or-nothing'
 import { Show } from '../../../felles/Show'
-import styles from './Begrunnelse.module.scss'
+import styles from './Bestilling.module.scss'
 
-interface BegrunnelseProps {
-	begrunnelse: Nullable<string>
+interface BestillingProps {
+	tekst: Nullable<string>
 }
 
 const MAX_LENGTH = 350
 
-export const Begrunnelse = (props: BegrunnelseProps) => {
+export const Bestilling = (props: BestillingProps) => {
 	const [ showAll, setShowAll ] = useState(false)
 
-	const erBegrunnelseOverMax = (props.begrunnelse?.length || 0) > MAX_LENGTH
-	let begrunnelseTekst = props.begrunnelse || EMDASH
+	const erBestillingOverMax = (props.tekst?.length || 0) > MAX_LENGTH
+	let bestillingTekst = props.tekst || EMDASH
 
-	if (!showAll && erBegrunnelseOverMax) {
-		begrunnelseTekst = begrunnelseTekst.substring(0, MAX_LENGTH) + '...'
+	if (!showAll && erBestillingOverMax) {
+		bestillingTekst = bestillingTekst.substring(0, MAX_LENGTH) + '...'
 	}
 
 	const toggleShowAll = () => {
@@ -29,13 +29,13 @@ export const Begrunnelse = (props: BegrunnelseProps) => {
 
 	return (
 		<div className={styles.wrapper}>
-			<Heading size="small" level="4" spacing>Begrunnelse</Heading>
+			<Heading size="small" level="4" spacing>Bestilling</Heading>
 
-			<BodyLong size="small" className={styles.begrunnelseTekst}>
-				{begrunnelseTekst}
+			<BodyLong size="small" className={styles.tekst}>
+				{bestillingTekst}
 			</BodyLong>
 
-			<Show if={erBegrunnelseOverMax}>
+			<Show if={erBestillingOverMax}>
 				{
 					showAll && (
 						<button className={styles.toggleKnapp} onClick={toggleShowAll}>

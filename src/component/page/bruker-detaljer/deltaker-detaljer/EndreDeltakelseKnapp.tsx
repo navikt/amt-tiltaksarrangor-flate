@@ -30,6 +30,9 @@ export const EndreDeltakelseKnapp = (props: EndreDeltakelseKnappProps) => {
 		lukkModal
 	} = useModalData()
 	const { deltaker } = props
+	const kanEndreStartDato = deltaker.status.type === TiltakDeltakerStatus.VENTER_PA_OPPSTART
+		|| deltaker.status.type === TiltakDeltakerStatus.IKKE_AKTUELL
+		|| deltaker.status.type === TiltakDeltakerStatus.DELTAR
 
 	return (
 		<>
@@ -44,7 +47,7 @@ export const EndreDeltakelseKnapp = (props: EndreDeltakelseKnappProps) => {
 				</Button>
 				<Dropdown.Menu>
 					<Dropdown.Menu.GroupedList className={styles.dropdown}>
-						{!deltaker.startDato && deltaker.status.type === TiltakDeltakerStatus.VENTER_PA_OPPSTART &&
+						{ kanEndreStartDato && !deltaker.startDato &&
 							<DropDownButton
 								endringstype={EndringType.LEGG_TIL_OPPSTARTSDATO}
 								onClick={() => visLeggTilOppstartModal({
@@ -53,9 +56,7 @@ export const EndreDeltakelseKnapp = (props: EndreDeltakelseKnappProps) => {
 								})}/>
 						}
 
-						{deltaker.startDato && (deltaker.status.type === TiltakDeltakerStatus.VENTER_PA_OPPSTART
-								|| deltaker.status.type === TiltakDeltakerStatus.IKKE_AKTUELL
-								|| deltaker.status.type === TiltakDeltakerStatus.DELTAR) &&
+						{ kanEndreStartDato && deltaker.startDato &&
 							<DropDownButton
 								endringstype={EndringType.ENDRE_OPPSTARTSDATO}
 								onClick={() => visEndreOppstartModal({
@@ -65,7 +66,6 @@ export const EndreDeltakelseKnapp = (props: EndreDeltakelseKnappProps) => {
 						}
 
 						{(deltaker.status.type === TiltakDeltakerStatus.HAR_SLUTTET
-								|| deltaker.status.type === TiltakDeltakerStatus.IKKE_AKTUELL
 								|| deltaker.status.type === TiltakDeltakerStatus.DELTAR) &&
 							<DropDownButton
 								endringstype={EndringType.FORLENG_DELTAKELSE}
@@ -77,7 +77,7 @@ export const EndreDeltakelseKnapp = (props: EndreDeltakelseKnappProps) => {
 								})}/>
 						}
 
-						{deltaker.status.type === TiltakDeltakerStatus.VENTER_PA_OPPSTART &&
+						{ deltaker.status.type === TiltakDeltakerStatus.VENTER_PA_OPPSTART &&
 							<DropDownButton
 								endringstype={EndringType.DELTAKER_IKKE_AKTUELL}
 								onClick={() => visSettDeltakerIkkeAktuellModal({

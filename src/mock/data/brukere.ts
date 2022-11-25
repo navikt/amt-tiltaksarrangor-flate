@@ -103,7 +103,7 @@ const lagMockTiltakDeltagerForGjennomforing = (gjennomforing: Gjennomforing): Mo
 
 	const veilederNavn = faker.name.firstName() + ' ' + faker.name.lastName()
 
-	const startDato = status !== TiltakDeltakerStatus.VENTER_PA_OPPSTART ? faker.date.past() : null
+	const startDato = status === TiltakDeltakerStatus.VENTER_PA_OPPSTART ? faker.date.future() : faker.date.past()
 	const fjernesDato = status === TiltakDeltakerStatus.IKKE_AKTUELL || status === TiltakDeltakerStatus.HAR_SLUTTET ? faker.date.future() : null
 
 	const veileder = randBetween(0, 10) > 1 ? {
