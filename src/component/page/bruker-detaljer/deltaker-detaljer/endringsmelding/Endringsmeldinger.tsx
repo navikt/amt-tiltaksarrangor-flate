@@ -17,9 +17,10 @@ export const Endringsmeldinger = ({ deltakerId }: EndringsmeldingerProps) => {
 
 	useEffect(() => {
 		hentEndringsmeldinger(deltakerId)
-			.then((res) => setEndringsmeldinger(res.data))
+			.then((res) => res.data.length>0? setEndringsmeldinger(res.data): undefined)
 			.catch(() => setVisFeilmelding(true))
 	}, [ deltakerId ])
+
 	return (
 		<>
 			{visfeilmelding && <Alert variant="error">Kunne ikke hente endringsmeldinger</Alert> }
