@@ -1,6 +1,9 @@
 name: Deploy Pull Request Branch
 on:
-  push:
+  pull_request:
+    types:
+      - opened
+      - synchronize
     branches-ignore:
       - main
 env:
