@@ -1,8 +1,8 @@
 name: Deploy Pull Request Branch
 on:
   push:
-    branches:
-      - !main
+    branches-ignore:
+      - main
 env:
   CI: true
   TZ: Europe/Oslo
