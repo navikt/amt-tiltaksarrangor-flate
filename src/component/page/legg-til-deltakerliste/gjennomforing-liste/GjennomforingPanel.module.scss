@@ -28,4 +28,9 @@
 
 .knapp {
   min-width: fit-content;
+  span {
+      display: flex; 
+      align-items: center;
+      gap: 0.33rem;
+  }
 }
