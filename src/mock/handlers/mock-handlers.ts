@@ -15,7 +15,7 @@ import {
 import { mockInnloggetAnsatt } from '../data/ansatt'
 import { mockAuthInfo } from '../data/auth'
 import { MockTiltakDeltaker } from '../data/brukere'
-import { randomUuid, randBetween } from '../utils/faker'
+import { randBetween,randomUuid } from '../utils/faker'
 
 export const mockHandlers: RequestHandler[] = [
 	rest.get(appUrl('/auth/info'), (_req, res, ctx) => {
