@@ -15,7 +15,7 @@ import {
 import { mockInnloggetAnsatt } from '../data/ansatt'
 import { mockAuthInfo } from '../data/auth'
 import { MockTiltakDeltaker } from '../data/brukere'
-import { randomUuid } from '../utils/faker'
+import { randomUuid, randBetween } from '../utils/faker'
 
 export const mockHandlers: RequestHandler[] = [
 	rest.get(appUrl('/auth/info'), (_req, res, ctx) => {
@@ -67,6 +67,12 @@ export const mockHandlers: RequestHandler[] = [
 		const meldinger = mockEndringsmeldinger[deltakerId] || []
 
 		return res(ctx.delay(500), ctx.json(meldinger))
+	}),
+	rest.patch(appUrl('/amt-tiltak/api/tiltaksarrangor/endringsmelding/tilbakekall?id=:endringsmeldingId'), (req, res, ctx) => {
+		if (randBetween(0, 10) < 3) {
+			return res(ctx.delay(500), ctx.status(400))
+		}
+		return res(ctx.delay(500), ctx.status(200))
 	}),
 	rest.post(appUrl('/amt-tiltak/api/tiltaksarrangor/deltaker/:deltakerId/oppstartsdato'), (req, res, ctx) => {
 		const deltakerId = req.params.deltakerId as string

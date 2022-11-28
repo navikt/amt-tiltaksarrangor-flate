@@ -9,9 +9,10 @@ import { EndringsmeldingPanel } from './EndringsmeldingPanel'
 
 interface EndringsmeldingerProps {
 	deltakerId: string
+	onTilbakekallResolved: () => void
 }
 
-export const Endringsmeldinger = ({ deltakerId }: EndringsmeldingerProps) => {
+export const Endringsmeldinger = ({ deltakerId, onTilbakekallResolved }: EndringsmeldingerProps) => {
 	const [ endringsmeldinger, setEndringsmeldinger ] = useState<Endringsmelding[]>()
 	const [ visfeilmelding, setVisFeilmelding ] = useState(false)
 
@@ -20,18 +21,19 @@ export const Endringsmeldinger = ({ deltakerId }: EndringsmeldingerProps) => {
 			.then((res) => setEndringsmeldinger(res.data))
 			.catch(() => setVisFeilmelding(true))
 	}, [ deltakerId ])
+
 	return (
 		<>
-			{visfeilmelding && <Alert variant="error">Kunne ikke hente endringsmeldinger</Alert> }
+			{visfeilmelding && <Alert variant="error">Kunne ikke hente endringsmeldinger</Alert>}
 			{endringsmeldinger && (
 				<div className={styles.endringsmeldinger}>
 					{endringsmeldinger.map(melding =>
-						<EndringsmeldingPanel endringsmelding={ melding } key={melding.id}>
-							<EndringsmeldingInnhold endringsmelding={ melding }/>
+						<EndringsmeldingPanel endringsmelding={melding} onTilbakekallResolved={onTilbakekallResolved} key={melding.id}>
+							<EndringsmeldingInnhold endringsmelding={melding} />
 						</EndringsmeldingPanel>)}
 				</div>
 			)}
 		</>
-
 	)
 }
+
