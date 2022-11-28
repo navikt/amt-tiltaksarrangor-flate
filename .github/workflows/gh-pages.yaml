@@ -6,7 +6,7 @@ on:
       - main
 env:
   CI: true
-  TZ: Europe/Amsterdam
+  TZ: Europe/Oslo
 
 jobs:
   update-gh-pages:
