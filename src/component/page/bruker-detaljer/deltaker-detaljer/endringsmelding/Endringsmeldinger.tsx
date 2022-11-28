@@ -17,9 +17,19 @@ export const Endringsmeldinger = ({ deltakerId, onTilbakekallResolved }: Endring
 	const [ visfeilmelding, setVisFeilmelding ] = useState(false)
 
 	useEffect(() => {
+		let isMounted = true
 		hentEndringsmeldinger(deltakerId)
-			.then((res) => setEndringsmeldinger(res.data))
-			.catch(() => setVisFeilmelding(true))
+			.then((res) => {
+				if (isMounted) {
+					setEndringsmeldinger(res.data)
+				}
+			})
+			.catch(() => {
+				if (isMounted) {
+					setVisFeilmelding(true)
+				}
+			})
+		return () => { isMounted = false }
 	}, [ deltakerId ])
 
 	return (
