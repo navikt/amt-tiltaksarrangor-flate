@@ -6,6 +6,7 @@ import { appUrl } from '../utils/url-utils'
 import { devProxyHandlers } from './handlers/dev-proxy-handlers'
 import { localAppHandlers } from './handlers/local-app-handlers'
 import { mockHandlers } from './handlers/mock-handlers'
+import { pullRequestHandlers } from './handlers/pull-request-handlers'
 import { getRequestHandler, RequestHandlerType } from './utils/mock-env'
 
 const resolveHandlers = (requestHandlerType: RequestHandlerType): RequestHandler[] => {
@@ -16,6 +17,8 @@ const resolveHandlers = (requestHandlerType: RequestHandlerType): RequestHandler
 			return devProxyHandlers
 		case RequestHandlerType.LOCAL:
 			return localAppHandlers
+		case RequestHandlerType.PULL_REQUEST:
+			return pullRequestHandlers
 		default:
 			throw Error('Unknown handler: ' + requestHandlerType)
 	}

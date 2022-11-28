@@ -57,10 +57,6 @@ spec:
           },
           "proxies": [
             {
-              "fromPath": "/pr-*/amt-tiltak", "toUrl": "http://amt-tiltak",
-              "toApp": { "name": "amt-tiltak", "namespace": "amt", "cluster": "dev-gcp" }
-            },
-            {
               "fromPath": "/amt-tiltak", "toUrl": "http://amt-tiltak",
               "toApp": { "name": "amt-tiltak", "namespace": "amt", "cluster": "dev-gcp" }
             }
