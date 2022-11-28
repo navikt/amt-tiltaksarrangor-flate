@@ -2,24 +2,19 @@ import { ResponseComposition, rest, RestContext, RestRequest } from 'msw'
 import { RequestHandler } from 'msw/lib/types/handlers/RequestHandler'
 import { MockedResponse } from 'msw/lib/types/response'
 
-import environment from '../../utils/environment'
 import { appUrl } from '../../utils/url-utils'
-import { joinUrlAndPath } from '../utils/url-utils'
-
-const getPullRequestUrl = (): string => {
-	return environment.publicUrl.replace(/\/pr-\d+/, '')
-}
 
 export const pullRequestHandlers: RequestHandler[] = [
 
 	rest.all(appUrl('/amt-tiltak/*'), async(req, res, ctx) => {
-		return handleReq(getPullRequestUrl(), req, res, ctx)
+		return handleReq(req, res, ctx)
 	})
 
 ]
 
-const handleReq = async(proxyUrl: string, req: RestRequest, res: ResponseComposition, ctx: RestContext): Promise<MockedResponse> => {
-	const proxiedUrl = `${joinUrlAndPath(proxyUrl, req.url.pathname)}${req.url.search}`
+const handleReq = async(req: RestRequest, res: ResponseComposition, ctx: RestContext): Promise<MockedResponse> => {
+	const url = req.url.pathname.replace(/\/pr-\d+/, '')
+	const proxiedUrl = `${url}${req.url.search}`
 
 	try {
 
