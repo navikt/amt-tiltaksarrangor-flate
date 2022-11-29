@@ -78,7 +78,7 @@ export const mockHandlers: RequestHandler[] = [
 			mockEndringsmeldinger[deltakerId] = mockEndringsmeldinger[deltakerId].filter(e => e.id !== endringsmeldingId)
 		})
 
-		return res(ctx.delay(3000), ctx.status(200))
+		return res(ctx.delay(500), ctx.status(200))
 	}),
 	rest.post(appUrl('/amt-tiltak/api/tiltaksarrangor/deltaker/:deltakerId/oppstartsdato'), (req, res, ctx) => {
 		const deltakerId = req.params.deltakerId as string
