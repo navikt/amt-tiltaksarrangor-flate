@@ -68,7 +68,7 @@ export const mockHandlers: RequestHandler[] = [
 
 		return res(ctx.delay(500), ctx.json(meldinger))
 	}),
-	rest.patch(appUrl('/amt-tiltak/api/tiltaksarrangor/endringsmelding/tilbakekall?id=:endringsmeldingId'), (req, res, ctx) => {
+	rest.patch(appUrl('/amt-tiltak/api/tiltaksarrangor/endringsmelding/:endringsmeldingId/tilbakekall'), (_req, res, ctx) => {
 		if (randBetween(0, 10) < 3) {
 			return res(ctx.delay(500), ctx.status(400))
 		}
