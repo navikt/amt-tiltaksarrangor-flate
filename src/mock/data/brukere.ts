@@ -3,7 +3,7 @@ import faker from 'faker'
 import { TiltakDeltakerStatus } from '../../api/data/deltaker'
 import { Endringsmelding } from '../../api/data/endringsmelding'
 import { Gjennomforing } from '../../api/data/tiltak'
-import { randBetween, randomFnr } from '../utils/faker'
+import { randBetween, randomBoolean, randomFnr } from '../utils/faker'
 import { lagMockEndringsmeldingForDeltaker } from './endringsmelding'
 import { deltakerId } from './id'
 import { MockGjennomforing } from './tiltak'
@@ -97,7 +97,7 @@ const lagMockTiltakDeltagerForGjennomforing = (gjennomforing: Gjennomforing): Mo
 	const gender = randBetween(0, 1)
 
 	const brukerFornavn = faker.name.firstName(gender)
-	const brukerMellomnavn = randBetween(0, 10) > 6 ? faker.name.firstName(gender) : null
+	const brukerMellomnavn = randomBoolean(50) ? faker.name.firstName(gender) : null
 	const brukerEtternavn = faker.name.lastName()
 
 	const veilederNavn = faker.name.firstName() + ' ' + faker.name.lastName()
@@ -105,7 +105,7 @@ const lagMockTiltakDeltagerForGjennomforing = (gjennomforing: Gjennomforing): Mo
 	const startDato = status === TiltakDeltakerStatus.VENTER_PA_OPPSTART ? faker.date.future() : faker.date.past()
 	const fjernesDato = status === TiltakDeltakerStatus.IKKE_AKTUELL || status === TiltakDeltakerStatus.HAR_SLUTTET ? faker.date.future() : null
 
-	const veileder = randBetween(0, 10) > 1 ? {
+	const veileder = randomBoolean(90) ? {
 		epost: lagMailFraNavn(veilederNavn, 'nav.no'),
 		navn: veilederNavn,
 		telefon: lagTelefonnummer()
@@ -125,7 +125,7 @@ const lagMockTiltakDeltagerForGjennomforing = (gjennomforing: Gjennomforing): Mo
 			type: status,
 			endretDato: faker.date.recent()
 		},
-		erSkjermetPerson: randBetween(0, 10) > 7,
+		erSkjermetPerson: randomBoolean(10),
 		navEnhet: faker.random.arrayElement(navEnheter),
 		navVeileder: veileder,
 		fjernesDato: fjernesDato,
