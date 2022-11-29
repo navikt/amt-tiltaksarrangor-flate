@@ -9,28 +9,26 @@ import { EndringsmeldingPanel } from './EndringsmeldingPanel'
 
 interface EndringsmeldingerProps {
 	deltakerId: string
-	onEndringsmeldingTilbakekalt: () => void
+	setReloadEndringsmeldinger: (b: boolean) => void
+	reloadEndringsmeldinger: boolean
 }
 
-export const Endringsmeldinger = ({ deltakerId, onEndringsmeldingTilbakekalt }: EndringsmeldingerProps) => {
+export const Endringsmeldinger = ({
+	deltakerId,
+	setReloadEndringsmeldinger,
+	reloadEndringsmeldinger
+}: EndringsmeldingerProps) => {
 	const [ endringsmeldinger, setEndringsmeldinger ] = useState<Endringsmelding[]>()
 	const [ visfeilmelding, setVisFeilmelding ] = useState(false)
 
 	useEffect(() => {
-		let isMounted = true
+		if (!reloadEndringsmeldinger) return
+
 		hentEndringsmeldinger(deltakerId)
-			.then((res) => {
-				if (isMounted) {
-					setEndringsmeldinger(res.data)
-				}
-			})
-			.catch(() => {
-				if (isMounted) {
-					setVisFeilmelding(true)
-				}
-			})
-		return () => { isMounted = false }
-	}, [ deltakerId ])
+			.then((res) => setEndringsmeldinger(res.data))
+			.catch(() => setVisFeilmelding(true))
+			.finally(() => setReloadEndringsmeldinger(false))
+	}, [ reloadEndringsmeldinger, deltakerId, setReloadEndringsmeldinger ])
 
 	return (
 		<>
@@ -38,7 +36,11 @@ export const Endringsmeldinger = ({ deltakerId, onEndringsmeldingTilbakekalt }: 
 			{endringsmeldinger && (
 				<div className={styles.endringsmeldinger}>
 					{endringsmeldinger.map(melding =>
-						<EndringsmeldingPanel endringsmelding={melding} onEndringsmeldingTilbakekalt={onEndringsmeldingTilbakekalt} key={melding.id}>
+						<EndringsmeldingPanel
+							endringsmelding={melding}
+							onEndringsmeldingTilbakekalt={() => setReloadEndringsmeldinger(true)}
+							key={melding.id}
+						>
 							<EndringsmeldingInnhold endringsmelding={melding} />
 						</EndringsmeldingPanel>)}
 				</div>
@@ -46,4 +48,3 @@ export const Endringsmeldinger = ({ deltakerId, onEndringsmeldingTilbakekalt }: 
 		</>
 	)
 }
-

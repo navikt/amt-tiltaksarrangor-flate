@@ -20,10 +20,10 @@ export const DeltakelseInfo = ({
 	deltaker,
 	status
 }: DeltakelseInfoProps): React.ReactElement => {
-	const [ key, setKey ] = useState<number>(0)
+	const [ reloadEndringsmeldinger, setReloadEndringsmeldinger ] = useState(true)
 
-	const reInstansierEndringsmeldinger = () => {
-		setKey((pk) => pk+1)
+	const triggerReloadEndringsmeldinger = () => {
+		setReloadEndringsmeldinger(true)
 	}
 
 	return (
@@ -33,15 +33,15 @@ export const DeltakelseInfo = ({
 					<ElementPanel tittel="Status:" className={styles.margin}>
 						<StatusMerkelapp status={status}/>
 					</ElementPanel>
-					<EndreDeltakelseKnapp disabled={erSkjermetPerson} deltaker={deltaker} onEndringUtfort={reInstansierEndringsmeldinger}/>
+					<EndreDeltakelseKnapp disabled={erSkjermetPerson} deltaker={deltaker} onEndringUtfort={triggerReloadEndringsmeldinger}/>
 				</div>
 				<ElementPanel tittel="Dato:">
 					<BodyShort size="small" >{formatDate(deltaker.startDato)} - {formatDate(deltaker.sluttDato)}</BodyShort>
 				</ElementPanel>
 				<Endringsmeldinger 
-					deltakerId={deltaker.id} 
-					key={key} 
-					onEndringsmeldingTilbakekalt={reInstansierEndringsmeldinger}
+					deltakerId={deltaker.id}
+					setReloadEndringsmeldinger={setReloadEndringsmeldinger} 
+					reloadEndringsmeldinger={reloadEndringsmeldinger}					
 				/>
 			</div>
 		</div>

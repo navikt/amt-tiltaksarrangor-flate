@@ -1,6 +1,6 @@
 import { Close } from '@navikt/ds-icons'
 import { Alert, Button, Heading, Panel, Tooltip } from '@navikt/ds-react'
-import React, { ReactElement, useEffect } from 'react'
+import React, { ReactElement } from 'react'
 
 import {
 	Endringsmelding,
@@ -21,20 +21,16 @@ export interface EndringsmeldingPanelProps {
 export const EndringsmeldingPanel = ({ endringsmelding, onEndringsmeldingTilbakekalt, children }: EndringsmeldingPanelProps) => {
 	const tilbakekallEndringsmeldingPromise = usePromise()
 
-	useEffect(() => {
-		if (isResolved(tilbakekallEndringsmeldingPromise)) {
-			onEndringsmeldingTilbakekalt()
-		}
-	}, [ tilbakekallEndringsmeldingPromise, onEndringsmeldingTilbakekalt ])
-
 	const handleClick = () => {
 		tilbakekallEndringsmeldingPromise.setPromise(
 			tilbakekallEndringsmelding(endringsmelding.id)
+				.then(onEndringsmeldingTilbakekalt)
 		)
 	}
 
 	if (isRejected(tilbakekallEndringsmeldingPromise)) {
 		return <Alert className={styles.alert} variant="error">Meldingen ble ikke tilbakekalt. En annen person har gjort at meldingen er utdatert.</Alert>
+
 	}
 
 	return (
@@ -49,7 +45,7 @@ export const EndringsmeldingPanel = ({ endringsmelding, onEndringsmeldingTilbake
 			<Tooltip content="Tilbakekall melding" className={styles.tooltip}>
 				<Button
 					icon={<Close />}
-					loading={isPending(tilbakekallEndringsmeldingPromise)}
+					loading={isPending(tilbakekallEndringsmeldingPromise) || isResolved(tilbakekallEndringsmeldingPromise)}
 					variant="tertiary"
 					size="small"
 					onClick={handleClick}

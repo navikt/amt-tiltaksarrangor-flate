@@ -68,11 +68,17 @@ export const mockHandlers: RequestHandler[] = [
 
 		return res(ctx.delay(500), ctx.json(meldinger))
 	}),
-	rest.patch(appUrl('/amt-tiltak/api/tiltaksarrangor/endringsmelding/:endringsmeldingId/tilbakekall'), (_req, res, ctx) => {
+	rest.patch(appUrl('/amt-tiltak/api/tiltaksarrangor/endringsmelding/:endringsmeldingId/tilbakekall'), (req, res, ctx) => {
+		const endringsmeldingId = req.params.endringsmeldingId as string
 		if (randBetween(0, 10) < 3) {
 			return res(ctx.delay(500), ctx.status(400))
 		}
-		return res(ctx.delay(500), ctx.status(200))
+
+		Object.keys(mockEndringsmeldinger).forEach(deltakerId => {
+			mockEndringsmeldinger[deltakerId] = mockEndringsmeldinger[deltakerId].filter(e => e.id !== endringsmeldingId)
+		})
+
+		return res(ctx.delay(3000), ctx.status(200))
 	}),
 	rest.post(appUrl('/amt-tiltak/api/tiltaksarrangor/deltaker/:deltakerId/oppstartsdato'), (req, res, ctx) => {
 		const deltakerId = req.params.deltakerId as string
