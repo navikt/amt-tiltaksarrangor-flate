@@ -14,18 +14,18 @@ import styles from './EndringsmeldingPanel.module.scss'
 
 export interface EndringsmeldingPanelProps {
 	endringsmelding: Endringsmelding
-	onTilbakekallResolved: () => void
+	onEndringsmeldingTilbakekalt: () => void
 	children: ReactElement
 }
 
-export const EndringsmeldingPanel = ({ endringsmelding, onTilbakekallResolved, children }: EndringsmeldingPanelProps) => {
+export const EndringsmeldingPanel = ({ endringsmelding, onEndringsmeldingTilbakekalt, children }: EndringsmeldingPanelProps) => {
 	const tilbakekallEndringsmeldingPromise = usePromise()
 
 	useEffect(() => {
 		if (isResolved(tilbakekallEndringsmeldingPromise)) {
-			onTilbakekallResolved()
+			onEndringsmeldingTilbakekalt()
 		}
-	}, [ tilbakekallEndringsmeldingPromise, onTilbakekallResolved ])
+	}, [ tilbakekallEndringsmeldingPromise, onEndringsmeldingTilbakekalt ])
 
 	const handleClick = () => {
 		tilbakekallEndringsmeldingPromise.setPromise(

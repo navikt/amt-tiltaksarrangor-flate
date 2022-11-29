@@ -41,7 +41,7 @@ export const DeltakelseInfo = ({
 				<Endringsmeldinger 
 					deltakerId={deltaker.id} 
 					key={key} 
-					onTilbakekallResolved={reInstansierEndringsmeldinger}
+					onEndringsmeldingTilbakekalt={reInstansierEndringsmeldinger}
 				/>
 			</div>
 		</div>
