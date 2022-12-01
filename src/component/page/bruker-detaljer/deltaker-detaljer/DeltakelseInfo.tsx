@@ -25,22 +25,20 @@ export const DeltakelseInfo = ({
 		setKey((pk) => pk+1)
 	}
 
-	const skalViseDeltakelsesprosent = (): boolean => {
-		return deltaker.gjennomforing.tiltak.tiltakskode === 'ARBFORB'
-			|| deltaker.gjennomforing.tiltak.tiltakskode === 'VASV'
-	}
+	const skalViseDeltakelsesprosent = [ 'ARBFORB', 'VASV' ]
+		.includes(deltaker.gjennomforing.tiltak.tiltakskode)
 
 	return (
 		<div className={styles.wrapper}>
 			<div className={styles.section}>
-				<ElementPanel tittel="Status:" className={styles.margin}>
+				<ElementPanel tittel="Status:" className={styles.statusPanel}>
 					<StatusMerkelapp status={status}/>
 				</ElementPanel>
 				<ElementPanel tittel="Dato:">
 					<BodyShort size="small" >{formatDate(deltaker.startDato)} - {formatDate(deltaker.sluttDato)}</BodyShort>
 				</ElementPanel>
-				{skalViseDeltakelsesprosent() && (
-					<ElementPanel tittel={'Deltakelsesprosent:'}>
+				{skalViseDeltakelsesprosent && (
+					<ElementPanel tittel="Deltakelsesprosent:" className={styles.deltakelsesProsentPanel}>
 						<BodyShort size="small">{deltaker.prosentDeltakselse !== null
 							? `${deltaker.prosentDeltakselse}%`
 							: 'Ikke satt'}

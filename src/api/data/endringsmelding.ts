@@ -8,7 +8,7 @@ export enum EndringsmeldingType {
     FORLENG_DELTAKELSE = 'FORLENG_DELTAKELSE',
     AVSLUTT_DELTAKELSE = 'AVSLUTT_DELTAKELSE',
     DELTAKER_IKKE_AKTUELL = 'DELTAKER_IKKE_AKTUELL',
-	ENDRE_PROSENT_DELTAKELSE = 'ENDRE_PROSENT_DELTAKELSE'
+	ENDRE_DELTAKELSE_PROSENT = 'ENDRE_DELTAKELSE_PROSENT'
 }
 
 export enum DeltakerStatusAarsakType {
@@ -62,6 +62,11 @@ export const deltakerIkkeAktuellEndringsmeldingSchema = z.intersection(endringsm
 	innhold: z.object({ aarsak: deltakerStatusAarsakSchema }),
 }))
 
+export const deltakelseProsentEndringmelsingSchema = z.intersection(endringsmeldingBaseSchema, z.object({
+	id: z.string().uuid(),
+	type: z.literal(EndringsmeldingType.ENDRE_DELTAKELSE_PROSENT),
+	innhold: z.object({ deltakelseProsent: z.number().nullable() }),
+}))
 
 export const endringsmeldingSchema = z.union([
 	leggTilOppstartsdatoEndringsmeldingSchema,
@@ -69,6 +74,7 @@ export const endringsmeldingSchema = z.union([
 	forlengDeltakelseEndringsmeldingSchema,
 	avsluttDeltakelseEndringsmeldingSchema,
 	deltakerIkkeAktuellEndringsmeldingSchema,
+	deltakelseProsentEndringmelsingSchema
 ])
 
 export const endringsmeldingerSchema = z.array(endringsmeldingSchema)

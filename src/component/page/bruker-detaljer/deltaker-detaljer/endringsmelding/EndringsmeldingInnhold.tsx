@@ -3,7 +3,8 @@ import React from 'react'
 
 import {
 	DeltakerStatusAarsak,
-	DeltakerStatusAarsakType, Endringsmelding,
+	DeltakerStatusAarsakType,
+	Endringsmelding,
 	EndringsmeldingType
 } from '../../../../../api/data/endringsmelding'
 import { formatDate } from '../../../../../utils/date-utils'
@@ -56,6 +57,13 @@ export const EndringsmeldingInnhold = (props: EndringsmeldingInnholdProps) => {
 					<BodyShort size="small">Årsak: {getAarsakTekst(endringsmelding.innhold.aarsak)}</BodyShort>
 					<BodyShort size="small">Ny sluttdato: {formatDate(endringsmelding.innhold.sluttdato)}</BodyShort>
 
+				</>
+			)
+		case EndringsmeldingType.ENDRE_DELTAKELSE_PROSENT:
+			return (
+				<>
+					<BodyShort size="small">Endre prosent</BodyShort>
+					<BodyShort size="small">Ny Deltakelsesprosent: {endringsmelding.innhold.deltakelseProsent}%</BodyShort>
 				</>
 			)
 		default: return null

@@ -20,7 +20,7 @@ export const endringTypeTekstMapper = (endringsType: EndringType) => {
 		case EndringType.FORLENG_DELTAKELSE: return 'Forleng deltakelse'
 		case EndringType.DELTAKER_IKKE_AKTUELL: return 'Deltaker er ikke aktuell'
 		case EndringType.AVSLUTT_DELTAKELSE: return 'Avslutt deltakelse'
-		case EndringType.ENDRE_PROSENT_DELTAKELSE: return 'Endre prosent'
+		case EndringType.ENDRE_DELTAKELSE_PROSENT: return 'Endre prosent'
 		default: return 'Ukjent'
 	}
 }

@@ -97,7 +97,7 @@ export const EndreDeltakelseKnapp = (props: EndreDeltakelseKnappProps) => {
 						{(deltaker.gjennomforing.tiltak.tiltakskode === 'ARBFORB'
 								|| deltaker.gjennomforing.tiltak.tiltakskode === 'VASV') &&
 							<DropDownButton
-								endringstype={EndringType.ENDRE_PROSENT_DELTAKELSE}
+								endringstype={EndringType.ENDRE_DELTAKELSE_PROSENT}
 								onClick={() => visEndreProsentDeltakelseModal({
 									deltakerId: deltaker.id,
 									gammelProsentDeltakelse: deltaker.prosentDeltakselse,

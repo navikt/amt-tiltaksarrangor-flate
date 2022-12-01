@@ -7,9 +7,13 @@
 }
 
 .ikkeAktuellIkon {
-  color: var(--navds-semantic-color-feedback-warning-icon);
+  color: var();
   transform: rotate(45deg);
 
+}
+
+.endreProsentDeltakelseIkon {
+  color: var(--navds-global-color-purple-400)
 }
 
 .avsluttIkon {

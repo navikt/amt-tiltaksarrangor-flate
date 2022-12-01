@@ -4,6 +4,7 @@ import React from 'react'
 
 import { endreDeltakelsesprosent } from '../../../../../api/tiltak-api'
 import { BaseModal } from './BaseModal'
+import styles from './EndreProsentDeltakelseModal.module.scss'
 import { SendTilNavKnapp } from './SendTilNavKnapp'
 import { VeilederConfirmationPanel } from './VeilederConfirmationPanel'
 
@@ -54,7 +55,9 @@ export const EndreProsentDeltakelseModal = (props: EndreProsentDeltakelseModalPr
 			tittel="Endre Deltakelsesprosent"
 			onClose={props.onClose}>
 
-			<TextField label="Hva er ny Deltakelsesprosent?"
+			<TextField
+				className={styles.prosentDeltakselseTextField}
+				label="Hva er ny Deltakelsesprosent?"
 				type="number"
 				value={prosentDeltakelse !== undefined ? prosentDeltakelse : ''}
 				min={0}

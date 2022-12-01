@@ -123,16 +123,19 @@ export const mockHandlers: RequestHandler[] = [
 		})
 		return res(ctx.delay(500), ctx.status(200))
 	}),
-	// TODO rest.patch(appUrl('/amt-tiltak/api/tiltaksarrangor/deltaker/:deltakerId/deltaker-prosent'), (req, res, ctx) => {
-	// 	const deltakerId = req.url.searchParams.get('deltakerId') as string
-	// 	const body = req.body as { deltakerProsent: number }
-	//
-	// 	mockEndringsmeldinger[deltakerId].push({
-	// 		id: randomUuid(),
-	// 		type: EndringsmeldingType.ENDRE_PROSENT_DELTAKELSE,
-	// 		innhold: body
-	// 	})
-	// }),
+	rest.patch(appUrl('/amt-tiltak/api/tiltaksarrangor/deltaker/:deltakerId/deltakelse-prosent'), (req, res, ctx) => {
+		const deltakerId = req.params.deltakerId as string
+		const body = req.body as { deltakelseProsent: number }
+
+		mockEndringsmeldinger[deltakerId].push({
+			id: randomUuid(),
+			type: EndringsmeldingType.ENDRE_DELTAKELSE_PROSENT,
+			innhold: body
+		})
+
+		return res(ctx.delay(500), ctx.status(200))
+
+	}),
 	rest.get(appUrl('/amt-tiltak/api/tiltaksarrangor/endringsmelding/aktiv?deltakerId=:deltakerId'), (req, res, ctx) => {
 		const deltakerId = req.url.searchParams.get('deltakerId') as string
 		const endringsmeldinger = mockEndringsmeldinger[deltakerId]
