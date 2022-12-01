@@ -1,15 +1,14 @@
 @import '/src/colors.scss';
 
 .wrapper {
-  padding-top: 1.7rem;
+  padding: 1.7rem 0;
   border-top: 1px solid $navGra30;
-  padding-bottom: 1.7rem;
   border-bottom: 1px solid $navGra30;
   display: flex;
   justify-content: space-between;
 }
 
-.margin {
+.section > *:not(:last-child) {
   margin-bottom: 1rem;
 }
 
@@ -22,4 +21,23 @@
 
 .section {
   width: 100%;
+}
+
+.statusAlert {
+    grid-column-start: 1;
+    grid-column-end: 1;
+}
+
+.body {
+  width: fit-content;
+  margin-top: 1rem;
+  display: grid;
+  grid-template-columns: auto;
+  gap: 1rem;
+}
+
+@media (min-width: 600px) {
+  .body {
+    grid-template-columns: fit-content 1fr;
+  }
 }

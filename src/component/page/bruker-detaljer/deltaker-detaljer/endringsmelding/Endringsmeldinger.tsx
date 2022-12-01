@@ -3,7 +3,6 @@ import React, { useEffect, useState } from 'react'
 
 import { Endringsmelding } from '../../../../../api/data/endringsmelding'
 import { hentEndringsmeldinger } from '../../../../../api/tiltak-api'
-import styles from './Endringsmeldinger.module.scss'
 import { EndringsmeldingInnhold } from './EndringsmeldingInnhold'
 import { EndringsmeldingPanel } from './EndringsmeldingPanel'
 
@@ -33,18 +32,16 @@ export const Endringsmeldinger = ({
 	return (
 		<>
 			{visfeilmelding && <Alert variant="error">Kunne ikke hente endringsmeldinger</Alert>}
-			{endringsmeldinger && (
-				<div className={styles.endringsmeldinger}>
-					{endringsmeldinger.map(melding =>
-						<EndringsmeldingPanel
-							endringsmelding={melding}
-							onEndringsmeldingTilbakekalt={() => setReloadEndringsmeldinger(true)}
-							key={melding.id}
-						>
-							<EndringsmeldingInnhold endringsmelding={melding} />
-						</EndringsmeldingPanel>)}
-				</div>
-			)}
+			{ endringsmeldinger &&
+				endringsmeldinger?.map(melding =>
+					<EndringsmeldingPanel
+						endringsmelding={melding}
+						onEndringsmeldingTilbakekalt={() => setReloadEndringsmeldinger(true)}
+						key={melding.id}
+					>
+						<EndringsmeldingInnhold endringsmelding={melding} />
+					</EndringsmeldingPanel>)
+			}
 		</>
 	)
 }
