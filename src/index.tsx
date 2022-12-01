@@ -19,7 +19,7 @@ import { initSentry } from './utils/sentry-utils'
 dayjs.locale('nb')
 initAmplitude()
 
-if (env.isDevelopment) {
+if (env.isDevelopment || env.isPullRequest) {
 	require('./mock')
 }
 

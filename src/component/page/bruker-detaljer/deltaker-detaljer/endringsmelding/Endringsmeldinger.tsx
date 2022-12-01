@@ -3,35 +3,45 @@ import React, { useEffect, useState } from 'react'
 
 import { Endringsmelding } from '../../../../../api/data/endringsmelding'
 import { hentEndringsmeldinger } from '../../../../../api/tiltak-api'
-import styles from './Endringsmeldinger.module.scss'
 import { EndringsmeldingInnhold } from './EndringsmeldingInnhold'
 import { EndringsmeldingPanel } from './EndringsmeldingPanel'
 
 interface EndringsmeldingerProps {
 	deltakerId: string
+	setReloadEndringsmeldinger: (b: boolean) => void
+	reloadEndringsmeldinger: boolean
 }
 
-export const Endringsmeldinger = ({ deltakerId }: EndringsmeldingerProps) => {
+export const Endringsmeldinger = ({
+	deltakerId,
+	setReloadEndringsmeldinger,
+	reloadEndringsmeldinger
+}: EndringsmeldingerProps) => {
 	const [ endringsmeldinger, setEndringsmeldinger ] = useState<Endringsmelding[]>()
 	const [ visfeilmelding, setVisFeilmelding ] = useState(false)
 
 	useEffect(() => {
+		if (!reloadEndringsmeldinger) return
+
 		hentEndringsmeldinger(deltakerId)
 			.then((res) => setEndringsmeldinger(res.data))
 			.catch(() => setVisFeilmelding(true))
-	}, [ deltakerId ])
+			.finally(() => setReloadEndringsmeldinger(false))
+	}, [ reloadEndringsmeldinger, deltakerId, setReloadEndringsmeldinger ])
+
 	return (
 		<>
-			{visfeilmelding && <Alert variant="error">Kunne ikke hente endringsmeldinger</Alert> }
-			{endringsmeldinger && (
-				<div className={styles.endringsmeldinger}>
-					{endringsmeldinger.map(melding =>
-						<EndringsmeldingPanel endringsmelding={ melding } key={melding.id}>
-							<EndringsmeldingInnhold endringsmelding={ melding }/>
-						</EndringsmeldingPanel>)}
-				</div>
-			)}
+			{visfeilmelding && <Alert variant="error">Kunne ikke hente endringsmeldinger</Alert>}
+			{ endringsmeldinger &&
+				endringsmeldinger?.map(melding =>
+					<EndringsmeldingPanel
+						endringsmelding={melding}
+						onEndringsmeldingTilbakekalt={() => setReloadEndringsmeldinger(true)}
+						key={melding.id}
+					>
+						<EndringsmeldingInnhold endringsmelding={melding} />
+					</EndringsmeldingPanel>)
+			}
 		</>
-
 	)
 }

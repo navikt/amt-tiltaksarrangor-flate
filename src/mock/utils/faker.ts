@@ -7,6 +7,11 @@ export const randBetween = (min: number, max: number): number => {
 	return faker.datatype.number({ min, max })
 }
 
+// Returns a random boolean, percentTrue = 0 - 100
+export const randomBoolean = (percentTrue: number): boolean => {
+	return randBetween(0, 100) <= percentTrue
+}
+
 export const randomUuid = (): string => {
 	return faker.datatype.uuid()
 }

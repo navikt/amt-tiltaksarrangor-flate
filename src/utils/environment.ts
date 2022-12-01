@@ -1,4 +1,3 @@
-
 class Environment {
 
 	get isDevelopment() {
@@ -11,6 +10,10 @@ class Environment {
 
 	get isPreprod(): boolean {
 		return window.location.hostname.endsWith('dev.nav.no')
+	}
+
+	get isPullRequest(): boolean {
+		return this.isPreprod && this.publicUrl.match(/\/pr-\d+/) != null
 	}
 
 	get isDemo(): boolean {

@@ -1,24 +1,57 @@
-import { Heading, Panel } from '@navikt/ds-react'
+import { Close } from '@navikt/ds-icons'
+import { Alert, Button, Heading, Panel, Tooltip } from '@navikt/ds-react'
 import React, { ReactElement } from 'react'
 
-import { Endringsmelding, EndringsmeldingType } from '../../../../../api/data/endringsmelding'
+import {
+	Endringsmelding,
+	EndringsmeldingType
+} from '../../../../../api/data/endringsmelding'
+import { tilbakekallEndringsmelding } from '../../../../../api/tiltak-api'
+import { isPending, isRejected, isResolved, usePromise } from '../../../../../utils/use-promise'
 import { EndringTypeIkon } from '../EndringTypeIkon'
 import { EndringType } from '../types'
 import styles from './EndringsmeldingPanel.module.scss'
 
 export interface EndringsmeldingPanelProps {
 	endringsmelding: Endringsmelding
+	onEndringsmeldingTilbakekalt: () => void
 	children: ReactElement
 }
 
-export const EndringsmeldingPanel = (props: EndringsmeldingPanelProps) => {
+export const EndringsmeldingPanel = ({ endringsmelding, onEndringsmeldingTilbakekalt, children }: EndringsmeldingPanelProps) => {
+	const tilbakekallEndringsmeldingPromise = usePromise()
+
+	const handleClick = () => {
+		tilbakekallEndringsmeldingPromise.setPromise(
+			tilbakekallEndringsmelding(endringsmelding.id)
+				.then(onEndringsmeldingTilbakekalt)
+		)
+	}
+
+	if (isRejected(tilbakekallEndringsmeldingPromise)) {
+		return <Alert className={styles.alert} variant="error">Meldingen ble ikke tilbakekalt. En annen person har gjort at meldingen er utdatert.</Alert>
+
+	}
+
 	return (
 		<Panel border className={styles.panel}>
-			<EndringTypeIkon type={mapTilEndringType(props.endringsmelding.type)}/>
-			<div className={styles.innhold}>
-				<Heading size="xsmall" >Sendt til NAV:</Heading>
-				{props.children}
+			<div className={styles.innholdWrapper}>
+				<EndringTypeIkon type={mapTilEndringType(endringsmelding.type)} />
+				<div className={styles.innhold}>
+					<Heading size="xsmall" >Sendt til NAV:</Heading>
+					{children}
+				</div>
 			</div>
+			<Tooltip content="Tilbakekall melding" className={styles.tooltip}>
+				<Button
+					icon={<Close />}
+					loading={isPending(tilbakekallEndringsmeldingPromise) || isResolved(tilbakekallEndringsmeldingPromise)}
+					variant="tertiary"
+					size="small"
+					onClick={handleClick}
+					className={styles.closeButton}
+				/>
+			</Tooltip>
 		</Panel>
 	)
 }

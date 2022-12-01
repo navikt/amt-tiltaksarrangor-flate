@@ -1,8 +1,9 @@
-import { BodyShort } from '@navikt/ds-react'
+import { Alert, BodyShort } from '@navikt/ds-react'
 import React, { useState } from 'react'
 
-import { DeltakerStatus, TiltakDeltakerDetaljer } from '../../../../api/data/deltaker'
+import { DeltakerStatus, TiltakDeltakerDetaljer, TiltakDeltakerStatus } from '../../../../api/data/deltaker'
 import { formatDate } from '../../../../utils/date-utils'
+import { Nullable } from '../../../../utils/types/or-nothing'
 import { StatusMerkelapp } from '../../../felles/status-merkelapp/StatusMerkelapp'
 import styles from './DeltakelseInfo.module.scss'
 import { ElementPanel } from './ElementPanel'
@@ -13,27 +14,36 @@ interface DeltakelseInfoProps {
 	erSkjermetPerson: boolean
 	deltaker: TiltakDeltakerDetaljer
 	status: DeltakerStatus
+	fjernesDato: Nullable<Date>
 }
 
 export const DeltakelseInfo = ({
 	erSkjermetPerson,
 	deltaker,
-	status
+	status,
+	fjernesDato
 }: DeltakelseInfoProps): React.ReactElement => {
-	const [ key, setKey ] = useState<number>(0)
-	const reInstansierEndringsmeldinger = () => {
-		setKey((pk) => pk+1)
+	const [ reloadEndringsmeldinger, setReloadEndringsmeldinger ] = useState(true)
+
+	const triggerReloadEndringsmeldinger = () => {
+		setReloadEndringsmeldinger(true)
 	}
 
 	const skalViseDeltakelsesprosent = [ 'ARBFORB', 'VASV' ]
 		.includes(deltaker.gjennomforing.tiltak.tiltakskode)
 
+	const erIkkeAktuellEllerHarSluttet = [ TiltakDeltakerStatus.IKKE_AKTUELL, TiltakDeltakerStatus.HAR_SLUTTET ]
+		.includes(status.type)
+
 	return (
 		<div className={styles.wrapper}>
 			<div className={styles.section}>
-				<ElementPanel tittel="Status:" className={styles.statusPanel}>
-					<StatusMerkelapp status={status}/>
-				</ElementPanel>
+				<div className={styles.header}>
+					<ElementPanel tittel="Status:" className={styles.margin}>
+						<StatusMerkelapp status={status} />
+					</ElementPanel>
+					<EndreDeltakelseKnapp disabled={erSkjermetPerson} deltaker={deltaker} onEndringUtfort={triggerReloadEndringsmeldinger} />
+				</div>
 				<ElementPanel tittel="Dato:">
 					<BodyShort size="small" >{formatDate(deltaker.startDato)} - {formatDate(deltaker.sluttDato)}</BodyShort>
 				</ElementPanel>
@@ -45,9 +55,16 @@ export const DeltakelseInfo = ({
 						</BodyShort>
 					</ElementPanel>
 				)}
-				<Endringsmeldinger deltakerId={deltaker.id} key={key}/>
+				<div className={styles.body}>
+					<Endringsmeldinger
+						deltakerId={deltaker.id}
+						setReloadEndringsmeldinger={setReloadEndringsmeldinger}
+						reloadEndringsmeldinger={reloadEndringsmeldinger}
+					/>
+					{erIkkeAktuellEllerHarSluttet &&
+						<Alert variant="warning" size="small" className={styles.statusAlert}>Deltakeren fjernes fra listen {formatDate(fjernesDato)}</Alert>}
+				</div>
 			</div>
-			<EndreDeltakelseKnapp disabled={erSkjermetPerson} deltaker={deltaker} onEndringUtfort={reInstansierEndringsmeldinger}/>
 		</div>
 	)
 }

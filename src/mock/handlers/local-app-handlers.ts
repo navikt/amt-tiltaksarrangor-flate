@@ -6,6 +6,7 @@ import environment from '../../utils/environment'
 import { appUrl } from '../../utils/url-utils'
 import { mockAuthInfo } from '../data/auth'
 import { getRequestAuthHeader, localAmtTiltakUrl } from '../utils/mock-env'
+import { forwardRequest } from '../utils/request-utils'
 import { joinUrlAndPath } from '../utils/url-utils'
 
 export const localAppHandlers: RequestHandler[] = [
@@ -29,21 +30,7 @@ const handleReq = async(proxyUrl: string, req: RestRequest, res: ResponseComposi
 	const reqPath = stripContextPath(req.url.pathname, `${environment.publicUrl}/amt-tiltak`)
 	const proxiedUrl = `${joinUrlAndPath(proxyUrl, reqPath)}${req.url.search}`
 
-	try {
-		req.headers.append('Authorization', getRequestAuthHeader())
+	req.headers.append('Authorization', getRequestAuthHeader())
 
-		const response = await ctx.fetch(proxiedUrl, {
-			method: req.method,
-			body: req.body ? JSON.stringify(req.body) : null,
-			headers: req.headers
-		})
-
-		const bodyText = await response.text()
-
-		return res(ctx.status(response.status), ctx.body(bodyText))
-	} catch (e) {
-		// eslint-disable-next-line no-console
-		console.error('Request to proxy failed', e)
-		return res(ctx.status(500))
-	}
+	return forwardRequest(proxiedUrl, req, res, ctx)
 }
