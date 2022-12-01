@@ -1,9 +1,8 @@
 name: Deploy Pull Request Branch
 on:
   pull_request:
-    types:
-      - opened
-      - synchronize
+    branches:
+      - main
 env:
   CI: true
   TZ: Europe/Oslo
