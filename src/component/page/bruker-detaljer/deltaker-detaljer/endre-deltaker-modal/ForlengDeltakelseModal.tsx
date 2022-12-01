@@ -1,6 +1,6 @@
 import { BodyShort, Radio, RadioGroup } from '@navikt/ds-react'
 import dayjs from 'dayjs'
-import React, { useEffect, useState } from 'react'
+import React, {  useEffect, useState } from 'react'
 
 import { forlengDeltakelse } from '../../../../../api/tiltak-api'
 import { formatDate, maxDate } from '../../../../../utils/date-utils'
@@ -9,7 +9,7 @@ import { DateField } from '../../../../felles/DateField'
 import { useGjennomforingStore } from '../gjennomforing-store'
 import { BaseModal } from './BaseModal'
 import { SendTilNavKnapp } from './SendTilNavKnapp'
-import { Varighet, varigheter, VarighetValg } from './varighet'
+import { Varighet, varigheter, VarighetValg,varighetValgForType } from './varighet'
 import { VeilederConfirmationPanel } from './VeilederConfirmationPanel'
 
 export interface ForlengDeltakelseModalProps {
@@ -20,6 +20,7 @@ export interface ForlengDeltakelseModalDataProps {
 	deltakerId: string
 	startDato: Nullable<Date>
 	sluttDato: Nullable<Date>
+	tiltakskode: string
 	onEndringUtfort: () => void
 }
 
@@ -57,12 +58,7 @@ export const ForlengDeltakelseModal = (props: ForlengDeltakelseModalProps & Forl
 			<RadioGroup
 				legend="Hvor lenge skal deltakelsen forlenges?"
 				onChange={(val) => settValgtVarighet(val)}>
-				<Radio value={VarighetValg.FIRE_UKER}>4 uker</Radio>
-				<Radio value={VarighetValg.FIRE_UKER}>6 uker</Radio>
-				<Radio value={VarighetValg.ATTE_UKER}>8 uker</Radio>
-				<Radio value={VarighetValg.TRE_MANEDER}>3 måneder</Radio>
-				<Radio value={VarighetValg.SEKS_MANEDER}>6 måneder</Radio>
-				<Radio value={VarighetValg.TOLV_MANEDER}>12 måneder</Radio>
+				{varighetValgForType(props.tiltakskode).map(v => <Radio value={v} key={v}>{varigheter[v].navn}</Radio>)}
 				<Radio value={VarighetValg.ANNET}>
 					Annet - velg dato:
 					{visDatoVelger &&
@@ -86,3 +82,4 @@ export const ForlengDeltakelseModal = (props: ForlengDeltakelseModalProps & Forl
 		</BaseModal>
 	)
 }
+
