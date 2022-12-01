@@ -100,7 +100,7 @@ export const EndreDeltakelseKnapp = (props: EndreDeltakelseKnappProps) => {
 								endringstype={EndringType.ENDRE_DELTAKELSE_PROSENT}
 								onClick={() => visEndreProsentDeltakelseModal({
 									deltakerId: deltaker.id,
-									gammelProsentDeltakelse: deltaker.prosentDeltakselse,
+									gammelProsentDeltakelse: deltaker.deltakelseProsent,
 									onEndringUtfort: props.onEndringUtfort
 								})}/>
 						}

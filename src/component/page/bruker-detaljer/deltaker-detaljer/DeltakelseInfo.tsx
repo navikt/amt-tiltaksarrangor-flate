@@ -49,8 +49,8 @@ export const DeltakelseInfo = ({
 				</ElementPanel>
 				{skalViseDeltakelsesprosent && (
 					<ElementPanel tittel="Deltakelsesprosent:" className={styles.deltakelsesProsentPanel}>
-						<BodyShort size="small">{deltaker.prosentDeltakselse !== null
-							? `${deltaker.prosentDeltakselse}%`
+						<BodyShort size="small">{deltaker.deltakelseProsent !== null
+							? `${deltaker.deltakelseProsent}%`
 							: 'Ikke satt'}
 						</BodyShort>
 					</ElementPanel>

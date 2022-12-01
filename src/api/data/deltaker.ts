@@ -39,7 +39,7 @@ export const tiltakDeltakerDetaljerSchema = z.object({
 	fodselsnummer: z.string(),
 	startDato: nullableDateSchema,
 	sluttDato: nullableDateSchema,
-	prosentDeltakselse: z.number().nullable(),
+	deltakelseProsent: z.number().nullable(),
 	status: deltakerStatusSchema,
 	registrertDato: dateSchema,
 	erSkjermetPerson: z.boolean(),
