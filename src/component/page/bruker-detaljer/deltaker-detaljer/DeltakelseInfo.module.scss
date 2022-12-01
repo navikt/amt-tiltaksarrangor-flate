@@ -11,3 +11,33 @@
 .section > *:not(:last-child) {
   margin-bottom: 1rem;
 }
+
+.header {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.section {
+  width: 100%;
+}
+
+.statusAlert {
+    grid-column-start: 1;
+    grid-column-end: 1;
+}
+
+.body {
+  width: fit-content;
+  margin-top: 1rem;
+  display: grid;
+  grid-template-columns: auto;
+  gap: 1rem;
+}
+
+@media (min-width: 600px) {
+  .body {
+    grid-template-columns: fit-content 1fr;
+  }
+}

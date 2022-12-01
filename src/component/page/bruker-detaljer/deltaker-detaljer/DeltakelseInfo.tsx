@@ -23,27 +23,34 @@ export const DeltakelseInfo = ({
 	status,
 	fjernesDato
 }: DeltakelseInfoProps): React.ReactElement => {
-	const [ key, setKey ] = useState<number>(0)
-	const reInstansierEndringsmeldinger = () => {
-		setKey((pk) => pk+1)
+	const [ reloadEndringsmeldinger, setReloadEndringsmeldinger ] = useState(true)
+
+	const triggerReloadEndringsmeldinger = () => {
+		setReloadEndringsmeldinger(true)
 	}
 
 	return (
 		<div className={styles.wrapper}>
 			<div className={styles.section}>
-				<ElementPanel tittel="Status:" className={styles.margin}>
-					<StatusMerkelapp status={status}/>
-				</ElementPanel>
+				<div className={styles.header}>
+					<ElementPanel tittel="Status:" className={styles.margin}>
+						<StatusMerkelapp status={status} />
+					</ElementPanel>
+					<EndreDeltakelseKnapp disabled={erSkjermetPerson} deltaker={deltaker} onEndringUtfort={triggerReloadEndringsmeldinger} />
+				</div>
 				<ElementPanel tittel="Dato:">
 					<BodyShort size="small" >{formatDate(deltaker.startDato)} - {formatDate(deltaker.sluttDato)}</BodyShort>
 				</ElementPanel>
-
-				<Endringsmeldinger deltakerId={deltaker.id} key={key}/>
-
-				{ erIkkeAktuellEllerHarSluttet(status.type) &&
-                    <Alert variant="warning" size="small">Deltakeren fjernes fra listen {formatDate(fjernesDato)}</Alert>}
+				<div className={styles.body}>
+					<Endringsmeldinger
+						deltakerId={deltaker.id}
+						setReloadEndringsmeldinger={setReloadEndringsmeldinger}
+						reloadEndringsmeldinger={reloadEndringsmeldinger}
+					/>
+					{erIkkeAktuellEllerHarSluttet(status.type) &&
+						<Alert variant="warning" size="small" className={styles.statusAlert}>Deltakeren fjernes fra listen {formatDate(fjernesDato)}</Alert>}
+				</div>
 			</div>
-			<EndreDeltakelseKnapp disabled={erSkjermetPerson} deltaker={deltaker} onEndringUtfort={reInstansierEndringsmeldinger}/>
 		</div>
 	)
 }
