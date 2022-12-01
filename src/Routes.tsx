@@ -10,6 +10,7 @@ import { LandingPage, LandingPageView } from './component/page/landing-page/Land
 import { LeggTilDeltakerlistePage } from './component/page/legg-til-deltakerliste/LeggTilDeltakerlistePage'
 import { PersonopplysningerPage } from './component/page/personopplysninger-page/PersonopplysningerPage'
 import { SesjonNotifikasjon } from './component/sesjon-notifikasjon/SesjonNotifikasjon'
+import { Driftsmelding } from './Driftsmelding'
 import {
 	BRUKER_DETALJER_PAGE_ROUTE,
 	GJENNOMFORING_DETALJER_PAGE_ROUTE,
@@ -23,6 +24,7 @@ export const PrivateRoutes = (): React.ReactElement => {
 	return (
 		<>
 			<SesjonNotifikasjon />
+			<Driftsmelding />
 			<Routes>
 				<Route path={BRUKER_DETALJER_PAGE_ROUTE} element={<DeltakerDetaljerPage />} />
 				<Route path={GJENNOMFORING_DETALJER_PAGE_ROUTE} element={<GjennomforingDetaljerPage />} />
