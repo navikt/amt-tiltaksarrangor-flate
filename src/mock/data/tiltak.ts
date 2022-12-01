@@ -42,7 +42,31 @@ export const gjennomforingInfoListe: GjennomforingInfo[] = [
 		tiltakskode: 'INDOPPFAG',
 		tiltaksnavn: 'Oppfølging',
 		status: TiltakGjennomforingStatus.IKKE_STARTET
-	}
+	},
+	{
+		gjennomforingNavn: 'Arbeidsrettet rehabilitering Region Nordsør',
+		tiltakskode: 'ARBRRHDAG',
+		tiltaksnavn: 'Arbeidsrettet rehabilitering',
+		status: TiltakGjennomforingStatus.GJENNOMFORES
+	},
+	{
+		gjennomforingNavn: 'Digitalt oppfølgingstiltak Region Nordsør',
+		tiltakskode: 'DIGIOPPARB',
+		tiltaksnavn: 'Digitalt oppfølgingstiltak for arbeidsledige',
+		status: TiltakGjennomforingStatus.GJENNOMFORES
+	},
+	{
+		gjennomforingNavn: 'Gruppe Fag- og yrkesopplæring Region Nordsør',
+		tiltakskode: 'GRUFAGYRKE',
+		tiltaksnavn: 'Gruppe Fag- og yrkesopplæring VGS og høyere yrkesfaglig utdanning',
+		status: TiltakGjennomforingStatus.GJENNOMFORES
+	},
+	{
+		gjennomforingNavn: 'Varig tilrettelagt arbeid i skjermet virksomhet Region Nordsør',
+		tiltakskode: 'VASV',
+		tiltaksnavn: 'Varig tilrettelagt arbeid i skjermet virksomhet ',
+		status: TiltakGjennomforingStatus.GJENNOMFORES
+	},
 ]
 
 export const tilgjengeligGjennomforinger: GjennomforingInfo[] = [
