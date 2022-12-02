@@ -3,28 +3,25 @@ import React from 'react'
 
 import { DeltakerStatus, TiltakDeltakerStatus } from '../../../api/data/deltaker'
 import { mapTiltakDeltagerStatusTilTekst } from '../../../utils/text-mappers'
-import styles from './StatusMerkelapp.module.scss'
 
-const getStyle = (statusType: TiltakDeltakerStatus) => {
+const getVariant = (statusType: TiltakDeltakerStatus) => {
 	switch (statusType) {
 		case TiltakDeltakerStatus.IKKE_AKTUELL:
-		case TiltakDeltakerStatus.HAR_SLUTTET: return styles.statusTagOrange
-		case TiltakDeltakerStatus.DELTAR: return styles.statusTagHvit
-		case TiltakDeltakerStatus.VENTER_PA_OPPSTART: return styles.statusTagBla
+		case TiltakDeltakerStatus.HAR_SLUTTET: return 'warning'
+		case TiltakDeltakerStatus.DELTAR: return 'neutral'
+		case TiltakDeltakerStatus.VENTER_PA_OPPSTART: return 'info'
 	}
 }
 
 interface StatusProps {
-    status: DeltakerStatus
+	status: DeltakerStatus
 }
 
 export const StatusMerkelapp = (props: StatusProps) => {
 	const { type } = props.status
-	return(
-		<Tag variant="info" size="small" className={getStyle(type)} aria-label="Deltaker status">
+	return (
+		<Tag variant={getVariant(type)} size="small" aria-label="Deltaker status">
 			{mapTiltakDeltagerStatusTilTekst(type)}
 		</Tag>
 	)
 }
-
-
