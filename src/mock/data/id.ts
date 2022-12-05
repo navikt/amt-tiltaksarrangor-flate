@@ -22,7 +22,7 @@ const getId = (ider: string[]): string => {
 
 const gjennomforingIder = genererIder(500)
 
-const deltakerIder = genererIder(500)
+const deltakerIder = genererIder(1000)
 
 const endringsmeldingIder = genererIder(5000)
 

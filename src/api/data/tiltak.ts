@@ -2,17 +2,30 @@ import { z } from 'zod'
 
 import { nullableDateSchema } from '../utils'
 
+export enum Tiltakskode {
+	ARBFORB = 'ARBFORB',
+	ARBRRHDAG = 'ARBRRHDAG',
+	AVKLARAG = 'AVKLARAG',
+	INDOPPFAG = 'INDOPPFAG',
+	DIGIOPPARB = 'DIGIOPPARB',
+	GRUFAGYRKE = 'GRUFAGYRKE',
+	VASV = 'VASV',
+}
+
+
 export enum TiltakGjennomforingStatus {
-    IKKE_STARTET = 'IKKE_STARTET',
-    GJENNOMFORES = 'GJENNOMFORES',
-    AVSLUTTET = 'AVSLUTTET'
+	IKKE_STARTET = 'IKKE_STARTET',
+	GJENNOMFORES = 'GJENNOMFORES',
+	AVSLUTTET = 'AVSLUTTET'
 }
 
 const tiltakGjennomforingStatusSchema = z.nativeEnum(TiltakGjennomforingStatus)
 
+const tiltakstypeSchema = z.nativeEnum(Tiltakskode)
+
 
 export const tiltakSchema = z.object({
-	tiltakskode: z.string(),
+	tiltakskode: tiltakstypeSchema,
 	tiltaksnavn: z.string(),
 })
 
