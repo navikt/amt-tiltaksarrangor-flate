@@ -1,13 +1,13 @@
 @import '/src/colors.scss';
 
 .statusTagBla {
-  background-color: var(--navds-tag-color-info-background);
-  border-color: var(--navds-tag-color-info-border);
+  background-color: var(--a-surface-info-subtle);
+  border-color: var(--a-border-info);
 }
 
 .statusTagOrange {
-  background-color: var(--navds-tag-color-warning-background);
-  border-color: var(--navds-tag-color-warning-border);
+  background-color: var(--a-surface-warning-subtle);
+  border-color: var(--a-border-warning);
 }
 
 .statusTagHvit {
