@@ -1,18 +1,27 @@
 import { useEffect, useState } from 'react'
 
-import { FeatureToggles } from '../api/data/feature-toggle'
-import { fetchToggles, TOGGLES } from '../api/feature-toggle-api'
+import { FeatureToggles, VIS_DRIFTSMELDING_TOGGLE_NAVN } from '../api/data/feature-toggle'
+import { fetchToggles } from '../api/feature-toggle-api'
+
+let cachedFeatureToggles: FeatureToggles | undefined = undefined
 
 export const useFeatureToggle = () => {
-	const defaultToggles = new Map(TOGGLES.map(toggleNavn => [ toggleNavn, false ]))
-	const [ toggles, setToggles ] = useState<FeatureToggles>(defaultToggles)
+	const [ toggles, setToggles ] = useState<FeatureToggles>()
 
 	useEffect(() => {
+		if(cachedFeatureToggles) {
+			setToggles(cachedFeatureToggles)
+			return
+		}
 		fetchToggles()
-			.then((result) => setToggles(result.data))
+			.then((result) => {
+				setToggles(result.data)
+				cachedFeatureToggles = result.data
+			})
+
 	}, [])
 
 	return {
-		toggles
+		visDriftsmelding: toggles? toggles[VIS_DRIFTSMELDING_TOGGLE_NAVN] : false,
 	}
 }

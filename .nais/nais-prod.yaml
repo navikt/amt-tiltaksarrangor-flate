@@ -65,12 +65,7 @@ spec:
             {
               "fromPath": "/unleash",
               "toUrl": "http://poao-unleash.poao.svc.cluster.local",
-              "preserveFromPath": false,
-               "toApp": {
-                "name": "poao-unleash",
-                "namespace": "poao",
-                "cluster": "prod-gcp"
-              }
+              "preserveFromPath": false
             }
           ],
           "header": {
