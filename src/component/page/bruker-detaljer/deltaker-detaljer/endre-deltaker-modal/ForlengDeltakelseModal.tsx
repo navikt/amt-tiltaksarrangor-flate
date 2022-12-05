@@ -1,7 +1,8 @@
 import { BodyShort, Radio, RadioGroup } from '@navikt/ds-react'
 import dayjs from 'dayjs'
-import React, {  useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
+import { Tiltakskode } from '../../../../../api/data/tiltak'
 import { forlengDeltakelse } from '../../../../../api/tiltak-api'
 import { formatDate, maxDate } from '../../../../../utils/date-utils'
 import { Nullable } from '../../../../../utils/types/or-nothing'
@@ -9,7 +10,7 @@ import { DateField } from '../../../../felles/DateField'
 import { useGjennomforingStore } from '../gjennomforing-store'
 import { BaseModal } from './BaseModal'
 import { SendTilNavKnapp } from './SendTilNavKnapp'
-import { Varighet, varigheter, VarighetValg,varighetValgForType } from './varighet'
+import { Varighet, varigheter, VarighetValg, varighetValgForType } from './varighet'
 import { VeilederConfirmationPanel } from './VeilederConfirmationPanel'
 
 export interface ForlengDeltakelseModalProps {
@@ -20,7 +21,7 @@ export interface ForlengDeltakelseModalDataProps {
 	deltakerId: string
 	startDato: Nullable<Date>
 	sluttDato: Nullable<Date>
-	tiltakskode: string
+	tiltakskode: Tiltakskode
 	onEndringUtfort: () => void
 }
 
@@ -82,4 +83,3 @@ export const ForlengDeltakelseModal = (props: ForlengDeltakelseModalProps & Forl
 		</BaseModal>
 	)
 }
-

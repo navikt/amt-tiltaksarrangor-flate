@@ -1,3 +1,5 @@
+import { Tiltakskode } from '../../../../../api/data/tiltak'
+
 export enum VarighetValg {
 	IKKE_VALGT,
 	ANNET,
@@ -17,7 +19,7 @@ export interface Varighet {
 }
 
 type Varigheter = {
-	[valg: number]: Varighet 
+	[valg: number]: Varighet
 }
 
 export const varigheter: Varigheter = {
@@ -30,29 +32,28 @@ export const varigheter: Varigheter = {
 	[VarighetValg.TOLV_MANEDER]: { antall: 12, tidsenhet: 'month', navn: '12 måneder' },
 }
 
-
-export const varighetValgForType = (tiltakstype: string): VarighetValg[] => {
+export const varighetValgForType = (tiltakstype: Tiltakskode): VarighetValg[] => {
 	switch (tiltakstype) {
-		case 'ARBFORB': return [
+		case Tiltakskode.ARBFORB: return [
 			VarighetValg.TRE_MANEDER,
 			VarighetValg.SEKS_MANEDER,
 			VarighetValg.TOLV_MANEDER,
 		]
-		case 'ARBRRHDAG': return [
+		case Tiltakskode.ARBRRHDAG: return [
 			VarighetValg.SEKS_UKER,
 			VarighetValg.TOLV_UKER,
 		]
-		case 'AVKLARAG': return [
+		case Tiltakskode.AVKLARAG: return [
 			VarighetValg.FIRE_UKER,
 			VarighetValg.ATTE_UKER,
 		]
-		case 'INDOPPFAG': return [
+		case Tiltakskode.INDOPPFAG: return [
 			VarighetValg.TRE_MANEDER,
 			VarighetValg.SEKS_MANEDER,
 		]
-		case 'DIGIOPPARB':
-		case 'GRUFAGYRKE':
-		case 'VASV':
+		case Tiltakskode.DIGIOPPARB:
+		case Tiltakskode.GRUFAGYRKE:
+		case Tiltakskode.VASV:
 		default: return [
 			VarighetValg.FIRE_UKER,
 			VarighetValg.SEKS_UKER,
