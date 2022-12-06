@@ -10,10 +10,8 @@ interface AlertPageProps {
 
 export const AlertPage = (props: AlertPageProps): React.ReactElement<AlertPageProps> => {
 	return (
-		<main className={styles.page}>
-			<Alert variant={props.variant} size="medium">
-				{props.tekst}
-			</Alert>
-		</main>
+		<Alert variant={props.variant} size="medium" className={styles.page}>
+			{props.tekst}
+		</Alert>
 	)
 }
