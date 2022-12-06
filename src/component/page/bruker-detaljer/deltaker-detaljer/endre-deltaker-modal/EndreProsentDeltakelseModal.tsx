@@ -33,7 +33,7 @@ export const EndreProsentDeltakelseModal = (props: EndreProsentDeltakelseModalPr
 		} else {
 			const newValue = +e.target.value
 
-			if (newValue < 0) settErrorMessage('Ny prosentverdi kan ikke være under 0%')
+			if (newValue <= 0) settErrorMessage('Ny prosentverdi kan ikke være mindre eller lik 0%')
 			else if (newValue > 100) settErrorMessage('Ny prosentverdi kan ikke være over 100%')
 			else if (newValue === props.gammelProsentDeltakelse) settErrorMessage('Gammel deltakelse kan ikke være lik ny deltakelse')
 			else settErrorMessage(undefined)
@@ -52,12 +52,12 @@ export const EndreProsentDeltakelseModal = (props: EndreProsentDeltakelseModalPr
 
 	return (
 		<BaseModal
-			tittel="Endre Deltakelsesprosent"
+			tittel="Endre deltakelsesprosent"
 			onClose={props.onClose}>
 
 			<TextField
 				className={styles.prosentDeltakselseTextField}
-				label="Hva er ny Deltakelsesprosent?"
+				label="Hva er ny deltakelsesprosent?"
 				type="number"
 				value={prosentDeltakelse !== undefined ? prosentDeltakelse : ''}
 				min={0}
