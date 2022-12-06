@@ -36,7 +36,7 @@ export const DeltakerDetaljerPage = (): React.ReactElement => {
 	const deltaker = fetchTiltakDeltagerDetaljerPromise.result.data
 
 	return (
-		<main data-testid="bruker-detaljer-page">
+		<div data-testid="bruker-detaljer-page">
 			<DeltakerDetaljerHeader
 				gjennomforingId={deltaker.gjennomforing.id}
 				fornavn={deltaker.fornavn}
@@ -49,6 +49,6 @@ export const DeltakerDetaljerPage = (): React.ReactElement => {
 			<GjennomforingStoreProvider gjennomforing={deltaker.gjennomforing}>
 				<DeltakerDetaljer deltaker={deltaker} />
 			</GjennomforingStoreProvider>
-		</main>
+		</div>
 	)
 }

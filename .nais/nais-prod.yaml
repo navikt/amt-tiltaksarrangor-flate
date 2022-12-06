@@ -42,6 +42,9 @@ spec:
     outbound:
       rules:
         - application: amt-tiltak
+        - application: poao-unleash
+          namespace: poao
+          cluster: prod-gcp
   env:
     - name: JSON_CONFIG
       value: >
@@ -58,6 +61,11 @@ spec:
             {
               "fromPath": "/amt-tiltak", "toUrl": "http://amt-tiltak",
               "toApp": { "name": "amt-tiltak", "namespace": "amt", "cluster": "prod-gcp" }
+            },
+            {
+              "fromPath": "/unleash",
+              "toUrl": "http://poao-unleash.poao.svc.cluster.local",
+              "preserveFromPath": false
             }
           ],
           "header": {

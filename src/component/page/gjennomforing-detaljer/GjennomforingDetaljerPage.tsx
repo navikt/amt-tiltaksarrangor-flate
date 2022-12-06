@@ -55,7 +55,7 @@ export const GjennomforingDetaljerPage = (): React.ReactElement => {
 	const deltakerePerStatus = getAntallDeltakerePerStatus(deltakere)
 
 	return (
-		<main className={styles.tiltaksoversiktPage} data-testid="gjennomforing-detaljer-page">
+		<div className={styles.tiltaksoversiktPage} data-testid="gjennomforing-detaljer-page">
 			<section>
 				<Tilbakelenke to={GJENNOMFORING_LISTE_PAGE_ROUTE} className={styles.tilbakelenke}/>
 				<Heading size="medium" level="2" className={globalStyles.blokkXs}>{gjennomforing.navn}</Heading>
@@ -65,6 +65,6 @@ export const GjennomforingDetaljerPage = (): React.ReactElement => {
 			</section>
 
 			<DeltakerOversiktTabell deltakere={deltakere}/>
-		</main>
+		</div>
 	)
 }
