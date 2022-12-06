@@ -9,9 +9,10 @@ import styles from './IngenRollePage.module.scss'
 
 export const IngenRollePage = (): React.ReactElement => {
 	return (
-		<main className={styles.page}>
+		<div className={styles.page}>
 			<Alert className={globalStyles.blokkS} variant="warning">Du har ikke tilgang til Deltakeroversikten for
-				tiltaksarrangører.</Alert>
+				tiltaksarrangører.
+			</Alert>
 
 			<Panel className={globalStyles.blokkM}>
 				<Heading level="2" size="xsmall" spacing>For å få tilgang må arbeidsgiveren din tildele Altinn-rettighet til deg på riktig organisasjonsnummer.</Heading>
@@ -35,6 +36,6 @@ export const IngenRollePage = (): React.ReactElement => {
 				ikon={<Information title="Informasjon" />}
 				text="Info om deltakeroversikten"
 			/>
-		</main>
+		</div>
 	)
 }

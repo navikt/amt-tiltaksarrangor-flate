@@ -16,9 +16,8 @@ export const PersonopplysningerPage = (): React.ReactElement => {
 
 
 	return (
-		<main className={styles.page}>
-			<div className={styles.content}>
-
+		<div className={styles.page}>
+			<div>
 				<Tilbakelenke to={erInnlogget ? INFORMASJON_PAGE_ROUTE : HOVED_PAGE_ROUTE} />
 
 				<Card className={styles.contentCard}>
@@ -80,7 +79,6 @@ export const PersonopplysningerPage = (): React.ReactElement => {
 
 				</Card>
 			</div>
-
-		</main >
+		</div >
 	)
 }

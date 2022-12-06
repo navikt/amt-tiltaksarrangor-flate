@@ -73,6 +73,7 @@ export const EndreDeltakelseKnapp = (props: EndreDeltakelseKnappProps) => {
 									deltakerId: deltaker.id,
 									startDato: deltaker.startDato,
 									sluttDato: deltaker.sluttDato,
+									tiltakskode: deltaker.gjennomforing.tiltak.tiltakskode,
 									onEndringUtfort: props.onEndringUtfort
 								})}/>
 						}

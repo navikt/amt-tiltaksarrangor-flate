@@ -35,7 +35,7 @@ export const GjennomforingListePage = (): React.ReactElement => {
 		.sort((g1, g2) => sortAlphabeticAsc(g1.navn, g2.navn))
 
 	return (
-		<main className={styles.page} data-testid="gjennomforing-oversikt-page">
+		<div className={styles.page} data-testid="gjennomforing-oversikt-page">
 			<GjennomforingListe gjennomforinger={gjennomforinger} />
 
 			<IkonLenke
@@ -51,6 +51,6 @@ export const GjennomforingListePage = (): React.ReactElement => {
 				ikon={<Information title="Informasjon" />}
 				text="Info om deltakeroversikten"
 			/>
-		</main>
+		</div>
 	)
 }
