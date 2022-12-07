@@ -61,7 +61,7 @@ export const ForlengDeltakelseModal = (props: ForlengDeltakelseModalProps & Forl
 				onChange={(val) => settValgtVarighet(val)}>
 				{varighetValgForType(props.tiltakskode).map(v => <Radio value={v} key={v}>{varigheter[v].navn}</Radio>)}
 				<Radio value={VarighetValg.ANNET}>
-					Annet - velg dato:
+					Annet - velg dato
 					{visDatoVelger &&
 						<DateField
 							min={minDato}
