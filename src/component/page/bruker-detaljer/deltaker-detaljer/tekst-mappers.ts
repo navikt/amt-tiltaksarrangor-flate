@@ -8,7 +8,7 @@ export const aarsakTekstMapper = (aarsakType: DeltakerStatusAarsakType) => {
 		case DeltakerStatusAarsakType.TRENGER_ANNEN_STOTTE: return 'Trenger annen hjelp og støtte'
 		case DeltakerStatusAarsakType.IKKE_MOTT: return 'Møter ikke opp'
 		case DeltakerStatusAarsakType.UTDANNING: return 'Utdanning'
-		case DeltakerStatusAarsakType.ANNET: return 'Annet - fyll ut:'
+		case DeltakerStatusAarsakType.ANNET: return 'Annet - fyll ut'
 		default: return 'Ukjent'
 	}
 }
