@@ -23,7 +23,11 @@ if (env.isPreprod || env.isProd) {
 	initAmplitude()
 }
 
-const renderApp = () => {
+(async() => {
+	if (env.isDevelopment || env.isPullRequest) {
+		await import('./mock')
+	}
+
 	const container = document.getElementById('root')
 
 	// eslint-disable-next-line  @typescript-eslint/no-non-null-assertion
@@ -42,11 +46,4 @@ const renderApp = () => {
 			</ErrorBoundary>
 		</React.StrictMode>
 	)
-}
-
-if (env.isDevelopment || env.isPullRequest) {
-	import('./mock')
-		.finally(renderApp)
-} else {
-	renderApp()
-}
+})()
