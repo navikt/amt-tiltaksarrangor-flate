@@ -1,5 +1,5 @@
 {
-    "baseUrl": "http://localhost:3000/tiltaksarrangor/deltakeroversikt",
+    "baseUrl": "http://localhost:3001/tiltaksarrangor/deltakeroversikt",
     "projectId": "r9b3yw",
     "fixturesFolder": false,
     "viewportHeight": 1300,

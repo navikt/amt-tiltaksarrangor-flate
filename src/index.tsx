@@ -17,27 +17,32 @@ import env from './utils/environment'
 import { initSentry } from './utils/sentry-utils'
 
 dayjs.locale('nb')
-initAmplitude()
-
-if (env.isDevelopment || env.isPullRequest) {
-	require('./mock')
-}
 
 if (env.isPreprod || env.isProd) {
 	initSentry()
+	initAmplitude()
 }
 
-ReactDOM.render(
-	<React.StrictMode>
-		<ErrorBoundary renderOnError={() => <ErrorPage />}>
-			{env.isDemo && <DemoBanner />}
-			<StoreProvider>
-				<BrowserRouter>
-					<App />
-					<PageViewMetricCollector />
-				</BrowserRouter>
-			</StoreProvider>
-		</ErrorBoundary>
-	</React.StrictMode>,
-	document.getElementById('root')
-)
+const renderApp = () => {
+	ReactDOM.render(
+		<React.StrictMode>
+			<ErrorBoundary renderOnError={() => <ErrorPage />}>
+				{env.isDemo && <DemoBanner />}
+				<StoreProvider>
+					<BrowserRouter>
+						<App />
+						<PageViewMetricCollector />
+					</BrowserRouter>
+				</StoreProvider>
+			</ErrorBoundary>
+		</React.StrictMode>,
+		document.getElementById('root')
+	)
+}
+
+if (env.isDevelopment || env.isPullRequest) {
+	import('./mock')
+		.finally(renderApp)
+} else {
+	renderApp()
+}
