@@ -4,6 +4,7 @@ import { RequestHandler } from 'msw/lib/types/handlers/RequestHandler'
 
 import { TiltakDeltaker, TiltakDeltakerDetaljer } from '../../api/data/deltaker'
 import { DeltakerStatusAarsakType, EndringsmeldingType } from '../../api/data/endringsmelding'
+import { VIS_DRIFTSMELDING_TOGGLE_NAVN } from '../../api/data/feature-toggle'
 import { appUrl } from '../../utils/url-utils'
 import {
 	mockEndringsmeldinger,
@@ -140,6 +141,11 @@ export const mockHandlers: RequestHandler[] = [
 		const endringsmeldinger = mockEndringsmeldinger[deltakerId]
 
 		return res(ctx.delay(500), ctx.json(endringsmeldinger))
+	}),
+	rest.get(appUrl('/unleash/api/feature'), (req, res, ctx) => {
+		const toggles = { [VIS_DRIFTSMELDING_TOGGLE_NAVN]: false }
+
+		return res(ctx.delay(500), ctx.json(toggles))
 	})
 ]
 

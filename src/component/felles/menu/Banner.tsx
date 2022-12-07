@@ -11,6 +11,8 @@ import styles from './Banner.module.scss'
 export const Banner = (): React.ReactElement => {
 	const { innloggetAnsatt } = useAuthStore()
 
+	if(!innloggetAnsatt) return <></>
+
 	return (
 		<header className={styles.banner}>
 			<div />
@@ -21,18 +23,17 @@ export const Banner = (): React.ReactElement => {
 			</div>
 
 
-			{innloggetAnsatt &&
-				<div>
-					<BodyShort className={globalStyles.blokkXxs}>{`${innloggetAnsatt.fornavn} ${innloggetAnsatt.etternavn}`}</BodyShort>
+			<div>
+				<BodyShort className={globalStyles.blokkXxs}>{`${innloggetAnsatt.fornavn} ${innloggetAnsatt.etternavn}`}</BodyShort>
 
-					<a
-						href={appUrl('/oauth2/logout')}
-						className={cls('navds-button', 'navds-button--secondary', 'navds-button--small')}
-					>
-						Logg ut
-					</a>
-				</div>
-			}
+				<a
+					href={appUrl('/oauth2/logout')}
+					className={cls('navds-button', 'navds-button--secondary', 'navds-button--small')}
+				>
+					Logg ut
+				</a>
+			</div>
+
 		</header>
 	)
 }

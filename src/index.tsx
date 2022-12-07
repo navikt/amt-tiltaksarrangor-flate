@@ -3,7 +3,7 @@ import './index.scss'
 
 import dayjs from 'dayjs'
 import React from 'react'
-import ReactDOM from 'react-dom'
+import { createRoot } from 'react-dom/client'
 import { BrowserRouter } from 'react-router-dom'
 
 import { App } from './App'
@@ -24,7 +24,12 @@ if (env.isPreprod || env.isProd) {
 }
 
 const renderApp = () => {
-	ReactDOM.render(
+	const container = document.getElementById('root')
+
+	// eslint-disable-next-line  @typescript-eslint/no-non-null-assertion
+	const root = createRoot(container!)
+
+	root.render(
 		<React.StrictMode>
 			<ErrorBoundary renderOnError={() => <ErrorPage />}>
 				{env.isDemo && <DemoBanner />}
@@ -35,8 +40,7 @@ const renderApp = () => {
 					</BrowserRouter>
 				</StoreProvider>
 			</ErrorBoundary>
-		</React.StrictMode>,
-		document.getElementById('root')
+		</React.StrictMode>
 	)
 }
 

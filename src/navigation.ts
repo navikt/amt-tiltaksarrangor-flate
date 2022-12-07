@@ -1,5 +1,3 @@
-import { matchPath } from 'react-router-dom'
-
 import { appUrl } from './utils/url-utils'
 
 export const BRUKER_DETALJER_PAGE_ROUTE = appUrl('/deltaker/:brukerId')
@@ -18,13 +16,4 @@ export const brukerDetaljerPageUrl = (brukerId: string): string => {
 
 export const gjennomforingDetaljerPageUrl = (gjennomforingId: string): string => {
 	return GJENNOMFORING_DETALJER_PAGE_ROUTE.replace(':gjennomforingId', gjennomforingId)
-}
-
-export const rollePaakrevet = (path: string): boolean => {
-	const publicRoutes = [
-		INFORMASJON_PAGE_ROUTE,
-		PERSONOPPLYSNINGER_PAGE_ROUTE
-	]
-
-	return publicRoutes.every(r => matchPath(r, path) == null)
 }

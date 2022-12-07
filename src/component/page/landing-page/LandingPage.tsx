@@ -22,7 +22,7 @@ interface LandingPageProps {
 export const LandingPage = (props: LandingPageProps): React.ReactElement => {
 
 	return (
-		<main className={styles.landingPage}>
+		<div className={styles.landingPage}>
 			<Heading size="xlarge" className={cls(styles.title, styles.mainTitle, globalStyles.blokkM)}>Deltakeroversikt</Heading>
 			<Heading size="small" className={cls(styles.title, globalStyles.blokkM)}>Pilot for tiltaksarrangør</Heading>
 
@@ -54,6 +54,6 @@ export const LandingPage = (props: LandingPageProps): React.ReactElement => {
 				text="Slik behandles personopplysningene dine når du bruker deltakeroversikten"
 			/>
 
-		</main>
+		</div>
 	)
 }

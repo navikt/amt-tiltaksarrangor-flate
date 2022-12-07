@@ -16,9 +16,9 @@ interface DeltakerOversiktTabellProps {
 }
 
 export const DeltakerOversiktTabell = (props: DeltakerOversiktTabellProps): React.ReactElement<DeltakerOversiktTabellProps> => {
-	const { deltakere } =  props
+	const { deltakere } = props
 	const { deltakerSortering, tiltakStatusFilter, setDeltakerSortering } = useTiltaksoversiktSokStore()
-	const [ deltakereBearbeidet, setDeltakereBearbeidet ] = useState<TiltakDeltaker[]>(deltakere)
+	const [ deltakereBearbeidet, setDeltakereBearbeidet ] = useState<TiltakDeltaker[]>(sorterDeltakere(deltakere, deltakerSortering))
 
 	useEffect(() => {
 		if (!deltakere) return
@@ -35,7 +35,7 @@ export const DeltakerOversiktTabell = (props: DeltakerOversiktTabellProps): Reac
 	return (
 		<section>
 			{deltakere.length === 0
-				? <IngenDeltakereAlertstripe/>
+				? <IngenDeltakereAlertstripe />
 				: (
 					<Table className="tabell" zebraStripes={true} sort={deltakerSortering} onSortChange={handleOnSortChange}>
 						<TabellHeader />

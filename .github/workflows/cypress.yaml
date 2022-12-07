@@ -23,7 +23,7 @@ jobs:
       - name: Install dependencies
         run: npm ci
       - name: Run tests
-        uses: cypress-io/github-action@v2
+        uses: cypress-io/github-action@v5
         with:
           browser: chrome
           headless: true

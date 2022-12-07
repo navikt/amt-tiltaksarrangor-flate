@@ -19,7 +19,7 @@ interface InfoElementProps {
 	children?: React.ReactNode
 }
 
-export const InfoElement = (props: InfoElementProps): React.ReactElement<InfoElementProps> => {
+const InfoElement = (props: InfoElementProps): React.ReactElement<InfoElementProps> => {
 	return (
 		<div className={styles.infoElement}>
 			<img className={styles.infoElementImg} src={props.image} alt={props.alt} />
@@ -35,7 +35,7 @@ export const InformasjonPage = (): React.ReactElement => {
 	useTabTitle('Informasjon om deltakeroversikten')
 
 	return (
-		<main className={styles.page}>
+		<div className={styles.page}>
 			<div className={styles.content}>
 				<Tilbakelenke to={GJENNOMFORING_LISTE_PAGE_ROUTE} />
 
@@ -85,6 +85,6 @@ export const InformasjonPage = (): React.ReactElement => {
 				/>
 			</div>
 
-		</main>
+		</div>
 	)
 }
