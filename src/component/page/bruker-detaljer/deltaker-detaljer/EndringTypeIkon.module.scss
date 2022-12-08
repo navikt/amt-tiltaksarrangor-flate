@@ -7,9 +7,8 @@
 }
 
 .ikkeAktuellIkon {
-  color: var();
+  color: var(--navds-semantic-color-feedback-warning-icon);
   transform: rotate(45deg);
-
 }
 
 .endreProsentDeltakelseIkon {
