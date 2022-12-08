@@ -34,7 +34,7 @@ export const EndringsmeldingPanel = ({ endringsmelding, onEndringsmeldingTilbake
 	}
 
 	return (
-		<Panel border className={styles.panel}>
+		<Panel border className={styles.panel} aria-label="Endringsmelding sendt til nav">
 			<div className={styles.innholdWrapper}>
 				<EndringTypeIkon type={mapTilEndringType(endringsmelding.type)} />
 				<div className={styles.innhold}>
