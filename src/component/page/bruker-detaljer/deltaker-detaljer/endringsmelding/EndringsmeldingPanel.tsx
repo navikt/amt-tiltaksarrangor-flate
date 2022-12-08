@@ -38,7 +38,7 @@ export const EndringsmeldingPanel = ({ endringsmelding, onEndringsmeldingTilbake
 			<div className={styles.innholdWrapper}>
 				<EndringTypeIkon type={mapTilEndringType(endringsmelding.type)} />
 				<div className={styles.innhold}>
-					<Heading size="xsmall" >Sendt til NAV:</Heading>
+					<Heading size="xsmall" level="4">Sendt til NAV:</Heading>
 					{children}
 				</div>
 			</div>

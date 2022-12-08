@@ -37,7 +37,7 @@ export const DeltakerOversiktTabell = (props: DeltakerOversiktTabellProps): Reac
 			{deltakere.length === 0
 				? <IngenDeltakereAlertstripe />
 				: (
-					<Table className="tabell" zebraStripes={true} sort={deltakerSortering} onSortChange={handleOnSortChange}>
+					<Table className="tabell" zebraStripes={true} sort={deltakerSortering} onSortChange={handleOnSortChange} aria-label="Deltakere på tiltaksgjennomføring">
 						<TabellHeader />
 						<TabellBody brukere={deltakereBearbeidet} />
 					</Table>
