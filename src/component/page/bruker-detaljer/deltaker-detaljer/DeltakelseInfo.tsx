@@ -29,6 +29,12 @@ export const DeltakelseInfo = ({
 		setReloadEndringsmeldinger(true)
 	}
 
+	const skalViseDeltakelsesprosent = [ 'ARBFORB', 'VASV' ]
+		.includes(deltaker.gjennomforing.tiltak.tiltakskode)
+
+	const erIkkeAktuellEllerHarSluttet = [ TiltakDeltakerStatus.IKKE_AKTUELL, TiltakDeltakerStatus.HAR_SLUTTET ]
+		.includes(status.type)
+
 	return (
 		<div className={styles.wrapper}>
 			<div className={styles.section}>
@@ -41,19 +47,24 @@ export const DeltakelseInfo = ({
 				<ElementPanel tittel="Dato:">
 					<BodyShort size="small" >{formatDate(deltaker.startDato)} - {formatDate(deltaker.sluttDato)}</BodyShort>
 				</ElementPanel>
+				{skalViseDeltakelsesprosent && (
+					<ElementPanel tittel="Deltakelsesprosent:" className={styles.deltakelsesProsentPanel}>
+						<BodyShort size="small">{deltaker.deltakelseProsent !== null
+							? `${deltaker.deltakelseProsent}%`
+							: 'Ikke satt'}
+						</BodyShort>
+					</ElementPanel>
+				)}
 				<div className={styles.body}>
 					<Endringsmeldinger
 						deltakerId={deltaker.id}
 						setReloadEndringsmeldinger={setReloadEndringsmeldinger}
 						reloadEndringsmeldinger={reloadEndringsmeldinger}
 					/>
-					{erIkkeAktuellEllerHarSluttet(status.type) &&
+					{erIkkeAktuellEllerHarSluttet &&
 						<Alert variant="warning" size="small" className={styles.statusAlert}>Deltakeren fjernes fra listen {formatDate(fjernesDato)}</Alert>}
 				</div>
 			</div>
 		</div>
 	)
 }
-
-const erIkkeAktuellEllerHarSluttet = (status: TiltakDeltakerStatus): boolean =>
-	[ TiltakDeltakerStatus.IKKE_AKTUELL, TiltakDeltakerStatus.HAR_SLUTTET ].includes(status)
