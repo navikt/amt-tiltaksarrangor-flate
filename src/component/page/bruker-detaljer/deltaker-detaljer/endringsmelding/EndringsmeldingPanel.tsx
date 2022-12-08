@@ -44,12 +44,13 @@ export const EndringsmeldingPanel = ({ endringsmelding, onEndringsmeldingTilbake
 			</div>
 			<Tooltip content="Tilbakekall melding" className={styles.tooltip}>
 				<Button
-					icon={<Close />}
+					icon={<Close aria-hidden/>}
 					loading={isPending(tilbakekallEndringsmeldingPromise) || isResolved(tilbakekallEndringsmeldingPromise)}
 					variant="tertiary"
 					size="small"
 					onClick={handleClick}
 					className={styles.closeButton}
+					aria-label="Tilbakekall melding"
 				/>
 			</Tooltip>
 		</Panel>

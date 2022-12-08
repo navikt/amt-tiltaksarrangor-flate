@@ -21,7 +21,6 @@ export const SpaLenkepanel = (props: SpaLenkepanelProps): React.ReactElement<Spa
 			</div>
 			<Next
 				className="navds-link-panel__chevron"
-				aria-label="arrow-icon pointing right"
 			/>
 		</Link>
 	)
