@@ -1,3 +1,5 @@
+import { describe, expect, test } from 'vitest'
+
 import { formaterTelefonnummer, hentFodselsdato, hentPersonnummer,lagBrukerNavn, lagKommaSeparertBrukerNavn } from './bruker-utils'
 
 describe('lagKommaSeparertBrukerNavn', () => {

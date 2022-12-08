@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@babel/core": "^7.20.5",
     "@navikt/ds-css": "^2.0.0",
     "@navikt/ds-css-internal": "^2.0.0",
     "@navikt/ds-icons": "^2.0.0",
@@ -11,11 +12,6 @@
     "@navikt/ds-tokens": "^2.0.0",
     "@sentry/react": "^7.3.1",
     "@sentry/tracing": "^7.3.1",
-    "@testing-library/jest-dom": "^5.16.1",
-    "@testing-library/react": "^13.0.0",
-    "@testing-library/user-event": "^13.5.0",
-    "@types/jest": "^27.4.0",
-    "@types/node": "^17.0.42",
     "@types/react": "^18.0.0",
     "@types/react-collapse": "^5.0.1",
     "@types/react-dom": "^18.0.0",
@@ -24,22 +20,19 @@
     "axios": "^0.27.2",
     "classnames": "^2.3.2",
     "constate": "^3.3.0",
-    "cross-env": "^7.0.3",
     "dayjs": "^1.10.7",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
     "react-router-dom": "^6.4.2",
-    "react-scripts": "5.0.0",
-    "react-select": "^5.2.2",
+    "react-select": "^5.7.0",
     "typescript": "^4.7.3",
     "zod": "^3.13.4"
   },
-  "homepage": "/tiltaksarrangor/deltakeroversikt",
   "scripts": {
-    "start": "cross-env REACT_APP_DEV=true react-scripts start",
-    "build": "react-scripts build",
-    "build:gh-pages": "cross-env PUBLIC_URL=/amt-tiltaksarrangor-flate REACT_APP_DEV=true react-scripts build && cpy --cwd=build --rename=404.html index.html .",
-    "test": "react-scripts test",
+    "start": "vite",
+    "build": "vite build",
+    "build:gh-pages": "vite build --base=/amt-tiltaksarrangor-flate/ && cpy --cwd=build --rename=404.html index.html .",
+    "test": "vitest",
     "lint": "eslint --max-warnings=0 'src/**/*.{ts,tsx}'",
     "lint:fix": "eslint --fix 'src/**/*.{ts,tsx}'",
     "cy:run": "cypress run",
@@ -56,42 +49,31 @@
       "eslint --fix"
     ]
   },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
-  },
   "devDependencies": {
     "@types/amplitude-js": "^8.9.3",
     "@types/faker": "^5.5.9",
     "@typescript-eslint/eslint-plugin": "^5.9.1",
     "@typescript-eslint/parser": "^5.9.1",
+    "@vitejs/plugin-react": "^2.2.0",
     "axe-core": "^4.3.5",
     "cpy-cli": "^4.2.0",
     "cypress": "^11.0.0",
     "cypress-axe": "^1.1.0",
     "eslint": "^8.6.0",
+    "eslint-plugin-jsx-a11y": "^6.6.1",
+    "eslint-plugin-react": "^7.31.11",
+    "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-simple-import-sort": "^7.0.0",
     "faker": "5.5.3",
     "husky": "^7.0.4",
     "lint-staged": "^12.1.7",
     "msw": "^0.38.0",
     "sass": "^1.56.1",
-    "table": "^6.8.0"
+    "table": "^6.8.0",
+    "vite": "^3.2.5",
+    "vitest": "^0.25.5"
   },
   "msw": {
     "workerDirectory": "public"
-  },
-  "jest": {
-    "transformIgnorePatterns": [
-      "node_modules/@navikt/?!(ds-icons)"
-    ]
   }
 }

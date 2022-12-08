@@ -1,7 +1,7 @@
 class Environment {
 
 	get isDevelopment() {
-		return process.env.REACT_APP_DEV === 'true'
+		return import.meta.env.DEV
 	}
 
 	get isProd(): boolean {
@@ -13,15 +13,15 @@ class Environment {
 	}
 
 	get isPullRequest(): boolean {
-		return this.isPreprod && this.publicUrl.match(/\/pr-\d+/) != null
+		return this.isPreprod && this.baseUrl.match(/\/pr-\d+/) != null
 	}
 
 	get isDemo(): boolean {
 		return window.location.hostname.endsWith('github.io')
 	}
 
-	get publicUrl(): string {
-		return process.env.PUBLIC_URL || ''
+	get baseUrl(): string {
+		return import.meta.env.BASE_URL
 	}
 
 	get name(): string {

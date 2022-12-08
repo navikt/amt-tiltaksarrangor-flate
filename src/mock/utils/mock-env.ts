@@ -10,21 +10,21 @@ export enum RequestHandlerType {
 const DEFAULT_HANDLER = RequestHandlerType.MOCK
 
 export const getProxyUrl = (): string => {
-	return process.env.REACT_APP_MOCK_PROXY_URL || ''
+	return import.meta.env.VITE_MOCK_PROXY_URL || ''
 }
 
 export const localAmtTiltakUrl = (): string => {
-	return process.env.REACT_APP_MOCK_LOCAL_AMT_TILTAK_URL || ''
+	return import.meta.env.VITE_MOCK_LOCAL_AMT_TILTAK_URL || ''
 }
 
 export function getRequestHandler(): RequestHandlerType {
-	return toNullableEnumValue(RequestHandlerType, process.env.REACT_APP_MOCK_REQUEST_HANDLER) || DEFAULT_HANDLER
+	return toNullableEnumValue(RequestHandlerType, import.meta.env.VITE_MOCK_REQUEST_HANDLER) || DEFAULT_HANDLER
 }
 
 export function getRequestCookie(): string {
-	return process.env.REACT_APP_MOCK_REQUEST_COOKIE || ''
+	return import.meta.env.VITE_MOCK_REQUEST_COOKIE || ''
 }
 
 export function getRequestAuthHeader(): string {
-	return process.env.REACT_APP_MOCK_REQUEST_AUTH_HEADER || ''
+	return import.meta.env.VITE_MOCK_REQUEST_AUTH_HEADER || ''
 }

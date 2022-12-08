@@ -17,31 +17,33 @@ import env from './utils/environment'
 import { initSentry } from './utils/sentry-utils'
 
 dayjs.locale('nb')
-initAmplitude()
-
-if (env.isDevelopment || env.isPullRequest) {
-	require('./mock')
-}
 
 if (env.isPreprod || env.isProd) {
 	initSentry()
+	initAmplitude()
 }
 
-const container = document.getElementById('root')
+(async() => {
+	if (env.isDevelopment || env.isPullRequest) {
+		await import('./mock')
+	}
 
-// eslint-disable-next-line  @typescript-eslint/no-non-null-assertion
-const root = createRoot(container!)
+	const container = document.getElementById('root')
 
-root.render(
-	<React.StrictMode>
-		<ErrorBoundary renderOnError={() => <ErrorPage />}>
-			{env.isDemo && <DemoBanner />}
-			<StoreProvider>
-				<BrowserRouter>
-					<App />
-					<PageViewMetricCollector />
-				</BrowserRouter>
-			</StoreProvider>
-		</ErrorBoundary>
-	</React.StrictMode>,
-)
+	// eslint-disable-next-line  @typescript-eslint/no-non-null-assertion
+	const root = createRoot(container!)
+
+	root.render(
+		<React.StrictMode>
+			<ErrorBoundary renderOnError={() => <ErrorPage />}>
+				{env.isDemo && <DemoBanner />}
+				<StoreProvider>
+					<BrowserRouter>
+						<App />
+						<PageViewMetricCollector />
+					</BrowserRouter>
+				</StoreProvider>
+			</ErrorBoundary>
+		</React.StrictMode>
+	)
+})()

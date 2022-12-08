@@ -1,5 +1,5 @@
 @import 'src/colors';
-@import '~@navikt/ds-css';
+@import '@navikt/ds-css/dist/index.css';
 
 html {
 	background-color: $navLysGra;

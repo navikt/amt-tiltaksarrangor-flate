@@ -31,7 +31,7 @@ const resolveHandlers = (requestHandlerType: RequestHandlerType): RequestHandler
  skal få lov til å intercepte requests.
 */
 const path = window.location.pathname
-if (path === env.publicUrl && !path.endsWith('/')) {
+if (path === env.baseUrl && !path.endsWith('/')) {
 	console.log('Redirected with trailing slash')
 	window.location.href = `${window.location.origin}${path}/`
 }

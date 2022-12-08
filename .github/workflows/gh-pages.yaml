@@ -14,16 +14,19 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
-      - name: Setup node
-        uses: actions/setup-node@v2
+        uses: actions/checkout@v3
+      - uses: pnpm/action-setup@v2
         with:
-          node-version: '16'
-          cache: 'npm'
+          version: 7.13.4
+      - name: Setup node
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          cache: 'pnpm'
       - name: Install dependencies
-        run: npm ci
+        run: pnpm install --frozen-lockfile
       - name: Build mock application
-        run: npm run build:gh-pages
+        run: pnpm build:gh-pages
       - name: Update GitHub pages
         uses: peaceiris/actions-gh-pages@v3
         with:
