@@ -1,5 +1,4 @@
-import { BodyShort, Heading } from '@navikt/ds-react'
-import cls from 'classnames'
+import { BodyShort, Button, Heading } from '@navikt/ds-react'
 import React from 'react'
 
 import globalStyles from '../../../globals.module.scss'
@@ -26,12 +25,13 @@ export const Banner = (): React.ReactElement => {
 			<div>
 				<BodyShort className={globalStyles.blokkXxs}>{`${innloggetAnsatt.fornavn} ${innloggetAnsatt.etternavn}`}</BodyShort>
 
-				<a
-					href={appUrl('/oauth2/logout')}
-					className={cls('navds-button', 'navds-button--secondary', 'navds-button--small')}
+				<Button
+					onClick={()=> window.location.href = appUrl('/oauth2/logout')}
+					variant="secondary"
+					size="small"
 				>
 					Logg ut
-				</a>
+				</Button>
 			</div>
 
 		</header>

@@ -16,7 +16,7 @@ export const PersonopplysningerPage = (): React.ReactElement => {
 
 
 	return (
-		<div className={styles.page}>
+		<div className={styles.page} data-testid="personopplysning-page">
 			<div>
 				<Tilbakelenke to={erInnlogget ? INFORMASJON_PAGE_ROUTE : HOVED_PAGE_ROUTE} />
 
