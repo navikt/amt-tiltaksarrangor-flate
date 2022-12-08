@@ -118,6 +118,15 @@ export const endreOppstartsdato = (deltakerId: string, startDato: Date): AxiosPr
 		.catch(logAndThrowError)
 }
 
+export const endreDeltakelsesprosent = (deltakerId: string, deltakelseProsent: number): AxiosPromise => {
+	return axiosInstance
+		.patch(
+			appUrl(`/amt-tiltak/api/tiltaksarrangor/deltaker/${deltakerId}/deltakelse-prosent`),
+			{ deltakelseProsent: deltakelseProsent }
+		)
+		.catch(logAndThrowError)
+}
+
 export const forlengDeltakelse = (deltakerId: string, sluttDato: Date): AxiosPromise => {
 	return axiosInstance
 		.patch(

@@ -3,6 +3,7 @@ import React, { useEffect } from 'react'
 
 import { AvsluttDeltakelseModal } from './endre-deltaker-modal/AvsluttDeltakelseModal'
 import { EndreOppstartModal } from './endre-deltaker-modal/EndreOppstartModal'
+import { EndreProsentDeltakelseModal } from './endre-deltaker-modal/EndreProsentDeltakelseModal'
 import { ForlengDeltakelseModal } from './endre-deltaker-modal/ForlengDeltakelseModal'
 import { LeggTilOppstartModal } from './endre-deltaker-modal/LeggTilOppstartModal'
 import { SettIkkeAktuellModal } from './endre-deltaker-modal/SettIkkeAktuellModal'
@@ -27,6 +28,8 @@ export const ModalController = (props : { modalData: ModalData | undefined, onCl
 			return <SettIkkeAktuellModal onClose={onClose} { ...modalData.props }/>
 		case ModalType.AvsluttDeltaker:
 			return <AvsluttDeltakelseModal onClose={onClose} { ...modalData.props }/>
+		case ModalType.EndreProsentDeltakelse:
+			return <EndreProsentDeltakelseModal onClose={onClose} {...modalData.props}/>
 		default: return null
 	}
 

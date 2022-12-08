@@ -26,6 +26,7 @@ export const EndreDeltakelseKnapp = (props: EndreDeltakelseKnappProps) => {
 		visForlengDeltakelseModal,
 		visSettDeltakerIkkeAktuellModal,
 		visAvsluttDeltakerModal,
+		visEndreProsentDeltakelseModal,
 		lukkModal
 	} = useModalData()
 	const { deltaker } = props
@@ -91,6 +92,16 @@ export const EndreDeltakelseKnapp = (props: EndreDeltakelseKnappProps) => {
 								onClick={() => visAvsluttDeltakerModal({
 									deltakerId: deltaker.id,
 									startDato: deltaker.startDato,
+									onEndringUtfort: props.onEndringUtfort
+								})}/>
+						}
+						{(deltaker.gjennomforing.tiltak.tiltakskode === 'ARBFORB'
+								|| deltaker.gjennomforing.tiltak.tiltakskode === 'VASV') &&
+							<DropDownButton
+								endringstype={EndringType.ENDRE_DELTAKELSE_PROSENT}
+								onClick={() => visEndreProsentDeltakelseModal({
+									deltakerId: deltaker.id,
+									gammelProsentDeltakelse: deltaker.deltakelseProsent,
 									onEndringUtfort: props.onEndringUtfort
 								})}/>
 						}
