@@ -19,31 +19,36 @@ export const FilterMeny = (props: Props): React.ReactElement => {
 		fjernFraTiltakStatus,
 	} = useTiltaksoversiktSokStore()
 
+	const StatusCheckbox = ({ status } : {status: TiltakDeltakerStatus}) => {
+		return  (
+			<Checkbox
+				className={styles.checkbox}
+				name="filter-tiltakstatus"
+				checked={tiltakStatusFilter.includes(status)}
+				onChange={(e) => {
+					if (e.target.checked) {
+						leggTilTiltakStatus(status)
+						loggKlikk(klikkFilterMeny, status, 'checked')
+					} else {
+						fjernFraTiltakStatus(status)
+						loggKlikk(klikkFilterMeny, status, 'unchecked')
+					}
+				}}
+				value={mapTiltakDeltagerStatusTilTekst(status) }
+			>
+				<div className={styles.content}>
+					<span>{mapTiltakDeltagerStatusTilTekst(status)}</span>
+					<span className={styles.occurrences}>{props.statusMap.get(status) ?? 0}</span>
+				</div>
+			</Checkbox>
+		)
+	}
+
 	return (
 		<Panel border className={props.className}>
 			<CheckboxGroup legend="Status">
 				{Object.values(TiltakDeltakerStatus).map((status) => (
-					<Checkbox
-						key={status}
-						className={styles.checkbox}
-						name="filter-tiltakstatus"
-						checked={tiltakStatusFilter.includes(status)}
-						onChange={(e) => {
-							if (e.target.checked) {
-								leggTilTiltakStatus(status)
-								loggKlikk(klikkFilterMeny, status, 'checked')
-							} else {
-								fjernFraTiltakStatus(status)
-								loggKlikk(klikkFilterMeny, status, 'unchecked')
-							}
-						}}
-						value={mapTiltakDeltagerStatusTilTekst(status) }
-					>
-						<div className={styles.content}>
-							<span>{mapTiltakDeltagerStatusTilTekst(status)}</span>
-							<span className={styles.occurrences}>{props.statusMap.get(status) ?? 0}</span>
-						</div>
-					</Checkbox>
+					<StatusCheckbox status={status} key={status}/>
 				))}
 			</CheckboxGroup>
 		</Panel>
