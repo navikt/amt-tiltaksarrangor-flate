@@ -13,7 +13,7 @@ export const LeggTilDeltakerlistePage = () => {
 	useTabTitle('Legg til og fjern deltakerlister')
 
 	return (
-		<div className={styles.page}>
+		<div className={styles.page} data-testid="legg-til-liste-page">
 			<Tilbakelenke to={GJENNOMFORING_LISTE_PAGE_ROUTE} className={globalStyles.blokkM}/>
 
 			<Heading size="medium" level="2" className={globalStyles.blokkM}>Legg til og fjern deltakerlister</Heading>

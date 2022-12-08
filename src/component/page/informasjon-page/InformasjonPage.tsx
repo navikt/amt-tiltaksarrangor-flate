@@ -35,7 +35,7 @@ export const InformasjonPage = (): React.ReactElement => {
 	useTabTitle('Informasjon om deltakeroversikten')
 
 	return (
-		<div className={styles.page}>
+		<div className={styles.page} data-testid="informasjon-page">
 			<div className={styles.content}>
 				<Tilbakelenke to={GJENNOMFORING_LISTE_PAGE_ROUTE} />
 
