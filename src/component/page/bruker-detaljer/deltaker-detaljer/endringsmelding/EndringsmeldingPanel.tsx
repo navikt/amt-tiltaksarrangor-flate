@@ -29,7 +29,7 @@ export const EndringsmeldingPanel = ({ endringsmelding, onEndringsmeldingTilbake
 	}
 
 	if (isRejected(tilbakekallEndringsmeldingPromise)) {
-		return <Alert className={styles.alert} variant="error">Meldingen ble ikke tilbakekalt. En annen person har gjort at meldingen er utdatert.</Alert>
+		return <Alert className={styles.alert} role="status" variant="error">Meldingen ble ikke tilbakekalt. En annen person har gjort at meldingen er utdatert.</Alert>
 
 	}
 
