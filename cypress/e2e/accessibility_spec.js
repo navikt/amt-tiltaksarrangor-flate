@@ -1,4 +1,3 @@
-import { mockInnloggetAnsatt } from '../../src/mock/data/ansatt';
 import { logViolations } from '../log-utils'
 
 function sjekkUU() {
@@ -36,14 +35,8 @@ function navigerTilBrukerDetaljer() {
 	cy.get('[data-testid=bruker-detaljer-page]')
 }
 
-
-function initialize() {
-	cy.intercept('/tiltaksarrangor/deltakeroversikt/amt-tiltak/api/arrangor/ansatt/meg', mockInnloggetAnsatt).as('getInnloggetAnsatt')
-}
-
 describe('Cypress+Axe accessibility tests', () => {
 	it('"Tiltaksgjennomføring oversikt" skal oppfylle UU-krav', () => {
-		initialize()
 		gaTilTiltakGjennomforingOversikt()
 
 		sjekkUU()
