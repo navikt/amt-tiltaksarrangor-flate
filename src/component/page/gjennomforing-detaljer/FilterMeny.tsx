@@ -20,6 +20,8 @@ export const FilterMeny = (props: Props): React.ReactElement => {
 	} = useTiltaksoversiktSokStore()
 
 	const StatusCheckbox = ({ status } : {status: TiltakDeltakerStatus}) => {
+		const statusTekst = mapTiltakDeltagerStatusTilTekst(status)
+		const antallDeltakere = props.statusMap.get(status) ?? 0
 		return  (
 			<Checkbox
 				className={styles.checkbox}
@@ -34,11 +36,11 @@ export const FilterMeny = (props: Props): React.ReactElement => {
 						loggKlikk(klikkFilterMeny, status, 'unchecked')
 					}
 				}}
-				value={mapTiltakDeltagerStatusTilTekst(status) }
+				value={statusTekst}
 			>
-				<div className={styles.content}>
-					<span>{mapTiltakDeltagerStatusTilTekst(status)}</span>
-					<span className={styles.occurrences}>{props.statusMap.get(status) ?? 0}</span>
+				<div className={styles.content} aria-label={`Filtrer på status ${statusTekst}, ${antallDeltakere} deltakere`}>
+					<span>{statusTekst}</span>
+					<span className={styles.occurrences}>{antallDeltakere}</span>
 				</div>
 			</Checkbox>
 		)
@@ -46,7 +48,7 @@ export const FilterMeny = (props: Props): React.ReactElement => {
 
 	return (
 		<Panel border className={props.className}>
-			<CheckboxGroup legend="Status">
+			<CheckboxGroup legend="Status" aria-label="Filtrer deltakere på status">
 				{Object.values(TiltakDeltakerStatus).map((status) => (
 					<StatusCheckbox status={status} key={status}/>
 				))}
