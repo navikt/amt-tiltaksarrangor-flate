@@ -29,11 +29,11 @@ jobs:
         with:
           path: ~/.cache/Cypress
           key: cypress-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}
-      - name: Install cypress
-        if: steps.cypress-cache.outputs.cache-hit != 'true'
-        run: npx cypress install
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
+      - name: Install cypress
+        if: steps.cypress-cache.outputs.cache-hit != 'true'
+        run: pnpm exec cypress install
       - name: Run tests
         uses: cypress-io/github-action@v5
         with:

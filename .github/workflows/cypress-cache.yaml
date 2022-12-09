@@ -27,4 +27,4 @@ jobs:
           key: cypress-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}
       - name: Install cypress
         if: steps.cypress-cache.outputs.cache-hit != 'true'
-        run: npx cypress install
+        run: pnpm install --frozen-lockfile && pnpm exec cypress install
