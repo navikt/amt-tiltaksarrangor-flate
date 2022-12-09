@@ -40,6 +40,6 @@ const requestHandler = getRequestHandler()
 
 console.info(`Running with request handler: ${requestHandler}`)
 
-setupWorker(...resolveHandlers(requestHandler))
+await setupWorker(...resolveHandlers(requestHandler))
 	.start({ serviceWorker: { url: appUrl('mockServiceWorker.js') } })
 	.catch((e) => console.error('Unable to setup mocked API endpoints', e))
