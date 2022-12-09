@@ -57,7 +57,7 @@
     "@vitejs/plugin-react": "^2.2.0",
     "axe-core": "^4.3.5",
     "cpy-cli": "^4.2.0",
-    "cypress": "^11.0.0",
+    "cypress": "^11.2.0",
     "cypress-axe": "^1.1.0",
     "eslint": "^8.6.0",
     "eslint-plugin-jsx-a11y": "^6.6.1",

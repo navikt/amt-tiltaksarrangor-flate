@@ -1,17 +1,13 @@
-name: Cypress test
+name: Cypress cache
 on:
   push:
-    branches-ignore:
+    branches:
       - main
-env:
-  CI: true
-  TZ: Europe/Amsterdam
 
 jobs:
-  cypress:
-    name: Cypress test
+  cypress-cache:
+    name: Cypress cache
     runs-on: ubuntu-latest
-    timeout-minutes: 5
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -29,20 +25,6 @@ jobs:
         with:
           path: ~/.cache/Cypress
           key: cypress-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
       - name: Install cypress binary
         if: steps.cypress-cache.outputs.cache-hit != 'true'
-        run: pnpm exec cypress install
-      - name: Run tests
-        uses: cypress-io/github-action@v5
-        with:
-          browser: chrome
-          headless: true
-          start: pnpm start
-          wait-on: sleep 5
-          parallel: true
-          record: true
-        env:
-          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: pnpm install --frozen-lockfile && pnpm exec cypress install
