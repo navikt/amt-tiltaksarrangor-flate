@@ -33,7 +33,7 @@ export const DeltakerOversiktTabell = (props: DeltakerOversiktTabellProps): Reac
 	}
 
 	return (
-		<section>
+		<div>
 			{deltakere.length === 0
 				? <IngenDeltakereAlertstripe />
 				: (
@@ -43,6 +43,6 @@ export const DeltakerOversiktTabell = (props: DeltakerOversiktTabellProps): Reac
 					</Table>
 				)
 			}
-		</section>
+		</div>
 	)
 }
