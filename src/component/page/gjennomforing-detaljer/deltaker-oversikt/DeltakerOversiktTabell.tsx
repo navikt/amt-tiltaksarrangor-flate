@@ -33,16 +33,16 @@ export const DeltakerOversiktTabell = (props: DeltakerOversiktTabellProps): Reac
 	}
 
 	return (
-		<section>
+		<div>
 			{deltakere.length === 0
 				? <IngenDeltakereAlertstripe />
 				: (
-					<Table className="tabell" zebraStripes={true} sort={deltakerSortering} onSortChange={handleOnSortChange}>
+					<Table className="tabell" zebraStripes={true} sort={deltakerSortering} onSortChange={handleOnSortChange} aria-label="Deltakere på tiltaksgjennomføring">
 						<TabellHeader />
 						<TabellBody brukere={deltakereBearbeidet} />
 					</Table>
 				)
 			}
-		</section>
+		</div>
 	)
 }

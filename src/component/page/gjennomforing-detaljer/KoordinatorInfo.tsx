@@ -47,7 +47,7 @@ export const KoordinatorInfo = (props: KoordinatorInfoProps) => {
 			<ul className={styles.koordinatorList}>
 				{koordinatorer.map(k =>
 					<li className={styles.koordinator} key={koordinatorDisplayString(k)}>
-						<People/> {koordinatorDisplayString(k)}
+						<People aria-hidden/> {koordinatorDisplayString(k)}
 					</li>)}
 			</ul>
 

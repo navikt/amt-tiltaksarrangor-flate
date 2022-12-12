@@ -25,7 +25,7 @@ function navigerTilTiltakGjennomforingDetaljer() {
 	cy.get('[data-testid=gjennomforing-detaljer-page]')
 }
 
-function navigerTilBrukerDetaljer() {
+function navigerTilDeltakerDetaljer() {
 	cy.get('[data-testid=gjennomforing-detaljer-page]').within(() => {
 		cy.get('td > a')
 			.first()
@@ -42,18 +42,37 @@ describe('Cypress+Axe accessibility tests', () => {
 		sjekkUU()
 	})
 
-	it('Tiltaksgjennomføring detaljer skal oppfylle UU-krav', () => {
+	it('Deltaker liste skal oppfylle UU-krav', () => {
 		gaTilTiltakGjennomforingOversikt()
 		navigerTilTiltakGjennomforingDetaljer()
 
 		sjekkUU()
 	})
 
-	it('Bruker detaljer skal oppfylle UU-krav', () => {
+	it('Deltaker detaljer skal oppfylle UU-krav', () => {
 		gaTilTiltakGjennomforingOversikt()
 		navigerTilTiltakGjennomforingDetaljer()
-		navigerTilBrukerDetaljer()
+		navigerTilDeltakerDetaljer()
 
+		sjekkUU()
+	})
+
+	it('Informasjon side skal oppfylle UU-krav', () => {
+		cy.visit('/informasjon')
+		cy.get('[data-testid=informasjon-page]')
+
+		sjekkUU()
+	})
+
+	it('Legg til liste side skal oppfylle UU-krav', () => {
+		cy.visit('/legg-til-deltakerliste')
+		cy.get('[data-testid=legg-til-liste-page]')
+
+		sjekkUU()
+	})
+	it('Personopplysning side skal oppfylle UU-krav', () => {
+		cy.visit('/personopplysninger')
+		cy.get('[data-testid=personopplysning-page]')
 		sjekkUU()
 	})
 })

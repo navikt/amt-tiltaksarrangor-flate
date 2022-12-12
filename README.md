@@ -44,3 +44,8 @@ For å kjøre med mocks så sett følgende innhold i **.env.local** eller slett 
 ```.env
 VITE_MOCK_REQUEST_HANDLER=mock
 ```
+
+## WCAG
+WCAG rapport ligger i mappen .wcag/. 
+Rapporten kan lastes opp i https://www.w3.org/WAI/eval/report-tool/evaluation/view-report
+for å se på og legge til endringer

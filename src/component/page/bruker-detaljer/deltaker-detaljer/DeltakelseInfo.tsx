@@ -1,4 +1,4 @@
-import { Alert, BodyShort } from '@navikt/ds-react'
+import { Alert } from '@navikt/ds-react'
 import React, { useState } from 'react'
 
 import { DeltakerStatus, TiltakDeltakerDetaljer, TiltakDeltakerStatus } from '../../../../api/data/deltaker'
@@ -36,34 +36,36 @@ export const DeltakelseInfo = ({
 		.includes(status.type)
 
 	return (
-		<div className={styles.wrapper}>
-			<div className={styles.section}>
-				<div className={styles.header}>
-					<ElementPanel tittel="Status:" className={styles.margin}>
+		<div className={styles.section}>
+
+			<div className={styles.deltakerInfoWrapper}>
+				<div className={styles.elementWrapper}>
+					<ElementPanel tittel="Status:">
 						<StatusMerkelapp status={status} />
 					</ElementPanel>
-					<EndreDeltakelseKnapp disabled={erSkjermetPerson} deltaker={deltaker} onEndringUtfort={triggerReloadEndringsmeldinger} />
-				</div>
-				<ElementPanel tittel="Dato:">
-					<BodyShort size="small" >{formatDate(deltaker.startDato)} - {formatDate(deltaker.sluttDato)}</BodyShort>
-				</ElementPanel>
-				{skalViseDeltakelsesprosent && (
-					<ElementPanel tittel="Deltakelsesprosent:" className={styles.deltakelsesProsentPanel}>
-						<BodyShort size="small">{deltaker.deltakelseProsent !== null
-							? `${deltaker.deltakelseProsent}%`
-							: 'Ikke satt'}
-						</BodyShort>
+					<ElementPanel tittel="Dato:">
+						<span>{formatDate(deltaker.startDato)} - {formatDate(deltaker.sluttDato)}</span>
 					</ElementPanel>
-				)}
-				<div className={styles.body}>
-					<Endringsmeldinger
-						deltakerId={deltaker.id}
-						setReloadEndringsmeldinger={setReloadEndringsmeldinger}
-						reloadEndringsmeldinger={reloadEndringsmeldinger}
-					/>
-					{erIkkeAktuellEllerHarSluttet &&
-						<Alert variant="warning" size="small" className={styles.statusAlert}>Deltakeren fjernes fra listen {formatDate(fjernesDato)}</Alert>}
+					{skalViseDeltakelsesprosent && (
+						<ElementPanel tittel="Deltakelsesprosent:" className={styles.deltakelsesProsentPanel}>
+							<span>{deltaker.deltakelseProsent !== null
+								? `${deltaker.deltakelseProsent}%`
+								: 'Ikke satt'}
+							</span>
+						</ElementPanel>
+					)}
 				</div>
+				<EndreDeltakelseKnapp disabled={erSkjermetPerson} deltaker={deltaker} onEndringUtfort={triggerReloadEndringsmeldinger} />
+			</div>
+
+			<div className={styles.body}>
+				<Endringsmeldinger
+					deltakerId={deltaker.id}
+					setReloadEndringsmeldinger={setReloadEndringsmeldinger}
+					reloadEndringsmeldinger={reloadEndringsmeldinger}
+				/>
+				{erIkkeAktuellEllerHarSluttet &&
+					<Alert variant="warning" size="small" className={styles.statusAlert}>Deltakeren fjernes fra listen {formatDate(fjernesDato)}</Alert>}
 			</div>
 		</div>
 	)

@@ -21,7 +21,7 @@ interface StatusProps {
 export const StatusMerkelapp = (props: StatusProps) => {
 	const { type } = props.status
 	return(
-		<Tag variant="info" size="small" className={getStyle(type)} aria-label="Deltaker status">
+		<Tag variant="info" size="small" className={getStyle(type)}>
 			{mapTiltakDeltagerStatusTilTekst(type)}
 		</Tag>
 	)
