@@ -47,7 +47,10 @@ export const EndreDeltakelseKnapp = (props: EndreDeltakelseKnappProps) => {
 				</Button>
 				<Dropdown.Menu>
 					<Dropdown.Menu.GroupedList className={styles.dropdown}>
-						{ kanEndreStartDato && !deltaker.startDato &&
+						<Dropdown.Menu.GroupedList.Heading>
+							Velg endring
+						</Dropdown.Menu.GroupedList.Heading>
+						{kanEndreStartDato && !deltaker.startDato &&
 							<DropDownButton
 								endringstype={EndringType.LEGG_TIL_OPPSTARTSDATO}
 								onClick={() => visLeggTilOppstartModal({
@@ -105,8 +108,8 @@ export const EndreDeltakelseKnapp = (props: EndreDeltakelseKnappProps) => {
 									onEndringUtfort: props.onEndringUtfort
 								})}/>
 						}
-
 					</Dropdown.Menu.GroupedList>
+
 				</Dropdown.Menu>
 			</Dropdown>
 		</>

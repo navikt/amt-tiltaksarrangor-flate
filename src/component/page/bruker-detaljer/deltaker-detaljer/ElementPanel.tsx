@@ -13,8 +13,12 @@ interface ElementPanelProps {
 export const ElementPanel = ({ tittel, children, className }: ElementPanelProps): React.ReactElement => {
 	return (
 		<div className={cls(styles.wrapper, className)}>
-			<BodyShort size="small" className={styles.tittel}>{tittel}</BodyShort>
-			{children}
+			<BodyShort size="small">
+				<span className={styles.tittel}>
+					{tittel}
+				</span>
+				{children}
+			</BodyShort>
 		</div>
 	)
 }

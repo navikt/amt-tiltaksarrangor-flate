@@ -13,7 +13,7 @@ import { PersonopplysningerPage } from './component/page/personopplysninger-page
 import { SesjonNotifikasjon } from './component/sesjon-notifikasjon/SesjonNotifikasjon'
 import { Driftsmelding } from './Driftsmelding'
 import {
-	BRUKER_DETALJER_PAGE_ROUTE,
+	DELTAKER_DETALJER_PAGE_ROUTE,
 	GJENNOMFORING_DETALJER_PAGE_ROUTE,
 	GJENNOMFORING_LISTE_PAGE_ROUTE,
 	INFORMASJON_PAGE_ROUTE, INGEN_ROLLE_PAGE_ROUTE,
@@ -43,7 +43,7 @@ const PrivateRoutes = (): React.ReactElement => {
 			<SesjonNotifikasjon />
 			<Driftsmelding />
 			<Routes>
-				<Route path={BRUKER_DETALJER_PAGE_ROUTE} element={<DeltakerDetaljerPage />} />
+				<Route path={DELTAKER_DETALJER_PAGE_ROUTE} element={<DeltakerDetaljerPage />} />
 				<Route path={GJENNOMFORING_DETALJER_PAGE_ROUTE} element={<GjennomforingDetaljerPage />} />
 				<Route path={INFORMASJON_PAGE_ROUTE} element={<InformasjonPage />} />
 				<Route path={GJENNOMFORING_LISTE_PAGE_ROUTE} element={<GjennomforingListePage />} />

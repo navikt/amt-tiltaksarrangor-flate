@@ -34,22 +34,23 @@ export const EndringsmeldingPanel = ({ endringsmelding, onEndringsmeldingTilbake
 	}
 
 	return (
-		<Panel border className={styles.panel}>
+		<Panel border className={styles.panel} aria-label="Endringsmelding sendt til nav">
 			<div className={styles.innholdWrapper}>
 				<EndringTypeIkon type={mapTilEndringType(endringsmelding.type)} />
 				<div className={styles.innhold}>
-					<Heading size="xsmall" >Sendt til NAV:</Heading>
+					<Heading size="xsmall" level="4">Sendt til NAV:</Heading>
 					{children}
 				</div>
 			</div>
 			<Tooltip content="Tilbakekall melding" className={styles.tooltip}>
 				<Button
-					icon={<Close />}
+					icon={<Close aria-hidden/>}
 					loading={isPending(tilbakekallEndringsmeldingPromise) || isResolved(tilbakekallEndringsmeldingPromise)}
 					variant="tertiary"
 					size="small"
 					onClick={handleClick}
 					className={styles.closeButton}
+					aria-label="Tilbakekall melding"
 				/>
 			</Tooltip>
 		</Panel>
