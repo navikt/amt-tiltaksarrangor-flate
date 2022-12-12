@@ -24,7 +24,7 @@ if (env.isPreprod || env.isProd) {
 }
 
 (async() => {
-	if (env.isDevelopment || env.isPullRequest) {
+	if (env.isMockEnabled) {
 		await import('./mock')
 	}
 
