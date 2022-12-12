@@ -73,7 +73,7 @@ export const GjennomforingPanel = (props: GjennomforingPanelProps) => {
 				</div>
 
 				<Show if={!erLagtTil}>
-					{ isNotStartedOrPending(opprettTilgangTilGjennomforingPromise) && (
+					{isNotStartedOrPending(opprettTilgangTilGjennomforingPromise) && (
 						<Button
 							variant="primary"
 							size="small"
@@ -82,15 +82,15 @@ export const GjennomforingPanel = (props: GjennomforingPanelProps) => {
 							loading={isPending(opprettTilgangTilGjennomforingPromise)}
 							onClick={handleOnLeggTilClicked}
 						>
-							<Add/> Legg til
+							<Add /> Legg til
 						</Button>
 					)}
-					{ showSuccessAlert && <Alert size="small" variant="success">Lagt til</Alert> }
-					{ isRejected(opprettTilgangTilGjennomforingPromise) && <Alert size="small" variant="error">Noe gikk galt</Alert> }
+					{showSuccessAlert && <Alert size="small" role="status" variant="success">Lagt til</Alert>}
+					{isRejected(opprettTilgangTilGjennomforingPromise) && <Alert size="small" role="status" variant="error">Noe gikk galt</Alert>}
 				</Show>
 
 				<Show if={erLagtTil}>
-					{ isNotStartedOrPending(fjernTilgangTilGjennomforingPromise) && (
+					{isNotStartedOrPending(fjernTilgangTilGjennomforingPromise) && (
 						<Button
 							variant="secondary"
 							size="small"
@@ -99,11 +99,11 @@ export const GjennomforingPanel = (props: GjennomforingPanelProps) => {
 							loading={isPending(fjernTilgangTilGjennomforingPromise)}
 							onClick={handleOnFjernClicked}
 						>
-							<Close/> Fjern
+							<Close /> Fjern
 						</Button>
 					)}
-					{ showSuccessAlert && <Alert size="small" variant="success">Fjernet</Alert> }
-					{ isRejected(fjernTilgangTilGjennomforingPromise) && <Alert size="small" variant="error">Noe gikk galt</Alert> }
+					{showSuccessAlert && <Alert size="small" role="status" variant="success">Fjernet</Alert>}
+					{isRejected(fjernTilgangTilGjennomforingPromise) && <Alert size="small" role="status" variant="error">Noe gikk galt</Alert>}
 				</Show>
 			</div>
 		</Panel>
