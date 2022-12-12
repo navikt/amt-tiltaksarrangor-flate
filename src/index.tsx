@@ -24,7 +24,7 @@ if (env.isPreprod || env.isProd) {
 }
 
 (async() => {
-	if (env.isMockEnabled) {
+	if (import.meta.env.DEV) {
 		await import('./mock')
 	}
 
