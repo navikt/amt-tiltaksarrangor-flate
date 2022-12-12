@@ -5,6 +5,7 @@ import { TiltakDeltaker } from '../../../../api/data/deltaker'
 import { useTiltaksoversiktSokStore } from '../../../../store/tiltaksoversikt-sok-store'
 import { filtrerBrukere } from '../../../../utils/filtrering-utils'
 import { finnNesteSortering } from '../../../../utils/sortering-utils'
+import styles from './DeltakerOversiktTabell.module.scss'
 import { IngenDeltakereAlertstripe } from './IngenDeltakereAlertstripe'
 import { sorterDeltakere } from './sortering'
 import { TabellBody } from './TabellBody'
@@ -33,7 +34,7 @@ export const DeltakerOversiktTabell = (props: DeltakerOversiktTabellProps): Reac
 	}
 
 	return (
-		<div>
+		<div className={styles.tableWrapper}>
 			{deltakere.length === 0
 				? <IngenDeltakereAlertstripe />
 				: (
