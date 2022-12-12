@@ -29,9 +29,9 @@
     "zod": "^3.13.4"
   },
   "scripts": {
-    "start": "VITE_MOCK=true vite",
+    "start": "vite",
     "build": "vite build",
-    "build:gh-pages": "VITE_MOCK=true vite build --base=/amt-tiltaksarrangor-flate/ && cpy --cwd=build --rename=404.html index.html .",
+    "build:gh-pages": "NODE_ENV=development vite build --base=/amt-tiltaksarrangor-flate/ && cpy --cwd=build --rename=404.html index.html .",
     "test": "vitest",
     "lint": "eslint --max-warnings=0 'src/**/*.{ts,tsx}'",
     "lint:fix": "eslint --fix 'src/**/*.{ts,tsx}'",

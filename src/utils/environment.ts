@@ -16,10 +16,6 @@ class Environment {
 		return import.meta.env.BASE_URL
 	}
 
-	get isMockEnabled(): boolean {
-		return import.meta.env.VITE_MOCK === 'true'
-	}
-
 	get name(): string {
 		if (this.isProd) {
 			return 'production'

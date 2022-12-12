@@ -26,7 +26,7 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
       - name: Build Pull Request Application
-        run: VITE_MOCK=true VITE_MOCK_REQUEST_HANDLER=PULL_REQUEST BASE=/tiltaksarrangor/deltakeroversikt/pr-${{ github.event.number }}/ pnpm build
+        run: NODE_ENV=development VITE_MOCK_REQUEST_HANDLER=PULL_REQUEST BASE=/tiltaksarrangor/deltakeroversikt/pr-${{ github.event.number }}/ pnpm build
       - name: Authenticate to Google Cloud
         uses: google-github-actions/auth@v0
         with:
