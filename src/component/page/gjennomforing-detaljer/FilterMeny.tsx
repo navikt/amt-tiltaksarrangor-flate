@@ -38,10 +38,10 @@ export const FilterMeny = (props: Props): React.ReactElement => {
 				}}
 				value={statusTekst}
 			>
-				<div className={styles.content} aria-label={`Filtrer på status ${statusTekst}, ${antallDeltakere} deltakere`}>
+				<span className={styles.content}>
 					<span>{statusTekst}</span>
 					<span className={styles.occurrences}>{antallDeltakere}</span>
-				</div>
+				</span>
 			</Checkbox>
 		)
 	}
