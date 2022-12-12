@@ -1,9 +1,5 @@
 class Environment {
 
-	get isDevelopment() {
-		return import.meta.env.DEV
-	}
-
 	get isProd(): boolean {
 		return !this.isPreprod && window.location.hostname.endsWith('nav.no')
 	}
@@ -12,16 +8,16 @@ class Environment {
 		return window.location.hostname.endsWith('dev.nav.no')
 	}
 
-	get isPullRequest(): boolean {
-		return this.isPreprod && this.baseUrl.match(/\/pr-\d+/) != null
-	}
-
 	get isDemo(): boolean {
 		return window.location.hostname.endsWith('github.io')
 	}
 
 	get baseUrl(): string {
 		return import.meta.env.BASE_URL
+	}
+
+	get isMockEnabled(): boolean {
+		return import.meta.env.VITE_MOCK === 'true'
 	}
 
 	get name(): string {
