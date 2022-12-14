@@ -19,7 +19,7 @@ export const DeltakerDetaljer = (props: { deltaker: TiltakDeltakerDetaljer }): R
 
 	return (
 		<div className={styles.detaljer}>
-			<section>
+			<section className={styles.section}>
 				<div className={globalStyles.blokkM}>
 					<Heading size="medium" level="3" className={cls(globalStyles.blokkXs, styles.gjennomforingTitle)}>{(gjennomforing.navn)}</Heading>
 					<BodyShort size="small" className={globalStyles.blokkXxs}>{gjennomforing.tiltak.tiltaksnavn}</BodyShort>
