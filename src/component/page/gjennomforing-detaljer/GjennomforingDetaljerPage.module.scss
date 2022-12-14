@@ -7,6 +7,11 @@
 	max-width: $max-bredde;
 	margin: 0 auto;
 	flex-wrap: wrap;
+
+	@media (min-width:801px)  {
+		flex-wrap: nowrap;
+
+	}
 }
 
 .textXs {
