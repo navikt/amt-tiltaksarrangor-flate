@@ -11,6 +11,7 @@ import clipboardImg from './clipboard.svg'
 import styles from './InformasjonPage.module.scss'
 import lightbulbImg from './lightbulb.svg'
 import mobilephoneImg from './mobilephone.svg'
+import roadblockImg from './roadblock.svg'
 
 interface InfoElementProps {
 	title: string
@@ -51,7 +52,7 @@ export const InformasjonPage = (): React.ReactElement => {
 						image={mobilephoneImg}
 						alt="Mobiltelefon ikon"
 					>
-						<BodyLong className={styles.infoElementText} spacing>
+						<BodyLong spacing>
 							Kontaktinformasjonen til NAV-veileder skal ikke deles videre til deltaker. Deltakere som ønsker å kontakte NAV-veilederen sin kan logge inn på nav.no eller ringe NAV Kontaktsenter.
 						</BodyLong>
 					</InfoElement>
@@ -61,7 +62,7 @@ export const InformasjonPage = (): React.ReactElement => {
 						image={clipboardImg}
 						alt="Utklippstavle ikon"
 					>
-						<BodyLong className={styles.infoElementText} spacing>
+						<BodyLong spacing>
 							Deltakere som slutter eller meldes av tiltaket vises i 14 dager før de fjernes fra listen.
 						</BodyLong>
 					</InfoElement>
@@ -71,8 +72,22 @@ export const InformasjonPage = (): React.ReactElement => {
 						image={lightbulbImg}
 						alt="Lyspære ikon"
 					>
-						<BodyLong className={styles.infoElementText}>
+						<BodyLong spacing>
 							Det jobbes kontinuerlig med å gjøre tjenesten bedre.
+						</BodyLong>
+					</InfoElement>
+
+
+					<InfoElement
+						title="Hvordan få tilgang til riktig deltakerliste?"
+						image={roadblockImg}
+						alt="Veisperring ikon"
+					>
+						<BodyLong spacing>
+							For å få tilgang må arbeidsgiveren din tildele Altinn-rettighet til deg på den riktige underenhetens org.nr.
+						</BodyLong>
+						<BodyLong>
+							Hvis du er usikker på hvilket organisasjonsnummer som er riktig for deltakerlisten du jobber med, så ta kontakt med den som er ansvarlig for avtalen i NAV.
 						</BodyLong>
 					</InfoElement>
 				</Card>
