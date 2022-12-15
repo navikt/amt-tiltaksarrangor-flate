@@ -1,5 +1,5 @@
 import { TextField } from '@navikt/ds-react'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import React from 'react'
 
 import { endreDeltakelsesprosent } from '../../../../../api/tiltak-api'
@@ -20,30 +20,37 @@ export interface EndreProsentDeltakelseModalDataProps {
 }
 
 export const EndreProsentDeltakelseModal = (props: EndreProsentDeltakelseModalProps & EndreProsentDeltakelseModalDataProps) => {
-
-	const [ prosentDeltakelse, settProsentDeltakelse ] = useState<number | undefined>(undefined)
-	const [ errorMessage, settErrorMessage ] = useState<string | undefined>(undefined)
+	const [ prosentDeltakelseFelt, settProsentDeltakelseFelt ] = useState<string>('')
+	const [ errorMessage, settErrorMessage ] = useState<string>()
 	const [ vilkaarGodkjent, settVilkaarGodkjent ] = useState(false)
 
+	const sendTilNavDisabled = !vilkaarGodkjent
+		|| prosentDeltakelseFelt === ''
+		|| errorMessage !== undefined
 
-	const onChange = ((e: React.ChangeEvent<HTMLInputElement>): void => {
-		if (e.target.value === '') {
+	useEffect(() => {
+		if (prosentDeltakelseFelt === '') {
 			settErrorMessage(undefined)
-			settProsentDeltakelse(undefined)
-		} else {
-			const newValue = +e.target.value
-
-			if (newValue <= 0) settErrorMessage('Ny prosentverdi kan ikke være mindre eller lik 0%')
-			else if (newValue > 100) settErrorMessage('Ny prosentverdi kan ikke være over 100%')
-			else if (newValue === props.gammelProsentDeltakelse) settErrorMessage('Gammel deltakelse kan ikke være lik ny deltakelse')
-			else settErrorMessage(undefined)
-
-			settProsentDeltakelse(newValue)
+			return
 		}
-	})
+
+		const newValue = parseInt(prosentDeltakelseFelt)
+
+		const isInvalid = isNaN(newValue)
+			|| !prosentDeltakelseFelt.match(/^\d*$/)
+			|| newValue <= 0
+			|| newValue > 100
+
+		if (isInvalid) settErrorMessage('Tallet må være et helt tall fra 1 til 100')
+		else if (newValue === props.gammelProsentDeltakelse) settErrorMessage('Gammel deltakelse kan ikke være lik ny deltakelse')
+		else settErrorMessage(undefined)
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [ prosentDeltakelseFelt ])
 
 	const sendEndringsmelding = () => {
-		if (prosentDeltakelse === undefined || errorMessage !== undefined)
+		const prosentDeltakelse = parseInt(prosentDeltakelseFelt)
+
+		if (isNaN(prosentDeltakelse))
 			return Promise.reject('Kan ikke sende Prosent Deltakelse endringsmelding')
 
 		return endreDeltakelsesprosent(props.deltakerId, prosentDeltakelse)
@@ -59,17 +66,23 @@ export const EndreProsentDeltakelseModal = (props: EndreProsentDeltakelseModalPr
 				className={styles.prosentDeltakselseTextField}
 				label="Hva er ny deltakelsesprosent?"
 				type="number"
-				value={prosentDeltakelse !== undefined ? prosentDeltakelse : ''}
+				value={prosentDeltakelseFelt}
 				min={0}
 				max={100}
 				error={errorMessage}
-				onChange={onChange}/>
-			<VeilederConfirmationPanel vilkaarGodkjent={vilkaarGodkjent} setVilkaarGodkjent={settVilkaarGodkjent}/>
+				onChange={e => settProsentDeltakelseFelt(e.target.value)}
+			/>
+
+			<VeilederConfirmationPanel
+				vilkaarGodkjent={vilkaarGodkjent}
+				setVilkaarGodkjent={settVilkaarGodkjent}
+			/>
 
 			<SendTilNavKnapp
 				onEndringSendt={props.onClose}
 				sendEndring={sendEndringsmelding}
-				disabled={!vilkaarGodkjent || prosentDeltakelse === undefined || errorMessage !== undefined}/>
+				disabled={sendTilNavDisabled}
+			/>
 		</BaseModal>
 	)
 }
