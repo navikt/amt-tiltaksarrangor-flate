@@ -10,8 +10,7 @@ import { isNotStartedOrPending, isRejected, usePromise } from '../../../../utils
 import { AlertPage } from '../../../felles/alert-page/AlertPage'
 import { Show } from '../../../felles/Show'
 import { SpinnerPage } from '../../../felles/spinner-page/SpinnerPage'
-import styles from './GjennomforingListe.module.scss'
-import { GjennomforingPanel } from './GjennomforingPanel'
+import { GjennomforingerPaVirksomhetListe } from './GjennomforingerPaVirksomhetListe'
 
 export const GjennomforingListe = () => {
 	const fetchGjennomforingerPromise = usePromise<AxiosResponse<Gjennomforing[]>>(
@@ -22,22 +21,27 @@ export const GjennomforingListe = () => {
 		() => fetchTilgjengeligGjennomforinger()
 	)
 
-	const gjennomforingerPaVirksomhet = useMemo(() => {
-		const sorterteGjennomforinger = (fetchTilgjengeligGjennomforingerPromise.result?.data || [])
-			.sort((g1, g2) => sortAlphabeticAsc(g1.navn, g2.navn))
+	const gjennomforingerPaOrganisasjon = useMemo(() => {
+		const gjennomforinger = (fetchTilgjengeligGjennomforingerPromise.result?.data || [])
 
-		const gjennomforingerPaVirksomhet: { [virksomhetNavn: string]: Gjennomforing[] } = {}
+		const gjennomforingerPaOrganisasjon: {
+			[organisasjonNavn: string]: { [virksomhetNavn: string]: Gjennomforing[] }
+		} = {}
 
-		sorterteGjennomforinger.forEach(g => {
-			if (gjennomforingerPaVirksomhet[g.arrangor.virksomhetNavn] === undefined) {
-				gjennomforingerPaVirksomhet[g.arrangor.virksomhetNavn] = []
+		gjennomforinger.forEach(g => {
+			const orgnavn = g.arrangor.organisasjonNavn ?? g.arrangor.virksomhetNavn
+			if (gjennomforingerPaOrganisasjon[orgnavn] === undefined) {
+				gjennomforingerPaOrganisasjon[orgnavn] = {}
 			}
-
-			gjennomforingerPaVirksomhet[g.arrangor.virksomhetNavn].push(g)
+			if (gjennomforingerPaOrganisasjon[orgnavn][g.arrangor.virksomhetNavn] === undefined) {
+				gjennomforingerPaOrganisasjon[orgnavn][g.arrangor.virksomhetNavn] = []
+			}
+			gjennomforingerPaOrganisasjon[orgnavn][g.arrangor.virksomhetNavn].push(g)
 		})
 
-		return gjennomforingerPaVirksomhet
+		return gjennomforingerPaOrganisasjon
 	}, [ fetchTilgjengeligGjennomforingerPromise.result ])
+
 
 	if (
 		isNotStartedOrPending(fetchGjennomforingerPromise) ||
@@ -59,35 +63,21 @@ export const GjennomforingListe = () => {
 
 	return (
 		<>
-			<Show if={Object.keys(gjennomforingerPaVirksomhet).length === 0}>
+			<Show if={Object.keys(gjennomforingerPaOrganisasjon).length === 0}>
 				<Alert variant="info">Det finnes ingen aktive deltakerlister hos din virksomhet.</Alert>
 			</Show>
-			{Object.entries(gjennomforingerPaVirksomhet).map(([ virksomhetNavn, gjennomforinger ]) => {
+
+			{Object.keys(gjennomforingerPaOrganisasjon).sort(sortAlphabeticAsc).map((orgnavn) => {
 				return (
-					<div key={virksomhetNavn} className={globalStyles.blokkM}>
-						<Heading size="small" level="3" spacing>{virksomhetNavn}</Heading>
-						<ul className={styles.list}>
-							{gjennomforinger
-								.sort((g1, g2) => {
-									const sortTiltaksnavn = sortAlphabeticAsc(g1.tiltak.tiltaksnavn, g2.tiltak.tiltaksnavn)
-									return sortTiltaksnavn === 0 ? sortAlphabeticAsc(g1.navn, g2.navn) : sortTiltaksnavn
-								})
-								.map(g => {
-									return (
-										<li key={g.id}>
-											<GjennomforingPanel
-												gjennomforingId={g.id}
-												navn={g.navn}
-												tiltaksnavn={g.tiltak.tiltaksnavn}
-												arrangorNavn={g.arrangor.virksomhetNavn}
-												startDato={g.startDato}
-												sluttDato={g.sluttDato}
-												alleredeLagtTil={erAlleredeLagtTil(g.id)}
-											/>
-										</li>
-									)
-								})}
-						</ul>
+					<div key={orgnavn} className={globalStyles.blokkM} >
+						<Heading size="medium" level="3" spacing>{orgnavn}</Heading>
+						{Object.keys(gjennomforingerPaOrganisasjon[orgnavn]).sort(sortAlphabeticAsc).map((virksomhetNavn) => {
+							return <GjennomforingerPaVirksomhetListe
+								gjennomforinger={gjennomforingerPaOrganisasjon[orgnavn][virksomhetNavn]}
+								erAlleredeLagtTil={erAlleredeLagtTil}
+								key={virksomhetNavn}
+							/>
+						})}
 					</div>
 				)
 			})}

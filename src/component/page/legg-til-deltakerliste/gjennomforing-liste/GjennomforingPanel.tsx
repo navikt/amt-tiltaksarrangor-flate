@@ -15,7 +15,6 @@ interface GjennomforingPanelProps {
 	gjennomforingId: string,
 	navn: string,
 	tiltaksnavn: string,
-	arrangorNavn: string,
 	startDato: Nullable<Date>,
 	sluttDato: Nullable<Date>,
 	alleredeLagtTil: boolean
@@ -24,7 +23,7 @@ interface GjennomforingPanelProps {
 const SUCCESS_ALERT_TIMEOUT_MS = 2000
 
 export const GjennomforingPanel = (props: GjennomforingPanelProps) => {
-	const { gjennomforingId, navn, tiltaksnavn, arrangorNavn, startDato, sluttDato, alleredeLagtTil } = props
+	const { gjennomforingId, navn, tiltaksnavn, startDato, sluttDato, alleredeLagtTil } = props
 
 	const [ erLagtTil, setErLagtTil ] = useState(alleredeLagtTil)
 	const [ showSuccessAlert, setShowSuccessAlert ] = useState(false)
@@ -61,15 +60,15 @@ export const GjennomforingPanel = (props: GjennomforingPanelProps) => {
 
 	return (
 		<Panel border className={styles.panel}>
-			<Heading size="xsmall" level="4" className={globalStyles.blokkXxs}>{navn}</Heading>
+			<Heading size="xsmall" level="5" className={globalStyles.blokkXxs}>{navn}</Heading>
 			<div className={styles.innhold}>
 				<div>
 					<div className={cls(styles.rad, globalStyles.blokkXxs)}>
-						<BodyShort className={styles.tiltaknavn}>{tiltaksnavn}</BodyShort>
-						<BodyShort>{arrangorNavn}</BodyShort>
+						<BodyShort size="small" className={styles.tiltaksinfo}>
+							<span className={styles.tiltaknavn}>{tiltaksnavn}</span> {formatDate(startDato)} - {formatDate(sluttDato)}
+						</BodyShort>
 					</div>
 
-					<BodyShort>{formatDate(startDato)} - {formatDate(sluttDato)}</BodyShort>
 				</div>
 
 				<Show if={!erLagtTil}>
