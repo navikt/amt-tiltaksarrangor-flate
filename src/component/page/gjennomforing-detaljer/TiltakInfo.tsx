@@ -18,12 +18,14 @@ export const TiltakInfo = ({ gjennomforing, className }: TiltakInfoProps) => {
 		<div className={className}>
 			<BodyShort size="small" className={styles.textXs}>{gjennomforing.tiltak.tiltaksnavn}</BodyShort>
 			<BodyShort size="small" className={styles.textXs}>{dateStrWithMonthName(gjennomforing.startDato)} - {dateStrWithMonthName(gjennomforing.sluttDato)}</BodyShort>
-			<BodyShort size="small" className={cls(styles.textXs, globalStyles.blokkXxs)}>Organisasjon: {gjennomforing.arrangor.organisasjonNavn ?? ''} </BodyShort>
+			<BodyShort size="small" className={cls(styles.textXs, globalStyles.blokkXxs)}>
+				{gjennomforing.arrangor.organisasjonNavn ?? gjennomforing.arrangor.virksomhetNavn}
+			</BodyShort>
 
 			<Show if={gjennomforing.status === TiltakGjennomforingStatus.AVSLUTTET}>
 				<Alert variant="warning" className={styles.statusAlert}>
 					<strong>Tiltaket er avsluttet</strong>
-					<br/>
+					<br />
 					<BodyLong>
 						Tiltaket er avlyst eller så er avtalen
 						utdatert. Er dette feil, ta kontakt med
