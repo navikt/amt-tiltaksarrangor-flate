@@ -8,11 +8,18 @@ import { GjennomforingPanel } from './GjennomforingPanel'
 
 interface Props {
 	gjennomforinger: Gjennomforing[]
-	erAlleredeLagtTil: (id: string) => boolean
+	gjennomforingIderAlleredeLagtTil: string[]
 }
 
-export const GjennomforingerPaVirksomhetListe = ({ gjennomforinger, erAlleredeLagtTil }: Props) => {
+export const GjennomforingerPaVirksomhetListe = ({ gjennomforinger, gjennomforingIderAlleredeLagtTil }: Props) => {
 	const arrangor = gjennomforinger[0].arrangor
+
+	gjennomforinger.sort((g1, g2) => {
+		const sortTiltaksnavn = sortAlphabeticAsc(g1.tiltak.tiltaksnavn, g2.tiltak.tiltaksnavn)
+		return sortTiltaksnavn === 0 ? sortAlphabeticAsc(g1.navn, g2.navn) : sortTiltaksnavn
+	})
+
+	const erAlleredeLagtTil = (id: string): boolean => gjennomforingIderAlleredeLagtTil.includes(id)
 
 	return (
 		<>
@@ -22,10 +29,6 @@ export const GjennomforingerPaVirksomhetListe = ({ gjennomforinger, erAlleredeLa
 			</Heading>
 			<ul className={styles.list}>
 				{gjennomforinger
-					.sort((g1, g2) => {
-						const sortTiltaksnavn = sortAlphabeticAsc(g1.tiltak.tiltaksnavn, g2.tiltak.tiltaksnavn)
-						return sortTiltaksnavn === 0 ? sortAlphabeticAsc(g1.navn, g2.navn) : sortTiltaksnavn
-					})
 					.map(g => {
 						return (
 							<li key={g.id}>

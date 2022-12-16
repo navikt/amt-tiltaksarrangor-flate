@@ -59,12 +59,16 @@ export const GjennomforingListe = () => {
 
 	const gjennomforingIderAlleredeLagtTil = fetchGjennomforingerPromise.result.data.map(g => g.id)
 
-	const erAlleredeLagtTil = (gjennomforingId: string): boolean => gjennomforingIderAlleredeLagtTil.includes(gjennomforingId)
-
 	return (
 		<>
 			<Show if={Object.keys(gjennomforingerPaOrganisasjon).length === 0}>
-				<Alert variant="info">Det finnes ingen aktive deltakerlister hos din virksomhet.</Alert>
+				<Alert variant="info">
+					På organisasjonsnummeret du har tilgang til finnes det ingen aktive deltakerlister.
+					<br /><br />
+					Hvis du har fått en Altinn-rettighet, men fortsatt ikke ser deltakerlister her,
+					så kan det være fordi deltakerlisten du forventer å se er registrert på et annet org.nr
+					i NAVs datasytem. Ta kontakt med den i NAV som er ansvarlig for avtalen.
+				</Alert>
 			</Show>
 
 			{Object.keys(gjennomforingerPaOrganisasjon).sort(sortAlphabeticAsc).map((orgnavn) => {
@@ -74,7 +78,7 @@ export const GjennomforingListe = () => {
 						{Object.keys(gjennomforingerPaOrganisasjon[orgnavn]).sort(sortAlphabeticAsc).map((virksomhetNavn) => {
 							return <GjennomforingerPaVirksomhetListe
 								gjennomforinger={gjennomforingerPaOrganisasjon[orgnavn][virksomhetNavn]}
-								erAlleredeLagtTil={erAlleredeLagtTil}
+								gjennomforingIderAlleredeLagtTil={gjennomforingIderAlleredeLagtTil}
 								key={virksomhetNavn}
 							/>
 						})}
