@@ -31,6 +31,7 @@ export const tiltakSchema = z.object({
 
 export const arrangorSchema = z.object({
 	virksomhetNavn: z.string(),
+	virksomhetOrgnr: z.string(),
 	organisasjonNavn: z.string().nullable()
 })
 
