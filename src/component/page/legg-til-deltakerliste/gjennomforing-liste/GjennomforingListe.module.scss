@@ -7,3 +7,23 @@
     margin-bottom: 1rem;
   }
 }
+
+
+.header {
+  display: flex;    
+  flex-direction: column;
+}
+
+@media(min-width: 600px) {
+    .header {
+        flex-direction: row;
+    }
+}
+
+.virksomhetNavn {
+    margin-right: 1rem;
+}
+
+.orgnr {
+    white-space: nowrap;
+}
