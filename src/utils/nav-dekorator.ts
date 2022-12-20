@@ -23,6 +23,8 @@ export const setupNavDekorator = (): Promise<void> => {
 		env: utledEnv(),
 		context: 'samarbeidspartner',
 		enforceLogin: utledEnforceLogin(),
+		simpleFooter: true,
+		shareScreen: false,
 		level: 'Level4',
 	})
 }
