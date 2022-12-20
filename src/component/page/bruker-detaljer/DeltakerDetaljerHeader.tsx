@@ -1,10 +1,12 @@
 import { Email, Telephone } from '@navikt/ds-icons'
 import { Heading } from '@navikt/ds-react'
 import cls from 'classnames'
-import React from 'react'
+import React, { useEffect } from 'react'
 
 import { gjennomforingDetaljerPageUrl } from '../../../navigation'
+import { useTilbakelenkeStore } from '../../../store/tilbakelenke-store'
 import { formaterTelefonnummer, lagBrukerNavn } from '../../../utils/bruker-utils'
+import toggle from '../../../utils/toggle'
 import { Fnr } from '../../felles/fnr/Fnr'
 import { Tilbakelenke } from '../../felles/tilbakelenke/Tilbakelenke'
 import styles from './DeltakerDetaljerHeader.module.scss'
@@ -23,13 +25,25 @@ interface BrukerPaaTiltakHeaderProps {
 
 export const DeltakerDetaljerHeader = (props: BrukerPaaTiltakHeaderProps): React.ReactElement => {
 	const { gjennomforingId, fornavn, mellomnavn, etternavn, fodselsnummer, telefonnummer, epost } = props
+	const { setTilbakeTilUrl } = useTilbakelenkeStore()
+
+	useEffect(() => {
+		setTilbakeTilUrl(gjennomforingDetaljerPageUrl(gjennomforingId))
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [ gjennomforingId ])
 
 	return (
 		<div className={styles.header}>
-			<div className={styles.headerContent}>
-				<div className={styles.tilbakelenkeWrapper}>
-					<Tilbakelenke to={gjennomforingDetaljerPageUrl(gjennomforingId)} className={styles.tilbakelenke} />
-				</div>
+			<div className={
+				toggle.navDekoratorEnabled
+					? styles.headerContent
+					: styles.headerContentDeprecated
+			}>
+				{ !toggle.navDekoratorEnabled && (
+					<div className={styles.tilbakelenkeWrapper}>
+						<Tilbakelenke to={gjennomforingDetaljerPageUrl(gjennomforingId)} className={styles.tilbakelenke} />
+					</div>
+				)}
 
 				<div className={styles.headerInfoWrapper}>
 					<div className={cls(styles.headerTitleWrapper)}>
@@ -49,7 +63,6 @@ export const DeltakerDetaljerHeader = (props: BrukerPaaTiltakHeaderProps): React
 						<IconLabel labelValue={epost} icon={<Email title="Deltaker e-post" />} />
 					</div>
 				</div>
-
 			</div>
 		</div>
 	)

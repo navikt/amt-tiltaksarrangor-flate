@@ -9,6 +9,11 @@ All dataen i demo appen er mocket. Demoen vil i mest mulig grad være lik den re
 
 https://navikt.github.io/amt-tiltaksarrangor-flate/
 
+## Start applikasjon lokalt
+`pnpm start`
+
+Husk å følge dokumentasjonen her https://github.com/navikt/nav-dekoratoren-moduler#readme for å sette opp NAV-dekoratøren.
+
 ## Kjør lokalt mot lokal backend
 Hvis man ønsker å teste med en backend som kjører lokalt på PCen/MACen
 så sett følgende innhold i **.env.local**:

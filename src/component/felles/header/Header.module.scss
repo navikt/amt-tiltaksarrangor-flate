@@ -1,0 +1,50 @@
+@import '/src/colors.scss';
+@import '/src/globals.module.scss';
+
+.banner {
+  display: grid;
+  grid-template-columns: minmax(auto, 250px) 1fr minmax(auto, 250px);
+  grid-column-gap: 2rem;
+
+  background-color: white;
+  padding: 1rem 1.5rem;
+
+  border-bottom: 1px solid $navGra30;
+}
+
+.header {
+  background-color: white;
+  padding: 1rem 0;
+  border-bottom: 1px solid $navGra30;
+
+  position: sticky;
+  top: 0;
+  z-index: 99999;
+}
+
+.headerContent {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-column-gap: 2rem;
+
+  max-width: $max-bredde;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.titleWrapper {
+  display: flex;
+  align-items: center;
+}
+
+.title {
+  text-align: center;
+}
+
+.logoAndTitleSection {
+  display: flex;
+  flex-direction: column;
+
+  align-items: center;
+  justify-content: center;
+}

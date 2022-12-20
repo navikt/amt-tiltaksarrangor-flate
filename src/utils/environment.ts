@@ -1,7 +1,7 @@
 class Environment {
 
 	get isProd(): boolean {
-		return !this.isPreprod && window.location.hostname.endsWith('nav.no')
+		return window.location.hostname === 'nav.no'
 	}
 
 	get isPreprod(): boolean {

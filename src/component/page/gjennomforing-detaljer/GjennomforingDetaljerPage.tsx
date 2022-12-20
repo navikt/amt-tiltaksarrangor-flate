@@ -1,6 +1,6 @@
 import { Heading } from '@navikt/ds-react'
 import { AxiosResponse } from 'axios'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 
 import { TiltakDeltaker } from '../../../api/data/deltaker'
@@ -9,7 +9,9 @@ import { fetchDeltakerePaTiltakGjennomforing, fetchTiltakGjennomforing } from '.
 import globalStyles from '../../../globals.module.scss'
 import { useTabTitle } from '../../../hooks/use-tab-title'
 import { GJENNOMFORING_LISTE_PAGE_ROUTE } from '../../../navigation'
+import { useTilbakelenkeStore } from '../../../store/tilbakelenke-store'
 import { getAntallDeltakerePerStatus } from '../../../utils/deltaker-status-utils'
+import toggle from '../../../utils/toggle'
 import { isNotStartedOrPending, isRejected, usePromise } from '../../../utils/use-promise'
 import { AlertPage } from '../../felles/alert-page/AlertPage'
 import { SpinnerPage } from '../../felles/spinner-page/SpinnerPage'
@@ -21,10 +23,16 @@ import { KoordinatorInfo } from './KoordinatorInfo'
 import { TiltakInfo } from './TiltakInfo'
 
 export const GjennomforingDetaljerPage = (): React.ReactElement => {
-	useTabTitle('Deltakerliste')
-
+	const { setTilbakeTilUrl } = useTilbakelenkeStore()
 	const params = useParams<{ gjennomforingId: string }>()
 	const gjennomforingId = params.gjennomforingId || ''
+
+	useEffect(() => {
+		setTilbakeTilUrl(GJENNOMFORING_LISTE_PAGE_ROUTE)
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [])
+
+	useTabTitle('Deltakerliste')
 
 	const fetchDeltakerePaGjennomforingPromise = usePromise<AxiosResponse<TiltakDeltaker[]>>(
 		() => fetchDeltakerePaTiltakGjennomforing(gjennomforingId), [ gjennomforingId ]
@@ -57,7 +65,7 @@ export const GjennomforingDetaljerPage = (): React.ReactElement => {
 	return (
 		<div className={styles.gjennomforingDetaljer} data-testid="gjennomforing-detaljer-page">
 			<section>
-				<Tilbakelenke to={GJENNOMFORING_LISTE_PAGE_ROUTE} className={styles.tilbakelenke}/>
+				{ !toggle.navDekoratorEnabled && <Tilbakelenke to={GJENNOMFORING_LISTE_PAGE_ROUTE} className={styles.tilbakelenke}/> }
 				<Heading size="medium" level="2" className={globalStyles.blokkXs}>{gjennomforing.navn}</Heading>
 				<FilterMeny statusMap={deltakerePerStatus} className={globalStyles.blokkXs}/>
 				<TiltakInfo gjennomforing={gjennomforing} className={globalStyles.blokkXs}/>

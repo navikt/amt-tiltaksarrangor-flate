@@ -2,7 +2,7 @@ import env from './environment'
 
 class Toggle {
 
-	get exampleToggle(): boolean {
+	get navDekoratorEnabled(): boolean {
 		return !env.isProd
 	}
 

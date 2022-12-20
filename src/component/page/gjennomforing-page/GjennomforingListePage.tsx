@@ -1,11 +1,15 @@
 import { Add, Information } from '@navikt/ds-icons'
 import { AxiosResponse } from 'axios'
-import React from 'react'
+import React, { useEffect } from 'react'
 
 import { Gjennomforing } from '../../../api/data/tiltak'
 import { fetchTiltakGjennomforinger } from '../../../api/tiltak-api'
 import { useTabTitle } from '../../../hooks/use-tab-title'
-import { INFORMASJON_PAGE_ROUTE, LEGG_TIL_DELTAKERLISTE_PAGE_ROUTE } from '../../../navigation'
+import {
+	INFORMASJON_PAGE_ROUTE,
+	LEGG_TIL_DELTAKERLISTE_PAGE_ROUTE
+} from '../../../navigation'
+import { useTilbakelenkeStore } from '../../../store/tilbakelenke-store'
 import { sortAlphabeticAsc } from '../../../utils/sortering-utils'
 import { isNotStartedOrPending, isRejected, usePromise } from '../../../utils/use-promise'
 import { AlertPage } from '../../felles/alert-page/AlertPage'
@@ -15,7 +19,14 @@ import { GjennomforingListe } from './gjennomforing-liste/GjennomforingListe'
 import styles from './GjennomforingListePage.module.scss'
 
 export const GjennomforingListePage = (): React.ReactElement => {
+	const { setTilbakeTilUrl } = useTilbakelenkeStore()
+
 	useTabTitle('Deltakeroversikt')
+
+	useEffect(() => {
+		setTilbakeTilUrl(null)
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [])
 
 	const fetchGjennomforingerPromise = usePromise<AxiosResponse<Gjennomforing[]>>(
 		() => fetchTiltakGjennomforinger()
