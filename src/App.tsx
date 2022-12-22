@@ -3,7 +3,7 @@ import React, { useEffect } from 'react'
 
 import { InnloggetAnsatt } from './api/data/ansatt'
 import { fetchInnloggetAnsatt } from './api/tiltak-api'
-import { Banner } from './component/felles/menu/Banner'
+import { Header } from './component/felles/header/Header'
 import { AppRoutes } from './Routes'
 import { useAuthStore } from './store/data-store'
 import { isNotStartedOrPending, isRejected, isResolved, usePromise } from './utils/use-promise'
@@ -25,7 +25,7 @@ export const App = (): React.ReactElement => {
 
 	return (
 		<>
-			<Banner/>
+			<Header/>
 			<main>
 				<AppRoutes
 					erInnlogget={autentisert && !!innloggetAnsatt}

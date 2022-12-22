@@ -8,3 +8,16 @@ html {
 button {
 	font-family: var(--a-font-family);
 }
+
+// V Gjør at applikasjonen fyller plassen til hele skjermen slik at NAV-dekoratør footeren alltid ligger i bånn V
+
+body {
+	display: flex;
+	flex-direction: column;
+	height: 100vh;
+	overflow-y: auto !important;
+}
+
+.app {
+	flex-grow: 1;
+}

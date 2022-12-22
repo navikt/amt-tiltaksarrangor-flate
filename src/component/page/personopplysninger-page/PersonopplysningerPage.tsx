@@ -1,24 +1,33 @@
 import { ExternalLink } from '@navikt/ds-icons'
 import { BodyLong, Heading, Link } from '@navikt/ds-react'
-import React from 'react'
+import React, { useEffect } from 'react'
 
 import globalStyles from '../../../globals.module.scss'
 import { useTabTitle } from '../../../hooks/use-tab-title'
 import { HOVED_PAGE_ROUTE, INFORMASJON_PAGE_ROUTE } from '../../../navigation'
 import { useAuthStore } from '../../../store/data-store'
+import { useTilbakelenkeStore } from '../../../store/tilbakelenke-store'
+import toggle from '../../../utils/toggle'
 import { Card } from '../../felles/card/Card'
 import { Tilbakelenke } from '../../felles/tilbakelenke/Tilbakelenke'
 import styles from './PersonopplysningerPage.module.scss'
 
 export const PersonopplysningerPage = (): React.ReactElement => {
-	useTabTitle('Behandling av dine personopplysninger')
+	const { setTilbakeTilUrl } = useTilbakelenkeStore()
 	const { erInnlogget } = useAuthStore()
+
+	useTabTitle('Behandling av dine personopplysninger')
+
+	useEffect(() => {
+		setTilbakeTilUrl(erInnlogget ? INFORMASJON_PAGE_ROUTE : HOVED_PAGE_ROUTE)
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [ erInnlogget ])
 
 
 	return (
 		<div className={styles.page} data-testid="personopplysning-page">
 			<div>
-				<Tilbakelenke to={erInnlogget ? INFORMASJON_PAGE_ROUTE : HOVED_PAGE_ROUTE} />
+				{ !toggle.navDekoratorEnabled && <Tilbakelenke to={erInnlogget ? INFORMASJON_PAGE_ROUTE : HOVED_PAGE_ROUTE} className={globalStyles.blokkM} /> }
 
 				<Card className={styles.contentCard}>
 					<Heading size="large" level="1" className={globalStyles.blokkXxs}>Behandling av dine personopplysninger</Heading>

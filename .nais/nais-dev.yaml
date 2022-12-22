@@ -33,6 +33,7 @@ spec:
       - https://amt.dev.nav.no/tiltaksarrangor/deltakeroversikt
     sidecar:
       enabled: true
+      autoLogin: true
   tokenx:
     enabled: true
   gcp:

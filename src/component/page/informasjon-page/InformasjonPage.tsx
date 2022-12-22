@@ -1,9 +1,12 @@
 import { Information } from '@navikt/ds-icons'
 import { BodyLong, Heading } from '@navikt/ds-react'
-import React from 'react'
+import React, { useEffect } from 'react'
 
+import globalStyles from '../../../globals.module.scss'
 import { useTabTitle } from '../../../hooks/use-tab-title'
 import { GJENNOMFORING_LISTE_PAGE_ROUTE, PERSONOPPLYSNINGER_PAGE_ROUTE } from '../../../navigation'
+import { useTilbakelenkeStore } from '../../../store/tilbakelenke-store'
+import toggle from '../../../utils/toggle'
 import { Card } from '../../felles/card/Card'
 import { IkonLenke } from '../../felles/ikon-lenke/IkonLenke'
 import { Tilbakelenke } from '../../felles/tilbakelenke/Tilbakelenke'
@@ -33,13 +36,19 @@ const InfoElement = (props: InfoElementProps): React.ReactElement<InfoElementPro
 }
 
 export const InformasjonPage = (): React.ReactElement => {
+	const { setTilbakeTilUrl } = useTilbakelenkeStore()
+
 	useTabTitle('Informasjon om deltakeroversikten')
+
+	useEffect(() => {
+		setTilbakeTilUrl(GJENNOMFORING_LISTE_PAGE_ROUTE)
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [])
 
 	return (
 		<div className={styles.page} data-testid="informasjon-page">
 			<div className={styles.content}>
-				<Tilbakelenke to={GJENNOMFORING_LISTE_PAGE_ROUTE} />
-
+				{ !toggle.navDekoratorEnabled && <Tilbakelenke to={GJENNOMFORING_LISTE_PAGE_ROUTE} className={globalStyles.blokkM} /> }
 				<Card className={styles.contentCard}>
 					<Heading className={styles.title} spacing size="large" level="2">Info om deltakeroversikten</Heading>
 
