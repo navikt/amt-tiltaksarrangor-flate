@@ -1,6 +1,7 @@
 import * as faker from 'faker'
 
 import { Gjennomforing, Koordinator, TiltakGjennomforingStatus, Tiltakskode } from '../../api/data/tiltak'
+import { arrangorForGjennomforing } from './arrangor'
 import { gjennomforingId } from './id'
 
 export type MockGjennomforing = Gjennomforing
@@ -94,6 +95,30 @@ export const tilgjengeligGjennomforinger: GjennomforingInfo[] = [
 		tiltaksnavn: 'Arbeidsforberedende trening (AFT)',
 		status: TiltakGjennomforingStatus.GJENNOMFORES
 	},
+	{
+		gjennomforingNavn: 'Oppfølging Test 3',
+		tiltakskode: Tiltakskode.INDOPPFAG,
+		tiltaksnavn: 'Oppfølging',
+		status: TiltakGjennomforingStatus.GJENNOMFORES
+	},
+	{
+		gjennomforingNavn: 'Oppfølging Test 3',
+		tiltakskode: Tiltakskode.INDOPPFAG,
+		tiltaksnavn: 'Oppfølging',
+		status: TiltakGjennomforingStatus.GJENNOMFORES
+	},
+	{
+		gjennomforingNavn: 'Avklaring Region Test 3',
+		tiltakskode: Tiltakskode.AVKLARAG,
+		tiltaksnavn: 'Avklaring',
+		status: TiltakGjennomforingStatus.GJENNOMFORES
+	},
+	{
+		gjennomforingNavn: 'AFT Region Vestøst 3',
+		tiltakskode: Tiltakskode.ARBFORB,
+		tiltaksnavn: 'Arbeidsforberedende trening (AFT)',
+		status: TiltakGjennomforingStatus.GJENNOMFORES
+	},
 ]
 
 export const lagMockGjennomforinger = (gjennomforingInfoer: GjennomforingInfo[]): MockGjennomforing[] => {
@@ -106,6 +131,7 @@ export const lagMockGjennomforinger = (gjennomforingInfoer: GjennomforingInfo[])
 }
 
 const lagMockGjennomforing = (gjennomforingInfo: GjennomforingInfo): MockGjennomforing => {
+
 	return {
 		id: gjennomforingId(),
 		navn: gjennomforingInfo.gjennomforingNavn,
@@ -116,10 +142,7 @@ const lagMockGjennomforing = (gjennomforingInfo: GjennomforingInfo): MockGjennom
 		},
 		startDato: faker.date.past(),
 		sluttDato: faker.date.future(),
-		arrangor: {
-			virksomhetNavn: faker.company.companyName(),
-			organisasjonNavn: faker.company.companyName()
-		}
+		arrangor: arrangorForGjennomforing(),
 	}
 }
 

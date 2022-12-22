@@ -5,6 +5,7 @@
 
 .panel {
   padding: 1rem 1.5rem;
+  margin-bottom: 1rem;
 }
 
 .innhold {
@@ -14,8 +15,18 @@
   align-items: flex-end;
 }
 
+.tiltaksinfo {
+  display: flex;    
+  flex-direction: column;
+
+    @media(min-width: 600px) {
+        flex-direction: row;
+    }
+}
+
+
 .tiltaknavn {
-  margin-right: 2rem;
+  margin-right: 1rem;
 }
 
 .alleredeLagtTilAlert {

@@ -25,13 +25,13 @@ export const LeggTilDeltakerlistePage = () => {
 		<div className={styles.page} data-testid="legg-til-liste-page">
 			{ !toggle.navDekoratorEnabled && <Tilbakelenke to={GJENNOMFORING_LISTE_PAGE_ROUTE} className={globalStyles.blokkM}/> }
 
-			<Heading size="medium" level="2" className={globalStyles.blokkM}>Legg til og fjern deltakerlister</Heading>
+			<Heading size="large" level="2" className={globalStyles.blokkM}>Legg til og fjern deltakerlister</Heading>
 
 			<BodyShort className={globalStyles.blokkM}>
 				Hvilke deltakerlister koordinerer du? Det er viktig at du kun legger til deltakerlister som du er koordinator for.
 			</BodyShort>
 
-			<GjennomforingListe/>
+			<GjennomforingListe />
 		</div>
 	)
 }
