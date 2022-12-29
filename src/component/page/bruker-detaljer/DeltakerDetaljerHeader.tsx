@@ -39,7 +39,7 @@ export const DeltakerDetaljerHeader = (props: BrukerPaaTiltakHeaderProps): React
 					? styles.headerContent
 					: styles.headerContentDeprecated
 			}>
-				{ !toggle.navDekoratorEnabled && (
+				{!toggle.navDekoratorEnabled && (
 					<div className={styles.tilbakelenkeWrapper}>
 						<Tilbakelenke to={gjennomforingDetaljerPageUrl(gjennomforingId)} className={styles.tilbakelenke} />
 					</div>
@@ -47,13 +47,13 @@ export const DeltakerDetaljerHeader = (props: BrukerPaaTiltakHeaderProps): React
 
 				<div className={styles.headerInfoWrapper}>
 					<div className={cls(styles.headerTitleWrapper)}>
-						<Heading size="medium" level="2" className={styles.headerTitle}>{lagBrukerNavn(fornavn, mellomnavn, etternavn)}</Heading>
+						<Heading size="small" level="2" className={styles.headerTitle}>{lagBrukerNavn(fornavn, mellomnavn, etternavn)}</Heading>
 						{fodselsnummer && (
 							<KopierKnapp
 								kopierTekst={fodselsnummer}
 								ariaLabel={`Kopier fødselsnummer ${fodselsnummer.split('').join(' ')}`}
 							>
-								<Fnr fnr={fodselsnummer} />
+								{fodselsnummer}
 							</KopierKnapp>
 						)}
 					</div>
