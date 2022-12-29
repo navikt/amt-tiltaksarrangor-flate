@@ -1,9 +1,7 @@
-import { Alert, BodyShort, Heading } from '@navikt/ds-react'
-import cls from 'classnames'
+import { Alert, BodyShort, Label } from '@navikt/ds-react'
 import React from 'react'
 
 import { TiltakDeltakerDetaljer } from '../../../api/data/deltaker'
-import globalStyles from '../../../globals.module.scss'
 import { formatDate } from '../../../utils/date-utils'
 import { Show } from '../../felles/Show'
 import { Bestilling } from './begrunnelse/Bestilling'
@@ -20,30 +18,28 @@ export const DeltakerDetaljer = (props: { deltaker: TiltakDeltakerDetaljer }): R
 	return (
 		<div className={styles.detaljer}>
 			<section className={styles.section}>
-				<div className={globalStyles.blokkM}>
-					<Heading size="medium" level="3" className={cls(globalStyles.blokkXs, styles.gjennomforingTitle)}>{(gjennomforing.navn)}</Heading>
-					<BodyShort size="small" className={globalStyles.blokkXxs}>{gjennomforing.tiltak.tiltaksnavn}</BodyShort>
-					<BodyShort size="small" className={globalStyles.blokkS}>Søkt inn: {formatDate(registrertDato)}</BodyShort>
-					<Show if={erSkjermetPerson}>
-						<Alert variant="warning" className={styles.skjermetPersonAlert} size="small">
-							Du kan ikke endre datoer på denne deltakeren fordi deltakeren er ansatt i NAV. Ta kontakt
-							med NAV-veileder.
-						</Alert>
-					</Show>
-				</div>
-
+				<Show if={erSkjermetPerson}>
+					<Alert variant="warning" className={styles.skjermetPersonAlert} size="small">
+						Du kan ikke endre datoer på denne deltakeren fordi deltakeren er ansatt i NAV. Ta kontakt
+						med NAV-veileder.
+					</Alert>
+				</Show>
 				<DeltakelseInfo
 					erSkjermetPerson={erSkjermetPerson}
 					deltaker={props.deltaker}
 					status={status}
 					fjernesDato={fjernesDato}
 				/>
+				<div className={styles.innsokt}>
+					<BodyShort size="small"><Label as="span" size="small">Søkt inn på:</Label> {gjennomforing.navn}</BodyShort>
+					<BodyShort size="small"><Label as="span" size="small">Dato:</Label> {formatDate(registrertDato)}</BodyShort>
+				</div>
 
-				<Bestilling tekst={innsokBegrunnelse}/>
+				<Bestilling tekst={innsokBegrunnelse} />
 			</section>
 
 			<section>
-				<NavInfoPanel navEnhet={navEnhet} navVeileder={navVeileder}/>
+				<NavInfoPanel navEnhet={navEnhet} navVeileder={navVeileder} />
 			</section>
 		</div>
 	)

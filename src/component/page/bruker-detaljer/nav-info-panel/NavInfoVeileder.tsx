@@ -9,7 +9,7 @@ import { IconLabel } from '../icon-label/IconLabel'
 import styles from './NavInfoPanel.module.scss'
 
 interface Props {
-    veileder: NavVeileder | null
+	veileder: NavVeileder | null
 }
 
 export const NavInfoVeileder = (props: Props): React.ReactElement => {
@@ -22,17 +22,17 @@ export const NavInfoVeileder = (props: Props): React.ReactElement => {
 			<div className={styles.contentBlock}>
 				<IconLabel
 					labelValue={navVeileder?.navn}
-					icon={<People title="Veileder navn"/>}
+					icon={<People title="Veileder navn" />}
 					iconWrapperClassName={styles.iconWrapper}
 				/>
 				<IconLabel
 					labelValue={formaterTelefonnummer(navVeileder?.telefon)}
-					icon={<Telephone title="Veileder telefonnummer"/>}
+					icon={<Telephone title="Veileder telefonnummer" />}
 					iconWrapperClassName={styles.iconWrapper}
 				/>
 				<IconLabel
 					labelValue={navVeileder?.epost}
-					icon={<Email title="Veileder epost"/>}
+					icon={<Email title="Veileder epost" />}
 					iconWrapperClassName={styles.iconWrapper}
 				/>
 			</div>
@@ -40,14 +40,14 @@ export const NavInfoVeileder = (props: Props): React.ReactElement => {
 	} else {
 		veileder = (
 			<Alert variant="info">
-                Det er ikke registrert en NAV-veileder til denne deltakeren.
+				Det er ikke registrert en NAV-veileder til denne deltakeren.
 			</Alert>
 		)
 	}
 
 	return (
 		<>
-			<Heading size="small" level="4" className={globalStyles.blokkXs}>NAV-veileder</Heading>
+			<Heading size="small" level="3" className={globalStyles.blokkXs}>NAV-veileder</Heading>
 			{veileder}
 		</>
 	)

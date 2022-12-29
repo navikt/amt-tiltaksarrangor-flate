@@ -1,5 +1,5 @@
 import { Collapse, Expand } from '@navikt/ds-icons'
-import { BodyLong, Heading } from '@navikt/ds-react'
+import { BodyLong, Label } from '@navikt/ds-react'
 import React, { useState } from 'react'
 
 import { EMDASH } from '../../../../utils/constants'
@@ -29,7 +29,7 @@ export const Bestilling = (props: BestillingProps) => {
 
 	return (
 		<div className={styles.wrapper}>
-			<Heading size="small" level="4" spacing>Bestilling</Heading>
+			<Label size="small" as="p">Begrunnelse</Label>
 
 			<BodyLong size="small" className={styles.tekst}>
 				{bestillingTekst}
@@ -39,14 +39,14 @@ export const Bestilling = (props: BestillingProps) => {
 				{
 					showAll && (
 						<button className={styles.toggleKnapp} onClick={toggleShowAll}>
-							Skjul <Collapse/>
+							Skjul <Collapse />
 						</button>
 					)
 				}
 				{
 					!showAll && (
 						<button className={styles.toggleKnapp} onClick={toggleShowAll}>
-							Les mer <Expand/>
+							Les mer <Expand />
 						</button>
 					)
 				}

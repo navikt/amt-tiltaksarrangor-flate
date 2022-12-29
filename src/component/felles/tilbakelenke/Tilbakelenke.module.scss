@@ -1,7 +1,6 @@
 .tilbakelenke {
   text-decoration: none;
   display: flex;
-  gap: 0.5rem;
 
   &:hover {
     text-decoration: underline;
@@ -10,4 +9,5 @@
 
 .pil {
   height: auto;
+  width: 20px;
 }

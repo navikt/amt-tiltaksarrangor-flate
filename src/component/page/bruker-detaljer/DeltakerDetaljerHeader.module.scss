@@ -23,7 +23,7 @@
 
 .headerContent {
   max-width: $max-bredde;
-  padding: 0 2rem;
+  padding: 0 1rem;
   margin: 0 auto;
 }
 
@@ -91,5 +91,9 @@
       > *:not(:last-child) {
         margin-right: 2rem;
       }
+  }
+
+  .headerContent {
+      padding: 0 2rem;
   }
 }

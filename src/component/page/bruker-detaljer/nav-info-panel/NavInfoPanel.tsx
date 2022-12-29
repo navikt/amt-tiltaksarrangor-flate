@@ -14,17 +14,17 @@ export function NavInfoPanel(props: { navEnhet: NavEnhet | null, navVeileder: Na
 
 	return (
 		<Panel border className={styles.infoPanel}>
-			<Heading size="small" level="4" className={globalStyles.blokkXs}>NAV-kontor</Heading>
+			<Heading size="small" level="3" className={globalStyles.blokkXs}>NAV-kontor</Heading>
 
 			<div className={cls(styles.contentBlock, globalStyles.blokkM)}>
 				<IconLabel
 					labelValue={navEnhet?.navn}
-					icon={<Home title="Nav-kontor"/>}
+					icon={<Home title="Nav-kontor" />}
 					iconWrapperClassName={styles.iconWrapper}
 				/>
 			</div>
 
-			<NavInfoVeileder veileder={navVeileder}/>
+			<NavInfoVeileder veileder={navVeileder} />
 		</Panel>
 	)
 }
