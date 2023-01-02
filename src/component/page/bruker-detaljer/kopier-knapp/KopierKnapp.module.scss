@@ -5,7 +5,7 @@
 }
 
 .kopierKnapp {
-  padding: 0.5rem;
+  padding: 0;
   font-size: 1rem;
   line-height: 1rem;
   color: $navMorkGra;
@@ -13,7 +13,7 @@
   background-color: white;
 
   > span {
-    font-weight: 800 !important;
+    font-weight: 600 !important;
     gap: 0;
   }
 

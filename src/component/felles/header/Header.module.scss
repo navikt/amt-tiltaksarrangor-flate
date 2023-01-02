@@ -20,12 +20,16 @@
 
 .headerContent {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-column-gap: 2rem;
-
   max-width: $max-bredde;
   margin: 0 auto;
-  padding: 0 2rem;
+  padding: 0 1rem;
+
+  @media (min-width: 600px) {
+      grid-template-columns: 1fr 1fr 1fr;
+      grid-column-gap: 2rem;
+      padding: 0 2rem;
+  }
+
 }
 
 .titleWrapper {

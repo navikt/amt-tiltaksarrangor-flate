@@ -1,11 +1,12 @@
 @import '/src/colors.scss';
 
 .wrapper {
-  margin-top: 2rem;
+  margin-top: 1rem;
 }
 
 .tekst {
   white-space: pre-wrap;
+  max-width: 80ch;
 }
 
 .toggleKnapp {
