@@ -13,7 +13,6 @@ import { ModalController } from './ModalController'
 import { EndringType } from './types'
 
 interface EndreDeltakelseKnappProps {
-	disabled: boolean
 	deltaker: TiltakDeltakerDetaljer
 	onEndringUtfort: () => void
 }
@@ -38,8 +37,7 @@ export const EndreDeltakelseKnapp = (props: EndreDeltakelseKnappProps) => {
 		<>
 			<ModalController modalData={modalData} onClose={lukkModal}/>
 			<Dropdown>
-				<Button className={styles.knapp} as={Dropdown.Toggle} variant="secondary" size="small"
-					disabled={props.disabled}>
+				<Button className={styles.knapp} as={Dropdown.Toggle} variant="secondary" size="small">
 					<span className={styles.knappTekst}>
 						<Edit aria-hidden/>
 						Endre deltakelse

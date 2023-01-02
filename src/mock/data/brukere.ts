@@ -32,7 +32,6 @@ export interface MockTiltakDeltaker {
         endretDato: Date,
     },
     registrertDato: Date,
-    erSkjermetPerson: boolean,
     epost: string | null,
     telefonnummer: string | null,
     navEnhet: MockNavEnhet | null,
@@ -127,7 +126,6 @@ const lagMockTiltakDeltagerForGjennomforing = (gjennomforing: Gjennomforing): Mo
 			type: status,
 			endretDato: faker.date.recent()
 		},
-		erSkjermetPerson: randomBoolean(10),
 		navEnhet: faker.random.arrayElement(navEnheter),
 		navVeileder: veileder,
 		fjernesDato: fjernesDato,

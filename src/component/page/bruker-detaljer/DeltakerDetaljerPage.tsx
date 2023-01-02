@@ -3,7 +3,7 @@ import React from 'react'
 import { useParams } from 'react-router-dom'
 
 import { TiltakDeltakerDetaljer } from '../../../api/data/deltaker'
-import { fetchTiltakDeltagerDetaljer } from '../../../api/tiltak-api'
+import { fetchTiltakDeltakerDetaljer } from '../../../api/tiltak-api'
 import globalStyles from '../../../globals.module.scss'
 import { useTabTitle } from '../../../hooks/use-tab-title'
 import { isNotStartedOrPending, isRejected, usePromise } from '../../../utils/use-promise'
@@ -22,7 +22,7 @@ export const DeltakerDetaljerPage = (): React.ReactElement => {
 	useStyle(globalStyles.whiteBackground, 'html')
 
 	const fetchTiltakDeltagerDetaljerPromise = usePromise<AxiosResponse<TiltakDeltakerDetaljer>>(
-		() => fetchTiltakDeltagerDetaljer(brukerId), [ brukerId ]
+		() => fetchTiltakDeltakerDetaljer(brukerId), [ brukerId ]
 	)
 
 	if (isNotStartedOrPending(fetchTiltakDeltagerDetaljerPromise)) {

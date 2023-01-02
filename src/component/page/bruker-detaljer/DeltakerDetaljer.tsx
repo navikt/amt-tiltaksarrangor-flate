@@ -1,4 +1,4 @@
-import { Alert, BodyShort, Label } from '@navikt/ds-react'
+import { BodyShort, Label } from '@navikt/ds-react'
 import React from 'react'
 
 import { TiltakDeltakerDetaljer } from '../../../api/data/deltaker'
@@ -12,21 +12,14 @@ import { NavInfoPanel } from './nav-info-panel/NavInfoPanel'
 
 export const DeltakerDetaljer = (props: { deltaker: TiltakDeltakerDetaljer }): React.ReactElement => {
 	const {
-		navEnhet, navVeileder, gjennomforing, registrertDato, status, erSkjermetPerson, fjernesDato,
+		navEnhet, navVeileder, gjennomforing, registrertDato, status, fjernesDato,
 		innsokBegrunnelse
 	} = props.deltaker
 
 	return (
 		<div className={styles.detaljer}>
 			<section className={styles.section}>
-				<Show if={erSkjermetPerson}>
-					<Alert variant="warning" className={styles.skjermetPersonAlert} size="small">
-						Du kan ikke endre datoer på denne deltakeren fordi deltakeren er ansatt i NAV. Ta kontakt
-						med NAV-veileder.
-					</Alert>
-				</Show>
 				<DeltakelseInfo
-					erSkjermetPerson={erSkjermetPerson}
 					deltaker={props.deltaker}
 					status={status}
 					fjernesDato={fjernesDato}
