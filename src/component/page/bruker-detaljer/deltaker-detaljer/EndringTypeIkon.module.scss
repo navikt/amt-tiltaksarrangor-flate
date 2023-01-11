@@ -1,20 +1,36 @@
+.ikon {
+  height: 18px;
+  width: 18px;
+}
+
+// Ikke alle SVGer er like og noen har mindre innhold. Vi må justere disse små SVGene opp for å få normal størrelse.
+.ikonSmallFix {
+  height: 20px;
+  width: 20px;
+}
+
 .endreIkon {
   color: var(--a-deepblue-300);
+  @extend .ikonSmallFix;
 }
 
 .forlengIkon {
   color: var(--a-icon-success);
+  @extend .ikonSmallFix;
 }
 
 .ikkeAktuellIkon {
   color: var(--a-icon-warning);
   transform: rotate(45deg);
+  @extend .ikon;
 }
 
 .endreProsentDeltakelseIkon {
-  color: var(--navds-global-color-purple-400)
+  color: var(--a-purple-400);
+  @extend .ikon;
 }
 
 .avsluttIkon {
   color: var(--a-gray-500);
+  @extend .ikon;
 }
