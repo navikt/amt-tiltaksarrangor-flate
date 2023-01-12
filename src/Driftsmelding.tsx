@@ -9,9 +9,8 @@ export const Driftsmelding = () => {
 
 
 	return (
-		<Alert variant="error" className={styles.alertstripe}>
-			På grunn av en teknisk oppdatering vil det mangle data om deltakere i omtrent en dag.<br />
-			Vi gir beskjed når oppdateringen er ferdig.
+		<Alert variant="info" className={styles.alertstripe}>
+			Teknisk oppdatering er ferdig og data om deltakere er nå oppdatert.
 		</Alert>
 	)
 }
