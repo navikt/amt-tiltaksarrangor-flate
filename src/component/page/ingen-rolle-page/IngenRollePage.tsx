@@ -24,6 +24,9 @@ export const IngenRollePage = (): React.ReactElement => {
 					Hvis du er usikker på hvilket organisasjonsnummer som er riktig for deltakerlisten du jobber med, så ta kontakt med den som er ansvarlig for avtalen i egen virksomhet eller i NAV.
 					<br />
 					<br />
+					Det er ansatte hos tiltaksarrangør som jobber med koordinerende arbeidsoppgaver som skal få tilgang til tjenesten. Tjenesten videreutvikles slik at også ansatte hos tiltaksarrangører som jobber som veiledere etter hvert kan få tilgang til tjenesten.
+					<br />
+					<br />
 					Les mer om <Link target="_blank" rel="noopener noreferrer" href="https://www.altinn.no/starte-og-drive/starte/registrering/organisasjonsnummer/" className={styles.eksternLenke}>underenhet og organisasjonsnummer her. <ExternalLink /></Link>
 					<br />
 					<br />
