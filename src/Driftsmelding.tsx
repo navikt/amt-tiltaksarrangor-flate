@@ -9,15 +9,9 @@ export const Driftsmelding = () => {
 
 
 	return (
-		<Alert variant="info" className={styles.alertstripe}>
-			Teknisk oppdatering er ferdig og data om deltakere er nå oppdatert.
+		<Alert variant="error" className={styles.alertstripe}>
+			På grunn av en forsinkelse i dataoverføring vil du kunne oppleve feil. <br />
+			Vi jobber med feilsøking og retting. Beklager ulempen dette medfører.
 		</Alert>
 	)
 }
-
-/*
- * Original tekst:
- *
-			På grunn av en forsinkelse i dataoverføring vil du kunne oppleve feil. <br/>
-			Vi jobber med feilsøking og retting. Beklager ulempen dette medfører.
-*/
