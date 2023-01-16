@@ -43,6 +43,8 @@ jobs:
     name: Deploy application to dev
     runs-on: ubuntu-latest
     needs: test-and-build
+    permissions:
+      id-token: 'write' # Used to authenticate with Google Cloud
     steps:
       - name: Download frontend asset files
         uses: actions/download-artifact@v2
@@ -50,11 +52,12 @@ jobs:
           name: frontend-assets
           path: build
       - name: Authenticate to Google Cloud
-        uses: google-github-actions/auth@v0
+        uses: google-github-actions/auth@v1
         with:
-          credentials_json: ${{ secrets.GCS_SA_KEY_DEV }}
+          workload_identity_provider: projects/696882554390/locations/global/workloadIdentityPools/github/providers/github-action
+          service_account: amt-tiltaksarrangor-flate-gcs@amt-dev-d98f.iam.gserviceaccount.com
       - name: Set up Cloud SDK
-        uses: google-github-actions/setup-gcloud@v0
+        uses: google-github-actions/setup-gcloud@v1
       - name: Upload files to GCS
         run: gsutil -m rsync -r build gs://amt-tiltaksarrangor-flate-dev
       - name: Create release
@@ -71,6 +74,8 @@ jobs:
     runs-on: ubuntu-latest
     needs: deploy-dev
     if: github.ref == 'refs/heads/main'
+    permissions:
+      id-token: 'write' # Used to authenticate with Google Cloud
     steps:
       - name: Download frontend asset files
         uses: actions/download-artifact@v2
@@ -78,11 +83,12 @@ jobs:
           name: frontend-assets
           path: build
       - name: Authenticate to Google Cloud
-        uses: google-github-actions/auth@v0
+        uses: google-github-actions/auth@v1
         with:
-          credentials_json: ${{ secrets.GCS_SA_KEY_PROD }}
+          workload_identity_provider: projects/337368476147/locations/global/workloadIdentityPools/github/providers/github-action
+          service_account: amt-tiltaksarrangor-flate-gcs@amt-prod-d4dd.iam.gserviceaccount.com
       - name: Set up Cloud SDK
-        uses: google-github-actions/setup-gcloud@v0
+        uses: google-github-actions/setup-gcloud@v1
       - name: Upload files to GCS
         run: gsutil -m rsync -r build gs://amt-tiltaksarrangor-flate-prod
       - name: Create release
