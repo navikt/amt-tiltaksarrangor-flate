@@ -9,12 +9,15 @@ jobs:
   cleanup-pr:
     name: Rydd applikasjon for PR
     runs-on: ubuntu-latest
+    permissions:
+      id-token: 'write' # Used to authenticate with Google Cloud
     steps:
       - name: Authenticate to Google Cloud
-        uses: google-github-actions/auth@v0
+        uses: google-github-actions/auth@v1
         with:
-          credentials_json: ${{ secrets.GCS_SA_KEY_DEV }}
+          workload_identity_provider: projects/696882554390/locations/global/workloadIdentityPools/github/providers/github-action
+          service_account: amt-tiltaksarrangor-flate-gcs@amt-dev-d98f.iam.gserviceaccount.com
       - name: Set up Cloud SDK
-        uses: google-github-actions/setup-gcloud@v0
+        uses: google-github-actions/setup-gcloud@v1
       - name: Delete files on GCS
         run: gsutil rm -r gs://amt-tiltaksarrangor-flate-dev/pr-${{ github.event.number }}
