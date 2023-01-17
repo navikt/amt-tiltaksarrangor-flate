@@ -25,3 +25,9 @@
 .statusAlert {
 	margin: 1.5rem 0;
 }
+
+.infoSection {
+    @media (min-width: 801px) {
+        max-width: 280px;
+    }
+}
