@@ -45,6 +45,7 @@ jobs:
     needs: test-and-build
     permissions:
       id-token: 'write' # Used to authenticate with Google Cloud
+      contents: 'write' # Create release
     steps:
       - name: Download frontend asset files
         uses: actions/download-artifact@v2
@@ -76,6 +77,7 @@ jobs:
     if: github.ref == 'refs/heads/main'
     permissions:
       id-token: 'write' # Used to authenticate with Google Cloud
+      contents: 'write' # Create release
     steps:
       - name: Download frontend asset files
         uses: actions/download-artifact@v2
