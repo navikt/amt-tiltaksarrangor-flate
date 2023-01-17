@@ -46,14 +46,14 @@ export const GjennomforingDetaljerPage = (): React.ReactElement => {
 		isNotStartedOrPending(fetchDeltakerePaGjennomforingPromise)
 		|| isNotStartedOrPending(fetchGjennomforingPromise)
 	) {
-		return <SpinnerPage/>
+		return <SpinnerPage />
 	}
 
 	if (
 		isRejected(fetchDeltakerePaGjennomforingPromise)
 		|| isRejected(fetchGjennomforingPromise)
 	) {
-		return <AlertPage variant="error" tekst="Noe gikk galt"/>
+		return <AlertPage variant="error" tekst="Noe gikk galt" />
 	}
 
 	const deltakere = fetchDeltakerePaGjennomforingPromise.result.data
@@ -64,15 +64,15 @@ export const GjennomforingDetaljerPage = (): React.ReactElement => {
 
 	return (
 		<div className={styles.gjennomforingDetaljer} data-testid="gjennomforing-detaljer-page">
-			<section>
-				{ !toggle.navDekoratorEnabled && <Tilbakelenke to={GJENNOMFORING_LISTE_PAGE_ROUTE} className={styles.tilbakelenke}/> }
+			<section className={styles.infoSection}>
+				{!toggle.navDekoratorEnabled && <Tilbakelenke to={GJENNOMFORING_LISTE_PAGE_ROUTE} className={styles.tilbakelenke} />}
 				<Heading size="medium" level="2" className={globalStyles.blokkXs}>{gjennomforing.navn}</Heading>
-				<FilterMeny statusMap={deltakerePerStatus} className={globalStyles.blokkXs}/>
-				<TiltakInfo gjennomforing={gjennomforing} className={globalStyles.blokkXs}/>
-				<KoordinatorInfo gjennomforingId={gjennomforing.id}/>
+				<FilterMeny statusMap={deltakerePerStatus} className={globalStyles.blokkXs} />
+				<TiltakInfo gjennomforing={gjennomforing} className={globalStyles.blokkXs} />
+				<KoordinatorInfo gjennomforingId={gjennomforing.id} />
 			</section>
 
-			<DeltakerOversiktTabell deltakere={deltakere}/>
+			<DeltakerOversiktTabell deltakere={deltakere} />
 		</div>
 	)
 }
