@@ -9,7 +9,7 @@ spec:
   image: ghcr.io/navikt/poao-frontend/poao-frontend:2023.01.13_08.09-36c09678654f
   port: 8080
   ingresses:
-    - https://amt.dev.nav.no/tiltaksarrangor/deltakeroversikt
+    - https://amt.dev.nav.no/deltakeroversikt
   liveness:
     path: /internal/alive
     initialDelay: 10
@@ -30,7 +30,7 @@ spec:
   idporten:
     enabled: true
     postLogoutRedirectURIs:
-      - https://amt.dev.nav.no/tiltaksarrangor/deltakeroversikt
+      - https://amt.dev.nav.no/deltakeroversikt
     sidecar:
       enabled: true
       autoLogin: true
@@ -51,7 +51,7 @@ spec:
     - name: JSON_CONFIG
       value: >
         {
-          "contextPath": "/tiltaksarrangor/deltakeroversikt",
+          "contextPath": "/deltakeroversikt",
           "fallbackStrategy": "SERVE_INDEX_HTML",
           "gcs": {
             "bucketName": "amt-tiltaksarrangor-flate-dev"
