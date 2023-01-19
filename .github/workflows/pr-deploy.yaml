@@ -31,7 +31,7 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
       - name: Build Pull Request Application
-        run: NODE_ENV=development VITE_MOCK_REQUEST_HANDLER=PULL_REQUEST BASE=/tiltaksarrangor/deltakeroversikt/pr-${{ github.event.number }}/ pnpm build
+        run: NODE_ENV=development VITE_MOCK_REQUEST_HANDLER=PULL_REQUEST BASE=/deltakeroversikt/pr-${{ github.event.number }}/ pnpm build
       - name: Authenticate to Google Cloud
         uses: google-github-actions/auth@v1
         with:
