@@ -149,6 +149,9 @@ export const mockHandlers: RequestHandler[] = [
 		return res(ctx.delay(500), ctx.status(200))
 
 	}),
+	rest.patch(appUrl('/amt-tiltak/api/tiltaksarrangor/deltaker/:deltakerId/skjul'), (req, res, ctx) => {
+		return res(ctx.delay(500), ctx.status(200))
+	}),
 	rest.get(appUrl('/amt-tiltak/api/tiltaksarrangor/endringsmelding/aktiv?deltakerId=:deltakerId'), (req, res, ctx) => {
 		const deltakerId = req.url.searchParams.get('deltakerId') as string
 		const endringsmeldinger = mockEndringsmeldinger[deltakerId]

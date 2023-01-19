@@ -1,0 +1,17 @@
+.modalContent {
+  max-width: 600px;
+}
+
+.text {
+  margin-bottom: 2rem;
+}
+
+.knappeRad {
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+
+  > *:not(:last-child) {
+    margin-right: 1.5rem;
+  }
+}
