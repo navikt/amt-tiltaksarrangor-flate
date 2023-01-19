@@ -35,7 +35,7 @@ spec:
     - name: JSON_CONFIG
       value: >
         {
-          "contextPath": "/deltakeroversikt-test",
+          "contextPath": "/tiltaksarrangor/deltakeroversikt",
           "fallbackStrategy": "SERVE_INDEX_HTML",
           "gcs": {
             "bucketName": "amt-tiltaksarrangor-flate-prod-old"
