@@ -29,7 +29,7 @@ export const Bestilling = (props: BestillingProps) => {
 
 	return (
 		<div className={styles.wrapper}>
-			<Label size="small" as="p">Begrunnelse</Label>
+			<Label size="small" as="p">Bestilling</Label>
 
 			<BodyLong size="small" className={styles.tekst}>
 				{bestillingTekst}
