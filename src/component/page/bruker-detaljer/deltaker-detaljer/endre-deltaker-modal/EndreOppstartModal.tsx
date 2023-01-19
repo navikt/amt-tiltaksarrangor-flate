@@ -26,6 +26,8 @@ export const EndreOppstartModal = (props: EndreOppstartModalProps & EndreOppstar
 		<LeggTilEndreOppstartModal
 			tittel="Endre oppstartsdato"
 			onClose={onClose}
-			sendEndring={sendEndring}/>
+			sendEndring={sendEndring}
+			modalType="endre"
+		/>
 	)
 }

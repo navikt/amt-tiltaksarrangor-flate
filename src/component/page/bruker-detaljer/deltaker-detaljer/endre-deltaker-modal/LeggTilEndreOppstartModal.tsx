@@ -7,6 +7,7 @@ import { useGjennomforingStore } from '../gjennomforing-store'
 import { BaseModal } from './BaseModal'
 import styles from './EndreOppstartModal.module.scss'
 import { SendTilNavKnapp } from './SendTilNavKnapp'
+import { VeilederConfirmationPanel } from './VeilederConfirmationPanel'
 
 export interface LeggTilEndreOppstartModalProps {
 	onClose: () => void
@@ -15,12 +16,14 @@ export interface LeggTilEndreOppstartModalProps {
 
 interface LeggTilEndreOppstartDataProps {
 	tittel: string
+	modalType: 'legg-til' | 'endre'
 }
 
 
 export const LeggTilEndreOppstartModal = (props: LeggTilEndreOppstartModalProps & LeggTilEndreOppstartDataProps) => {
 	const { tittel, onClose } = props
 	const [ valgtDato, setNyDato ] = useState<Nullable<Date>>()
+	const [ vilkaarGodkjent, setVilkaarGodkjent ] = useState(false)
 	const { gjennomforing } = useGjennomforingStore()
 
 	const sendEndringsmelding = () => {
@@ -40,10 +43,13 @@ export const LeggTilEndreOppstartModal = (props: LeggTilEndreOppstartModalProps 
 				min={kalkulerMinOppstartsdato(gjennomforing.startDato)}
 				max={kalkulerMaxOppstartsdato(gjennomforing.sluttDato)}
 			/>
+			{props.modalType === 'endre' && (
+				<VeilederConfirmationPanel vilkaarGodkjent={vilkaarGodkjent} setVilkaarGodkjent={setVilkaarGodkjent}/>
+			)}
 			<SendTilNavKnapp
 				onEndringSendt={onClose}
 				sendEndring={sendEndringsmelding}
-				disabled={!valgtDato}/>
+				disabled={!valgtDato || (props.modalType === 'endre' && !vilkaarGodkjent)} />
 		</BaseModal>
 	)
 }

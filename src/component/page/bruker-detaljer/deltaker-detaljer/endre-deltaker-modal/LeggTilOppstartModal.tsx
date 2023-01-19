@@ -26,6 +26,8 @@ export const LeggTilOppstartModal = (props: LeggTilOppstartModalProps & LeggTilO
 		<LeggTilEndreOppstartModal
 			tittel="Legg til oppstartsdato"
 			onClose={onClose}
-			sendEndring={sendEndringsmelding}/>
+			sendEndring={sendEndringsmelding}
+			modalType="legg-til"
+		/>
 	)
 }
