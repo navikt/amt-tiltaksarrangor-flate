@@ -189,7 +189,6 @@ const mapToDeltakerDetaljerView = (deltaker: MockTiltakDeltaker): TiltakDeltaker
 		deltakelseProsent: deltaker.deltakelseProsent,
 		status: deltaker.status,
 		registrertDato: deltaker.registrertDato,
-		erSkjermetPerson: deltaker.erSkjermetPerson,
 		epost: deltaker.epost,
 		telefonnummer: deltaker.telefonnummer,
 		navEnhet: deltaker.navEnhet,

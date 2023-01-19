@@ -86,7 +86,7 @@ export const fetchDeltakerePaTiltakGjennomforing = (gjennomforingId: string): Ax
 		.catch(logAndThrowError)
 }
 
-export const fetchTiltakDeltagerDetaljer = (tiltakDeltagerId: string): AxiosPromise<TiltakDeltakerDetaljer> => {
+export const fetchTiltakDeltakerDetaljer = (tiltakDeltagerId: string): AxiosPromise<TiltakDeltakerDetaljer> => {
 	return axiosInstance
 		.get(appUrl(`/amt-tiltak/api/tiltaksarrangor/deltaker/${tiltakDeltagerId}`))
 		.then(parse(tiltakDeltakerDetaljerSchema))

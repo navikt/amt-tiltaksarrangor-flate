@@ -11,14 +11,12 @@ import { EndreDeltakelseKnapp } from './EndreDeltakelseKnapp'
 import { Endringsmeldinger } from './endringsmelding/Endringsmeldinger'
 
 interface DeltakelseInfoProps {
-	erSkjermetPerson: boolean
 	deltaker: TiltakDeltakerDetaljer
 	status: DeltakerStatus
 	fjernesDato: Nullable<Date>
 }
 
 export const DeltakelseInfo = ({
-	erSkjermetPerson,
 	deltaker,
 	status,
 	fjernesDato
@@ -55,7 +53,7 @@ export const DeltakelseInfo = ({
 						</ElementPanel>
 					)}
 				</div>
-				<EndreDeltakelseKnapp disabled={erSkjermetPerson} deltaker={deltaker} onEndringUtfort={triggerReloadEndringsmeldinger} />
+				<EndreDeltakelseKnapp deltaker={deltaker} onEndringUtfort={triggerReloadEndringsmeldinger} />
 			</div>
 
 			<div className={styles.body}>
