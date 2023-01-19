@@ -51,7 +51,9 @@ export const varighetValgForType = (tiltakstype: Tiltakskode): VarighetValg[] =>
 			VarighetValg.TRE_MANEDER,
 			VarighetValg.SEKS_MANEDER,
 		]
-		case Tiltakskode.DIGIOPPARB:
+		case Tiltakskode.DIGIOPPARB: return [
+			VarighetValg.FIRE_UKER,
+		]
 		case Tiltakskode.GRUFAGYRKE:
 		case Tiltakskode.VASV:
 		default: return [
