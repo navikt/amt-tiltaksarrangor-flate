@@ -2,6 +2,7 @@ import { Alert, BodyShort, Label } from '@navikt/ds-react'
 import React from 'react'
 
 import { TiltakDeltakerDetaljer } from '../../../api/data/deltaker'
+import { Gjennomforing } from '../../../api/data/tiltak'
 import { formatDate } from '../../../utils/date-utils'
 import { Show } from '../../felles/Show'
 import { Bestilling } from './bestilling/Bestilling'
@@ -35,7 +36,9 @@ export const DeltakerDetaljer = (props: { deltaker: TiltakDeltakerDetaljer }): R
 					<BodyShort size="small"><Label as="span" size="small">Dato:</Label> {formatDate(registrertDato)}</BodyShort>
 				</div>
 
-				<Bestilling tekst={innsokBegrunnelse} />
+				<Show if={visBestilling(gjennomforing)} >
+					<Bestilling tekst={innsokBegrunnelse} />
+				</Show>
 			</section>
 
 			<section>
@@ -43,4 +46,8 @@ export const DeltakerDetaljer = (props: { deltaker: TiltakDeltakerDetaljer }): R
 			</section>
 		</div>
 	)
+}
+
+const visBestilling = (gjennomforing: Gjennomforing) => {
+	return gjennomforing.tiltak.tiltakskode !== 'DIGIOPPARB'
 }
