@@ -1,3 +1,4 @@
+import { AxiosError } from 'axios'
 import { Dispatch, SetStateAction, useEffect, useRef, useState } from 'react'
 
 export enum Status {
@@ -7,7 +8,7 @@ export enum Status {
     REJECTED = 'REJECTED'
 }
 
-type PromiseState<R, E> = NotStartedPromiseState | PendingPromiseState | ResolvedPromiseState<R> | RejectedPromiseState<E>
+type PromiseState<R> = NotStartedPromiseState | PendingPromiseState | ResolvedPromiseState<R> | RejectedPromiseState
 
 interface NotStartedPromiseState {
 	result: undefined;
@@ -27,9 +28,9 @@ interface ResolvedPromiseState<R> {
     status: Status.RESOLVED;
 }
 
-interface RejectedPromiseState<E> {
+interface RejectedPromiseState {
     result: undefined;
-    error: E;
+    error: AxiosError;
     status: Status.REJECTED;
 }
 
@@ -39,13 +40,13 @@ const defaultState: NotStartedPromiseState = {
 	status: Status.NOT_STARTED
 }
 
-type UsePromise<R, E = Error> = PromiseState<R, E> & { reset: () => void, setPromise: Dispatch<SetStateAction<Promise<R> | undefined>> }
+type UsePromise<R = Error> = PromiseState<R> & { reset: () => void, setPromise: Dispatch<SetStateAction<Promise<R> | undefined>> }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const usePromise = <R, E = Error>(func?: () => Promise<R>, dependencies?: any[]): UsePromise<R, E> => {
+export const usePromise = <R = Error>(func?: () => Promise<R>, dependencies?: any[]): UsePromise<R> => {
 	const isCanceledRef = useRef(false)
 	const [ promise, setPromise ] = useState<Promise<R>>()
-	const [ promiseState, setPromiseState ] = useState<PromiseState<R, E>>(defaultState)
+	const [ promiseState, setPromiseState ] = useState<PromiseState<R>>(defaultState)
 
 	const reset = () => {
 		isCanceledRef.current = true
@@ -92,22 +93,26 @@ export const usePromise = <R, E = Error>(func?: () => Promise<R>, dependencies?:
 	}
 }
 
-export const isNotStarted = <R, E>(state: PromiseState<R, E>): state is NotStartedPromiseState => {
+export const isNotStarted = <R>(state: PromiseState<R>): state is NotStartedPromiseState => {
 	return state.status === Status.NOT_STARTED
 }
 
-export const isNotStartedOrPending = <R, E>(state: PromiseState<R, E>): state is NotStartedPromiseState | PendingPromiseState => {
+export const isNotStartedOrPending = <R>(state: PromiseState<R>): state is NotStartedPromiseState | PendingPromiseState => {
 	return state.status === Status.NOT_STARTED || state.status === Status.PENDING
 }
 
-export const isPending = <R, E>(state: PromiseState<R, E>): state is PendingPromiseState => {
+export const isPending = <R>(state: PromiseState<R>): state is PendingPromiseState => {
 	return state.status === Status.PENDING
 }
 
-export const isResolved = <R, E>(state: PromiseState<R, E>): state is ResolvedPromiseState<R> => {
+export const isResolved = <R>(state: PromiseState<R>): state is ResolvedPromiseState<R> => {
 	return state.status === Status.RESOLVED
 }
 
-export const isRejected = <R, E>(state: PromiseState<R, E>): state is RejectedPromiseState<E> => {
+export const isRejected = <R>(state: PromiseState<R>): state is RejectedPromiseState => {
 	return state.status === Status.REJECTED
+}
+
+export const isNotFound = <R>(state: PromiseState<R>): boolean => {
+	return state.status === Status.REJECTED && state.error.response?.status === 404
 }
