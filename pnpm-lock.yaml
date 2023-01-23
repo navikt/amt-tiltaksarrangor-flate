@@ -2,12 +2,12 @@ lockfileVersion: 5.4
 
 specifiers:
   '@babel/core': ^7.20.5
-  '@navikt/ds-css': ^2.0.0
-  '@navikt/ds-css-internal': ^2.0.0
-  '@navikt/ds-icons': ^2.0.0
-  '@navikt/ds-react': ^2.0.0
-  '@navikt/ds-react-internal': ^2.0.0
-  '@navikt/ds-tokens': ^2.0.0
+  '@navikt/ds-css': ^2.1.0
+  '@navikt/ds-css-internal': ^2.1.0
+  '@navikt/ds-icons': ^2.1.0
+  '@navikt/ds-react': ^2.1.0
+  '@navikt/ds-react-internal': ^2.1.0
+  '@navikt/ds-tokens': ^2.1.0
   '@navikt/nav-dekoratoren-moduler': ^1.8.1
   '@sentry/react': ^7.3.1
   '@sentry/tracing': ^7.3.1
@@ -51,12 +51,12 @@ specifiers:
 
 dependencies:
   '@babel/core': 7.20.5
-  '@navikt/ds-css': 2.0.10
-  '@navikt/ds-css-internal': 2.0.10
-  '@navikt/ds-icons': 2.0.10_kzbn2opkn2327fwg5yzwzya5o4
-  '@navikt/ds-react': 2.0.10_ib3m5ricvtkl2cll7qpr2f6lvq
-  '@navikt/ds-react-internal': 2.0.10_ib3m5ricvtkl2cll7qpr2f6lvq
-  '@navikt/ds-tokens': 2.0.10
+  '@navikt/ds-css': 2.1.0
+  '@navikt/ds-css-internal': 2.1.0
+  '@navikt/ds-icons': 2.1.0_kzbn2opkn2327fwg5yzwzya5o4
+  '@navikt/ds-react': 2.1.0_ib3m5ricvtkl2cll7qpr2f6lvq
+  '@navikt/ds-react-internal': 2.1.0_ib3m5ricvtkl2cll7qpr2f6lvq
+  '@navikt/ds-tokens': 2.1.0
   '@navikt/nav-dekoratoren-moduler': 1.8.1
   '@sentry/react': 7.27.0_react@18.2.0
   '@sentry/tracing': 7.27.0
@@ -708,35 +708,46 @@ packages:
     resolution: {integrity: sha512-FPFLbg2b06MIw1dqk2SOEMAMX3xlrreGjcui5OTxfBDtaKTmh0kioOVjT8gcfl58juawL/yF+S+gnq8aUYQx/Q==}
     dev: false
 
+  /@floating-ui/core/1.1.0:
+    resolution: {integrity: sha512-zbsLwtnHo84w1Kc8rScAo5GMk1GdecSlrflIbfnEBJwvTSj1SL6kkOYV+nHraMCPEy+RNZZUaZyL8JosDGCtGQ==}
+    dev: false
+
   /@floating-ui/dom/1.0.12:
     resolution: {integrity: sha512-HeG/wHoa2laUHlDX3xkzqlUqliAfa+zqV04LaKIwNCmCNaW2p0fQi4/Kd0LB4GdFoJ2UllLFq5gWnXAd67lg7w==}
     dependencies:
       '@floating-ui/core': 1.0.4
     dev: false
 
-  /@floating-ui/react-dom-interactions/0.9.2_ib3m5ricvtkl2cll7qpr2f6lvq:
-    resolution: {integrity: sha512-1I0urs4jlGuo4FRukvjtMmdUwxqvgwtTlESEPVwEvFGHXVh1PKkKaPZJ0Dcp9B8DQt4ewQEbwJxsoker2pDYTQ==}
+  /@floating-ui/dom/1.1.0:
+    resolution: {integrity: sha512-TSogMPVxbRe77QCj1dt8NmRiJasPvuc+eT5jnJ6YpLqgOD2zXc5UA3S1qwybN+GVCDNdKfpKy1oj8RpzLJvh6A==}
+    dependencies:
+      '@floating-ui/core': 1.1.0
+    dev: false
+
+  /@floating-ui/react-dom/1.2.1_biqbaboplfbrettd7655fr4n2y:
+    resolution: {integrity: sha512-YCLlqibZtgUhxUpxkSp1oekvYgH/jI4KdZEJv85E62twlZHN43xdlQNe6JcF4ROD3/Zu6juNHN+aOygN+6yZjg==}
     peerDependencies:
       react: '>=16.8.0'
       react-dom: '>=16.8.0'
     dependencies:
-      '@floating-ui/react-dom': 1.0.1_biqbaboplfbrettd7655fr4n2y
+      '@floating-ui/dom': 1.1.0
+      react: 18.2.0
+      react-dom: 18.2.0_react@18.2.0
+    dev: false
+
+  /@floating-ui/react/0.17.0_ib3m5ricvtkl2cll7qpr2f6lvq:
+    resolution: {integrity: sha512-LYlTmiB1O2TmeNub1agGYJrO7Qkw1B0Q53aElN5dgZDO5v3yzYJmrGm/xmfD+0T03yEECzPKdwlSFCEPWKMLEQ==}
+    peerDependencies:
+      react: '>=16.8.0'
+      react-dom: '>=16.8.0'
+    dependencies:
+      '@floating-ui/react-dom': 1.2.1_biqbaboplfbrettd7655fr4n2y
       aria-hidden: 1.2.2_kzbn2opkn2327fwg5yzwzya5o4
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
+      tabbable: 6.0.1
     transitivePeerDependencies:
       - '@types/react'
-    dev: false
-
-  /@floating-ui/react-dom/1.0.1_biqbaboplfbrettd7655fr4n2y:
-    resolution: {integrity: sha512-UW0t1Gi8ikbDRr8cQPVcqIDMBwUEENe5V4wlHWdrJ5egFnRQFBV9JirauTBFI6S8sM1qFUC1i+qa3g87E6CLTw==}
-    peerDependencies:
-      react: '>=16.8.0'
-      react-dom: '>=16.8.0'
-    dependencies:
-      '@floating-ui/dom': 1.0.12
-      react: 18.2.0
-      react-dom: 18.2.0_react@18.2.0
     dev: false
 
   /@humanwhocodes/config-array/0.11.8:
@@ -812,16 +823,16 @@ packages:
       - supports-color
     dev: true
 
-  /@navikt/ds-css-internal/2.0.10:
-    resolution: {integrity: sha512-sayw3arPH0fphiMls2UOHmFETVAhO74slaGQnJu62vKrgmoQ/ep+ANN6Y2vxPYPGXcucGe3F/l4vwrmsrzuqBg==, tarball: download/@navikt/ds-css-internal/2.0.10/fb4ba9f7a008fbdddf691e62953673a9ae9b588d}
+  /@navikt/ds-css-internal/2.1.0:
+    resolution: {integrity: sha512-MVhdoWDSYURX84zVu3X7Lz8SmRrACsXiBvK6VjmVQfo8r+qj4gmK6Ev9Dumu1sIi1YvGga5H3WNZDc77puWuvw==, tarball: download/@navikt/ds-css-internal/2.1.0/3b5531020239f1f7c3ad85527222987ea3910235}
     dev: false
 
-  /@navikt/ds-css/2.0.10:
-    resolution: {integrity: sha512-xFlTsWN4GnWBifOUp3SvA8c8Y6XDrKGHFxFsT+hdOs0i65f1Pa+IVPe3jbf+8rrowrzbuO00hZ3iK7RYpb2yKw==, tarball: download/@navikt/ds-css/2.0.10/aa781c5e89f05fba0a325ab7beb68558d60d3a23}
+  /@navikt/ds-css/2.1.0:
+    resolution: {integrity: sha512-m81u+L62woaR3m+i9EyWuY7/2hFWBnLK+y56CV9how09Q477cVy3jb1OSIS0is4FkiQLwUgFGC9y6ANe0oFJsA==, tarball: download/@navikt/ds-css/2.1.0/294c2855273e6b808767253d356945d7dd63dffd}
     dev: false
 
-  /@navikt/ds-icons/2.0.10_kzbn2opkn2327fwg5yzwzya5o4:
-    resolution: {integrity: sha512-QsBBPEbG7+I1x0nwBcIi6GwRkCi9V+/kcDLO700Sg5qxqu2SPkbhKOsGeZLt17r0GT127aKbbkVoWkw3ZKVUfA==, tarball: download/@navikt/ds-icons/2.0.10/de484386c4477b6fc4165d05775a43e496491a89}
+  /@navikt/ds-icons/2.1.0_kzbn2opkn2327fwg5yzwzya5o4:
+    resolution: {integrity: sha512-7Oervq+hSuMQTDrEgwmJtIDhu6beSC+yHjit1GVQQW0w7qw8S0fK0TX/nmRZ4CVRAjRwJZJX6rfpJqGYrhqghQ==, tarball: download/@navikt/ds-icons/2.1.0/be6795f7999bfd6b475c977648720821582ced74}
     peerDependencies:
       '@types/react': ^17.0.30 || ^18.0.0
       react: ^17.0.0 || ^18.0.0
@@ -830,14 +841,14 @@ packages:
       react: 18.2.0
     dev: false
 
-  /@navikt/ds-react-internal/2.0.10_ib3m5ricvtkl2cll7qpr2f6lvq:
-    resolution: {integrity: sha512-5TEkegbkisOFDQX2QV6jJ2ZsI+wMmdDQAVmfjrDiU+CY9DpUH2Ilnu8+Jcb1ofNdkOtEVZalcK0+xwLKR97rjA==, tarball: download/@navikt/ds-react-internal/2.0.10/1f72eccb5e16c09b67ef09dce5835887fe486ca9}
+  /@navikt/ds-react-internal/2.1.0_ib3m5ricvtkl2cll7qpr2f6lvq:
+    resolution: {integrity: sha512-lQvD3o6X1tpAvE96nh8FhG1RUAJGrHVd8ys3f/FTKVecK/qm0+iQv6AQL8K87f9wMMBhQ4nmheQ2YA1vRt8fBg==, tarball: download/@navikt/ds-react-internal/2.1.0/a48facba77ac9d9a521d72be287f1bc01655461e}
     peerDependencies:
       '@types/react': ^17.0.30 || ^18.0.0
       react: ^17.0.0 || ^18.0.0
     dependencies:
-      '@navikt/ds-icons': 2.0.10_kzbn2opkn2327fwg5yzwzya5o4
-      '@navikt/ds-react': 2.0.10_ib3m5ricvtkl2cll7qpr2f6lvq
+      '@navikt/ds-icons': 2.1.0_kzbn2opkn2327fwg5yzwzya5o4
+      '@navikt/ds-react': 2.1.0_ib3m5ricvtkl2cll7qpr2f6lvq
       '@types/react': 18.0.26
       clsx: 1.2.1
       copy-to-clipboard: 3.3.3
@@ -846,14 +857,14 @@ packages:
       - react-dom
     dev: false
 
-  /@navikt/ds-react/2.0.10_ib3m5ricvtkl2cll7qpr2f6lvq:
-    resolution: {integrity: sha512-jwzCV1fQ0vgcQRoJtr89JgYTWwF+gtOZ624gPr9kNGpGGlgKmMQyGPBz1JRyiRZOr963IxDSzpRyMQ9Ew0Sy+g==, tarball: download/@navikt/ds-react/2.0.10/ed696f9d8e82e1edcd7d2460f3a7b7f094a01eb0}
+  /@navikt/ds-react/2.1.0_ib3m5ricvtkl2cll7qpr2f6lvq:
+    resolution: {integrity: sha512-Zwgy2si0J9Q2MvVJ1GRP4sIvm8JkAbWQxPSb7RiApz9Cd4ydm4aU8vtV5NPSwlMhfR6KAaTAxZ4Q4ZSvSeM+wQ==, tarball: download/@navikt/ds-react/2.1.0/3ac6934157434c2a8428ba52e1ef0e6463d21282}
     peerDependencies:
       '@types/react': ^17.0.30 || ^18.0.0
       react: ^17.0.0 || ^18.0.0
     dependencies:
-      '@floating-ui/react-dom-interactions': 0.9.2_ib3m5ricvtkl2cll7qpr2f6lvq
-      '@navikt/ds-icons': 2.0.10_kzbn2opkn2327fwg5yzwzya5o4
+      '@floating-ui/react': 0.17.0_ib3m5ricvtkl2cll7qpr2f6lvq
+      '@navikt/ds-icons': 2.1.0_kzbn2opkn2327fwg5yzwzya5o4
       '@radix-ui/react-tabs': 1.0.0_biqbaboplfbrettd7655fr4n2y
       '@radix-ui/react-toggle-group': 1.0.0_biqbaboplfbrettd7655fr4n2y
       '@types/react': 18.0.26
@@ -866,8 +877,8 @@ packages:
       - react-dom
     dev: false
 
-  /@navikt/ds-tokens/2.0.10:
-    resolution: {integrity: sha512-VJ1fxK6uyL9l9NxUL7P0A1SLHv6OzuZniWxLYTAevDtK+rgKScZ+X5KYNl5EIBfVbqWWs8fq+z5fqrMDzDN4iw==, tarball: download/@navikt/ds-tokens/2.0.10/86cd76b6db92b6e90da85d55c5e5f60151123474}
+  /@navikt/ds-tokens/2.1.0:
+    resolution: {integrity: sha512-TyaeDOmaGKh0Ru0kogQSXyjA3LlfgeKaTa57G5301T8jgX0JDqpEFtGvqvEDTP0n4U9Mn0iYqgXZBoX70ZWhqQ==, tarball: download/@navikt/ds-tokens/2.1.0/c08d048f3c76f562626e0aad644e6ae8e0fe0745}
     dev: false
 
   /@navikt/nav-dekoratoren-moduler/1.8.1:
@@ -4998,6 +5009,10 @@ packages:
 
   /symbol-tree/3.2.4:
     resolution: {integrity: sha512-9QNk5KwDF+Bvz+PyObkmSYjI5ksVUYtjW7AU22r2NKcfLJcXp96hkDWU3+XndOsUb+AQ9QhfzfCT2O+CNWT5Tw==}
+    dev: false
+
+  /tabbable/6.0.1:
+    resolution: {integrity: sha512-SYJSIgeyXW7EuX1ytdneO5e8jip42oHWg9xl/o3oTYhmXusZVgiA+VlPvjIN+kHii9v90AmzTZEBcsEvuAY+TA==}
     dev: false
 
   /table/6.8.1:
