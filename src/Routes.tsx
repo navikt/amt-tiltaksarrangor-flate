@@ -3,11 +3,11 @@ import { Navigate, Route,Routes } from 'react-router-dom'
 
 import { SpinnerPage } from './component/felles/spinner-page/SpinnerPage'
 import { DeltakerDetaljerPage } from './component/page/bruker-detaljer/DeltakerDetaljerPage'
+import { ErrorPage } from './component/page/error/ErrorPage'
 import { GjennomforingDetaljerPage } from './component/page/gjennomforing-detaljer/GjennomforingDetaljerPage'
 import { GjennomforingListePage } from './component/page/gjennomforing-page/GjennomforingListePage'
 import { InformasjonPage } from './component/page/informasjon-page/InformasjonPage'
 import { IngenRollePage } from './component/page/ingen-rolle-page/IngenRollePage'
-import { LandingPage, LandingPageView } from './component/page/landing-page/LandingPage'
 import { LeggTilDeltakerlistePage } from './component/page/legg-til-deltakerliste/LeggTilDeltakerlistePage'
 import { PersonopplysningerPage } from './component/page/personopplysninger-page/PersonopplysningerPage'
 import { SesjonNotifikasjon } from './component/sesjon-notifikasjon/SesjonNotifikasjon'
@@ -23,16 +23,14 @@ import {
 
 
 interface AppRoutesProps {
-	erInnlogget: boolean,
 	isLoading: boolean
 	isRejected: boolean
 	harTilgangTilArrangor: boolean
 }
 
-export const AppRoutes = ({ erInnlogget, isLoading, isRejected, harTilgangTilArrangor }: AppRoutesProps) => {
+export const AppRoutes = ({ isLoading, isRejected, harTilgangTilArrangor }: AppRoutesProps) => {
 	if (isLoading) return <SpinnerPage/>
-	else if (!erInnlogget) return <PublicRoutes landingPageView={LandingPageView.LOGIN}/>
-	else if (isRejected) return <PublicRoutes landingPageView={LandingPageView.IKKE_TILGANG}/>
+	if (isRejected) return <ErrorPage/>
 	else if (!harTilgangTilArrangor) return <IngenRolleRoutes/>
 	return <PrivateRoutes/>
 }
@@ -52,15 +50,6 @@ const PrivateRoutes = (): React.ReactElement => {
 				<Route path="*" element={<Navigate replace to={GJENNOMFORING_LISTE_PAGE_ROUTE}/>} />
 			</Routes>
 		</>
-	)
-}
-
-const PublicRoutes = (props: { landingPageView: LandingPageView }): React.ReactElement => {
-	return (
-		<Routes>
-			<Route path={PERSONOPPLYSNINGER_PAGE_ROUTE} element={<PersonopplysningerPage />} />
-			<Route path="*" element={<LandingPage view={props.landingPageView} />} />
-		</Routes>
 	)
 }
 

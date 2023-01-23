@@ -6,8 +6,6 @@ import React, { useEffect } from 'react'
 import { gjennomforingDetaljerPageUrl } from '../../../navigation'
 import { useTilbakelenkeStore } from '../../../store/tilbakelenke-store'
 import { formaterTelefonnummer, lagBrukerNavn } from '../../../utils/bruker-utils'
-import toggle from '../../../utils/toggle'
-import { Tilbakelenke } from '../../felles/tilbakelenke/Tilbakelenke'
 import styles from './DeltakerDetaljerHeader.module.scss'
 import { IconLabel } from './icon-label/IconLabel'
 import { KopierKnapp } from './kopier-knapp/KopierKnapp'
@@ -33,17 +31,7 @@ export const DeltakerDetaljerHeader = (props: BrukerPaaTiltakHeaderProps): React
 
 	return (
 		<div className={styles.header}>
-			<div className={
-				toggle.navDekoratorEnabled
-					? styles.headerContent
-					: styles.headerContentDeprecated
-			}>
-				{!toggle.navDekoratorEnabled && (
-					<div className={styles.tilbakelenkeWrapper}>
-						<Tilbakelenke to={gjennomforingDetaljerPageUrl(gjennomforingId)} className={styles.tilbakelenke} />
-					</div>
-				)}
-
+			<div className={styles.headerContent}>
 				<div className={styles.headerInfoWrapper}>
 					<div className={cls(styles.headerTitleWrapper)}>
 						<Heading size="small" level="2" className={styles.headerTitle}>{lagBrukerNavn(fornavn, mellomnavn, etternavn)}</Heading>

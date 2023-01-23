@@ -16,7 +16,6 @@ import { initAmplitude } from './utils/amplitude-utils'
 import env from './utils/environment'
 import { setupNavDekorator } from './utils/nav-dekorator'
 import { initSentry } from './utils/sentry-utils'
-import toggle from './utils/toggle'
 
 dayjs.locale('nb')
 
@@ -30,9 +29,7 @@ if (env.isPreprod || env.isProd) {
 		await import('./mock')
 	}
 
-	if (toggle.navDekoratorEnabled) {
-		await setupNavDekorator()
-	}
+	await setupNavDekorator()
 
 	const container = document.getElementById('root')
 
