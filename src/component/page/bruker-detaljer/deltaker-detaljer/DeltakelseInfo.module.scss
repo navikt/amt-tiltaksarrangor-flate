@@ -34,11 +34,6 @@
   }
 }
 
-.statusAlert {
-    grid-column-start: 1;
-    grid-column-end: 1;
-}
-
 .body {
   width: fit-content;
   margin-top: 1rem;
@@ -49,4 +44,18 @@
 
 .deltakelsesProsentPanel {
   margin-top: 1.3rem;
+}
+
+.statusAlert {
+  grid-column-start: 1;
+  grid-column-end: 1;
+
+  > svg {
+    align-self: center !important;
+  }
+}
+
+.fjernDeltakerKnapp {
+  margin-left: 0.5rem;
+  padding: 0.25rem;
 }
