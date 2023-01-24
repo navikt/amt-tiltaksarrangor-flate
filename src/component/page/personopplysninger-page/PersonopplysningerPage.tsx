@@ -7,9 +7,7 @@ import { useTabTitle } from '../../../hooks/use-tab-title'
 import { HOVED_PAGE_ROUTE, INFORMASJON_PAGE_ROUTE } from '../../../navigation'
 import { useAuthStore } from '../../../store/data-store'
 import { useTilbakelenkeStore } from '../../../store/tilbakelenke-store'
-import toggle from '../../../utils/toggle'
 import { Card } from '../../felles/card/Card'
-import { Tilbakelenke } from '../../felles/tilbakelenke/Tilbakelenke'
 import styles from './PersonopplysningerPage.module.scss'
 
 export const PersonopplysningerPage = (): React.ReactElement => {
@@ -27,8 +25,6 @@ export const PersonopplysningerPage = (): React.ReactElement => {
 	return (
 		<div className={styles.page} data-testid="personopplysning-page">
 			<div>
-				{ !toggle.navDekoratorEnabled && <Tilbakelenke to={erInnlogget ? INFORMASJON_PAGE_ROUTE : HOVED_PAGE_ROUTE} className={globalStyles.blokkM} /> }
-
 				<Card className={styles.contentCard}>
 					<Heading size="large" level="1" className={globalStyles.blokkXxs}>Behandling av dine personopplysninger</Heading>
 					<Heading size="xsmall" level="2" className={globalStyles.blokkXxs}>Hvordan behandler NAV personopplysningene dine?  </Heading>

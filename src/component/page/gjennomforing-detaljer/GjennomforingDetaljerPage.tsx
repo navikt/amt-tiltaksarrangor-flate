@@ -11,11 +11,9 @@ import { useTabTitle } from '../../../hooks/use-tab-title'
 import { GJENNOMFORING_LISTE_PAGE_ROUTE } from '../../../navigation'
 import { useTilbakelenkeStore } from '../../../store/tilbakelenke-store'
 import { getAntallDeltakerePerStatus } from '../../../utils/deltaker-status-utils'
-import toggle from '../../../utils/toggle'
 import { isNotFound, isNotStartedOrPending, isRejected, usePromise } from '../../../utils/use-promise'
 import { AlertPage } from '../../felles/alert-page/AlertPage'
 import { SpinnerPage } from '../../felles/spinner-page/SpinnerPage'
-import { Tilbakelenke } from '../../felles/tilbakelenke/Tilbakelenke'
 import { DeltakerOversiktTabell } from './deltaker-oversikt/DeltakerOversiktTabell'
 import { FilterMeny } from './FilterMeny'
 import styles from './GjennomforingDetaljerPage.module.scss'
@@ -70,7 +68,6 @@ export const GjennomforingDetaljerPage = (): React.ReactElement => {
 	return (
 		<div className={styles.gjennomforingDetaljer} data-testid="gjennomforing-detaljer-page">
 			<section className={styles.infoSection}>
-				{!toggle.navDekoratorEnabled && <Tilbakelenke to={GJENNOMFORING_LISTE_PAGE_ROUTE} className={styles.tilbakelenke} />}
 				<Heading size="medium" level="2" className={globalStyles.blokkXs}>{gjennomforing.navn}</Heading>
 				<FilterMeny statusMap={deltakerePerStatus} className={globalStyles.blokkXs} />
 				<TiltakInfo gjennomforing={gjennomforing} className={globalStyles.blokkXs} />

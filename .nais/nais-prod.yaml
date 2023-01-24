@@ -33,7 +33,7 @@ spec:
       - https://www.nav.no/deltakeroversikt
     sidecar:
       enabled: true
-      autoLogin: false # Husk å sette til true når vi skrur på NAV-dekoratøren i prod
+      autoLogin: true
   tokenx:
     enabled: true
   gcp:

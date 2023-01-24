@@ -2,14 +2,11 @@ import { Information } from '@navikt/ds-icons'
 import { BodyLong, Heading } from '@navikt/ds-react'
 import React, { useEffect } from 'react'
 
-import globalStyles from '../../../globals.module.scss'
 import { useTabTitle } from '../../../hooks/use-tab-title'
 import { GJENNOMFORING_LISTE_PAGE_ROUTE, PERSONOPPLYSNINGER_PAGE_ROUTE } from '../../../navigation'
 import { useTilbakelenkeStore } from '../../../store/tilbakelenke-store'
-import toggle from '../../../utils/toggle'
 import { Card } from '../../felles/card/Card'
 import { IkonLenke } from '../../felles/ikon-lenke/IkonLenke'
-import { Tilbakelenke } from '../../felles/tilbakelenke/Tilbakelenke'
 import clipboardImg from './clipboard.svg'
 import styles from './InformasjonPage.module.scss'
 import lightbulbImg from './lightbulb.svg'
@@ -48,7 +45,6 @@ export const InformasjonPage = (): React.ReactElement => {
 	return (
 		<div className={styles.page} data-testid="informasjon-page">
 			<div className={styles.content}>
-				{ !toggle.navDekoratorEnabled && <Tilbakelenke to={GJENNOMFORING_LISTE_PAGE_ROUTE} className={globalStyles.blokkM} /> }
 				<Card className={styles.contentCard}>
 					<Heading className={styles.title} spacing size="large" level="2">Info om deltakeroversikten</Heading>
 

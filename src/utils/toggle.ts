@@ -1,10 +1,10 @@
-import env from './environment'
 
 class Toggle {
 
-	get navDekoratorEnabled(): boolean {
-		return !env.isProd
-	}
+	// Kommenterer ut slik at togglen kan brukes som eksempel når man lager ny toggle
+	// get navDekoratorEnabled(): boolean {
+	// 	return !env.isProd
+	// }
 
 }
 
