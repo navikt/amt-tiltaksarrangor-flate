@@ -56,15 +56,7 @@ export const koordinatorListSchema = z.array(koordinatorSchema)
 
 export const gjennomforingerSchema = z.array(gjennomforingSchema)
 
-export const tiltakErrorSchema = z.object({
-	status: z.number(),
-	title: z.string(),
-	detail: z.string().nullable()
-})
-
 export type Gjennomforing = z.infer<typeof gjennomforingSchema>
-
-export type TiltakError = z.infer<typeof tiltakErrorSchema>
 
 export type Tiltak = z.infer<typeof tiltakSchema>
 

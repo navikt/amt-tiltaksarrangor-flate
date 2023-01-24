@@ -1,12 +1,10 @@
 import * as faker from 'faker'
 
-import { Gjennomforing, Koordinator, TiltakError, TiltakGjennomforingStatus, Tiltakskode } from '../../api/data/tiltak'
+import { Gjennomforing, Koordinator, TiltakGjennomforingStatus, Tiltakskode } from '../../api/data/tiltak'
 import { arrangorForGjennomforing } from './arrangor'
 import { gjennomforingId } from './id'
 
 export type MockGjennomforing = Gjennomforing
-
-export type MockTiltakError = TiltakError
 
 interface GjennomforingInfo {
 	gjennomforingNavn: string;
@@ -130,14 +128,6 @@ export const lagMockGjennomforinger = (gjennomforingInfoer: GjennomforingInfo[])
 		.forEach(t => gjennomforinger.push(lagMockGjennomforing(t)))
 
 	return gjennomforinger
-}
-
-export const lagMockError = (status: number, title: string, detail: string | null = null): MockTiltakError => {
-	return {
-		status: status,
-		title: title,
-		detail: detail
-	}
 }
 
 const lagMockGjennomforing = (gjennomforingInfo: GjennomforingInfo): MockGjennomforing => {

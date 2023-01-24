@@ -16,7 +16,6 @@ import {
 import { mockInnloggetAnsatt } from '../data/ansatt'
 import { mockAuthInfo } from '../data/auth'
 import { MockTiltakDeltaker } from '../data/brukere'
-import { lagMockError } from '../data/tiltak'
 import { randBetween,randomUuid } from '../utils/faker'
 
 export const mockHandlers: RequestHandler[] = [
@@ -37,7 +36,6 @@ export const mockHandlers: RequestHandler[] = [
 			return res(
 				ctx.delay(500),
 				ctx.status(404),
-				ctx.json(lagMockError(404, `Fant ikke gjennomforing: ${gjennomforingId}`))
 			)
 		}
 
