@@ -1,7 +1,7 @@
 import { Heading } from '@navikt/ds-react'
 import { AxiosResponse } from 'axios'
 import React, { useEffect } from 'react'
-import { useParams } from 'react-router-dom'
+import { Navigate, useParams } from 'react-router-dom'
 
 import { TiltakDeltaker } from '../../../api/data/deltaker'
 import { Gjennomforing } from '../../../api/data/tiltak'
@@ -11,7 +11,7 @@ import { useTabTitle } from '../../../hooks/use-tab-title'
 import { GJENNOMFORING_LISTE_PAGE_ROUTE } from '../../../navigation'
 import { useTilbakelenkeStore } from '../../../store/tilbakelenke-store'
 import { getAntallDeltakerePerStatus } from '../../../utils/deltaker-status-utils'
-import { isNotStartedOrPending, isRejected, usePromise } from '../../../utils/use-promise'
+import { isNotFound, isNotStartedOrPending, isRejected, usePromise } from '../../../utils/use-promise'
 import { AlertPage } from '../../felles/alert-page/AlertPage'
 import { SpinnerPage } from '../../felles/spinner-page/SpinnerPage'
 import { DeltakerOversiktTabell } from './deltaker-oversikt/DeltakerOversiktTabell'
@@ -51,6 +51,11 @@ export const GjennomforingDetaljerPage = (): React.ReactElement => {
 		isRejected(fetchDeltakerePaGjennomforingPromise)
 		|| isRejected(fetchGjennomforingPromise)
 	) {
+
+		if(isNotFound(fetchGjennomforingPromise)) {
+			return <Navigate replace to={GJENNOMFORING_LISTE_PAGE_ROUTE}/>
+		}
+
 		return <AlertPage variant="error" tekst="Noe gikk galt" />
 	}
 

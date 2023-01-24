@@ -32,6 +32,12 @@ export const mockHandlers: RequestHandler[] = [
 	rest.get(appUrl('/amt-tiltak/api/tiltaksarrangor/gjennomforing/:gjennomforingId'), (req, res, ctx) => {
 		const gjennomforingId = req.params.gjennomforingId
 		const gjennomforing = mockGjennomforinger.find(g => g.id === gjennomforingId)
+		if(gjennomforing === undefined) {
+			return res(
+				ctx.delay(500),
+				ctx.status(404),
+			)
+		}
 
 		return res(ctx.delay(500), ctx.json(gjennomforing))
 	}),

@@ -9,16 +9,13 @@ import {
 	tiltakDeltakerDetaljerSchema,
 	tiltakDeltakereSchema
 } from './data/deltaker'
-import {
-	DeltakerStatusAarsak,
-	Endringsmelding,
-	endringsmeldingerSchema
-} from './data/endringsmelding'
+import { DeltakerStatusAarsak, Endringsmelding, endringsmeldingerSchema } from './data/endringsmelding'
 import {
 	Gjennomforing,
 	gjennomforingerSchema,
 	gjennomforingSchema,
-	Koordinator, koordinatorListSchema,
+	Koordinator,
+	koordinatorListSchema,
 } from './data/tiltak'
 import { axiosInstance, logAndThrowError, parse } from './utils'
 
