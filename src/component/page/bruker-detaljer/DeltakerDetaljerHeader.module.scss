@@ -7,20 +7,6 @@
   border-bottom: 1px solid #c9c9c9
 }
 
-.headerContentDeprecated {
-  display: grid;
-  grid-template-columns: 1fr;
-  grid-row-gap: 1rem;
-  max-width: $max-bredde;
-  padding: 0 1.5rem;
-  margin: 0 auto;
-
-  @media(min-width: 800px) {
-    grid-template-columns: 100px 1fr;
-    grid-column-gap: 2rem;
-  }
-}
-
 .headerContent {
   max-width: $max-bredde;
   padding: 0 1rem;

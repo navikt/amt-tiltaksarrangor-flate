@@ -11,8 +11,9 @@ import { isNotStartedOrPending, isRejected, isResolved, usePromise } from './uti
 
 export const App = (): React.ReactElement => {
 	const fetchInnloggetAnsattPromise = usePromise<AxiosResponse<InnloggetAnsatt>, AxiosError>(fetchInnloggetAnsatt)
+
 	const { innloggetAnsatt, setInnloggetAnsatt } = useAuthStore()
-	const autentisert = fetchInnloggetAnsattPromise.error?.response?.status !== 401
+
 	const harTilgangTilArrangor = !!innloggetAnsatt && innloggetAnsatt.arrangorer
 		.filter(arrangor => arrangor.roller.length > 0)
 		.length > 0
@@ -21,15 +22,16 @@ export const App = (): React.ReactElement => {
 		if (isResolved(fetchInnloggetAnsattPromise)) {
 			setInnloggetAnsatt(fetchInnloggetAnsattPromise.result.data)
 		}
-	}, [ fetchInnloggetAnsattPromise, setInnloggetAnsatt ])
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [ fetchInnloggetAnsattPromise ])
 
 	return (
 		<>
 			<Header/>
 			<main>
 				<AppRoutes
-					erInnlogget={autentisert && !!innloggetAnsatt}
-					isLoading={isNotStartedOrPending(fetchInnloggetAnsattPromise)}
+					// Vi må vente på at innloggetAnsatt er lagt inn i storen før vi rendrer routes
+					isLoading={isNotStartedOrPending(fetchInnloggetAnsattPromise) || !innloggetAnsatt}
 					isRejected={isRejected(fetchInnloggetAnsattPromise)}
 					harTilgangTilArrangor={harTilgangTilArrangor}
 				/>
