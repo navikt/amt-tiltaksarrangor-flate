@@ -158,3 +158,11 @@ export const tilbakekallEndringsmelding = (endringsmeldingId: string): AxiosProm
 		)
 		.catch(logAndThrowError)
 }
+
+export const skjulDeltaker = (deltakerId: string): AxiosPromise => {
+	return axiosInstance
+		.patch(
+			appUrl(`/amt-tiltak/api/tiltaksarrangor/deltaker/${deltakerId}/skjul`),
+		)
+		.catch(logAndThrowError)
+}

@@ -3,20 +3,14 @@
   width: 18px;
 }
 
-// Ikke alle SVGer er like og noen har mindre innhold. Vi må justere disse små SVGene opp for å få normal størrelse.
-.ikonSmallFix {
-  height: 20px;
-  width: 20px;
-}
-
 .endreIkon {
   color: var(--a-deepblue-300);
-  @extend .ikonSmallFix;
+  @extend .ikon;
 }
 
 .forlengIkon {
   color: var(--a-icon-success);
-  @extend .ikonSmallFix;
+  @extend .ikon;
 }
 
 .ikkeAktuellIkon {
