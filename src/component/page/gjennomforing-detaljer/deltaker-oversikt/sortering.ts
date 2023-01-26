@@ -44,8 +44,10 @@ export const sorterDeltakere = (deltakere: TiltakDeltaker[], sortering: Sorterin
 
 	const sorterteDeltakereAsc = [ ...deltakere ].sort((a, b) => {
 		switch (sortering.orderBy) {
-			case DeltakerKolonne.NAVN:
-				return compareAsc(a.etternavn, b.etternavn)
+			case DeltakerKolonne.NAVN: {
+				const compareRes = compareAsc(a.etternavn, b.etternavn)
+				return compareRes != 0 ? compareRes : compareAsc(a.fornavn, b.fornavn)
+			}
 			case DeltakerKolonne.STATUS:
 				return compareAsc(a.status.type, b.status.type)
 			case DeltakerKolonne.OPPSTART:
