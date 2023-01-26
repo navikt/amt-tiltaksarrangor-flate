@@ -74,12 +74,6 @@ const lagTelefonnummer = (): string => {
 	return faker.phone.phoneNumber().replaceAll(' ', '')
 }
 
-const generateSluttDato = (status: TiltakDeltakerStatus, startDato: Date | null) => {
-	if (startDato && status === TiltakDeltakerStatus.HAR_SLUTTET) faker.date.between(startDato, Date())
-	if (startDato) return faker.date.future(1, startDato) //dato etter startdato, innen 1 år
-	return null
-}
-
 const getStatus = (): TiltakDeltakerStatus => {
 	const i = randBetween(0, 10)
 
@@ -102,9 +96,18 @@ const lagMockTiltakDeltagerForGjennomforing = (gjennomforing: Gjennomforing): Mo
 
 	const veilederNavn = faker.name.firstName() + ' ' + faker.name.lastName()
 
-	const startDato = status === TiltakDeltakerStatus.VENTER_PA_OPPSTART
-		? (randomBoolean(50) ? faker.date.future() : null)
-		: faker.date.past()
+	// 80% av deltakere med status VENTER_PA_OPPSTART, IKKE_AKTUELL skal ikke ha datoer
+	const skalHaDatoer = [ TiltakDeltakerStatus.VENTER_PA_OPPSTART, TiltakDeltakerStatus.IKKE_AKTUELL ].includes(status)
+		? randomBoolean(20)
+		: true
+
+	const startDato = skalHaDatoer
+		? (status === TiltakDeltakerStatus.VENTER_PA_OPPSTART ? faker.date.future() : faker.date.past())
+		: null
+
+	const sluttDato = startDato != null
+		? (status === TiltakDeltakerStatus.HAR_SLUTTET ? faker.date.between(startDato, Date()) : faker.date.future(1, startDato))
+		: null
 
 	const fjernesDato = status === TiltakDeltakerStatus.IKKE_AKTUELL || status === TiltakDeltakerStatus.HAR_SLUTTET
 		? faker.date.future()
@@ -125,7 +128,7 @@ const lagMockTiltakDeltagerForGjennomforing = (gjennomforing: Gjennomforing): Mo
 		epost: lagMailFraNavn(`${brukerFornavn} ${brukerEtternavn}`, 'example.com'),
 		telefonnummer: lagTelefonnummer(),
 		startDato: startDato,
-		sluttDato: generateSluttDato(status, startDato),
+		sluttDato: sluttDato,
 		deltakelseProsent: randBetween(0, 10) > 4 ? randBetween(0, 100) : null,
 		status: {
 			type: status,
@@ -137,7 +140,7 @@ const lagMockTiltakDeltagerForGjennomforing = (gjennomforing: Gjennomforing): Mo
 		gjennomforing: gjennomforing,
 		registrertDato: faker.date.past(),
 		innsokBegrunnelse: genererBegrunnelse(brukerFornavn),
-		aktiveEndringsmeldinger: lagMockEndringsmeldingForDeltaker()
+		aktiveEndringsmeldinger: lagMockEndringsmeldingForDeltaker(status)
 	}
 }
 
