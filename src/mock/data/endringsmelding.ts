@@ -1,27 +1,14 @@
 import * as faker from 'faker'
 
+import { TiltakDeltakerStatus } from '../../api/data/deltaker'
 import { DeltakerStatusAarsakType, Endringsmelding, EndringsmeldingType } from '../../api/data/endringsmelding'
 import { randBetween } from '../utils/faker'
 import { endringsmeldingId } from './id'
 
-type MockEndringsmeldinger = { [id: string]: Endringsmelding[] }
-
-export const lagMockEndringsmelding = (deltakere: { id: string }[]): MockEndringsmeldinger => {
-	const meldinger: MockEndringsmeldinger = {}
-
-	deltakere.forEach(d => {
-		meldinger[d.id] = lagMockEndringsmeldingForDeltaker()
-	})
-
-	return meldinger
-}
-
-export const lagMockEndringsmeldingForDeltaker = (): Endringsmelding[] => {
+export const lagMockEndringsmeldingForDeltaker = (deltakerStatus: TiltakDeltakerStatus): Endringsmelding[] => {
 	const n = randBetween(0, 10)
-	if (n < 2) {
-		return []
-	}
-	if (n < 5) {
+
+	if ((n >= 1 && n <= 2) && deltakerStatus == TiltakDeltakerStatus.VENTER_PA_OPPSTART) {
 		return [
 			{
 				id: endringsmeldingId(),
@@ -30,13 +17,19 @@ export const lagMockEndringsmeldingForDeltaker = (): Endringsmelding[] => {
 			}
 		]
 	}
-	if (n < 8) {
+
+	if (n == 3 && deltakerStatus == TiltakDeltakerStatus.DELTAR) {
 		return [
 			{
 				id: endringsmeldingId(),
 				type: EndringsmeldingType.ENDRE_OPPSTARTSDATO,
 				innhold: { oppstartsdato: faker.date.soon() }
-			},
+			}
+		]
+	}
+
+	if (n == 4 && deltakerStatus == TiltakDeltakerStatus.DELTAR) {
+		return [
 			{
 				id: endringsmeldingId(),
 				type: EndringsmeldingType.AVSLUTT_DELTAKELSE,
@@ -44,14 +37,21 @@ export const lagMockEndringsmeldingForDeltaker = (): Endringsmelding[] => {
 			}
 		]
 	}
-	return [
-		{
-			id: endringsmeldingId(),
-			type: EndringsmeldingType.AVSLUTT_DELTAKELSE,
-			innhold: { sluttdato: faker.date.soon(), aarsak: {
-				type: DeltakerStatusAarsakType.ANNET,
-				beskrivelse: 'Har flyttet til annen kommune'
-			} }
-		}
-	]
+
+	if (n == 5 && deltakerStatus == TiltakDeltakerStatus.DELTAR) {
+		return [
+			{
+				id: endringsmeldingId(),
+				type: EndringsmeldingType.AVSLUTT_DELTAKELSE,
+				innhold: {
+					sluttdato: faker.date.soon(), aarsak: {
+						type: DeltakerStatusAarsakType.ANNET,
+						beskrivelse: 'Har flyttet til annen kommune'
+					}
+				}
+			}
+		]
+	}
+
+	return []
 }
