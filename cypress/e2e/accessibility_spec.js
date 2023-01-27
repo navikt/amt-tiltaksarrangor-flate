@@ -4,7 +4,7 @@ function sjekkUU() {
 	cy.injectAxe()
 	// Vi får SVGer fra @navikt/ds-icons som mangler "title", dette er ikke et problem siden ikonene ikke trenger er viktige for innholdet
 	cy.checkA11y(null, { 
-		exclude: [ '#decorator-header', '#chatbot-frida-knapp' ], 
+		exclude: [ '#decorator-header', '#decorator-footer' ],
 		rules: { 'svg-img-alt': { enabled: false } } 
 	}, logViolations)
 }
