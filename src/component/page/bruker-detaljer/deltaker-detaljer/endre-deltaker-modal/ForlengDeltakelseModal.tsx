@@ -34,8 +34,8 @@ export const ForlengDeltakelseModal = (props: ForlengDeltakelseModalProps & Forl
 	const visDatoVelger = valgtVarighet === VarighetValg.ANNET
 	const minDato = maxDate(startDato, gjennomforing.startDato)
 
-	const kalkulerDato = (sluttdato: Nullable<Date>, varighet: Varighet): Date => {
-		return dayjs(sluttdato).add(varighet.antall, varighet.tidsenhet).subtract(1, 'day').toDate()
+	const kalkulerSluttDato = (sluttdato: Nullable<Date>, varighet: Varighet): Date => {
+		return dayjs(sluttdato).add(varighet.antall, varighet.tidsenhet).toDate()
 	}
 
 	const sendEndringsmelding = () => {
@@ -49,7 +49,7 @@ export const ForlengDeltakelseModal = (props: ForlengDeltakelseModalProps & Forl
 	useEffect(() => {
 		const varighet = varigheter[valgtVarighet]
 		if (varighet) {
-			settNySluttDato(kalkulerDato(sluttDato, varighet))
+			settNySluttDato(kalkulerSluttDato(sluttDato, varighet))
 		}
 		else settNySluttDato(null)
 	}, [ valgtVarighet, sluttDato ])
