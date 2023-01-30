@@ -20,8 +20,9 @@ import {
 import { axiosInstance, logAndThrowError, parse } from './utils'
 
 export const fetchInnloggetAnsatt = (): AxiosPromise<InnloggetAnsatt> => {
+	const url = appUrl('/amt-tiltak/api/tiltaksarrangor/ansatt/meg')
 	return axiosInstance
-		.get(appUrl('/amt-tiltak/api/tiltaksarrangor/ansatt/meg'))
+		.get(url)
 		.then(parse(innloggetAnsattSchema))
 		.catch(err => {
 			// Ikke logg 401 feil til sentry
@@ -30,139 +31,156 @@ export const fetchInnloggetAnsatt = (): AxiosPromise<InnloggetAnsatt> => {
 				throw err
 			}
 
-			return logAndThrowError(err)
+			return logAndThrowError(err, url)
 		})
 }
 
 // Henter gjennomføringer som er lagt til i oversikten
 export const fetchTiltakGjennomforinger = (): AxiosPromise<Gjennomforing[]> => {
+	const url = appUrl('/amt-tiltak/api/tiltaksarrangor/gjennomforing')
 	return axiosInstance
-		.get(appUrl('/amt-tiltak/api/tiltaksarrangor/gjennomforing'))
+		.get(url)
 		.then(parse(gjennomforingerSchema))
-		.catch(logAndThrowError)
+		.catch(err => logAndThrowError(err, url))
 }
 
 // Henter alle gjennomføringer som er tilgjengelig, noen gjennomføringer kan allerede være lagt til i oversikten
 export const fetchTilgjengeligGjennomforinger = (): AxiosPromise<Gjennomforing[]> => {
+	const url = appUrl('/amt-tiltak/api/tiltaksarrangor/gjennomforing/tilgjengelig')
 	return axiosInstance
-		.get(appUrl('/amt-tiltak/api/tiltaksarrangor/gjennomforing/tilgjengelig'))
+		.get(url)
 		.then(parse(gjennomforingerSchema))
-		.catch(logAndThrowError)
+		.catch(err => logAndThrowError(err, url))
 }
 
 export const opprettTilgangTilGjennomforing = (gjennomforingId: string): AxiosPromise => {
+	const url = appUrl(`/amt-tiltak/api/tiltaksarrangor/gjennomforing/${gjennomforingId}/tilgang`)
 	return axiosInstance
-		.post(appUrl(`/amt-tiltak/api/tiltaksarrangor/gjennomforing/${gjennomforingId}/tilgang`))
-		.catch(logAndThrowError)
+		.post(url)
+		.catch(err => logAndThrowError(err, url))
 }
 
 export const fjernTilgangTilGjennomforing = (gjennomforingId: string): AxiosPromise => {
+	const url = appUrl(`/amt-tiltak/api/tiltaksarrangor/gjennomforing/${gjennomforingId}/tilgang`)
 	return axiosInstance
-		.delete(appUrl(`/amt-tiltak/api/tiltaksarrangor/gjennomforing/${gjennomforingId}/tilgang`))
-		.catch(logAndThrowError)
+		.delete(url)
+		.catch(err => logAndThrowError(err, url))
 }
 
 export const fetchTiltakGjennomforing = (gjennomforingId: string): AxiosPromise<Gjennomforing> => {
+	const url = appUrl(`/amt-tiltak/api/tiltaksarrangor/gjennomforing/${gjennomforingId}`)
 	return axiosInstance
-		.get(appUrl(`/amt-tiltak/api/tiltaksarrangor/gjennomforing/${gjennomforingId}`))
+		.get(url)
 		.then(parse(gjennomforingSchema))
-		.catch(logAndThrowError)
+		.catch(err => logAndThrowError(err, url))
 }
 
 export const fetchKoordinatorerForGjennfomforing = (gjennomforingId: string): AxiosPromise<Koordinator[]> => {
+	const url = appUrl(`/amt-tiltak/api/tiltaksarrangor/gjennomforing/${gjennomforingId}/koordinatorer`)
 	return axiosInstance
-		.get(appUrl(`/amt-tiltak/api/tiltaksarrangor/gjennomforing/${gjennomforingId}/koordinatorer`))
+		.get(url)
 		.then(parse(koordinatorListSchema))
-		.catch(logAndThrowError)
+		.catch(err => logAndThrowError(err, url))
 }
 
 export const fetchDeltakerePaTiltakGjennomforing = (gjennomforingId: string): AxiosPromise<TiltakDeltaker[]> => {
+	const url = appUrl(`/amt-tiltak/api/tiltaksarrangor/deltaker?gjennomforingId=${gjennomforingId}`)
 	return axiosInstance
-		.get(appUrl(`/amt-tiltak/api/tiltaksarrangor/deltaker?gjennomforingId=${gjennomforingId}`))
+		.get(url)
 		.then(parse(tiltakDeltakereSchema))
-		.catch(logAndThrowError)
+		.catch(err => logAndThrowError(err, url))
 }
 
 export const fetchTiltakDeltakerDetaljer = (tiltakDeltagerId: string): AxiosPromise<TiltakDeltakerDetaljer> => {
+	const url = appUrl(`/amt-tiltak/api/tiltaksarrangor/deltaker/${tiltakDeltagerId}`)
 	return axiosInstance
-		.get(appUrl(`/amt-tiltak/api/tiltaksarrangor/deltaker/${tiltakDeltagerId}`))
+		.get(url)
 		.then(parse(tiltakDeltakerDetaljerSchema))
-		.catch(logAndThrowError)
+		.catch(err => logAndThrowError(err, url))
 }
 
 export const hentEndringsmeldinger = (deltakerId: string): AxiosPromise<Endringsmelding[]> => {
+	const url = appUrl(`/amt-tiltak/api/tiltaksarrangor/endringsmelding/aktiv?deltakerId=${deltakerId}`)
 	return axiosInstance
-		.get(appUrl(`/amt-tiltak/api/tiltaksarrangor/endringsmelding/aktiv?deltakerId=${deltakerId}`))
+		.get(url)
 		.then(parse(endringsmeldingerSchema))
-		.catch(logAndThrowError)
+		.catch(err => logAndThrowError(err, url))
 }
 
 export const leggTilOppstartsdato = (deltakerId: string, startDato: Date): AxiosPromise => {
+	const url = appUrl(`/amt-tiltak/api/tiltaksarrangor/deltaker/${deltakerId}/oppstartsdato`)
 	return axiosInstance
 		.post(
-			appUrl(`/amt-tiltak/api/tiltaksarrangor/deltaker/${deltakerId}/oppstartsdato`),
+			url,
 			{ oppstartsdato: formatDateToDateInputStr(startDato) },
 		)
-		.catch(logAndThrowError)
+		.catch(err => logAndThrowError(err, url))
 }
 
 export const endreOppstartsdato = (deltakerId: string, startDato: Date): AxiosPromise => {
+	const url = appUrl(`/amt-tiltak/api/tiltaksarrangor/deltaker/${deltakerId}/oppstartsdato`)
 	return axiosInstance
 		.patch(
-			appUrl(`/amt-tiltak/api/tiltaksarrangor/deltaker/${deltakerId}/oppstartsdato`),
+			url,
 			{ oppstartsdato: formatDateToDateInputStr(startDato) },
 		)
-		.catch(logAndThrowError)
+		.catch(err => logAndThrowError(err, url))
 }
 
 export const endreDeltakelsesprosent = (deltakerId: string, deltakelseProsent: number): AxiosPromise => {
+	const url = appUrl(`/amt-tiltak/api/tiltaksarrangor/deltaker/${deltakerId}/deltakelse-prosent`)
 	return axiosInstance
 		.patch(
-			appUrl(`/amt-tiltak/api/tiltaksarrangor/deltaker/${deltakerId}/deltakelse-prosent`),
+			url,
 			{ deltakelseProsent: deltakelseProsent }
 		)
-		.catch(logAndThrowError)
+		.catch(err => logAndThrowError(err, url))
 }
 
 export const forlengDeltakelse = (deltakerId: string, sluttDato: Date): AxiosPromise => {
+	const url = appUrl(`/amt-tiltak/api/tiltaksarrangor/deltaker/${deltakerId}/forleng-deltakelse`)
 	return axiosInstance
 		.patch(
-			appUrl(`/amt-tiltak/api/tiltaksarrangor/deltaker/${deltakerId}/forleng-deltakelse`),
+			url,
 			{ sluttdato: formatDateToDateInputStr(sluttDato) },
 		)
-		.catch(logAndThrowError)
+		.catch(err => logAndThrowError(err, url))
 }
 
 export const avsluttDeltakelse = (deltakerId: string, sluttDato: Date, aarsak: DeltakerStatusAarsak): AxiosPromise => {
+	const url = appUrl(`/amt-tiltak/api/tiltaksarrangor/deltaker/${deltakerId}/avslutt-deltakelse`)
 	return axiosInstance
 		.patch(
-			appUrl(`/amt-tiltak/api/tiltaksarrangor/deltaker/${deltakerId}/avslutt-deltakelse`),
+			url,
 			{ sluttdato: formatDateToDateInputStr(sluttDato), aarsak: aarsak },
 		)
-		.catch(logAndThrowError)
+		.catch(err => logAndThrowError(err, url))
 }
 
 export const deltakerIkkeAktuell = (deltakerId: string, aarsak: DeltakerStatusAarsak): AxiosPromise => {
+	const url = appUrl(`/amt-tiltak/api/tiltaksarrangor/deltaker/${deltakerId}/ikke-aktuell`)
 	return axiosInstance
 		.patch(
-			appUrl(`/amt-tiltak/api/tiltaksarrangor/deltaker/${deltakerId}/ikke-aktuell`),
+			url,
 			{ aarsak },
 		)
-		.catch(logAndThrowError)
+		.catch(err => logAndThrowError(err, url))
 }
 
 export const tilbakekallEndringsmelding = (endringsmeldingId: string): AxiosPromise => {
+	const url = appUrl(`/amt-tiltak/api/tiltaksarrangor/endringsmelding/${endringsmeldingId}/tilbakekall`)
 	return axiosInstance
 		.patch(
-			appUrl(`/amt-tiltak/api/tiltaksarrangor/endringsmelding/${endringsmeldingId}/tilbakekall`),
+			url,
 		)
-		.catch(logAndThrowError)
+		.catch(err => logAndThrowError(err, url))
 }
 
 export const skjulDeltaker = (deltakerId: string): AxiosPromise => {
+	const url = appUrl(`/amt-tiltak/api/tiltaksarrangor/deltaker/${deltakerId}/skjul`)
 	return axiosInstance
 		.patch(
-			appUrl(`/amt-tiltak/api/tiltaksarrangor/deltaker/${deltakerId}/skjul`),
+			url,
 		)
-		.catch(logAndThrowError)
+		.catch(err => logAndThrowError(err, url))
 }
