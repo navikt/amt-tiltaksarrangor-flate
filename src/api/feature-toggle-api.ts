@@ -7,9 +7,9 @@ import { axiosInstance, logAndThrowError, parse } from './utils'
 
 export const fetchToggles = (): AxiosPromise<FeatureToggles> => {
 	const features = TOGGLES.map(feature => `feature=${feature}`).join('&')
-
+	const url = appUrl(`/unleash/api/feature?${features}`)
 	return axiosInstance
-		.get(appUrl(`/unleash/api/feature?${features}`))
+		.get(url)
 		.then(parse(featureToggleSchema))
-		.catch(logAndThrowError)
+		.catch((error) => logAndThrowError(error, url))
 }

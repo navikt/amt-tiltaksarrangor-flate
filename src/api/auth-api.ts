@@ -5,8 +5,9 @@ import { AuthInfo, authInfoSchema } from './data/auth'
 import { axiosInstance, logAndThrowError, parse } from './utils'
 
 export const hentAuthInfo = (): AxiosPromise<AuthInfo> => {
+	const url = appUrl('/auth/info')
 	return axiosInstance
-		.get(appUrl('/auth/info'))
+		.get(url)
 		.then(parse(authInfoSchema))
-		.catch(logAndThrowError)
+		.catch((error) => logAndThrowError(error, url))
 }
