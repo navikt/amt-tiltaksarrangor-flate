@@ -5,5 +5,5 @@ export const appUrl = (path: string): string => {
 	return `${environment.baseUrl}${strippedPath}`
 }
 
-export const loginUrl = () => appUrl(`/oauth2/login?redirect=${window.location.href}`)
+export const loginUrl = (redirect: string) => appUrl(`/oauth2/login?redirect=${redirect}`)
 
