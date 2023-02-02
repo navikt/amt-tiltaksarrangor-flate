@@ -1,6 +1,6 @@
 import { AxiosError, AxiosPromise } from 'axios'
 
-import { formatDateToDateInputStr } from '../utils/date-utils'
+import {formatDateToDateInputStr, formatNullableDateToDateInputStr} from '../utils/date-utils'
 import { appUrl } from '../utils/url-utils'
 import { InnloggetAnsatt, innloggetAnsattSchema } from './data/ansatt'
 import {
@@ -18,6 +18,7 @@ import {
 	koordinatorListSchema,
 } from './data/tiltak'
 import { axiosInstance, logAndThrowError, parse } from './utils'
+import {Nullable} from "../utils/types/or-nothing";
 
 export const fetchInnloggetAnsatt = (): AxiosPromise<InnloggetAnsatt> => {
 	const url = appUrl('/amt-tiltak/api/tiltaksarrangor/ansatt/meg')
@@ -127,12 +128,12 @@ export const endreOppstartsdato = (deltakerId: string, startDato: Date): AxiosPr
 		.catch(err => logAndThrowError(err, url))
 }
 
-export const endreDeltakelsesprosent = (deltakerId: string, deltakelseProsent: number): AxiosPromise => {
+export const endreDeltakelsesprosent = (deltakerId: string, deltakelseProsent: number, gyldigFraDato: Nullable<Date>): AxiosPromise => {
 	const url = appUrl(`/amt-tiltak/api/tiltaksarrangor/deltaker/${deltakerId}/deltakelse-prosent`)
 	return axiosInstance
 		.patch(
 			url,
-			{ deltakelseProsent: deltakelseProsent }
+			{ deltakelseProsent: deltakelseProsent, gyldigFraDato: formatNullableDateToDateInputStr(gyldigFraDato) }
 		)
 		.catch(err => logAndThrowError(err, url))
 }

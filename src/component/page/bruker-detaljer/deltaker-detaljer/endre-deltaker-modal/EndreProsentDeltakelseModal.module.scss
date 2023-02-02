@@ -6,3 +6,15 @@
     max-width: 70px;
   }
 }
+
+.datofelt {
+  margin-bottom: 1rem;
+  label {
+    font-size: var(--a-font-size-large);
+    font-weight: var(--a-font-weight-bold);
+    line-height: var(--a-font-line-height-large);
+  }
+  input {
+    max-width: fit-content;
+  }
+}
