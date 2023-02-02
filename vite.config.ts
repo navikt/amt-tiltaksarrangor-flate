@@ -12,5 +12,5 @@ export default defineConfig({
 		open: true
 	},
 	base: process.env.BASE || '/deltakeroversikt/',
-	plugins: [react()],
+	plugins: [ react() ],
 })
