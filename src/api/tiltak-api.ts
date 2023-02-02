@@ -1,6 +1,7 @@
 import { AxiosError, AxiosPromise } from 'axios'
 
-import {formatDateToDateInputStr, formatNullableDateToDateInputStr} from '../utils/date-utils'
+import { formatDateToDateInputStr, formatNullableDateToDateInputStr } from '../utils/date-utils'
+import { Nullable } from '../utils/types/or-nothing'
 import { appUrl } from '../utils/url-utils'
 import { InnloggetAnsatt, innloggetAnsattSchema } from './data/ansatt'
 import {
@@ -18,7 +19,6 @@ import {
 	koordinatorListSchema,
 } from './data/tiltak'
 import { axiosInstance, logAndThrowError, parse } from './utils'
-import {Nullable} from "../utils/types/or-nothing";
 
 export const fetchInnloggetAnsatt = (): AxiosPromise<InnloggetAnsatt> => {
 	const url = appUrl('/amt-tiltak/api/tiltaksarrangor/ansatt/meg')

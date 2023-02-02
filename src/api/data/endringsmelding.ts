@@ -1,6 +1,6 @@
 import { z } from 'zod'
 
-import {dateSchema, nullableDateSchema} from '../utils'
+import { dateSchema, nullableDateSchema } from '../utils'
 
 export enum EndringsmeldingType {
     LEGG_TIL_OPPSTARTSDATO = 'LEGG_TIL_OPPSTARTSDATO',
