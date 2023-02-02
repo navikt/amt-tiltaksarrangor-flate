@@ -26,7 +26,7 @@ export function parse<T>(schema: ZodType<T>): (r: AxiosResponse) => AxiosRespons
 
 export function logAndThrowError<E = Error>(err: E, url: string): E {
 	// eslint-disable-next-line no-console
-	console.error(`Request to ${url} failed: ${err}`)
+	console.error(`Request to ${url} failed: ${JSON.stringify(err)}`)
 	captureError(err)
 	throw err
 }
