@@ -74,7 +74,7 @@ export const SesjonNotifikasjon = (): React.ReactElement | null => {
 		if (!tvungenUtloggingOmMs) return
 
 		tvungenUtloggingTimeoutRef.current = setTimeout(() => {
-			window.location.href = loginUrl(GJENNOMFORING_LISTE_PAGE_ROUTE)
+			window.location.href = loginUrl(window.location.href) //denne fungerer ikke om fanen ikke er aktiv
 			navigate(DU_ER_LOGGET_UT_PAGE_ROUTE)
 		}, tvungenUtloggingOmMs) as unknown as number
 
@@ -83,7 +83,7 @@ export const SesjonNotifikasjon = (): React.ReactElement | null => {
 
 	if (sesjonStatus === undefined) return null
 
-	const LoginLenke = () => <Link href={loginUrl(window.location.href)} className={styles.loginLenke}>Logg inn på nytt</Link>
+	const LoginLenke = () => <Link href={loginUrl(GJENNOMFORING_LISTE_PAGE_ROUTE)} className={styles.loginLenke}>Logg inn på nytt</Link>
 
 	return (
 		<div className={styles.alertWrapper}>
