@@ -6,6 +6,8 @@ export const INFORMASJON_PAGE_ROUTE = appUrl('/informasjon')
 export const PERSONOPPLYSNINGER_PAGE_ROUTE = appUrl('/personopplysninger')
 export const INGEN_ROLLE_PAGE_ROUTE = appUrl('/ingen-rolle')
 export const LEGG_TIL_DELTAKERLISTE_PAGE_ROUTE = appUrl('/legg-til-deltakerliste')
+export const DU_ER_LOGGET_UT_PAGE_ROUTE = appUrl('/du-er-logget-ut')
+
 export const GJENNOMFORING_LISTE_PAGE_ROUTE = appUrl('/')
 
 export const HOVED_PAGE_ROUTE = appUrl('/')

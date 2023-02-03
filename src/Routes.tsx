@@ -14,12 +14,14 @@ import { SesjonNotifikasjon } from './component/sesjon-notifikasjon/SesjonNotifi
 import { Driftsmelding } from './Driftsmelding'
 import {
 	DELTAKER_DETALJER_PAGE_ROUTE,
+	DU_ER_LOGGET_UT_PAGE_ROUTE,
 	GJENNOMFORING_DETALJER_PAGE_ROUTE,
 	GJENNOMFORING_LISTE_PAGE_ROUTE,
 	INFORMASJON_PAGE_ROUTE, INGEN_ROLLE_PAGE_ROUTE,
 	LEGG_TIL_DELTAKERLISTE_PAGE_ROUTE,
 	PERSONOPPLYSNINGER_PAGE_ROUTE
 } from './navigation'
+import { LoggetUtPage } from './component/page/LoggetUtPage'
 
 
 interface AppRoutesProps {
@@ -47,6 +49,7 @@ const PrivateRoutes = (): React.ReactElement => {
 				<Route path={GJENNOMFORING_LISTE_PAGE_ROUTE} element={<GjennomforingListePage />} />
 				<Route path={LEGG_TIL_DELTAKERLISTE_PAGE_ROUTE} element={<LeggTilDeltakerlistePage />} />
 				<Route path={PERSONOPPLYSNINGER_PAGE_ROUTE} element={<PersonopplysningerPage />} />
+				<Route path={DU_ER_LOGGET_UT_PAGE_ROUTE} element={<LoggetUtPage/>}/>
 				<Route path="*" element={<Navigate replace to={GJENNOMFORING_LISTE_PAGE_ROUTE}/>} />
 			</Routes>
 		</>
