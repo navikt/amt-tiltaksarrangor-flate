@@ -33,7 +33,6 @@ specifiers:
   eslint-plugin-jsx-a11y: ^6.6.1
   eslint-plugin-react: ^7.31.11
   eslint-plugin-react-hooks: ^4.6.0
-  eslint-plugin-simple-import-sort: ^7.0.0
   faker: 5.5.3
   husky: ^7.0.4
   lint-staged: ^12.1.7
@@ -90,7 +89,6 @@ devDependencies:
   eslint-plugin-jsx-a11y: 6.6.1_eslint@8.30.0
   eslint-plugin-react: 7.31.11_eslint@8.30.0
   eslint-plugin-react-hooks: 4.6.0_eslint@8.30.0
-  eslint-plugin-simple-import-sort: 7.0.0_eslint@8.30.0
   faker: 5.5.3
   husky: 7.0.4
   lint-staged: 12.5.0
@@ -836,6 +834,9 @@ packages:
     peerDependencies:
       '@types/react': ^17.0.30 || ^18.0.0
       react: ^17.0.0 || ^18.0.0
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
     dependencies:
       '@types/react': 18.0.26
       react: 18.2.0
@@ -846,6 +847,9 @@ packages:
     peerDependencies:
       '@types/react': ^17.0.30 || ^18.0.0
       react: ^17.0.0 || ^18.0.0
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
     dependencies:
       '@navikt/ds-icons': 2.1.0_kzbn2opkn2327fwg5yzwzya5o4
       '@navikt/ds-react': 2.1.0_ib3m5ricvtkl2cll7qpr2f6lvq
@@ -862,6 +866,9 @@ packages:
     peerDependencies:
       '@types/react': ^17.0.30 || ^18.0.0
       react: ^17.0.0 || ^18.0.0
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
     dependencies:
       '@floating-ui/react': 0.17.0_ib3m5ricvtkl2cll7qpr2f6lvq
       '@navikt/ds-icons': 2.1.0_kzbn2opkn2327fwg5yzwzya5o4
@@ -2652,14 +2659,6 @@ packages:
       resolve: 2.0.0-next.4
       semver: 6.3.0
       string.prototype.matchall: 4.0.8
-    dev: true
-
-  /eslint-plugin-simple-import-sort/7.0.0_eslint@8.30.0:
-    resolution: {integrity: sha512-U3vEDB5zhYPNfxT5TYR7u01dboFZp+HNpnGhkDB2g/2E4wZ/g1Q9Ton8UwCLfRV9yAKyYqDh62oHOamvkFxsvw==}
-    peerDependencies:
-      eslint: '>=5.0.0'
-    dependencies:
-      eslint: 8.30.0
     dev: true
 
   /eslint-scope/5.1.1:

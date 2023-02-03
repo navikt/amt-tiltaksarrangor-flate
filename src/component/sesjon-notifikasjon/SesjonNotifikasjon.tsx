@@ -1,13 +1,15 @@
 import { Alert, Link } from '@navikt/ds-react'
-import { AxiosError, AxiosResponse } from 'axios'
+import { AxiosResponse } from 'axios'
 import dayjs from 'dayjs'
 import React, { useEffect, useRef, useState } from 'react'
 
 import { hentAuthInfo } from '../../api/auth-api'
 import { AuthInfo } from '../../api/data/auth'
-import { loginUrl } from '../../utils/url-utils'
+import { absolutePath, loginUrl } from '../../utils/url-utils'
 import { usePromise } from '../../utils/use-promise'
 import styles from './SesjonNotifikasjon.module.scss'
+import { useNavigate } from 'react-router-dom'
+import { DU_ER_LOGGET_UT_PAGE_ROUTE, GJENNOMFORING_LISTE_PAGE_ROUTE } from '../../navigation'
 
 enum SesjonStatus {
 	UTLOPER_SNART,
@@ -19,15 +21,14 @@ export const SesjonNotifikasjon = (): React.ReactElement | null => {
 	const [ utlopAlertOmMs, setUtlopAlertOmMs ] = useState<number>()
 	const [ utloggingAlertOmMs, setUtloggingAlertOmMs ] = useState<number>()
 	const [ tvungenUtloggingOmMs, setTvungenUtloggingOmMs ] = useState<number>()
-	const fetchAuthInfo = usePromise<AxiosResponse<AuthInfo>, AxiosError>(hentAuthInfo)
+	const fetchAuthInfo = usePromise<AxiosResponse<AuthInfo>>(hentAuthInfo)
+	const navigate = useNavigate()
 
 	const tvungenUtloggingTimeoutRef = useRef<number>()
 	const tvungenUtloggingAlertTimeoutRef = useRef<number>()
 	const utloperSnartAlertTimeoutRef = useRef<number>()
 
 	const expirationTime = fetchAuthInfo.result?.data.expirationTime
-	const visTvungen = sesjonStatus === SesjonStatus.TVUNGEN_UTLOGGING_SNART
-	const visUtloper = sesjonStatus === SesjonStatus.UTLOPER_SNART
 
 	useEffect(() => {
 		if (!expirationTime) return
@@ -73,25 +74,25 @@ export const SesjonNotifikasjon = (): React.ReactElement | null => {
 		if (!tvungenUtloggingOmMs) return
 
 		tvungenUtloggingTimeoutRef.current = setTimeout(() => {
-			window.location.href = loginUrl()
+			window.location.href = loginUrl(window.location.href) //denne fungerer ikke om fanen ikke er aktiv
+			navigate(DU_ER_LOGGET_UT_PAGE_ROUTE)
 		}, tvungenUtloggingOmMs) as unknown as number
 
 		return () => clearTimeout(tvungenUtloggingTimeoutRef.current)
-	}, [ sesjonStatus, tvungenUtloggingOmMs ])
+	}, [ sesjonStatus, tvungenUtloggingOmMs, navigate ])
 
 	if (sesjonStatus === undefined) return null
-
-	const LoginLenke = () => <Link href={loginUrl()} className={styles.loginLenke}>Logg inn på nytt</Link>
+	const LoginLenke = () => <Link href={loginUrl(absolutePath(GJENNOMFORING_LISTE_PAGE_ROUTE))} className={styles.loginLenke}>Logg inn på nytt</Link>
 
 	return (
 		<div className={styles.alertWrapper}>
-			{visTvungen &&
+			{sesjonStatus === SesjonStatus.TVUNGEN_UTLOGGING_SNART &&
 				<Alert variant="error" role="alert">
 					Du blir logget ut nå, og må logge inn på ny.
 					<LoginLenke />
 				</Alert>
 			}
-			{visUtloper &&
+			{sesjonStatus === SesjonStatus.UTLOPER_SNART &&
 				<Alert variant="warning" role="alert">
 					Du blir snart logget ut
 					<LoginLenke />
