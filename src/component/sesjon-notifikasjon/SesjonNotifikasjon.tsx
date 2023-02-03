@@ -5,11 +5,11 @@ import React, { useEffect, useRef, useState } from 'react'
 
 import { hentAuthInfo } from '../../api/auth-api'
 import { AuthInfo } from '../../api/data/auth'
-import { absolutePath, loginUrl } from '../../utils/url-utils'
+import { loginUrl } from '../../utils/url-utils'
 import { usePromise } from '../../utils/use-promise'
 import styles from './SesjonNotifikasjon.module.scss'
 import { useNavigate } from 'react-router-dom'
-import { DU_ER_LOGGET_UT_PAGE_ROUTE, GJENNOMFORING_LISTE_PAGE_ROUTE } from '../../navigation'
+import { DU_ER_LOGGET_UT_PAGE_ROUTE } from '../../navigation'
 
 enum SesjonStatus {
 	UTLOPER_SNART,
@@ -75,6 +75,7 @@ export const SesjonNotifikasjon = (): React.ReactElement | null => {
 
 		tvungenUtloggingTimeoutRef.current = setTimeout(() => {
 			window.location.href = loginUrl(window.location.href) //denne fungerer ikke om fanen ikke er aktiv
+			setSesjonStatus(undefined)
 			navigate(DU_ER_LOGGET_UT_PAGE_ROUTE)
 		}, tvungenUtloggingOmMs) as unknown as number
 
@@ -82,7 +83,7 @@ export const SesjonNotifikasjon = (): React.ReactElement | null => {
 	}, [ sesjonStatus, tvungenUtloggingOmMs, navigate ])
 
 	if (sesjonStatus === undefined) return null
-	const LoginLenke = () => <Link href={loginUrl(absolutePath(GJENNOMFORING_LISTE_PAGE_ROUTE))} className={styles.loginLenke}>Logg inn på nytt</Link>
+	const LoginLenke = () => <Link href={loginUrl(window.location.href)} className={styles.loginLenke}>Logg inn på nytt</Link>
 
 	return (
 		<div className={styles.alertWrapper}>
