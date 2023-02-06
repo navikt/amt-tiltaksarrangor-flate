@@ -11,13 +11,14 @@ import styles from './SesjonNotifikasjon.module.scss'
 import { useNavigate } from 'react-router-dom'
 import { DU_ER_LOGGET_UT_PAGE_ROUTE, GJENNOMFORING_LISTE_PAGE_ROUTE } from '../../navigation'
 
-enum SesjonStatus {
+enum AlertType {
 	UTLOPER_SNART,
-	TVUNGEN_UTLOGGING_SNART
+	TVUNGEN_UTLOGGING_SNART,
+	LOGGET_UT
 }
 
 export const SesjonNotifikasjon = (): React.ReactElement | null => {
-	const [ sesjonStatus, setSesjonStatus ] = useState<SesjonStatus>()
+	const [ alertType, setAlertType ] = useState<AlertType>()
 	const [ utlopAlertOmMs, setUtlopAlertOmMs ] = useState<number>()
 	const [ utloggingAlertOmMs, setUtloggingAlertOmMs ] = useState<number>()
 	const [ tvungenUtloggingOmMs, setTvungenUtloggingOmMs ] = useState<number>()
@@ -37,21 +38,21 @@ export const SesjonNotifikasjon = (): React.ReactElement | null => {
 			.subtract(5, 'minutes').diff(now)
 
 		const msTilUtloggingAlert = dayjs(expirationTime)
-			.subtract(1, 'minutes').diff(now)
+			.subtract(2, 'minutes').diff(now)
 
-		const msTilUtlogging = dayjs(expirationTime)
-			.subtract(10, 'seconds').diff(now)
+		const msTilAutomatiskUtlogging = dayjs(expirationTime)
+			.subtract(1, 'minutes').diff(now)
 
 		setUtlopAlertOmMs(Math.max(msTilUtloperSnartAlert, 0))
 		setUtloggingAlertOmMs(Math.max(msTilUtloggingAlert, 0))
-		setTvungenUtloggingOmMs(Math.max(msTilUtlogging, 0))
+		setTvungenUtloggingOmMs(Math.max(msTilAutomatiskUtlogging, 0))
 	}, [ expirationTime ])
 
 	useEffect(() => {
 		if (utlopAlertOmMs === undefined) return
 
 		utloperSnartAlertTimeoutRef.current = setTimeout(() => {
-			setSesjonStatus(SesjonStatus.UTLOPER_SNART)
+			setAlertType(AlertType.UTLOPER_SNART)
 
 		}, utlopAlertOmMs) as unknown as number
 
@@ -62,40 +63,41 @@ export const SesjonNotifikasjon = (): React.ReactElement | null => {
 		if (utloggingAlertOmMs === undefined) return
 
 		tvungenUtloggingAlertTimeoutRef.current = setTimeout(() => {
-			setSesjonStatus(SesjonStatus.TVUNGEN_UTLOGGING_SNART)
+			setAlertType(AlertType.TVUNGEN_UTLOGGING_SNART)
 		}, utloggingAlertOmMs) as unknown as number
 
 		return () => clearTimeout(tvungenUtloggingAlertTimeoutRef.current)
 	}, [ utloggingAlertOmMs ])
 
 	useEffect(() => {
-		if (sesjonStatus !== SesjonStatus.TVUNGEN_UTLOGGING_SNART) return
 		if (tvungenUtloggingTimeoutRef.current) return
 		if (!tvungenUtloggingOmMs) return
 
 		tvungenUtloggingTimeoutRef.current = setTimeout(() => {
+			setAlertType(AlertType.LOGGET_UT)
 			window.location.href = loginUrl(window.location.href) //denne fungerer ikke om fanen ikke er aktiv
 			navigate(DU_ER_LOGGET_UT_PAGE_ROUTE)
 		}, tvungenUtloggingOmMs) as unknown as number
+	}, [ alertType, tvungenUtloggingOmMs, navigate ])
 
-		return () => clearTimeout(tvungenUtloggingTimeoutRef.current)
-	}, [ sesjonStatus, tvungenUtloggingOmMs, navigate ])
-
-	if (sesjonStatus === undefined) return null
 	const LoginLenke = () => <Link href={loginUrl(absolutePath(GJENNOMFORING_LISTE_PAGE_ROUTE))} className={styles.loginLenke}>Logg inn på nytt</Link>
 
+	if (alertType === undefined) return null
 	return (
 		<div className={styles.alertWrapper}>
-			{sesjonStatus === SesjonStatus.TVUNGEN_UTLOGGING_SNART &&
+			{alertType === AlertType.LOGGET_UT &&
+                <Alert variant="error" role="alert">
+                    Du er logget ut.<LoginLenke />
+                </Alert>
+			}
+			{alertType === AlertType.TVUNGEN_UTLOGGING_SNART &&
 				<Alert variant="error" role="alert">
-					Du blir logget ut nå, og må logge inn på ny.
-					<LoginLenke />
+					Du blir logget ut nå, og må logge inn på ny.<LoginLenke />
 				</Alert>
 			}
-			{sesjonStatus === SesjonStatus.UTLOPER_SNART &&
+			{alertType === AlertType.UTLOPER_SNART &&
 				<Alert variant="warning" role="alert">
-					Du blir snart logget ut
-					<LoginLenke />
+					Du blir snart logget ut.<LoginLenke />
 				</Alert>
 			}
 		</div>
