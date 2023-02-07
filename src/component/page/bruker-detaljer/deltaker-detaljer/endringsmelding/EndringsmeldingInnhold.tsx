@@ -63,7 +63,8 @@ export const EndringsmeldingInnhold = (props: EndringsmeldingInnholdProps) => {
 			return (
 				<>
 					<BodyShort size="small">Endre prosent</BodyShort>
-					<BodyShort size="small">Ny Deltakelsesprosent: {endringsmelding.innhold.deltakelseProsent}%</BodyShort>
+					<BodyShort size="small">Ny deltakelsesprosent: {endringsmelding.innhold.deltakelseProsent}%</BodyShort>
+					{ endringsmelding.innhold.gyldigFraDato && <BodyShort size="small">Gjelder fra {formatDate(endringsmelding.innhold.gyldigFraDato)}</BodyShort> }
 				</>
 			)
 		default: return null

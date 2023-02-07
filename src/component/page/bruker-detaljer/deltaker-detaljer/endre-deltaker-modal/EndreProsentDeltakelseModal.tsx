@@ -1,12 +1,16 @@
 import { TextField } from '@navikt/ds-react'
+import dayjs from 'dayjs'
 import { useEffect, useState } from 'react'
 import React from 'react'
 
 import { endreDeltakelsesprosent } from '../../../../../api/tiltak-api'
+import { Nullable } from '../../../../../utils/types/or-nothing'
+import { DateField } from '../../../../felles/DateField'
 import { BaseModal } from './BaseModal'
 import styles from './EndreProsentDeltakelseModal.module.scss'
 import { SendTilNavKnapp } from './SendTilNavKnapp'
 import { VeilederConfirmationPanel } from './VeilederConfirmationPanel'
+import { useGjennomforingStore } from '../gjennomforing-store'
 
 
 interface EndreProsentDeltakelseModalProps {
@@ -20,7 +24,10 @@ export interface EndreProsentDeltakelseModalDataProps {
 }
 
 export const EndreProsentDeltakelseModal = (props: EndreProsentDeltakelseModalProps & EndreProsentDeltakelseModalDataProps) => {
+	const today = dayjs().toDate()
+	const { gjennomforing } = useGjennomforingStore()
 	const [ prosentDeltakelseFelt, settProsentDeltakelseFelt ] = useState<string>('')
+	const [ gyldigFraDato, setGyldigFraDato ] = useState<Nullable<Date>>(today)
 	const [ errorMessage, settErrorMessage ] = useState<string>()
 	const [ vilkaarGodkjent, settVilkaarGodkjent ] = useState(false)
 
@@ -53,7 +60,7 @@ export const EndreProsentDeltakelseModal = (props: EndreProsentDeltakelseModalPr
 		if (isNaN(prosentDeltakelse))
 			return Promise.reject('Kan ikke sende Prosent Deltakelse endringsmelding')
 
-		return endreDeltakelsesprosent(props.deltakerId, prosentDeltakelse)
+		return endreDeltakelsesprosent(props.deltakerId, prosentDeltakelse, gyldigFraDato)
 			.then(props.onEndringUtfort)
 	}
 
@@ -71,6 +78,15 @@ export const EndreProsentDeltakelseModal = (props: EndreProsentDeltakelseModalPr
 				max={100}
 				error={errorMessage}
 				onChange={e => settProsentDeltakelseFelt(e.target.value)}
+			/>
+
+			<DateField
+				className={styles.datofelt}
+				label="Fra når gjelder ny deltakelsesprosent?"
+				date={gyldigFraDato}
+				onDateChanged={d => setGyldigFraDato(d)}
+				min={gjennomforing.startDato}
+				max={gjennomforing.sluttDato}
 			/>
 
 			<VeilederConfirmationPanel

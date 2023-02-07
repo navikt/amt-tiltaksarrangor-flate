@@ -1,6 +1,6 @@
 import { z } from 'zod'
 
-import { dateSchema } from '../utils'
+import { dateSchema, nullableDateSchema } from '../utils'
 
 export enum EndringsmeldingType {
     LEGG_TIL_OPPSTARTSDATO = 'LEGG_TIL_OPPSTARTSDATO',
@@ -65,7 +65,7 @@ export const deltakerIkkeAktuellEndringsmeldingSchema = z.intersection(endringsm
 export const deltakelseProsentEndringmelsingSchema = z.intersection(endringsmeldingBaseSchema, z.object({
 	id: z.string().uuid(),
 	type: z.literal(EndringsmeldingType.ENDRE_DELTAKELSE_PROSENT),
-	innhold: z.object({ deltakelseProsent: z.number().nullable() }),
+	innhold: z.object({ deltakelseProsent: z.number().nullable(), gyldigFraDato: nullableDateSchema }),
 }))
 
 export const endringsmeldingSchema = z.union([
