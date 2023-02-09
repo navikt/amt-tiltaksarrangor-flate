@@ -89,7 +89,8 @@ spec:
                   "nav.boost.ai",
                   "'unsafe-inline'",
                   "'unsafe-eval'",
-                  "'self'"
+                  "'self'",
+                  "blob:"
                 ]
               }
             }
