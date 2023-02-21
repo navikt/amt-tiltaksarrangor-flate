@@ -7,6 +7,7 @@ import { GJENNOMFORING_LISTE_PAGE_ROUTE } from '../../../navigation'
 import { useTilbakelenkeStore } from '../../../store/tilbakelenke-store'
 import { GjennomforingListe } from './gjennomforing-liste/GjennomforingListe'
 import styles from './LeggTilDeltakerliset.module.scss'
+import { AdministrerDeltakerlisterPage } from '../administrer-deltakerlister-page/AdministrerDeltakerlisterPage';
 
 
 export const LeggTilDeltakerlistePage = () => {
@@ -20,14 +21,20 @@ export const LeggTilDeltakerlistePage = () => {
 	}, [])
 
 	return (
-		<div className={styles.page} data-testid="legg-til-liste-page">
-			<Heading size="large" level="2" className={globalStyles.blokkM}>Legg til og fjern deltakerlister</Heading>
+		<>
+			<AdministrerDeltakerlisterPage/>
 
-			<BodyShort className={globalStyles.blokkM}>
-				Hvilke deltakerlister koordinerer du? Det er viktig at du kun legger til deltakerlister som du er koordinator for.
-			</BodyShort>
+			<div className={styles.page} data-testid="legg-til-liste-page">
 
-			<GjennomforingListe />
-		</div>
+				<Heading size="large" level="2" className={globalStyles.blokkM}>Legg til og fjern deltakerlister</Heading>
+
+				<BodyShort className={globalStyles.blokkM}>
+					Hvilke deltakerlister koordinerer du? Det er viktig at du kun legger til deltakerlister som du er koordinator for.
+				</BodyShort>
+
+				<GjennomforingListe />
+			</div>
+		</>
+
 	)
 }
