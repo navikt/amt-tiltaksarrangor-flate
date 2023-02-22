@@ -1,0 +1,61 @@
+import faker from 'faker'
+import { TilgjengeligVeileder, Veileder } from '../../api/data/veileder'
+import { randBetween } from '../utils/faker'
+import { ansattId, veilederId } from './id'
+
+
+const lagMockTilgjengeligeVeiledere = (n: number): TilgjengeligVeileder[] => {
+	return new Array(n).fill(null).map(() => {
+		return {
+			ansattId: ansattId(),
+			fornavn: faker.name.firstName(),
+			mellomnavn: mellomNavnEllerNull(),
+			etternavn: faker.name.lastName(),
+		}
+	})
+}
+
+const mellomNavnEllerNull = (): string | null => {
+	if (randBetween(0, 10) < 3) {
+		return faker.name.middleName()
+	}
+	return null
+}
+
+export const mockTilgjengeligeVeiledere = lagMockTilgjengeligeVeiledere(50)
+
+export const lagMockVeiledereForDeltaker = (deltakerId: string): Veileder[] => {
+	const tilgjengelige = [ ...mockTilgjengeligeVeiledere ]
+
+	faker.helpers.shuffle(tilgjengelige)
+
+	const veiledere: Veileder[] = []
+	if (randBetween(0, 10) < 1) {
+		return veiledere
+	}
+
+
+	if (randBetween(0, 100) > 2) {
+		veiledere.push(
+			{
+				...tilgjengelige.pop()!,
+				id: veilederId(),
+				deltakerId: deltakerId,
+				erMedveileder: false,
+			}
+		)
+	}
+
+	for (let i = 0; i < randBetween(0, 3); i++) {
+		veiledere.push(
+			{
+				...tilgjengelige.pop()!,
+				id: veilederId(),
+				deltakerId: deltakerId,
+				erMedveileder: true,
+			}
+		)
+	}
+
+	return veiledere
+}

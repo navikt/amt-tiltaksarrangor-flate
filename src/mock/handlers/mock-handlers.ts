@@ -31,7 +31,7 @@ export const mockHandlers: RequestHandler[] = [
 	rest.get(appUrl('/amt-tiltak/api/tiltaksarrangor/gjennomforing/:gjennomforingId'), (req, res, ctx) => {
 		const gjennomforingId = req.params.gjennomforingId
 		const gjennomforing = mockGjennomforinger.find(g => g.id === gjennomforingId)
-		if(gjennomforing === undefined) {
+		if (gjennomforing === undefined) {
 			return res(
 				ctx.delay(500),
 				ctx.status(404),
@@ -153,7 +153,7 @@ export const mockHandlers: RequestHandler[] = [
 	}),
 	rest.patch(appUrl('/amt-tiltak/api/tiltaksarrangor/deltaker/:deltakerId/ikke-aktuell'), (req, res, ctx) => {
 		const deltakerId = req.params.deltakerId as string
-		const body = req.body as { aarsak: {type: DeltakerStatusAarsakType, beskrivelse: string | null} }
+		const body = req.body as { aarsak: { type: DeltakerStatusAarsakType, beskrivelse: string | null } }
 
 		const deltaker = mockTiltakDeltakere.find(d => d.id == deltakerId)
 
@@ -211,7 +211,8 @@ const mapToDeltakerListView = (deltaker: MockTiltakDeltaker): TiltakDeltaker => 
 		sluttDato: deltaker.sluttDato,
 		status: deltaker.status,
 		registrertDato: deltaker.registrertDato,
-		aktiveEndringsmeldinger: deltaker.aktiveEndringsmeldinger
+		aktiveEndringsmeldinger: deltaker.aktiveEndringsmeldinger,
+		aktiveVeiledere: deltaker.aktiveVeiledere,
 	}
 }
 
