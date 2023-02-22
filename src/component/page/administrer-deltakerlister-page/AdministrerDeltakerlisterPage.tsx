@@ -1,85 +1,144 @@
-import { Alert, BodyShort, Heading } from '@navikt/ds-react';
-import globalStyles from '../../../globals.module.scss';
+import { Alert, BodyShort, Heading, Modal } from '@navikt/ds-react'
+import globalStyles from '../../../globals.module.scss'
 import styles from './AdministrerDeltakerlisterPage.module.scss'
-import React, { useMemo } from 'react';
-import { isNotStartedOrPending, isRejected, usePromise } from '../../../utils/use-promise';
-import { AxiosResponse } from 'axios';
-import { Gjennomforing } from '../../../api/data/tiltak';
-import { fetchTilgjengeligGjennomforinger, fetchTiltakGjennomforinger } from '../../../api/tiltak-api';
-import { SpinnerPage } from '../../felles/spinner-page/SpinnerPage';
-import { AlertPage } from '../../felles/alert-page/AlertPage';
-import { OverordnetEnhetVO } from './deltakerliste.viewobjects';
-import { UnderenheterPaOverenhet } from './underenheter-pa-overenhet/UnderenheterPaOverenhet';
-import { Show } from '../../felles/Show';
-import { deltakerlisteMapper } from './deltakerliste.mapper';
+import React, { useEffect, useState } from 'react'
+import { isNotStartedOrPending, isRejected, usePromise } from '../../../utils/use-promise'
+import { AxiosResponse } from 'axios'
+import { Gjennomforing } from '../../../api/data/tiltak'
+import {
+	fetchTilgjengeligGjennomforinger,
+	fetchTiltakGjennomforinger,
+	fjernTilgangTilGjennomforing,
+	opprettTilgangTilGjennomforing
+} from '../../../api/tiltak-api'
+import { OverordnetEnhetVO } from './deltakerliste.viewobjects'
+import { UnderenheterPaOverenhet } from './underenheter-pa-overenhet/UnderenheterPaOverenhet'
+import { Show } from '../../felles/Show'
+import { deltakerlisteMapper } from './deltakerliste.mapper'
+import { SpinnerPage } from '../../felles/spinner-page/SpinnerPage'
+import { AlertPage } from '../../felles/alert-page/AlertPage'
+import { LeggTilDeltakerModal } from './legg-til-deltaker-modal/LeggTilDeltakerModal'
 
 
 export const AdministrerDeltakerlisterPage = () => {
-    const fetchGjennomforingerPromise = usePromise<AxiosResponse<Gjennomforing[]>>(
-        () => fetchTiltakGjennomforinger()
-    )
+	const [ overordnedeEnheter, setOverordnedeEnheter ] = useState<OverordnetEnhetVO[]>([])
+	const [ deltakerlisteIderLagtTil, setDeltakerlisteIderLagtTil ] = useState<string[]>([])
 
-    const fetchTilgjengeligGjennomforingerPromise = usePromise<AxiosResponse<Gjennomforing[]>>(
-        () => fetchTilgjengeligGjennomforinger()
-    )
+	const [ deltakerlisteIdUpdating, setDeltakerlisteIdUpdating ] = useState<string | undefined>(undefined)
+	const [ showLeggTilModal, setShowLeggTilModal ] = useState(false)
 
-    const overornedeEnheter: OverordnetEnhetVO[] = useMemo(() => {
-        const gjennomforinger: Gjennomforing[] = fetchTilgjengeligGjennomforingerPromise.result?.data || [];
-        const gjennomforingIderAlleredeLagtTil = fetchGjennomforingerPromise.result?.data.map(g => g.id) || []
-        return deltakerlisteMapper(gjennomforinger, gjennomforingIderAlleredeLagtTil)
-    }, [fetchTilgjengeligGjennomforingerPromise.result, fetchGjennomforingerPromise.result])
+	const fetchGjennomforingerPromise = usePromise<AxiosResponse<Gjennomforing[]>>(
+		() => fetchTiltakGjennomforinger()
+	)
 
-    const onLeggTil = (id: string) => {
-        console.log("Legg til", id);
-    }
+	const fetchTilgjengeligGjennomforingerPromise = usePromise<AxiosResponse<Gjennomforing[]>>(
+		() => fetchTilgjengeligGjennomforinger()
+	)
 
-    const onFjern = (id: string) => {
-        console.log("Fjern", id);
-    }
+	useEffect(() => {
+		const gjennomforinger: Gjennomforing[] = fetchTilgjengeligGjennomforingerPromise.result?.data || []
+		const gjennomforingIderAlleredeLagtTil = fetchGjennomforingerPromise.result?.data.map(g => g.id) || []
+		const data = deltakerlisteMapper(gjennomforinger)
+			.sort((a, b) => a.navn.localeCompare(b.navn))
 
-    if (
-        isNotStartedOrPending(fetchGjennomforingerPromise) ||
+		setDeltakerlisteIderLagtTil(gjennomforingIderAlleredeLagtTil)
+		setOverordnedeEnheter(data)
+	}, [ fetchTilgjengeligGjennomforingerPromise.result, fetchGjennomforingerPromise.result ])
+
+
+	const onLeggTil = (id: string) => {
+		Modal.setAppElement('#root')
+		setDeltakerlisteIdUpdating(id)
+		setShowLeggTilModal(true)
+	}
+
+	const onFjern = (id: string) => {
+		setDeltakerlisteIdUpdating(id)
+
+		fjernTilgangTilGjennomforing(id)
+			.then(() => {
+				setDeltakerlisteIderLagtTil([ ...deltakerlisteIderLagtTil.filter((i) => i !== id) ])
+				setDeltakerlisteIdUpdating(undefined)
+			})
+	}
+
+	const leggTilConfirmed = (id: string) => {
+		opprettTilgangTilGjennomforing(id)
+			.then(() => {
+				setDeltakerlisteIderLagtTil([ ...deltakerlisteIderLagtTil, id ])
+				setDeltakerlisteIdUpdating(undefined)
+			})
+
+		setShowLeggTilModal(false)
+	}
+
+	const onLeggTilModalClosed = () => {
+		setShowLeggTilModal(false)
+		setDeltakerlisteIdUpdating(undefined)
+	}
+
+	const getNavnPaGjennomforing = (gjennomforingId: string | undefined): string => {
+		if (gjennomforingId === undefined) return ''
+
+		const gjennomforing = fetchTilgjengeligGjennomforingerPromise.result?.data.find((g) => g.id === gjennomforingId)
+
+		return gjennomforing != undefined
+			? gjennomforing.navn
+			: ''
+	}
+
+	if (
+		isNotStartedOrPending(fetchGjennomforingerPromise) ||
         isNotStartedOrPending(fetchTilgjengeligGjennomforingerPromise)
-    ) {
-        return <SpinnerPage/>
-    }
+	) {
+		return <SpinnerPage/>
+	}
 
-    if (
-        isRejected(fetchGjennomforingerPromise) ||
+	if (
+		isRejected(fetchGjennomforingerPromise) ||
         isRejected(fetchTilgjengeligGjennomforingerPromise)
-    ) {
-        return <AlertPage variant="error" tekst="Noe gikk galt"/>
-    }
+	) {
+		return <AlertPage variant="error" tekst="Noe gikk galt"/>
+	}
 
-    return (
-        <div className={styles.page} data-testid="administrer-deltakerlister-page">
+	return (
+		<div className={styles.page} data-testid="administrer-deltakerlister-page">
 
-            <Heading size="large" level="2" className={globalStyles.blokkM}>Legg til og fjern deltakerlister</Heading>
+			<Heading size="large" level="2" className={globalStyles.blokkM}>Legg til og fjern deltakerlister</Heading>
 
-            <BodyShort className={globalStyles.blokkM}>
+			<BodyShort className={globalStyles.blokkM}>
                 Hvilke deltakerlister koordinerer du? Det er viktig at du kun legger til deltakerlister som du er
                 koordinator for.
-            </BodyShort>
+			</BodyShort>
 
-            <Show if={overornedeEnheter.length === 0}>
-                <Alert variant="info">
+			<Show if={overordnedeEnheter.length === 0}>
+				<Alert variant="info">
                     På organisasjonsnummeret du har tilgang til finnes det ingen aktive deltakerlister.
-                    <br/><br/>
+					<br/><br/>
                     Hvis du har fått en Altinn-rettighet, men fortsatt ikke ser deltakerlister her,
                     så kan det være fordi deltakerlisten du forventer å se er registrert på et annet org.nr
                     i NAVs datasytem. Ta kontakt med den i NAV som er ansvarlig for avtalen.
-                </Alert>
-            </Show>
+				</Alert>
+			</Show>
 
-            {overornedeEnheter
-                .sort((a, b) => a.navn.localeCompare(b.navn))
-                .map((o) => <UnderenheterPaOverenhet
-                    key={o.navn}
-                    overordnetEnhet={o}
-                    onLeggTil={onLeggTil}
-                    onFjern={onFjern}/>
-                )}
+			{overordnedeEnheter
+				.map((o) => <UnderenheterPaOverenhet
+					key={o.navn}
+					overordnetEnhet={o}
+					deltakerlisterLagtTil={deltakerlisteIderLagtTil}
+					deltakerlisteIdLoading={deltakerlisteIdUpdating}
+					onLeggTil={onLeggTil}
+					onFjern={onFjern}/>
+				)}
 
-        </div>
-    )
+			<LeggTilDeltakerModal
+				open={showLeggTilModal}
+				deltakerlisteNavn={getNavnPaGjennomforing(deltakerlisteIdUpdating)}
+				deltakerlisteId={deltakerlisteIdUpdating as string}
+				onConfirm={leggTilConfirmed}
+				onClose={onLeggTilModalClosed}
+			/>
+
+		</div>
+	)
 }

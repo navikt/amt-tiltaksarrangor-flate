@@ -10,19 +10,19 @@
 
 
 .header {
-  display: flex;    
+  display: flex;
   flex-direction: column;
 
-    @media(min-width: 600px) {
-        flex-direction: row;
-    }
+  @media(min-width: 600px) {
+    flex-direction: row;
+  }
 
 }
 
 .virksomhetNavn {
-    margin-right: 1rem;
+  margin-right: 1rem;
 }
 
 .orgnr {
-    white-space: nowrap;
+  white-space: nowrap;
 }

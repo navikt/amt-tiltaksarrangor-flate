@@ -15,5 +15,4 @@ export interface DeltakerlisteVO {
     tiltaksnavn: string;
     startDato: Date | null;
     sluttDato: Date | null;
-    lagtTil: boolean;
 }

@@ -8,7 +8,6 @@ import { GjennomforingDetaljerPage } from './component/page/gjennomforing-detalj
 import { GjennomforingListePage } from './component/page/gjennomforing-page/GjennomforingListePage'
 import { InformasjonPage } from './component/page/informasjon-page/InformasjonPage'
 import { IngenRollePage } from './component/page/ingen-rolle-page/IngenRollePage'
-import { LeggTilDeltakerlistePage } from './component/page/legg-til-deltakerliste/LeggTilDeltakerlistePage'
 import { PersonopplysningerPage } from './component/page/personopplysninger-page/PersonopplysningerPage'
 import { SesjonNotifikasjon } from './component/sesjon-notifikasjon/SesjonNotifikasjon'
 import { Driftsmelding } from './Driftsmelding'
@@ -22,6 +21,9 @@ import {
 	PERSONOPPLYSNINGER_PAGE_ROUTE
 } from './navigation'
 import { LoggetUtPage } from './component/page/LoggetUtPage'
+import {
+	AdministrerDeltakerlisterPage
+} from './component/page/administrer-deltakerlister-page/AdministrerDeltakerlisterPage'
 
 
 interface AppRoutesProps {
@@ -47,7 +49,7 @@ const PrivateRoutes = (): React.ReactElement => {
 				<Route path={GJENNOMFORING_DETALJER_PAGE_ROUTE} element={<GjennomforingDetaljerPage />} />
 				<Route path={INFORMASJON_PAGE_ROUTE} element={<InformasjonPage />} />
 				<Route path={GJENNOMFORING_LISTE_PAGE_ROUTE} element={<GjennomforingListePage />} />
-				<Route path={LEGG_TIL_DELTAKERLISTE_PAGE_ROUTE} element={<LeggTilDeltakerlistePage />} />
+				<Route path={LEGG_TIL_DELTAKERLISTE_PAGE_ROUTE} element={<AdministrerDeltakerlisterPage />} />
 				<Route path={PERSONOPPLYSNINGER_PAGE_ROUTE} element={<PersonopplysningerPage />} />
 				<Route path={DU_ER_LOGGET_UT_PAGE_ROUTE} element={<LoggetUtPage/>}/>
 				<Route path="*" element={<Navigate replace to={GJENNOMFORING_LISTE_PAGE_ROUTE}/>} />
