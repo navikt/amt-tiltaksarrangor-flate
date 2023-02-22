@@ -7,6 +7,7 @@ import { Header } from './component/felles/header/Header'
 import { AppRoutes } from './Routes'
 import { useAuthStore } from './store/data-store'
 import { isNotStartedOrPending, isRejected, isResolved, usePromise } from './utils/use-promise'
+import { SesjonNotifikasjon } from './component/sesjon-notifikasjon/SesjonNotifikasjon'
 
 
 export const App = (): React.ReactElement => {
@@ -28,6 +29,7 @@ export const App = (): React.ReactElement => {
 		<>
 			<Header/>
 			<main>
+				<SesjonNotifikasjon />
 				<AppRoutes
 					// Vi må vente på at innloggetAnsatt er lagt inn i storen før vi rendrer routes
 					isLoading={isNotStartedOrPending(fetchInnloggetAnsattPromise) || !innloggetAnsatt}
