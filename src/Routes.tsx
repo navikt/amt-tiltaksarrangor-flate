@@ -10,7 +10,6 @@ import { InformasjonPage } from './component/page/informasjon-page/InformasjonPa
 import { IngenRollePage } from './component/page/ingen-rolle-page/IngenRollePage'
 import { LeggTilDeltakerlistePage } from './component/page/legg-til-deltakerliste/LeggTilDeltakerlistePage'
 import { PersonopplysningerPage } from './component/page/personopplysninger-page/PersonopplysningerPage'
-import { SesjonNotifikasjon } from './component/sesjon-notifikasjon/SesjonNotifikasjon'
 import { Driftsmelding } from './Driftsmelding'
 import {
 	DELTAKER_DETALJER_PAGE_ROUTE,
@@ -40,7 +39,6 @@ export const AppRoutes = ({ isLoading, isRejected, harTilgangTilArrangor }: AppR
 const PrivateRoutes = (): React.ReactElement => {
 	return (
 		<>
-			<SesjonNotifikasjon />
 			<Driftsmelding />
 			<Routes>
 				<Route path={DELTAKER_DETALJER_PAGE_ROUTE} element={<DeltakerDetaljerPage />} />
