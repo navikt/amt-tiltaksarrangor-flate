@@ -219,7 +219,8 @@ const mapToDeltakerListView = (deltaker: MockTiltakDeltaker): TiltakDeltaker => 
 		sluttDato: deltaker.sluttDato,
 		status: deltaker.status,
 		registrertDato: deltaker.registrertDato,
-		aktiveEndringsmeldinger: deltaker.aktiveEndringsmeldinger
+		aktiveEndringsmeldinger: deltaker.aktiveEndringsmeldinger,
+		aktiveVeiledere: deltaker.aktiveVeiledere,
 	}
 }
 
