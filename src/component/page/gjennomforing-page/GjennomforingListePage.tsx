@@ -1,4 +1,4 @@
-import { Add, Information } from '@navikt/ds-icons'
+import { Add } from '@navikt/ds-icons'
 import { AxiosResponse } from 'axios'
 import React, { useEffect } from 'react'
 
@@ -16,6 +16,7 @@ import { IkonLenke } from '../../felles/ikon-lenke/IkonLenke'
 import { SpinnerPage } from '../../felles/spinner-page/SpinnerPage'
 import { GjennomforingListe } from './gjennomforing-liste/GjennomforingListe'
 import styles from './GjennomforingListePage.module.scss'
+import { BodyShort, Link } from '@navikt/ds-react'
 
 export const GjennomforingListePage = (): React.ReactElement => {
 	const { setTilbakeTilUrl } = useTilbakelenkeStore()
@@ -55,12 +56,9 @@ export const GjennomforingListePage = (): React.ReactElement => {
 				text="Legg til deltakerliste"
 			/>
 
-			<IkonLenke
-				to="https://www.nav.no/samarbeidspartner/deltakeroversikt"
-				className={styles.informasjonLenkeWrapper}
-				ikon={<Information title="Informasjon" />}
-				text="Info om deltakeroversikten"
-			/>
+			<Link href="https://www.nav.no/samarbeidspartner/deltakeroversikt" className={styles.informasjonLenkeWrapper}>
+				<BodyShort>Info om deltakeroversikten</BodyShort>
+			</Link>
 		</div>
 	)
 }
