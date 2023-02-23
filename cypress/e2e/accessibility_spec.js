@@ -2,6 +2,7 @@ import { logViolations } from '../log-utils'
 
 function visit(path) {
 	cy.intercept('GET', 'https://dekoratoren.ekstern.dev.nav.no/**/*', {statusCode: 0})
+	cy.intercept('GET', 'https://www.nav.no/samarbeidspartner/deltakeroversikt', {statusCode: 0})
 	return cy.visit(path)
 }
 
