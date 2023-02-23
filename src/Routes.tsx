@@ -6,10 +6,8 @@ import { DeltakerDetaljerPage } from './component/page/bruker-detaljer/DeltakerD
 import { ErrorPage } from './component/page/error/ErrorPage'
 import { GjennomforingDetaljerPage } from './component/page/gjennomforing-detaljer/GjennomforingDetaljerPage'
 import { GjennomforingListePage } from './component/page/gjennomforing-page/GjennomforingListePage'
-import { InformasjonPage } from './component/page/informasjon-page/InformasjonPage'
 import { IngenRollePage } from './component/page/ingen-rolle-page/IngenRollePage'
 import { LeggTilDeltakerlistePage } from './component/page/legg-til-deltakerliste/LeggTilDeltakerlistePage'
-import { PersonopplysningerPage } from './component/page/personopplysninger-page/PersonopplysningerPage'
 import { Driftsmelding } from './Driftsmelding'
 import {
 	DELTAKER_DETALJER_PAGE_ROUTE,
@@ -17,8 +15,7 @@ import {
 	GJENNOMFORING_DETALJER_PAGE_ROUTE,
 	GJENNOMFORING_LISTE_PAGE_ROUTE,
 	INFORMASJON_PAGE_ROUTE, INGEN_ROLLE_PAGE_ROUTE,
-	LEGG_TIL_DELTAKERLISTE_PAGE_ROUTE,
-	PERSONOPPLYSNINGER_PAGE_ROUTE
+	LEGG_TIL_DELTAKERLISTE_PAGE_ROUTE
 } from './navigation'
 import { LoggetUtPage } from './component/page/LoggetUtPage'
 
@@ -43,10 +40,9 @@ const PrivateRoutes = (): React.ReactElement => {
 			<Routes>
 				<Route path={DELTAKER_DETALJER_PAGE_ROUTE} element={<DeltakerDetaljerPage />} />
 				<Route path={GJENNOMFORING_DETALJER_PAGE_ROUTE} element={<GjennomforingDetaljerPage />} />
-				<Route path={INFORMASJON_PAGE_ROUTE} element={<InformasjonPage />} />
+				<Route path={INFORMASJON_PAGE_ROUTE} />
 				<Route path={GJENNOMFORING_LISTE_PAGE_ROUTE} element={<GjennomforingListePage />} />
 				<Route path={LEGG_TIL_DELTAKERLISTE_PAGE_ROUTE} element={<LeggTilDeltakerlistePage />} />
-				<Route path={PERSONOPPLYSNINGER_PAGE_ROUTE} element={<PersonopplysningerPage />} />
 				<Route path={DU_ER_LOGGET_UT_PAGE_ROUTE} element={<LoggetUtPage/>}/>
 				<Route path="*" element={<Navigate replace to={GJENNOMFORING_LISTE_PAGE_ROUTE}/>} />
 			</Routes>
@@ -58,7 +54,7 @@ const IngenRolleRoutes = (): React.ReactElement => {
 	return (
 		<Routes>
 			<Route path={INGEN_ROLLE_PAGE_ROUTE} element={<IngenRollePage />} />
-			<Route path={INFORMASJON_PAGE_ROUTE} element={<InformasjonPage />} />
+			<Route path={INFORMASJON_PAGE_ROUTE} />
 			<Route path="*" element={<Navigate replace to={INGEN_ROLLE_PAGE_ROUTE}/>} />
 		</Routes>
 	)
