@@ -2,7 +2,6 @@ import { appUrl } from './utils/url-utils'
 
 export const DELTAKER_DETALJER_PAGE_ROUTE = appUrl('/deltaker/:brukerId')
 export const GJENNOMFORING_DETALJER_PAGE_ROUTE = appUrl('/gjennomforing/:gjennomforingId')
-export const INFORMASJON_PAGE_ROUTE = 'https://www.nav.no/samarbeidspartner/deltakeroversikt'
 export const INGEN_ROLLE_PAGE_ROUTE = appUrl('/ingen-rolle')
 export const LEGG_TIL_DELTAKERLISTE_PAGE_ROUTE = appUrl('/legg-til-deltakerliste')
 export const DU_ER_LOGGET_UT_PAGE_ROUTE = appUrl('/du-er-logget-ut')

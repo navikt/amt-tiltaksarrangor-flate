@@ -14,7 +14,7 @@ import {
 	DU_ER_LOGGET_UT_PAGE_ROUTE,
 	GJENNOMFORING_DETALJER_PAGE_ROUTE,
 	GJENNOMFORING_LISTE_PAGE_ROUTE,
-	INFORMASJON_PAGE_ROUTE, INGEN_ROLLE_PAGE_ROUTE,
+	INGEN_ROLLE_PAGE_ROUTE,
 	LEGG_TIL_DELTAKERLISTE_PAGE_ROUTE
 } from './navigation'
 import { LoggetUtPage } from './component/page/LoggetUtPage'
@@ -40,7 +40,6 @@ const PrivateRoutes = (): React.ReactElement => {
 			<Routes>
 				<Route path={DELTAKER_DETALJER_PAGE_ROUTE} element={<DeltakerDetaljerPage />} />
 				<Route path={GJENNOMFORING_DETALJER_PAGE_ROUTE} element={<GjennomforingDetaljerPage />} />
-				<Route path={INFORMASJON_PAGE_ROUTE} />
 				<Route path={GJENNOMFORING_LISTE_PAGE_ROUTE} element={<GjennomforingListePage />} />
 				<Route path={LEGG_TIL_DELTAKERLISTE_PAGE_ROUTE} element={<LeggTilDeltakerlistePage />} />
 				<Route path={DU_ER_LOGGET_UT_PAGE_ROUTE} element={<LoggetUtPage/>}/>
@@ -54,7 +53,6 @@ const IngenRolleRoutes = (): React.ReactElement => {
 	return (
 		<Routes>
 			<Route path={INGEN_ROLLE_PAGE_ROUTE} element={<IngenRollePage />} />
-			<Route path={INFORMASJON_PAGE_ROUTE} />
 			<Route path="*" element={<Navigate replace to={INGEN_ROLLE_PAGE_ROUTE}/>} />
 		</Routes>
 	)

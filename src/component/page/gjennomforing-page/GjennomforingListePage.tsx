@@ -6,7 +6,6 @@ import { Gjennomforing } from '../../../api/data/tiltak'
 import { fetchTiltakGjennomforinger } from '../../../api/tiltak-api'
 import { useTabTitle } from '../../../hooks/use-tab-title'
 import {
-	INFORMASJON_PAGE_ROUTE,
 	LEGG_TIL_DELTAKERLISTE_PAGE_ROUTE
 } from '../../../navigation'
 import { useTilbakelenkeStore } from '../../../store/tilbakelenke-store'
@@ -57,7 +56,7 @@ export const GjennomforingListePage = (): React.ReactElement => {
 			/>
 
 			<IkonLenke
-				to={INFORMASJON_PAGE_ROUTE}
+				to="https://www.nav.no/samarbeidspartner/deltakeroversikt"
 				className={styles.informasjonLenkeWrapper}
 				ikon={<Information title="Informasjon" />}
 				text="Info om deltakeroversikten"
