@@ -1,3 +1,4 @@
+import env from './environment'
 
 class Toggle {
 
@@ -5,6 +6,10 @@ class Toggle {
 	// get navDekoratorEnabled(): boolean {
 	// 	return !env.isProd
 	// }
+
+	get veiledereEnabled(): boolean {
+		return !env.isProd
+	}
 
 }
 

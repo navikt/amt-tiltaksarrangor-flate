@@ -38,6 +38,8 @@ export const lagMockVeiledereForDeltaker = (deltakerId: string): Veileder[] => {
 	if (randBetween(0, 100) > 2) {
 		veiledere.push(
 			{
+
+				// eslint-disable-next-line  @typescript-eslint/no-non-null-assertion
 				...tilgjengelige.pop()!,
 				id: veilederId(),
 				deltakerId: deltakerId,
@@ -49,6 +51,7 @@ export const lagMockVeiledereForDeltaker = (deltakerId: string): Veileder[] => {
 	for (let i = 0; i < randBetween(0, 3); i++) {
 		veiledere.push(
 			{
+				// eslint-disable-next-line  @typescript-eslint/no-non-null-assertion
 				...tilgjengelige.pop()!,
 				id: veilederId(),
 				deltakerId: deltakerId,
