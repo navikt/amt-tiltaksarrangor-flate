@@ -35,9 +35,11 @@ function navigerTilTiltakGjennomforingDetaljer() {
 
 function navigerTilDeltakerDetaljer() {
 	cy.get('[data-testid=gjennomforing-detaljer-page]').within(() => {
-		cy.get('td > a')
-			.first()
-			.click()
+		cy.get('tbody').within(() => {
+			cy.get('a')
+				.first()
+				.click()
+		})
 	})
 
 	cy.get('[data-testid=bruker-detaljer-page]')
