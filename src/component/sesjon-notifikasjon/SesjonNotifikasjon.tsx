@@ -51,8 +51,9 @@ export const SesjonNotifikasjon = (): React.ReactElement | null => {
 		tvungenUtloggingTimeoutRef.current = setInterval(() => {
 			if (tokenTimedOut()) {
 				setAlertType(AlertType.LOGGET_UT)
-				navigate(DU_ER_LOGGET_UT_PAGE_ROUTE)
 				window.location.href = loginUrl(window.location.href) //denne fungerer ikke om fanen ikke er aktiv, derfor navigerer man også internt
+				navigate(DU_ER_LOGGET_UT_PAGE_ROUTE)
+
 			}
 			else if (visDuBlirLoggetUtAlert()) {
 				setAlertType(AlertType.TVUNGEN_UTLOGGING_SNART)
