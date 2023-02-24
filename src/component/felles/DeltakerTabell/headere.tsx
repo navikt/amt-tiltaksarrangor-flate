@@ -1,7 +1,6 @@
 import { Checkbox, Table } from '@navikt/ds-react'
-import { ReactElement } from 'react'
+import React, { ReactElement } from 'react'
 import { DeltakerKolonne } from './sortering'
-import React from 'react'
 import { Show } from '../Show'
 import toggle from '../../../utils/toggle'
 
