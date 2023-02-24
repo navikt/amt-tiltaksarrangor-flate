@@ -1,12 +1,12 @@
 import { Alert, Link } from '@navikt/ds-react'
 import { AxiosResponse } from 'axios'
 import dayjs from 'dayjs'
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 
 import { hentAuthInfo } from '../../api/auth-api'
 import { AuthInfo } from '../../api/data/auth'
 import { absolutePath, loginUrl } from '../../utils/url-utils'
-import { usePromise } from '../../utils/use-promise'
+import { isResolved, usePromise } from '../../utils/use-promise'
 import styles from './SesjonNotifikasjon.module.scss'
 import { useNavigate } from 'react-router-dom'
 import { DU_ER_LOGGET_UT_PAGE_ROUTE, GJENNOMFORING_LISTE_PAGE_ROUTE } from '../../navigation'
@@ -19,66 +19,51 @@ enum AlertType {
 
 export const SesjonNotifikasjon = (): React.ReactElement | null => {
 	const [ alertType, setAlertType ] = useState<AlertType>()
-	const [ utlopAlertOmMs, setUtlopAlertOmMs ] = useState<number>()
-	const [ utloggingAlertOmMs, setUtloggingAlertOmMs ] = useState<number>()
-	const [ tvungenUtloggingOmMs, setTvungenUtloggingOmMs ] = useState<number>()
+	const [ tokenExpiryDate, setTokenExpiryDate ] = useState<Date|null>()
 	const fetchAuthInfo = usePromise<AxiosResponse<AuthInfo>>(hentAuthInfo)
 	const navigate = useNavigate()
-
 	const tvungenUtloggingTimeoutRef = useRef<number>()
-	const tvungenUtloggingAlertTimeoutRef = useRef<number>()
-	const utloperSnartAlertTimeoutRef = useRef<number>()
+	const tokenTimedOut = useCallback(() => {
+		return dayjs().isAfter(dayjs(tokenExpiryDate))
+	}, [ tokenExpiryDate ])
 
-	const expirationTime = fetchAuthInfo.result?.data.expirationTime
+	const visUtloperSnartAlert = useCallback(() => {
+		const visAlert = dayjs(tokenExpiryDate).subtract(5, 'minutes')
+		return dayjs().isAfter(visAlert)
+	}, [ tokenExpiryDate ])
 
-	useEffect(() => {
-		if (!expirationTime) return
-		const now = dayjs()
-		const msTilUtloperSnartAlert = dayjs(expirationTime)
-			.subtract(5, 'minutes').diff(now)
-
-		const msTilUtloggingAlert = dayjs(expirationTime)
-			.subtract(2, 'minutes').diff(now)
-
-		const msTilAutomatiskUtlogging = dayjs(expirationTime)
-			.subtract(1, 'minutes').diff(now)
-
-		setUtlopAlertOmMs(Math.max(msTilUtloperSnartAlert, 0))
-		setUtloggingAlertOmMs(Math.max(msTilUtloggingAlert, 0))
-		setTvungenUtloggingOmMs(Math.max(msTilAutomatiskUtlogging, 0))
-	}, [ expirationTime ])
+	const visDuBlirLoggetUtAlert = useCallback(() => {
+		const visAlert = dayjs(tokenExpiryDate).subtract(2, 'minutes')
+		return dayjs().isAfter(visAlert)
+	}, [ tokenExpiryDate ])
 
 	useEffect(() => {
-		if (utlopAlertOmMs === undefined) return
+		if (isResolved(fetchAuthInfo)) {
+			setTokenExpiryDate(fetchAuthInfo.result.data.expirationTime)
+		}
+	}, [ fetchAuthInfo ])
 
-		utloperSnartAlertTimeoutRef.current = setTimeout(() => {
-			setAlertType(AlertType.UTLOPER_SNART)
-
-		}, utlopAlertOmMs) as unknown as number
-
-		return () => clearTimeout(utloperSnartAlertTimeoutRef.current)
-	}, [ utlopAlertOmMs ])
-
-	useEffect(() => {
-		if (utloggingAlertOmMs === undefined) return
-
-		tvungenUtloggingAlertTimeoutRef.current = setTimeout(() => {
-			setAlertType(AlertType.TVUNGEN_UTLOGGING_SNART)
-		}, utloggingAlertOmMs) as unknown as number
-
-		return () => clearTimeout(tvungenUtloggingAlertTimeoutRef.current)
-	}, [ utloggingAlertOmMs ])
 
 	useEffect(() => {
 		if (tvungenUtloggingTimeoutRef.current) return
-		if (!tvungenUtloggingOmMs) return
+		if (!tokenExpiryDate) return
 
-		tvungenUtloggingTimeoutRef.current = setTimeout(() => {
-			setAlertType(AlertType.LOGGET_UT)
-			window.location.href = loginUrl(window.location.href) //denne fungerer ikke om fanen ikke er aktiv
-			navigate(DU_ER_LOGGET_UT_PAGE_ROUTE)
-		}, tvungenUtloggingOmMs) as unknown as number
-	}, [ alertType, tvungenUtloggingOmMs, navigate ])
+		tvungenUtloggingTimeoutRef.current = setInterval(() => {
+			if (tokenTimedOut()) {
+				setAlertType(AlertType.LOGGET_UT)
+				navigate(DU_ER_LOGGET_UT_PAGE_ROUTE)
+				window.location.href = loginUrl(window.location.href) //denne fungerer ikke om fanen ikke er aktiv, derfor navigerer man også internt
+			}
+			else if (visDuBlirLoggetUtAlert()) {
+				setAlertType(AlertType.TVUNGEN_UTLOGGING_SNART)
+			}
+			else if (visUtloperSnartAlert()) {
+				setAlertType(AlertType.UTLOPER_SNART)
+			}
+
+		}, 3000) as unknown as number
+
+	}, [ tokenExpiryDate, navigate, tokenTimedOut, visDuBlirLoggetUtAlert, visUtloperSnartAlert ])
 
 	const LoginLenke = () => <Link href={loginUrl(absolutePath(GJENNOMFORING_LISTE_PAGE_ROUTE))} className={styles.loginLenke}>Logg inn på nytt</Link>
 
