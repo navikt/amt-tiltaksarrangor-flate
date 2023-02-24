@@ -1,10 +1,9 @@
 import { CheckboxGroup, Table } from '@navikt/ds-react'
-import { PropsWithChildren, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { TiltakDeltaker } from '../../../api/data/deltaker'
 import { Sortering } from '../../../utils/sortering-utils'
 import { TabellBody } from './TabellBody'
 import { TabellHeader } from './TabellHeader'
-import React from 'react'
 
 export enum TabellType {
 	VEILEDER,
@@ -57,13 +56,8 @@ export const DeltakerTabell = ({
 		setMarkerte(val)
 	}
 
-	const Gruppe = ({ children }: PropsWithChildren): React.ReactElement => {
-		if (!visCheckBox) return <>{children}</>
-		return <CheckboxGroup value={markerte} legend="Velg deltakere" onChange={handleChange} hideLegend>{children}</CheckboxGroup>
-	}
-
 	return (
-		<Gruppe>
+		<Gruppe visCheckBox={visCheckBox} markerte={markerte} handleChange={handleChange}>
 			<Table className="tabell" size={size} zebraStripes={true} sort={sortering} onSortChange={onSortChange} aria-label={ariaLabel}>
 				<TabellHeader visning={visning} visCheckBox={visCheckBox} />
 				<TabellBody
@@ -74,4 +68,16 @@ export const DeltakerTabell = ({
 			</Table>
 		</Gruppe>
 	)
+}
+
+interface GruppeProps {
+	visCheckBox?: boolean
+	children: React.ReactNode
+	markerte: string[]
+	handleChange: (val: string[]) => void
+}
+
+const Gruppe = ({ visCheckBox, markerte, handleChange, children }: GruppeProps): React.ReactElement => {
+	if (!visCheckBox) return <>{children}</>
+	return <CheckboxGroup value={markerte} legend="Velg deltakere" onChange={handleChange} hideLegend>{children}</CheckboxGroup>
 }

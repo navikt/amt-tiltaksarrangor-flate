@@ -57,37 +57,11 @@ export const Rad = (props: RadProps): React.ReactElement<RadProps> => {
 
 	const deltakerNavn = lagKommaSeparertBrukerNavn(fornavn, mellomnavn, etternavn)
 
-	const Navn = () => (
-		<Table.DataCell>
-			<Link className={styles.brukersNavn} to={brukerDetaljerPageUrl(id)} onClick={() => loggKlikk(klikkDeltakerRadOversikt)}>
-				{deltakerNavn}
-			</Link>
-		</Table.DataCell>
-	)
-
-	const CheckBoxCell = () => {
-		if (props.visCheckBox) {
-			return (
-				<Table.DataCell>
-					<Checkbox
-						value={id}
-						hideLabel={true}
-						aria-label={deltakerNavn}
-						size="small"
-					>
-						{deltakerNavn}
-					</Checkbox>
-				</Table.DataCell>
-			)
-		}
-		return <></>
-	}
-
 	if (props.visning === TabellType.KOORDINATOR) {
 		return (
 			<Table.Row key={id}>
-				<CheckBoxCell />
-				<Navn />
+				<CheckBoxCell navn={deltakerNavn} id={id} visCheckBox={props.visCheckBox} />
+				<Navn navn={deltakerNavn} id={id} />
 				<Table.DataCell><Fnr fnr={fodselsnummer} /></Table.DataCell>
 				<Table.DataCell>{formatDate(registrertDato)}</Table.DataCell>
 				<Table.DataCell>{startDatoTekst}</Table.DataCell>
@@ -106,8 +80,7 @@ export const Rad = (props: RadProps): React.ReactElement<RadProps> => {
 
 	return (
 		<Table.Row key={id}>
-			<CheckBoxCell />
-			<Navn />
+			<Navn navn={deltakerNavn} id={id} />
 			<Table.DataCell><Fnr fnr={fodselsnummer} /></Table.DataCell>
 			<Table.DataCell>{startDatoTekst}</Table.DataCell>
 			<Table.DataCell>{sluttDatoTekst}</Table.DataCell>
@@ -117,3 +90,43 @@ export const Rad = (props: RadProps): React.ReactElement<RadProps> => {
 		</Table.Row>
 	)
 }
+
+
+interface NavnProps {
+	navn: string
+	id: string
+}
+
+const Navn = ({ navn, id }: NavnProps) => (
+	<Table.DataCell>
+		<Link className={styles.brukersNavn} to={brukerDetaljerPageUrl(id)} onClick={() => loggKlikk(klikkDeltakerRadOversikt)}>
+			{navn}
+		</Link>
+	</Table.DataCell>
+)
+
+
+interface CheckBoxCellProps {
+	navn: string
+	id: string
+	visCheckBox?: boolean
+}
+
+const CheckBoxCell = ({ navn, id, visCheckBox }: CheckBoxCellProps) => {
+	if (visCheckBox) {
+		return (
+			<Table.DataCell>
+				<Checkbox
+					value={id}
+					hideLabel={true}
+					aria-label={navn}
+					size="small"
+				>
+					{navn}
+				</Checkbox>
+			</Table.DataCell>
+		)
+	}
+	return <></>
+}
+
