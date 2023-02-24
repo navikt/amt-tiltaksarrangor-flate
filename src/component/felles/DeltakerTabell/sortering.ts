@@ -1,12 +1,13 @@
-import { TiltakDeltaker } from '../../../../api/data/deltaker'
+import { TiltakDeltaker } from '../../../api/data/deltaker'
 import {
 	AvsluttDeltakelseEndringsmelding,
 	EndreOppstartsdatoEndringsmelding,
 	Endringsmelding,
-	EndringsmeldingType, ForlengDeltakelseEndringsmelding,
+	EndringsmeldingType,
+	ForlengDeltakelseEndringsmelding,
 	LeggTilOppstartsdatoEndringsmelding
-} from '../../../../api/data/endringsmelding'
-import { compareAsc, Sortering } from '../../../../utils/sortering-utils'
+} from '../../../api/data/endringsmelding'
+import { compareAsc, Sortering } from '../../../utils/sortering-utils'
 
 export enum DeltakerKolonne {
 	NAVN = 'NAVN',
@@ -14,7 +15,8 @@ export enum DeltakerKolonne {
 	STATUS = 'STATUS',
 	OPPSTART = 'OPPSTART',
 	SLUTT = 'SLUTT',
-	SOKT_INN = 'SOKT_INN'
+	SOKT_INN = 'SOKT_INN',
+	VEILEDER = 'VEILEDER',
 }
 
 export const sorterDeltakere = (deltakere: TiltakDeltaker[], sortering: Sortering | undefined): TiltakDeltaker[] => {
@@ -26,7 +28,7 @@ export const sorterDeltakere = (deltakere: TiltakDeltaker[], sortering: Sorterin
 		return deltakere
 	}
 
-	const finnEndringsmeldingMedStartDato = (endringsmeldinger: Endringsmelding[]) : LeggTilOppstartsdatoEndringsmelding | EndreOppstartsdatoEndringsmelding | undefined => {
+	const finnEndringsmeldingMedStartDato = (endringsmeldinger: Endringsmelding[]): LeggTilOppstartsdatoEndringsmelding | EndreOppstartsdatoEndringsmelding | undefined => {
 		return endringsmeldinger
 			.filter(endringsmelding =>
 				endringsmelding.type === EndringsmeldingType.LEGG_TIL_OPPSTARTSDATO ||
@@ -34,7 +36,7 @@ export const sorterDeltakere = (deltakere: TiltakDeltaker[], sortering: Sorterin
 			)[0] as LeggTilOppstartsdatoEndringsmelding | EndreOppstartsdatoEndringsmelding
 	}
 
-	const finnEndringsmeldingMedSluttDato = (endringsmeldinger: Endringsmelding[]) : ForlengDeltakelseEndringsmelding | AvsluttDeltakelseEndringsmelding | undefined => {
+	const finnEndringsmeldingMedSluttDato = (endringsmeldinger: Endringsmelding[]): ForlengDeltakelseEndringsmelding | AvsluttDeltakelseEndringsmelding | undefined => {
 		return endringsmeldinger
 			.filter(endringsmelding =>
 				endringsmelding.type === EndringsmeldingType.FORLENG_DELTAKELSE ||
@@ -47,6 +49,12 @@ export const sorterDeltakere = (deltakere: TiltakDeltaker[], sortering: Sorterin
 			case DeltakerKolonne.NAVN: {
 				const compareRes = compareAsc(a.etternavn, b.etternavn)
 				return compareRes != 0 ? compareRes : compareAsc(a.fornavn, b.fornavn)
+			}
+			case DeltakerKolonne.VEILEDER: {
+				const v1 = a.aktiveVeiledere.filter(v => !v.erMedveileder)[0]
+				const v2 = b.aktiveVeiledere.filter(v => !v.erMedveileder)[0]
+				const compareRes = compareAsc(v1?.etternavn, v2?.etternavn)
+				return compareRes != 0 ? compareRes : compareAsc(v1?.fornavn, v2?.fornavn)
 			}
 			case DeltakerKolonne.STATUS:
 				return compareAsc(a.status.type, b.status.type)
@@ -66,7 +74,6 @@ export const sorterDeltakere = (deltakere: TiltakDeltaker[], sortering: Sorterin
 				return compareAsc(a.registrertDato, b.registrertDato)
 			default:
 				return 0
-
 		}
 	})
 

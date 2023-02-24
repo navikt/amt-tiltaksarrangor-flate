@@ -11,6 +11,10 @@ class Toggle {
 		return !env.isProd
 	}
 
+	get veiledereEnabled(): boolean {
+		return !env.isProd
+	}
+
 }
 
 const toggle = new Toggle()

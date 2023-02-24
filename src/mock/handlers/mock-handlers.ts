@@ -177,7 +177,7 @@ export const mockHandlers: RequestHandler[] = [
 	}),
 	rest.patch(appUrl('/amt-tiltak/api/tiltaksarrangor/deltaker/:deltakerId/deltakelse-prosent'), (req, res, ctx) => {
 		const deltakerId = req.params.deltakerId as string
-		const body = req.body as { deltakelseProsent: number }
+		const body = req.body as { deltakelseProsent: number, gyldigFraDato: Date }
 
 		const deltaker = mockTiltakDeltakere.find(d => d.id == deltakerId)
 
