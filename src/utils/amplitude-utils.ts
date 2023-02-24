@@ -5,7 +5,6 @@ import env from './environment'
 
 type EventDataValue = string | boolean | number | null | undefined
 export const klikkFnrKnapp = 'klikk-fnr-knapp'
-export const klikkKolonneSortering = 'klikk-kolonne-sortering-deltaker-liste'
 export const klikkFilterMeny = 'klikk-filter-meny'
 export const klikkDeltakerRadOversikt = 'klikk-deltaker-deltaker-liste'
 
@@ -41,10 +40,6 @@ const logAmplitudeEvent = (eventName: string, data?: { [key: string]: EventDataV
 			console.error(error)
 		}
 	})
-}
-
-export const loggSidevisning = (pathname: string): void => {
-	logAmplitudeEvent('sidevisning', { path: pathname })
 }
 
 export const loggKlikk = (eventType: string, verdi?: string, status?: string) => {
