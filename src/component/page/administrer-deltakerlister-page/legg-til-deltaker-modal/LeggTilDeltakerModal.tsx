@@ -28,9 +28,8 @@ export const LeggTilDeltakerModal = (props: LeggTilDeltakerModalProps) => {
 			<div>Deltakerliste: <span className={styles.deltakerlisteNavn}>{props.deltakerlisteNavn}</span></div>
 
 			<BodyLong className={styles.text}>
-                Det er viktig at du kun legger til deltakerlister i oversikten
-                din som du er koordinator for. Når du legger til deltakerlisten
-                vil dine kollegaer se navnet ditt.
+				Det er viktig at du kun legger til deltakerlister du jobber med.
+				Når du har lagt til deltakerlisten vil dine kollegaer se navnet ditt.
 			</BodyLong>
 
 			<div className={styles.knappeRad}>
