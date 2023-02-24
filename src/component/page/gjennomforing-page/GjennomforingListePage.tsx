@@ -1,4 +1,4 @@
-import { Add } from '@navikt/ds-icons'
+import { Add, ExternalLink } from '@navikt/ds-icons'
 import { AxiosResponse } from 'axios'
 import React, { useEffect } from 'react'
 
@@ -56,8 +56,9 @@ export const GjennomforingListePage = (): React.ReactElement => {
 				text="Legg til deltakerliste"
 			/>
 
-			<Link href="https://www.nav.no/samarbeidspartner/deltakeroversikt" className={styles.informasjonLenkeWrapper}>
+			<Link target="_blank" rel="noopener noreferrer" href="https://www.nav.no/samarbeidspartner/deltakeroversikt" className={styles.informasjonLenkeWrapper}>
 				<BodyShort>Info om deltakeroversikten</BodyShort>
+				<ExternalLink />
 			</Link>
 		</div>
 	)
