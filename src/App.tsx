@@ -1,39 +1,39 @@
 import { AxiosResponse } from 'axios'
-import React, { useEffect } from 'react'
-
-import { InnloggetAnsatt } from './api/data/ansatt'
-import { fetchInnloggetAnsatt } from './api/tiltak-api'
+import React, { useEffect, useState } from 'react'
+import { fetchMineRoller } from './api/tiltak-api'
 import { Header } from './component/felles/header/Header'
 import { AppRoutes } from './Routes'
-import { useAuthStore } from './store/data-store'
 import { isNotStartedOrPending, isRejected, isResolved, usePromise } from './utils/use-promise'
 import { SesjonNotifikasjon } from './component/sesjon-notifikasjon/SesjonNotifikasjon'
 
 
 export const App = (): React.ReactElement => {
-	const fetchInnloggetAnsattPromise = usePromise<AxiosResponse<InnloggetAnsatt>>(fetchInnloggetAnsatt)
-	const { innloggetAnsatt, setInnloggetAnsatt } = useAuthStore()
+	const fetchMineRollerPromise = usePromise<AxiosResponse<string[]>>(fetchMineRoller)
 
-	const harTilgangTilArrangor = !!innloggetAnsatt && innloggetAnsatt.arrangorer
-		.filter(arrangor => arrangor.roller.length > 0)
+	const [ isLoggedIn, setIsLoggedIn ] = useState<boolean>(false)
+	const [ roller, setRoller ] = useState<string[]>([])
+
+	const harTilgangTilArrangor = roller.filter((rolle) => rolle === 'KOORDINATOR')
 		.length > 0
 
 	useEffect(() => {
-		if (isResolved(fetchInnloggetAnsattPromise)) {
-			setInnloggetAnsatt(fetchInnloggetAnsattPromise.result.data)
+		if (isResolved(fetchMineRollerPromise)) {
+			setRoller(fetchMineRollerPromise.result.data)
+			setIsLoggedIn(true)
 		}
+
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [ fetchInnloggetAnsattPromise ])
+	}, [ fetchMineRollerPromise ])
 
 	return (
 		<>
-			<Header/>
+			<Header isLoggedIn={isLoggedIn}/>
 			<main>
-				<SesjonNotifikasjon />
+				<SesjonNotifikasjon/>
 				<AppRoutes
 					// Vi må vente på at innloggetAnsatt er lagt inn i storen før vi rendrer routes
-					isLoading={isNotStartedOrPending(fetchInnloggetAnsattPromise) || !innloggetAnsatt}
-					isRejected={isRejected(fetchInnloggetAnsattPromise)}
+					isLoading={isNotStartedOrPending(fetchMineRollerPromise) || !isLoggedIn}
+					isRejected={isRejected(fetchMineRollerPromise)}
 					harTilgangTilArrangor={harTilgangTilArrangor}
 				/>
 			</main>

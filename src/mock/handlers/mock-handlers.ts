@@ -6,13 +6,8 @@ import { TiltakDeltaker, TiltakDeltakerDetaljer } from '../../api/data/deltaker'
 import { DeltakerStatusAarsakType, EndringsmeldingType } from '../../api/data/endringsmelding'
 import { VIS_DRIFTSMELDING_TOGGLE_NAVN } from '../../api/data/feature-toggle'
 import { appUrl } from '../../utils/url-utils'
-import {
-	mockGjennomforinger,
-	mockKoordinatorer,
-	mockTilgjengeligGjennomforinger,
-	mockTiltakDeltakere
-} from '../data'
-import { mockInnloggetAnsatt } from '../data/ansatt'
+import { mockGjennomforinger, mockKoordinatorer, mockTilgjengeligGjennomforinger, mockTiltakDeltakere } from '../data'
+import { mockMineRoller } from '../data/ansatt'
 import { mockAuthInfo } from '../data/auth'
 import { MockTiltakDeltaker } from '../data/brukere'
 import { randomUuid } from '../utils/faker'
@@ -21,8 +16,8 @@ export const mockHandlers: RequestHandler[] = [
 	rest.get(appUrl('/auth/info'), (_req, res, ctx) => {
 		return res(ctx.delay(500), ctx.json(mockAuthInfo))
 	}),
-	rest.get(appUrl('/amt-tiltak/api/tiltaksarrangor/ansatt/meg'), (_req, res, ctx) => {
-		return res(ctx.delay(500), ctx.json(mockInnloggetAnsatt))
+	rest.get(appUrl('/amt-tiltak/api/tiltaksarrangor/ansatt/meg/roller'), (_req, res, ctx) => {
+		return res(ctx.delay(500), ctx.json(mockMineRoller))
 	}),
 	rest.get(appUrl('/amt-tiltak/api/tiltaksarrangor/gjennomforing/tilgjengelig'), (_req, res, ctx) => {
 		const gjennomforinger = [ mockGjennomforinger[0], ...mockTilgjengeligGjennomforinger ]
@@ -31,7 +26,7 @@ export const mockHandlers: RequestHandler[] = [
 	rest.get(appUrl('/amt-tiltak/api/tiltaksarrangor/gjennomforing/:gjennomforingId'), (req, res, ctx) => {
 		const gjennomforingId = req.params.gjennomforingId
 		const gjennomforing = mockGjennomforinger.find(g => g.id === gjennomforingId)
-		if(gjennomforing === undefined) {
+		if (gjennomforing === undefined) {
 			return res(
 				ctx.delay(500),
 				ctx.status(404),
@@ -153,7 +148,7 @@ export const mockHandlers: RequestHandler[] = [
 	}),
 	rest.patch(appUrl('/amt-tiltak/api/tiltaksarrangor/deltaker/:deltakerId/ikke-aktuell'), (req, res, ctx) => {
 		const deltakerId = req.params.deltakerId as string
-		const body = req.body as { aarsak: {type: DeltakerStatusAarsakType, beskrivelse: string | null} }
+		const body = req.body as { aarsak: { type: DeltakerStatusAarsakType, beskrivelse: string | null } }
 
 		const deltaker = mockTiltakDeltakere.find(d => d.id == deltakerId)
 
