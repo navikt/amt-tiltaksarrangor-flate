@@ -1,22 +1,23 @@
 import { Heading } from '@navikt/ds-react'
 import React from 'react'
-
-import { useAuthStore } from '../../../store/data-store'
 import { useTilbakelenkeStore } from '../../../store/tilbakelenke-store'
 import { Tilbakelenke } from '../tilbakelenke/Tilbakelenke'
 import styles from './Header.module.scss'
 
-export const Header = (): React.ReactElement => {
-	const { innloggetAnsatt } = useAuthStore()
+interface HeaderProps {
+	isLoggedIn: boolean
+}
+
+export const Header = (props: HeaderProps): React.ReactElement => {
 	const { tilbakeTilUrl } = useTilbakelenkeStore()
 
-	if (!innloggetAnsatt) return <></>
+	if (!props.isLoggedIn) return <></>
 
 	return (
 		<nav className={styles.header}>
 			<div className={styles.headerContent}>
 				<div className={styles.titleWrapper}>
-					{ tilbakeTilUrl && <Tilbakelenke to={tilbakeTilUrl}/> }
+					{tilbakeTilUrl && <Tilbakelenke to={tilbakeTilUrl}/>}
 				</div>
 				<Heading size="medium" level="1" className={styles.title}>Deltakeroversikt</Heading>
 			</div>

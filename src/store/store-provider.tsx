@@ -1,6 +1,5 @@
 import React from 'react'
 
-import { AuthStoreProvider } from './data-store'
 import { TilbakelenkeStoreProvider } from './tilbakelenke-store'
 import { TiltaksoversiktSokStoreProvider } from './tiltaksoversikt-sok-store'
 
@@ -10,13 +9,11 @@ interface StoreProviderProps {
 
 const StoreProvider = (props: StoreProviderProps): React.ReactElement<StoreProviderProps> => {
 	return (
-		<AuthStoreProvider>
-			<TiltaksoversiktSokStoreProvider>
-				<TilbakelenkeStoreProvider>
-					{props.children}
-				</TilbakelenkeStoreProvider>
-			</TiltaksoversiktSokStoreProvider>
-		</AuthStoreProvider>
+		<TiltaksoversiktSokStoreProvider>
+			<TilbakelenkeStoreProvider>
+				{props.children}
+			</TilbakelenkeStoreProvider>
+		</TiltaksoversiktSokStoreProvider>
 	)
 }
 

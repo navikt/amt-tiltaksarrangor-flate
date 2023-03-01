@@ -3,7 +3,6 @@ import { AxiosError, AxiosPromise } from 'axios'
 import { formatDateToDateInputStr, formatNullableDateToDateInputStr } from '../utils/date-utils'
 import { Nullable } from '../utils/types/or-nothing'
 import { appUrl } from '../utils/url-utils'
-import { InnloggetAnsatt, innloggetAnsattSchema } from './data/ansatt'
 import {
 	DeltakerOversikt,
 	deltakerOversiktSchema,
@@ -22,14 +21,12 @@ import {
 } from './data/tiltak'
 import { axiosInstance, logAndThrowError, parse } from './utils'
 
-export const fetchInnloggetAnsatt = (): AxiosPromise<InnloggetAnsatt> => {
-	const url = appUrl('/amt-tiltak/api/tiltaksarrangor/ansatt/meg')
+export const fetchMineRoller = (): AxiosPromise<string[]> => {
+	const url = appUrl('/amt-tiltak/api/tiltaksarrangor/ansatt/meg/roller')
 	return axiosInstance
 		.get(url)
-		.then(parse(innloggetAnsattSchema))
 		.catch(err => {
 			// Ikke logg 401 feil til sentry
-
 			if ((err as AxiosError).response?.status === 401) {
 				throw err
 			}
