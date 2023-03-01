@@ -21,6 +21,7 @@ import { DeltakerOversikt } from '../../../api/data/deltaker'
 import env from '../../../utils/environment'
 import { IngenRollePage } from '../ingen-rolle-page/IngenRollePage'
 import { DeltakerListe } from './gjennomforing-liste/DeltakerListe'
+import { MineDeltakerePanel } from './MineDeltakerePanel'
 
 export const GjennomforingListePage = (): React.ReactElement => {
 	const { setTilbakeTilUrl } = useTilbakelenkeStore()
@@ -79,7 +80,7 @@ export const GjennomforingListePage = (): React.ReactElement => {
 			</div>
 		)
 	} else {
-		if (deltakerOversikt.koordinator && deltakerOversikt.koordinator?.deltakerlister.length > 0) {
+		if (deltakerOversikt.koordinator && deltakerOversikt.koordinator?.deltakerlister.length > 0 && !deltakerOversikt.veileder) {
 			return (
 				<div className={styles.page} data-testid="gjennomforing-oversikt-page">
 					<DeltakerListe deltakerliste={deltakerOversikt.koordinator.deltakerlister}/>
@@ -96,6 +97,27 @@ export const GjennomforingListePage = (): React.ReactElement => {
 					</Link>
 				</div>
 			)
+		} else if (deltakerOversikt.koordinator && deltakerOversikt.koordinator?.deltakerlister.length > 0 && deltakerOversikt.veileder) {
+			return (
+				<div className={styles.page} data-testid="gjennomforing-oversikt-page">
+					<MineDeltakerePanel veileder={deltakerOversikt.veileder}/>
+					<DeltakerListe deltakerliste={deltakerOversikt.koordinator.deltakerlister}/>
+
+					<IkonLenke
+						to={LEGG_TIL_DELTAKERLISTE_PAGE_ROUTE}
+						className={styles.leggTilDeltakerlisteWrapper}
+						ikon={<Add/>}
+						text="Legg til deltakerliste"
+					/>
+
+					<Link href="https://www.nav.no/samarbeidspartner/deltakeroversikt" className={styles.informasjonLenkeWrapper}>
+						<BodyShort>Info om deltakeroversikten</BodyShort>
+					</Link>
+				</div>
+			)
+		} else if (!deltakerOversikt.koordinator && deltakerOversikt.veileder) {
+			// skal returnere ny veilederoversikt når denne finnes
+			return <IngenRollePage />
 		} else {
 			return <IngenRollePage />
 		}

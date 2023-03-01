@@ -32,7 +32,7 @@ export const DeltakerListe = (props: DeltakerListeProps): React.ReactElement<Del
 			{sorterteDeltakerlister
 				.map((deltakerliste, deltakerlisteIdx) => {
 					return (
-						<TiltakSection key={deltakerlisteIdx} navn={deltakerliste.navn}>
+						<TiltakSection key={deltakerlisteIdx} navn={deltakerliste.type}>
 							{finnDeltakerlister(deltakerliste.type, props.deltakerliste)
 								.sort((d1, d2) => sortAlphabeticAsc(d1.navn, d2.navn))
 								.map((dl) => {
