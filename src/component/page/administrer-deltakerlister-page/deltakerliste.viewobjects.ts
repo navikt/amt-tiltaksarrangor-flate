@@ -1,18 +1,30 @@
-export interface OverordnetEnhetVO {
+export interface ArrangorOverenhet {
     navn: string;
-    enheter: EnhetVO[]
+    arrangorer: Arrangor[]
 }
 
-export interface EnhetVO {
+export interface Arrangor {
     id: string;
     navn: string;
-    deltakerlister: DeltakerlisteVO[];
+    deltakerlister: Deltakerliste[];
 }
 
-export interface DeltakerlisteVO {
+export interface Deltakerliste {
     id: string;
     navn: string;
     tiltaksnavn: string;
     startDato: Date | null;
     sluttDato: Date | null;
 }
+
+export interface Deltakerliste2 { //TODO flat ut listen og bruke reduce for å lage et map
+    id: string;
+    navn: string;
+    tiltaksnavn: string;
+    startDato: Date | null;
+    sluttDato: Date | null;
+    arrangorOverenhetNavn: string;
+    arrangorId: string;
+    arrangorNavn: string;
+}
+

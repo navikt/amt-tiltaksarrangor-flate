@@ -3,7 +3,7 @@ import { BodyLong, Button } from '@navikt/ds-react'
 import styles from '../../bruker-detaljer/deltaker-detaljer/fjern-deltaker-modal/FjernDeltakerModal.module.scss'
 import React from 'react'
 
-interface LeggTilDeltakerModalProps {
+interface LeggTilDeltakerlisteModalProps {
     open: boolean;
     deltakerlisteNavn: string;
     deltakerlisteId: string;
@@ -11,7 +11,7 @@ interface LeggTilDeltakerModalProps {
     onClose: () => void;
 }
 
-export const LeggTilDeltakerModal = (props: LeggTilDeltakerModalProps) => {
+export const LeggTilDeltakerlisteModal = (props: LeggTilDeltakerlisteModalProps) => {
 
 	const onLeggTilClicked = () => {
 		props.onConfirm(props.deltakerlisteId)

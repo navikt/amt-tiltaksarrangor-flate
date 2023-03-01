@@ -15,7 +15,7 @@ interface GjennomforingInfo {
 
 export const gjennomforingInfoListe: GjennomforingInfo[] = [
 	{
-		gjennomforingNavn: 'Oppfølging Åsedalen ji oiafjoasijfio asdfoi dsafoiasdj foisadj foisadj foiasdj fo',
+		gjennomforingNavn: 'Oppfølging Åsedalen for alle mennesker og andre. Dette er bare en lang tekst for å sjekke om ting bryter riktig.',
 		tiltakskode: Tiltakskode.INDOPPFAG,
 		tiltaksnavn: 'Oppfølging',
 		status: TiltakGjennomforingStatus.GJENNOMFORES

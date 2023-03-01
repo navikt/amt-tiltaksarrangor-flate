@@ -1,8 +1,8 @@
 import { Gjennomforing } from '../../../api/data/tiltak'
-import { OverordnetEnhetVO } from './deltakerliste.viewobjects'
+import { ArrangorOverenhet } from './deltakerliste.viewobjects'
 
-export const deltakerlisteMapper = (gjennomforinger: Gjennomforing[]): OverordnetEnhetVO[] => {
-	const data: OverordnetEnhetVO[] = []
+export const deltakerlisteMapper = (gjennomforinger: Gjennomforing[]): ArrangorOverenhet[] => {
+	const data: ArrangorOverenhet[] = []
 
 	gjennomforinger.forEach((gjennomforing) => {
 		const overordnetEnhetNavn = gjennomforing.arrangor.organisasjonNavn != null
@@ -10,21 +10,21 @@ export const deltakerlisteMapper = (gjennomforinger: Gjennomforing[]): Overordne
 			: gjennomforing.arrangor.virksomhetNavn
 
 		if (!data.some((i) => i.navn === overordnetEnhetNavn)) {
-			data.push({ navn: overordnetEnhetNavn, enheter: [] })
+			data.push({ navn: overordnetEnhetNavn, arrangorer: [] })
 		}
 
 		const overornetEnhet = data.find((i) => i.navn === overordnetEnhetNavn)
 
 		if (overornetEnhet !== undefined) {
-			if (!overornetEnhet.enheter.some((i) => i.navn === gjennomforing.arrangor.virksomhetNavn)) {
-				overornetEnhet.enheter.push({
+			if (!overornetEnhet.arrangorer.some((i) => i.navn === gjennomforing.arrangor.virksomhetNavn)) {
+				overornetEnhet.arrangorer.push({
 					id: gjennomforing.arrangor.virksomhetOrgnr,
 					navn: gjennomforing.arrangor.virksomhetNavn,
 					deltakerlister: []
 				})
 			}
 
-			const enhet = overornetEnhet.enheter.find((i) => i.navn === gjennomforing.arrangor.virksomhetNavn)
+			const enhet = overornetEnhet.arrangorer.find((i) => i.navn === gjennomforing.arrangor.virksomhetNavn)
 
 			enhet?.deltakerlister.push({
 				id: gjennomforing.id,

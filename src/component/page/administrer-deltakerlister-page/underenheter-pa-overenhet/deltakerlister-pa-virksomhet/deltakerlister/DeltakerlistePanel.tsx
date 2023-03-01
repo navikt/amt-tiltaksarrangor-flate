@@ -1,5 +1,5 @@
-import { DeltakerlisteVO } from '../../../deltakerliste.viewobjects'
-import styles from './Deltakerliste.module.scss'
+import { Deltakerliste } from '../../../deltakerliste.viewobjects'
+import styles from './DeltakerlistePanel.module.scss'
 import { Alert, BodyShort, Button, Heading, Panel } from '@navikt/ds-react'
 import globalStyles from '../../../../../../globals.module.scss'
 import cls from 'classnames'
@@ -8,8 +8,8 @@ import { Show } from '../../../../../felles/Show'
 import { Add, Close } from '@navikt/ds-icons'
 import React, { useEffect, useState } from 'react'
 
-interface DeltakerlisteProps {
-    deltakerliste: DeltakerlisteVO;
+interface DeltakerlistePanelProps {
+    deltakerliste: Deltakerliste;
     deltakerlisterLagtTil: string[];
     deltakerlisteIdLoading: string | undefined;
     onLeggTil: (id: string) => void;
@@ -18,7 +18,7 @@ interface DeltakerlisteProps {
 
 const SUCCESS_ALERT_TIMEOUT_MS = 2000
 
-export const Deltakerliste = (props: DeltakerlisteProps) => {
+export const DeltakerlistePanel = (props: DeltakerlistePanelProps) => {
 	const deltakerliste = props.deltakerliste
 
 	const [ lagtTil, setLagtTil ] = useState<boolean | undefined>()
