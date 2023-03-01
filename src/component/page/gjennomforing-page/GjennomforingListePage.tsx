@@ -3,7 +3,7 @@ import { AxiosResponse } from 'axios'
 import React, { useEffect } from 'react'
 
 import { Gjennomforing } from '../../../api/data/tiltak'
-import { fetchTiltakGjennomforinger } from '../../../api/tiltak-api'
+import { fetchDeltakeroversikt, fetchTiltakGjennomforinger } from '../../../api/tiltak-api'
 import { useTabTitle } from '../../../hooks/use-tab-title'
 import {
 	LEGG_TIL_DELTAKERLISTE_PAGE_ROUTE
@@ -17,6 +17,10 @@ import { SpinnerPage } from '../../felles/spinner-page/SpinnerPage'
 import { GjennomforingListe } from './gjennomforing-liste/GjennomforingListe'
 import styles from './GjennomforingListePage.module.scss'
 import { BodyShort, Link } from '@navikt/ds-react'
+import { DeltakerOversikt } from '../../../api/data/deltaker'
+import env from '../../../utils/environment'
+import { IngenRollePage } from '../ingen-rolle-page/IngenRollePage'
+import { DeltakerListe } from './gjennomforing-liste/DeltakerListe'
 
 export const GjennomforingListePage = (): React.ReactElement => {
 	const { setTilbakeTilUrl } = useTilbakelenkeStore()
@@ -32,33 +36,68 @@ export const GjennomforingListePage = (): React.ReactElement => {
 		() => fetchTiltakGjennomforinger()
 	)
 
-	if (isNotStartedOrPending(fetchGjennomforingerPromise)) {
+	const fetchDeltakerOversiktPromise = usePromise<AxiosResponse<DeltakerOversikt>>(
+		() => fetchDeltakeroversikt()
+	)
+
+	if (
+		isNotStartedOrPending(fetchGjennomforingerPromise)
+		|| isNotStartedOrPending(fetchDeltakerOversiktPromise)
+	) {
 		return <SpinnerPage />
 	}
 
-	if (isRejected(fetchGjennomforingerPromise)) {
+	if (
+		isRejected(fetchGjennomforingerPromise)
+		|| isRejected(fetchDeltakerOversiktPromise)
+	) {
 		return <AlertPage variant="error" tekst="Noe gikk galt" />
 	}
 
 	const alleGjennomforinger = fetchGjennomforingerPromise.result.data
+	
+	const deltakerOversikt = fetchDeltakerOversiktPromise.result.data
 
 	const gjennomforinger = alleGjennomforinger
 		.sort((g1, g2) => sortAlphabeticAsc(g1.navn, g2.navn))
+	
+	if (env.isProd) {
+		return (
+			<div className={styles.page} data-testid="gjennomforing-oversikt-page">
+				<GjennomforingListe gjennomforinger={gjennomforinger}/>
 
-	return (
-		<div className={styles.page} data-testid="gjennomforing-oversikt-page">
-			<GjennomforingListe gjennomforinger={gjennomforinger} />
+				<IkonLenke
+					to={LEGG_TIL_DELTAKERLISTE_PAGE_ROUTE}
+					className={styles.leggTilDeltakerlisteWrapper}
+					ikon={<Add/>}
+					text="Legg til deltakerliste"
+				/>
 
-			<IkonLenke
-				to={LEGG_TIL_DELTAKERLISTE_PAGE_ROUTE}
-				className={styles.leggTilDeltakerlisteWrapper}
-				ikon={<Add />}
-				text="Legg til deltakerliste"
-			/>
+				<Link href="https://www.nav.no/samarbeidspartner/deltakeroversikt" className={styles.informasjonLenkeWrapper}>
+					<BodyShort>Info om deltakeroversikten</BodyShort>
+				</Link>
+			</div>
+		)
+	} else {
+		if (deltakerOversikt.koordinator && deltakerOversikt.koordinator?.deltakerlister.length > 0) {
+			return (
+				<div className={styles.page} data-testid="gjennomforing-oversikt-page">
+					<DeltakerListe deltakerliste={deltakerOversikt.koordinator.deltakerlister}/>
 
-			<Link href="https://www.nav.no/samarbeidspartner/deltakeroversikt" className={styles.informasjonLenkeWrapper}>
-				<BodyShort>Info om deltakeroversikten</BodyShort>
-			</Link>
-		</div>
-	)
+					<IkonLenke
+						to={LEGG_TIL_DELTAKERLISTE_PAGE_ROUTE}
+						className={styles.leggTilDeltakerlisteWrapper}
+						ikon={<Add/>}
+						text="Legg til deltakerliste"
+					/>
+
+					<Link href="https://www.nav.no/samarbeidspartner/deltakeroversikt" className={styles.informasjonLenkeWrapper}>
+						<BodyShort>Info om deltakeroversikten</BodyShort>
+					</Link>
+				</div>
+			)
+		} else {
+			return <IngenRollePage />
+		}
+	}
 }

@@ -5,6 +5,8 @@ import { Nullable } from '../utils/types/or-nothing'
 import { appUrl } from '../utils/url-utils'
 import { InnloggetAnsatt, innloggetAnsattSchema } from './data/ansatt'
 import {
+	DeltakerOversikt,
+	deltakerOversiktSchema,
 	TiltakDeltaker,
 	TiltakDeltakerDetaljer,
 	tiltakDeltakerDetaljerSchema,
@@ -89,6 +91,14 @@ export const fetchDeltakerePaTiltakGjennomforing = (gjennomforingId: string): Ax
 	return axiosInstance
 		.get(url)
 		.then(parse(tiltakDeltakereSchema))
+		.catch(err => logAndThrowError(err, url))
+}
+
+export const fetchDeltakeroversikt = (): AxiosPromise<DeltakerOversikt> => {
+	const url = appUrl('/amt-tiltak/api/tiltaksarrangor/deltakeroversikt')
+	return axiosInstance
+		.get(url)
+		.then(parse(deltakerOversiktSchema))
 		.catch(err => logAndThrowError(err, url))
 }
 
