@@ -5,8 +5,8 @@ import { useTiltaksoversiktSokStore } from '../../../../store/tiltaksoversikt-so
 import { filtrerBrukere } from '../../../../utils/filtrering-utils'
 import { finnNesteSortering } from '../../../../utils/sortering-utils'
 import toggle from '../../../../utils/toggle'
-import { DeltakerTabell, TabellType } from '../../../felles/DeltakerTabell/DeltakerTabell'
-import { sorterDeltakere } from '../../../felles/DeltakerTabell/sortering'
+import { DeltakerTabell, TabellType } from '../../../felles/deltaker-tabell/DeltakerTabell'
+import { sorterDeltakere } from '../../../felles/deltaker-tabell/sortering'
 import styles from './DeltakerOversiktTabell.module.scss'
 import { IngenDeltakereAlertstripe } from './IngenDeltakereAlertstripe'
 
