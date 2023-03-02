@@ -16,7 +16,6 @@ import styles from './GjennomforingListePage.module.scss'
 import { BodyShort, Link } from '@navikt/ds-react'
 import { DeltakerOversikt } from '../../../api/data/deltaker'
 import env from '../../../utils/environment'
-import { IngenRollePage } from '../ingen-rolle-page/IngenRollePage'
 import { DeltakerListe } from './gjennomforing-liste/DeltakerListe'
 import { MineDeltakerePanel } from './minedeltakere/MineDeltakerePanel'
 
@@ -63,6 +62,6 @@ export const GjennomforingListePage = (): React.ReactElement => {
 			</div>
 		)
 	} else {
-		return <IngenRollePage />
+		return <AlertPage variant="error" tekst="Noe gikk galt" />
 	}
 }

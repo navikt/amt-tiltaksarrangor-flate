@@ -35,8 +35,6 @@ export const AppRoutes = ({ isLoading, isRejected, roller }: AppRoutesProps) => 
 	return <IngenRolleRoutes/>
 }
 
-// lage lister med routes pr tilgang (veileder, koordinato, begge, ingen
-
 const KoordinatorRoutes = (): React.ReactElement => {
 	return (
 		<>
