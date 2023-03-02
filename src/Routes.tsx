@@ -23,17 +23,49 @@ import { LoggetUtPage } from './component/page/LoggetUtPage'
 interface AppRoutesProps {
 	isLoading: boolean
 	isRejected: boolean
-	harTilgangTilArrangor: boolean
+	roller: string[]
 }
 
-export const AppRoutes = ({ isLoading, isRejected, harTilgangTilArrangor }: AppRoutesProps) => {
+export const AppRoutes = ({ isLoading, isRejected, roller }: AppRoutesProps) => {
 	if (isLoading) return <SpinnerPage/>
 	if (isRejected) return <ErrorPage/>
-	else if (!harTilgangTilArrangor) return <IngenRolleRoutes/>
-	return <PrivateRoutes/>
+	else if (roller.includes('KOORDINATOR') && roller.includes('VEILEDER')) return <VeilederOgKoordinatorRoutes/>
+	else if (roller.includes('KOORDINATOR')) return <KoordinatorRoutes/>
+	else if (roller.includes('VEILEDER')) return <VeilederRoutes/>
+	return <IngenRolleRoutes/>
 }
 
-const PrivateRoutes = (): React.ReactElement => {
+// lage lister med routes pr tilgang (veileder, koordinato, begge, ingen
+
+const KoordinatorRoutes = (): React.ReactElement => {
+	return (
+		<>
+			<Driftsmelding />
+			<Routes>
+				<Route path={DELTAKER_DETALJER_PAGE_ROUTE} element={<DeltakerDetaljerPage />} />
+				<Route path={GJENNOMFORING_DETALJER_PAGE_ROUTE} element={<GjennomforingDetaljerPage />} />
+				<Route path={GJENNOMFORING_LISTE_PAGE_ROUTE} element={<GjennomforingListePage />} />
+				<Route path={LEGG_TIL_DELTAKERLISTE_PAGE_ROUTE} element={<LeggTilDeltakerlistePage />} />
+				<Route path={DU_ER_LOGGET_UT_PAGE_ROUTE} element={<LoggetUtPage/>}/>
+				<Route path="*" element={<Navigate replace to={GJENNOMFORING_LISTE_PAGE_ROUTE}/>} />
+			</Routes>
+		</>
+	)
+}
+
+const VeilederRoutes = (): React.ReactElement => {
+	return (
+		<>
+			<Driftsmelding />
+			<Routes>
+				<Route path={INGEN_ROLLE_PAGE_ROUTE} element={<IngenRollePage />} />
+				<Route path="*" element={<Navigate replace to={INGEN_ROLLE_PAGE_ROUTE}/>} />
+			</Routes>
+		</>
+	)
+}
+
+const VeilederOgKoordinatorRoutes = (): React.ReactElement => {
 	return (
 		<>
 			<Driftsmelding />

@@ -62,8 +62,8 @@ export const navVeilederSchema = z.object({
 })
 
 export const veilederSchema = z.object({
-	veilederFor: z.string().nullable(),
-	medveilederFor: z.string().nullable()
+	veilederFor: z.string(),
+	medveilederFor: z.string()
 })
 
 export const deltakerlisteSchema = z.object({

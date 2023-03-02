@@ -3,7 +3,7 @@ import React, { useMemo } from 'react'
 
 import globalStyles from '../../../../globals.module.scss'
 import { sortAlphabeticAsc } from '../../../../utils/sortering-utils'
-import styles from './GjennomforingListe.module.scss'
+import styles from './DeltakerListe.module.scss'
 import { GjennomforingListePanel } from './GjennomforingListePanel'
 import { TiltakSection } from './TiltakSection'
 import { Deltakerliste } from '../../../../api/data/deltaker'
