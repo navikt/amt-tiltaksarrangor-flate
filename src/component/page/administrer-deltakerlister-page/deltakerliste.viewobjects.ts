@@ -16,15 +16,3 @@ export interface Deltakerliste {
     startDato: Date | null;
     sluttDato: Date | null;
 }
-
-export interface Deltakerliste2 { //TODO flat ut listen og bruke reduce for å lage et map
-    id: string;
-    navn: string;
-    tiltaksnavn: string;
-    startDato: Date | null;
-    sluttDato: Date | null;
-    arrangorOverenhetNavn: string;
-    arrangorId: string;
-    arrangorNavn: string;
-}
-

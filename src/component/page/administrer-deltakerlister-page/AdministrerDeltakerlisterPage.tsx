@@ -21,11 +21,11 @@ import { LeggTilDeltakerlisteModal } from './legg-til-deltakerliste-modal/LeggTi
 
 
 export const AdministrerDeltakerlisterPage = () => {
-	const [arrangorer, setArrangorer] = useState<ArrangorOverenhet[]>([])
-	const [deltakerlisteIderLagtTil, setDeltakerlisteIderLagtTil] = useState<string[]>([])
+	const [ arrangorer, setArrangorer ] = useState<ArrangorOverenhet[]>([])
+	const [ deltakerlisteIderLagtTil, setDeltakerlisteIderLagtTil ] = useState<string[]>([])
 
-	const [deltakerlisteIdUpdating, setDeltakerlisteIdUpdating] = useState<string | undefined>(undefined)
-	const [showLeggTilModal, setShowLeggTilModal] = useState(false)
+	const [ deltakerlisteIdUpdating, setDeltakerlisteIdUpdating ] = useState<string | undefined>(undefined)
+	const [ showLeggTilModal, setShowLeggTilModal ] = useState(false)
 
 	const fetchGjennomforingerPromise = usePromise<AxiosResponse<Gjennomforing[]>>(
 		() => fetchTiltakGjennomforinger()
@@ -47,7 +47,7 @@ export const AdministrerDeltakerlisterPage = () => {
 			setDeltakerlisteIderLagtTil(gjennomforingIderAlleredeLagtTil)
 			setArrangorer(data)
 		}
-	}, [fetchTilgjengeligGjennomforingerPromise.result, fetchGjennomforingerPromise.result])
+	}, [ fetchTilgjengeligGjennomforingerPromise, fetchGjennomforingerPromise ])
 
 
 	const onLeggTil = (deltakerlisteId: string) => {
@@ -61,7 +61,7 @@ export const AdministrerDeltakerlisterPage = () => {
 
 		fjernTilgangTilGjennomforing(deltakerlisteId)
 			.then(() => {
-				setDeltakerlisteIderLagtTil([...deltakerlisteIderLagtTil.filter((i) => i !== deltakerlisteId)])
+				setDeltakerlisteIderLagtTil([ ...deltakerlisteIderLagtTil.filter((i) => i !== deltakerlisteId) ])
 				setDeltakerlisteIdUpdating(undefined)
 			})
 	}
@@ -69,7 +69,7 @@ export const AdministrerDeltakerlisterPage = () => {
 	const leggTilConfirmed = (id: string) => {
 		opprettTilgangTilGjennomforing(id)
 			.then(() => {
-				setDeltakerlisteIderLagtTil([...deltakerlisteIderLagtTil, id])
+				setDeltakerlisteIderLagtTil([ ...deltakerlisteIderLagtTil, id ])
 				setDeltakerlisteIdUpdating(undefined)
 			})
 
