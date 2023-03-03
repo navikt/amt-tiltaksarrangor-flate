@@ -15,9 +15,9 @@ import { SpinnerPage } from '../../felles/spinner-page/SpinnerPage'
 import styles from './GjennomforingListePage.module.scss'
 import { BodyShort, Link } from '@navikt/ds-react'
 import { DeltakerOversikt } from '../../../api/data/deltaker'
-import env from '../../../utils/environment'
 import { DeltakerListe } from './gjennomforing-liste/DeltakerListe'
 import { MineDeltakerePanel } from './minedeltakere/MineDeltakerePanel'
+import toggle from '../../../utils/toggle'
 
 export const GjennomforingListePage = (): React.ReactElement => {
 	const { setTilbakeTilUrl } = useTilbakelenkeStore()
@@ -43,11 +43,11 @@ export const GjennomforingListePage = (): React.ReactElement => {
 	
 	const deltakerOversikt = fetchDeltakerOversiktPromise.result.data
 
-	if (deltakerOversikt.koordinator && deltakerOversikt.koordinator?.deltakerlister.length > 0) {
+	if (deltakerOversikt.koordinatorInfo && deltakerOversikt.koordinatorInfo?.deltakerlister.length > 0) {
 		return (
 			<div className={styles.page} data-testid="gjennomforing-oversikt-page">
-				{ !env.isProd && deltakerOversikt.veileder && <MineDeltakerePanel veileder={deltakerOversikt.veileder}/> }
-				<DeltakerListe deltakerliste={deltakerOversikt.koordinator.deltakerlister}/>
+				{ toggle.veilederEnabled && deltakerOversikt.veilederInfo && <MineDeltakerePanel veileder={deltakerOversikt.veilederInfo}/> }
+				<DeltakerListe deltakerliste={deltakerOversikt.koordinatorInfo.deltakerlister}/>
 
 				<IkonLenke
 					to={LEGG_TIL_DELTAKERLISTE_PAGE_ROUTE}

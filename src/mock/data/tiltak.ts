@@ -167,8 +167,8 @@ export const lagMockDeltakerOversikt = (gjennomforinger: MockGjennomforing[]): D
 	gjennomforinger.forEach(t => deltakerlister.push(lagMockDeltakerliste(t)))
 	
 	return {
-		veileder: null,
-		koordinator: {
+		veilederInfo: null,
+		koordinatorInfo: {
 			deltakerlister: deltakerlister
 		}
 	}

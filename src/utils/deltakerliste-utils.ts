@@ -1,17 +1,17 @@
 import { Deltakerliste } from '../api/data/deltaker'
 
-export const finnUnikeDeltakerlister = (detakerlister: Deltakerliste[]): Deltakerliste[] => {
-	const unikeDeltakerlister: Deltakerliste[] = []
+export const finnUnikeTiltakstyper = (detakerlister: Deltakerliste[]): string[] => {
+	const unikeTiltakstyper: string[] = []
 
 	detakerlister.forEach(deltakerliste => {
-		const deltakerliste1 = unikeDeltakerlister.find(t => t.type === deltakerliste.type)
+		const type1 = unikeTiltakstyper.find(t => t === deltakerliste.type)
 
-		if (!deltakerliste1) {
-			unikeDeltakerlister.push(deltakerliste)
+		if (!type1) {
+			unikeTiltakstyper.push(deltakerliste.type)
 		}
 	})
 
-	return unikeDeltakerlister
+	return unikeTiltakstyper
 }
 
 export const finnDeltakerlister = (type: string, deltakerlister: Deltakerliste[]): Deltakerliste[] => {
