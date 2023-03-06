@@ -10,7 +10,7 @@ import { IngenRollePage } from './component/page/ingen-rolle-page/IngenRollePage
 import { LeggTilDeltakerlistePage } from './component/page/legg-til-deltakerliste/LeggTilDeltakerlistePage'
 import { Driftsmelding } from './Driftsmelding'
 import {
-	DELTAKER_DETALJER_PAGE_ROUTE,
+	DELTAKER_DETALJER_PAGE_ROUTE, DELTAKERLISTE_VEILEDER_PAGE_ROUTE,
 	DU_ER_LOGGET_UT_PAGE_ROUTE,
 	GJENNOMFORING_DETALJER_PAGE_ROUTE,
 	GJENNOMFORING_LISTE_PAGE_ROUTE,
@@ -18,6 +18,8 @@ import {
 	LEGG_TIL_DELTAKERLISTE_PAGE_ROUTE
 } from './navigation'
 import { LoggetUtPage } from './component/page/LoggetUtPage'
+import { DeltakerlisteVeilederPage } from './component/page/deltakerliste-veileder/DeltakerlisteVeilederPage'
+import toggle from './utils/toggle'
 
 
 interface AppRoutesProps {
@@ -29,9 +31,9 @@ interface AppRoutesProps {
 export const AppRoutes = ({ isLoading, isRejected, roller }: AppRoutesProps) => {
 	if (isLoading) return <SpinnerPage/>
 	if (isRejected) return <ErrorPage/>
-	else if (roller.includes('KOORDINATOR') && roller.includes('VEILEDER')) return <VeilederOgKoordinatorRoutes/>
+	else if (toggle.veilederEnabled && roller.includes('KOORDINATOR') && roller.includes('VEILEDER')) return <VeilederOgKoordinatorRoutes/>
 	else if (roller.includes('KOORDINATOR')) return <KoordinatorRoutes/>
-	else if (roller.includes('VEILEDER')) return <VeilederRoutes/>
+	else if (toggle.veilederEnabled && roller.includes('VEILEDER')) return <VeilederRoutes/>
 	return <IngenRolleRoutes/>
 }
 
@@ -56,8 +58,10 @@ const VeilederRoutes = (): React.ReactElement => {
 		<>
 			<Driftsmelding />
 			<Routes>
-				<Route path={INGEN_ROLLE_PAGE_ROUTE} element={<IngenRollePage />} />
-				<Route path="*" element={<Navigate replace to={INGEN_ROLLE_PAGE_ROUTE}/>} />
+				<Route path={DELTAKERLISTE_VEILEDER_PAGE_ROUTE} element={<DeltakerlisteVeilederPage />} />
+				<Route path={DELTAKER_DETALJER_PAGE_ROUTE} element={<DeltakerDetaljerPage />} />
+				<Route path={DU_ER_LOGGET_UT_PAGE_ROUTE} element={<LoggetUtPage/>}/>
+				<Route path="*" element={<Navigate replace to={DELTAKERLISTE_VEILEDER_PAGE_ROUTE}/>} />
 			</Routes>
 		</>
 	)
@@ -68,6 +72,7 @@ const VeilederOgKoordinatorRoutes = (): React.ReactElement => {
 		<>
 			<Driftsmelding />
 			<Routes>
+				<Route path={DELTAKERLISTE_VEILEDER_PAGE_ROUTE} element={<DeltakerlisteVeilederPage />} />
 				<Route path={DELTAKER_DETALJER_PAGE_ROUTE} element={<DeltakerDetaljerPage />} />
 				<Route path={GJENNOMFORING_DETALJER_PAGE_ROUTE} element={<GjennomforingDetaljerPage />} />
 				<Route path={GJENNOMFORING_LISTE_PAGE_ROUTE} element={<GjennomforingListePage />} />

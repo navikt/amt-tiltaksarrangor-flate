@@ -3,7 +3,8 @@ import * as faker from 'faker'
 import { Gjennomforing, Koordinator, TiltakGjennomforingStatus, Tiltakskode } from '../../api/data/tiltak'
 import { arrangorForGjennomforing } from './arrangor'
 import { gjennomforingId } from './id'
-import { Deltakerliste, DeltakerOversikt } from '../../api/data/deltaker'
+import { Deltakerliste, DeltakerOversikt, VeiledersDeltaker } from '../../api/data/deltaker'
+import { MockTiltakDeltaker } from './brukere'
 
 export type MockGjennomforing = Gjennomforing
 
@@ -179,5 +180,33 @@ const lagMockDeltakerliste = (gjennomforing: MockGjennomforing): Deltakerliste =
 		id: gjennomforing.id,
 		navn: gjennomforing.navn,
 		type: gjennomforing.tiltak.tiltaksnavn
+	}
+}
+
+export const lagMockDeltakerlisteVeileder = (deltakere: MockTiltakDeltaker[]): VeiledersDeltaker[] => {
+	const deltakerlisteVeileder: VeiledersDeltaker[] = []
+	deltakere.forEach(d => deltakerlisteVeileder.push(lagMockVeiledersDeltaker(d)))
+
+	return deltakerlisteVeileder
+}
+
+const lagMockVeiledersDeltaker = (deltaker: MockTiltakDeltaker): VeiledersDeltaker => {
+	return {
+		id: deltaker.id,
+		fornavn: deltaker.fornavn,
+		mellomnavn: deltaker.mellomnavn,
+		etternavn: deltaker.etternavn,
+		fodselsnummer: deltaker.fodselsnummer,
+		startDato: deltaker.startDato,
+		sluttDato: deltaker.sluttDato,
+		status: deltaker.status,
+		deltakerliste: [
+			{
+				id: deltaker.gjennomforing.id,
+				type: deltaker.gjennomforing.tiltak.tiltaksnavn,
+				navn: deltaker.gjennomforing.navn
+			}
+		],
+		erMedveilederFor: false
 	}
 }
