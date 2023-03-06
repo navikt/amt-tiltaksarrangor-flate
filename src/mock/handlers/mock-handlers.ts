@@ -6,7 +6,13 @@ import { TiltakDeltaker, TiltakDeltakerDetaljer } from '../../api/data/deltaker'
 import { DeltakerStatusAarsakType, EndringsmeldingType } from '../../api/data/endringsmelding'
 import { VIS_DRIFTSMELDING_TOGGLE_NAVN } from '../../api/data/feature-toggle'
 import { appUrl } from '../../utils/url-utils'
-import { mockGjennomforinger, mockKoordinatorer, mockTilgjengeligGjennomforinger, mockTiltakDeltakere } from '../data'
+import {
+	mockDeltakeroversikt,
+	mockGjennomforinger,
+	mockKoordinatorer,
+	mockTilgjengeligGjennomforinger,
+	mockTiltakDeltakere
+} from '../data'
 import { mockMineRoller } from '../data/ansatt'
 import { mockAuthInfo } from '../data/auth'
 import { MockTiltakDeltaker } from '../data/brukere'
@@ -61,6 +67,9 @@ export const mockHandlers: RequestHandler[] = [
 	}),
 	rest.delete(appUrl('/amt-tiltak/api/tiltaksarrangor/gjennomforing/:gjennomforingId/tilgang'), (_req, res, ctx) => {
 		return res(ctx.delay(500), ctx.status(200))
+	}),
+	rest.get(appUrl('/amt-tiltak/api/tiltaksarrangor/deltakeroversikt'), (_req, res, ctx) => {
+		return res(ctx.delay(500), ctx.json(mockDeltakeroversikt))
 	}),
 	rest.get(appUrl('/amt-tiltak/api/tiltaksarrangor/endringsmelding'), (req, res, ctx) => {
 		const deltakerId = req.url.searchParams.get('deltakerId') as string

@@ -5,6 +5,7 @@ import { Header } from './component/felles/header/Header'
 import { AppRoutes } from './Routes'
 import { isNotStartedOrPending, isRejected, isResolved, usePromise } from './utils/use-promise'
 import { SesjonNotifikasjon } from './component/sesjon-notifikasjon/SesjonNotifikasjon'
+import { INGEN_ROLLE_PAGE_ROUTE } from './navigation'
 
 
 export const App = (): React.ReactElement => {
@@ -13,13 +14,14 @@ export const App = (): React.ReactElement => {
 	const [ isLoggedIn, setIsLoggedIn ] = useState<boolean>(false)
 	const [ roller, setRoller ] = useState<string[]>([])
 
-	const harTilgangTilArrangor = roller.filter((rolle) => rolle === 'KOORDINATOR')
-		.length > 0
-
 	useEffect(() => {
 		if (isResolved(fetchMineRollerPromise)) {
 			setRoller(fetchMineRollerPromise.result.data)
 			setIsLoggedIn(true)
+		}
+
+		if (!roller.includes('KOORDINATOR') && roller.includes('VEILEDER')) {
+			window.location.replace(INGEN_ROLLE_PAGE_ROUTE)
 		}
 
 		// eslint-disable-next-line react-hooks/exhaustive-deps
@@ -34,7 +36,7 @@ export const App = (): React.ReactElement => {
 					// Vi må vente på at innloggetAnsatt er lagt inn i storen før vi rendrer routes
 					isLoading={isNotStartedOrPending(fetchMineRollerPromise) || !isLoggedIn}
 					isRejected={isRejected(fetchMineRollerPromise)}
-					harTilgangTilArrangor={harTilgangTilArrangor}
+					roller={roller}
 				/>
 			</main>
 		</>

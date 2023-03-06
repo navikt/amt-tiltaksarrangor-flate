@@ -61,6 +61,26 @@ export const navVeilederSchema = z.object({
 	epost: z.string().nullable(),
 })
 
+export const veilederInfoSchema = z.object({
+	veilederFor: z.number(),
+	medveilederFor: z.number()
+})
+
+export const deltakerlisteSchema = z.object({
+	id: z.string().uuid(),
+	type: z.string(),
+	navn: z.string()
+})
+
+export const koordinatorInfoSchema = z.object({
+	deltakerlister: z.array(deltakerlisteSchema)
+})
+
+export const deltakerOversiktSchema = z.object({
+	veilederInfo: veilederInfoSchema.nullable(),
+	koordinatorInfo: koordinatorInfoSchema.nullable()
+})
+
 export const tiltakDeltakereSchema = z.array(tiltakDeltakerSchema)
 
 export type NavVeileder = z.infer<typeof navVeilederSchema>
@@ -72,3 +92,9 @@ export type TiltakDeltaker = z.infer<typeof tiltakDeltakerSchema>
 export type TiltakDeltakerDetaljer = z.infer<typeof tiltakDeltakerDetaljerSchema>
 
 export type DeltakerStatus = z.infer<typeof deltakerStatusSchema>
+
+export type VeilederInfo = z.infer<typeof veilederInfoSchema>
+
+export type Deltakerliste = z.infer<typeof deltakerlisteSchema>
+
+export type DeltakerOversikt = z.infer<typeof deltakerOversiktSchema>
