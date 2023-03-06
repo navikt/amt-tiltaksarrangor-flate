@@ -1,4 +1,4 @@
-import { TiltakDeltaker } from '../../../api/data/deltaker'
+import { TiltakDeltaker } from '../../../../../api/data/deltaker'
 import {
 	AvsluttDeltakelseEndringsmelding,
 	EndreOppstartsdatoEndringsmelding,
@@ -6,8 +6,8 @@ import {
 	EndringsmeldingType,
 	ForlengDeltakelseEndringsmelding,
 	LeggTilOppstartsdatoEndringsmelding
-} from '../../../api/data/endringsmelding'
-import { compareAsc, Sortering } from '../../../utils/sortering-utils'
+} from '../../../../../api/data/endringsmelding'
+import { compareAsc, Sortering } from '../../../../../utils/sortering-utils'
 
 export enum DeltakerKolonne {
 	NAVN = 'NAVN',

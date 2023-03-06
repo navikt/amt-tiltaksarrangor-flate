@@ -1,13 +1,11 @@
 import { Table } from '@navikt/ds-react'
 import React from 'react'
-import { TiltakDeltaker } from '../../../api/data/deltaker'
-import { TabellType } from './DeltakerTabell'
+import { TiltakDeltaker } from '../../../../../api/data/deltaker'
 
 import { Rad } from './Rad'
 
 interface TabellBodyProps {
 	deltakere: TiltakDeltaker[]
-	visning: TabellType
 	visCheckBox?: boolean
 }
 
@@ -18,8 +16,7 @@ export const TabellBody = (props: TabellBodyProps): React.ReactElement => {
 				<Rad
 					idx={idx}
 					deltaker={deltaker}
-					key={idx}
-					visning={props.visning}
+					key={deltaker.id}
 					visCheckBox={props.visCheckBox}
 				/>
 			))}

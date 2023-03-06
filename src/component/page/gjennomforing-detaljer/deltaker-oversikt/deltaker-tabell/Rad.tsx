@@ -1,25 +1,23 @@
 import { Checkbox, Table } from '@navikt/ds-react'
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { TiltakDeltaker } from '../../../api/data/deltaker'
-import { EndringsmeldingType } from '../../../api/data/endringsmelding'
-import { brukerDetaljerPageUrl } from '../../../navigation'
-import { klikkDeltakerRadOversikt, loggKlikk } from '../../../utils/amplitude-utils'
-import { lagKommaSeparertBrukerNavn } from '../../../utils/bruker-utils'
-import { EMDASH } from '../../../utils/constants'
-import { formatDate } from '../../../utils/date-utils'
-import toggle from '../../../utils/toggle'
-import { Fnr } from '../fnr/Fnr'
-import { Show } from '../Show'
-import { StatusMerkelapp } from '../status-merkelapp/StatusMerkelapp'
-import { TabellType } from './DeltakerTabell'
+import { TiltakDeltaker } from '../../../../../api/data/deltaker'
+import { EndringsmeldingType } from '../../../../../api/data/endringsmelding'
+import { brukerDetaljerPageUrl } from '../../../../../navigation'
+import { klikkDeltakerRadOversikt, loggKlikk } from '../../../../../utils/amplitude-utils'
+import { lagKommaSeparertBrukerNavn } from '../../../../../utils/bruker-utils'
+import { EMDASH } from '../../../../../utils/constants'
+import { formatDate } from '../../../../../utils/date-utils'
+import toggle from '../../../../../utils/toggle'
+import { Fnr } from '../../../../felles/fnr/Fnr'
+import { Show } from '../../../../felles/Show'
+import { StatusMerkelapp } from '../../../../felles/status-merkelapp/StatusMerkelapp'
 
 import styles from './Rad.module.scss'
 
 interface RadProps {
 	idx: number
 	deltaker: TiltakDeltaker
-	visning: TabellType
 	visCheckBox?: boolean
 }
 
@@ -57,54 +55,29 @@ export const Rad = (props: RadProps): React.ReactElement<RadProps> => {
 
 	const deltakerNavn = lagKommaSeparertBrukerNavn(fornavn, mellomnavn, etternavn)
 
-	if (props.visning === TabellType.KOORDINATOR) {
-		return (
-			<Table.Row key={id}>
-				<CheckBoxCell navn={deltakerNavn} id={id} visCheckBox={props.visCheckBox} />
-				<Navn navn={deltakerNavn} id={id} />
-				<Table.DataCell><Fnr fnr={fodselsnummer} /></Table.DataCell>
-				<Table.DataCell>{formatDate(registrertDato)}</Table.DataCell>
-				<Table.DataCell>{startDatoTekst}</Table.DataCell>
-				<Table.DataCell>{sluttDatoTekst}</Table.DataCell>
-				<Table.DataCell>
-					<StatusMerkelapp status={status} />
-				</Table.DataCell>
-				<Show if={toggle.veiledereEnabled}>
-					<Table.DataCell>
-						{veileder ? lagKommaSeparertBrukerNavn(veileder.fornavn, veileder.mellomnavn, veileder.etternavn) : EMDASH}
-					</Table.DataCell>
-				</Show>
-			</Table.Row >
-		)
-	}
-
 	return (
 		<Table.Row key={id}>
-			<Navn navn={deltakerNavn} id={id} />
+			<CheckBoxCell navn={deltakerNavn} id={id} visCheckBox={props.visCheckBox} />
+			<Table.DataCell>
+				<Link className={styles.brukersNavn} to={brukerDetaljerPageUrl(id)} onClick={() => loggKlikk(klikkDeltakerRadOversikt)}>
+					{deltakerNavn}
+				</Link>
+			</Table.DataCell>
 			<Table.DataCell><Fnr fnr={fodselsnummer} /></Table.DataCell>
+			<Table.DataCell>{formatDate(registrertDato)}</Table.DataCell>
 			<Table.DataCell>{startDatoTekst}</Table.DataCell>
 			<Table.DataCell>{sluttDatoTekst}</Table.DataCell>
 			<Table.DataCell>
 				<StatusMerkelapp status={status} />
 			</Table.DataCell>
-		</Table.Row>
+			<Show if={toggle.veiledereEnabled}>
+				<Table.DataCell>
+					{veileder ? lagKommaSeparertBrukerNavn(veileder.fornavn, veileder.mellomnavn, veileder.etternavn) : EMDASH}
+				</Table.DataCell>
+			</Show>
+		</Table.Row >
 	)
 }
-
-
-interface NavnProps {
-	navn: string
-	id: string
-}
-
-const Navn = ({ navn, id }: NavnProps) => (
-	<Table.DataCell>
-		<Link className={styles.brukersNavn} to={brukerDetaljerPageUrl(id)} onClick={() => loggKlikk(klikkDeltakerRadOversikt)}>
-			{navn}
-		</Link>
-	</Table.DataCell>
-)
-
 
 interface CheckBoxCellProps {
 	navn: string

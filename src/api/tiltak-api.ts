@@ -228,5 +228,3 @@ export const tildelVeilederForDeltaker = (deltakerId: string, veiledere: Veilede
 		)
 		.catch(err => logAndThrowError(err, url))
 }
-
->>>>>>> 73f2f8d (Tildeling av veileder for en enkelt deltaker)

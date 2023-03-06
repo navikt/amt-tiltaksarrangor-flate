@@ -4,9 +4,8 @@ import { TiltakDeltaker } from '../../../../api/data/deltaker'
 import { useTiltaksoversiktSokStore } from '../../../../store/tiltaksoversikt-sok-store'
 import { filtrerBrukere } from '../../../../utils/filtrering-utils'
 import { finnNesteSortering } from '../../../../utils/sortering-utils'
-import toggle from '../../../../utils/toggle'
-import { DeltakerTabell, TabellType } from '../../../felles/deltaker-tabell/DeltakerTabell'
-import { sorterDeltakere } from '../../../felles/deltaker-tabell/sortering'
+import { DeltakerTabell } from './deltaker-tabell/DeltakerTabell'
+import { sorterDeltakere } from './deltaker-tabell/sortering'
 import styles from './DeltakerOversiktTabell.module.scss'
 import { IngenDeltakereAlertstripe } from './IngenDeltakereAlertstripe'
 
@@ -42,8 +41,6 @@ export const DeltakerOversiktTabell = (props: DeltakerOversiktTabellProps): Reac
 						deltakere={deltakereBearbeidet}
 						sortering={deltakerSortering}
 						onSortChange={handleOnSortChange}
-						visning={TabellType.KOORDINATOR}
-						visCheckBox={toggle.veiledereEnabled}
 					/>
 				)
 			}
