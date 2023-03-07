@@ -200,13 +200,11 @@ const lagMockVeiledersDeltaker = (deltaker: MockTiltakDeltaker): VeiledersDeltak
 		startDato: deltaker.startDato,
 		sluttDato: deltaker.sluttDato,
 		status: deltaker.status,
-		deltakerliste: [
-			{
-				id: deltaker.gjennomforing.id,
-				type: deltaker.gjennomforing.tiltak.tiltaksnavn,
-				navn: deltaker.gjennomforing.navn
-			}
-		],
+		deltakerliste: {
+			id: deltaker.gjennomforing.id,
+			type: deltaker.gjennomforing.tiltak.tiltaksnavn,
+			navn: deltaker.gjennomforing.navn
+		},
 		erMedveilederFor: false
 	}
 }
