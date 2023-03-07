@@ -1,4 +1,4 @@
-import { Button, Detail } from '@navikt/ds-react'
+import { Alert, Button, Detail } from '@navikt/ds-react'
 import React, { useEffect, useMemo, useState } from 'react'
 import { TilgjengeligVeileder, Veileder } from '../../../../api/data/veileder'
 import { MultiValue, SingleValue } from 'react-select'
@@ -127,6 +127,9 @@ export const TildelVeilederModal = (props: Props): React.ReactElement => {
 					isError={medveiledere.length > maksMedveiledere}
 					feilmelding="Deltaker kan ha maks 3 medveiledere"
 				/>
+				<Alert variant="info" className={styles.alert}>
+					Finner du ikke veilederen du leter etter? Sjekk at veilederen har logget seg inn i deltakeroversikten etter å ha fått riktig tilgang i Altinn.
+				</Alert>
 				<div className={styles.buttonRow}>
 					<Button variant="tertiary" size="small" onClick={handleClose}>Avbryt</Button>
 					<Button size="small" loading={isPending(tildelVeilederePromise)} onClick={handleSubmit}>Lagre</Button>

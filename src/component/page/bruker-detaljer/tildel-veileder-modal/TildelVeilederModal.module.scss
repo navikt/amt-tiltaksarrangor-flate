@@ -3,6 +3,7 @@
 
     @media (min-width: 600px) {
         min-width: 480px;
+        max-width: 480px;
     }
 }
 
@@ -19,4 +20,8 @@
 
 .detail {
     font-weight: 600;
+}
+
+.alert {
+    margin-top: 2rem;
 }
