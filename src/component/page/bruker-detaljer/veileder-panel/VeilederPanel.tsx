@@ -45,12 +45,8 @@ export const VeilederPanel = ({ deltaker }: Props): React.ReactElement => {
 	return (
 		<Panel border className={styles.infoPanel}>
 
-			<div className={styles.buttonRow}>
-				<Heading size="small" level="3" className={globalStyles.blokkXs}>Veileder</Heading>
-				<Button variant="secondary" size="small" onClick={handleModalState}>
-					<IconLabel labelValue="Endre" icon={<AddPerson />} />
-				</Button>
-			</div>
+			<Heading size="small" level="3" className={globalStyles.blokkXs}>Tiltaksarrangør</Heading>
+			<Heading size="xsmall" level="4" className={globalStyles.blokkXs}>Veileder</Heading>
 			<div className={cls(styles.contentBlock, globalStyles.blokkM)}>
 				<IconLabel
 					labelValue={veileder ? lagBrukerNavn(veileder.fornavn, veileder.mellomnavn, veileder.etternavn) : EMDASH}
@@ -59,7 +55,7 @@ export const VeilederPanel = ({ deltaker }: Props): React.ReactElement => {
 				/>
 			</div>
 
-			<Heading size="small" level="3" className={globalStyles.blokkXs}>Medveiledere</Heading>
+			<Heading size="xsmall" level="4" className={globalStyles.blokkXs}>Medveiledere</Heading>
 			<div className={cls(styles.contentBlock, globalStyles.blokkM)}>
 				{medveiledere.length > 0 ? medveiledere.map(v => {
 					return <IconLabel
@@ -76,6 +72,9 @@ export const VeilederPanel = ({ deltaker }: Props): React.ReactElement => {
 					/>
 				}
 			</div>
+			<Button variant="secondary" size="small" onClick={handleModalState}>
+				<IconLabel labelValue="Endre" icon={<AddPerson />} />
+			</Button>
 
 			<TildelVeilederModal
 				deltaker={deltaker}

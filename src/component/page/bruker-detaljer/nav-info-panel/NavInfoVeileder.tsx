@@ -47,7 +47,7 @@ export const NavInfoVeileder = (props: Props): React.ReactElement => {
 
 	return (
 		<>
-			<Heading size="small" level="3" className={globalStyles.blokkXs}>NAV-veileder</Heading>
+			<Heading size="xsmall" level="3" className={globalStyles.blokkXs}>NAV-veileder</Heading>
 			{veileder}
 		</>
 	)
