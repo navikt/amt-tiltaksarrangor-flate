@@ -31,6 +31,15 @@ export const IngenRollePage = (): React.ReactElement => {
 					<br />
 					<br />
 					Delegering av rettigheter i Altinn gjøres av daglig leder eller en annen person med myndighet til å administrere tilganger. Les mer om roller og rettigheter på <Link target="_blank" rel="noopener noreferrer" href="https://www.altinn.no/hjelp/profil/roller-og-rettigheter" className={styles.eksternLenke}>Altinn.no <ExternalLink /></Link>
+					<br/>
+					<br/>
+					<br/>
+					<header className={styles.bold}>Koordinator</header>
+					<p>Ansatte som jobber med koordinerende arbeidsoppgaver får tilgang til tjenesten som koordinator. Enkeltrettigheten i Altinn heter “Tiltaksarrangør koordinator - NAV Deltakeroversikt”.</p>
+					<br/>
+					<header className={styles.bold}>Veileder (Under arbeid - kommer snart)</header>
+					<p>Ansatte som jobber tett på deltakere får rollen som veileder. Enkeltrettigheten i Altinn heter “Tiltaksarrangør veileder - NAV Deltakeroversikt”.
+						For at koordinator skal kunne tildele veileder så må veileder først få riktig rettighet i Altinn og deretter ha logget inn i Deltakeroversikten.</p>
 				</BodyLong>
 			</Panel>
 		</div>
