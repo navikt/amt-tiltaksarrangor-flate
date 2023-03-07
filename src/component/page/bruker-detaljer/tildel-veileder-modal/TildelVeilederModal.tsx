@@ -22,6 +22,8 @@ interface Props {
 	onSubmit: (veiledere: Veileder[]) => void
 }
 
+const maksMedveiledere = 3
+
 export const TildelVeilederModal = (props: Props): React.ReactElement => {
 	const [ tilgjengeligeVeiledere, setTilgjengeligeVeiledere ] = useState<TilgjengeligVeileder[]>([])
 	const [ veilederValg, setVeilederValg ] = useState<SelectOption[]>()
@@ -83,6 +85,7 @@ export const TildelVeilederModal = (props: Props): React.ReactElement => {
 			setVeilederError(true)
 			return
 		}
+		if (medveiledere.length > maksMedveiledere) return
 
 		const veiledere: Veileder[] = [ { ...veileder, deltakerId: props.deltaker.id, erMedveileder: false } ]
 		medveiledere.forEach(v => veiledere.push({ ...v, deltakerId: props.deltaker.id, erMedveileder: true }))
@@ -121,7 +124,8 @@ export const TildelVeilederModal = (props: Props): React.ReactElement => {
 					options={veilederValg}
 					onChange={handleMedveilederChange as (valg: SingleValue<SelectOption> | MultiValue<SelectOption>) => void}
 					className={styles.select}
-					isOptionDisabled={() => medveiledere.length >= 3}
+					isError={medveiledere.length > maksMedveiledere}
+					feilmelding="Deltaker kan ha maks 3 medveiledere"
 				/>
 				<div className={styles.buttonRow}>
 					<Button variant="tertiary" size="small" onClick={handleClose}>Avbryt</Button>

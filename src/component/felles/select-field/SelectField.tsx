@@ -10,7 +10,6 @@ export type SelectOption = {
 	label: string,
 }
 
-
 interface Props {
 	label: string
 	isSearchable?: boolean
@@ -53,6 +52,8 @@ export const SelectField = ({
 				onChange={onChange}
 				className={isError ? classNames(className, styles.error) : className}
 				isOptionDisabled={isOptionDisabled}
+				placeholder="Skriv fornavn eller etternavn"
+				noOptionsMessage={() => 'Det finnes ingen veiledere'}
 			/>
 			{isError && <ErrorMessage size="small">{feilmelding ? feilmelding : 'Noe gikk galt'}</ErrorMessage>}
 		</div>
