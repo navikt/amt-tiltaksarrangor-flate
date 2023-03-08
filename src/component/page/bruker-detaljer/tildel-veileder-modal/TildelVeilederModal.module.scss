@@ -1,0 +1,22 @@
+.modal {
+    overflow: visible;
+
+    @media (min-width: 600px) {
+        min-width: 480px;
+    }
+}
+
+.buttonRow {
+    display: flex;
+    justify-content: right;
+    gap: 1rem;
+    padding-top: 1rem;
+}
+
+.select {
+    max-width: 448px;
+}
+
+.detail {
+    font-weight: 600;
+}

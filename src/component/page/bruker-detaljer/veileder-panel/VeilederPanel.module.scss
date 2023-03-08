@@ -1,0 +1,24 @@
+.infoPanel {
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+.contentBlock {
+  display: flex;
+  flex-direction: column;
+
+  > *:not(:last-child) {
+    margin-bottom: 1rem;
+  }
+}
+
+.iconWrapper {
+  margin-right: 1.5rem;
+}
+
+.buttonRow {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}

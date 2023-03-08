@@ -10,12 +10,15 @@ import { DeltakelseInfo } from './deltaker-detaljer/DeltakelseInfo'
 import styles from './DeltakerDetaljer.module.scss'
 import { NavInfoPanel } from './nav-info-panel/NavInfoPanel'
 import { ExternalLink } from '@navikt/ds-icons'
+import { VeilederPanel } from './veileder-panel/VeilederPanel'
+import toggle from '../../../utils/toggle'
 
 export const DeltakerDetaljer = (props: { deltaker: TiltakDeltakerDetaljer }): React.ReactElement => {
 	const {
 		navEnhet, navVeileder, gjennomforing, registrertDato, status, fjernesDato,
 		innsokBegrunnelse
 	} = props.deltaker
+
 
 	return (
 		<div className={styles.detaljer}>
@@ -37,10 +40,15 @@ export const DeltakerDetaljer = (props: { deltaker: TiltakDeltakerDetaljer }): R
 
 			<section>
 				<NavInfoPanel navEnhet={navEnhet} navVeileder={navVeileder} />
-				<Alert variant="info">
-					Snart vil veiledere hos tiltaksarrangør også få tilgang til Deltakeroversikten. Som koordinator vil du kunne tildele veileder til deltaker.
-					<Link target="_blank" rel="noopener noreferrer" href="https://www.nav.no/samarbeidspartner/deltakeroversikt#hvem-kan-bruke-deltakeroversikten/" className={styles.eksternLenke}>Les mer her<ExternalLink /></Link>
-				</Alert>
+				<Show if={!toggle.veiledereEnabled}>
+					<Alert variant="info">
+						Snart vil veiledere hos tiltaksarrangør også få tilgang til Deltakeroversikten. Som koordinator vil du kunne tildele veileder til deltaker.
+						<Link target="_blank" rel="noopener noreferrer" href="https://www.nav.no/samarbeidspartner/deltakeroversikt#hvem-kan-bruke-deltakeroversikten/" className={styles.eksternLenke}>Les mer her<ExternalLink /></Link>
+					</Alert>
+				</Show>
+				<Show if={toggle.veiledereEnabled}>
+					<VeilederPanel deltaker={props.deltaker} />
+				</Show>
 			</section>
 		</div>
 	)
