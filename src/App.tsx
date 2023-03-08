@@ -1,40 +1,42 @@
 import { AxiosResponse } from 'axios'
-import React, { useEffect } from 'react'
-
-import { InnloggetAnsatt } from './api/data/ansatt'
-import { fetchInnloggetAnsatt } from './api/tiltak-api'
+import React, { useEffect, useState } from 'react'
+import { fetchMineRoller } from './api/tiltak-api'
 import { Header } from './component/felles/header/Header'
 import { AppRoutes } from './Routes'
-import { useAuthStore } from './store/data-store'
 import { isNotStartedOrPending, isRejected, isResolved, usePromise } from './utils/use-promise'
 import { SesjonNotifikasjon } from './component/sesjon-notifikasjon/SesjonNotifikasjon'
+import { INGEN_ROLLE_PAGE_ROUTE } from './navigation'
 
 
 export const App = (): React.ReactElement => {
-	const fetchInnloggetAnsattPromise = usePromise<AxiosResponse<InnloggetAnsatt>>(fetchInnloggetAnsatt)
-	const { innloggetAnsatt, setInnloggetAnsatt } = useAuthStore()
+	const fetchMineRollerPromise = usePromise<AxiosResponse<string[]>>(fetchMineRoller)
 
-	const harTilgangTilArrangor = !!innloggetAnsatt && innloggetAnsatt.arrangorer
-		.filter(arrangor => arrangor.roller.length > 0)
-		.length > 0
+	const [ isLoggedIn, setIsLoggedIn ] = useState<boolean>(false)
+	const [ roller, setRoller ] = useState<string[]>([])
 
 	useEffect(() => {
-		if (isResolved(fetchInnloggetAnsattPromise)) {
-			setInnloggetAnsatt(fetchInnloggetAnsattPromise.result.data)
+		if (isResolved(fetchMineRollerPromise)) {
+			setRoller(fetchMineRollerPromise.result.data)
+			setIsLoggedIn(true)
 		}
+
+		if (!roller.includes('KOORDINATOR') && roller.includes('VEILEDER')) {
+			window.location.replace(INGEN_ROLLE_PAGE_ROUTE)
+		}
+
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [ fetchInnloggetAnsattPromise ])
+	}, [ fetchMineRollerPromise ])
 
 	return (
 		<>
-			<Header/>
+			<Header isLoggedIn={isLoggedIn}/>
 			<main>
-				<SesjonNotifikasjon />
+				<SesjonNotifikasjon/>
 				<AppRoutes
 					// Vi må vente på at innloggetAnsatt er lagt inn i storen før vi rendrer routes
-					isLoading={isNotStartedOrPending(fetchInnloggetAnsattPromise) || !innloggetAnsatt}
-					isRejected={isRejected(fetchInnloggetAnsattPromise)}
-					harTilgangTilArrangor={harTilgangTilArrangor}
+					isLoading={isNotStartedOrPending(fetchMineRollerPromise) || !isLoggedIn}
+					isRejected={isRejected(fetchMineRollerPromise)}
+					roller={roller}
 				/>
 			</main>
 		</>

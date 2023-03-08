@@ -2,7 +2,7 @@ import { Heading } from '@navikt/ds-react'
 import React, { ReactNode } from 'react'
 
 import globalStyles from '../../../../globals.module.scss'
-import styles from './GjennomforingListe.module.scss'
+import styles from './DeltakerListe.module.scss'
 
 interface TiltakSectionProps {
 	children: ReactNode,

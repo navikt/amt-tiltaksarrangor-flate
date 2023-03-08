@@ -6,49 +6,72 @@ import { DeltakerDetaljerPage } from './component/page/bruker-detaljer/DeltakerD
 import { ErrorPage } from './component/page/error/ErrorPage'
 import { GjennomforingDetaljerPage } from './component/page/gjennomforing-detaljer/GjennomforingDetaljerPage'
 import { GjennomforingListePage } from './component/page/gjennomforing-page/GjennomforingListePage'
-import { InformasjonPage } from './component/page/informasjon-page/InformasjonPage'
 import { IngenRollePage } from './component/page/ingen-rolle-page/IngenRollePage'
-import { PersonopplysningerPage } from './component/page/personopplysninger-page/PersonopplysningerPage'
+import { LeggTilDeltakerlistePage } from './component/page/legg-til-deltakerliste/LeggTilDeltakerlistePage'
 import { Driftsmelding } from './Driftsmelding'
 import {
 	DELTAKER_DETALJER_PAGE_ROUTE,
 	DU_ER_LOGGET_UT_PAGE_ROUTE,
 	GJENNOMFORING_DETALJER_PAGE_ROUTE,
 	GJENNOMFORING_LISTE_PAGE_ROUTE,
-	INFORMASJON_PAGE_ROUTE, INGEN_ROLLE_PAGE_ROUTE,
-	LEGG_TIL_DELTAKERLISTE_PAGE_ROUTE,
-	PERSONOPPLYSNINGER_PAGE_ROUTE
+	INGEN_ROLLE_PAGE_ROUTE,
+	LEGG_TIL_DELTAKERLISTE_PAGE_ROUTE
 } from './navigation'
 import { LoggetUtPage } from './component/page/LoggetUtPage'
-import {
-	AdministrerDeltakerlisterPage
-} from './component/page/administrer-deltakerlister-page/AdministrerDeltakerlisterPage'
 
 
 interface AppRoutesProps {
 	isLoading: boolean
 	isRejected: boolean
-	harTilgangTilArrangor: boolean
+	roller: string[]
 }
 
-export const AppRoutes = ({ isLoading, isRejected, harTilgangTilArrangor }: AppRoutesProps) => {
+export const AppRoutes = ({ isLoading, isRejected, roller }: AppRoutesProps) => {
 	if (isLoading) return <SpinnerPage/>
 	if (isRejected) return <ErrorPage/>
-	else if (!harTilgangTilArrangor) return <IngenRolleRoutes/>
-	return <PrivateRoutes/>
+	else if (roller.includes('KOORDINATOR') && roller.includes('VEILEDER')) return <VeilederOgKoordinatorRoutes/>
+	else if (roller.includes('KOORDINATOR')) return <KoordinatorRoutes/>
+	else if (roller.includes('VEILEDER')) return <VeilederRoutes/>
+	return <IngenRolleRoutes/>
 }
 
-const PrivateRoutes = (): React.ReactElement => {
+const KoordinatorRoutes = (): React.ReactElement => {
 	return (
 		<>
 			<Driftsmelding />
 			<Routes>
 				<Route path={DELTAKER_DETALJER_PAGE_ROUTE} element={<DeltakerDetaljerPage />} />
 				<Route path={GJENNOMFORING_DETALJER_PAGE_ROUTE} element={<GjennomforingDetaljerPage />} />
-				<Route path={INFORMASJON_PAGE_ROUTE} element={<InformasjonPage />} />
 				<Route path={GJENNOMFORING_LISTE_PAGE_ROUTE} element={<GjennomforingListePage />} />
-				<Route path={LEGG_TIL_DELTAKERLISTE_PAGE_ROUTE} element={<AdministrerDeltakerlisterPage />} />
-				<Route path={PERSONOPPLYSNINGER_PAGE_ROUTE} element={<PersonopplysningerPage />} />
+				<Route path={LEGG_TIL_DELTAKERLISTE_PAGE_ROUTE} element={<LeggTilDeltakerlistePage />} />
+				<Route path={DU_ER_LOGGET_UT_PAGE_ROUTE} element={<LoggetUtPage/>}/>
+				<Route path="*" element={<Navigate replace to={GJENNOMFORING_LISTE_PAGE_ROUTE}/>} />
+			</Routes>
+		</>
+	)
+}
+
+const VeilederRoutes = (): React.ReactElement => {
+	return (
+		<>
+			<Driftsmelding />
+			<Routes>
+				<Route path={INGEN_ROLLE_PAGE_ROUTE} element={<IngenRollePage />} />
+				<Route path="*" element={<Navigate replace to={INGEN_ROLLE_PAGE_ROUTE}/>} />
+			</Routes>
+		</>
+	)
+}
+
+const VeilederOgKoordinatorRoutes = (): React.ReactElement => {
+	return (
+		<>
+			<Driftsmelding />
+			<Routes>
+				<Route path={DELTAKER_DETALJER_PAGE_ROUTE} element={<DeltakerDetaljerPage />} />
+				<Route path={GJENNOMFORING_DETALJER_PAGE_ROUTE} element={<GjennomforingDetaljerPage />} />
+				<Route path={GJENNOMFORING_LISTE_PAGE_ROUTE} element={<GjennomforingListePage />} />
+				<Route path={LEGG_TIL_DELTAKERLISTE_PAGE_ROUTE} element={<LeggTilDeltakerlistePage />} />
 				<Route path={DU_ER_LOGGET_UT_PAGE_ROUTE} element={<LoggetUtPage/>}/>
 				<Route path="*" element={<Navigate replace to={GJENNOMFORING_LISTE_PAGE_ROUTE}/>} />
 			</Routes>
@@ -60,7 +83,6 @@ const IngenRolleRoutes = (): React.ReactElement => {
 	return (
 		<Routes>
 			<Route path={INGEN_ROLLE_PAGE_ROUTE} element={<IngenRollePage />} />
-			<Route path={INFORMASJON_PAGE_ROUTE} element={<InformasjonPage />} />
 			<Route path="*" element={<Navigate replace to={INGEN_ROLLE_PAGE_ROUTE}/>} />
 		</Routes>
 	)

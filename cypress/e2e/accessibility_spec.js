@@ -2,6 +2,7 @@ import { logViolations } from '../log-utils'
 
 function visit(path) {
 	cy.intercept('GET', 'https://dekoratoren.ekstern.dev.nav.no/**/*', {statusCode: 0})
+	cy.intercept('GET', 'https://www.nav.no/samarbeidspartner/deltakeroversikt', {statusCode: 0})
 	return cy.visit(path)
 }
 
@@ -64,22 +65,10 @@ describe('Cypress+Axe accessibility tests', () => {
 		sjekkUU()
 	})
 
-	it('Informasjon side skal oppfylle UU-krav', () => {
-		visit('/informasjon')
-		cy.get('[data-testid=informasjon-page]')
-
-		sjekkUU()
-	})
-
 	it('Legg til liste side skal oppfylle UU-krav', () => {
 		visit('/legg-til-deltakerliste')
 		cy.get('[data-testid=administrer-deltakerlister-page]')
 
-		sjekkUU()
-	})
-	it('Personopplysning side skal oppfylle UU-krav', () => {
-		visit('/personopplysninger')
-		cy.get('[data-testid=personopplysning-page]')
 		sjekkUU()
 	})
 })

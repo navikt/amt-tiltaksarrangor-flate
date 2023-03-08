@@ -10,7 +10,6 @@ import { App } from './App'
 import { DemoBanner } from './component/felles/demo-banner/DemoBanner'
 import { ErrorBoundary } from './component/felles/ErrorBoundry'
 import { ErrorPage } from './component/page/error/ErrorPage'
-import { PageViewMetricCollector } from './component/PageViewMetricCollector'
 import StoreProvider from './store/store-provider'
 import { initAmplitude } from './utils/amplitude-utils'
 import env from './utils/environment'
@@ -43,7 +42,6 @@ if (env.isPreprod || env.isProd) {
 				<StoreProvider>
 					<BrowserRouter>
 						<App />
-						<PageViewMetricCollector />
 					</BrowserRouter>
 				</StoreProvider>
 			</ErrorBoundary>
