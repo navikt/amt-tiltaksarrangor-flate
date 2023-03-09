@@ -11,7 +11,7 @@ export interface EndreOppstartModalProps {
 
 export interface EndreOppstartModalDataProps {
 	deltakerId: string
-	visConfirmationPanel: boolean
+	visGodkjennVilkaarPanel: boolean
 	onEndringUtfort: () => void
 }
 
@@ -28,7 +28,7 @@ export const EndreOppstartModal = (props: EndreOppstartModalProps & EndreOppstar
 			tittel="Endre oppstartsdato"
 			onClose={onClose}
 			sendEndring={sendEndring}
-			visGodkjennVilkaarPanel={props.visConfirmationPanel}
+			visGodkjennVilkaarPanel={props.visGodkjennVilkaarPanel}
 		/>
 	)
 }

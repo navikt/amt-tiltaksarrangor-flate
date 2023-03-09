@@ -34,7 +34,7 @@ export const EndreDeltakelseKnapp = (props: EndreDeltakelseKnappProps) => {
 		|| deltaker.status.type === TiltakDeltakerStatus.IKKE_AKTUELL
 		|| deltaker.status.type === TiltakDeltakerStatus.DELTAR
 
-	const visConfirmationPanel = deltaker.gjennomforing.tiltak.tiltakskode !== Tiltakskode.VASV
+	const visGodkjennVilkaarPanel = deltaker.gjennomforing.tiltak.tiltakskode !== Tiltakskode.VASV
 
 	return (
 		<>
@@ -56,8 +56,8 @@ export const EndreDeltakelseKnapp = (props: EndreDeltakelseKnappProps) => {
 								endringstype={EndringType.LEGG_TIL_OPPSTARTSDATO}
 								onClick={() => visLeggTilOppstartModal({
 									deltakerId: deltaker.id,
+									visGodkjennVilkaarPanel: false,
 									onEndringUtfort: props.onEndringUtfort,
-									visGodkjennVilkaarPanel: visConfirmationPanel
 								})}/>
 						}
 
@@ -67,7 +67,7 @@ export const EndreDeltakelseKnapp = (props: EndreDeltakelseKnappProps) => {
 								onClick={() => visEndreOppstartModal({
 									deltakerId: deltaker.id,
 									onEndringUtfort: props.onEndringUtfort,
-									visConfirmationPanel: false
+									visGodkjennVilkaarPanel: visGodkjennVilkaarPanel
 								})}/>
 						}
 
@@ -80,7 +80,7 @@ export const EndreDeltakelseKnapp = (props: EndreDeltakelseKnappProps) => {
 									startDato: deltaker.startDato,
 									sluttDato: deltaker.sluttDato,
 									tiltakskode: deltaker.gjennomforing.tiltak.tiltakskode,
-									visGodkjennVilkaarPanel: visConfirmationPanel,
+									visGodkjennVilkaarPanel: visGodkjennVilkaarPanel,
 									onEndringUtfort: props.onEndringUtfort
 								})}/>
 						}
@@ -90,7 +90,7 @@ export const EndreDeltakelseKnapp = (props: EndreDeltakelseKnappProps) => {
 								endringstype={EndringType.DELTAKER_IKKE_AKTUELL}
 								onClick={() => visSettDeltakerIkkeAktuellModal({
 									deltakerId: deltaker.id,
-									visGodkjennVilkaarPanel: visConfirmationPanel,
+									visGodkjennVilkaarPanel: visGodkjennVilkaarPanel,
 									onEndringUtfort: props.onEndringUtfort
 								})}/>
 						}
@@ -100,7 +100,7 @@ export const EndreDeltakelseKnapp = (props: EndreDeltakelseKnappProps) => {
 								onClick={() => visAvsluttDeltakerModal({
 									deltakerId: deltaker.id,
 									startDato: deltaker.startDato,
-									visGodkjennVilkaarPanel: visConfirmationPanel,
+									visGodkjennVilkaarPanel: visGodkjennVilkaarPanel,
 									onEndringUtfort: props.onEndringUtfort
 								})}/>
 						}
@@ -111,7 +111,7 @@ export const EndreDeltakelseKnapp = (props: EndreDeltakelseKnappProps) => {
 								onClick={() => visEndreProsentDeltakelseModal({
 									deltakerId: deltaker.id,
 									gammelProsentDeltakelse: deltaker.deltakelseProsent,
-									visGodkjennVilkaarPanel: visConfirmationPanel,
+									visGodkjennVilkaarPanel: visGodkjennVilkaarPanel,
 									onEndringUtfort: props.onEndringUtfort
 								})}/>
 						}
