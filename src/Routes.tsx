@@ -7,7 +7,6 @@ import { ErrorPage } from './component/page/error/ErrorPage'
 import { GjennomforingDetaljerPage } from './component/page/gjennomforing-detaljer/GjennomforingDetaljerPage'
 import { GjennomforingListePage } from './component/page/gjennomforing-page/GjennomforingListePage'
 import { IngenRollePage } from './component/page/ingen-rolle-page/IngenRollePage'
-import { LeggTilDeltakerlistePage } from './component/page/legg-til-deltakerliste/LeggTilDeltakerlistePage'
 import { Driftsmelding } from './Driftsmelding'
 import {
 	DELTAKER_DETALJER_PAGE_ROUTE,
@@ -18,6 +17,9 @@ import {
 	LEGG_TIL_DELTAKERLISTE_PAGE_ROUTE
 } from './navigation'
 import { LoggetUtPage } from './component/page/LoggetUtPage'
+import {
+	AdministrerDeltakerlisterPage
+} from './component/page/administrer-deltakerlister-page/AdministrerDeltakerlisterPage'
 
 
 interface AppRoutesProps {
@@ -43,7 +45,7 @@ const KoordinatorRoutes = (): React.ReactElement => {
 				<Route path={DELTAKER_DETALJER_PAGE_ROUTE} element={<DeltakerDetaljerPage />} />
 				<Route path={GJENNOMFORING_DETALJER_PAGE_ROUTE} element={<GjennomforingDetaljerPage />} />
 				<Route path={GJENNOMFORING_LISTE_PAGE_ROUTE} element={<GjennomforingListePage />} />
-				<Route path={LEGG_TIL_DELTAKERLISTE_PAGE_ROUTE} element={<LeggTilDeltakerlistePage />} />
+				<Route path={LEGG_TIL_DELTAKERLISTE_PAGE_ROUTE} element={<AdministrerDeltakerlisterPage />} />
 				<Route path={DU_ER_LOGGET_UT_PAGE_ROUTE} element={<LoggetUtPage/>}/>
 				<Route path="*" element={<Navigate replace to={GJENNOMFORING_LISTE_PAGE_ROUTE}/>} />
 			</Routes>
@@ -71,7 +73,7 @@ const VeilederOgKoordinatorRoutes = (): React.ReactElement => {
 				<Route path={DELTAKER_DETALJER_PAGE_ROUTE} element={<DeltakerDetaljerPage />} />
 				<Route path={GJENNOMFORING_DETALJER_PAGE_ROUTE} element={<GjennomforingDetaljerPage />} />
 				<Route path={GJENNOMFORING_LISTE_PAGE_ROUTE} element={<GjennomforingListePage />} />
-				<Route path={LEGG_TIL_DELTAKERLISTE_PAGE_ROUTE} element={<LeggTilDeltakerlistePage />} />
+				<Route path={LEGG_TIL_DELTAKERLISTE_PAGE_ROUTE} element={<AdministrerDeltakerlisterPage />} />
 				<Route path={DU_ER_LOGGET_UT_PAGE_ROUTE} element={<LoggetUtPage/>}/>
 				<Route path="*" element={<Navigate replace to={GJENNOMFORING_LISTE_PAGE_ROUTE}/>} />
 			</Routes>

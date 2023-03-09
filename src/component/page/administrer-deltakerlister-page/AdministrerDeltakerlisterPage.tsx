@@ -2,7 +2,7 @@ import { Alert, BodyShort, Heading, Modal } from '@navikt/ds-react'
 import globalStyles from '../../../globals.module.scss'
 import styles from './AdministrerDeltakerlisterPage.module.scss'
 import React, { useEffect, useState } from 'react'
-import { isNotStartedOrPending, isRejected, isResolved, usePromise } from '../../../utils/use-promise'
+import { isNotStartedOrPending, isRejected, usePromise } from '../../../utils/use-promise'
 import { AxiosResponse } from 'axios'
 import { Gjennomforing } from '../../../api/data/tiltak'
 import {
@@ -27,27 +27,18 @@ export const AdministrerDeltakerlisterPage = () => {
 	const [ deltakerlisteIdUpdating, setDeltakerlisteIdUpdating ] = useState<string | undefined>(undefined)
 	const [ showLeggTilModal, setShowLeggTilModal ] = useState(false)
 
-	const fetchGjennomforingerPromise = usePromise<AxiosResponse<Gjennomforing[]>>(
-		() => fetchTiltakGjennomforinger()
-	)
-
-	const fetchTilgjengeligGjennomforingerPromise = usePromise<AxiosResponse<Gjennomforing[]>>(
-		() => fetchTilgjengeligGjennomforinger()
-	)
+	const fetchGjennomforingerPromise = usePromise<AxiosResponse<Gjennomforing[]>>(fetchTiltakGjennomforinger)
+	const fetchTilgjengeligGjennomforingerPromise = usePromise<AxiosResponse<Gjennomforing[]>>(fetchTilgjengeligGjennomforinger)
 
 	useEffect(() => {
-		if (isResolved(fetchTilgjengeligGjennomforingerPromise)
-			&& isResolved(fetchGjennomforingerPromise)) {
+		const gjennomforinger: Gjennomforing[] = fetchTilgjengeligGjennomforingerPromise.result?.data || []
+		const gjennomforingIderAlleredeLagtTil = fetchGjennomforingerPromise.result?.data.map(g => g.id) || []
+		const data = deltakerlisteMapper(gjennomforinger)
+			.sort((a, b) => a.navn.localeCompare(b.navn))
 
-			const gjennomforinger: Gjennomforing[] = fetchTilgjengeligGjennomforingerPromise.result?.data || []
-			const gjennomforingIderAlleredeLagtTil = fetchGjennomforingerPromise.result?.data.map(g => g.id) || []
-			const data = deltakerlisteMapper(gjennomforinger)
-				.sort((a, b) => a.navn.localeCompare(b.navn))
-
-			setDeltakerlisteIderLagtTil(gjennomforingIderAlleredeLagtTil)
-			setArrangorer(data)
-		}
-	}, [ fetchTilgjengeligGjennomforingerPromise, fetchGjennomforingerPromise ])
+		setDeltakerlisteIderLagtTil(gjennomforingIderAlleredeLagtTil)
+		setArrangorer(data)
+	}, [ fetchTilgjengeligGjennomforingerPromise.result, fetchGjennomforingerPromise.result ])
 
 
 	const onLeggTil = (deltakerlisteId: string) => {
