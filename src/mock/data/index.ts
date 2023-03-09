@@ -1,12 +1,12 @@
 import { Koordinator } from '../../api/data/tiltak'
 import { lagMockTiltakDeltagereForGjennomforing, MockTiltakDeltaker } from './brukere'
 import {
-	gjennomforingInfoListe, lagMockDeltakerOversikt,
+	gjennomforingInfoListe, lagMockDeltakerlisteVeileder, lagMockDeltakerOversikt,
 	lagMockGjennomforinger, lagMockKoordinatorer,
 	MockGjennomforing,
 	tilgjengeligGjennomforinger
 } from './tiltak'
-import { DeltakerOversikt } from '../../api/data/deltaker'
+import { DeltakerOversikt, VeiledersDeltaker } from '../../api/data/deltaker'
 
 export const mockGjennomforinger: MockGjennomforing[] = lagMockGjennomforinger(gjennomforingInfoListe)
 
@@ -19,3 +19,5 @@ export const mockTiltakDeltakere: MockTiltakDeltaker[] = mockGjennomforinger
 	.reduce((previousValue, currentValue) => previousValue.concat(currentValue), [])
 
 export const mockDeltakeroversikt: DeltakerOversikt = lagMockDeltakerOversikt(mockGjennomforinger)
+
+export const mockDeltakerlisteVeileder: VeiledersDeltaker[] = lagMockDeltakerlisteVeileder(mockTiltakDeltakere.slice(0, 15))

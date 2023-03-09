@@ -1,0 +1,29 @@
+@import '/src/globals.module.scss';
+
+.deltakerlisteVeileder {
+	padding: 2rem;
+	display: flex;
+	gap: 2rem;
+	max-width: $max-bredde;
+	margin: 0 auto;
+	flex-wrap: wrap;
+
+	@media (min-width:801px)  {
+		flex-wrap: nowrap;
+
+	}
+}
+
+.textXs {
+	font-size: 0.875rem;
+}
+
+.statusAlert {
+	margin: 1.5rem 0;
+}
+
+.infoSection {
+    @media (min-width: 801px) {
+        max-width: 280px;
+    }
+}

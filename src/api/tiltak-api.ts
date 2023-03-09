@@ -4,12 +4,13 @@ import { formatDateToDateInputStr, formatNullableDateToDateInputStr } from '../u
 import { Nullable } from '../utils/types/or-nothing'
 import { appUrl } from '../utils/url-utils'
 import {
+	deltakerlisteVeilederSchema,
 	DeltakerOversikt,
 	deltakerOversiktSchema,
 	TiltakDeltaker,
 	TiltakDeltakerDetaljer,
 	tiltakDeltakerDetaljerSchema,
-	tiltakDeltakereSchema
+	tiltakDeltakereSchema, VeiledersDeltaker
 } from './data/deltaker'
 import { DeltakerStatusAarsak, Endringsmelding, endringsmeldingerSchema } from './data/endringsmelding'
 import {
@@ -96,6 +97,14 @@ export const fetchDeltakeroversikt = (): AxiosPromise<DeltakerOversikt> => {
 	return axiosInstance
 		.get(url)
 		.then(parse(deltakerOversiktSchema))
+		.catch(err => logAndThrowError(err, url))
+}
+
+export const fetchDeltakerlisteVeileder = (): AxiosPromise<VeiledersDeltaker[]> => {
+	const url = appUrl('/amt-tiltak/api/tiltaksarrangor/veileder/deltakerliste')
+	return axiosInstance
+		.get(url)
+		.then(parse(deltakerlisteVeilederSchema))
 		.catch(err => logAndThrowError(err, url))
 }
 
