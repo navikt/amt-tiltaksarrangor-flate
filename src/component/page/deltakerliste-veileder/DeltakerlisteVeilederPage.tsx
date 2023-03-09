@@ -11,7 +11,8 @@ import { DeltakerlisteVeilederTabell } from './DeltakerlisteVeilederTabell'
 import { Heading } from '@navikt/ds-react'
 import globalStyles from '../../../globals.module.scss'
 import { FilterMeny } from '../gjennomforing-detaljer/FilterMeny'
-import { getAntallVeiledersDeltakerePerStatus } from '../../../utils/deltakerliste-utils'
+import { getAntallVeiledersDeltakerePerStatus, getDeltakerePerDeltakerliste } from '../../../utils/deltakerliste-utils'
+import { FilterMenyDeltakerliste } from './FilterMenyDeltakerliste'
 
 export const DeltakerlisteVeilederPage = (): React.ReactElement => {
 	useTabTitle('Deltakerliste')
@@ -31,6 +32,8 @@ export const DeltakerlisteVeilederPage = (): React.ReactElement => {
 	const deltakerlisteVeileder = fetchDeltakerlisteVeilederPromise.result.data
 
 	const deltakerePerStatus = getAntallVeiledersDeltakerePerStatus(deltakerlisteVeileder)
+	
+	const deltakerePerDeltakerliste = getDeltakerePerDeltakerliste(deltakerlisteVeileder)
 
 	return (
 		<div className={styles.deltakerlisteVeileder} data-testid="deltakerliste-veileder-page">
@@ -38,6 +41,7 @@ export const DeltakerlisteVeilederPage = (): React.ReactElement => {
 				<Heading size="xsmall" level="2" className={globalStyles.blokkXs}>Veileder:</Heading>
 				<Heading size="medium" level="2" className={globalStyles.blokkXs}>Mine deltakere</Heading>
 				<FilterMeny statusMap={deltakerePerStatus} className={globalStyles.blokkXs} />
+				{ deltakerePerDeltakerliste.size > 1 && <FilterMenyDeltakerliste deltakerlisteMap={deltakerePerDeltakerliste} className={globalStyles.blokkXs} /> }
 			</section>
 			<DeltakerlisteVeilederTabell deltakerliste={deltakerlisteVeileder} />
 		</div>

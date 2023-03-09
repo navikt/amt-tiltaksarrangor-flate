@@ -6,6 +6,7 @@ import { Sortering } from '../utils/sortering-utils'
 
 export const [ TiltaksoversiktSokStoreProvider, useTiltaksoversiktSokStore ] = constate(() => {
 	const [ tiltakStatusFilter, setTiltakStatusFilter ] = useState<TiltakDeltakerStatus[]>([])
+	const [ deltakerlisteFilter, setDeltakerlisteFilter ] = useState<string[]>([])
 	const [ deltakerSortering, setDeltakerSortering ] = useState<Sortering>()
 
 	const leggTilTiltakStatus = (tiltakStatus: TiltakDeltakerStatus) => {
@@ -24,10 +25,29 @@ export const [ TiltaksoversiktSokStoreProvider, useTiltaksoversiktSokStore ] = c
 		})
 	}
 
+	const leggTilDeltakerliste = (navn: string) => {
+		setDeltakerlisteFilter((prevNavn) => {
+			if (prevNavn.includes(navn)) {
+				return prevNavn
+			}
+
+			return [ ...prevNavn, navn ]
+		})
+	}
+
+	const fjernFraDeltakerliste = (navn: string) => {
+		setDeltakerlisteFilter((prevNavn) => {
+			return prevNavn.filter((navnFraFilter) => navnFraFilter !== navn)
+		})
+	}
+
 	return {
 		tiltakStatusFilter,
 		leggTilTiltakStatus,
 		fjernFraTiltakStatus,
+		deltakerlisteFilter,
+		leggTilDeltakerliste,
+		fjernFraDeltakerliste,
 		deltakerSortering,
 		setDeltakerSortering,
 	}

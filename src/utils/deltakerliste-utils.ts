@@ -29,3 +29,15 @@ export const getAntallVeiledersDeltakerePerStatus = (deltakere: VeiledersDeltake
 
 	return statusMap
 }
+
+export const getDeltakerePerDeltakerliste = (deltakere: VeiledersDeltaker[]): Map<string, number> => {
+	const deltakerlisteMap = new Map<string, number>()
+	deltakere.forEach((deltaker: VeiledersDeltaker) => {
+		const deltakerliste = deltaker.deltakerliste.navn
+		const entry = deltakerlisteMap.get(deltakerliste)
+
+		deltakerlisteMap.set(deltakerliste, entry ? entry + 1 : 1)
+	})
+
+	return deltakerlisteMap
+}
