@@ -8,6 +8,10 @@ import { SpinnerPage } from '../../felles/spinner-page/SpinnerPage'
 import { AlertPage } from '../../felles/alert-page/AlertPage'
 import styles from './DeltakerlisteVeilederPage.module.scss'
 import { DeltakerlisteVeilederTabell } from './DeltakerlisteVeilederTabell'
+import { Heading } from '@navikt/ds-react'
+import globalStyles from '../../../globals.module.scss'
+import { FilterMeny } from '../gjennomforing-detaljer/FilterMeny'
+import { getAntallVeiledersDeltakerePerStatus } from '../../../utils/deltakerliste-utils'
 
 export const DeltakerlisteVeilederPage = (): React.ReactElement => {
 	useTabTitle('Deltakerliste')
@@ -26,9 +30,15 @@ export const DeltakerlisteVeilederPage = (): React.ReactElement => {
 
 	const deltakerlisteVeileder = fetchDeltakerlisteVeilederPromise.result.data
 
+	const deltakerePerStatus = getAntallVeiledersDeltakerePerStatus(deltakerlisteVeileder)
+
 	return (
-		// her må det legges til filter (egen oppgave)
 		<div className={styles.deltakerlisteVeileder} data-testid="deltakerliste-veileder-page">
+			<section className={styles.infoSection}>
+				<Heading size="xsmall" level="2" className={globalStyles.blokkXs}>Veileder:</Heading>
+				<Heading size="medium" level="2" className={globalStyles.blokkXs}>Mine deltakere</Heading>
+				<FilterMeny statusMap={deltakerePerStatus} className={globalStyles.blokkXs} />
+			</section>
 			<DeltakerlisteVeilederTabell deltakerliste={deltakerlisteVeileder} />
 		</div>
 	)
