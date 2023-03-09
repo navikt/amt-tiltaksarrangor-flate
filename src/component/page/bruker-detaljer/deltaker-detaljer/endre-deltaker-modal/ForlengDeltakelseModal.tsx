@@ -22,11 +22,12 @@ export interface ForlengDeltakelseModalDataProps {
 	startDato: Nullable<Date>
 	sluttDato: Nullable<Date>
 	tiltakskode: Tiltakskode
+	visGodkjennVilkaarPanel: boolean
 	onEndringUtfort: () => void
 }
 
 export const ForlengDeltakelseModal = (props: ForlengDeltakelseModalProps & ForlengDeltakelseModalDataProps) => {
-	const { deltakerId, startDato, sluttDato, onClose, onEndringUtfort } = props
+	const { deltakerId, startDato, sluttDato, onClose, onEndringUtfort, visGodkjennVilkaarPanel } = props
 	const [ valgtVarighet, settValgtVarighet ] = useState(VarighetValg.IKKE_VALGT)
 	const [ nySluttDato, settNySluttDato ] = useState<Nullable<Date>>()
 	const [ vilkaarGodkjent, settVilkaarGodkjent ] = useState(false)
@@ -74,11 +75,11 @@ export const ForlengDeltakelseModal = (props: ForlengDeltakelseModalProps & Forl
 			</RadioGroup>
 			{nySluttDato && !visDatoVelger &&
 				<BodyShort>Ny sluttdato: {formatDate(nySluttDato)}</BodyShort>}
-			<VeilederConfirmationPanel vilkaarGodkjent={vilkaarGodkjent} setVilkaarGodkjent={settVilkaarGodkjent} />
+			{visGodkjennVilkaarPanel && <VeilederConfirmationPanel vilkaarGodkjent={vilkaarGodkjent} setVilkaarGodkjent={settVilkaarGodkjent} />}
 			<SendTilNavKnapp
 				onEndringSendt={onClose}
 				sendEndring={sendEndringsmelding}
-				disabled={!nySluttDato || !vilkaarGodkjent} />
+				disabled={(!nySluttDato || (!vilkaarGodkjent && visGodkjennVilkaarPanel)) } />
 
 		</BaseModal>
 	)

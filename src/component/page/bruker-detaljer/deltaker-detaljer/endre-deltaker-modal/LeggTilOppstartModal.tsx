@@ -11,11 +11,12 @@ export interface LeggTilOppstartModalProps {
 
 export interface LeggTilOppstartModalDataProps {
 	deltakerId: string
+	visGodkjennVilkaarPanel: boolean
 	onEndringUtfort: () => void
 }
 
 export const LeggTilOppstartModal = (props: LeggTilOppstartModalProps & LeggTilOppstartModalDataProps) => {
-	const { deltakerId, onClose, onEndringUtfort } = props
+	const { deltakerId, onClose, visGodkjennVilkaarPanel, onEndringUtfort } = props
 
 	const sendEndringsmelding = (valgtDato: Date) => {
 		return leggTilOppstartsdato(deltakerId, valgtDato)
@@ -27,7 +28,7 @@ export const LeggTilOppstartModal = (props: LeggTilOppstartModalProps & LeggTilO
 			tittel="Legg til oppstartsdato"
 			onClose={onClose}
 			sendEndring={sendEndringsmelding}
-			modalType="legg-til"
+			visGodkjennVilkaarPanel={visGodkjennVilkaarPanel}
 		/>
 	)
 }
