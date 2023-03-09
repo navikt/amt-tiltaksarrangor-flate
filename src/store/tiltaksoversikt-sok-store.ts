@@ -7,6 +7,7 @@ import { Sortering } from '../utils/sortering-utils'
 export const [ TiltaksoversiktSokStoreProvider, useTiltaksoversiktSokStore ] = constate(() => {
 	const [ tiltakStatusFilter, setTiltakStatusFilter ] = useState<TiltakDeltakerStatus[]>([])
 	const [ deltakerlisteFilter, setDeltakerlisteFilter ] = useState<string[]>([])
+	const [ erMedveilederFilter, setErMedveilederFilter ] = useState<boolean[]>([])
 	const [ deltakerSortering, setDeltakerSortering ] = useState<Sortering>()
 
 	const leggTilTiltakStatus = (tiltakStatus: TiltakDeltakerStatus) => {
@@ -41,6 +42,22 @@ export const [ TiltaksoversiktSokStoreProvider, useTiltaksoversiktSokStore ] = c
 		})
 	}
 
+	const leggTilMedveileder = (erMedveileder: boolean) => {
+		setErMedveilederFilter((prevErMedveileder) => {
+			if (prevErMedveileder.includes(erMedveileder)) {
+				return prevErMedveileder
+			}
+
+			return [ ...prevErMedveileder, erMedveileder ]
+		})
+	}
+
+	const fjernFraMedveileder = (erMedveileder: boolean) => {
+		setErMedveilederFilter((prevErMedveileder) => {
+			return prevErMedveileder.filter((medveileder) => medveileder !== erMedveileder)
+		})
+	}
+
 	return {
 		tiltakStatusFilter,
 		leggTilTiltakStatus,
@@ -48,6 +65,9 @@ export const [ TiltaksoversiktSokStoreProvider, useTiltaksoversiktSokStore ] = c
 		deltakerlisteFilter,
 		leggTilDeltakerliste,
 		fjernFraDeltakerliste,
+		erMedveilederFilter,
+		leggTilMedveileder,
+		fjernFraMedveileder,
 		deltakerSortering,
 		setDeltakerSortering,
 	}

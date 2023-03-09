@@ -41,3 +41,15 @@ export const getDeltakerePerDeltakerliste = (deltakere: VeiledersDeltaker[]): Ma
 
 	return deltakerlisteMap
 }
+
+export const getDeltakerePerVeilederType = (deltakere: VeiledersDeltaker[]): Map<boolean, number> => {
+	const erMedveilederMap = new Map<boolean, number>()
+	deltakere.forEach((deltaker: VeiledersDeltaker) => {
+		const erMedveilederFor = deltaker.erMedveilederFor
+		const entry = erMedveilederMap.get(erMedveilederFor)
+
+		erMedveilederMap.set(erMedveilederFor, entry ? entry + 1 : 1)
+	})
+
+	return erMedveilederMap
+}

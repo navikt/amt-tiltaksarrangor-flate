@@ -9,7 +9,7 @@ import { VeiledersDeltaker } from '../../../api/data/deltaker'
 import { IngenDeltakere } from './IngenDeltakere'
 import { TabellHeaderVeileder } from './TabellHeaderVeileder'
 import { TabellBodyVeileder } from './TabellBodyVeileder'
-import { filtrerDeltakerliste, filtrerVeiledersDeltakere } from '../../../utils/filtrering-utils'
+import { filtrerDeltakerliste, filtrerVeiledersDeltakere, filtrerVeiledertype } from '../../../utils/filtrering-utils'
 
 
 interface DeltakerlisteVeilederTabellProps {
@@ -18,17 +18,18 @@ interface DeltakerlisteVeilederTabellProps {
 
 export const DeltakerlisteVeilederTabell = (props: DeltakerlisteVeilederTabellProps): React.ReactElement<DeltakerlisteVeilederTabellProps> => {
 	const { deltakerliste } = props
-	const { deltakerSortering, tiltakStatusFilter, deltakerlisteFilter, setDeltakerSortering } = useTiltaksoversiktSokStore()
+	const { deltakerSortering, tiltakStatusFilter, deltakerlisteFilter, erMedveilederFilter, setDeltakerSortering } = useTiltaksoversiktSokStore()
 	const [ deltakereBearbeidet, setDeltakereBearbeidet ] = useState<VeiledersDeltaker[]>(sorterVeiledersDeltakere(deltakerliste, deltakerSortering))
 
 	useEffect(() => {
 		if (!deltakerliste) return
 		const filtrerteBrukere = filtrerVeiledersDeltakere(deltakerliste, tiltakStatusFilter)
 		const filtrerteDeltakerlister = filtrerDeltakerliste(filtrerteBrukere, deltakerlisteFilter)
-		const sortert = sorterVeiledersDeltakere(filtrerteDeltakerlister, deltakerSortering)
+		const filtrerteDeltakereVeiledertype = filtrerVeiledertype(filtrerteDeltakerlister, erMedveilederFilter)
+		const sortert = sorterVeiledersDeltakere(filtrerteDeltakereVeiledertype, deltakerSortering)
 		setDeltakereBearbeidet(sortert)
 
-	}, [ deltakerliste, deltakerSortering, tiltakStatusFilter, deltakerlisteFilter ])
+	}, [ deltakerliste, deltakerSortering, tiltakStatusFilter, deltakerlisteFilter, erMedveilederFilter ])
 
 	const handleOnSortChange = (sortKey: string | undefined) => {
 		setDeltakerSortering(prevSort => finnNesteSortering(sortKey, prevSort))
