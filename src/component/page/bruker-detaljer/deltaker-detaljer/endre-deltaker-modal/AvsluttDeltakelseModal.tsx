@@ -19,11 +19,12 @@ interface AvsluttDeltakelseModalProps {
 export interface AvsluttDeltakelseModalDataProps {
 	deltakerId: string
 	startDato: Nullable<Date>
+	visGodkjennVilkaarPanel: boolean,
 	onEndringUtfort: () => void
 }
 
 export const AvsluttDeltakelseModal = (props: AvsluttDeltakelseModalProps & AvsluttDeltakelseModalDataProps) => {
-	const { onClose, deltakerId, startDato, onEndringUtfort } = props
+	const { onClose, deltakerId, startDato, visGodkjennVilkaarPanel, onEndringUtfort } = props
 	const [ sluttDato, settSluttDato ] = useState<Nullable<Date>>()
 	const [ aarsak, settAarsak ] = useState<DeltakerStatusAarsakType>()
 	const [ beskrivelse, settBeskrivelse ] = useState<Nullable<string>>()
@@ -32,8 +33,8 @@ export const AvsluttDeltakelseModal = (props: AvsluttDeltakelseModalProps & Avsl
 
 	const minDato = maxDate(startDato, gjennomforing.startDato)
 	const kanSendeEndringsmelding = aarsak === DeltakerStatusAarsakType.ANNET?
-		aarsak && vilkaarGodkjent && sluttDato && beskrivelse :
-		aarsak && vilkaarGodkjent && sluttDato
+		aarsak && (vilkaarGodkjent || !visGodkjennVilkaarPanel) && sluttDato && beskrivelse :
+		aarsak && (vilkaarGodkjent || !visGodkjennVilkaarPanel) && sluttDato
 
 	const sendEndring = () => {
 		if (!aarsak || !sluttDato) {
@@ -62,7 +63,7 @@ export const AvsluttDeltakelseModal = (props: AvsluttDeltakelseModalProps & Avsl
 				max={gjennomforing.sluttDato}
 				onDateChanged={d => settSluttDato(d)}
 			/>
-			<VeilederConfirmationPanel vilkaarGodkjent={vilkaarGodkjent} setVilkaarGodkjent={settVilkaarGodkjent}/>
+			{visGodkjennVilkaarPanel && <VeilederConfirmationPanel vilkaarGodkjent={vilkaarGodkjent} setVilkaarGodkjent={settVilkaarGodkjent}/>}
 			<SendTilNavKnapp
 				onEndringSendt={onClose}
 				sendEndring={sendEndring}

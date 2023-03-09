@@ -16,19 +16,19 @@ export interface LeggTilEndreOppstartModalProps {
 
 interface LeggTilEndreOppstartDataProps {
 	tittel: string
-	modalType: 'legg-til' | 'endre'
+	visGodkjennVilkaarPanel: boolean
 }
 
 
 export const LeggTilEndreOppstartModal = (props: LeggTilEndreOppstartModalProps & LeggTilEndreOppstartDataProps) => {
-	const { tittel, onClose } = props
+	const { tittel, visGodkjennVilkaarPanel, onClose, sendEndring } = props
 	const [ valgtDato, setNyDato ] = useState<Nullable<Date>>()
 	const [ vilkaarGodkjent, setVilkaarGodkjent ] = useState(false)
 	const { gjennomforing } = useGjennomforingStore()
 
 	const sendEndringsmelding = () => {
 		if (!valgtDato) return Promise.reject('Dato er påkrevd for å sende endringsmelding med endring av oppstartsdato')
-		return props.sendEndring(valgtDato)
+		return sendEndring(valgtDato)
 	}
 
 	return (
@@ -43,13 +43,13 @@ export const LeggTilEndreOppstartModal = (props: LeggTilEndreOppstartModalProps 
 				min={kalkulerMinOppstartsdato(gjennomforing.startDato)}
 				max={kalkulerMaxOppstartsdato(gjennomforing.sluttDato)}
 			/>
-			{props.modalType === 'endre' && (
+			{visGodkjennVilkaarPanel && (
 				<VeilederConfirmationPanel vilkaarGodkjent={vilkaarGodkjent} setVilkaarGodkjent={setVilkaarGodkjent}/>
 			)}
 			<SendTilNavKnapp
 				onEndringSendt={onClose}
 				sendEndring={sendEndringsmelding}
-				disabled={!valgtDato || (props.modalType === 'endre' && !vilkaarGodkjent)} />
+				disabled={!valgtDato || (visGodkjennVilkaarPanel && !vilkaarGodkjent)} />
 		</BaseModal>
 	)
 }

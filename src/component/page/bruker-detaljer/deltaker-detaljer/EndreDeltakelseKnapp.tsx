@@ -11,6 +11,7 @@ import styles from './EndreDeltakelseKnapp.module.scss'
 import { useModalData } from './modal-store'
 import { ModalController } from './ModalController'
 import { EndringType } from './types'
+import { Tiltakskode } from '../../../../api/data/tiltak'
 
 interface EndreDeltakelseKnappProps {
 	deltaker: TiltakDeltakerDetaljer
@@ -33,6 +34,8 @@ export const EndreDeltakelseKnapp = (props: EndreDeltakelseKnappProps) => {
 		|| deltaker.status.type === TiltakDeltakerStatus.IKKE_AKTUELL
 		|| deltaker.status.type === TiltakDeltakerStatus.DELTAR
 
+	const visConfirmationPanel = deltaker.gjennomforing.tiltak.tiltakskode !== Tiltakskode.VASV
+
 	return (
 		<>
 			<ModalController modalData={modalData} onClose={lukkModal}/>
@@ -53,7 +56,8 @@ export const EndreDeltakelseKnapp = (props: EndreDeltakelseKnappProps) => {
 								endringstype={EndringType.LEGG_TIL_OPPSTARTSDATO}
 								onClick={() => visLeggTilOppstartModal({
 									deltakerId: deltaker.id,
-									onEndringUtfort: props.onEndringUtfort
+									onEndringUtfort: props.onEndringUtfort,
+									visGodkjennVilkaarPanel: visConfirmationPanel
 								})}/>
 						}
 
@@ -62,7 +66,8 @@ export const EndreDeltakelseKnapp = (props: EndreDeltakelseKnappProps) => {
 								endringstype={EndringType.ENDRE_OPPSTARTSDATO}
 								onClick={() => visEndreOppstartModal({
 									deltakerId: deltaker.id,
-									onEndringUtfort: props.onEndringUtfort
+									onEndringUtfort: props.onEndringUtfort,
+									visConfirmationPanel: false
 								})}/>
 						}
 
@@ -75,6 +80,7 @@ export const EndreDeltakelseKnapp = (props: EndreDeltakelseKnappProps) => {
 									startDato: deltaker.startDato,
 									sluttDato: deltaker.sluttDato,
 									tiltakskode: deltaker.gjennomforing.tiltak.tiltakskode,
+									visGodkjennVilkaarPanel: visConfirmationPanel,
 									onEndringUtfort: props.onEndringUtfort
 								})}/>
 						}
@@ -84,6 +90,7 @@ export const EndreDeltakelseKnapp = (props: EndreDeltakelseKnappProps) => {
 								endringstype={EndringType.DELTAKER_IKKE_AKTUELL}
 								onClick={() => visSettDeltakerIkkeAktuellModal({
 									deltakerId: deltaker.id,
+									visGodkjennVilkaarPanel: visConfirmationPanel,
 									onEndringUtfort: props.onEndringUtfort
 								})}/>
 						}
@@ -93,6 +100,7 @@ export const EndreDeltakelseKnapp = (props: EndreDeltakelseKnappProps) => {
 								onClick={() => visAvsluttDeltakerModal({
 									deltakerId: deltaker.id,
 									startDato: deltaker.startDato,
+									visGodkjennVilkaarPanel: visConfirmationPanel,
 									onEndringUtfort: props.onEndringUtfort
 								})}/>
 						}
@@ -103,6 +111,7 @@ export const EndreDeltakelseKnapp = (props: EndreDeltakelseKnappProps) => {
 								onClick={() => visEndreProsentDeltakelseModal({
 									deltakerId: deltaker.id,
 									gammelProsentDeltakelse: deltaker.deltakelseProsent,
+									visGodkjennVilkaarPanel: visConfirmationPanel,
 									onEndringUtfort: props.onEndringUtfort
 								})}/>
 						}
