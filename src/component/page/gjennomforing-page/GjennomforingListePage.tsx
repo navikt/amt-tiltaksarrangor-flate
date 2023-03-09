@@ -44,7 +44,7 @@ export const GjennomforingListePage = (): React.ReactElement => {
 	
 	const deltakerOversikt = fetchDeltakerOversiktPromise.result.data
 
-	if (deltakerOversikt.koordinatorInfo && deltakerOversikt.koordinatorInfo?.deltakerlister.length > 0) {
+	if (deltakerOversikt.koordinatorInfo) {
 		return (
 			<div className={styles.page} data-testid="gjennomforing-oversikt-page">
 				{ toggle.veilederEnabled && deltakerOversikt.veilederInfo && <MineDeltakerePanel veileder={deltakerOversikt.veilederInfo}/> }

@@ -40,6 +40,7 @@ export const varighetValgForType = (tiltakstype: Tiltakskode): VarighetValg[] =>
 			VarighetValg.TOLV_MANEDER,
 		]
 		case Tiltakskode.ARBRRHDAG: return [
+			VarighetValg.FIRE_UKER,
 			VarighetValg.SEKS_UKER,
 			VarighetValg.TOLV_UKER,
 		]
