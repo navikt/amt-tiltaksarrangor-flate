@@ -1,8 +1,8 @@
 import { AddPerson, People } from '@navikt/ds-icons'
-import { Button, Heading, Panel } from '@navikt/ds-react'
+import { Alert, Button, Heading, Loader, Panel } from '@navikt/ds-react'
 import { AxiosResponse } from 'axios'
 import cls from 'classnames'
-import React, { useMemo, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { TiltakDeltakerDetaljer } from '../../../../api/data/deltaker'
 import { Veileder } from '../../../../api/data/veileder'
 import { hentVeiledereForDeltaker } from '../../../../api/tiltak-api'
@@ -10,7 +10,7 @@ import { hentVeiledereForDeltaker } from '../../../../api/tiltak-api'
 import globalStyles from '../../../../globals.module.scss'
 import { lagBrukerNavn } from '../../../../utils/bruker-utils'
 import { EMDASH } from '../../../../utils/constants'
-import { isResolved, usePromise } from '../../../../utils/use-promise'
+import { isNotStartedOrPending, isRejected, isResolved, usePromise } from '../../../../utils/use-promise'
 import { IconLabel } from '../icon-label/IconLabel'
 import { TildelVeilederModal } from '../tildel-veileder-modal/TildelVeilederModal'
 import styles from './VeilederPanel.module.scss'
@@ -25,13 +25,21 @@ export const VeilederPanel = ({ deltaker }: Props): React.ReactElement => {
 	const [ medveiledere, setMedveiledere ] = useState<Veileder[]>([])
 	const [ openModal, setOpenModal ] = useState(false)
 
-	useMemo(() => {
+	useEffect(() => {
 		if (isResolved(hentVeilederePromise)) {
 			setVeileder(hentVeilederePromise.result.data.find(v => !v.erMedveileder))
 			setMedveiledere(hentVeilederePromise.result.data.filter(v => v.erMedveileder))
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [ hentVeilederePromise.result ])
+
+	if (isNotStartedOrPending(hentVeilederePromise)) {
+		return <div className={styles.loader}><Loader size="2xlarge" /></div>
+	}
+
+	if (isRejected(hentVeilederePromise)) {
+		return <Alert variant="error">Kan ikke vise veiledere.</Alert>
+	}
 
 	const handleModalState = () => {
 		setOpenModal(prev => !prev)
@@ -72,8 +80,8 @@ export const VeilederPanel = ({ deltaker }: Props): React.ReactElement => {
 					/>
 				}
 			</div>
-			<Button variant="secondary" size="small" onClick={handleModalState}>
-				<IconLabel labelValue="Endre" icon={<AddPerson />} />
+			<Button variant="secondary" size="small" className={styles.knapp} onClick={handleModalState}>
+				<span className={styles.knappTekst}><AddPerson /> Endre</span>
 			</Button>
 
 			<TildelVeilederModal

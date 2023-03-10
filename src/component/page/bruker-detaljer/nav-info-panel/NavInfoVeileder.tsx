@@ -39,7 +39,7 @@ export const NavInfoVeileder = (props: Props): React.ReactElement => {
 		)
 	} else {
 		veileder = (
-			<Alert variant="info">
+			<Alert variant="info" size="small">
 				Det er ikke registrert en NAV-veileder til denne deltakeren.
 			</Alert>
 		)

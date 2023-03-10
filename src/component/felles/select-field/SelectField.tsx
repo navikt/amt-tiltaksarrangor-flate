@@ -12,28 +12,24 @@ export type SelectOption = {
 
 interface Props {
 	label: string
-	isSearchable?: boolean
 	isClearable?: boolean
 	isMulti?: boolean
 	value?: SelectOption | SelectOption[]
 	options?: SelectOption[]
 	onChange: (valg: MultiValue<SelectOption> | SingleValue<SelectOption>) => void
 	className?: string
-	isOptionDisabled?: () => boolean
 	isError?: boolean
 	feilmelding?: string
 }
 
 export const SelectField = ({
 	label,
-	isSearchable,
 	isClearable,
 	isMulti,
 	value,
 	options,
 	onChange,
 	className,
-	isOptionDisabled,
 	isError,
 	feilmelding,
 }: Props): React.ReactElement => {
@@ -44,14 +40,13 @@ export const SelectField = ({
 			<Label htmlFor={selectId}>{label}</Label>
 			<Select
 				id={selectId}
-				isSearchable={isSearchable}
+				isSearchable
 				isClearable={isClearable}
 				isMulti={isMulti}
 				value={value}
 				options={options}
 				onChange={onChange}
 				className={isError ? classNames(className, styles.error) : className}
-				isOptionDisabled={isOptionDisabled}
 				placeholder="Skriv fornavn eller etternavn"
 				noOptionsMessage={() => 'Det finnes ingen veiledere'}
 			/>

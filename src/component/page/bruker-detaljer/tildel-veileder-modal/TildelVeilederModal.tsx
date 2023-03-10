@@ -1,5 +1,5 @@
 import { Alert, Button, Detail } from '@navikt/ds-react'
-import React, { useEffect, useMemo, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { TilgjengeligVeileder, Veileder } from '../../../../api/data/veileder'
 import { MultiValue, SingleValue } from 'react-select'
 import { lagBrukerNavn } from '../../../../utils/bruker-utils'
@@ -37,7 +37,7 @@ export const TildelVeilederModal = (props: Props): React.ReactElement => {
 	)
 
 
-	useMemo(() => {
+	useEffect(() => {
 		if (isResolved(tilgjengeligeVeilederePromise)) {
 			setTilgjengeligeVeiledere(tilgjengeligeVeilederePromise.result.data)
 		}
@@ -107,7 +107,6 @@ export const TildelVeilederModal = (props: Props): React.ReactElement => {
 				</Detail>
 				<SelectField
 					label="Veileder"
-					isSearchable
 					isClearable={false}
 					value={veileder ? veilederToOption(veileder) : undefined}
 					options={veilederValg}
@@ -118,7 +117,6 @@ export const TildelVeilederModal = (props: Props): React.ReactElement => {
 				/>
 				<SelectField
 					label="Medveiledere (valgfritt)"
-					isSearchable
 					isMulti
 					value={medveiledere.map(veilederToOption)}
 					options={veilederValg}
