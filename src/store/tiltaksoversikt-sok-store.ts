@@ -7,7 +7,7 @@ import { Sortering } from '../utils/sortering-utils'
 export const [ TiltaksoversiktSokStoreProvider, useTiltaksoversiktSokStore ] = constate(() => {
 	const [ tiltakStatusFilter, setTiltakStatusFilter ] = useState<TiltakDeltakerStatus[]>([])
 	const [ deltakerlisteFilter, setDeltakerlisteFilter ] = useState<string[]>([])
-	const [ erMedveilederFilter, setErMedveilederFilter ] = useState<boolean[]>([])
+	const [ erMedveilederFilter, setErMedveilederFilter ] = useState<boolean[]>([ false ])
 	const [ deltakerSortering, setDeltakerSortering ] = useState<Sortering>()
 
 	const leggTilTiltakStatus = (tiltakStatus: TiltakDeltakerStatus) => {
