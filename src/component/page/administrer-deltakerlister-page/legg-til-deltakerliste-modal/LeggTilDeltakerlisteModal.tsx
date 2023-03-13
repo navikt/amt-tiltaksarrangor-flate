@@ -1,4 +1,4 @@
-import { BaseModal } from '../../bruker-detaljer/deltaker-detaljer/endre-deltaker-modal/BaseModal'
+import { BaseModal } from '../../../felles/base-modal/BaseModal'
 import { BodyLong, Button } from '@navikt/ds-react'
 import styles from '../../bruker-detaljer/deltaker-detaljer/fjern-deltaker-modal/FjernDeltakerModal.module.scss'
 import React from 'react'
