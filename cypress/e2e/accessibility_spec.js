@@ -67,7 +67,7 @@ describe('Cypress+Axe accessibility tests', () => {
 
 	it('Legg til liste side skal oppfylle UU-krav', () => {
 		visit('/legg-til-deltakerliste')
-		cy.get('[data-testid=legg-til-liste-page]')
+		cy.get('[data-testid=administrer-deltakerlister-page]')
 
 		sjekkUU()
 	})
