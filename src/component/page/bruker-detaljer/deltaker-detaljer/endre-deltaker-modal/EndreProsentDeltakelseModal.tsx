@@ -19,11 +19,13 @@ interface EndreProsentDeltakelseModalProps {
 
 export interface EndreProsentDeltakelseModalDataProps {
     deltakerId: string,
-    gammelProsentDeltakelse: number | null
-    onEndringUtfort: () => void
+    gammelProsentDeltakelse: number | null,
+	visGodkjennVilkaarPanel: boolean,
+	onEndringUtfort: () => void
 }
 
 export const EndreProsentDeltakelseModal = (props: EndreProsentDeltakelseModalProps & EndreProsentDeltakelseModalDataProps) => {
+	const { deltakerId, gammelProsentDeltakelse, visGodkjennVilkaarPanel, onEndringUtfort } = props
 	const today = dayjs().toDate()
 	const { gjennomforing } = useGjennomforingStore()
 	const [ prosentDeltakelseFelt, settProsentDeltakelseFelt ] = useState<string>('')
@@ -31,7 +33,7 @@ export const EndreProsentDeltakelseModal = (props: EndreProsentDeltakelseModalPr
 	const [ errorMessage, settErrorMessage ] = useState<string>()
 	const [ vilkaarGodkjent, settVilkaarGodkjent ] = useState(false)
 
-	const sendTilNavDisabled = !vilkaarGodkjent
+	const sendTilNavDisabled = (!vilkaarGodkjent && visGodkjennVilkaarPanel)
 		|| prosentDeltakelseFelt === ''
 		|| errorMessage !== undefined
 
@@ -49,10 +51,9 @@ export const EndreProsentDeltakelseModal = (props: EndreProsentDeltakelseModalPr
 			|| newValue > 100
 
 		if (isInvalid) settErrorMessage('Tallet må være et helt tall fra 1 til 100')
-		else if (newValue === props.gammelProsentDeltakelse) settErrorMessage('Gammel deltakelse kan ikke være lik ny deltakelse')
+		else if (newValue === gammelProsentDeltakelse) settErrorMessage('Gammel deltakelse kan ikke være lik ny deltakelse')
 		else settErrorMessage(undefined)
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [ prosentDeltakelseFelt ])
+	}, [ prosentDeltakelseFelt, gammelProsentDeltakelse ])
 
 	const sendEndringsmelding = () => {
 		const prosentDeltakelse = parseInt(prosentDeltakelseFelt)
@@ -60,8 +61,8 @@ export const EndreProsentDeltakelseModal = (props: EndreProsentDeltakelseModalPr
 		if (isNaN(prosentDeltakelse))
 			return Promise.reject('Kan ikke sende Prosent Deltakelse endringsmelding')
 
-		return endreDeltakelsesprosent(props.deltakerId, prosentDeltakelse, gyldigFraDato)
-			.then(props.onEndringUtfort)
+		return endreDeltakelsesprosent(deltakerId, prosentDeltakelse, gyldigFraDato)
+			.then(onEndringUtfort)
 	}
 
 	return (
@@ -89,10 +90,10 @@ export const EndreProsentDeltakelseModal = (props: EndreProsentDeltakelseModalPr
 				max={gjennomforing.sluttDato}
 			/>
 
-			<VeilederConfirmationPanel
+			{visGodkjennVilkaarPanel && <VeilederConfirmationPanel
 				vilkaarGodkjent={vilkaarGodkjent}
 				setVilkaarGodkjent={settVilkaarGodkjent}
-			/>
+			/>}
 
 			<SendTilNavKnapp
 				onEndringSendt={props.onClose}

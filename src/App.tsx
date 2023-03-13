@@ -5,7 +5,6 @@ import { Header } from './component/felles/header/Header'
 import { AppRoutes } from './Routes'
 import { isNotStartedOrPending, isRejected, isResolved, usePromise } from './utils/use-promise'
 import { SesjonNotifikasjon } from './component/sesjon-notifikasjon/SesjonNotifikasjon'
-import { INGEN_ROLLE_PAGE_ROUTE } from './navigation'
 
 
 export const App = (): React.ReactElement => {
@@ -18,10 +17,6 @@ export const App = (): React.ReactElement => {
 		if (isResolved(fetchMineRollerPromise)) {
 			setRoller(fetchMineRollerPromise.result.data)
 			setIsLoggedIn(true)
-		}
-
-		if (!roller.includes('KOORDINATOR') && roller.includes('VEILEDER')) {
-			window.location.replace(INGEN_ROLLE_PAGE_ROUTE)
 		}
 
 		// eslint-disable-next-line react-hooks/exhaustive-deps
