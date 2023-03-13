@@ -6,7 +6,6 @@ import { Rad } from './Rad'
 
 interface TabellBodyProps {
 	deltakere: TiltakDeltaker[]
-	visCheckBox?: boolean
 }
 
 export const TabellBody = (props: TabellBodyProps): React.ReactElement => {
@@ -17,7 +16,6 @@ export const TabellBody = (props: TabellBodyProps): React.ReactElement => {
 					idx={idx}
 					deltaker={deltaker}
 					key={deltaker.id}
-					visCheckBox={props.visCheckBox}
 				/>
 			))}
 		</Table.Body>

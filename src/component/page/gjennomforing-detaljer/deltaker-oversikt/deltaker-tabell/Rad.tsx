@@ -1,4 +1,4 @@
-import { Checkbox, Table } from '@navikt/ds-react'
+import { Table } from '@navikt/ds-react'
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { TiltakDeltaker } from '../../../../../api/data/deltaker'
@@ -18,7 +18,6 @@ import styles from './Rad.module.scss'
 interface RadProps {
 	idx: number
 	deltaker: TiltakDeltaker
-	visCheckBox?: boolean
 }
 
 export const Rad = (props: RadProps): React.ReactElement<RadProps> => {
@@ -57,7 +56,6 @@ export const Rad = (props: RadProps): React.ReactElement<RadProps> => {
 
 	return (
 		<Table.Row key={id}>
-			<CheckBoxCell navn={deltakerNavn} id={id} visCheckBox={props.visCheckBox} />
 			<Table.DataCell>
 				<Link className={styles.brukersNavn} to={brukerDetaljerPageUrl(id)} onClick={() => loggKlikk(klikkDeltakerRadOversikt)}>
 					{deltakerNavn}
@@ -78,28 +76,3 @@ export const Rad = (props: RadProps): React.ReactElement<RadProps> => {
 		</Table.Row >
 	)
 }
-
-interface CheckBoxCellProps {
-	navn: string
-	id: string
-	visCheckBox?: boolean
-}
-
-const CheckBoxCell = ({ navn, id, visCheckBox }: CheckBoxCellProps) => {
-	if (visCheckBox) {
-		return (
-			<Table.DataCell>
-				<Checkbox
-					value={id}
-					hideLabel={true}
-					aria-label={navn}
-					size="small"
-				>
-					{navn}
-				</Checkbox>
-			</Table.DataCell>
-		)
-	}
-	return <></>
-}
-
