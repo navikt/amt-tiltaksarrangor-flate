@@ -52,6 +52,7 @@ export const Rad = (props: RadProps): React.ReactElement<RadProps> => {
 
 	const veileder = aktiveVeiledere.filter(v => !v.erMedveileder)[0]
 
+	const veiledernavn = veileder ? lagKommaSeparertBrukerNavn(veileder.fornavn, veileder.mellomnavn, veileder.etternavn) : EMDASH
 	const deltakerNavn = lagKommaSeparertBrukerNavn(fornavn, mellomnavn, etternavn)
 
 	return (
@@ -70,7 +71,7 @@ export const Rad = (props: RadProps): React.ReactElement<RadProps> => {
 			</Table.DataCell>
 			<Show if={toggle.veilederEnabled}>
 				<Table.DataCell>
-					{veileder ? lagKommaSeparertBrukerNavn(veileder.fornavn, veileder.mellomnavn, veileder.etternavn) : EMDASH}
+					{veiledernavn}
 				</Table.DataCell>
 			</Show>
 		</Table.Row >
