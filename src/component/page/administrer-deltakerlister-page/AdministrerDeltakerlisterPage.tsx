@@ -18,9 +18,14 @@ import { deltakerlisteMapper } from './deltakerliste.mapper'
 import { SpinnerPage } from '../../felles/spinner-page/SpinnerPage'
 import { AlertPage } from '../../felles/alert-page/AlertPage'
 import { LeggTilDeltakerlisteModal } from './legg-til-deltakerliste-modal/LeggTilDeltakerlisteModal'
+import { useTilbakelenkeStore } from '../../../store/tilbakelenke-store'
+import { GJENNOMFORING_LISTE_PAGE_ROUTE } from '../../../navigation'
+import { useTabTitle } from '../../../hooks/use-tab-title'
 
 
 export const AdministrerDeltakerlisterPage = () => {
+	const { setTilbakeTilUrl } = useTilbakelenkeStore()
+
 	const [ arrangorer, setArrangorer ] = useState<ArrangorOverenhet[]>([])
 	const [ deltakerlisteIderLagtTil, setDeltakerlisteIderLagtTil ] = useState<string[]>([])
 
@@ -29,6 +34,13 @@ export const AdministrerDeltakerlisterPage = () => {
 
 	const fetchGjennomforingerPromise = usePromise<AxiosResponse<Gjennomforing[]>>(fetchTiltakGjennomforinger)
 	const fetchTilgjengeligGjennomforingerPromise = usePromise<AxiosResponse<Gjennomforing[]>>(fetchTilgjengeligGjennomforinger)
+
+	useTabTitle('Legg til og fjern deltakerlister')
+
+	useEffect(() => {
+		setTilbakeTilUrl(GJENNOMFORING_LISTE_PAGE_ROUTE)
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [])
 
 	useEffect(() => {
 		const gjennomforinger: Gjennomforing[] = fetchTilgjengeligGjennomforingerPromise.result?.data || []
