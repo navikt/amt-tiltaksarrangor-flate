@@ -18,9 +18,12 @@ import {
 } from '../../../utils/deltakerliste-utils'
 import { FilterMenyDeltakerliste } from './FilterMenyDeltakerliste'
 import { FilterMenyVeiledertype } from './FilterMenyVeiledertype'
+import { useStyle } from '../../../utils/use-style'
 
 export const DeltakerlisteVeilederPage = (): React.ReactElement => {
 	useTabTitle('Deltakerliste')
+
+	useStyle(globalStyles.whiteBackground, 'html')
 
 	const fetchDeltakerlisteVeilederPromise = usePromise<AxiosResponse<VeiledersDeltaker[]>>(
 		() => fetchDeltakerlisteVeileder()
