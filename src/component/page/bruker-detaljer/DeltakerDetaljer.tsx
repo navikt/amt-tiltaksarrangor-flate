@@ -40,13 +40,13 @@ export const DeltakerDetaljer = (props: { deltaker: TiltakDeltakerDetaljer }): R
 
 			<section>
 				<NavInfoPanel navEnhet={navEnhet} navVeileder={navVeileder} />
-				<Show if={!toggle.veiledereEnabled}>
+				<Show if={!toggle.veilederEnabled}>
 					<Alert variant="info">
 						Snart vil veiledere hos tiltaksarrangør også få tilgang til Deltakeroversikten. Som koordinator vil du kunne tildele veileder til deltaker.
 						<Link target="_blank" rel="noopener noreferrer" href="https://www.nav.no/samarbeidspartner/deltakeroversikt#hvem-kan-bruke-deltakeroversikten/" className={styles.eksternLenke}>Les mer her<ExternalLink /></Link>
 					</Alert>
 				</Show>
-				<Show if={toggle.veiledereEnabled}>
+				<Show if={toggle.veilederEnabled}>
 					<VeilederPanel deltaker={props.deltaker} />
 				</Show>
 			</section>

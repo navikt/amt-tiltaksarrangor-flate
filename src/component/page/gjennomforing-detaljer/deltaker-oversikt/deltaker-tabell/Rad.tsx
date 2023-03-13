@@ -68,7 +68,7 @@ export const Rad = (props: RadProps): React.ReactElement<RadProps> => {
 			<Table.DataCell>
 				<StatusMerkelapp status={status} />
 			</Table.DataCell>
-			<Show if={toggle.veiledereEnabled}>
+			<Show if={toggle.veilederEnabled}>
 				<Table.DataCell>
 					{veileder ? lagKommaSeparertBrukerNavn(veileder.fornavn, veileder.mellomnavn, veileder.etternavn) : EMDASH}
 				</Table.DataCell>
