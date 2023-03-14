@@ -39,8 +39,8 @@ export const AppRoutes = ({ isLoading, isRejected, roller }: AppRoutesProps) => 
 	if (isLoading) return <SpinnerPage/>
 	if (isRejected) return <ErrorPage/>
 	else if (toggle.veilederEnabled && roller.includes(Rolle.KOORDINATOR) && roller.includes(Rolle.VEILEDER)) return <VeilederOgKoordinatorRoutes roller={roller} />
-	else if (roller.includes(Rolle.KOORDINATOR)) return <KoordinatorRoutes roller={roller} />
 	else if (toggle.veilederEnabled && roller.includes(Rolle.VEILEDER)) return <VeilederRoutes roller={roller} />
+	else if (roller.includes(Rolle.KOORDINATOR)) return <KoordinatorRoutes roller={roller} />
 	return <IngenRolleRoutes/>
 }
 

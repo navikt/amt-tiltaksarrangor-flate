@@ -66,7 +66,7 @@ export const VeilederPanel = ({ deltaker, visTildeling }: Props): React.ReactEle
 			</div>
 
 			<Heading size="xsmall" level="4" className={globalStyles.blokkXs}>Medveiledere</Heading>
-			<div className={cls(styles.contentBlock)}>
+			<div className={styles.contentBlock}>
 				{medveiledere.length > 0 ? medveiledere.map(v => {
 					return <IconLabel
 						labelValue={lagBrukerNavn(v.fornavn, v.mellomnavn, v.etternavn)}
