@@ -5,6 +5,7 @@ import { arrangorForGjennomforing } from './arrangor'
 import { gjennomforingId } from './id'
 import { Deltakerliste, DeltakerOversikt, VeiledersDeltaker } from '../../api/data/deltaker'
 import { MockTiltakDeltaker } from './brukere'
+import { randomBoolean } from '../utils/faker'
 
 export type MockGjennomforing = Gjennomforing
 
@@ -163,12 +164,18 @@ export const lagMockKoordinatorer = (): Koordinator[] => {
 	]
 }
 
-export const lagMockDeltakerOversikt = (gjennomforinger: MockGjennomforing[]): DeltakerOversikt => {
+export const lagMockDeltakerOversikt = (gjennomforinger: MockGjennomforing[], veiledersDeltakere: VeiledersDeltaker[]): DeltakerOversikt => {
 	const deltakerlister: Deltakerliste[] = []
 	gjennomforinger.forEach(t => deltakerlister.push(lagMockDeltakerliste(t)))
+
+	const antallVeilederFor = veiledersDeltakere.filter(deltaker => !deltaker.erMedveilederFor).length
+	const antallMedveilederFor = veiledersDeltakere.filter(deltaker => deltaker.erMedveilederFor).length
 	
 	return {
-		veilederInfo: null,
+		veilederInfo: {
+			veilederFor: antallVeilederFor,
+			medveilederFor: antallMedveilederFor
+		},
 		koordinatorInfo: {
 			deltakerlister: deltakerlister
 		}
@@ -205,6 +212,6 @@ const lagMockVeiledersDeltaker = (deltaker: MockTiltakDeltaker): VeiledersDeltak
 			type: deltaker.gjennomforing.tiltak.tiltaksnavn,
 			navn: deltaker.gjennomforing.navn
 		},
-		erMedveilederFor: false
+		erMedveilederFor: randomBoolean(40)
 	}
 }

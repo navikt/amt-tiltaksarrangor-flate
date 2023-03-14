@@ -8,7 +8,7 @@ import { SpinnerPage } from '../../felles/spinner-page/SpinnerPage'
 import { AlertPage } from '../../felles/alert-page/AlertPage'
 import styles from './DeltakerlisteVeilederPage.module.scss'
 import { DeltakerlisteVeilederTabell } from './DeltakerlisteVeilederTabell'
-import { Heading } from '@navikt/ds-react'
+import { Detail, Heading } from '@navikt/ds-react'
 import globalStyles from '../../../globals.module.scss'
 import { FilterMeny } from '../gjennomforing-detaljer/FilterMeny'
 import {
@@ -48,7 +48,7 @@ export const DeltakerlisteVeilederPage = (): React.ReactElement => {
 	return (
 		<div className={styles.deltakerlisteVeileder} data-testid="deltakerliste-veileder-page">
 			<section className={styles.infoSection}>
-				<Heading size="xsmall" level="2" className={globalStyles.blokkXs}>Veileder:</Heading>
+				<Detail>Veileder:</Detail>
 				<Heading size="medium" level="2" className={globalStyles.blokkXs}>Mine deltakere</Heading>
 				<FilterMeny statusMap={deltakerePerStatus} className={globalStyles.blokkXs} />
 				{ deltakerePerDeltakerliste.size > 1 && <FilterMenyDeltakerliste deltakerlisteMap={deltakerePerDeltakerliste} className={globalStyles.blokkXs} /> }

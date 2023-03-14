@@ -19,6 +19,7 @@ export const FilterMenyVeiledertype = (props: Props): React.ReactElement => {
 
 	const VeiledertypeCheckbox = ({ erMedveileder } : { erMedveileder: boolean }) => {
 		const antallDeltakere = props.erMedveilederMap.get(erMedveileder) ?? 0
+		const medveilederTekstverdi = medveilederTekst(erMedveileder)
 
 		return  (
 			<Checkbox
@@ -28,16 +29,16 @@ export const FilterMenyVeiledertype = (props: Props): React.ReactElement => {
 				onChange={(e) => {
 					if (e.target.checked) {
 						leggTilMedveileder(erMedveileder)
-						loggKlikk(klikkFilterMeny, medveilederTekst(erMedveileder), 'checked')
+						loggKlikk(klikkFilterMeny, medveilederTekstverdi, 'checked')
 					} else {
 						fjernFraMedveileder(erMedveileder)
-						loggKlikk(klikkFilterMeny, medveilederTekst(erMedveileder), 'unchecked')
+						loggKlikk(klikkFilterMeny, medveilederTekstverdi, 'unchecked')
 					}
 				}}
-				value={medveilederTekst}
+				value={medveilederTekstverdi}
 			>
 				<span className={styles.content}>
-					<span>{medveilederTekst(erMedveileder)}</span>
+					<span>{medveilederTekstverdi}</span>
 					<span className={styles.occurrences}>{antallDeltakere}</span>
 				</span>
 			</Checkbox>

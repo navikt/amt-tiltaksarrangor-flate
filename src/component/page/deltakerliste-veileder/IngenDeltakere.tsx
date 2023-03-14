@@ -6,7 +6,8 @@ export const IngenDeltakere = (): JSX.Element => (
 	<div className={styles.ingenDeltakere}>
 		<GuidePanel poster>
         Du er logget inn som veileder i deltakeroversikten. Her kan du holde oversikt over deltakere som du følger opp.
-			<p />
+			<br />
+			<br />
         Du er ikke veileder til noen deltakere nå. Koordinator kan tildele deg som veileder til deltakere.
 		</GuidePanel>
 	</div>

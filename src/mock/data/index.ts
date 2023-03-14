@@ -14,10 +14,14 @@ export const mockTilgjengeligGjennomforinger: MockGjennomforing[] = lagMockGjenn
 
 export const mockKoordinatorer: Koordinator[] = lagMockKoordinatorer()
 
-export const mockTiltakDeltakere: MockTiltakDeltaker[] = mockGjennomforinger
-	.map(gjennomforing => lagMockTiltakDeltagereForGjennomforing(gjennomforing, 100))
-	.reduce((previousValue, currentValue) => previousValue.concat(currentValue), [])
+export const lagMockTiltakDeltakere = (antallGjennomforinger: number, antallDeltakere: number): MockTiltakDeltaker[] => {
+	return mockGjennomforinger.slice(0, antallGjennomforinger)
+		.map(gjennomforing => lagMockTiltakDeltagereForGjennomforing(gjennomforing, antallDeltakere))
+		.reduce((previousValue, currentValue) => previousValue.concat(currentValue), [])
+}
 
-export const mockDeltakeroversikt: DeltakerOversikt = lagMockDeltakerOversikt(mockGjennomforinger)
+export const mockTiltakDeltakere: MockTiltakDeltaker[] = lagMockTiltakDeltakere(9, 100)
 
-export const mockDeltakerlisteVeileder: VeiledersDeltaker[] = lagMockDeltakerlisteVeileder(mockTiltakDeltakere.slice(0, 15))
+export const mockDeltakerlisteVeileder: VeiledersDeltaker[] = lagMockDeltakerlisteVeileder(lagMockTiltakDeltakere(2, 10))
+
+export const mockDeltakeroversikt: DeltakerOversikt = lagMockDeltakerOversikt(mockGjennomforinger, mockDeltakerlisteVeileder)

@@ -26,7 +26,7 @@ function navigerTilTiltakGjennomforingDetaljer() {
 	cy.get('[data-testid=gjennomforing-oversikt-page]').within(() => {
 		cy.get('a')
 			.should('have.class', 'navds-link-panel')
-			.first()
+			.second()
 			.click()
 	})
 
