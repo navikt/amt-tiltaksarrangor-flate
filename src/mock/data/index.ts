@@ -20,8 +20,19 @@ export const lagMockTiltakDeltakere = (antallGjennomforinger: number, antallDelt
 		.reduce((previousValue, currentValue) => previousValue.concat(currentValue), [])
 }
 
+const deltakereTilVeileder = () => {
+	const g1 = mockTiltakDeltakere[0].gjennomforing.id
+	const g2 = mockTiltakDeltakere.find(d => d.gjennomforing.id !== g1)?.gjennomforing.id
+
+	const deltakere1 = mockTiltakDeltakere.filter(d => d.gjennomforing.id === g1).slice(0, 10)
+	const deltakere2 = mockTiltakDeltakere.filter(d => d.gjennomforing.id === g2).slice(0, 5)
+
+	return lagMockDeltakerlisteVeileder(deltakere1.concat(deltakere2))
+}
+
 export const mockTiltakDeltakere: MockTiltakDeltaker[] = lagMockTiltakDeltakere(9, 100)
 
-export const mockDeltakerlisteVeileder: VeiledersDeltaker[] = lagMockDeltakerlisteVeileder(lagMockTiltakDeltakere(2, 10))
+export const mockDeltakerlisteVeileder: VeiledersDeltaker[] = deltakereTilVeileder()
 
 export const mockDeltakeroversikt: DeltakerOversikt = lagMockDeltakerOversikt(mockGjennomforinger, mockDeltakerlisteVeileder)
+
