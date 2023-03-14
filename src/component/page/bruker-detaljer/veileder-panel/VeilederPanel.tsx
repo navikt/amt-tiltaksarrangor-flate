@@ -11,15 +11,17 @@ import globalStyles from '../../../../globals.module.scss'
 import { lagBrukerNavn } from '../../../../utils/bruker-utils'
 import { EMDASH } from '../../../../utils/constants'
 import { isNotStartedOrPending, isRejected, isResolved, usePromise } from '../../../../utils/use-promise'
+import { Show } from '../../../felles/Show'
 import { IconLabel } from '../icon-label/IconLabel'
 import { TildelVeilederModal } from '../tildel-veileder-modal/TildelVeilederModal'
 import styles from './VeilederPanel.module.scss'
 
 interface Props {
 	deltaker: TiltakDeltakerDetaljer
+	visTildeling: boolean
 }
 
-export const VeilederPanel = ({ deltaker }: Props): React.ReactElement => {
+export const VeilederPanel = ({ deltaker, visTildeling }: Props): React.ReactElement => {
 	const hentVeilederePromise = usePromise<AxiosResponse<Veileder[]>>(() => hentVeiledereForDeltaker(deltaker.id))
 	const [ veileder, setVeileder ] = useState<Veileder>()
 	const [ medveiledere, setMedveiledere ] = useState<Veileder[]>([])
@@ -64,7 +66,7 @@ export const VeilederPanel = ({ deltaker }: Props): React.ReactElement => {
 			</div>
 
 			<Heading size="xsmall" level="4" className={globalStyles.blokkXs}>Medveiledere</Heading>
-			<div className={cls(styles.contentBlock, globalStyles.blokkM)}>
+			<div className={cls(styles.contentBlock)}>
 				{medveiledere.length > 0 ? medveiledere.map(v => {
 					return <IconLabel
 						labelValue={lagBrukerNavn(v.fornavn, v.mellomnavn, v.etternavn)}
@@ -80,18 +82,21 @@ export const VeilederPanel = ({ deltaker }: Props): React.ReactElement => {
 					/>
 				}
 			</div>
-			<Button variant="secondary" size="small" className={styles.knapp} onClick={handleModalState}>
-				<span className={styles.knappTekst}><AddPerson /> Endre</span>
-			</Button>
 
-			<TildelVeilederModal
-				deltaker={deltaker}
-				veileder={veileder}
-				medveiledere={medveiledere}
-				open={openModal}
-				onClose={handleModalState}
-				onSubmit={handleSubmit}
-			/>
+			<Show if={visTildeling}>
+				<Button variant="secondary" size="small" className={styles.knapp} onClick={handleModalState}>
+					<span className={styles.knappTekst}><AddPerson /> Endre</span>
+				</Button>
+				
+				<TildelVeilederModal
+					deltaker={deltaker}
+					veileder={veileder}
+					medveiledere={medveiledere}
+					open={openModal}
+					onClose={handleModalState}
+					onSubmit={handleSubmit}
+				/>
+			</Show>
 
 		</Panel>
 	)

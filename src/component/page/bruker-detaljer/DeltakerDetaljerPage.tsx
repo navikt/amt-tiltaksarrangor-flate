@@ -14,7 +14,7 @@ import { GjennomforingStoreProvider } from './deltaker-detaljer/gjennomforing-st
 import { DeltakerDetaljer } from './DeltakerDetaljer'
 import { DeltakerDetaljerHeader } from './DeltakerDetaljerHeader'
 
-export const DeltakerDetaljerPage = (): React.ReactElement => {
+export const DeltakerDetaljerPage = (props: { ansattRoller: string[] }): React.ReactElement => {
 	const params = useParams<{ brukerId: string }>()
 	const brukerId = params.brukerId || ''
 
@@ -47,7 +47,7 @@ export const DeltakerDetaljerPage = (): React.ReactElement => {
 				epost={deltaker.epost}
 			/>
 			<GjennomforingStoreProvider gjennomforing={deltaker.gjennomforing}>
-				<DeltakerDetaljer deltaker={deltaker} />
+				<DeltakerDetaljer deltaker={deltaker} ansattRoller={props.ansattRoller} />
 			</GjennomforingStoreProvider>
 		</div>
 	)
