@@ -22,11 +22,10 @@ export const FilterMenyStatus = (props: Props): React.ReactElement => {
 	const StatusCheckbox = ({ status } : {status: TiltakDeltakerStatus}) => {
 		const statusTekst = mapTiltakDeltagerStatusTilTekst(status)
 		const antallDeltakere = props.statusMap.get(status) ?? 0
-		return  (
+		return (
 			<Checkbox
 				className={styles.checkbox}
 				name="filter-tiltakstatus"
-				checked={tiltakStatusFilter.includes(status)}
 				onChange={(e) => {
 					if (e.target.checked) {
 						leggTilTiltakStatus(status)
@@ -36,7 +35,7 @@ export const FilterMenyStatus = (props: Props): React.ReactElement => {
 						loggKlikk(klikkFilterMeny, status, 'unchecked')
 					}
 				}}
-				value={statusTekst}
+				value={status}
 			>
 				<span className={styles.content}>
 					<span>{statusTekst}</span>
@@ -48,7 +47,7 @@ export const FilterMenyStatus = (props: Props): React.ReactElement => {
 
 	return (
 		<Panel border className={props.className}>
-			<CheckboxGroup legend="Status" aria-label="Filtrer deltakere på status">
+			<CheckboxGroup legend="Status" aria-label="Filtrer deltakere på status" value={tiltakStatusFilter}>
 				{Object.values(TiltakDeltakerStatus).map((status) => (
 					<StatusCheckbox status={status} key={status}/>
 				))}

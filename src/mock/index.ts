@@ -41,5 +41,11 @@ const requestHandler = getRequestHandler()
 console.info(`Running with request handler: ${requestHandler}`)
 
 await setupWorker(...resolveHandlers(requestHandler))
-	.start({ serviceWorker: { url: appUrl('mockServiceWorker.js') } })
+	.start({
+		serviceWorker: { url: appUrl('mockServiceWorker.js') },
+		onUnhandledRequest: ({ method, url }) => {
+			if (url.pathname.startsWith('/deltakeroversikt')) {
+				console.warn(`Unhandled ${method} request to ${url}`)
+			}
+		} })
 	.catch((e) => console.error('Unable to setup mocked API endpoints', e))
