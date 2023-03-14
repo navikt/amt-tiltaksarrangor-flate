@@ -25,7 +25,6 @@ export const FilterMenyVeiledertype = (props: Props): React.ReactElement => {
 			<Checkbox
 				className={styles.checkbox}
 				name="filter-veiledertype"
-				checked={veiledertypeFilter.includes(veiledertype)}
 				onChange={(e) => {
 					if (e.target.checked) {
 						leggTilVeiledertype(veiledertype)
@@ -47,7 +46,7 @@ export const FilterMenyVeiledertype = (props: Props): React.ReactElement => {
 
 	return (
 		<Panel border className={props.className}>
-			<CheckboxGroup legend="Type veileder" aria-label="Filtrer deltakere på veiledertype">
+			<CheckboxGroup legend="Type veileder" aria-label="Filtrer deltakere på veiledertype" value={veiledertypeFilter}>
 				<VeiledertypeCheckbox veiledertype={Veiledertype.VEILEDER} key={Veiledertype.VEILEDER}/>
 				<VeiledertypeCheckbox veiledertype={Veiledertype.MEDVEILEDER} key={Veiledertype.MEDVEILEDER}/>
 			</CheckboxGroup>

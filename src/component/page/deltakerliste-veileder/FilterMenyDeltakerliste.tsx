@@ -26,7 +26,6 @@ export const FilterMenyDeltakerliste = (props: Props): React.ReactElement => {
 			<Checkbox
 				className={styles.checkbox}
 				name="filter-deltakerliste"
-				checked={deltakerlisteFilter.includes(navn)}
 				onChange={(e) => {
 					if (e.target.checked) {
 						leggTilDeltakerliste(navn)
@@ -48,7 +47,7 @@ export const FilterMenyDeltakerliste = (props: Props): React.ReactElement => {
 
 	return (
 		<Panel border className={props.className}>
-			<CheckboxGroup legend="Deltakerliste" aria-label="Filtrer deltakere på deltakerliste">
+			<CheckboxGroup legend="Deltakerliste" aria-label="Filtrer deltakere på deltakerliste" value={deltakerlisteFilter}>
 				{unikeNavn.map((navn) => (
 					<DeltakerlisteCheckbox navn={navn} key={navn}/>
 				))}
