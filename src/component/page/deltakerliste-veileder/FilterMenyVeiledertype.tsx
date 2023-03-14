@@ -17,7 +17,7 @@ export const FilterMenyVeiledertype = (props: Props): React.ReactElement => {
 		fjernFraVeiledertype,
 	} = useTiltaksoversiktSokStore()
 
-	const veilederytyper =[ ...props.veiledertypeMap.keys() ]
+	const veiledertyper = [ 'Veileder', 'Medveileder' ]
 
 	const VeiledertypeCheckbox = ({ veiledertype } : { veiledertype: string }) => {
 		const antallDeltakere = props.veiledertypeMap.get(veiledertype) ?? 0
@@ -49,7 +49,7 @@ export const FilterMenyVeiledertype = (props: Props): React.ReactElement => {
 	return (
 		<Panel border className={props.className}>
 			<CheckboxGroup legend="Type veileder" aria-label="Filtrer deltakere på veiledertype">
-				{veilederytyper.map((veiledertype) => (
+				{veiledertyper.map((veiledertype) => (
 					<VeiledertypeCheckbox veiledertype={veiledertype} key={veiledertype}/>
 				))}
 			</CheckboxGroup>
