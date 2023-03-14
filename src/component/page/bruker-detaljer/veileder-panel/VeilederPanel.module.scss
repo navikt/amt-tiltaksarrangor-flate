@@ -1,0 +1,46 @@
+.infoPanel {
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+.contentBlock {
+  display: flex;
+  flex-direction: column;
+
+  > *:not(:last-child) {
+    margin-bottom: 1rem;
+  }
+}
+
+.iconWrapper {
+  margin-right: 1.5rem;
+}
+
+.buttonRow {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.loader {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+}
+
+.knapp {
+  width: fit-content;
+  height: fit-content;
+  align-items: center;
+  span:not(:first-child){
+    margin-left: 0.3rem;
+  }
+}
+
+.knappTekst {
+  display: flex;
+  justify-content: center;
+  gap: 0.4rem;
+}

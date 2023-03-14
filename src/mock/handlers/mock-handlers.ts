@@ -5,6 +5,7 @@ import { RequestHandler } from 'msw/lib/types/handlers/RequestHandler'
 import { TiltakDeltaker, TiltakDeltakerDetaljer } from '../../api/data/deltaker'
 import { DeltakerStatusAarsakType, EndringsmeldingType } from '../../api/data/endringsmelding'
 import { VIS_DRIFTSMELDING_TOGGLE_NAVN } from '../../api/data/feature-toggle'
+import { Veileder } from '../../api/data/veileder'
 import { appUrl } from '../../utils/url-utils'
 import {
 	mockDeltakerlisteVeileder,
@@ -17,6 +18,7 @@ import {
 import { mockMineRoller } from '../data/ansatt'
 import { mockAuthInfo } from '../data/auth'
 import { MockTiltakDeltaker } from '../data/brukere'
+import { mockTilgjengeligeVeiledere } from '../data/veileder'
 import { randomUuid } from '../utils/faker'
 
 export const mockHandlers: RequestHandler[] = [
@@ -177,7 +179,7 @@ export const mockHandlers: RequestHandler[] = [
 	}),
 	rest.patch(appUrl('/amt-tiltak/api/tiltaksarrangor/deltaker/:deltakerId/deltakelse-prosent'), (req, res, ctx) => {
 		const deltakerId = req.params.deltakerId as string
-		const body = req.body as { deltakelseProsent: number }
+		const body = req.body as { deltakelseProsent: number, gyldigFraDato: Date }
 
 		const deltaker = mockTiltakDeltakere.find(d => d.id == deltakerId)
 
@@ -201,6 +203,36 @@ export const mockHandlers: RequestHandler[] = [
 
 		return res(ctx.delay(500), ctx.json(endringsmeldinger))
 	}),
+	rest.get(appUrl('/amt-tiltak/api/tiltaksarrangor/veiledere/tilgjengelig?gjennomforingId=:gjennomforingId'), (req, res, ctx) => {
+		return res(ctx.delay(500), ctx.json(mockTilgjengeligeVeiledere))
+	}),
+	rest.get(appUrl('/amt-tiltak/api/tiltaksarrangor/veiledere?deltakerId=:deltakerId'), (req, res, ctx) => {
+		const deltakerId = req.url.searchParams.get('deltakerId') as string
+		const veiledere = mockTiltakDeltakere.find(d => d.id === deltakerId)?.aktiveVeiledere
+		return res(ctx.delay(500), ctx.json(veiledere))
+	}),
+	rest.patch(appUrl('/amt-tiltak/api/tiltaksarrangor/veiledere?deltakerId=:deltakerId'), (req, res, ctx) => {
+		const deltakerId = req.url.searchParams.get('deltakerId') as string
+		const body = req.body as { veiledere: Veileder[] }
+
+		const deltaker = mockTiltakDeltakere.find(d => d.id == deltakerId)
+		if (!deltaker) {
+			return res(ctx.delay(500), ctx.status(404))
+		}
+		const nyeVeiledere: Veileder[] = body.veiledere.map(v => {
+			return {
+				// eslint-disable-next-line  @typescript-eslint/no-non-null-assertion
+				...mockTilgjengeligeVeiledere.find(tv => tv.ansattId === v.ansattId)!,
+				deltakerId: deltakerId,
+				erMedveileder: v.erMedveileder,
+			}
+		})
+
+		deltaker.aktiveVeiledere = nyeVeiledere
+
+		return res(ctx.delay(500), ctx.status(200))
+	}),
+
 	rest.get(appUrl('/unleash/api/feature'), (req, res, ctx) => {
 		const toggles = { [VIS_DRIFTSMELDING_TOGGLE_NAVN]: false }
 
@@ -219,7 +251,8 @@ const mapToDeltakerListView = (deltaker: MockTiltakDeltaker): TiltakDeltaker => 
 		sluttDato: deltaker.sluttDato,
 		status: deltaker.status,
 		registrertDato: deltaker.registrertDato,
-		aktiveEndringsmeldinger: deltaker.aktiveEndringsmeldinger
+		aktiveEndringsmeldinger: deltaker.aktiveEndringsmeldinger,
+		aktiveVeiledere: deltaker.aktiveVeiledere,
 	}
 }
 

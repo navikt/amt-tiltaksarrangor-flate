@@ -20,6 +20,7 @@ import {
 	Koordinator,
 	koordinatorListSchema,
 } from './data/tiltak'
+import { tilgjengeligeVeiledereSchema, TilgjengeligVeileder, Veileder, veiledereSchema } from './data/veileder'
 import { axiosInstance, logAndThrowError, parse } from './utils'
 
 export const fetchMineRoller = (): AxiosPromise<string[]> => {
@@ -198,6 +199,32 @@ export const skjulDeltaker = (deltakerId: string): AxiosPromise => {
 	return axiosInstance
 		.patch(
 			url,
+		)
+		.catch(err => logAndThrowError(err, url))
+}
+
+export const hentTilgjengeligeVeiledere = (gjennomforingId: string): AxiosPromise<TilgjengeligVeileder[]> => {
+	const url = appUrl(`/amt-tiltak/api/tiltaksarrangor/veiledere/tilgjengelig?gjennomforingId=${gjennomforingId}`)
+	return axiosInstance
+		.get(url)
+		.then(parse(tilgjengeligeVeiledereSchema))
+		.catch(err => logAndThrowError(err, url))
+}
+
+export const hentVeiledereForDeltaker = (deltakerId: string): AxiosPromise<Veileder[]> => {
+	const url = appUrl(`/amt-tiltak/api/tiltaksarrangor/veiledere?deltakerId=${deltakerId}`)
+	return axiosInstance
+		.get(url)
+		.then(parse(veiledereSchema))
+		.catch(err => logAndThrowError(err, url))
+}
+
+export const tildelVeilederForDeltaker = (deltakerId: string, veiledere: Veileder[]): AxiosPromise => {
+	const url = appUrl(`/amt-tiltak/api/tiltaksarrangor/veiledere?deltakerId=${deltakerId}`)
+	return axiosInstance
+		.patch(
+			url,
+			{ veiledere: veiledere.map(v => { return { ansattId: v.ansattId, erMedveileder: v.erMedveileder } }) },
 		)
 		.catch(err => logAndThrowError(err, url))
 }
