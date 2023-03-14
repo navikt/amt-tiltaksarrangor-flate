@@ -6,6 +6,8 @@ import env from './environment'
 type EventDataValue = string | boolean | number | null | undefined
 export const klikkFnrKnapp = 'klikk-fnr-knapp'
 export const klikkFilterMeny = 'klikk-filter-meny'
+export const klikkDeltakerlisteFilterMeny = 'klikk-deltakerliste-filter-meny'
+export const klikkVeiledertypeFilterMeny = 'klikk-veiledertype-filter-meny'
 export const klikkDeltakerRadOversikt = 'klikk-deltaker-deltaker-liste'
 
 

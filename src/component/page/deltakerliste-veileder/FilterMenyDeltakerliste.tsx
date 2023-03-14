@@ -2,7 +2,7 @@ import { Checkbox, CheckboxGroup, Panel } from '@navikt/ds-react'
 import React from 'react'
 
 import { useTiltaksoversiktSokStore } from '../../../store/tiltaksoversikt-sok-store'
-import { klikkFilterMeny, loggKlikk } from '../../../utils/amplitude-utils'
+import { klikkDeltakerlisteFilterMeny, loggKlikk } from '../../../utils/amplitude-utils'
 import styles from './FilterMenyDeltakerliste.module.scss'
 
 interface Props {
@@ -30,10 +30,10 @@ export const FilterMenyDeltakerliste = (props: Props): React.ReactElement => {
 				onChange={(e) => {
 					if (e.target.checked) {
 						leggTilDeltakerliste(navn)
-						loggKlikk(klikkFilterMeny, navn, 'checked')
+						loggKlikk(klikkDeltakerlisteFilterMeny, navn, 'checked')
 					} else {
 						fjernFraDeltakerliste(navn)
-						loggKlikk(klikkFilterMeny, navn, 'unchecked')
+						loggKlikk(klikkDeltakerlisteFilterMeny, navn, 'unchecked')
 					}
 				}}
 				value={navn}

@@ -2,7 +2,7 @@ import { Checkbox, CheckboxGroup, Panel } from '@navikt/ds-react'
 import React from 'react'
 
 import { useTiltaksoversiktSokStore } from '../../../store/tiltaksoversikt-sok-store'
-import { klikkFilterMeny, loggKlikk } from '../../../utils/amplitude-utils'
+import { klikkVeiledertypeFilterMeny, loggKlikk } from '../../../utils/amplitude-utils'
 import styles from './FilterMenyDeltakerliste.module.scss'
 
 interface Props {
@@ -30,10 +30,10 @@ export const FilterMenyVeiledertype = (props: Props): React.ReactElement => {
 				onChange={(e) => {
 					if (e.target.checked) {
 						leggTilVeiledertype(veiledertype)
-						loggKlikk(klikkFilterMeny, veiledertype, 'checked')
+						loggKlikk(klikkVeiledertypeFilterMeny, veiledertype, 'checked')
 					} else {
 						fjernFraVeiledertype(veiledertype)
-						loggKlikk(klikkFilterMeny, veiledertype, 'unchecked')
+						loggKlikk(klikkVeiledertypeFilterMeny, veiledertype, 'unchecked')
 					}
 				}}
 				value={veiledertype}
