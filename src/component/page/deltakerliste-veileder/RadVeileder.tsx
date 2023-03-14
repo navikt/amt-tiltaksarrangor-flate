@@ -35,7 +35,7 @@ export const RadVeileder = (props: RadProps): React.ReactElement<RadProps> => {
 	return (
 		<Table.Row key={id}>
 			<Table.DataCell>
-				<Link className={styles.brukersNavn} to={brukerDetaljerPageUrl(id)} onClick={() => loggKlikk(klikkDeltakerRadOversikt)}>
+				<Link className={styles.brukersNavn} to={brukerDetaljerPageUrl(id, '?ref=veileder')} onClick={() => loggKlikk(klikkDeltakerRadOversikt)}>
 					{lagKommaSeparertBrukerNavn(fornavn, mellomnavn, etternavn)}
 				</Link>
 			</Table.DataCell>

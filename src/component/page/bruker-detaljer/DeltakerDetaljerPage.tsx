@@ -1,7 +1,6 @@
 import { AxiosResponse } from 'axios'
 import React from 'react'
 import { useParams } from 'react-router-dom'
-import { Rolle } from '../../../api/data/ansatt'
 
 import { TiltakDeltakerDetaljer } from '../../../api/data/deltaker'
 import { fetchTiltakDeltakerDetaljer } from '../../../api/tiltak-api'
@@ -14,9 +13,13 @@ import { SpinnerPage } from '../../felles/spinner-page/SpinnerPage'
 import { GjennomforingStoreProvider } from './deltaker-detaljer/gjennomforing-store'
 import { DeltakerDetaljer } from './DeltakerDetaljer'
 import { DeltakerDetaljerHeader } from './DeltakerDetaljerHeader'
+import { isKoordinator } from '../../../utils/rolle-utils'
+import { useInnloggetBrukerStore } from '../../../store/innlogget-bruker-store'
 
-export const DeltakerDetaljerPage = (props: { ansattRoller: Rolle[] }): React.ReactElement => {
+export const DeltakerDetaljerPage = (): React.ReactElement => {
 	const params = useParams<{ brukerId: string }>()
+	const { roller } = useInnloggetBrukerStore()
+
 	const brukerId = params.brukerId || ''
 
 	useTabTitle('Deltakerdetaljer')
@@ -27,11 +30,11 @@ export const DeltakerDetaljerPage = (props: { ansattRoller: Rolle[] }): React.Re
 	)
 
 	if (isNotStartedOrPending(fetchTiltakDeltagerDetaljerPromise)) {
-		return <SpinnerPage />
+		return <SpinnerPage/>
 	}
 
 	if (isRejected(fetchTiltakDeltagerDetaljerPromise)) {
-		return <AlertPage variant="error" tekst="En feil oppstod" />
+		return <AlertPage variant="error" tekst="En feil oppstod"/>
 	}
 
 	const deltaker = fetchTiltakDeltagerDetaljerPromise.result.data
@@ -48,7 +51,7 @@ export const DeltakerDetaljerPage = (props: { ansattRoller: Rolle[] }): React.Re
 				epost={deltaker.epost}
 			/>
 			<GjennomforingStoreProvider gjennomforing={deltaker.gjennomforing}>
-				<DeltakerDetaljer deltaker={deltaker} visTildeling={props.ansattRoller.includes(Rolle.KOORDINATOR)} />
+				<DeltakerDetaljer deltaker={deltaker} visTildeling={isKoordinator(roller)}/>
 			</GjennomforingStoreProvider>
 		</div>
 	)
