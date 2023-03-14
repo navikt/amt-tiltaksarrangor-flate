@@ -197,21 +197,21 @@ export const mockHandlers: RequestHandler[] = [
 	rest.patch(appUrl('/amt-tiltak/api/tiltaksarrangor/deltaker/:deltakerId/skjul'), (req, res, ctx) => {
 		return res(ctx.delay(500), ctx.status(200))
 	}),
-	rest.get(appUrl('/amt-tiltak/api/tiltaksarrangor/endringsmelding/aktiv?deltakerId=:deltakerId'), (req, res, ctx) => {
+	rest.get(appUrl('/amt-tiltak/api/tiltaksarrangor/endringsmelding/aktiv'), (req, res, ctx) => {
 		const deltakerId = req.url.searchParams.get('deltakerId') as string
 		const endringsmeldinger = mockTiltakDeltakere.find(d => d.id == deltakerId)?.aktiveEndringsmeldinger ?? []
 
 		return res(ctx.delay(500), ctx.json(endringsmeldinger))
 	}),
-	rest.get(appUrl('/amt-tiltak/api/tiltaksarrangor/veiledere/tilgjengelig?gjennomforingId=:gjennomforingId'), (req, res, ctx) => {
+	rest.get(appUrl('/amt-tiltak/api/tiltaksarrangor/veiledere/tilgjengelig'), (req, res, ctx) => {
 		return res(ctx.delay(500), ctx.json(mockTilgjengeligeVeiledere))
 	}),
-	rest.get(appUrl('/amt-tiltak/api/tiltaksarrangor/veiledere?deltakerId=:deltakerId'), (req, res, ctx) => {
+	rest.get(appUrl('/amt-tiltak/api/tiltaksarrangor/veiledere'), (req, res, ctx) => {
 		const deltakerId = req.url.searchParams.get('deltakerId') as string
 		const veiledere = mockTiltakDeltakere.find(d => d.id === deltakerId)?.aktiveVeiledere
 		return res(ctx.delay(500), ctx.json(veiledere))
 	}),
-	rest.patch(appUrl('/amt-tiltak/api/tiltaksarrangor/veiledere?deltakerId=:deltakerId'), (req, res, ctx) => {
+	rest.patch(appUrl('/amt-tiltak/api/tiltaksarrangor/veiledere'), (req, res, ctx) => {
 		const deltakerId = req.url.searchParams.get('deltakerId') as string
 		const body = req.body as { veiledere: Veileder[] }
 
