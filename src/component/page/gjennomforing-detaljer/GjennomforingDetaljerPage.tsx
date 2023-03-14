@@ -15,7 +15,7 @@ import { isNotFound, isNotStartedOrPending, isRejected, usePromise } from '../..
 import { AlertPage } from '../../felles/alert-page/AlertPage'
 import { SpinnerPage } from '../../felles/spinner-page/SpinnerPage'
 import { DeltakerOversiktTabell } from './deltaker-oversikt/DeltakerOversiktTabell'
-import { FilterMeny } from './FilterMeny'
+import { FilterMenyStatus } from './FilterMenyStatus'
 import styles from './GjennomforingDetaljerPage.module.scss'
 import { KoordinatorInfo } from './KoordinatorInfo'
 import { TiltakInfo } from './TiltakInfo'
@@ -69,7 +69,7 @@ export const GjennomforingDetaljerPage = (): React.ReactElement => {
 		<div className={styles.gjennomforingDetaljer} data-testid="gjennomforing-detaljer-page">
 			<section className={styles.infoSection}>
 				<Heading size="medium" level="2" className={globalStyles.blokkXs}>{gjennomforing.navn}</Heading>
-				<FilterMeny statusMap={deltakerePerStatus} className={globalStyles.blokkXs} />
+				<FilterMenyStatus statusMap={deltakerePerStatus} className={globalStyles.blokkXs} />
 				<TiltakInfo gjennomforing={gjennomforing} className={globalStyles.blokkXs} />
 				<KoordinatorInfo gjennomforingId={gjennomforing.id} />
 			</section>

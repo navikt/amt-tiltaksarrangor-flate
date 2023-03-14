@@ -10,7 +10,7 @@ import styles from './DeltakerlisteVeilederPage.module.scss'
 import { DeltakerlisteVeilederTabell } from './DeltakerlisteVeilederTabell'
 import { Detail, Heading } from '@navikt/ds-react'
 import globalStyles from '../../../globals.module.scss'
-import { FilterMeny } from '../gjennomforing-detaljer/FilterMeny'
+import { FilterMenyStatus } from '../gjennomforing-detaljer/FilterMenyStatus'
 import {
 	getAntallVeiledersDeltakerePerStatus,
 	getDeltakerePerDeltakerliste,
@@ -50,7 +50,7 @@ export const DeltakerlisteVeilederPage = (): React.ReactElement => {
 			<section className={styles.infoSection}>
 				<Detail>Veileder:</Detail>
 				<Heading size="medium" level="2" className={globalStyles.blokkXs}>Mine deltakere</Heading>
-				<FilterMeny statusMap={deltakerePerStatus} className={globalStyles.blokkXs} />
+				<FilterMenyStatus statusMap={deltakerePerStatus} className={globalStyles.blokkXs} />
 				{ deltakerePerDeltakerliste.size > 1 && <FilterMenyDeltakerliste deltakerlisteMap={deltakerePerDeltakerliste} className={globalStyles.blokkXs} /> }
 				<FilterMenyVeiledertype veiledertypeMap={deltakerePerVeilederType} className={globalStyles.blokkXs} />
 			</section>
