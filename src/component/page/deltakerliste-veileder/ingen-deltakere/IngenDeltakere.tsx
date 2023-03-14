@@ -1,10 +1,11 @@
 import { GuidePanel } from '@navikt/ds-react'
 import React from 'react'
 import styles from './IngenDeltakere.module.scss'
+import adult from './adult.svg'
 
 export const IngenDeltakere = (): JSX.Element => (
 	<div className={styles.ingenDeltakere}>
-		<GuidePanel poster>
+		<GuidePanel poster illustration={<img src={adult} alt={'Adult'}/>}>
         Du er logget inn som veileder i deltakeroversikten. Her kan du holde oversikt over deltakere som du følger opp.
 			<br />
 			<br />
