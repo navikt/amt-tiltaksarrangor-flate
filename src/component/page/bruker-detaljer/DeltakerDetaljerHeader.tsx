@@ -11,7 +11,7 @@ import { IconLabel } from './icon-label/IconLabel'
 import { KopierKnapp } from './kopier-knapp/KopierKnapp'
 import { useInnloggetBrukerStore } from '../../../store/innlogget-bruker-store'
 import { isOnlyKoordinator, isOnlyVeileder } from '../../../utils/rolle-utils'
-import { useLocation } from 'react-router-dom'
+import { useQuery } from '../../../utils/use-query'
 
 interface BrukerPaaTiltakHeaderProps {
 	gjennomforingId: string,
@@ -21,11 +21,6 @@ interface BrukerPaaTiltakHeaderProps {
 	fodselsnummer: string,
 	telefonnummer: string | null,
 	epost: string | null,
-}
-
-const useQuery = () => {
-	const { search } = useLocation()
-	return React.useMemo(() => new URLSearchParams(search), [ search ])
 }
 
 export const DeltakerDetaljerHeader = (props: BrukerPaaTiltakHeaderProps): React.ReactElement => {
