@@ -23,6 +23,7 @@ import { useTilbakelenkeStore } from '../../../store/tilbakelenke-store'
 import { Rolle } from '../../../api/data/ansatt'
 import { GJENNOMFORING_LISTE_PAGE_ROUTE } from '../../../navigation'
 import { useInnloggetBrukerStore } from '../../../store/innlogget-bruker-store'
+import { isKoordinatorAndVeileder } from '../../../utils/rolle-utils';
 
 export const DeltakerlisteVeilederPage = (): React.ReactElement => {
 	const { setTilbakeTilUrl } = useTilbakelenkeStore()
@@ -33,7 +34,7 @@ export const DeltakerlisteVeilederPage = (): React.ReactElement => {
 	useStyle(globalStyles.whiteBackground, 'html')
 
 	useEffect(() => {
-		if (roller.includes(Rolle.KOORDINATOR) && roller.includes(Rolle.VEILEDER)) {
+		if (isKoordinatorAndVeileder(roller)) {
 			setTilbakeTilUrl(GJENNOMFORING_LISTE_PAGE_ROUTE)
 		} else {
 			setTilbakeTilUrl(null)
