@@ -26,16 +26,16 @@ const maksMedveiledere = 3
 
 export const TildelVeilederModal = (props: Props): React.ReactElement => {
 	const [ tilgjengeligeVeiledere, setTilgjengeligeVeiledere ] = useState<TilgjengeligVeileder[]>([])
-	const [ veilederValg, setVeilederValg ] = useState<SelectOption[]>()
+	const [ muligeVeiledervalg, setMuligeVeiledervalg ] = useState<SelectOption[]>()
 	const [ veileder, setVeileder ] = useState<TilgjengeligVeileder | undefined>()
 	const [ medveiledere, setMedveiledere ] = useState<TilgjengeligVeileder[]>([])
-	const [ veilederError, setVeilederError ] = useState(false)
+	const [ maaVelgeVeilederError, setMaaVelgeVeilederError ] = useState(false)
+	const [ tildelingFeiletError, setTildelingFeiletError ] = useState(false)
 
 	const tildelVeilederePromise = usePromise<void>()
 	const tilgjengeligeVeilederePromise = usePromise<AxiosResponse<TilgjengeligVeileder[]>>(
 		() => hentTilgjengeligeVeiledere(props.deltaker.gjennomforing.id)
 	)
-
 
 	useEffect(() => {
 		if (isResolved(tilgjengeligeVeilederePromise)) {
@@ -54,18 +54,18 @@ export const TildelVeilederModal = (props: Props): React.ReactElement => {
 	}, [ props.veileder, props.medveiledere ])
 
 	useEffect(() => {
-		const ansattIder = medveiledere.map(v => v.ansattId)
-		if (veileder !== undefined) ansattIder.push(veileder.ansattId)
+		const medveilederIder = medveiledere.map(v => v.ansattId)
+		if (veileder !== undefined) medveilederIder.push(veileder.ansattId)
 
-		const muligeValg = tilgjengeligeVeiledere?.filter(v => !ansattIder.includes(v.ansattId))
+		const muligeValg = tilgjengeligeVeiledere?.filter(v => !medveilederIder.includes(v.ansattId))
 
-		setVeilederValg(muligeValg.map(veilederToOption))
+		setMuligeVeiledervalg(muligeValg.map(veilederToOption))
 
 	}, [ veileder, medveiledere, tilgjengeligeVeiledere ])
 
 	const handleVeilederChange = (valg: SingleValue<SelectOption>) => {
 		setVeileder(tilgjengeligeVeiledere?.find(v => v.ansattId === valg?.value))
-		setVeilederError(false)
+		setMaaVelgeVeilederError(false)
 	}
 
 	const handleMedveilederChange = (valg: MultiValue<SelectOption>) => {
@@ -76,13 +76,14 @@ export const TildelVeilederModal = (props: Props): React.ReactElement => {
 	const handleClose = () => {
 		setVeileder(props.veileder)
 		setMedveiledere(props.medveiledere)
-		setVeilederError(false)
+		setMaaVelgeVeilederError(false)
+		setTildelingFeiletError(false)
 		props.onClose()
 	}
 
 	const handleSubmit = () => {
 		if (!veileder) {
-			setVeilederError(true)
+			setMaaVelgeVeilederError(true)
 			return
 		}
 		if (medveiledere.length > maksMedveiledere) return
@@ -95,7 +96,9 @@ export const TildelVeilederModal = (props: Props): React.ReactElement => {
 				.then(() => {
 					props.onSubmit(veiledere)
 					props.onClose()
+					setTildelingFeiletError(false)
 				})
+				.catch(() => setTildelingFeiletError(true))
 		)
 	}
 
@@ -109,17 +112,17 @@ export const TildelVeilederModal = (props: Props): React.ReactElement => {
 					label="Veileder"
 					isClearable={false}
 					value={veileder ? veilederToOption(veileder) : undefined}
-					options={veilederValg}
+					options={muligeVeiledervalg}
 					onChange={handleVeilederChange as (valg: SingleValue<SelectOption> | MultiValue<SelectOption>) => void}
 					className={styles.select}
-					isError={veilederError}
+					isError={maaVelgeVeilederError}
 					feilmelding="Du må velge en veileder"
 				/>
 				<SelectField
 					label="Medveiledere (valgfritt)"
 					isMulti
 					value={medveiledere.map(veilederToOption)}
-					options={veilederValg}
+					options={muligeVeiledervalg}
 					onChange={handleMedveilederChange as (valg: SingleValue<SelectOption> | MultiValue<SelectOption>) => void}
 					className={styles.select}
 					isError={medveiledere.length > maksMedveiledere}
@@ -128,6 +131,7 @@ export const TildelVeilederModal = (props: Props): React.ReactElement => {
 				<Alert variant="info" className={styles.alert}>
 					Finner du ikke veilederen du leter etter? Sjekk at veilederen har logget seg inn i deltakeroversikten etter å ha fått riktig tilgang i Altinn.
 				</Alert>
+				{tildelingFeiletError && <Alert variant="error" size="small">Kunne ikke tildele veiledere. Prøv igjen eller kontakt brukerstøtte </Alert>}
 				<div className={styles.buttonRow}>
 					<Button variant="tertiary" size="small" onClick={handleClose}>Avbryt</Button>
 					<Button size="small" loading={isPending(tildelVeilederePromise)} onClick={handleSubmit}>Lagre</Button>
