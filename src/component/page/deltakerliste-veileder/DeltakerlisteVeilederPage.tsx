@@ -20,10 +20,9 @@ import { FilterMenyDeltakerliste } from './FilterMenyDeltakerliste'
 import { FilterMenyVeiledertype } from './FilterMenyVeiledertype'
 import { useStyle } from '../../../utils/use-style'
 import { useTilbakelenkeStore } from '../../../store/tilbakelenke-store'
-import { Rolle } from '../../../api/data/ansatt'
 import { GJENNOMFORING_LISTE_PAGE_ROUTE } from '../../../navigation'
 import { useInnloggetBrukerStore } from '../../../store/innlogget-bruker-store'
-import { isKoordinatorAndVeileder } from '../../../utils/rolle-utils';
+import { isKoordinatorAndVeileder } from '../../../utils/rolle-utils'
 
 export const DeltakerlisteVeilederPage = (): React.ReactElement => {
 	const { setTilbakeTilUrl } = useTilbakelenkeStore()
