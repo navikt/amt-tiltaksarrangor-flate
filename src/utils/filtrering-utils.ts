@@ -1,5 +1,6 @@
 import { TiltakDeltaker, TiltakDeltakerStatus, VeiledersDeltaker } from '../api/data/deltaker'
 import { tilVeiledertype } from './deltakerliste-utils'
+import { Veiledertype } from '../component/page/deltakerliste-veileder/Veiledertype'
 
 const matcherStatus = (statusFilter: TiltakDeltakerStatus[], brukerStatus: TiltakDeltakerStatus) => {
 	if (statusFilter.length === 0) return true
@@ -11,7 +12,7 @@ const matcherDeltakerliste = (deltakerlisteFilter: string[], deltakerliste: stri
 	return deltakerlisteFilter.includes(deltakerliste)
 }
 
-const matcherVeiledertype = (veiledertypeFilter: string[], veiledertype: string) => {
+const matcherVeiledertype = (veiledertypeFilter: Veiledertype[], veiledertype: Veiledertype) => {
 	if (veiledertypeFilter.length === 0) return true
 	return veiledertypeFilter.includes(veiledertype)
 }
@@ -28,6 +29,6 @@ export const filtrerDeltakerliste = (brukere: VeiledersDeltaker[], deltakerliste
 	return brukere.filter(bruker => matcherDeltakerliste(deltakerlisteFilter, bruker.deltakerliste.navn))
 }
 
-export const filtrerVeiledertype = (brukere: VeiledersDeltaker[], veiledertypeFilter: string[]): VeiledersDeltaker[] => {
+export const filtrerVeiledertype = (brukere: VeiledersDeltaker[], veiledertypeFilter: Veiledertype[]): VeiledersDeltaker[] => {
 	return brukere.filter(bruker => matcherVeiledertype(veiledertypeFilter, tilVeiledertype(bruker.erMedveilederFor)))
 }

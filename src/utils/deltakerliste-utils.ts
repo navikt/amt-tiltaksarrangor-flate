@@ -1,4 +1,5 @@
 import { Deltakerliste, TiltakDeltakerStatus, VeiledersDeltaker } from '../api/data/deltaker'
+import { Veiledertype } from '../component/page/deltakerliste-veileder/Veiledertype'
 
 export const finnUnikeTiltakstyper = (detakerlister: Deltakerliste[]): string[] => {
 	const unikeTiltakstyper: string[] = []
@@ -42,8 +43,8 @@ export const getDeltakerePerDeltakerliste = (deltakere: VeiledersDeltaker[]): Ma
 	return deltakerlisteMap
 }
 
-export const getDeltakerePerVeilederType = (deltakere: VeiledersDeltaker[]): Map<string, number> => {
-	const veiledertypeMap = new Map<string, number>()
+export const getDeltakerePerVeilederType = (deltakere: VeiledersDeltaker[]): Map<Veiledertype, number> => {
+	const veiledertypeMap = new Map<Veiledertype, number>()
 	deltakere.forEach((deltaker: VeiledersDeltaker) => {
 		const veiledertype = tilVeiledertype(deltaker.erMedveilederFor)
 		const entry = veiledertypeMap.get(veiledertype)
@@ -54,4 +55,4 @@ export const getDeltakerePerVeilederType = (deltakere: VeiledersDeltaker[]): Map
 	return veiledertypeMap
 }
 
-export const tilVeiledertype = (erMedveileder: boolean) => erMedveileder ? 'Medveileder' : 'Veileder'
+export const tilVeiledertype = (erMedveileder: boolean) => erMedveileder ? Veiledertype.MEDVEILEDER : Veiledertype.VEILEDER

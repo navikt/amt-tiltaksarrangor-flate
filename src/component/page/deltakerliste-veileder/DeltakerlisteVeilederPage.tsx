@@ -48,7 +48,7 @@ export const DeltakerlisteVeilederPage = (): React.ReactElement => {
 	return (
 		<div className={styles.deltakerlisteVeileder} data-testid="deltakerliste-veileder-page">
 			<section className={styles.infoSection}>
-				<Detail>Veileder:</Detail>
+				<Detail><b>Veileder:</b></Detail>
 				<Heading size="medium" level="2" className={globalStyles.blokkXs}>Mine deltakere</Heading>
 				<FilterMenyStatus statusMap={deltakerePerStatus} className={globalStyles.blokkXs} />
 				{ deltakerePerDeltakerliste.size > 1 && <FilterMenyDeltakerliste deltakerlisteMap={deltakerePerDeltakerliste} className={globalStyles.blokkXs} /> }

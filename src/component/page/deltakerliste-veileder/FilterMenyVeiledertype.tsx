@@ -4,9 +4,10 @@ import React from 'react'
 import { useTiltaksoversiktSokStore } from '../../../store/tiltaksoversikt-sok-store'
 import { klikkVeiledertypeFilterMeny, loggKlikk } from '../../../utils/amplitude-utils'
 import styles from './FilterMenyDeltakerliste.module.scss'
+import { Veiledertype } from './Veiledertype'
 
 interface Props {
-	veiledertypeMap: Map<string, number>
+	veiledertypeMap: Map<Veiledertype, number>
 	className?: string
 }
 
@@ -17,9 +18,7 @@ export const FilterMenyVeiledertype = (props: Props): React.ReactElement => {
 		fjernFraVeiledertype,
 	} = useTiltaksoversiktSokStore()
 
-	const veiledertyper = [ 'Veileder', 'Medveileder' ]
-
-	const VeiledertypeCheckbox = ({ veiledertype } : { veiledertype: string }) => {
+	const VeiledertypeCheckbox = ({ veiledertype } : { veiledertype: Veiledertype }) => {
 		const antallDeltakere = props.veiledertypeMap.get(veiledertype) ?? 0
 
 		return  (
@@ -36,7 +35,7 @@ export const FilterMenyVeiledertype = (props: Props): React.ReactElement => {
 						loggKlikk(klikkVeiledertypeFilterMeny, veiledertype, 'unchecked')
 					}
 				}}
-				value={veiledertype}
+				value={veiledertype.valueOf()}
 			>
 				<span className={styles.content}>
 					<span>{veiledertype}</span>
@@ -49,9 +48,8 @@ export const FilterMenyVeiledertype = (props: Props): React.ReactElement => {
 	return (
 		<Panel border className={props.className}>
 			<CheckboxGroup legend="Type veileder" aria-label="Filtrer deltakere på veiledertype">
-				{veiledertyper.map((veiledertype) => (
-					<VeiledertypeCheckbox veiledertype={veiledertype} key={veiledertype}/>
-				))}
+				<VeiledertypeCheckbox veiledertype={Veiledertype.VEILEDER} key={Veiledertype.VEILEDER}/>
+				<VeiledertypeCheckbox veiledertype={Veiledertype.MEDVEILEDER} key={Veiledertype.MEDVEILEDER}/>
 			</CheckboxGroup>
 		</Panel>
 	)
