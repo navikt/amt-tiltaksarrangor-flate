@@ -11,13 +11,8 @@ export const GJENNOMFORING_LISTE_PAGE_ROUTE = appUrl('/')
 
 export const HOVED_PAGE_ROUTE = appUrl('/')
 
-export const brukerDetaljerPageUrl = (brukerId: string, queryParams: string | undefined): string => {
-	const base = DELTAKER_DETALJER_PAGE_ROUTE.replace(':brukerId', brukerId)
-	if(queryParams != undefined) {
-		return base+queryParams
-	}
-
-	return base
+export const brukerDetaljerPageUrl = (brukerId: string, ref: string): string => {
+	return DELTAKER_DETALJER_PAGE_ROUTE.replace(':brukerId', brukerId)+`?ref=${ref}`
 }
 
 export const gjennomforingDetaljerPageUrl = (gjennomforingId: string): string => {
