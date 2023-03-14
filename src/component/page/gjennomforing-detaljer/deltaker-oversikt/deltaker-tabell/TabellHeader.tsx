@@ -35,7 +35,7 @@ export const TabellHeader = () => (
 				Status
 			</Table.ColumnHeader>
 			<Show if={toggle.veilederEnabled}>
-				<Table.ColumnHeader sortKey={DeltakerKolonne.VEILEDER} style={fixedWidth(200)} sortable>
+				<Table.ColumnHeader sortKey={DeltakerKolonne.VEILEDER} style={dynamicWidth(200)} sortable>
 					Veileder
 				</Table.ColumnHeader>
 			</Show>
