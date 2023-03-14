@@ -6,9 +6,10 @@ import { finnNesteSortering } from '../../../utils/sortering-utils'
 import styles from './DeltakerlisteVeilederTabell.module.scss'
 import { sorterVeiledersDeltakere } from './sortering'
 import { VeiledersDeltaker } from '../../../api/data/deltaker'
-import { IngenDeltakere } from './IngenDeltakere'
+import { IngenDeltakere } from './ingen-deltakere/IngenDeltakere'
 import { TabellHeaderVeileder } from './TabellHeaderVeileder'
 import { TabellBodyVeileder } from './TabellBodyVeileder'
+import { filtrerDeltakerliste, filtrerVeiledersDeltakere, filtrerVeiledertype } from '../../../utils/filtrering-utils'
 
 
 interface DeltakerlisteVeilederTabellProps {
@@ -17,15 +18,18 @@ interface DeltakerlisteVeilederTabellProps {
 
 export const DeltakerlisteVeilederTabell = (props: DeltakerlisteVeilederTabellProps): React.ReactElement<DeltakerlisteVeilederTabellProps> => {
 	const { deltakerliste } = props
-	const { deltakerSortering, setDeltakerSortering } = useTiltaksoversiktSokStore()
+	const { deltakerSortering, tiltakStatusFilter, deltakerlisteFilter, veiledertypeFilter, setDeltakerSortering } = useTiltaksoversiktSokStore()
 	const [ deltakereBearbeidet, setDeltakereBearbeidet ] = useState<VeiledersDeltaker[]>(sorterVeiledersDeltakere(deltakerliste, deltakerSortering))
 
 	useEffect(() => {
 		if (!deltakerliste) return
-		const sortert = sorterVeiledersDeltakere(deltakerliste, deltakerSortering)
+		const filtrerteBrukere = filtrerVeiledersDeltakere(deltakerliste, tiltakStatusFilter)
+		const filtrerteDeltakerlister = filtrerDeltakerliste(filtrerteBrukere, deltakerlisteFilter)
+		const filtrerteDeltakereVeiledertype = filtrerVeiledertype(filtrerteDeltakerlister, veiledertypeFilter)
+		const sortert = sorterVeiledersDeltakere(filtrerteDeltakereVeiledertype, deltakerSortering)
 		setDeltakereBearbeidet(sortert)
 
-	}, [ deltakerliste, deltakerSortering ])
+	}, [ deltakerliste, deltakerSortering, tiltakStatusFilter, deltakerlisteFilter, veiledertypeFilter ])
 
 	const handleOnSortChange = (sortKey: string | undefined) => {
 		setDeltakerSortering(prevSort => finnNesteSortering(sortKey, prevSort))

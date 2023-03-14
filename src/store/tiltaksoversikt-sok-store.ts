@@ -3,9 +3,12 @@ import { useState } from 'react'
 
 import { TiltakDeltakerStatus } from '../api/data/deltaker'
 import { Sortering } from '../utils/sortering-utils'
+import { Veiledertype } from '../component/page/deltakerliste-veileder/Veiledertype'
 
 export const [ TiltaksoversiktSokStoreProvider, useTiltaksoversiktSokStore ] = constate(() => {
 	const [ tiltakStatusFilter, setTiltakStatusFilter ] = useState<TiltakDeltakerStatus[]>([])
+	const [ deltakerlisteFilter, setDeltakerlisteFilter ] = useState<string[]>([])
+	const [ veiledertypeFilter, setVeiledertypeFilter ] = useState<Veiledertype[]>([ Veiledertype.VEILEDER ])
 	const [ deltakerSortering, setDeltakerSortering ] = useState<Sortering>()
 
 	const leggTilTiltakStatus = (tiltakStatus: TiltakDeltakerStatus) => {
@@ -24,10 +27,48 @@ export const [ TiltaksoversiktSokStoreProvider, useTiltaksoversiktSokStore ] = c
 		})
 	}
 
+	const leggTilDeltakerliste = (navn: string) => {
+		setDeltakerlisteFilter((prevNavn) => {
+			if (prevNavn.includes(navn)) {
+				return prevNavn
+			}
+
+			return [ ...prevNavn, navn ]
+		})
+	}
+
+	const fjernFraDeltakerliste = (navn: string) => {
+		setDeltakerlisteFilter((prevNavn) => {
+			return prevNavn.filter((navnFraFilter) => navnFraFilter !== navn)
+		})
+	}
+
+	const leggTilVeiledertype = (veiledertype: Veiledertype) => {
+		setVeiledertypeFilter((prevVeiledertype) => {
+			if (prevVeiledertype.includes(veiledertype)) {
+				return prevVeiledertype
+			}
+
+			return [ ...prevVeiledertype, veiledertype ]
+		})
+	}
+
+	const fjernFraVeiledertype = (veiledertype: Veiledertype) => {
+		setVeiledertypeFilter((prevVeiledertype) => {
+			return prevVeiledertype.filter((type) => type !== veiledertype)
+		})
+	}
+
 	return {
 		tiltakStatusFilter,
 		leggTilTiltakStatus,
 		fjernFraTiltakStatus,
+		deltakerlisteFilter,
+		leggTilDeltakerliste,
+		fjernFraDeltakerliste,
+		veiledertypeFilter,
+		leggTilVeiledertype,
+		fjernFraVeiledertype,
 		deltakerSortering,
 		setDeltakerSortering,
 	}

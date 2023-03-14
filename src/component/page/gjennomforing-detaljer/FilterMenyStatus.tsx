@@ -5,14 +5,14 @@ import { TiltakDeltakerStatus } from '../../../api/data/deltaker'
 import { useTiltaksoversiktSokStore } from '../../../store/tiltaksoversikt-sok-store'
 import { klikkFilterMeny, loggKlikk } from '../../../utils/amplitude-utils'
 import { mapTiltakDeltagerStatusTilTekst } from '../../../utils/text-mappers'
-import styles from './FilterMeny.module.scss'
+import styles from './FilterMenyStatus.module.scss'
 
 interface Props {
 	statusMap: Map<TiltakDeltakerStatus, number>
 	className?: string
 }
 
-export const FilterMeny = (props: Props): React.ReactElement => {
+export const FilterMenyStatus = (props: Props): React.ReactElement => {
 	const {
 		tiltakStatusFilter,
 		leggTilTiltakStatus,
