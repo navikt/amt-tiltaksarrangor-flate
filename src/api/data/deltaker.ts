@@ -93,7 +93,8 @@ export const veiledersDeltakerSchema = z.object({
 	sluttDato: nullableDateSchema,
 	status: deltakerStatusSchema,
 	deltakerliste: deltakerlisteSchema,
-	erMedveilederFor: z.boolean()
+	erMedveilederFor: z.boolean(),
+	aktiveEndringsmeldinger: z.array(endringsmeldingSchema)
 })
 
 export const deltakerlisteVeilederSchema = z.array(veiledersDeltakerSchema)
