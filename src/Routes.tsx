@@ -22,24 +22,25 @@ import toggle from './utils/toggle'
 import {
 	AdministrerDeltakerlisterPage
 } from './component/page/administrer-deltakerlister-page/AdministrerDeltakerlisterPage'
+import { Rolle } from './api/data/ansatt'
 
 
 interface AppRoutesProps {
 	isLoading: boolean
 	isRejected: boolean
-	roller: string[]
+	roller: Rolle[]
 }
 
 interface RouteProps {
-	roller: string[]
+	roller: Rolle[]
 }
 
 export const AppRoutes = ({ isLoading, isRejected, roller }: AppRoutesProps) => {
 	if (isLoading) return <SpinnerPage/>
 	if (isRejected) return <ErrorPage/>
-	else if (toggle.veilederEnabled && roller.includes('KOORDINATOR') && roller.includes('VEILEDER')) return <VeilederOgKoordinatorRoutes roller={roller} />
-	else if (roller.includes('KOORDINATOR')) return <KoordinatorRoutes roller={roller} />
-	else if (toggle.veilederEnabled && roller.includes('VEILEDER')) return <VeilederRoutes roller={roller} />
+	else if (toggle.veilederEnabled && roller.includes(Rolle.KOORDINATOR) && roller.includes(Rolle.VEILEDER)) return <VeilederOgKoordinatorRoutes roller={roller} />
+	else if (roller.includes(Rolle.KOORDINATOR)) return <KoordinatorRoutes roller={roller} />
+	else if (toggle.veilederEnabled && roller.includes(Rolle.VEILEDER)) return <VeilederRoutes roller={roller} />
 	return <IngenRolleRoutes/>
 }
 

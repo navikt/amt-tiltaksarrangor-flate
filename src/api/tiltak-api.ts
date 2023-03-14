@@ -3,6 +3,7 @@ import { AxiosError, AxiosPromise } from 'axios'
 import { formatDateToDateInputStr, formatNullableDateToDateInputStr } from '../utils/date-utils'
 import { Nullable } from '../utils/types/or-nothing'
 import { appUrl } from '../utils/url-utils'
+import { Rolle } from './data/ansatt'
 import {
 	deltakerlisteVeilederSchema,
 	DeltakerOversikt,
@@ -23,7 +24,7 @@ import {
 import { tilgjengeligeVeiledereSchema, TilgjengeligVeileder, Veileder, veiledereSchema } from './data/veileder'
 import { axiosInstance, logAndThrowError, parse } from './utils'
 
-export const fetchMineRoller = (): AxiosPromise<string[]> => {
+export const fetchMineRoller = (): AxiosPromise<Rolle[]> => {
 	const url = appUrl('/amt-tiltak/api/tiltaksarrangor/ansatt/meg/roller')
 	return axiosInstance
 		.get(url)

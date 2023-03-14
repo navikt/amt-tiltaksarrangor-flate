@@ -15,7 +15,7 @@ import toggle from '../../../utils/toggle'
 
 export const DeltakerDetaljer = (props: {
 	deltaker: TiltakDeltakerDetaljer,
-	ansattRoller: string[],
+	visTildeling: boolean,
 }): React.ReactElement => {
 	const {
 		navEnhet, navVeileder, gjennomforing, registrertDato, status, fjernesDato,
@@ -50,7 +50,7 @@ export const DeltakerDetaljer = (props: {
 					</Alert>
 				</Show>
 				<Show if={toggle.veilederEnabled}>
-					<VeilederPanel deltaker={props.deltaker} visTildeling={props.ansattRoller.includes('KOORDINATOR')}/>
+					<VeilederPanel deltaker={props.deltaker} visTildeling={props.visTildeling}/>
 				</Show>
 			</section>
 		</div>
