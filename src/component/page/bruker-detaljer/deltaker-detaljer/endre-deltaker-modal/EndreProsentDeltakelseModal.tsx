@@ -6,20 +6,20 @@ import React from 'react'
 import { endreDeltakelsesprosent } from '../../../../../api/tiltak-api'
 import { Nullable } from '../../../../../utils/types/or-nothing'
 import { DateField } from '../../../../felles/DateField'
-import { BaseModal } from './BaseModal'
 import styles from './EndreProsentDeltakelseModal.module.scss'
 import { SendTilNavKnapp } from './SendTilNavKnapp'
 import { VeilederConfirmationPanel } from './VeilederConfirmationPanel'
 import { useGjennomforingStore } from '../gjennomforing-store'
+import { BaseModal } from '../../../../felles/base-modal/BaseModal'
 
 
 interface EndreProsentDeltakelseModalProps {
-    onClose: () => void
+	onClose: () => void
 }
 
 export interface EndreProsentDeltakelseModalDataProps {
-    deltakerId: string,
-    gammelProsentDeltakelse: number | null,
+	deltakerId: string,
+	gammelProsentDeltakelse: number | null,
 	visGodkjennVilkaarPanel: boolean,
 	onEndringUtfort: () => void
 }

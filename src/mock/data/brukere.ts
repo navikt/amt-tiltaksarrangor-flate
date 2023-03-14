@@ -3,43 +3,46 @@ import faker from 'faker'
 import { TiltakDeltakerStatus } from '../../api/data/deltaker'
 import { Endringsmelding } from '../../api/data/endringsmelding'
 import { Gjennomforing } from '../../api/data/tiltak'
+import { Veileder } from '../../api/data/veileder'
 import { randBetween, randomBoolean, randomFnr } from '../utils/faker'
 import { lagMockEndringsmeldingForDeltaker } from './endringsmelding'
 import { deltakerId } from './id'
 import { MockGjennomforing } from './tiltak'
+import { lagMockVeiledereForDeltaker } from './veileder'
 
 export interface MockNavEnhet {
-    navn: string
+	navn: string
 }
 
 export interface MockNavVeileder {
-    navn: string,
-    telefon: string | null,
-    epost: string | null,
+	navn: string,
+	telefon: string | null,
+	epost: string | null,
 }
 
 export interface MockTiltakDeltaker {
-    id: string,
-    fornavn: string,
-    mellomnavn: string | null,
-    etternavn: string,
-    fodselsnummer: string,
-    startDato: Date | null,
-    sluttDato: Date | null,
+	id: string,
+	fornavn: string,
+	mellomnavn: string | null,
+	etternavn: string,
+	fodselsnummer: string,
+	startDato: Date | null,
+	sluttDato: Date | null,
 	deltakelseProsent: number | null,
-    status: {
-        type: TiltakDeltakerStatus,
-        endretDato: Date,
-    },
-    registrertDato: Date,
-    epost: string | null,
-    telefonnummer: string | null,
-    navEnhet: MockNavEnhet | null,
-    navVeileder: MockNavVeileder | null,
-    gjennomforing: MockGjennomforing,
-    fjernesDato: Date | null,
-    innsokBegrunnelse: string | null,
-    aktiveEndringsmeldinger: Endringsmelding[]
+	status: {
+		type: TiltakDeltakerStatus,
+		endretDato: Date,
+	},
+	registrertDato: Date,
+	epost: string | null,
+	telefonnummer: string | null,
+	navEnhet: MockNavEnhet | null,
+	navVeileder: MockNavVeileder | null,
+	gjennomforing: MockGjennomforing,
+	fjernesDato: Date | null,
+	innsokBegrunnelse: string | null,
+	aktiveEndringsmeldinger: Endringsmelding[]
+	aktiveVeiledere: Veileder[]
 }
 
 const navEnheter: MockNavEnhet[] = [
@@ -119,8 +122,9 @@ const lagMockTiltakDeltagerForGjennomforing = (gjennomforing: Gjennomforing): Mo
 		telefon: lagTelefonnummer()
 	} : null
 
+	const id = deltakerId()
 	return {
-		id: deltakerId(),
+		id: id,
 		fornavn: brukerFornavn,
 		mellomnavn: brukerMellomnavn,
 		etternavn: brukerEtternavn,
@@ -140,7 +144,8 @@ const lagMockTiltakDeltagerForGjennomforing = (gjennomforing: Gjennomforing): Mo
 		gjennomforing: gjennomforing,
 		registrertDato: faker.date.past(),
 		innsokBegrunnelse: genererBegrunnelse(brukerFornavn),
-		aktiveEndringsmeldinger: lagMockEndringsmeldingForDeltaker(status)
+		aktiveEndringsmeldinger: lagMockEndringsmeldingForDeltaker(status),
+		aktiveVeiledere: lagMockVeiledereForDeltaker(id),
 	}
 }
 

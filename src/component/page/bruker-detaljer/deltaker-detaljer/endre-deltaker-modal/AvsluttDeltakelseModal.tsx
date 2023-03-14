@@ -4,10 +4,10 @@ import { DeltakerStatusAarsakType } from '../../../../../api/data/endringsmeldin
 import { avsluttDeltakelse } from '../../../../../api/tiltak-api'
 import { maxDate } from '../../../../../utils/date-utils'
 import { Nullable } from '../../../../../utils/types/or-nothing'
+import { BaseModal } from '../../../../felles/base-modal/BaseModal'
 import { DateField } from '../../../../felles/DateField'
 import { useGjennomforingStore } from '../gjennomforing-store'
 import { AarsakSelector } from './AarsakSelector'
-import { BaseModal } from './BaseModal'
 import styles from './EndreOppstartModal.module.scss'
 import { SendTilNavKnapp } from './SendTilNavKnapp'
 import { VeilederConfirmationPanel } from './VeilederConfirmationPanel'
@@ -43,7 +43,7 @@ export const AvsluttDeltakelseModal = (props: AvsluttDeltakelseModalProps & Avsl
 		if (aarsak === DeltakerStatusAarsakType.ANNET && !beskrivelse) {
 			return Promise.reject('Beskrivelse er påkrevd for å sende AvsluttDeltakelse endringsmelding med årsak ANNET')
 		}
-		const nyAarsak = { beskrivelse: beskrivelse??null, type: aarsak }
+		const nyAarsak = { beskrivelse: beskrivelse ?? null, type: aarsak }
 		return avsluttDeltakelse(deltakerId, sluttDato, nyAarsak).then(onEndringUtfort)
 	}
 
@@ -51,10 +51,10 @@ export const AvsluttDeltakelseModal = (props: AvsluttDeltakelseModalProps & Avsl
 		settAarsak(nyAarsak)
 		settBeskrivelse(nyBeskrivelse)
 	}
-	
+
 	return (
 		<BaseModal tittel="Avslutt deltakelse" onClose={onClose}>
-			<AarsakSelector tittel="Hva er årsaken til avslutning?" onAarsakSelected={onAarsakSelected}/>
+			<AarsakSelector tittel="Hva er årsaken til avslutning?" onAarsakSelected={onAarsakSelected} />
 			<DateField
 				className={styles.datofelt}
 				label="Hva er ny sluttdato?"
@@ -63,11 +63,11 @@ export const AvsluttDeltakelseModal = (props: AvsluttDeltakelseModalProps & Avsl
 				max={gjennomforing.sluttDato}
 				onDateChanged={d => settSluttDato(d)}
 			/>
-			{visGodkjennVilkaarPanel && <VeilederConfirmationPanel vilkaarGodkjent={vilkaarGodkjent} setVilkaarGodkjent={settVilkaarGodkjent}/>}
+			{ visGodkjennVilkaarPanel && <VeilederConfirmationPanel vilkaarGodkjent={vilkaarGodkjent} setVilkaarGodkjent={settVilkaarGodkjent} /> }
 			<SendTilNavKnapp
 				onEndringSendt={onClose}
 				sendEndring={sendEndring}
-				disabled={!kanSendeEndringsmelding}/>
-		</BaseModal>
+				disabled={!kanSendeEndringsmelding} />
+		</BaseModal >
 	)
 }

@@ -1,15 +1,13 @@
-import { Table } from '@navikt/ds-react'
 import React, { useEffect, useState } from 'react'
 
 import { TiltakDeltaker } from '../../../../api/data/deltaker'
 import { useTiltaksoversiktSokStore } from '../../../../store/tiltaksoversikt-sok-store'
 import { filtrerBrukere } from '../../../../utils/filtrering-utils'
 import { finnNesteSortering } from '../../../../utils/sortering-utils'
+import { DeltakerTabell } from './deltaker-tabell/DeltakerTabell'
+import { sorterDeltakere } from './deltaker-tabell/sortering'
 import styles from './DeltakerOversiktTabell.module.scss'
 import { IngenDeltakereAlertstripe } from './IngenDeltakereAlertstripe'
-import { sorterDeltakere } from './sortering'
-import { TabellBody } from './TabellBody'
-import { TabellHeader } from './TabellHeader'
 
 
 interface DeltakerOversiktTabellProps {
@@ -33,15 +31,17 @@ export const DeltakerOversiktTabell = (props: DeltakerOversiktTabellProps): Reac
 		setDeltakerSortering(prevSort => finnNesteSortering(sortKey, prevSort))
 	}
 
+
 	return (
 		<div className={styles.tableWrapper}>
 			{deltakere.length === 0
 				? <IngenDeltakereAlertstripe />
 				: (
-					<Table className="tabell" zebraStripes={true} sort={deltakerSortering} onSortChange={handleOnSortChange} aria-label="Deltakere på tiltaksgjennomføring">
-						<TabellHeader />
-						<TabellBody brukere={deltakereBearbeidet} />
-					</Table>
+					<DeltakerTabell
+						deltakere={deltakereBearbeidet}
+						sortering={deltakerSortering}
+						onSortChange={handleOnSortChange}
+					/>
 				)
 			}
 		</div>

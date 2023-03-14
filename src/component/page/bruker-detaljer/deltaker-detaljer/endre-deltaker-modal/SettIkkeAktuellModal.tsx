@@ -3,8 +3,8 @@ import React, { useState } from 'react'
 import { DeltakerStatusAarsakType } from '../../../../../api/data/endringsmelding'
 import { deltakerIkkeAktuell } from '../../../../../api/tiltak-api'
 import { Nullable } from '../../../../../utils/types/or-nothing'
+import { BaseModal } from '../../../../felles/base-modal/BaseModal'
 import { AarsakSelector } from './AarsakSelector'
-import { BaseModal } from './BaseModal'
 import { SendTilNavKnapp } from './SendTilNavKnapp'
 import { VeilederConfirmationPanel } from './VeilederConfirmationPanel'
 
@@ -34,7 +34,7 @@ export const SettIkkeAktuellModal = (props: SettIkkeAktuellModalProps & SettIkke
 		if (aarsak === DeltakerStatusAarsakType.ANNET && !beskrivelse) {
 			return Promise.reject()
 		}
-		return deltakerIkkeAktuell(deltakerId, { type: aarsak, beskrivelse: beskrivelse??null })
+		return deltakerIkkeAktuell(deltakerId, { type: aarsak, beskrivelse: beskrivelse ?? null })
 			.then(onEndringUtfort)
 	}
 
@@ -50,7 +50,7 @@ export const SettIkkeAktuellModal = (props: SettIkkeAktuellModalProps & SettIkke
 			<SendTilNavKnapp
 				onEndringSendt={onClose}
 				sendEndring={sendEndringsmelding}
-				disabled={!kanSendeEndringsmelding}/>
+				disabled={!kanSendeEndringsmelding} />
 		</BaseModal>
 	)
 }
