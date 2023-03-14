@@ -6,39 +6,40 @@ import { klikkFilterMeny, loggKlikk } from '../../../utils/amplitude-utils'
 import styles from './FilterMenyDeltakerliste.module.scss'
 
 interface Props {
-	erMedveilederMap: Map<boolean, number>
+	veiledertypeMap: Map<string, number>
 	className?: string
 }
 
 export const FilterMenyVeiledertype = (props: Props): React.ReactElement => {
 	const {
-		erMedveilederFilter,
-		leggTilMedveileder,
-		fjernFraMedveileder,
+		veiledertypeFilter,
+		leggTilVeiledertype,
+		fjernFraVeiledertype,
 	} = useTiltaksoversiktSokStore()
 
-	const VeiledertypeCheckbox = ({ erMedveileder } : { erMedveileder: boolean }) => {
-		const antallDeltakere = props.erMedveilederMap.get(erMedveileder) ?? 0
-		const medveilederTekstverdi = medveilederTekst(erMedveileder)
+	const veilederytyper =[ ...props.veiledertypeMap.keys() ]
+
+	const VeiledertypeCheckbox = ({ veiledertype } : { veiledertype: string }) => {
+		const antallDeltakere = props.veiledertypeMap.get(veiledertype) ?? 0
 
 		return  (
 			<Checkbox
 				className={styles.checkbox}
 				name="filter-veiledertype"
-				checked={erMedveilederFilter.includes(erMedveileder)}
+				checked={veiledertypeFilter.includes(veiledertype)}
 				onChange={(e) => {
 					if (e.target.checked) {
-						leggTilMedveileder(erMedveileder)
-						loggKlikk(klikkFilterMeny, medveilederTekstverdi, 'checked')
+						leggTilVeiledertype(veiledertype)
+						loggKlikk(klikkFilterMeny, veiledertype, 'checked')
 					} else {
-						fjernFraMedveileder(erMedveileder)
-						loggKlikk(klikkFilterMeny, medveilederTekstverdi, 'unchecked')
+						fjernFraVeiledertype(veiledertype)
+						loggKlikk(klikkFilterMeny, veiledertype, 'unchecked')
 					}
 				}}
-				value={medveilederTekstverdi}
+				value={veiledertype}
 			>
 				<span className={styles.content}>
-					<span>{medveilederTekstverdi}</span>
+					<span>{veiledertype}</span>
 					<span className={styles.occurrences}>{antallDeltakere}</span>
 				</span>
 			</Checkbox>
@@ -48,12 +49,10 @@ export const FilterMenyVeiledertype = (props: Props): React.ReactElement => {
 	return (
 		<Panel border className={props.className}>
 			<CheckboxGroup legend="Type veileder" aria-label="Filtrer deltakere på veiledertype">
-				{[ false, true ].map((erMedveileder) => (
-					<VeiledertypeCheckbox erMedveileder={erMedveileder} key={medveilederTekst((erMedveileder))}/>
+				{veilederytyper.map((veiledertype) => (
+					<VeiledertypeCheckbox veiledertype={veiledertype} key={veiledertype}/>
 				))}
 			</CheckboxGroup>
 		</Panel>
 	)
 }
-
-const medveilederTekst = (erMedveileder: boolean) => erMedveileder ? 'Medveileder' : 'Veileder'

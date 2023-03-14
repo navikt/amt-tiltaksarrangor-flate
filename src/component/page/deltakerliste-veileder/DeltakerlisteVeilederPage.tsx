@@ -52,7 +52,7 @@ export const DeltakerlisteVeilederPage = (): React.ReactElement => {
 				<Heading size="medium" level="2" className={globalStyles.blokkXs}>Mine deltakere</Heading>
 				<FilterMeny statusMap={deltakerePerStatus} className={globalStyles.blokkXs} />
 				{ deltakerePerDeltakerliste.size > 1 && <FilterMenyDeltakerliste deltakerlisteMap={deltakerePerDeltakerliste} className={globalStyles.blokkXs} /> }
-				<FilterMenyVeiledertype erMedveilederMap={deltakerePerVeilederType} className={globalStyles.blokkXs} />
+				<FilterMenyVeiledertype veiledertypeMap={deltakerePerVeilederType} className={globalStyles.blokkXs} />
 			</section>
 			<DeltakerlisteVeilederTabell deltakerliste={deltakerlisteVeileder} />
 		</div>

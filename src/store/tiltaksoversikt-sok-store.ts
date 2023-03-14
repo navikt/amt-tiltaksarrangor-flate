@@ -7,7 +7,7 @@ import { Sortering } from '../utils/sortering-utils'
 export const [ TiltaksoversiktSokStoreProvider, useTiltaksoversiktSokStore ] = constate(() => {
 	const [ tiltakStatusFilter, setTiltakStatusFilter ] = useState<TiltakDeltakerStatus[]>([])
 	const [ deltakerlisteFilter, setDeltakerlisteFilter ] = useState<string[]>([])
-	const [ erMedveilederFilter, setErMedveilederFilter ] = useState<boolean[]>([ false ])
+	const [ veiledertypeFilter, setVeiledertypeFilter ] = useState<string[]>([ 'Veileder' ])
 	const [ deltakerSortering, setDeltakerSortering ] = useState<Sortering>()
 
 	const leggTilTiltakStatus = (tiltakStatus: TiltakDeltakerStatus) => {
@@ -42,19 +42,19 @@ export const [ TiltaksoversiktSokStoreProvider, useTiltaksoversiktSokStore ] = c
 		})
 	}
 
-	const leggTilMedveileder = (erMedveileder: boolean) => {
-		setErMedveilederFilter((prevErMedveileder) => {
-			if (prevErMedveileder.includes(erMedveileder)) {
-				return prevErMedveileder
+	const leggTilVeiledertype = (veiledertype: string) => {
+		setVeiledertypeFilter((prevVeiledertype) => {
+			if (prevVeiledertype.includes(veiledertype)) {
+				return prevVeiledertype
 			}
 
-			return [ ...prevErMedveileder, erMedveileder ]
+			return [ ...prevVeiledertype, veiledertype ]
 		})
 	}
 
-	const fjernFraMedveileder = (erMedveileder: boolean) => {
-		setErMedveilederFilter((prevErMedveileder) => {
-			return prevErMedveileder.filter((medveileder) => medveileder !== erMedveileder)
+	const fjernFraVeiledertype = (veiledertype: string) => {
+		setVeiledertypeFilter((prevVeiledertype) => {
+			return prevVeiledertype.filter((type) => type !== veiledertype)
 		})
 	}
 
@@ -65,9 +65,9 @@ export const [ TiltaksoversiktSokStoreProvider, useTiltaksoversiktSokStore ] = c
 		deltakerlisteFilter,
 		leggTilDeltakerliste,
 		fjernFraDeltakerliste,
-		erMedveilederFilter,
-		leggTilMedveileder,
-		fjernFraMedveileder,
+		veiledertypeFilter,
+		leggTilVeiledertype,
+		fjernFraVeiledertype,
 		deltakerSortering,
 		setDeltakerSortering,
 	}
