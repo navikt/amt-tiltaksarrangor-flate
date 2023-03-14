@@ -1,6 +1,7 @@
 import { AxiosResponse } from 'axios'
 import React from 'react'
 import { useParams } from 'react-router-dom'
+import { Rolle } from '../../../api/data/ansatt'
 
 import { TiltakDeltakerDetaljer } from '../../../api/data/deltaker'
 import { fetchTiltakDeltakerDetaljer } from '../../../api/tiltak-api'
@@ -14,7 +15,7 @@ import { GjennomforingStoreProvider } from './deltaker-detaljer/gjennomforing-st
 import { DeltakerDetaljer } from './DeltakerDetaljer'
 import { DeltakerDetaljerHeader } from './DeltakerDetaljerHeader'
 
-export const DeltakerDetaljerPage = (): React.ReactElement => {
+export const DeltakerDetaljerPage = (props: { ansattRoller: Rolle[] }): React.ReactElement => {
 	const params = useParams<{ brukerId: string }>()
 	const brukerId = params.brukerId || ''
 
@@ -47,7 +48,7 @@ export const DeltakerDetaljerPage = (): React.ReactElement => {
 				epost={deltaker.epost}
 			/>
 			<GjennomforingStoreProvider gjennomforing={deltaker.gjennomforing}>
-				<DeltakerDetaljer deltaker={deltaker} />
+				<DeltakerDetaljer deltaker={deltaker} visTildeling={props.ansattRoller.includes(Rolle.KOORDINATOR)} />
 			</GjennomforingStoreProvider>
 		</div>
 	)

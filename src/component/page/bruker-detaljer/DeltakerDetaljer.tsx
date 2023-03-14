@@ -13,7 +13,10 @@ import { ExternalLink } from '@navikt/ds-icons'
 import { VeilederPanel } from './veileder-panel/VeilederPanel'
 import toggle from '../../../utils/toggle'
 
-export const DeltakerDetaljer = (props: { deltaker: TiltakDeltakerDetaljer }): React.ReactElement => {
+export const DeltakerDetaljer = (props: {
+	deltaker: TiltakDeltakerDetaljer,
+	visTildeling: boolean,
+}): React.ReactElement => {
 	const {
 		navEnhet, navVeileder, gjennomforing, registrertDato, status, fjernesDato,
 		innsokBegrunnelse
@@ -47,7 +50,7 @@ export const DeltakerDetaljer = (props: { deltaker: TiltakDeltakerDetaljer }): R
 					</Alert>
 				</Show>
 				<Show if={toggle.veilederEnabled}>
-					<VeilederPanel deltaker={props.deltaker} />
+					<VeilederPanel deltaker={props.deltaker} visTildeling={props.visTildeling}/>
 				</Show>
 			</section>
 		</div>

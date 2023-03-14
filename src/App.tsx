@@ -5,13 +5,14 @@ import { Header } from './component/felles/header/Header'
 import { AppRoutes } from './Routes'
 import { isNotStartedOrPending, isRejected, isResolved, usePromise } from './utils/use-promise'
 import { SesjonNotifikasjon } from './component/sesjon-notifikasjon/SesjonNotifikasjon'
+import { Rolle } from './api/data/ansatt'
 
 
 export const App = (): React.ReactElement => {
-	const fetchMineRollerPromise = usePromise<AxiosResponse<string[]>>(fetchMineRoller)
+	const fetchMineRollerPromise = usePromise<AxiosResponse<Rolle[]>>(fetchMineRoller)
 
 	const [ isLoggedIn, setIsLoggedIn ] = useState<boolean>(false)
-	const [ roller, setRoller ] = useState<string[]>([])
+	const [ roller, setRoller ] = useState<Rolle[]>([])
 
 	useEffect(() => {
 		if (isResolved(fetchMineRollerPromise)) {
