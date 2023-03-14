@@ -23,6 +23,7 @@ import {
 	AdministrerDeltakerlisterPage
 } from './component/page/administrer-deltakerlister-page/AdministrerDeltakerlisterPage'
 import { Rolle } from './api/data/ansatt'
+import { isKoordinator, isKoordinatorAndVeileder, isOnlyVeileder } from './utils/rolle-utils'
 
 
 interface AppRoutesProps {
@@ -34,9 +35,9 @@ interface AppRoutesProps {
 export const AppRoutes = ({ isLoading, isRejected, roller }: AppRoutesProps) => {
 	if (isLoading) return <SpinnerPage/>
 	if (isRejected) return <ErrorPage/>
-	else if (toggle.veilederEnabled && roller.includes(Rolle.KOORDINATOR) && roller.includes(Rolle.VEILEDER)) return <VeilederOgKoordinatorRoutes />
-	else if (toggle.veilederEnabled && roller.includes(Rolle.VEILEDER)) return <VeilederRoutes />
-	else if (roller.includes(Rolle.KOORDINATOR)) return <KoordinatorRoutes />
+	else if (toggle.veilederEnabled && isKoordinatorAndVeileder(roller)) return <VeilederOgKoordinatorRoutes />
+	else if (toggle.veilederEnabled && isOnlyVeileder(roller)) return <VeilederRoutes />
+	else if (isKoordinator(roller)) return <KoordinatorRoutes />
 	return <IngenRolleRoutes/>
 }
 
