@@ -3,12 +3,15 @@ import { Heading } from '@navikt/ds-react'
 import cls from 'classnames'
 import React, { useEffect } from 'react'
 
-import { gjennomforingDetaljerPageUrl } from '../../../navigation'
+import { DELTAKERLISTE_VEILEDER_PAGE_ROUTE, gjennomforingDetaljerPageUrl } from '../../../navigation'
 import { useTilbakelenkeStore } from '../../../store/tilbakelenke-store'
 import { formaterTelefonnummer, lagBrukerNavn } from '../../../utils/bruker-utils'
 import styles from './DeltakerDetaljerHeader.module.scss'
 import { IconLabel } from './icon-label/IconLabel'
 import { KopierKnapp } from './kopier-knapp/KopierKnapp'
+import { useInnloggetBrukerStore } from '../../../store/innlogget-bruker-store'
+import { isOnlyKoordinator, isOnlyVeileder } from '../../../utils/rolle-utils'
+import { useQuery } from '../../../utils/use-query'
 
 interface BrukerPaaTiltakHeaderProps {
 	gjennomforingId: string,
@@ -23,11 +26,24 @@ interface BrukerPaaTiltakHeaderProps {
 export const DeltakerDetaljerHeader = (props: BrukerPaaTiltakHeaderProps): React.ReactElement => {
 	const { gjennomforingId, fornavn, mellomnavn, etternavn, fodselsnummer, telefonnummer, epost } = props
 	const { setTilbakeTilUrl } = useTilbakelenkeStore()
+	const { roller } = useInnloggetBrukerStore()
+	const query = useQuery()
 
 	useEffect(() => {
-		setTilbakeTilUrl(gjennomforingDetaljerPageUrl(gjennomforingId))
+		if (isOnlyVeileder(roller)) {
+			setTilbakeTilUrl(DELTAKERLISTE_VEILEDER_PAGE_ROUTE)
+		} else if (isOnlyKoordinator(roller)) {
+			setTilbakeTilUrl(gjennomforingDetaljerPageUrl(gjennomforingId))
+		} else {
+			const ref = query.get('ref')
+			if (ref !== null && ref === 'veileder') {
+				setTilbakeTilUrl(DELTAKERLISTE_VEILEDER_PAGE_ROUTE)
+			} else {
+				setTilbakeTilUrl(gjennomforingDetaljerPageUrl(gjennomforingId))
+			}
+		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [ gjennomforingId ])
+	}, [ gjennomforingId, roller ])
 
 	return (
 		<div className={styles.header}>

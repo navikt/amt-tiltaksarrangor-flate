@@ -6,6 +6,6 @@ export const [ TilbakelenkeStoreProvider, useTilbakelenkeStore ] = constate(() =
 
 	return {
 		tilbakeTilUrl,
-		setTilbakeTilUrl
+		setTilbakeTilUrl,
 	}
 })
