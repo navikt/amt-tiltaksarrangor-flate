@@ -1,5 +1,3 @@
-import env from './environment'
-
 class Toggle {
 
 	// Kommenterer ut slik at togglen kan brukes som eksempel når man lager ny toggle
@@ -8,7 +6,7 @@ class Toggle {
 	// }
     
 	get veilederEnabled(): boolean {
-		return !env.isProd
+		return true
 	}
 
 }
