@@ -6,13 +6,14 @@ import { AppRoutes } from './Routes'
 import { isNotStartedOrPending, isRejected, isResolved, usePromise } from './utils/use-promise'
 import { SesjonNotifikasjon } from './component/sesjon-notifikasjon/SesjonNotifikasjon'
 import { Rolle } from './api/data/ansatt'
+import { useInnloggetBrukerStore } from './store/innlogget-bruker-store'
 
 
 export const App = (): React.ReactElement => {
 	const fetchMineRollerPromise = usePromise<AxiosResponse<Rolle[]>>(fetchMineRoller)
+	const { roller, setRoller } = useInnloggetBrukerStore()
 
 	const [ isLoggedIn, setIsLoggedIn ] = useState<boolean>(false)
-	const [ roller, setRoller ] = useState<Rolle[]>([])
 
 	useEffect(() => {
 		if (isResolved(fetchMineRollerPromise)) {

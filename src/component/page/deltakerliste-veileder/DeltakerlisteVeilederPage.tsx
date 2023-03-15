@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useTabTitle } from '../../../hooks/use-tab-title'
 import { fetchDeltakerlisteVeileder } from '../../../api/tiltak-api'
 import { isNotStartedOrPending, isRejected, usePromise } from '../../../utils/use-promise'
@@ -19,28 +19,44 @@ import {
 import { FilterMenyDeltakerliste } from './FilterMenyDeltakerliste'
 import { FilterMenyVeiledertype } from './FilterMenyVeiledertype'
 import { useStyle } from '../../../utils/use-style'
+import { useTilbakelenkeStore } from '../../../store/tilbakelenke-store'
+import { GJENNOMFORING_LISTE_PAGE_ROUTE } from '../../../navigation'
+import { useInnloggetBrukerStore } from '../../../store/innlogget-bruker-store'
+import { isKoordinatorAndVeileder } from '../../../utils/rolle-utils'
 
 export const DeltakerlisteVeilederPage = (): React.ReactElement => {
+	const { setTilbakeTilUrl } = useTilbakelenkeStore()
+	const { roller } = useInnloggetBrukerStore()
+
 	useTabTitle('Deltakerliste')
 
 	useStyle(globalStyles.whiteBackground, 'html')
+
+	useEffect(() => {
+		if (isKoordinatorAndVeileder(roller)) {
+			setTilbakeTilUrl(GJENNOMFORING_LISTE_PAGE_ROUTE)
+		} else {
+			setTilbakeTilUrl(null)
+		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [ roller ])
 
 	const fetchDeltakerlisteVeilederPromise = usePromise<AxiosResponse<VeiledersDeltaker[]>>(
 		() => fetchDeltakerlisteVeileder()
 	)
 
 	if (isNotStartedOrPending(fetchDeltakerlisteVeilederPromise)) {
-		return <SpinnerPage />
+		return <SpinnerPage/>
 	}
 
 	if (isRejected(fetchDeltakerlisteVeilederPromise)) {
-		return <AlertPage variant="error" tekst="Noe gikk galt" />
+		return <AlertPage variant="error" tekst="Noe gikk galt"/>
 	}
 
 	const deltakerlisteVeileder = fetchDeltakerlisteVeilederPromise.result.data
 
 	const deltakerePerStatus = getAntallVeiledersDeltakerePerStatus(deltakerlisteVeileder)
-	
+
 	const deltakerePerDeltakerliste = getDeltakerePerDeltakerliste(deltakerlisteVeileder)
 
 	const deltakerePerVeilederType = getDeltakerePerVeilederType(deltakerlisteVeileder)

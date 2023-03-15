@@ -68,10 +68,10 @@ export const GjennomforingDetaljerPage = (): React.ReactElement => {
 	return (
 		<div className={styles.gjennomforingDetaljer} data-testid="gjennomforing-detaljer-page">
 			<section className={styles.infoSection}>
-				<Heading size="medium" level="2" className={globalStyles.blokkXs}>{gjennomforing.navn}</Heading>
-				<FilterMenyStatus statusMap={deltakerePerStatus} className={globalStyles.blokkXs} />
+				<Heading size="small" level="2" className={globalStyles.blokkXs}>{gjennomforing.navn}</Heading>
 				<TiltakInfo gjennomforing={gjennomforing} className={globalStyles.blokkXs} />
 				<KoordinatorInfo gjennomforingId={gjennomforing.id} />
+				<FilterMenyStatus statusMap={deltakerePerStatus} className={globalStyles.blokkXs} />
 			</section>
 
 			<DeltakerOversiktTabell deltakere={deltakere} />
