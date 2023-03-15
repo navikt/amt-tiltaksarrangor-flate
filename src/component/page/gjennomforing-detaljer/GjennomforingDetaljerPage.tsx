@@ -2,7 +2,10 @@ import { Heading } from '@navikt/ds-react'
 import { AxiosResponse } from 'axios'
 import React, { useEffect } from 'react'
 import { Navigate, useParams } from 'react-router-dom'
-
+import {
+	KoordinatorDeltakerFilterStore,
+	useKoordinatorDeltakerFilterStore
+} from './store/koordinator-deltaker-filter-store'
 import { TiltakDeltaker } from '../../../api/data/deltaker'
 import { Gjennomforing } from '../../../api/data/tiltak'
 import { fetchDeltakerePaTiltakGjennomforing, fetchTiltakGjennomforing } from '../../../api/tiltak-api'
@@ -19,11 +22,16 @@ import { FilterMenyStatus } from './FilterMenyStatus'
 import styles from './GjennomforingDetaljerPage.module.scss'
 import { KoordinatorInfo } from './KoordinatorInfo'
 import { TiltakInfo } from './TiltakInfo'
+import { TableFilter } from '../../felles/filter/TableFilter'
+import { nameString } from '../../../utils/name-utls';
 
 export const GjennomforingDetaljerPage = (): React.ReactElement => {
-	const { setTilbakeTilUrl } = useTilbakelenkeStore()
+	const {setTilbakeTilUrl} = useTilbakelenkeStore()
 	const params = useParams<{ gjennomforingId: string }>()
 	const gjennomforingId = params.gjennomforingId || ''
+
+	const {veilederFilter, leggTilVeileder, fjernVeileder} = useKoordinatorDeltakerFilterStore()
+
 
 	useEffect(() => {
 		setTilbakeTilUrl(GJENNOMFORING_LISTE_PAGE_ROUTE)
@@ -33,18 +41,18 @@ export const GjennomforingDetaljerPage = (): React.ReactElement => {
 	useTabTitle('Deltakerliste')
 
 	const fetchDeltakerePaGjennomforingPromise = usePromise<AxiosResponse<TiltakDeltaker[]>>(
-		() => fetchDeltakerePaTiltakGjennomforing(gjennomforingId), [ gjennomforingId ]
+		() => fetchDeltakerePaTiltakGjennomforing(gjennomforingId), [gjennomforingId]
 	)
 
 	const fetchGjennomforingPromise = usePromise<AxiosResponse<Gjennomforing>>(
-		() => fetchTiltakGjennomforing(gjennomforingId), [ gjennomforingId ]
+		() => fetchTiltakGjennomforing(gjennomforingId), [gjennomforingId]
 	)
 
 	if (
 		isNotStartedOrPending(fetchDeltakerePaGjennomforingPromise)
 		|| isNotStartedOrPending(fetchGjennomforingPromise)
 	) {
-		return <SpinnerPage />
+		return <SpinnerPage/>
 	}
 
 	if (
@@ -52,11 +60,11 @@ export const GjennomforingDetaljerPage = (): React.ReactElement => {
 		|| isRejected(fetchGjennomforingPromise)
 	) {
 
-		if(isNotFound(fetchGjennomforingPromise)) {
+		if (isNotFound(fetchGjennomforingPromise)) {
 			return <Navigate replace to={GJENNOMFORING_LISTE_PAGE_ROUTE}/>
 		}
 
-		return <AlertPage variant="error" tekst="Noe gikk galt" />
+		return <AlertPage variant="error" tekst="Noe gikk galt"/>
 	}
 
 	const deltakere = fetchDeltakerePaGjennomforingPromise.result.data
@@ -65,16 +73,45 @@ export const GjennomforingDetaljerPage = (): React.ReactElement => {
 
 	const deltakerePerStatus = getAntallDeltakerePerStatus(deltakere)
 
-	return (
-		<div className={styles.gjennomforingDetaljer} data-testid="gjennomforing-detaljer-page">
-			<section className={styles.infoSection}>
-				<Heading size="small" level="2" className={globalStyles.blokkXs}>{gjennomforing.navn}</Heading>
-				<TiltakInfo gjennomforing={gjennomforing} className={globalStyles.blokkXs} />
-				<KoordinatorInfo gjennomforingId={gjennomforing.id} />
-				<FilterMenyStatus statusMap={deltakerePerStatus} className={globalStyles.blokkXs} />
-			</section>
+	const deltakerePerVeileder = (): Map<string, number> => {
+		const map = new Map<string, number>()
+		map.set('Uten Veileder', 0)
 
-			<DeltakerOversiktTabell deltakere={deltakere} />
-		</div>
+		deltakere.forEach((deltaker) => {
+			const veileder = deltaker.aktiveVeiledere.filter((t) => !t.erMedveileder)[0]
+			if(veileder === undefined) {
+				const entry = map.get('Uten Veileder')
+				map.set('Uten Veileder', entry ? entry + 1 : 1)
+			} else {
+				const veilederNavn = nameString(veileder.fornavn, veileder.mellomnavn, veileder.etternavn)
+
+				const entry = map.get(veilederNavn)
+				map.set(veilederNavn, entry ? entry + 1 : 1)
+			}
+		})
+		return map
+	}
+
+	return (
+		<KoordinatorDeltakerFilterStore>
+			<div className={styles.gjennomforingDetaljer} data-testid="gjennomforing-detaljer-page">
+				<section className={styles.infoSection}>
+					<Heading size="small" level="2" className={globalStyles.blokkXs}>{gjennomforing.navn}</Heading>
+					<TiltakInfo gjennomforing={gjennomforing} className={globalStyles.blokkXs}/>
+					<KoordinatorInfo gjennomforingId={gjennomforing.id}/>
+					<FilterMenyStatus statusMap={deltakerePerStatus} className={globalStyles.blokkXs}/>
+					<TableFilter
+						navn="Veileder"
+						dataMap={deltakerePerVeileder()}
+						className={globalStyles.blokkXs}
+						filter={veilederFilter}
+						addFilter={leggTilVeileder}
+						removeFilter={fjernVeileder}/>
+				</section>
+
+				<DeltakerOversiktTabell deltakere={deltakere}/>
+			</div>
+		</KoordinatorDeltakerFilterStore>
+
 	)
 }

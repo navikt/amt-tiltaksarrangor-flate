@@ -70,6 +70,6 @@ export const [ TiltaksoversiktSokStoreProvider, useTiltaksoversiktSokStore ] = c
 		leggTilVeiledertype,
 		fjernFraVeiledertype,
 		deltakerSortering,
-		setDeltakerSortering,
+		setDeltakerSortering
 	}
 })

@@ -1,0 +1,32 @@
+header {
+  display: flex;
+  justify-content: space-between;
+
+  .title {
+    font-size: var(--a-font-size-large);
+    font-weight: var(--a-font-weight-bold);
+    letter-spacing: 0;
+    line-height: var(--a-font-line-height-large);
+    margin: 0;
+  }
+
+}
+
+.checkbox {
+  width: 100%;
+
+  label > span {
+    display: flex;
+    width: 100%;
+  }
+}
+
+.occurrences {
+  font-weight: bolder;
+}
+
+.content {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem
+}
