@@ -48,7 +48,7 @@ export const SelectField = ({
 				onChange={onChange}
 				className={isError ? classNames(className, styles.error) : className}
 				placeholder="Skriv fornavn eller etternavn"
-				noOptionsMessage={() => 'Det finnes ingen veiledere'}
+				noOptionsMessage={() => 'Ingen treff'}
 			/>
 			{isError && <ErrorMessage size="small">{feilmelding ? feilmelding : 'Noe gikk galt'}</ErrorMessage>}
 		</div>
