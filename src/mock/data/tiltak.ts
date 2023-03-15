@@ -3,9 +3,11 @@ import * as faker from 'faker'
 import { Gjennomforing, Koordinator, TiltakGjennomforingStatus, Tiltakskode } from '../../api/data/tiltak'
 import { arrangorForGjennomforing } from './arrangor'
 import { gjennomforingId } from './id'
-import { Deltakerliste, DeltakerOversikt, VeiledersDeltaker } from '../../api/data/deltaker'
+import { Deltakerliste, DeltakerOversikt, TiltakDeltakerStatus, VeiledersDeltaker } from '../../api/data/deltaker'
 import { MockTiltakDeltaker } from './brukere'
-import { randomBoolean } from '../utils/faker'
+import { randBetween, randomBoolean } from '../utils/faker'
+import { lagMockEndringsmeldingForDeltaker } from './endringsmelding'
+import { Endringsmelding } from '../../api/data/endringsmelding'
 
 export type MockGjennomforing = Gjennomforing
 
@@ -212,6 +214,15 @@ const lagMockVeiledersDeltaker = (deltaker: MockTiltakDeltaker): VeiledersDeltak
 			type: deltaker.gjennomforing.tiltak.tiltaksnavn,
 			navn: deltaker.gjennomforing.navn
 		},
-		erMedveilederFor: randomBoolean(40)
+		erMedveilederFor: randomBoolean(40),
+		aktiveEndringsmeldinger: getEndringsmeldinger()
+	}
+}
+
+const getEndringsmeldinger = (): Endringsmelding[] => {
+	if (randBetween(0, 10) < 3) {
+		return lagMockEndringsmeldingForDeltaker(TiltakDeltakerStatus.DELTAR)
+	} else {
+		return []
 	}
 }
