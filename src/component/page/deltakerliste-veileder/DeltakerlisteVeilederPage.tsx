@@ -28,7 +28,7 @@ export const DeltakerlisteVeilederPage = (): React.ReactElement => {
 	const { setTilbakeTilUrl } = useTilbakelenkeStore()
 	const { roller } = useInnloggetBrukerStore()
 
-	useTabTitle('Deltakerliste')
+	useTabTitle('Mine deltakere')
 
 	useStyle(globalStyles.whiteBackground, 'html')
 
