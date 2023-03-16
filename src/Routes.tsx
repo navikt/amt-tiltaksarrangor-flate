@@ -9,7 +9,8 @@ import { GjennomforingListePage } from './component/page/gjennomforing-page/Gjen
 import { IngenRollePage } from './component/page/ingen-rolle-page/IngenRollePage'
 import { Driftsmelding } from './Driftsmelding'
 import {
-	DELTAKER_DETALJER_PAGE_ROUTE, DELTAKERLISTE_VEILEDER_PAGE_ROUTE,
+	DELTAKER_DETALJER_PAGE_ROUTE,
+	MINE_DELTAKERE_PAGE_ROUTE,
 	DU_ER_LOGGET_UT_PAGE_ROUTE,
 	GJENNOMFORING_DETALJER_PAGE_ROUTE,
 	GJENNOMFORING_LISTE_PAGE_ROUTE,
@@ -17,7 +18,7 @@ import {
 	LEGG_TIL_DELTAKERLISTE_PAGE_ROUTE
 } from './navigation'
 import { LoggetUtPage } from './component/page/LoggetUtPage'
-import { DeltakerlisteVeilederPage } from './component/page/deltakerliste-veileder/DeltakerlisteVeilederPage'
+import { MineDeltakerePage } from './component/page/veileder/MineDeltakerePage'
 import toggle from './utils/toggle'
 import {
 	AdministrerDeltakerlisterPage
@@ -62,10 +63,10 @@ const VeilederRoutes = (): React.ReactElement => {
 		<>
 			<Driftsmelding />
 			<Routes>
-				<Route path={DELTAKERLISTE_VEILEDER_PAGE_ROUTE} element={<DeltakerlisteVeilederPage />} />
+				<Route path={MINE_DELTAKERE_PAGE_ROUTE} element={<MineDeltakerePage />} />
 				<Route path={DELTAKER_DETALJER_PAGE_ROUTE} element={<DeltakerDetaljerPage/>} />
 				<Route path={DU_ER_LOGGET_UT_PAGE_ROUTE} element={<LoggetUtPage/>}/>
-				<Route path="*" element={<Navigate replace to={DELTAKERLISTE_VEILEDER_PAGE_ROUTE}/>} />
+				<Route path="*" element={<Navigate replace to={MINE_DELTAKERE_PAGE_ROUTE}/>} />
 			</Routes>
 		</>
 	)
@@ -76,7 +77,7 @@ const VeilederOgKoordinatorRoutes = (): React.ReactElement => {
 		<>
 			<Driftsmelding />
 			<Routes>
-				<Route path={DELTAKERLISTE_VEILEDER_PAGE_ROUTE} element={<DeltakerlisteVeilederPage />} />
+				<Route path={MINE_DELTAKERE_PAGE_ROUTE} element={<MineDeltakerePage />} />
 				<Route path={DELTAKER_DETALJER_PAGE_ROUTE} element={<DeltakerDetaljerPage />} />
 				<Route path={GJENNOMFORING_DETALJER_PAGE_ROUTE} element={<GjennomforingDetaljerPage />} />
 				<Route path={GJENNOMFORING_LISTE_PAGE_ROUTE} element={<GjennomforingListePage />} />

@@ -3,7 +3,7 @@ import React from 'react'
 
 import styles from './MineDeltakerePanel.module.scss'
 import { VeilederInfo } from '../../../../api/data/deltaker'
-import { DELTAKERLISTE_VEILEDER_PAGE_ROUTE } from '../../../../navigation'
+import { MINE_DELTAKERE_PAGE_ROUTE } from '../../../../navigation'
 import clipboard from './clipboard.svg'
 
 interface MineDeltakerePanelProps {
@@ -13,7 +13,7 @@ interface MineDeltakerePanelProps {
 export const MineDeltakerePanel = (props: MineDeltakerePanelProps): React.ReactElement<MineDeltakerePanelProps> => {
 	return (
 		<div className={styles.content} >
-			<LinkPanel href={DELTAKERLISTE_VEILEDER_PAGE_ROUTE} border>
+			<LinkPanel href={MINE_DELTAKERE_PAGE_ROUTE} border>
 				<div className={styles.linkpanel}>
 					<img src={clipboard} alt="Clipboard" className={styles.clipboardimage}/>
 					<div>

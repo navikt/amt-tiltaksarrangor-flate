@@ -3,7 +3,7 @@ import { Heading } from '@navikt/ds-react'
 import cls from 'classnames'
 import React, { useEffect } from 'react'
 
-import { DELTAKERLISTE_VEILEDER_PAGE_ROUTE, gjennomforingDetaljerPageUrl } from '../../../navigation'
+import { MINE_DELTAKERE_PAGE_ROUTE, gjennomforingDetaljerPageUrl } from '../../../navigation'
 import { useTilbakelenkeStore } from '../../../store/tilbakelenke-store'
 import { formaterTelefonnummer, lagBrukerNavn } from '../../../utils/bruker-utils'
 import styles from './DeltakerDetaljerHeader.module.scss'
@@ -31,13 +31,13 @@ export const DeltakerDetaljerHeader = (props: BrukerPaaTiltakHeaderProps): React
 
 	useEffect(() => {
 		if (isOnlyVeileder(roller)) {
-			setTilbakeTilUrl(DELTAKERLISTE_VEILEDER_PAGE_ROUTE)
+			setTilbakeTilUrl(MINE_DELTAKERE_PAGE_ROUTE)
 		} else if (isOnlyKoordinator(roller)) {
 			setTilbakeTilUrl(gjennomforingDetaljerPageUrl(gjennomforingId))
 		} else {
 			const ref = query.get('ref')
 			if (ref !== null && ref === 'veileder') {
-				setTilbakeTilUrl(DELTAKERLISTE_VEILEDER_PAGE_ROUTE)
+				setTilbakeTilUrl(MINE_DELTAKERE_PAGE_ROUTE)
 			} else {
 				setTilbakeTilUrl(gjennomforingDetaljerPageUrl(gjennomforingId))
 			}

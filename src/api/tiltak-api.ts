@@ -102,7 +102,7 @@ export const fetchDeltakeroversikt = (): AxiosPromise<DeltakerOversikt> => {
 		.catch(err => logAndThrowError(err, url))
 }
 
-export const fetchDeltakerlisteVeileder = (): AxiosPromise<VeiledersDeltaker[]> => {
+export const fetchMineDeltakere = (): AxiosPromise<VeiledersDeltaker[]> => {
 	const url = appUrl('/amt-tiltak/api/tiltaksarrangor/veileder/deltakerliste')
 	return axiosInstance
 		.get(url)

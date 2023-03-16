@@ -1,13 +1,13 @@
 import React, { useEffect } from 'react'
 import { useTabTitle } from '../../../hooks/use-tab-title'
-import { fetchDeltakerlisteVeileder } from '../../../api/tiltak-api'
+import { fetchMineDeltakere } from '../../../api/tiltak-api'
 import { isNotStartedOrPending, isRejected, usePromise } from '../../../utils/use-promise'
 import { AxiosResponse } from 'axios'
 import { VeiledersDeltaker } from '../../../api/data/deltaker'
 import { SpinnerPage } from '../../felles/spinner-page/SpinnerPage'
 import { AlertPage } from '../../felles/alert-page/AlertPage'
-import styles from './DeltakerlisteVeilederPage.module.scss'
-import { DeltakerlisteVeilederTabell } from './DeltakerlisteVeilederTabell'
+import styles from './MineDeltakerePage.module.scss'
+import { MineDeltakereTabell } from './MineDeltakereTabell'
 import { Detail, Heading } from '@navikt/ds-react'
 import globalStyles from '../../../globals.module.scss'
 import { FilterMenyStatus } from '../gjennomforing-detaljer/FilterMenyStatus'
@@ -24,7 +24,7 @@ import { GJENNOMFORING_LISTE_PAGE_ROUTE } from '../../../navigation'
 import { useInnloggetBrukerStore } from '../../../store/innlogget-bruker-store'
 import { isKoordinatorAndVeileder } from '../../../utils/rolle-utils'
 
-export const DeltakerlisteVeilederPage = (): React.ReactElement => {
+export const MineDeltakerePage = (): React.ReactElement => {
 	const { setTilbakeTilUrl } = useTilbakelenkeStore()
 	const { roller } = useInnloggetBrukerStore()
 
@@ -41,25 +41,25 @@ export const DeltakerlisteVeilederPage = (): React.ReactElement => {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [ roller ])
 
-	const fetchDeltakerlisteVeilederPromise = usePromise<AxiosResponse<VeiledersDeltaker[]>>(
-		() => fetchDeltakerlisteVeileder()
+	const fetchMineDeltakerePromise = usePromise<AxiosResponse<VeiledersDeltaker[]>>(
+		() => fetchMineDeltakere()
 	)
 
-	if (isNotStartedOrPending(fetchDeltakerlisteVeilederPromise)) {
+	if (isNotStartedOrPending(fetchMineDeltakerePromise)) {
 		return <SpinnerPage/>
 	}
 
-	if (isRejected(fetchDeltakerlisteVeilederPromise)) {
+	if (isRejected(fetchMineDeltakerePromise)) {
 		return <AlertPage variant="error" tekst="Noe gikk galt"/>
 	}
 
-	const deltakerlisteVeileder = fetchDeltakerlisteVeilederPromise.result.data
+	const mineDeltakere = fetchMineDeltakerePromise.result.data
 
-	const deltakerePerStatus = getAntallVeiledersDeltakerePerStatus(deltakerlisteVeileder)
+	const deltakerePerStatus = getAntallVeiledersDeltakerePerStatus(mineDeltakere)
 
-	const deltakerePerDeltakerliste = getDeltakerePerDeltakerliste(deltakerlisteVeileder)
+	const deltakerePerDeltakerliste = getDeltakerePerDeltakerliste(mineDeltakere)
 
-	const deltakerePerVeilederType = getDeltakerePerVeilederType(deltakerlisteVeileder)
+	const deltakerePerVeilederType = getDeltakerePerVeilederType(mineDeltakere)
 
 	return (
 		<div className={styles.deltakerlisteVeileder} data-testid="deltakerliste-veileder-page">
@@ -70,7 +70,7 @@ export const DeltakerlisteVeilederPage = (): React.ReactElement => {
 				{ deltakerePerDeltakerliste.size > 1 && <FilterMenyDeltakerliste deltakerlisteMap={deltakerePerDeltakerliste} className={globalStyles.blokkXs} /> }
 				<FilterMenyVeiledertype veiledertypeMap={deltakerePerVeilederType} className={globalStyles.blokkXs} />
 			</section>
-			<DeltakerlisteVeilederTabell deltakerliste={deltakerlisteVeileder} />
+			<MineDeltakereTabell mineDeltakere={mineDeltakere} />
 		</div>
 	)
 }

@@ -3,7 +3,7 @@ import { useState } from 'react'
 
 import { TiltakDeltakerStatus } from '../api/data/deltaker'
 import { Sortering } from '../utils/sortering-utils'
-import { Veiledertype } from '../component/page/deltakerliste-veileder/Veiledertype'
+import { Veiledertype } from '../component/page/veileder/Veiledertype'
 
 export const [ TiltaksoversiktSokStoreProvider, useTiltaksoversiktSokStore ] = constate(() => {
 	const [ tiltakStatusFilter, setTiltakStatusFilter ] = useState<TiltakDeltakerStatus[]>([])
