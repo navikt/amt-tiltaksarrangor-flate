@@ -46,7 +46,7 @@ export const DeltakelseInfo = ({
 	}
 
 	const skalViseDeltakelsesprosent = [ 'ARBFORB', 'VASV' ]
-		.includes(deltaker.gjennomforing.tiltak.tiltakskode)
+		.includes(deltaker.deltakerliste.tiltak.tiltakskode)
 
 	const erIkkeAktuellEllerHarSluttet = [ TiltakDeltakerStatus.IKKE_AKTUELL, TiltakDeltakerStatus.HAR_SLUTTET ]
 		.includes(status.type)

@@ -48,7 +48,7 @@ export const tiltakDeltakerDetaljerSchema = z.object({
 	telefonnummer: z.string().nullable(),
 	navEnhet: z.custom<NavEnhet>().nullable(),
 	navVeileder: z.custom<NavVeileder>().nullable(),
-	gjennomforing: z.custom<Gjennomforing>(),
+	deltakerliste: z.custom<Gjennomforing>(),
 	fjernesDato: nullableDateSchema,
 	innsokBegrunnelse: z.string().nullable()
 })

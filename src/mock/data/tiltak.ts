@@ -210,9 +210,9 @@ const lagMockVeiledersDeltaker = (deltaker: MockTiltakDeltaker): VeiledersDeltak
 		sluttDato: deltaker.sluttDato,
 		status: deltaker.status,
 		deltakerliste: {
-			id: deltaker.gjennomforing.id,
-			type: deltaker.gjennomforing.tiltak.tiltaksnavn,
-			navn: deltaker.gjennomforing.navn
+			id: deltaker.deltakerliste.id,
+			type: deltaker.deltakerliste.tiltak.tiltaksnavn,
+			navn: deltaker.deltakerliste.navn
 		},
 		erMedveilederFor: randomBoolean(40),
 		aktiveEndringsmeldinger: getEndringsmeldinger()

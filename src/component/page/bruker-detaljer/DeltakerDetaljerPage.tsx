@@ -10,7 +10,7 @@ import { isNotStartedOrPending, isRejected, usePromise } from '../../../utils/us
 import { useStyle } from '../../../utils/use-style'
 import { AlertPage } from '../../felles/alert-page/AlertPage'
 import { SpinnerPage } from '../../felles/spinner-page/SpinnerPage'
-import { GjennomforingStoreProvider } from './deltaker-detaljer/gjennomforing-store'
+import { DeltakerlisteStoreProvider } from './deltaker-detaljer/deltakerliste-store'
 import { DeltakerDetaljer } from './DeltakerDetaljer'
 import { DeltakerDetaljerHeader } from './DeltakerDetaljerHeader'
 import { isKoordinator } from '../../../utils/rolle-utils'
@@ -42,7 +42,7 @@ export const DeltakerDetaljerPage = (): React.ReactElement => {
 	return (
 		<div data-testid="bruker-detaljer-page">
 			<DeltakerDetaljerHeader
-				gjennomforingId={deltaker.gjennomforing.id}
+				deltakerlisteId={deltaker.deltakerliste.id}
 				fornavn={deltaker.fornavn}
 				mellomnavn={deltaker.mellomnavn}
 				etternavn={deltaker.etternavn}
@@ -50,9 +50,9 @@ export const DeltakerDetaljerPage = (): React.ReactElement => {
 				telefonnummer={deltaker.telefonnummer}
 				epost={deltaker.epost}
 			/>
-			<GjennomforingStoreProvider gjennomforing={deltaker.gjennomforing}>
+			<DeltakerlisteStoreProvider deltakerliste={deltaker.deltakerliste}>
 				<DeltakerDetaljer deltaker={deltaker} visTildeling={isKoordinator(roller)}/>
-			</GjennomforingStoreProvider>
+			</DeltakerlisteStoreProvider>
 		</div>
 	)
 }

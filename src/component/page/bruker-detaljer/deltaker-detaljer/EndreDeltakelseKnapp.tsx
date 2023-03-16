@@ -34,7 +34,7 @@ export const EndreDeltakelseKnapp = (props: EndreDeltakelseKnappProps) => {
 		|| deltaker.status.type === TiltakDeltakerStatus.IKKE_AKTUELL
 		|| deltaker.status.type === TiltakDeltakerStatus.DELTAR
 
-	const visGodkjennVilkaarPanel = deltaker.gjennomforing.tiltak.tiltakskode !== Tiltakskode.VASV
+	const visGodkjennVilkaarPanel = deltaker.deltakerliste.tiltak.tiltakskode !== Tiltakskode.VASV
 
 	return (
 		<>
@@ -79,7 +79,7 @@ export const EndreDeltakelseKnapp = (props: EndreDeltakelseKnappProps) => {
 									deltakerId: deltaker.id,
 									startDato: deltaker.startDato,
 									sluttDato: deltaker.sluttDato,
-									tiltakskode: deltaker.gjennomforing.tiltak.tiltakskode,
+									tiltakskode: deltaker.deltakerliste.tiltak.tiltakskode,
 									visGodkjennVilkaarPanel: visGodkjennVilkaarPanel,
 									onEndringUtfort: props.onEndringUtfort
 								})}/>
@@ -104,8 +104,8 @@ export const EndreDeltakelseKnapp = (props: EndreDeltakelseKnappProps) => {
 									onEndringUtfort: props.onEndringUtfort
 								})}/>
 						}
-						{(deltaker.gjennomforing.tiltak.tiltakskode === 'ARBFORB'
-								|| deltaker.gjennomforing.tiltak.tiltakskode === 'VASV') &&
+						{(deltaker.deltakerliste.tiltak.tiltakskode === 'ARBFORB'
+								|| deltaker.deltakerliste.tiltak.tiltakskode === 'VASV') &&
 							<DropDownButton
 								endringstype={EndringType.ENDRE_DELTAKELSE_PROSENT}
 								onClick={() => visEndreProsentDeltakelseModal({

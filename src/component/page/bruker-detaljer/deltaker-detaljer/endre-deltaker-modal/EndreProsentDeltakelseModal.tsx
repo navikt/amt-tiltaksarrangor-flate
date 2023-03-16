@@ -9,8 +9,8 @@ import { DateField } from '../../../../felles/DateField'
 import styles from './EndreProsentDeltakelseModal.module.scss'
 import { SendTilNavKnapp } from './SendTilNavKnapp'
 import { VeilederConfirmationPanel } from './VeilederConfirmationPanel'
-import { useGjennomforingStore } from '../gjennomforing-store'
 import { BaseModal } from '../../../../felles/base-modal/BaseModal'
+import { useDeltakerlisteStore } from '../deltakerliste-store'
 
 
 interface EndreProsentDeltakelseModalProps {
@@ -27,7 +27,7 @@ export interface EndreProsentDeltakelseModalDataProps {
 export const EndreProsentDeltakelseModal = (props: EndreProsentDeltakelseModalProps & EndreProsentDeltakelseModalDataProps) => {
 	const { deltakerId, gammelProsentDeltakelse, visGodkjennVilkaarPanel, onEndringUtfort } = props
 	const today = dayjs().toDate()
-	const { gjennomforing } = useGjennomforingStore()
+	const { deltakerliste } = useDeltakerlisteStore()
 	const [ prosentDeltakelseFelt, settProsentDeltakelseFelt ] = useState<string>('')
 	const [ gyldigFraDato, setGyldigFraDato ] = useState<Nullable<Date>>(today)
 	const [ errorMessage, settErrorMessage ] = useState<string>()
@@ -86,8 +86,8 @@ export const EndreProsentDeltakelseModal = (props: EndreProsentDeltakelseModalPr
 				label="Fra når gjelder ny deltakelsesprosent?"
 				date={gyldigFraDato}
 				onDateChanged={d => setGyldigFraDato(d)}
-				min={gjennomforing.startDato}
-				max={gjennomforing.sluttDato}
+				min={deltakerliste.startDato}
+				max={deltakerliste.sluttDato}
 			/>
 
 			{visGodkjennVilkaarPanel && <VeilederConfirmationPanel

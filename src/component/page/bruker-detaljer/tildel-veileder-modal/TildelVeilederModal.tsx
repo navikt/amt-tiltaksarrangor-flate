@@ -34,7 +34,7 @@ export const TildelVeilederModal = (props: Props): React.ReactElement => {
 
 	const tildelVeilederePromise = usePromise<void>()
 	const tilgjengeligeVeilederePromise = usePromise<AxiosResponse<TilgjengeligVeileder[]>>(
-		() => hentTilgjengeligeVeiledere(props.deltaker.gjennomforing.id)
+		() => hentTilgjengeligeVeiledere(props.deltaker.deltakerliste.id)
 	)
 
 	useEffect(() => {

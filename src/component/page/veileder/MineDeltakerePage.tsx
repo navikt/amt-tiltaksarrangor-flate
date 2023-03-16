@@ -10,7 +10,7 @@ import styles from './MineDeltakerePage.module.scss'
 import { MineDeltakereTabell } from './MineDeltakereTabell'
 import { Detail, Heading } from '@navikt/ds-react'
 import globalStyles from '../../../globals.module.scss'
-import { FilterMenyStatus } from '../gjennomforing-detaljer/FilterMenyStatus'
+import { FilterMenyStatus } from '../deltakerliste-detaljer/FilterMenyStatus'
 import {
 	getAntallVeiledersDeltakerePerStatus,
 	getDeltakerePerDeltakerliste,

@@ -16,14 +16,14 @@ import { AlertPage } from '../../felles/alert-page/AlertPage'
 import { SpinnerPage } from '../../felles/spinner-page/SpinnerPage'
 import { DeltakerOversiktTabell } from './deltaker-oversikt/DeltakerOversiktTabell'
 import { FilterMenyStatus } from './FilterMenyStatus'
-import styles from './GjennomforingDetaljerPage.module.scss'
+import styles from './DeltakerlisteDetaljerPage.module.scss'
 import { KoordinatorInfo } from './KoordinatorInfo'
 import { TiltakInfo } from './TiltakInfo'
 
-export const GjennomforingDetaljerPage = (): React.ReactElement => {
+export const DeltakerlisteDetaljerPage = (): React.ReactElement => {
 	const { setTilbakeTilUrl } = useTilbakelenkeStore()
-	const params = useParams<{ gjennomforingId: string }>()
-	const gjennomforingId = params.gjennomforingId || ''
+	const params = useParams<{ deltakerlisteId: string }>()
+	const deltakerlisteId = params.deltakerlisteId || ''
 
 	useEffect(() => {
 		setTilbakeTilUrl(MINE_DELTAKERLISTER_PAGE_ROUTE)
@@ -33,26 +33,26 @@ export const GjennomforingDetaljerPage = (): React.ReactElement => {
 	useTabTitle('Deltakerliste')
 
 	const fetchDeltakerePaGjennomforingPromise = usePromise<AxiosResponse<TiltakDeltaker[]>>(
-		() => fetchDeltakerePaTiltakGjennomforing(gjennomforingId), [ gjennomforingId ]
+		() => fetchDeltakerePaTiltakGjennomforing(deltakerlisteId), [ deltakerlisteId ]
 	)
 
-	const fetchGjennomforingPromise = usePromise<AxiosResponse<Gjennomforing>>(
-		() => fetchTiltakGjennomforing(gjennomforingId), [ gjennomforingId ]
+	const fetchDeltakerlistePromise = usePromise<AxiosResponse<Gjennomforing>>(
+		() => fetchTiltakGjennomforing(deltakerlisteId), [ deltakerlisteId ]
 	)
 
 	if (
 		isNotStartedOrPending(fetchDeltakerePaGjennomforingPromise)
-		|| isNotStartedOrPending(fetchGjennomforingPromise)
+		|| isNotStartedOrPending(fetchDeltakerlistePromise)
 	) {
 		return <SpinnerPage />
 	}
 
 	if (
 		isRejected(fetchDeltakerePaGjennomforingPromise)
-		|| isRejected(fetchGjennomforingPromise)
+		|| isRejected(fetchDeltakerlistePromise)
 	) {
 
-		if(isNotFound(fetchGjennomforingPromise)) {
+		if(isNotFound(fetchDeltakerlistePromise)) {
 			return <Navigate replace to={MINE_DELTAKERLISTER_PAGE_ROUTE}/>
 		}
 
@@ -61,16 +61,16 @@ export const GjennomforingDetaljerPage = (): React.ReactElement => {
 
 	const deltakere = fetchDeltakerePaGjennomforingPromise.result.data
 
-	const gjennomforing = fetchGjennomforingPromise.result.data
+	const deltakerliste = fetchDeltakerlistePromise.result.data
 
 	const deltakerePerStatus = getAntallDeltakerePerStatus(deltakere)
 
 	return (
-		<div className={styles.gjennomforingDetaljer} data-testid="gjennomforing-detaljer-page">
+		<div className={styles.deltakerlisteDetaljer} data-testid="gjennomforing-detaljer-page">
 			<section className={styles.infoSection}>
-				<Heading size="small" level="2" className={globalStyles.blokkXs}>{gjennomforing.navn}</Heading>
-				<TiltakInfo gjennomforing={gjennomforing} className={globalStyles.blokkXs} />
-				<KoordinatorInfo gjennomforingId={gjennomforing.id} />
+				<Heading size="small" level="2" className={globalStyles.blokkXs}>{deltakerliste.navn}</Heading>
+				<TiltakInfo gjennomforing={deltakerliste} className={globalStyles.blokkXs} />
+				<KoordinatorInfo deltakerlisteId={deltakerliste.id} />
 				<FilterMenyStatus statusMap={deltakerePerStatus} className={globalStyles.blokkXs} />
 			</section>
 

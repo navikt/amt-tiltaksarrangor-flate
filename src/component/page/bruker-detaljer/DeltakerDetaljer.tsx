@@ -17,7 +17,7 @@ export const DeltakerDetaljer = (props: {
 	visTildeling: boolean,
 }): React.ReactElement => {
 	const {
-		navEnhet, navVeileder, gjennomforing, registrertDato, status, fjernesDato,
+		navEnhet, navVeileder, deltakerliste, registrertDato, status, fjernesDato,
 		innsokBegrunnelse
 	} = props.deltaker
 
@@ -31,11 +31,11 @@ export const DeltakerDetaljer = (props: {
 					fjernesDato={fjernesDato}
 				/>
 				<div className={styles.innsokt}>
-					<BodyShort size="small"><Label as="span" size="small">Søkt inn på:</Label> {gjennomforing.navn}</BodyShort>
+					<BodyShort size="small"><Label as="span" size="small">Søkt inn på:</Label> {deltakerliste.navn}</BodyShort>
 					<BodyShort size="small"><Label as="span" size="small">Dato:</Label> {formatDate(registrertDato)}</BodyShort>
 				</div>
 
-				<Show if={visBestilling(gjennomforing)} >
+				<Show if={visBestilling(deltakerliste)} >
 					<Bestilling tekst={innsokBegrunnelse} />
 				</Show>
 			</section>

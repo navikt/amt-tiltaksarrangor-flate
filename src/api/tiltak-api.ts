@@ -78,8 +78,8 @@ export const fetchTiltakGjennomforing = (gjennomforingId: string): AxiosPromise<
 		.catch(err => logAndThrowError(err, url))
 }
 
-export const fetchKoordinatorerForGjennfomforing = (gjennomforingId: string): AxiosPromise<Koordinator[]> => {
-	const url = appUrl(`/amt-tiltak/api/tiltaksarrangor/gjennomforing/${gjennomforingId}/koordinatorer`)
+export const fetchKoordinatorerForDeltakerliste = (deltakerlisteId: string): AxiosPromise<Koordinator[]> => {
+	const url = appUrl(`/amt-tiltak/api/tiltaksarrangor/gjennomforing/${deltakerlisteId}/koordinatorer`)
 	return axiosInstance
 		.get(url)
 		.then(parse(koordinatorListSchema))

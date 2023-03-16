@@ -6,7 +6,7 @@ import { Gjennomforing, TiltakGjennomforingStatus } from '../../../api/data/tilt
 import globalStyles from '../../../globals.module.scss'
 import { dateStrWithMonthName } from '../../../utils/date-utils'
 import { Show } from '../../felles/Show'
-import styles from './GjennomforingDetaljerPage.module.scss'
+import styles from './DeltakerlisteDetaljerPage.module.scss'
 
 interface TiltakInfoProps {
 	gjennomforing: Gjennomforing

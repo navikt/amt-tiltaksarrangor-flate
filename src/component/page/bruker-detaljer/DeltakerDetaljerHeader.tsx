@@ -3,7 +3,7 @@ import { Heading } from '@navikt/ds-react'
 import cls from 'classnames'
 import React, { useEffect } from 'react'
 
-import { MINE_DELTAKERE_PAGE_ROUTE, gjennomforingDetaljerPageUrl } from '../../../navigation'
+import { MINE_DELTAKERE_PAGE_ROUTE, deltakerlisteDetaljerPageUrl } from '../../../navigation'
 import { useTilbakelenkeStore } from '../../../store/tilbakelenke-store'
 import { formaterTelefonnummer, lagBrukerNavn } from '../../../utils/bruker-utils'
 import styles from './DeltakerDetaljerHeader.module.scss'
@@ -14,7 +14,7 @@ import { isOnlyKoordinator, isOnlyVeileder } from '../../../utils/rolle-utils'
 import { useQuery } from '../../../utils/use-query'
 
 interface BrukerPaaTiltakHeaderProps {
-	gjennomforingId: string,
+	deltakerlisteId: string,
 	fornavn: string,
 	mellomnavn: string | null,
 	etternavn: string,
@@ -24,7 +24,7 @@ interface BrukerPaaTiltakHeaderProps {
 }
 
 export const DeltakerDetaljerHeader = (props: BrukerPaaTiltakHeaderProps): React.ReactElement => {
-	const { gjennomforingId, fornavn, mellomnavn, etternavn, fodselsnummer, telefonnummer, epost } = props
+	const { deltakerlisteId, fornavn, mellomnavn, etternavn, fodselsnummer, telefonnummer, epost } = props
 	const { setTilbakeTilUrl } = useTilbakelenkeStore()
 	const { roller } = useInnloggetBrukerStore()
 	const query = useQuery()
@@ -33,17 +33,17 @@ export const DeltakerDetaljerHeader = (props: BrukerPaaTiltakHeaderProps): React
 		if (isOnlyVeileder(roller)) {
 			setTilbakeTilUrl(MINE_DELTAKERE_PAGE_ROUTE)
 		} else if (isOnlyKoordinator(roller)) {
-			setTilbakeTilUrl(gjennomforingDetaljerPageUrl(gjennomforingId))
+			setTilbakeTilUrl(deltakerlisteDetaljerPageUrl(deltakerlisteId))
 		} else {
 			const ref = query.get('ref')
 			if (ref !== null && ref === 'veileder') {
 				setTilbakeTilUrl(MINE_DELTAKERE_PAGE_ROUTE)
 			} else {
-				setTilbakeTilUrl(gjennomforingDetaljerPageUrl(gjennomforingId))
+				setTilbakeTilUrl(deltakerlisteDetaljerPageUrl(deltakerlisteId))
 			}
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [ gjennomforingId, roller ])
+	}, [ deltakerlisteId, roller ])
 
 	return (
 		<div className={styles.header}>

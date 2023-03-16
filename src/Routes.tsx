@@ -1,10 +1,10 @@
 import React from 'react'
-import { Navigate, Route,Routes } from 'react-router-dom'
+import { Navigate, Route, Routes, useLocation } from 'react-router-dom'
 
 import { SpinnerPage } from './component/felles/spinner-page/SpinnerPage'
 import { DeltakerDetaljerPage } from './component/page/bruker-detaljer/DeltakerDetaljerPage'
 import { ErrorPage } from './component/page/error/ErrorPage'
-import { GjennomforingDetaljerPage } from './component/page/gjennomforing-detaljer/GjennomforingDetaljerPage'
+import { DeltakerlisteDetaljerPage } from './component/page/deltakerliste-detaljer/DeltakerlisteDetaljerPage'
 import { MineDeltakerlisterPage } from './component/page/mine-deltakerlister-page/MineDeltakerlisterPage'
 import { IngenRollePage } from './component/page/ingen-rolle-page/IngenRollePage'
 import { Driftsmelding } from './Driftsmelding'
@@ -12,10 +12,12 @@ import {
 	DELTAKER_DETALJER_PAGE_ROUTE,
 	MINE_DELTAKERE_PAGE_ROUTE,
 	DU_ER_LOGGET_UT_PAGE_ROUTE,
-	GJENNOMFORING_DETALJER_PAGE_ROUTE,
+	DELTAKERLISTE_DETALJER_PAGE_ROUTE,
 	MINE_DELTAKERLISTER_PAGE_ROUTE,
 	INGEN_ROLLE_PAGE_ROUTE,
-	LEGG_TIL_DELTAKERLISTE_PAGE_ROUTE
+	LEGG_TIL_DELTAKERLISTE_PAGE_ROUTE,
+	GJENNOMFORING_DETALJER_PAGE_ROUTE,
+	getDeltakerlisteDetaljerRedirectUrl
 } from './navigation'
 import { LoggetUtPage } from './component/page/LoggetUtPage'
 import { MineDeltakerePage } from './component/page/veileder/MineDeltakerePage'
@@ -48,10 +50,11 @@ const KoordinatorRoutes = (): React.ReactElement => {
 			<Driftsmelding />
 			<Routes>
 				<Route path={DELTAKER_DETALJER_PAGE_ROUTE} element={<DeltakerDetaljerPage />} />
-				<Route path={GJENNOMFORING_DETALJER_PAGE_ROUTE} element={<GjennomforingDetaljerPage />} />
+				<Route path={DELTAKERLISTE_DETALJER_PAGE_ROUTE} element={<DeltakerlisteDetaljerPage />} />
 				<Route path={MINE_DELTAKERLISTER_PAGE_ROUTE} element={<MineDeltakerlisterPage />} />
 				<Route path={LEGG_TIL_DELTAKERLISTE_PAGE_ROUTE} element={<AdministrerDeltakerlisterPage />} />
 				<Route path={DU_ER_LOGGET_UT_PAGE_ROUTE} element={<LoggetUtPage/>}/>
+				<Route path={GJENNOMFORING_DETALJER_PAGE_ROUTE} element={<Navigate replace state to={getDeltakerlisteDetaljerRedirectUrl(useLocation().pathname)}/>} />
 				<Route path="*" element={<Navigate replace to={MINE_DELTAKERLISTER_PAGE_ROUTE}/>} />
 			</Routes>
 		</>
@@ -79,10 +82,11 @@ const VeilederOgKoordinatorRoutes = (): React.ReactElement => {
 			<Routes>
 				<Route path={MINE_DELTAKERE_PAGE_ROUTE} element={<MineDeltakerePage />} />
 				<Route path={DELTAKER_DETALJER_PAGE_ROUTE} element={<DeltakerDetaljerPage />} />
-				<Route path={GJENNOMFORING_DETALJER_PAGE_ROUTE} element={<GjennomforingDetaljerPage />} />
+				<Route path={DELTAKERLISTE_DETALJER_PAGE_ROUTE} element={<DeltakerlisteDetaljerPage />} />
 				<Route path={MINE_DELTAKERLISTER_PAGE_ROUTE} element={<MineDeltakerlisterPage />} />
 				<Route path={LEGG_TIL_DELTAKERLISTE_PAGE_ROUTE} element={<AdministrerDeltakerlisterPage />} />
 				<Route path={DU_ER_LOGGET_UT_PAGE_ROUTE} element={<LoggetUtPage/>}/>
+				<Route path={GJENNOMFORING_DETALJER_PAGE_ROUTE} element={<Navigate replace state to={getDeltakerlisteDetaljerRedirectUrl(useLocation().pathname)}/>} />
 				<Route path="*" element={<Navigate replace to={MINE_DELTAKERLISTER_PAGE_ROUTE}/>} />
 			</Routes>
 		</>

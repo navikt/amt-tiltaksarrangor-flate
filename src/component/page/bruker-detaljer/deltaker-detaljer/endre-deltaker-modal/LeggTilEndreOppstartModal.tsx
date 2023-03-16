@@ -4,10 +4,10 @@ import React, { useState } from 'react'
 import { Nullable } from '../../../../../utils/types/or-nothing'
 import { BaseModal } from '../../../../felles/base-modal/BaseModal'
 import { DateField } from '../../../../felles/DateField'
-import { useGjennomforingStore } from '../gjennomforing-store'
 import styles from './EndreOppstartModal.module.scss'
 import { SendTilNavKnapp } from './SendTilNavKnapp'
 import { VeilederConfirmationPanel } from './VeilederConfirmationPanel'
+import { useDeltakerlisteStore } from '../deltakerliste-store'
 
 export interface LeggTilEndreOppstartModalProps {
 	onClose: () => void
@@ -24,7 +24,7 @@ export const LeggTilEndreOppstartModal = (props: LeggTilEndreOppstartModalProps 
 	const { tittel, visGodkjennVilkaarPanel, onClose, sendEndring } = props
 	const [ valgtDato, setNyDato ] = useState<Nullable<Date>>()
 	const [ vilkaarGodkjent, setVilkaarGodkjent ] = useState(false)
-	const { gjennomforing } = useGjennomforingStore()
+	const { deltakerliste } = useDeltakerlisteStore()
 
 	const sendEndringsmelding = () => {
 		if (!valgtDato) return Promise.reject('Dato er påkrevd for å sende endringsmelding med endring av oppstartsdato')
@@ -40,8 +40,8 @@ export const LeggTilEndreOppstartModal = (props: LeggTilEndreOppstartModalProps 
 				label="Ny oppstartsdato"
 				date={valgtDato}
 				onDateChanged={d => setNyDato(d)}
-				min={kalkulerMinOppstartsdato(gjennomforing.startDato)}
-				max={kalkulerMaxOppstartsdato(gjennomforing.sluttDato)}
+				min={kalkulerMinOppstartsdato(deltakerliste.startDato)}
+				max={kalkulerMaxOppstartsdato(deltakerliste.sluttDato)}
 			/>
 			{visGodkjennVilkaarPanel && (
 				<VeilederConfirmationPanel vilkaarGodkjent={vilkaarGodkjent} setVilkaarGodkjent={setVilkaarGodkjent}/>
@@ -57,13 +57,13 @@ export const LeggTilEndreOppstartModal = (props: LeggTilEndreOppstartModalProps 
 
 /*
 	Skal maksimum være 2 måneder tilbake i tid.
-	Hvis gjennomforingStartDato er satt så må datoen være etter.
+	Hvis deltakerlisteStartDato er satt så må datoen være etter.
 */
-const kalkulerMinOppstartsdato = (gjennomforingStartDato: Nullable<Date>): Date => {
+const kalkulerMinOppstartsdato = (deltakerlisteStartDato: Nullable<Date>): Date => {
 	const twoMonthsAgo = dayjs().subtract(2, 'month')
 
-	if (gjennomforingStartDato && twoMonthsAgo.isBefore(gjennomforingStartDato)) {
-		return gjennomforingStartDato
+	if (deltakerlisteStartDato && twoMonthsAgo.isBefore(deltakerlisteStartDato)) {
+		return deltakerlisteStartDato
 	} else {
 		return twoMonthsAgo.toDate()
 	}
@@ -71,13 +71,13 @@ const kalkulerMinOppstartsdato = (gjennomforingStartDato: Nullable<Date>): Date 
 
 /*
 Skal maksimum være 2 måneder forover i tid.
-	Hvis gjennomforingSluttDato er satt så må datoen være før.
+	Hvis deltakerlisteSluttDato er satt så må datoen være før.
 */
-const kalkulerMaxOppstartsdato = (gjennomforingSluttDato: Nullable<Date>): Date => {
+const kalkulerMaxOppstartsdato = (deltakerlisteSluttDato: Nullable<Date>): Date => {
 	const twoMonthsInTheFuture = dayjs().add(2, 'month')
 
-	if (gjennomforingSluttDato && twoMonthsInTheFuture.isAfter(gjennomforingSluttDato)) {
-		return gjennomforingSluttDato
+	if (deltakerlisteSluttDato && twoMonthsInTheFuture.isAfter(deltakerlisteSluttDato)) {
+		return deltakerlisteSluttDato
 	} else {
 		return twoMonthsInTheFuture.toDate()
 	}
