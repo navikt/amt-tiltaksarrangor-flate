@@ -38,8 +38,8 @@ if (env.isPreprod || env.isProd) {
 	root.render(
 		<React.StrictMode>
 			<ErrorBoundary renderOnError={() => <ErrorPage />}>
-				{env.isDemo && <DemoBanner />}
 				<StoreProvider>
+					{env.isDemo && <DemoBanner />}
 					<BrowserRouter>
 						<App />
 					</BrowserRouter>
