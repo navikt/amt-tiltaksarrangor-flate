@@ -33,7 +33,7 @@ jobs:
       - name: Build application
         run: pnpm build
       - name: Upload frontend asset files
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: frontend-assets
           path: build
@@ -48,7 +48,7 @@ jobs:
       contents: 'write' # Create release
     steps:
       - name: Download frontend asset files
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v3
         with:
           name: frontend-assets
           path: build
@@ -62,12 +62,10 @@ jobs:
       - name: Upload files to GCS
         run: gsutil -m rsync -r build gs://amt-tiltaksarrangor-flate-dev
       - name: Create release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        uses: softprops/action-gh-release@v1
         with:
+          name: Release to dev
           tag_name: release/dev@${{ github.sha }}
-          release_name: Release to dev
           prerelease: true
 
   deploy-prod:
@@ -80,7 +78,7 @@ jobs:
       contents: 'write' # Create release
     steps:
       - name: Download frontend asset files
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v3
         with:
           name: frontend-assets
           path: build
@@ -94,10 +92,8 @@ jobs:
       - name: Upload files to GCS
         run: gsutil -m rsync -r build gs://amt-tiltaksarrangor-flate-prod
       - name: Create release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        uses: softprops/action-gh-release@v1
         with:
+          name: Release to prod
           tag_name: release/prod@${{ github.sha }}
-          release_name: Release to prod
           prerelease: false

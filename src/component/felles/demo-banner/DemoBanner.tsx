@@ -1,5 +1,6 @@
 import { Alert } from '@navikt/ds-react'
 import React from 'react'
+import { DemoRollevelger } from '../demo-rollevelger/DemoRollevelger'
 
 export const DemoBanner = (): React.ReactElement => {
 	return (
@@ -8,6 +9,7 @@ export const DemoBanner = (): React.ReactElement => {
 			<br />
 			Her eksperimenterer vi med ny funksjonalitet.
 			Demoen inneholder ikke ekte data og kan til tider være ustabil.
+			<DemoRollevelger/>
 		</Alert>
 	)
 }

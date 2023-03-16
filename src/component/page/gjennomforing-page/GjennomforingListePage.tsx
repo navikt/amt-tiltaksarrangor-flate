@@ -19,9 +19,12 @@ import { DeltakerListe } from './gjennomforing-liste/DeltakerListe'
 import { MineDeltakerePanel } from './minedeltakere/MineDeltakerePanel'
 import toggle from '../../../utils/toggle'
 import globalStyles from '../../../globals.module.scss'
+import { useInnloggetBrukerStore } from '../../../store/innlogget-bruker-store'
+import { isVeileder } from '../../../utils/rolle-utils'
 
 export const GjennomforingListePage = (): React.ReactElement => {
 	const { setTilbakeTilUrl } = useTilbakelenkeStore()
+	const { roller } = useInnloggetBrukerStore()
 
 	useTabTitle('Deltakeroversikt')
 
@@ -47,7 +50,7 @@ export const GjennomforingListePage = (): React.ReactElement => {
 	if (deltakerOversikt.koordinatorInfo) {
 		return (
 			<div className={styles.page} data-testid="gjennomforing-oversikt-page">
-				{ toggle.veilederEnabled && deltakerOversikt.veilederInfo && <MineDeltakerePanel veileder={deltakerOversikt.veilederInfo}/> }
+				{ toggle.veilederEnabled && isVeileder(roller) && deltakerOversikt.veilederInfo && <MineDeltakerePanel veileder={deltakerOversikt.veilederInfo}/> }
 				<DeltakerListe deltakerliste={deltakerOversikt.koordinatorInfo.deltakerlister}/>
 
 				<IkonLenke

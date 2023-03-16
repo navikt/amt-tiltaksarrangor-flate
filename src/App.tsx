@@ -22,7 +22,7 @@ export const App = (): React.ReactElement => {
 		}
 
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [ fetchMineRollerPromise ])
+	}, [ fetchMineRollerPromise.result ])
 
 	return (
 		<>
