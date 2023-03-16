@@ -20,7 +20,7 @@ import { FilterMenyDeltakerliste } from './FilterMenyDeltakerliste'
 import { FilterMenyVeiledertype } from './FilterMenyVeiledertype'
 import { useStyle } from '../../../utils/use-style'
 import { useTilbakelenkeStore } from '../../../store/tilbakelenke-store'
-import { GJENNOMFORING_LISTE_PAGE_ROUTE } from '../../../navigation'
+import { MINE_DELTAKERLISTER_PAGE_ROUTE } from '../../../navigation'
 import { useInnloggetBrukerStore } from '../../../store/innlogget-bruker-store'
 import { isKoordinatorAndVeileder } from '../../../utils/rolle-utils'
 
@@ -34,7 +34,7 @@ export const MineDeltakerePage = (): React.ReactElement => {
 
 	useEffect(() => {
 		if (isKoordinatorAndVeileder(roller)) {
-			setTilbakeTilUrl(GJENNOMFORING_LISTE_PAGE_ROUTE)
+			setTilbakeTilUrl(MINE_DELTAKERLISTER_PAGE_ROUTE)
 		} else {
 			setTilbakeTilUrl(null)
 		}

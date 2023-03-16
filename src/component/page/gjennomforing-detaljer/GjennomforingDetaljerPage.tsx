@@ -8,7 +8,7 @@ import { Gjennomforing } from '../../../api/data/tiltak'
 import { fetchDeltakerePaTiltakGjennomforing, fetchTiltakGjennomforing } from '../../../api/tiltak-api'
 import globalStyles from '../../../globals.module.scss'
 import { useTabTitle } from '../../../hooks/use-tab-title'
-import { GJENNOMFORING_LISTE_PAGE_ROUTE } from '../../../navigation'
+import { MINE_DELTAKERLISTER_PAGE_ROUTE } from '../../../navigation'
 import { useTilbakelenkeStore } from '../../../store/tilbakelenke-store'
 import { getAntallDeltakerePerStatus } from '../../../utils/deltaker-status-utils'
 import { isNotFound, isNotStartedOrPending, isRejected, usePromise } from '../../../utils/use-promise'
@@ -26,7 +26,7 @@ export const GjennomforingDetaljerPage = (): React.ReactElement => {
 	const gjennomforingId = params.gjennomforingId || ''
 
 	useEffect(() => {
-		setTilbakeTilUrl(GJENNOMFORING_LISTE_PAGE_ROUTE)
+		setTilbakeTilUrl(MINE_DELTAKERLISTER_PAGE_ROUTE)
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [])
 
@@ -53,7 +53,7 @@ export const GjennomforingDetaljerPage = (): React.ReactElement => {
 	) {
 
 		if(isNotFound(fetchGjennomforingPromise)) {
-			return <Navigate replace to={GJENNOMFORING_LISTE_PAGE_ROUTE}/>
+			return <Navigate replace to={MINE_DELTAKERLISTER_PAGE_ROUTE}/>
 		}
 
 		return <AlertPage variant="error" tekst="Noe gikk galt" />

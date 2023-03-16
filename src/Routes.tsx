@@ -5,7 +5,7 @@ import { SpinnerPage } from './component/felles/spinner-page/SpinnerPage'
 import { DeltakerDetaljerPage } from './component/page/bruker-detaljer/DeltakerDetaljerPage'
 import { ErrorPage } from './component/page/error/ErrorPage'
 import { GjennomforingDetaljerPage } from './component/page/gjennomforing-detaljer/GjennomforingDetaljerPage'
-import { GjennomforingListePage } from './component/page/gjennomforing-page/GjennomforingListePage'
+import { MineDeltakerlisterPage } from './component/page/mine-deltakerlister-page/MineDeltakerlisterPage'
 import { IngenRollePage } from './component/page/ingen-rolle-page/IngenRollePage'
 import { Driftsmelding } from './Driftsmelding'
 import {
@@ -13,7 +13,7 @@ import {
 	MINE_DELTAKERE_PAGE_ROUTE,
 	DU_ER_LOGGET_UT_PAGE_ROUTE,
 	GJENNOMFORING_DETALJER_PAGE_ROUTE,
-	GJENNOMFORING_LISTE_PAGE_ROUTE,
+	MINE_DELTAKERLISTER_PAGE_ROUTE,
 	INGEN_ROLLE_PAGE_ROUTE,
 	LEGG_TIL_DELTAKERLISTE_PAGE_ROUTE
 } from './navigation'
@@ -49,10 +49,10 @@ const KoordinatorRoutes = (): React.ReactElement => {
 			<Routes>
 				<Route path={DELTAKER_DETALJER_PAGE_ROUTE} element={<DeltakerDetaljerPage />} />
 				<Route path={GJENNOMFORING_DETALJER_PAGE_ROUTE} element={<GjennomforingDetaljerPage />} />
-				<Route path={GJENNOMFORING_LISTE_PAGE_ROUTE} element={<GjennomforingListePage />} />
+				<Route path={MINE_DELTAKERLISTER_PAGE_ROUTE} element={<MineDeltakerlisterPage />} />
 				<Route path={LEGG_TIL_DELTAKERLISTE_PAGE_ROUTE} element={<AdministrerDeltakerlisterPage />} />
 				<Route path={DU_ER_LOGGET_UT_PAGE_ROUTE} element={<LoggetUtPage/>}/>
-				<Route path="*" element={<Navigate replace to={GJENNOMFORING_LISTE_PAGE_ROUTE}/>} />
+				<Route path="*" element={<Navigate replace to={MINE_DELTAKERLISTER_PAGE_ROUTE}/>} />
 			</Routes>
 		</>
 	)
@@ -80,10 +80,10 @@ const VeilederOgKoordinatorRoutes = (): React.ReactElement => {
 				<Route path={MINE_DELTAKERE_PAGE_ROUTE} element={<MineDeltakerePage />} />
 				<Route path={DELTAKER_DETALJER_PAGE_ROUTE} element={<DeltakerDetaljerPage />} />
 				<Route path={GJENNOMFORING_DETALJER_PAGE_ROUTE} element={<GjennomforingDetaljerPage />} />
-				<Route path={GJENNOMFORING_LISTE_PAGE_ROUTE} element={<GjennomforingListePage />} />
+				<Route path={MINE_DELTAKERLISTER_PAGE_ROUTE} element={<MineDeltakerlisterPage />} />
 				<Route path={LEGG_TIL_DELTAKERLISTE_PAGE_ROUTE} element={<AdministrerDeltakerlisterPage />} />
 				<Route path={DU_ER_LOGGET_UT_PAGE_ROUTE} element={<LoggetUtPage/>}/>
-				<Route path="*" element={<Navigate replace to={GJENNOMFORING_LISTE_PAGE_ROUTE}/>} />
+				<Route path="*" element={<Navigate replace to={MINE_DELTAKERLISTER_PAGE_ROUTE}/>} />
 			</Routes>
 		</>
 	)
