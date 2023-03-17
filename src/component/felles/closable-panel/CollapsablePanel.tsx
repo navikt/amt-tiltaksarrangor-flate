@@ -15,7 +15,7 @@ export const CollapsablePanel = (props: Props) => {
 		if (panelRef?.current !== null) {
 			setHeight(isExpanded ? panelRef.current.scrollHeight : 0)
 		}
-	}, [ isExpanded ])
+	}, [ isExpanded, props.children ])
 
 	const panelRef = useRef<HTMLDivElement>(null)
 

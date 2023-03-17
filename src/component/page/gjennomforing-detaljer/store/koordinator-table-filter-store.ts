@@ -1,7 +1,7 @@
 import constate from 'constate'
 import { useState } from 'react'
 
-export const [ KoordinatorDeltakerFilterStore, useKoordinatorDeltakerFilterStore ] = constate(() => {
+export const [ KoordinatorTableFilterStore, useKoordinatorTableFilterStore ] = constate(() => {
 	const [ veilederFilter, setVeilederFilter ] = useState<string[]>([])
 
 	const leggTilVeileder = (veileder: string) => {
