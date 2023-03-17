@@ -1,4 +1,5 @@
 import { Tag } from '@navikt/ds-react'
+import classNames from 'classnames'
 import React from 'react'
 
 import { DeltakerStatus, TiltakDeltakerStatus } from '../../../api/data/deltaker'
@@ -14,14 +15,25 @@ const getStyle = (statusType: TiltakDeltakerStatus) => {
 	}
 }
 
+const deltakerlisteStyle = (statusType: TiltakDeltakerStatus) => {
+	switch (statusType) {
+		case TiltakDeltakerStatus.IKKE_AKTUELL:
+		case TiltakDeltakerStatus.HAR_SLUTTET: return styles.statusTagOrangeSmall
+		case TiltakDeltakerStatus.VENTER_PA_OPPSTART: return styles.statusTagBlaSmall
+		case TiltakDeltakerStatus.DELTAR: 
+		default: return undefined
+	}
+}
+
 interface StatusProps {
     status: DeltakerStatus
+		erDeltakerlisteVisning?: boolean
 }
 
 export const StatusMerkelapp = (props: StatusProps) => {
 	const { type } = props.status
 	return(
-		<Tag variant="info" size="small" className={getStyle(type)}>
+		<Tag variant="info" size="small" className={classNames(getStyle(type), props.erDeltakerlisteVisning ? deltakerlisteStyle(type) : undefined)}>
 			{mapTiltakDeltagerStatusTilTekst(type)}
 		</Tag>
 	)
