@@ -7,6 +7,6 @@ export const [ DeltakerlisteStoreProvider, useDeltakerlisteStore ] = constate((p
 	const [ deltakerliste ] = useState<Gjennomforing>(props.deltakerliste)
 
 	return {
-		deltakerliste: deltakerliste
+		deltakerliste
 	}
 })

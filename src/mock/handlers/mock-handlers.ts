@@ -47,7 +47,7 @@ export const mockHandlers: RequestHandler[] = [
 	rest.get(appUrl('/amt-tiltak/api/tiltaksarrangor/deltaker'), (req, res, ctx) => {
 		const gjennomforingId = req.url.searchParams.get('gjennomforingId') as string
 		const data: TiltakDeltaker[] = mockTiltakDeltakere
-			.filter(deltaker => deltaker.deltakerliste.id === gjennomforingId)
+			.filter(deltaker => deltaker.gjennomforing.id === gjennomforingId)
 			.map(deltaker => mapToDeltakerListView(deltaker))
 
 		return res(ctx.delay(500), ctx.json(data))
@@ -272,7 +272,7 @@ const mapToDeltakerDetaljerView = (deltaker: MockTiltakDeltaker): TiltakDeltaker
 		telefonnummer: deltaker.telefonnummer,
 		navEnhet: deltaker.navEnhet,
 		navVeileder: deltaker.navVeileder,
-		deltakerliste: deltaker.deltakerliste,
+		gjennomforing: deltaker.gjennomforing,
 		fjernesDato: deltaker.fjernesDato,
 		innsokBegrunnelse: deltaker.innsokBegrunnelse
 	}

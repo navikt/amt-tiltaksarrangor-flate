@@ -42,7 +42,7 @@ export const DeltakerDetaljerPage = (): React.ReactElement => {
 	return (
 		<div data-testid="bruker-detaljer-page">
 			<DeltakerDetaljerHeader
-				deltakerlisteId={deltaker.deltakerliste.id}
+				deltakerlisteId={deltaker.gjennomforing.id}
 				fornavn={deltaker.fornavn}
 				mellomnavn={deltaker.mellomnavn}
 				etternavn={deltaker.etternavn}
@@ -50,7 +50,7 @@ export const DeltakerDetaljerPage = (): React.ReactElement => {
 				telefonnummer={deltaker.telefonnummer}
 				epost={deltaker.epost}
 			/>
-			<DeltakerlisteStoreProvider deltakerliste={deltaker.deltakerliste}>
+			<DeltakerlisteStoreProvider deltakerliste={deltaker.gjennomforing}>
 				<DeltakerDetaljer deltaker={deltaker} visTildeling={isKoordinator(roller)}/>
 			</DeltakerlisteStoreProvider>
 		</div>

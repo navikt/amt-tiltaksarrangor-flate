@@ -141,7 +141,7 @@ const lagMockTiltakDeltagerForGjennomforing = (gjennomforing: Gjennomforing): Mo
 		navEnhet: faker.random.arrayElement(navEnheter),
 		navVeileder: veileder,
 		fjernesDato: fjernesDato,
-		deltakerliste: gjennomforing,
+		gjennomforing: gjennomforing,
 		registrertDato: faker.date.past(),
 		innsokBegrunnelse: genererBegrunnelse(brukerFornavn),
 		aktiveEndringsmeldinger: lagMockEndringsmeldingForDeltaker(status),
