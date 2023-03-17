@@ -1,6 +1,6 @@
 import { TiltakDeltaker, TiltakDeltakerStatus, VeiledersDeltaker } from '../api/data/deltaker'
 import { tilVeiledertype } from './deltakerliste-utils'
-import { Veiledertype } from '../component/page/deltakerliste-veileder/Veiledertype'
+import { Veiledertype } from '../component/page/veileder/Veiledertype'
 
 const matcherStatus = (statusFilter: TiltakDeltakerStatus[], brukerStatus: TiltakDeltakerStatus) => {
 	if (statusFilter.length === 0) return true

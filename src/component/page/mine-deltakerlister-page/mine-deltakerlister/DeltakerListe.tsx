@@ -4,7 +4,7 @@ import React, { useMemo } from 'react'
 import globalStyles from '../../../../globals.module.scss'
 import { sortAlphabeticAsc } from '../../../../utils/sortering-utils'
 import styles from './DeltakerListe.module.scss'
-import { GjennomforingListePanel } from './GjennomforingListePanel'
+import { DeltakerlistePanel } from './DeltakerlistePanel'
 import { TiltakSection } from './TiltakSection'
 import { Deltakerliste } from '../../../../api/data/deltaker'
 import { finnDeltakerlister, finnUnikeTiltakstyper } from '../../../../utils/deltakerliste-utils'
@@ -37,7 +37,7 @@ export const DeltakerListe = (props: DeltakerListeProps): React.ReactElement<Del
 								.sort((d1, d2) => sortAlphabeticAsc(d1.navn, d2.navn))
 								.map((dl) => {
 									return (
-										<GjennomforingListePanel
+										<DeltakerlistePanel
 											key={dl.id}
 											id={dl.id}
 											navn={dl.navn}

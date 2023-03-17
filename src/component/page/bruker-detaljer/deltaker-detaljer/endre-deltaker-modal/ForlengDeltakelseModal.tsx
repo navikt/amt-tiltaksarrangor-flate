@@ -8,10 +8,10 @@ import { formatDate, maxDate } from '../../../../../utils/date-utils'
 import { Nullable } from '../../../../../utils/types/or-nothing'
 import { BaseModal } from '../../../../felles/base-modal/BaseModal'
 import { DateField } from '../../../../felles/DateField'
-import { useGjennomforingStore } from '../gjennomforing-store'
 import { SendTilNavKnapp } from './SendTilNavKnapp'
 import { Varighet, varigheter, VarighetValg, varighetValgForType } from './varighet'
 import { VeilederConfirmationPanel } from './VeilederConfirmationPanel'
+import { useDeltakerlisteStore } from '../deltakerliste-store'
 
 export interface ForlengDeltakelseModalProps {
 	onClose: () => void
@@ -31,9 +31,9 @@ export const ForlengDeltakelseModal = (props: ForlengDeltakelseModalProps & Forl
 	const [ valgtVarighet, settValgtVarighet ] = useState(VarighetValg.IKKE_VALGT)
 	const [ nySluttDato, settNySluttDato ] = useState<Nullable<Date>>()
 	const [ vilkaarGodkjent, settVilkaarGodkjent ] = useState(false)
-	const { gjennomforing } = useGjennomforingStore()
+	const { deltakerliste } = useDeltakerlisteStore()
 	const visDatoVelger = valgtVarighet === VarighetValg.ANNET
-	const minDato = maxDate(startDato, gjennomforing.startDato)
+	const minDato = maxDate(startDato, deltakerliste.startDato)
 
 	const kalkulerSluttDato = (sluttdato: Nullable<Date>, varighet: Varighet): Date => {
 		return dayjs(sluttdato).add(varighet.antall, varighet.tidsenhet).toDate()
@@ -66,7 +66,7 @@ export const ForlengDeltakelseModal = (props: ForlengDeltakelseModalProps & Forl
 					{visDatoVelger &&
 						<DateField
 							min={minDato}
-							max={gjennomforing.sluttDato}
+							max={deltakerliste.sluttDato}
 							label={null}
 							onDateChanged={d => settNySluttDato(d)}
 							aria-label="Annet - velg dato" />

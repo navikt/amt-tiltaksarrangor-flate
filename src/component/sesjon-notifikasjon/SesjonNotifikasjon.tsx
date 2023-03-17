@@ -9,7 +9,7 @@ import { absolutePath, loginUrl } from '../../utils/url-utils'
 import { isResolved, usePromise } from '../../utils/use-promise'
 import styles from './SesjonNotifikasjon.module.scss'
 import { useNavigate } from 'react-router-dom'
-import { DU_ER_LOGGET_UT_PAGE_ROUTE, GJENNOMFORING_LISTE_PAGE_ROUTE } from '../../navigation'
+import { DU_ER_LOGGET_UT_PAGE_ROUTE, MINE_DELTAKERLISTER_PAGE_ROUTE } from '../../navigation'
 
 enum AlertType {
 	UTLOPER_SNART,
@@ -66,7 +66,7 @@ export const SesjonNotifikasjon = (): React.ReactElement | null => {
 
 	}, [ tokenExpiryDate, navigate, tokenTimedOut, visDuBlirLoggetUtAlert, visUtloperSnartAlert ])
 
-	const LoginLenke = () => <Link href={loginUrl(absolutePath(GJENNOMFORING_LISTE_PAGE_ROUTE))} className={styles.loginLenke}>Logg inn på nytt</Link>
+	const LoginLenke = () => <Link href={loginUrl(absolutePath(MINE_DELTAKERLISTER_PAGE_ROUTE))} className={styles.loginLenke}>Logg inn på nytt</Link>
 
 	if (alertType === undefined) return null
 	return (

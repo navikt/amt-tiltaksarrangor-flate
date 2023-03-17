@@ -1,5 +1,5 @@
 import { Deltakerliste, TiltakDeltakerStatus, VeiledersDeltaker } from '../api/data/deltaker'
-import { Veiledertype } from '../component/page/deltakerliste-veileder/Veiledertype'
+import { Veiledertype } from '../component/page/veileder/Veiledertype'
 
 export const finnUnikeTiltakstyper = (detakerlister: Deltakerliste[]): string[] => {
 	const unikeTiltakstyper: string[] = []

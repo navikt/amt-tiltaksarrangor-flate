@@ -19,7 +19,7 @@ import { SpinnerPage } from '../../felles/spinner-page/SpinnerPage'
 import { AlertPage } from '../../felles/alert-page/AlertPage'
 import { LeggTilDeltakerlisteModal } from './legg-til-deltakerliste-modal/LeggTilDeltakerlisteModal'
 import { useTilbakelenkeStore } from '../../../store/tilbakelenke-store'
-import { GJENNOMFORING_LISTE_PAGE_ROUTE } from '../../../navigation'
+import { MINE_DELTAKERLISTER_PAGE_ROUTE } from '../../../navigation'
 import { useTabTitle } from '../../../hooks/use-tab-title'
 
 
@@ -38,7 +38,7 @@ export const AdministrerDeltakerlisterPage = () => {
 	useTabTitle('Legg til og fjern deltakerlister')
 
 	useEffect(() => {
-		setTilbakeTilUrl(GJENNOMFORING_LISTE_PAGE_ROUTE)
+		setTilbakeTilUrl(MINE_DELTAKERLISTER_PAGE_ROUTE)
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [])
 

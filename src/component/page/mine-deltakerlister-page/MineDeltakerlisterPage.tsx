@@ -12,17 +12,17 @@ import { isNotStartedOrPending, isRejected, usePromise } from '../../../utils/us
 import { AlertPage } from '../../felles/alert-page/AlertPage'
 import { IkonLenke } from '../../felles/ikon-lenke/IkonLenke'
 import { SpinnerPage } from '../../felles/spinner-page/SpinnerPage'
-import styles from './GjennomforingListePage.module.scss'
+import styles from './MineDeltakerlisterPage.module.scss'
 import { Alert, BodyShort, Link } from '@navikt/ds-react'
 import { DeltakerOversikt } from '../../../api/data/deltaker'
-import { DeltakerListe } from './gjennomforing-liste/DeltakerListe'
-import { MineDeltakerePanel } from './minedeltakere/MineDeltakerePanel'
+import { DeltakerListe } from './mine-deltakerlister/DeltakerListe'
+import { MineDeltakerePanel } from './mine-deltakere/MineDeltakerePanel'
 import toggle from '../../../utils/toggle'
 import globalStyles from '../../../globals.module.scss'
 import { useInnloggetBrukerStore } from '../../../store/innlogget-bruker-store'
 import { isVeileder } from '../../../utils/rolle-utils'
 
-export const GjennomforingListePage = (): React.ReactElement => {
+export const MineDeltakerlisterPage = (): React.ReactElement => {
 	const { setTilbakeTilUrl } = useTilbakelenkeStore()
 	const { roller } = useInnloggetBrukerStore()
 

@@ -6,11 +6,11 @@ import { maxDate } from '../../../../../utils/date-utils'
 import { Nullable } from '../../../../../utils/types/or-nothing'
 import { BaseModal } from '../../../../felles/base-modal/BaseModal'
 import { DateField } from '../../../../felles/DateField'
-import { useGjennomforingStore } from '../gjennomforing-store'
 import { AarsakSelector } from './AarsakSelector'
 import styles from './EndreOppstartModal.module.scss'
 import { SendTilNavKnapp } from './SendTilNavKnapp'
 import { VeilederConfirmationPanel } from './VeilederConfirmationPanel'
+import { useDeltakerlisteStore } from '../deltakerliste-store'
 
 interface AvsluttDeltakelseModalProps {
 	onClose: () => void
@@ -29,9 +29,9 @@ export const AvsluttDeltakelseModal = (props: AvsluttDeltakelseModalProps & Avsl
 	const [ aarsak, settAarsak ] = useState<DeltakerStatusAarsakType>()
 	const [ beskrivelse, settBeskrivelse ] = useState<Nullable<string>>()
 	const [ vilkaarGodkjent, settVilkaarGodkjent ] = useState(false)
-	const { gjennomforing } = useGjennomforingStore()
+	const { deltakerliste } = useDeltakerlisteStore()
 
-	const minDato = maxDate(startDato, gjennomforing.startDato)
+	const minDato = maxDate(startDato, deltakerliste.startDato)
 	const kanSendeEndringsmelding = aarsak === DeltakerStatusAarsakType.ANNET?
 		aarsak && (vilkaarGodkjent || !visGodkjennVilkaarPanel) && sluttDato && beskrivelse :
 		aarsak && (vilkaarGodkjent || !visGodkjennVilkaarPanel) && sluttDato
@@ -60,7 +60,7 @@ export const AvsluttDeltakelseModal = (props: AvsluttDeltakelseModalProps & Avsl
 				label="Hva er ny sluttdato?"
 				date={sluttDato}
 				min={minDato}
-				max={gjennomforing.sluttDato}
+				max={deltakerliste.sluttDato}
 				onDateChanged={d => settSluttDato(d)}
 			/>
 			{ visGodkjennVilkaarPanel && <VeilederConfirmationPanel vilkaarGodkjent={vilkaarGodkjent} setVilkaarGodkjent={settVilkaarGodkjent} /> }

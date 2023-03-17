@@ -15,7 +15,7 @@ export const DemoRollevelger = (): React.ReactElement => {
 	return (
 		<div className={styles.rolleVelgerContainer}>
 			<CheckboxGroup
-				legend="Valgt rolle:"
+				legend="Velg rolle:"
 				onChange={(roller: Rolle[]) => handleChange(roller)}
 				defaultValue={[ Rolle.KOORDINATOR, Rolle.VEILEDER ]}
 				size="small"
