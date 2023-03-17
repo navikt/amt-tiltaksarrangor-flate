@@ -1,12 +1,12 @@
-import { nameString } from '../../../../utils/name-utls'
 import { TiltakDeltaker } from '../../../../api/data/deltaker'
 import globalStyles from '../../../../globals.module.scss'
 import { TableFilter } from '../../../felles/table-filter/TableFilter'
 import React, { useEffect, useState } from 'react'
 import { useKoordinatorTableFilterStore } from '../store/koordinator-table-filter-store'
+import { getHovedveilederNavn, HAR_IKKE_VEILEDER_FILTER_TEKST } from '../../../../utils/veileder-utils'
 
 interface Props {
-    deltakere: TiltakDeltaker[]
+	deltakere: TiltakDeltaker[]
 }
 
 export const DeltakerePerVeilederTableFilter = (props: Props): React.ReactElement => {
@@ -16,19 +16,12 @@ export const DeltakerePerVeilederTableFilter = (props: Props): React.ReactElemen
 
 	useEffect(() => {
 		const map = new Map<string, number>()
-		map.set('Uten Veileder', 0)
+		map.set(HAR_IKKE_VEILEDER_FILTER_TEKST, 0)
 
 		props.deltakere.forEach((deltaker) => {
-			const veileder = deltaker.aktiveVeiledere.filter((t) => !t.erMedveileder)[0]
-			if (veileder === undefined) {
-				const entry = map.get('Uten Veileder')
-				map.set('Uten Veileder', entry ? entry + 1 : 1)
-			} else {
-				const veilederNavn = nameString(veileder.fornavn, veileder.mellomnavn, veileder.etternavn)
-
-				const entry = map.get(veilederNavn)
-				map.set(veilederNavn, entry ? entry + 1 : 1)
-			}
+			const hovedveilederNavn = getHovedveilederNavn(deltaker)
+			const entry = map.get(hovedveilederNavn)
+			map.set(hovedveilederNavn, entry ? entry + 1 : 1)
 		})
 
 		setDeltakerePerVeileder(map)

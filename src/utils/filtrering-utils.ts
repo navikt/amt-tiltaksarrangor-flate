@@ -1,7 +1,7 @@
 import { TiltakDeltaker, TiltakDeltakerStatus, VeiledersDeltaker } from '../api/data/deltaker'
 import { tilVeiledertype } from './deltakerliste-utils'
 import { Veiledertype } from '../component/page/deltakerliste-veileder/Veiledertype'
-import { nameString } from './name-utls'
+import { getHovedveilederNavn } from './veileder-utils'
 
 const matcherStatus = (statusFilter: TiltakDeltakerStatus[], brukerStatus: TiltakDeltakerStatus) => {
 	if (statusFilter.length === 0) return true
@@ -24,14 +24,7 @@ const matcherVeiledertype = (veiledertypeFilter: Veiledertype[], veiledertype: V
 }
 
 export const filtrerBrukerePaMedHovedveileder = (brukere: TiltakDeltaker[], veiledere: string[]): TiltakDeltaker[] => {
-	return brukere.filter(bruker => {
-		const hovedveileder = bruker.aktiveVeiledere.filter((t) => !t.erMedveileder)[0]
-		const veilederNavn = hovedveileder
-			? nameString(hovedveileder.fornavn, hovedveileder.mellomnavn, hovedveileder.etternavn)
-			: 'Uten Veileder'
-
-		return matcherVeileder(veiledere, veilederNavn)
-	})
+	return brukere.filter(bruker => matcherVeileder(veiledere, getHovedveilederNavn(bruker)))
 }
 
 export const filtrerBrukere = (brukere: TiltakDeltaker[], statusFilter: TiltakDeltakerStatus[]): TiltakDeltaker[] => {
