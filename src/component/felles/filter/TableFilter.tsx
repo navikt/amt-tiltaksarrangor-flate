@@ -1,9 +1,9 @@
-import { klikkFilterMeny, loggKlikk } from '../../../utils/amplitude-utils';
-import { Checkbox, CheckboxGroup } from '@navikt/ds-react';
-import React from 'react';
+import { klikkFilterMeny, loggKlikk } from '../../../utils/amplitude-utils'
+import { Checkbox, CheckboxGroup } from '@navikt/ds-react'
+import React from 'react'
 import styles from './TableFilter.module.scss'
-import { fjernTilgangTilGjennomforing } from '../../../api/tiltak-api';
-import { CollapsablePanel } from '../closable-panel/CollapsablePanel';
+import { fjernTilgangTilGjennomforing } from '../../../api/tiltak-api'
+import { CollapsablePanel } from '../closable-panel/CollapsablePanel'
 
 interface Props {
     navn: string,
@@ -17,42 +17,42 @@ interface Props {
 
 export const TableFilter = (props: Props) => {
 
-    const unikeNavn = [...props.dataMap.keys()]
+	const unikeNavn = [ ...props.dataMap.keys() ]
 
-    const FilterCheckbox = ({navn}: { navn: string }) => {
-        const antall = props.dataMap.get(navn)
+	const FilterCheckbox = ({ navn }: { navn: string }) => {
+		const antall = props.dataMap.get(navn)
 
-        return (
-            <Checkbox
-                className={styles.checkbox}
-                name="filter-tiltakstatus"
-                onChange={(e) => {
-                    if (e.target.checked) {
-                        props.addFilter(navn)
-                        loggKlikk(klikkFilterMeny, navn, 'checked')
-                    } else {
-                        fjernTilgangTilGjennomforing(navn)
-                        loggKlikk(klikkFilterMeny, navn, 'unchecked')
-                    }
-                }}
-                value={navn}
-            >
+		return (
+			<Checkbox
+				className={styles.checkbox}
+				name="filter-tiltakstatus"
+				onChange={(e) => {
+					if (e.target.checked) {
+						props.addFilter(navn)
+						loggKlikk(klikkFilterMeny, navn, 'checked')
+					} else {
+						fjernTilgangTilGjennomforing(navn)
+						loggKlikk(klikkFilterMeny, navn, 'unchecked')
+					}
+				}}
+				value={navn}
+			>
 				<span className={styles.content}>
 					<span>{navn}</span>
 					<span className={styles.occurrences}>{antall}</span>
 				</span>
-            </Checkbox>
-        )
-    }
+			</Checkbox>
+		)
+	}
 
-    return (
-        <CollapsablePanel title={props.navn}>
-            <CheckboxGroup legend="" aria-label="Filtrer deltakere på status" value={props.filter}>
-                {unikeNavn.map((navn) => (
-                    <FilterCheckbox navn={navn} key={navn}/>
-                ))}
-            </CheckboxGroup>
-        </CollapsablePanel>
-    )
+	return (
+		<CollapsablePanel title={props.navn}>
+			<CheckboxGroup legend="" aria-label="Filtrer deltakere på status" value={props.filter}>
+				{unikeNavn.map((navn) => (
+					<FilterCheckbox navn={navn} key={navn}/>
+				))}
+			</CheckboxGroup>
+		</CollapsablePanel>
+	)
 
 }

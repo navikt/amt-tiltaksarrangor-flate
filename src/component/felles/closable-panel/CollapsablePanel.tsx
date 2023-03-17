@@ -1,7 +1,6 @@
-import { ReactElement, useState } from 'react';
+import React, { ReactElement, useEffect, useRef, useState } from 'react'
 import styles from './CollapsablePanel.module.scss'
-import SvgChevronUpCircle from '@navikt/ds-icons/esm/ChevronUpCircle';
-import SvgChevronDownCircle from '@navikt/ds-icons/esm/ChevronDownCircle';
+import { ChevronDownIcon } from '@navikt/aksel-icons'
 
 interface Props {
     title?: string
@@ -9,27 +8,36 @@ interface Props {
 }
 
 export const CollapsablePanel = (props: Props) => {
-    const [collapsed, setCollapsed] = useState<boolean>(false)
+	const [ isExpanded, setIsExpanded ] = useState<boolean>(true)
+	const [ height, setHeight ] = useState<number>(0)
 
-    const onChevronClicked = () => {
-        setCollapsed(!collapsed)
-    }
+	useEffect(() => {
+		if (panelRef?.current !== null) {
+			setHeight(isExpanded ? panelRef.current.scrollHeight : 0)
+		}
+	}, [ isExpanded ])
 
-    const getIcon = () => {
-        return collapsed
-            ? <SvgChevronDownCircle/>
-            : <SvgChevronUpCircle/>
-    }
+	const panelRef = useRef<HTMLDivElement>(null)
 
-    return (
-        <div className={styles.collapsablePanel}>
-            <header>
-                <div className={styles.title}>{props.title}</div>
-                <div onClick={onChevronClicked} className={styles.collapseButton}>{getIcon()}</div>
-            </header>
-            <section hidden={collapsed} className={styles.slide}>
-                {props.children}
-            </section>
-        </div>
-    )
+	const toggleExpand = () => {
+		setIsExpanded(!isExpanded)
+	}
+
+	const getIcon = () => {
+		return <ChevronDownIcon className={isExpanded ? styles.rotateUp : styles.rotateDown}/>
+	}
+
+	return (
+		<div className={styles.expandablePanel}>
+			<div role="button" onKeyDown={toggleExpand} tabIndex={0} className={styles.panelHeader} onClick={toggleExpand}>
+				<div className={styles.title}>{props.title}</div>
+				<div className={styles.collapseButton}>{getIcon()}</div>
+			</div>
+			<div className={styles.panelContent}
+				style={{ height: `${height}px` }}
+				ref={panelRef}>
+				{props.children}
+			</div>
+		</div>
+	)
 }

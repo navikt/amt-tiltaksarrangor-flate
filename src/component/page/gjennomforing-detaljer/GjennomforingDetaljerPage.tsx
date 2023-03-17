@@ -23,14 +23,14 @@ import styles from './GjennomforingDetaljerPage.module.scss'
 import { KoordinatorInfo } from './KoordinatorInfo'
 import { TiltakInfo } from './TiltakInfo'
 import { TableFilter } from '../../felles/filter/TableFilter'
-import { nameString } from '../../../utils/name-utls';
+import { nameString } from '../../../utils/name-utls'
 
 export const GjennomforingDetaljerPage = (): React.ReactElement => {
-	const {setTilbakeTilUrl} = useTilbakelenkeStore()
+	const { setTilbakeTilUrl } = useTilbakelenkeStore()
 	const params = useParams<{ gjennomforingId: string }>()
 	const gjennomforingId = params.gjennomforingId || ''
 
-	const {veilederFilter, leggTilVeileder, fjernVeileder} = useKoordinatorDeltakerFilterStore()
+	const { veilederFilter, leggTilVeileder, fjernVeileder } = useKoordinatorDeltakerFilterStore()
 
 
 	useEffect(() => {
@@ -41,11 +41,11 @@ export const GjennomforingDetaljerPage = (): React.ReactElement => {
 	useTabTitle('Deltakerliste')
 
 	const fetchDeltakerePaGjennomforingPromise = usePromise<AxiosResponse<TiltakDeltaker[]>>(
-		() => fetchDeltakerePaTiltakGjennomforing(gjennomforingId), [gjennomforingId]
+		() => fetchDeltakerePaTiltakGjennomforing(gjennomforingId), [ gjennomforingId ]
 	)
 
 	const fetchGjennomforingPromise = usePromise<AxiosResponse<Gjennomforing>>(
-		() => fetchTiltakGjennomforing(gjennomforingId), [gjennomforingId]
+		() => fetchTiltakGjennomforing(gjennomforingId), [ gjennomforingId ]
 	)
 
 	if (
