@@ -11,13 +11,13 @@ export const CollapsablePanel = (props: Props) => {
 	const [ isExpanded, setIsExpanded ] = useState<boolean>(true)
 	const [ height, setHeight ] = useState<number>(0)
 
+	const panelRef = useRef<HTMLDivElement>(null)
+
 	useEffect(() => {
 		if (panelRef?.current !== null) {
 			setHeight(isExpanded ? panelRef.current.scrollHeight : 0)
 		}
 	}, [ isExpanded, props.children ])
-
-	const panelRef = useRef<HTMLDivElement>(null)
 
 	const toggleExpand = () => {
 		setIsExpanded(!isExpanded)

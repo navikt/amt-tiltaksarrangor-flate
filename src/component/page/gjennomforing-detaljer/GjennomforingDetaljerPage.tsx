@@ -20,6 +20,7 @@ import styles from './GjennomforingDetaljerPage.module.scss'
 import { KoordinatorInfo } from './KoordinatorInfo'
 import { TiltakInfo } from './TiltakInfo'
 import { DeltakerePerVeilederTableFilter } from './table-filters/DeltakerePerVeilederTableFilter'
+import { DeltakerePerMedveilederTableFilter } from './table-filters/DeltakerePerMedveilederTableFilter'
 
 export const GjennomforingDetaljerPage = (): React.ReactElement => {
 	const { setTilbakeTilUrl } = useTilbakelenkeStore()
@@ -75,6 +76,7 @@ export const GjennomforingDetaljerPage = (): React.ReactElement => {
 					<KoordinatorInfo gjennomforingId={gjennomforing.id}/>
 					<FilterMenyStatus statusMap={deltakerePerStatus} className={globalStyles.blokkXs}/>
 					<DeltakerePerVeilederTableFilter deltakere={deltakere}/>
+					<DeltakerePerMedveilederTableFilter deltakere={deltakere}/>
 				</section>
 
 				<DeltakerOversiktTabell deltakere={deltakere}/>

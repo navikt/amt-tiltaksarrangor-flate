@@ -3,26 +3,13 @@ import { useState } from 'react'
 
 export const [ KoordinatorTableFilterStore, useKoordinatorTableFilterStore ] = constate(() => {
 	const [ veilederFilter, setVeilederFilter ] = useState<string[]>([])
-
-	const leggTilVeileder = (veileder: string) => {
-		setVeilederFilter((prevVeileder) => {
-			if(prevVeileder.includes(veileder)) {
-				return prevVeileder
-			}
-			return [ ...prevVeileder, veileder ]
-		})
-	}
-
-	const fjernVeileder = (veileder: string) => {
-		setVeilederFilter((prevVeileder) => {
-			return prevVeileder.filter((v) => v !== veileder)
-		})
-	}
+	const [ medveilederFilter, setMedveilederFilter ] = useState<string[]>([])
 
 	return {
 		veilederFilter,
-		leggTilVeileder,
-		fjernVeileder
+		setVeilederFilter,
+		medveilederFilter,
+		setMedveilederFilter
 	}
 
 })

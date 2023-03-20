@@ -12,7 +12,7 @@ interface Props {
 export const DeltakerePerVeilederTableFilter = (props: Props): React.ReactElement => {
 	const [ deltakerePerVeileder, setDeltakerePerVeileder ] = useState<Map<string, number>>(new Map())
 
-	const { veilederFilter, leggTilVeileder, fjernVeileder } = useKoordinatorTableFilterStore()
+	const { veilederFilter, setVeilederFilter } = useKoordinatorTableFilterStore()
 
 	useEffect(() => {
 		const map = new Map<string, number>()
@@ -26,6 +26,21 @@ export const DeltakerePerVeilederTableFilter = (props: Props): React.ReactElemen
 
 		setDeltakerePerVeileder(map)
 	}, [ props.deltakere ])
+
+	const leggTilVeileder = (veileder: string) => {
+		setVeilederFilter((prev) => {
+			if (prev.includes(veileder)) {
+				return prev
+			}
+			return [ ...prev, veileder ]
+		})
+	}
+
+	const fjernVeileder = (veileder: string) => {
+		setVeilederFilter((prev) => {
+			return prev.filter((v) => v !== veileder)
+		})
+	}
 
 	return (
 		<TableFilter

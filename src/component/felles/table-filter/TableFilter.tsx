@@ -1,5 +1,5 @@
 import { Checkbox, CheckboxGroup } from '@navikt/ds-react'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import styles from './TableFilter.module.scss'
 import { CollapsablePanel } from '../closable-panel/CollapsablePanel'
 
@@ -14,8 +14,11 @@ interface Props {
 
 
 export const TableFilter = (props: Props) => {
+	const [ unikeNavn, setUnikeNavn ] = useState<string[]>([])
 
-	const unikeNavn = [ ...props.dataMap.keys() ]
+	useEffect(() => {
+		setUnikeNavn([ ...props.dataMap.keys() ])
+	}, [ props.dataMap ])
 
 	const FilterCheckbox = ({ navn }: { navn: string }) => {
 		const antall = props.dataMap.get(navn)
