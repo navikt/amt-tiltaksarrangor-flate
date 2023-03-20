@@ -4,7 +4,7 @@ import { AxiosResponse } from 'axios'
 import React from 'react'
 
 import { Koordinator } from '../../../api/data/tiltak'
-import { fetchKoordinatorerForGjennfomforing } from '../../../api/tiltak-api'
+import { fetchKoordinatorerForDeltakerliste } from '../../../api/tiltak-api'
 import globalStyles from '../../../globals.module.scss'
 import { isNotStartedOrPending, isRejected, usePromise } from '../../../utils/use-promise'
 import styles from './KoordinatorInfo.module.scss'
@@ -17,13 +17,13 @@ const koordinatorDisplayString = (k: Koordinator): string => {
 }
 
 interface KoordinatorInfoProps {
-	gjennomforingId: string
+	deltakerlisteId: string
 }
 
 export const KoordinatorInfo = (props: KoordinatorInfoProps) => {
 
 	const fetchKoordinatorerPromise = usePromise<AxiosResponse<Koordinator[]>>(
-		() => fetchKoordinatorerForGjennfomforing(props.gjennomforingId), [ props.gjennomforingId ]
+		() => fetchKoordinatorerForDeltakerliste(props.deltakerlisteId), [ props.deltakerlisteId ]
 	)
 
 
