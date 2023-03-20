@@ -18,13 +18,13 @@ import { FilterMenyStatus } from './FilterMenyStatus'
 import styles from './DeltakerlisteDetaljerPage.module.scss'
 import { KoordinatorInfo } from './KoordinatorInfo'
 import { TiltakInfo } from './TiltakInfo'
-import { KoordinatorTableFilterStore } from '../gjennomforing-detaljer/store/koordinator-table-filter-store';
+import { KoordinatorTableFilterStore } from '../gjennomforing-detaljer/store/koordinator-table-filter-store'
 import {
 	DeltakerePerVeilederTableFilter
-} from '../gjennomforing-detaljer/table-filters/DeltakerePerVeilederTableFilter';
+} from '../gjennomforing-detaljer/table-filters/DeltakerePerVeilederTableFilter'
 import {
 	DeltakerePerMedveilederTableFilter
-} from '../gjennomforing-detaljer/table-filters/DeltakerePerMedveilederTableFilter';
+} from '../gjennomforing-detaljer/table-filters/DeltakerePerMedveilederTableFilter'
 
 export const DeltakerlisteDetaljerPage = (): React.ReactElement => {
 	const { setTilbakeTilUrl } = useTilbakelenkeStore()
@@ -74,18 +74,18 @@ export const DeltakerlisteDetaljerPage = (): React.ReactElement => {
 
 	return (
 		<KoordinatorTableFilterStore>
-		<div className={styles.deltakerlisteDetaljer} data-testid="gjennomforing-detaljer-page">
-			<section className={styles.infoSection}>
-				<Heading size="small" level="2" className={globalStyles.blokkXs}>{deltakerliste.navn}</Heading>
-				<TiltakInfo gjennomforing={deltakerliste} className={globalStyles.blokkXs} />
-				<KoordinatorInfo deltakerlisteId={deltakerliste.id} />
-				<FilterMenyStatus statusMap={deltakerePerStatus} className={globalStyles.blokkXs} />
-				<DeltakerePerVeilederTableFilter deltakere={deltakere}/>
-				<DeltakerePerMedveilederTableFilter deltakere={deltakere}/>
-			</section>
+			<div className={styles.deltakerlisteDetaljer} data-testid="gjennomforing-detaljer-page">
+				<section className={styles.infoSection}>
+					<Heading size="small" level="2" className={globalStyles.blokkXs}>{deltakerliste.navn}</Heading>
+					<TiltakInfo gjennomforing={deltakerliste} className={globalStyles.blokkXs} />
+					<KoordinatorInfo deltakerlisteId={deltakerliste.id} />
+					<FilterMenyStatus statusMap={deltakerePerStatus} className={globalStyles.blokkXs} />
+					<DeltakerePerVeilederTableFilter deltakere={deltakere}/>
+					<DeltakerePerMedveilederTableFilter deltakere={deltakere}/>
+				</section>
 
-			<DeltakerOversiktTabell deltakere={deltakere} />
-		</div>
+				<DeltakerOversiktTabell deltakere={deltakere} />
+			</div>
 		</KoordinatorTableFilterStore>
 	)
 }
