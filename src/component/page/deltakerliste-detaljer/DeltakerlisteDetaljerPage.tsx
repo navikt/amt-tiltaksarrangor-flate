@@ -2,7 +2,6 @@ import { Heading } from '@navikt/ds-react'
 import { AxiosResponse } from 'axios'
 import React, { useEffect } from 'react'
 import { Navigate, useParams } from 'react-router-dom'
-import { KoordinatorTableFilterStore } from './store/koordinator-table-filter-store'
 import { TiltakDeltaker } from '../../../api/data/deltaker'
 import { Gjennomforing } from '../../../api/data/tiltak'
 import { fetchDeltakerePaTiltakGjennomforing, fetchTiltakGjennomforing } from '../../../api/tiltak-api'
@@ -19,8 +18,13 @@ import { FilterMenyStatus } from './FilterMenyStatus'
 import styles from './DeltakerlisteDetaljerPage.module.scss'
 import { KoordinatorInfo } from './KoordinatorInfo'
 import { TiltakInfo } from './TiltakInfo'
-import { DeltakerePerVeilederTableFilter } from './table-filters/DeltakerePerVeilederTableFilter'
-import { DeltakerePerMedveilederTableFilter } from './table-filters/DeltakerePerMedveilederTableFilter'
+import { KoordinatorTableFilterStore } from '../gjennomforing-detaljer/store/koordinator-table-filter-store';
+import {
+	DeltakerePerVeilederTableFilter
+} from '../gjennomforing-detaljer/table-filters/DeltakerePerVeilederTableFilter';
+import {
+	DeltakerePerMedveilederTableFilter
+} from '../gjennomforing-detaljer/table-filters/DeltakerePerMedveilederTableFilter';
 
 export const DeltakerlisteDetaljerPage = (): React.ReactElement => {
 	const { setTilbakeTilUrl } = useTilbakelenkeStore()
