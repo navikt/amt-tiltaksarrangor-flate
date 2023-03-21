@@ -25,7 +25,7 @@ import { tilgjengeligeVeiledereSchema, TilgjengeligVeileder, Veileder, veiledere
 import { axiosInstance, logAndThrowError, parse } from './utils'
 
 export const fetchMineRoller = (): AxiosPromise<Rolle[]> => {
-	const url = appUrl('/amt-tiltak/api/tiltaksarrangor/ansatt/meg/roller')
+	const url = appUrl('/amt-tiltaksarrangor-bff/tiltaksarrangor/meg/roller')
 	return axiosInstance
 		.get(url)
 		.catch(err => {

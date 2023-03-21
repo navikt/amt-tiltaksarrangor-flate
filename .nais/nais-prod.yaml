@@ -43,6 +43,7 @@ spec:
     outbound:
       rules:
         - application: amt-tiltak
+        - application: amt-tiltaksarrangor-bff
         - application: poao-unleash
           namespace: poao
           cluster: prod-gcp
@@ -62,6 +63,10 @@ spec:
             {
               "fromPath": "/amt-tiltak", "toUrl": "http://amt-tiltak",
               "toApp": { "name": "amt-tiltak", "namespace": "amt", "cluster": "prod-gcp" }
+            },
+            {
+              "fromPath": "/amt-tiltaksarrangor-bff", "toUrl": "http://amt-tiltaksarrangor-bff,
+              "toApp": { "name": "amt-tiltaksarrangor-bff", "namespace": "amt", "cluster": "prod-gcp" }
             },
             {
               "fromPath": "/unleash",
