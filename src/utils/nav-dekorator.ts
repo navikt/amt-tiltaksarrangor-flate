@@ -26,5 +26,6 @@ export const setupNavDekorator = (): Promise<void> => {
 		simpleFooter: true,
 		shareScreen: false,
 		level: 'Level4',
+		logoutUrl: 'https://www.nav.no/no/utlogget'
 	})
 }
