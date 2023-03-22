@@ -65,7 +65,7 @@ spec:
               "toApp": { "name": "amt-tiltak", "namespace": "amt", "cluster": "prod-gcp" }
             },
             {
-              "fromPath": "/amt-tiltaksarrangor-bff", "toUrl": "http://amt-tiltaksarrangor-bff,
+              "fromPath": "/amt-tiltaksarrangor-bff", "toUrl": "http://amt-tiltaksarrangor-bff",
               "toApp": { "name": "amt-tiltaksarrangor-bff", "namespace": "amt", "cluster": "prod-gcp" }
             },
             {
