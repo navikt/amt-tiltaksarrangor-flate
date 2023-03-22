@@ -25,7 +25,7 @@ export const mockHandlers: RequestHandler[] = [
 	rest.get(appUrl('/auth/info'), (_req, res, ctx) => {
 		return res(ctx.delay(500), ctx.json(mockAuthInfo))
 	}),
-	rest.get(appUrl('/amt-tiltak/api/tiltaksarrangor/ansatt/meg/roller'), (_req, res, ctx) => {
+	rest.get(appUrl('/amt-tiltaksarrangor-bff/tiltaksarrangor/meg/roller'), (_req, res, ctx) => {
 		return res(ctx.delay(500), ctx.json(mockMineRoller))
 	}),
 	rest.get(appUrl('/amt-tiltak/api/tiltaksarrangor/gjennomforing/tilgjengelig'), (_req, res, ctx) => {
