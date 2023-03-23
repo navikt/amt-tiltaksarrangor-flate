@@ -67,7 +67,7 @@ export const Rad = (props: RadProps): React.ReactElement<RadProps> => {
 			<Table.DataCell>{startDatoTekst}</Table.DataCell>
 			<Table.DataCell>{sluttDatoTekst}</Table.DataCell>
 			<Table.DataCell>
-				<StatusMerkelapp status={status} />
+				<StatusMerkelapp status={status} erDeltakerlisteVisning />
 			</Table.DataCell>
 			<Show if={toggle.veilederEnabled}>
 				<Table.DataCell>
