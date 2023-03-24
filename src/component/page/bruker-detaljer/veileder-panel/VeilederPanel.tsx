@@ -3,7 +3,7 @@ import { Alert, Button, Heading, Loader, Panel } from '@navikt/ds-react'
 import { AxiosResponse } from 'axios'
 import cls from 'classnames'
 import React, { useEffect, useState } from 'react'
-import { TiltakDeltakerDetaljer } from '../../../../api/data/deltaker'
+import { Deltaker } from '../../../../api/data/deltaker'
 import { Veileder } from '../../../../api/data/veileder'
 import { hentVeiledereForDeltaker } from '../../../../api/tiltak-api'
 
@@ -17,7 +17,7 @@ import { TildelVeilederModal } from '../tildel-veileder-modal/TildelVeilederModa
 import styles from './VeilederPanel.module.scss'
 
 interface Props {
-	deltaker: TiltakDeltakerDetaljer
+	deltaker: Deltaker
 	visTildeling: boolean
 }
 

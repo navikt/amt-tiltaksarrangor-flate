@@ -5,13 +5,14 @@ import { Nullable } from '../utils/types/or-nothing'
 import { appUrl } from '../utils/url-utils'
 import { Rolle } from './data/ansatt'
 import {
+	Deltaker,
 	deltakerlisteVeilederSchema,
 	DeltakerOversikt,
 	deltakerOversiktSchema,
 	TiltakDeltaker,
-	TiltakDeltakerDetaljer,
-	tiltakDeltakerDetaljerSchema,
-	tiltakDeltakereSchema, VeiledersDeltaker
+	deltakerSchema,
+	tiltakDeltakereSchema,
+	VeiledersDeltaker
 } from './data/deltaker'
 import { DeltakerStatusAarsak, Endringsmelding, endringsmeldingerSchema } from './data/endringsmelding'
 import {
@@ -110,11 +111,11 @@ export const fetchMineDeltakere = (): AxiosPromise<VeiledersDeltaker[]> => {
 		.catch(err => logAndThrowError(err, url))
 }
 
-export const fetchTiltakDeltakerDetaljer = (tiltakDeltagerId: string): AxiosPromise<TiltakDeltakerDetaljer> => {
-	const url = appUrl(`/amt-tiltak/api/tiltaksarrangor/deltaker/${tiltakDeltagerId}`)
+export const fetchDeltaker = (deltakerId: string): AxiosPromise<Deltaker> => {
+	const url = appUrl(`/amt-tiltaksarrangor-bff/tiltaksarrangor/deltaker/${deltakerId}`)
 	return axiosInstance
 		.get(url)
-		.then(parse(tiltakDeltakerDetaljerSchema))
+		.then(parse(deltakerSchema))
 		.catch(err => logAndThrowError(err, url))
 }
 

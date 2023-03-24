@@ -2,7 +2,7 @@ import dayjs from 'dayjs'
 import { rest } from 'msw'
 import { RequestHandler } from 'msw/lib/types/handlers/RequestHandler'
 
-import { TiltakDeltaker, TiltakDeltakerDetaljer } from '../../api/data/deltaker'
+import { TiltakDeltaker, Deltaker } from '../../api/data/deltaker'
 import { DeltakerStatusAarsakType, EndringsmeldingType } from '../../api/data/endringsmelding'
 import { VIS_DRIFTSMELDING_TOGGLE_NAVN } from '../../api/data/feature-toggle'
 import { Veileder } from '../../api/data/veileder'
@@ -55,7 +55,7 @@ export const mockHandlers: RequestHandler[] = [
 	rest.get(appUrl('/amt-tiltak/api/tiltaksarrangor/gjennomforing/:gjennomforingId/koordinatorer'), (req, res, ctx) => {
 		return res(ctx.delay(500), ctx.json(mockKoordinatorer))
 	}),
-	rest.get(appUrl('/amt-tiltak/api/tiltaksarrangor/deltaker/:deltakerId'), (req, res, ctx) => {
+	rest.get(appUrl('/amt-tiltaksarrangor-bff/tiltaksarrangor/deltaker/:deltakerId'), (req, res, ctx) => {
 		const deltakerId = req.params['deltakerId']
 		const deltaker = mockTiltakDeltakere.find((d) => d.id === deltakerId)! // eslint-disable-line @typescript-eslint/no-non-null-assertion
 		const deltakerMedGjennomforing = mapToDeltakerDetaljerView(deltaker)
@@ -256,24 +256,37 @@ const mapToDeltakerListView = (deltaker: MockTiltakDeltaker): TiltakDeltaker => 
 	}
 }
 
-const mapToDeltakerDetaljerView = (deltaker: MockTiltakDeltaker): TiltakDeltakerDetaljer => {
+const mapToDeltakerDetaljerView = (deltaker: MockTiltakDeltaker): Deltaker => {
 	return {
 		id: deltaker.id,
+		deltakerliste: {
+			id: deltaker.gjennomforing.id,
+			startDato: deltaker.gjennomforing.startDato,
+			sluttDato: deltaker.gjennomforing.sluttDato
+		},
 		fornavn: deltaker.fornavn,
 		mellomnavn: deltaker.mellomnavn,
 		etternavn: deltaker.etternavn,
 		fodselsnummer: deltaker.fodselsnummer,
+		telefonnummer: deltaker.telefonnummer,
+		epost: deltaker.epost,
+		status: deltaker.status,
 		startDato: deltaker.startDato,
 		sluttDato: deltaker.sluttDato,
 		deltakelseProsent: deltaker.deltakelseProsent,
-		status: deltaker.status,
-		registrertDato: deltaker.registrertDato,
-		epost: deltaker.epost,
-		telefonnummer: deltaker.telefonnummer,
-		navEnhet: deltaker.navEnhet,
-		navVeileder: deltaker.navVeileder,
-		gjennomforing: deltaker.gjennomforing,
+		soktInnPa: deltaker.gjennomforing.navn,
+		soktInnDato: deltaker.registrertDato,
+		tiltakskode: deltaker.gjennomforing.tiltak.tiltakskode,
+		bestillingTekst: deltaker.innsokBegrunnelse,
 		fjernesDato: deltaker.fjernesDato,
-		innsokBegrunnelse: deltaker.innsokBegrunnelse
+		navInformasjon: {
+			navkontor: deltaker.navEnhet?.navn ?? '',
+			navVeileder: deltaker.navVeileder?.navn ? {
+				navn: deltaker.navVeileder?.navn,
+				telefon: deltaker.navVeileder?.telefon,
+				epost: deltaker.navVeileder?.epost
+			} : null
+		},
+		aktiveEndringsmeldinger: deltaker.aktiveEndringsmeldinger
 	}
 }

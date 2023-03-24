@@ -8,13 +8,13 @@ import styles from './TildelVeilederModal.module.scss'
 import { isPending, isResolved, usePromise } from '../../../../utils/use-promise'
 import { AxiosResponse } from 'axios'
 import { hentTilgjengeligeVeiledere, tildelVeilederForDeltaker } from '../../../../api/tiltak-api'
-import { TiltakDeltakerDetaljer } from '../../../../api/data/deltaker'
+import { Deltaker } from '../../../../api/data/deltaker'
 import { SelectField, SelectOption } from '../../../felles/select-field/SelectField'
 import { BaseModal } from '../../../felles/base-modal/BaseModal'
 
 
 interface Props {
-	deltaker: TiltakDeltakerDetaljer
+	deltaker: Deltaker
 	veileder: Veileder | undefined
 	medveiledere: Veileder[]
 	open: boolean
@@ -34,7 +34,7 @@ export const TildelVeilederModal = (props: Props): React.ReactElement => {
 
 	const tildelVeilederePromise = usePromise<void>()
 	const tilgjengeligeVeilederePromise = usePromise<AxiosResponse<TilgjengeligVeileder[]>>(
-		() => hentTilgjengeligeVeiledere(props.deltaker.gjennomforing.id)
+		() => hentTilgjengeligeVeiledere(props.deltaker.deltakerliste.id)
 	)
 
 	useEffect(() => {
