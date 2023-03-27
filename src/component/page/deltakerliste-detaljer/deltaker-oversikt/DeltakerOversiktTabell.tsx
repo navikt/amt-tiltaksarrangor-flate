@@ -2,11 +2,6 @@ import React, { useEffect, useState } from 'react'
 
 import { TiltakDeltaker } from '../../../../api/data/deltaker'
 import { useTiltaksoversiktSokStore } from '../../../../store/tiltaksoversikt-sok-store'
-import {
-	filtrerBrukere,
-	filtrerBrukerePaMedHovedveileder,
-	filtrerBrukerePaMedveileder
-} from '../../../../utils/filtrering-utils'
 import { finnNesteSortering } from '../../../../utils/sortering-utils'
 import { DeltakerTabell } from './deltaker-tabell/DeltakerTabell'
 import { sorterDeltakere } from './deltaker-tabell/sortering'
@@ -31,7 +26,7 @@ export const DeltakerOversiktTabell = (props: DeltakerOversiktTabellProps): Reac
 		const sortert = sorterDeltakere(filtrerteDeltakere, deltakerSortering)
 		setDeltakereBearbeidet(sortert)
 
-	}, [ deltakere, deltakerSortering, tiltakStatusFilter, veilederFilter, medveilederFilter, statusFilter ])
+	}, [ deltakere, filtrerDeltakere, deltakerSortering, tiltakStatusFilter, veilederFilter, medveilederFilter, statusFilter ])
 
 	const handleOnSortChange = (sortKey: string | undefined) => {
 		setDeltakerSortering(prevSort => finnNesteSortering(sortKey, prevSort))

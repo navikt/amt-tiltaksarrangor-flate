@@ -5,7 +5,6 @@ import globalStyles from '../../../../globals.module.scss'
 import { FilterMeny } from '../../../felles/table-filter/FilterMeny'
 import {
 	getMedveiledere,
-	getMedveiledereNavn,
 	HAR_IKKE_MEDVEILEDER_VILER_TEKST,
 	veilederNavn
 } from '../../../../utils/veileder-utils'

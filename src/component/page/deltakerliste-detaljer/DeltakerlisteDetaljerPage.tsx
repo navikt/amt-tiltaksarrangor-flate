@@ -9,12 +9,10 @@ import globalStyles from '../../../globals.module.scss'
 import { useTabTitle } from '../../../hooks/use-tab-title'
 import { MINE_DELTAKERLISTER_PAGE_ROUTE } from '../../../navigation'
 import { useTilbakelenkeStore } from '../../../store/tilbakelenke-store'
-import { getAntallDeltakerePerStatus } from '../../../utils/deltaker-status-utils'
 import { isNotFound, isNotStartedOrPending, isRejected, usePromise } from '../../../utils/use-promise'
 import { AlertPage } from '../../felles/alert-page/AlertPage'
 import { SpinnerPage } from '../../felles/spinner-page/SpinnerPage'
 import { DeltakerOversiktTabell } from './deltaker-oversikt/DeltakerOversiktTabell'
-import { FilterMenyStatus } from './FilterMenyStatus'
 import styles from './DeltakerlisteDetaljerPage.module.scss'
 import { KoordinatorInfo } from './KoordinatorInfo'
 import { TiltakInfo } from './TiltakInfo'
@@ -70,8 +68,6 @@ export const DeltakerlisteDetaljerPage = (): React.ReactElement => {
 	const deltakere = fetchDeltakerePaGjennomforingPromise.result.data
 
 	const deltakerliste = fetchDeltakerlistePromise.result.data
-
-	const deltakerePerStatus = getAntallDeltakerePerStatus(deltakere)
 
 	return (
 		<KoordinatorTableFilterStore>

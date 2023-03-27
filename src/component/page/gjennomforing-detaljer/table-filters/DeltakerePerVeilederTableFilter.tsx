@@ -5,7 +5,6 @@ import React, { useEffect, useState } from 'react'
 import { useKoordinatorTableFilterStore } from '../store/koordinator-table-filter-store'
 import {
 	getHovedveileder,
-	getHovedveilederNavn,
 	HAR_IKKE_VEILEDER_FILTER_TEKST, veilederNavn
 } from '../../../../utils/veileder-utils'
 import { FiltermenyDataEntry } from '../../../felles/table-filter/filtermeny-data-entry'

@@ -1,4 +1,4 @@
-import { TiltakDeltaker, TiltakDeltakerStatus } from '../../../../api/data/deltaker'
+import { TiltakDeltaker } from '../../../../api/data/deltaker'
 import React, { useEffect, useState } from 'react'
 import { useKoordinatorTableFilterStore } from '../store/koordinator-table-filter-store'
 import globalStyles from '../../../../globals.module.scss'
