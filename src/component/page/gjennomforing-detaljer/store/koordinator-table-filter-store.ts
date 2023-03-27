@@ -13,12 +13,12 @@ export const [ KoordinatorTableFilterStore, useKoordinatorTableFilterStore ] = c
 		return statusFilter.includes(brukerStatus)
 	}
 
-	const filtrerDeltakerePaStatus = (brukere: TiltakDeltaker[], statusFilter: string[]): TiltakDeltaker[] => {
+	const filtrerDeltakerePaStatus = (brukere: TiltakDeltaker[]): TiltakDeltaker[] => {
 		return brukere.filter(bruker => matcherStatus(statusFilter, bruker.status.type))
 	}
 
 	const filtrerDeltakere = (deltakere: TiltakDeltaker[]): TiltakDeltaker[] => {
-		const filtrertPaStatus = filtrerDeltakerePaStatus(deltakere, statusFilter)
+		const filtrertPaStatus = filtrerDeltakerePaStatus(deltakere)
 		const filtrertPaVeiledere = filtrerBrukerePaMedHovedveileder(filtrertPaStatus, veilederFilter)
 		const filtrertPaMedveileder = filtrerBrukerePaMedveileder(filtrertPaVeiledere, medveilederFilter)
 
@@ -32,6 +32,7 @@ export const [ KoordinatorTableFilterStore, useKoordinatorTableFilterStore ] = c
 		setMedveilederFilter,
 		statusFilter,
 		setStatusFilter,
+		filtrerDeltakerePaStatus,
 		filtrerDeltakere
 	}
 

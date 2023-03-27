@@ -16,7 +16,7 @@ interface Props {
 export const DeltakerePerVeilederTableFilter = (props: Props): React.ReactElement => {
 	const [ deltakerePerVeileder, setDeltakerePerVeileder ] = useState<FiltermenyDataEntry[]>([])
 
-	const { veilederFilter, setVeilederFilter } = useKoordinatorTableFilterStore()
+	const { veilederFilter, setVeilederFilter, filtrerDeltakerePaStatus, statusFilter } = useKoordinatorTableFilterStore()
 
 	useEffect(() => {
 		const map = new Map<string, FiltermenyDataEntry>()
@@ -26,7 +26,8 @@ export const DeltakerePerVeilederTableFilter = (props: Props): React.ReactElemen
 			entries: 0
 		})
 
-		props.deltakere.forEach((deltaker) => {
+		filtrerDeltakerePaStatus(props.deltakere)
+			.forEach((deltaker) => {
 			const hovedveileder = getHovedveileder(deltaker)
 
 			if (hovedveileder === undefined) {
@@ -48,7 +49,7 @@ export const DeltakerePerVeilederTableFilter = (props: Props): React.ReactElemen
 		})
 
 		setDeltakerePerVeileder([ ...map.values() ])
-	}, [ props.deltakere ])
+	}, [ props.deltakere, statusFilter ])
 
 	const leggTilVeileder = (veileder: string) => {
 		setVeilederFilter((prev) => {
