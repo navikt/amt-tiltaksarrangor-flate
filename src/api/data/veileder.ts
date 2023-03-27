@@ -1,8 +1,8 @@
 import { z } from 'zod'
 
 export enum Veiledertype {
-	VEILEDER = 'Veileder',
-	MEDVEILEDER = 'Medveileder'
+	VEILEDER = 'VEILEDER',
+	MEDVEILEDER = 'MEDVEILEDER'
 }
 
 export const veiledertypeSchema = z.nativeEnum(Veiledertype)
