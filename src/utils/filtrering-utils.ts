@@ -1,13 +1,8 @@
 import { TiltakDeltaker, TiltakDeltakerStatus, VeiledersDeltaker } from '../api/data/deltaker'
 import { tilVeiledertype } from './deltakerliste-utils'
 import { Veiledertype } from '../component/page/veileder/Veiledertype'
-import {
-	getHovedveileder,
-	getHovedveilederNavn,
-	getMedveiledereNavn,
-	HAR_IKKE_VEILEDER_FILTER_TEKST
-} from './veileder-utils'
-import { Veileder } from '../api/data/veileder';
+import { getHovedveileder, getMedveiledere, HAR_IKKE_VEILEDER_FILTER_TEKST } from './veileder-utils'
+import { Veileder } from '../api/data/veileder'
 
 
 const matcherStatus = (statusFilter: TiltakDeltakerStatus[], brukerStatus: TiltakDeltakerStatus) => {
@@ -16,17 +11,17 @@ const matcherStatus = (statusFilter: TiltakDeltakerStatus[], brukerStatus: Tilta
 }
 
 const matcherVeileder = (veilederFiltre: string[], brukersVeileder: Veileder) => {
-	console.log(veilederFiltre, brukersVeileder)
 	if (veilederFiltre.length === 0) return true
-	if(brukersVeileder === undefined) return veilederFiltre.includes(HAR_IKKE_VEILEDER_FILTER_TEKST)
+	if (brukersVeileder === undefined) return veilederFiltre.includes(HAR_IKKE_VEILEDER_FILTER_TEKST)
 	return veilederFiltre.includes(brukersVeileder?.ansattId)
 }
 
-const matcherMedveileder = (medveilederFiltre: string[], brukersMedveiledere: string[]) => {
-	if(medveilederFiltre.length === 0) return true
+const matcherMedveileder = (medveilederFiltre: string[], brukersMedveiledere: Veileder[]) => {
+
+	if (medveilederFiltre.length === 0) return true
 	let retVal = false
 	brukersMedveiledere.forEach(it => {
-		if(medveilederFiltre.includes(it)) retVal = true
+		if (medveilederFiltre.includes(it.ansattId)) retVal = true
 	})
 
 	return retVal
@@ -47,7 +42,7 @@ export const filtrerBrukerePaMedHovedveileder = (brukere: TiltakDeltaker[], veil
 }
 
 export const filtrerBrukerePaMedveileder = (brukere: TiltakDeltaker[], medveiledere: string[]): TiltakDeltaker[] => {
-	return brukere.filter(bruker => matcherMedveileder(medveiledere, getMedveiledereNavn(bruker)))
+	return brukere.filter(bruker => matcherMedveileder(medveiledere, getMedveiledere(bruker)))
 }
 
 export const filtrerBrukere = (brukere: TiltakDeltaker[], statusFilter: TiltakDeltakerStatus[]): TiltakDeltaker[] => {

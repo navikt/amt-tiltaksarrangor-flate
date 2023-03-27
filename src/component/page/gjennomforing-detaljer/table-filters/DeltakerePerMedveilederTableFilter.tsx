@@ -3,30 +3,53 @@ import React, { useEffect, useState } from 'react'
 import { useKoordinatorTableFilterStore } from '../store/koordinator-table-filter-store'
 import globalStyles from '../../../../globals.module.scss'
 import { FilterMeny } from '../../../felles/table-filter/FilterMeny'
-import { getMedveiledereNavn, HAR_IKKE_MEDVEILEDER_VILER_TEKST } from '../../../../utils/veileder-utils'
+import {
+	getMedveiledere,
+	getMedveiledereNavn,
+	HAR_IKKE_MEDVEILEDER_VILER_TEKST,
+	veilederNavn
+} from '../../../../utils/veileder-utils'
+import { FiltermenyDataEntry } from '../../../felles/table-filter/filtermeny-data-entry'
 
 interface Props {
-    deltakere: TiltakDeltaker[]
+	deltakere: TiltakDeltaker[]
 }
 
 export const DeltakerePerMedveilederTableFilter = (props: Props): React.ReactElement => {
-	const [ deltakerePerMedveileder, setDeltarerePerMedveileder ] = useState<Map<string, number>>(new Map())
+	const [ deltakerePerMedveileder, setDeltarerePerMedveileder ] = useState<FiltermenyDataEntry[]>([])
 
 	const { medveilederFilter, setMedveilederFilter } = useKoordinatorTableFilterStore()
 
 	useEffect(() => {
-		const map = new Map<string, number>()
-		map.set(HAR_IKKE_MEDVEILEDER_VILER_TEKST, 0)
-
-		props.deltakere.forEach((deltaker) => {
-			getMedveiledereNavn(deltaker).forEach(it => {
-				const entry = map.get(it)
-				map.set(it, entry ? entry + 1 : 1)
-			})
-
+		const map = new Map<string, FiltermenyDataEntry>()
+		map.set(HAR_IKKE_MEDVEILEDER_VILER_TEKST, {
+			id: HAR_IKKE_MEDVEILEDER_VILER_TEKST,
+			displayName: HAR_IKKE_MEDVEILEDER_VILER_TEKST,
+			entries: 0
 		})
 
-		setDeltarerePerMedveileder(map)
+		props.deltakere.forEach((deltaker) => {
+			const medveiledere = getMedveiledere(deltaker)
+
+			if (medveiledere.length === 0) {
+				const entry = map.get(HAR_IKKE_MEDVEILEDER_VILER_TEKST)!
+				map.set(HAR_IKKE_MEDVEILEDER_VILER_TEKST, {
+					...entry,
+					entries: entry.entries + 1
+				})
+			} else {
+				medveiledere.forEach(medveileder => {
+					const entry = map.get(medveileder.ansattId)
+					map.set(medveileder.ansattId, {
+						id: medveileder.ansattId,
+						displayName: veilederNavn(medveileder),
+						entries: entry ? entry.entries + 1 : 1
+					})
+				})
+			}
+		})
+
+		setDeltarerePerMedveileder([ ...map.values() ])
 	}, [ props.deltakere ])
 
 	const leggTilMedveileder = (veileder: string) => {

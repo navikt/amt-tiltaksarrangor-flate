@@ -2,7 +2,7 @@ import { Checkbox, CheckboxGroup } from '@navikt/ds-react'
 import React from 'react'
 import styles from './TableFilter.module.scss'
 import { CollapsablePanel } from '../closable-panel/CollapsablePanel'
-import { FiltermenyDataEntry } from './filtermeny-data-entry';
+import { FiltermenyDataEntry } from './filtermeny-data-entry'
 
 interface Props {
 	navn: string,

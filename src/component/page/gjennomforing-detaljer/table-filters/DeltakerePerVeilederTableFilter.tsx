@@ -8,16 +8,16 @@ import {
 	getHovedveilederNavn,
 	HAR_IKKE_VEILEDER_FILTER_TEKST, veilederNavn
 } from '../../../../utils/veileder-utils'
-import { FiltermenyDataEntry } from '../../../felles/table-filter/filtermeny-data-entry';
+import { FiltermenyDataEntry } from '../../../felles/table-filter/filtermeny-data-entry'
 
 interface Props {
 	deltakere: TiltakDeltaker[]
 }
 
 export const DeltakerePerVeilederTableFilter = (props: Props): React.ReactElement => {
-	const [deltakerePerVeileder, setDeltakerePerVeileder] = useState<FiltermenyDataEntry[]>([])
+	const [ deltakerePerVeileder, setDeltakerePerVeileder ] = useState<FiltermenyDataEntry[]>([])
 
-	const {veilederFilter, setVeilederFilter} = useKoordinatorTableFilterStore()
+	const { veilederFilter, setVeilederFilter } = useKoordinatorTableFilterStore()
 
 	useEffect(() => {
 		const map = new Map<string, FiltermenyDataEntry>()
@@ -31,7 +31,7 @@ export const DeltakerePerVeilederTableFilter = (props: Props): React.ReactElemen
 			const hovedveileder = getHovedveileder(deltaker)
 
 			if (hovedveileder === undefined) {
-				const entry = map.get(HAR_IKKE_VEILEDER_FILTER_TEKST)!!
+				const entry = map.get(HAR_IKKE_VEILEDER_FILTER_TEKST)!
 				map.set(HAR_IKKE_VEILEDER_FILTER_TEKST,
 					{
 						...entry,
@@ -48,15 +48,15 @@ export const DeltakerePerVeilederTableFilter = (props: Props): React.ReactElemen
 			}
 		})
 
-		setDeltakerePerVeileder([...map.values()])
-	}, [props.deltakere])
+		setDeltakerePerVeileder([ ...map.values() ])
+	}, [ props.deltakere ])
 
 	const leggTilVeileder = (veileder: string) => {
 		setVeilederFilter((prev) => {
 			if (prev.includes(veileder)) {
 				return prev
 			}
-			return [...prev, veileder]
+			return [ ...prev, veileder ]
 		})
 	}
 
