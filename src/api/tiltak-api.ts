@@ -9,8 +9,8 @@ import {
 	deltakerlisteVeilederSchema,
 	DeltakerOversikt,
 	deltakerOversiktSchema,
-	TiltakDeltaker,
 	deltakerSchema,
+	TiltakDeltaker,
 	tiltakDeltakereSchema,
 	VeiledersDeltaker
 } from './data/deltaker'
@@ -22,7 +22,7 @@ import {
 	Koordinator,
 	koordinatorListSchema,
 } from './data/tiltak'
-import { tilgjengeligeVeiledereSchema, TilgjengeligVeileder, Veileder, veiledereSchema } from './data/veileder'
+import { tilgjengeligeVeiledereSchema, TilgjengeligVeileder, Veileder } from './data/veileder'
 import { axiosInstance, logAndThrowError, parse } from './utils'
 
 export const fetchMineRoller = (): AxiosPromise<Rolle[]> => {
@@ -210,14 +210,6 @@ export const hentTilgjengeligeVeiledere = (gjennomforingId: string): AxiosPromis
 	return axiosInstance
 		.get(url)
 		.then(parse(tilgjengeligeVeiledereSchema))
-		.catch(err => logAndThrowError(err, url))
-}
-
-export const hentVeiledereForDeltaker = (deltakerId: string): AxiosPromise<Veileder[]> => {
-	const url = appUrl(`/amt-tiltak/api/tiltaksarrangor/veiledere?deltakerId=${deltakerId}`)
-	return axiosInstance
-		.get(url)
-		.then(parse(veiledereSchema))
 		.catch(err => logAndThrowError(err, url))
 }
 

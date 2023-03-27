@@ -5,7 +5,7 @@ import { RequestHandler } from 'msw/lib/types/handlers/RequestHandler'
 import { TiltakDeltaker, Deltaker } from '../../api/data/deltaker'
 import { DeltakerStatusAarsakType, EndringsmeldingType } from '../../api/data/endringsmelding'
 import { VIS_DRIFTSMELDING_TOGGLE_NAVN } from '../../api/data/feature-toggle'
-import { Veileder } from '../../api/data/veileder'
+import { Veileder, VeilederMedType, Veiledertype } from '../../api/data/veileder'
 import { appUrl } from '../../utils/url-utils'
 import {
 	mockDeltakerlisteVeileder,
@@ -206,11 +206,6 @@ export const mockHandlers: RequestHandler[] = [
 	rest.get(appUrl('/amt-tiltak/api/tiltaksarrangor/veiledere/tilgjengelig'), (req, res, ctx) => {
 		return res(ctx.delay(500), ctx.json(mockTilgjengeligeVeiledere))
 	}),
-	rest.get(appUrl('/amt-tiltak/api/tiltaksarrangor/veiledere'), (req, res, ctx) => {
-		const deltakerId = req.url.searchParams.get('deltakerId') as string
-		const veiledere = mockTiltakDeltakere.find(d => d.id === deltakerId)?.aktiveVeiledere
-		return res(ctx.delay(500), ctx.json(veiledere))
-	}),
 	rest.patch(appUrl('/amt-tiltak/api/tiltaksarrangor/veiledere'), (req, res, ctx) => {
 		const deltakerId = req.url.searchParams.get('deltakerId') as string
 		const body = req.body as { veiledere: Veileder[] }
@@ -256,6 +251,17 @@ const mapToDeltakerListView = (deltaker: MockTiltakDeltaker): TiltakDeltaker => 
 	}
 }
 
+const tilVeilederMedType = (veileder: Veileder): VeilederMedType => {
+	return {
+		ansattId: veileder.ansattId,
+		deltakerId: veileder.deltakerId,
+		veiledertype: veileder.erMedveileder ? Veiledertype.MEDVEILEDER : Veiledertype.VEILEDER,
+		fornavn: veileder.fornavn,
+		mellomnavn: veileder.mellomnavn,
+		etternavn: veileder.etternavn
+	}
+}
+
 const mapToDeltakerDetaljerView = (deltaker: MockTiltakDeltaker): Deltaker => {
 	return {
 		id: deltaker.id,
@@ -287,6 +293,7 @@ const mapToDeltakerDetaljerView = (deltaker: MockTiltakDeltaker): Deltaker => {
 				epost: deltaker.navVeileder?.epost
 			} : null
 		},
+		veiledere: deltaker.aktiveVeiledere.map(v => tilVeilederMedType(v)),
 		aktiveEndringsmeldinger: deltaker.aktiveEndringsmeldinger
 	}
 }

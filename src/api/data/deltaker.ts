@@ -3,7 +3,7 @@ import { z } from 'zod'
 import { dateSchema, nullableDateSchema } from '../utils'
 import { endringsmeldingSchema } from './endringsmelding'
 import { tiltakstypeSchema } from './tiltak'
-import { veilederSchema } from './veileder'
+import { veilederMedTypeSchema, veilederSchema } from './veileder'
 
 export enum TiltakDeltakerStatus {
 	VENTER_PA_OPPSTART = 'VENTER_PA_OPPSTART',
@@ -69,6 +69,7 @@ export const deltakerSchema = z.object({
 	bestillingTekst: z.string().nullable(),
 	fjernesDato: nullableDateSchema,
 	navInformasjon: navInformasjonSchema,
+	veiledere: z.array(veilederMedTypeSchema),
 	aktiveEndringsmeldinger: z.array(endringsmeldingSchema)
 })
 
