@@ -25,6 +25,7 @@ import {
 import {
 	DeltakerePerMedveilederTableFilter
 } from '../gjennomforing-detaljer/table-filters/DeltakerePerMedveilederTableFilter'
+import { DeltakerePerStatusTableFilter } from '../gjennomforing-detaljer/table-filters/DeltakerePerStatusTableFilter';
 
 export const DeltakerlisteDetaljerPage = (): React.ReactElement => {
 	const { setTilbakeTilUrl } = useTilbakelenkeStore()
@@ -79,6 +80,7 @@ export const DeltakerlisteDetaljerPage = (): React.ReactElement => {
 					<Heading size="small" level="2" className={globalStyles.blokkXs}>{deltakerliste.navn}</Heading>
 					<TiltakInfo gjennomforing={deltakerliste} className={globalStyles.blokkXs} />
 					<KoordinatorInfo deltakerlisteId={deltakerliste.id} />
+					<DeltakerePerStatusTableFilter deltakere={deltakere}/>
 					<FilterMenyStatus statusMap={deltakerePerStatus} className={globalStyles.blokkXs} />
 					<DeltakerePerVeilederTableFilter deltakere={deltakere}/>
 					<DeltakerePerMedveilederTableFilter deltakere={deltakere}/>

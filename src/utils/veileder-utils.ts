@@ -4,6 +4,15 @@ import { Veileder } from '../api/data/veileder'
 export const HAR_IKKE_VEILEDER_FILTER_TEKST = 'Uten Veileder'
 export const HAR_IKKE_MEDVEILEDER_VILER_TEKST = 'Uten Medveileder'
 
+
+export const getHovedveileder = (deltaker: TiltakDeltaker): Veileder => {
+	return deltaker.aktiveVeiledere.filter((t) => !t.erMedveileder)[0]
+}
+
+export const getMedveiledere = (deltaker: TiltakDeltaker): Veileder[] => {
+	return deltaker.aktiveVeiledere.filter((t) => t.erMedveileder)
+}
+
 export const getHovedveilederNavn = (deltaker: TiltakDeltaker): string => {
 	const hovedveileder = deltaker.aktiveVeiledere.filter((t) => !t.erMedveileder)[0]
 	return hovedveileder
@@ -18,7 +27,7 @@ export const getMedveiledereNavn = (deltaker: TiltakDeltaker): string[] => {
 		: [ HAR_IKKE_MEDVEILEDER_VILER_TEKST ]
 }
 
-const veilederNavn = (veileder: Veileder): string => {
+export const veilederNavn = (veileder: Veileder): string => {
 	if (veileder.mellomnavn === null) {
 		return veileder.fornavn + ' ' + veileder.etternavn
 	} else {

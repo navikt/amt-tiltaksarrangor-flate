@@ -2,7 +2,7 @@ import { TiltakDeltaker } from '../../../../api/data/deltaker'
 import React, { useEffect, useState } from 'react'
 import { useKoordinatorTableFilterStore } from '../store/koordinator-table-filter-store'
 import globalStyles from '../../../../globals.module.scss'
-import { TableFilter } from '../../../felles/table-filter/TableFilter'
+import { FilterMeny } from '../../../felles/table-filter/FilterMeny'
 import { getMedveiledereNavn, HAR_IKKE_MEDVEILEDER_VILER_TEKST } from '../../../../utils/veileder-utils'
 
 interface Props {
@@ -45,9 +45,9 @@ export const DeltakerePerMedveilederTableFilter = (props: Props): React.ReactEle
 	}
 
 	return (
-		<TableFilter
+		<FilterMeny
 			navn="Medveileder"
-			dataMap={deltakerePerMedveileder}
+			data={deltakerePerMedveileder}
 			className={globalStyles.blokkXs}
 			filter={medveilederFilter}
 			addFilter={leggTilMedveileder}

@@ -21,19 +21,17 @@ interface DeltakerOversiktTabellProps {
 
 export const DeltakerOversiktTabell = (props: DeltakerOversiktTabellProps): React.ReactElement<DeltakerOversiktTabellProps> => {
 	const { deltakere } = props
-	const { veilederFilter, medveilederFilter } = useKoordinatorTableFilterStore()
+	const { filtrerDeltakere, veilederFilter, medveilederFilter, statusFilter } = useKoordinatorTableFilterStore()
 	const { deltakerSortering, tiltakStatusFilter, setDeltakerSortering } = useTiltaksoversiktSokStore()
 	const [ deltakereBearbeidet, setDeltakereBearbeidet ] = useState<TiltakDeltaker[]>(sorterDeltakere(deltakere, deltakerSortering))
 
 	useEffect(() => {
 		if (!deltakere) return
-		const statusFiltrert = filtrerBrukere(deltakere, tiltakStatusFilter)
-		const veilederFiltrert = filtrerBrukerePaMedHovedveileder(statusFiltrert, veilederFilter)
-		const medveilederFiltrert = filtrerBrukerePaMedveileder(veilederFiltrert, medveilederFilter)
-		const sortert = sorterDeltakere(medveilederFiltrert, deltakerSortering)
+		const filtrerteDeltakere = filtrerDeltakere(deltakere)
+		const sortert = sorterDeltakere(filtrerteDeltakere, deltakerSortering)
 		setDeltakereBearbeidet(sortert)
 
-	}, [ deltakere, deltakerSortering, tiltakStatusFilter, veilederFilter, medveilederFilter ])
+	}, [ deltakere, deltakerSortering, tiltakStatusFilter, veilederFilter, medveilederFilter, statusFilter ])
 
 	const handleOnSortChange = (sortKey: string | undefined) => {
 		setDeltakerSortering(prevSort => finnNesteSortering(sortKey, prevSort))

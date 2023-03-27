@@ -1,7 +1,13 @@
 import { TiltakDeltaker, TiltakDeltakerStatus, VeiledersDeltaker } from '../api/data/deltaker'
 import { tilVeiledertype } from './deltakerliste-utils'
 import { Veiledertype } from '../component/page/veileder/Veiledertype'
-import { getHovedveilederNavn, getMedveiledereNavn } from './veileder-utils'
+import {
+	getHovedveileder,
+	getHovedveilederNavn,
+	getMedveiledereNavn,
+	HAR_IKKE_VEILEDER_FILTER_TEKST
+} from './veileder-utils'
+import { Veileder } from '../api/data/veileder';
 
 
 const matcherStatus = (statusFilter: TiltakDeltakerStatus[], brukerStatus: TiltakDeltakerStatus) => {
@@ -9,9 +15,11 @@ const matcherStatus = (statusFilter: TiltakDeltakerStatus[], brukerStatus: Tilta
 	return statusFilter.includes(brukerStatus)
 }
 
-const matcherVeileder = (veilederFiltre: string[], brukersVeileder: string) => {
+const matcherVeileder = (veilederFiltre: string[], brukersVeileder: Veileder) => {
+	console.log(veilederFiltre, brukersVeileder)
 	if (veilederFiltre.length === 0) return true
-	return veilederFiltre.includes(brukersVeileder)
+	if(brukersVeileder === undefined) return veilederFiltre.includes(HAR_IKKE_VEILEDER_FILTER_TEKST)
+	return veilederFiltre.includes(brukersVeileder?.ansattId)
 }
 
 const matcherMedveileder = (medveilederFiltre: string[], brukersMedveiledere: string[]) => {
@@ -35,7 +43,7 @@ const matcherVeiledertype = (veiledertypeFilter: Veiledertype[], veiledertype: V
 }
 
 export const filtrerBrukerePaMedHovedveileder = (brukere: TiltakDeltaker[], veiledere: string[]): TiltakDeltaker[] => {
-	return brukere.filter(bruker => matcherVeileder(veiledere, getHovedveilederNavn(bruker)))
+	return brukere.filter(bruker => matcherVeileder(veiledere, getHovedveileder(bruker)))
 }
 
 export const filtrerBrukerePaMedveileder = (brukere: TiltakDeltaker[], medveiledere: string[]): TiltakDeltaker[] => {
