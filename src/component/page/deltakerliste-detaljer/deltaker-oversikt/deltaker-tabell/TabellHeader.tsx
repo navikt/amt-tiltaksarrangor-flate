@@ -16,26 +16,26 @@ function fixedWidth(pixels: number): React.CSSProperties {
 export const TabellHeader = () => (
 	<Table.Header>
 		<Table.Row>
-			<Table.ColumnHeader sortKey={DeltakerKolonne.NAVN} style={dynamicWidth(230)} sortable>
+			<Table.ColumnHeader sortKey={DeltakerKolonne.NAVN} style={dynamicWidth(200)} sortable>
 				Etternavn, Fornavn
 			</Table.ColumnHeader>
-			<Table.ColumnHeader sortKey={DeltakerKolonne.FODSELSNUMMER} style={fixedWidth(128)} sortable>
+			<Table.ColumnHeader sortKey={DeltakerKolonne.FODSELSNUMMER} style={fixedWidth(90)} sortable>
 				Fødselsnr.
 			</Table.ColumnHeader>
-			<Table.ColumnHeader sortKey={DeltakerKolonne.SOKT_INN} style={fixedWidth(120)} sortable>
-				Søkt inn
+			<Table.ColumnHeader sortKey={DeltakerKolonne.SOKT_INN} style={fixedWidth(90)} sortable>
+				Søkt&nbsp;inn
 			</Table.ColumnHeader>
-			<Table.ColumnHeader sortKey={DeltakerKolonne.OPPSTART} style={fixedWidth(120)} sortable>
+			<Table.ColumnHeader sortKey={DeltakerKolonne.OPPSTART} style={fixedWidth(90)} sortable>
 				Oppstart
 			</Table.ColumnHeader>
-			<Table.ColumnHeader sortKey={DeltakerKolonne.SLUTT} style={fixedWidth(120)} sortable>
+			<Table.ColumnHeader sortKey={DeltakerKolonne.SLUTT} style={fixedWidth(90)} sortable>
 				Slutt
 			</Table.ColumnHeader>
-			<Table.ColumnHeader sortKey={DeltakerKolonne.STATUS} style={fixedWidth(168)} sortable>
+			<Table.ColumnHeader sortKey={DeltakerKolonne.STATUS} style={dynamicWidth(70)} sortable>
 				Status
 			</Table.ColumnHeader>
 			<Show if={toggle.veilederEnabled}>
-				<Table.ColumnHeader sortKey={DeltakerKolonne.VEILEDER} style={dynamicWidth(200)} sortable>
+				<Table.ColumnHeader sortKey={DeltakerKolonne.VEILEDER} style={dynamicWidth(160)} sortable>
 					Veileder
 				</Table.ColumnHeader>
 			</Show>

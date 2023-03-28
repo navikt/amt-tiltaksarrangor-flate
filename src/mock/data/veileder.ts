@@ -1,7 +1,7 @@
 import faker from 'faker'
 import { TilgjengeligVeileder, Veileder } from '../../api/data/veileder'
 import { randBetween } from '../utils/faker'
-import { ansattId, veilederId } from './id'
+import { ansattId } from './id'
 
 
 const lagMockTilgjengeligeVeiledere = (n: number): TilgjengeligVeileder[] => {
@@ -41,7 +41,6 @@ export const lagMockVeiledereForDeltaker = (deltakerId: string): Veileder[] => {
 
 				// eslint-disable-next-line  @typescript-eslint/no-non-null-assertion
 				...tilgjengelige.pop()!,
-				id: veilederId(),
 				deltakerId: deltakerId,
 				erMedveileder: false,
 			}
@@ -53,7 +52,6 @@ export const lagMockVeiledereForDeltaker = (deltakerId: string): Veileder[] => {
 			{
 				// eslint-disable-next-line  @typescript-eslint/no-non-null-assertion
 				...tilgjengelige.pop()!,
-				id: veilederId(),
 				deltakerId: deltakerId,
 				erMedveileder: true,
 			}

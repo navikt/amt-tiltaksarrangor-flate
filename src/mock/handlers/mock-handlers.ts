@@ -2,10 +2,10 @@ import dayjs from 'dayjs'
 import { rest } from 'msw'
 import { RequestHandler } from 'msw/lib/types/handlers/RequestHandler'
 
-import { TiltakDeltaker, TiltakDeltakerDetaljer } from '../../api/data/deltaker'
+import { TiltakDeltaker, Deltaker } from '../../api/data/deltaker'
 import { DeltakerStatusAarsakType, EndringsmeldingType } from '../../api/data/endringsmelding'
 import { VIS_DRIFTSMELDING_TOGGLE_NAVN } from '../../api/data/feature-toggle'
-import { Veileder } from '../../api/data/veileder'
+import { Veileder, VeilederMedType, Veiledertype } from '../../api/data/veileder'
 import { appUrl } from '../../utils/url-utils'
 import {
 	mockDeltakerlisteVeileder,
@@ -25,7 +25,7 @@ export const mockHandlers: RequestHandler[] = [
 	rest.get(appUrl('/auth/info'), (_req, res, ctx) => {
 		return res(ctx.delay(500), ctx.json(mockAuthInfo))
 	}),
-	rest.get(appUrl('/amt-tiltak/api/tiltaksarrangor/ansatt/meg/roller'), (_req, res, ctx) => {
+	rest.get(appUrl('/amt-tiltaksarrangor-bff/tiltaksarrangor/meg/roller'), (_req, res, ctx) => {
 		return res(ctx.delay(500), ctx.json(mockMineRoller))
 	}),
 	rest.get(appUrl('/amt-tiltak/api/tiltaksarrangor/gjennomforing/tilgjengelig'), (_req, res, ctx) => {
@@ -55,7 +55,7 @@ export const mockHandlers: RequestHandler[] = [
 	rest.get(appUrl('/amt-tiltak/api/tiltaksarrangor/gjennomforing/:gjennomforingId/koordinatorer'), (req, res, ctx) => {
 		return res(ctx.delay(500), ctx.json(mockKoordinatorer))
 	}),
-	rest.get(appUrl('/amt-tiltak/api/tiltaksarrangor/deltaker/:deltakerId'), (req, res, ctx) => {
+	rest.get(appUrl('/amt-tiltaksarrangor-bff/tiltaksarrangor/deltaker/:deltakerId'), (req, res, ctx) => {
 		const deltakerId = req.params['deltakerId']
 		const deltaker = mockTiltakDeltakere.find((d) => d.id === deltakerId)! // eslint-disable-line @typescript-eslint/no-non-null-assertion
 		const deltakerMedGjennomforing = mapToDeltakerDetaljerView(deltaker)
@@ -74,7 +74,7 @@ export const mockHandlers: RequestHandler[] = [
 	rest.get(appUrl('/amt-tiltak/api/tiltaksarrangor/deltakeroversikt'), (_req, res, ctx) => {
 		return res(ctx.delay(500), ctx.json(mockDeltakeroversikt))
 	}),
-	rest.get(appUrl('/amt-tiltak/api/tiltaksarrangor/veileder/deltakerliste'), (_req, res, ctx) => {
+	rest.get(appUrl('/amt-tiltaksarrangor-bff/tiltaksarrangor/veileder/mine-deltakere'), (_req, res, ctx) => {
 		return res(ctx.delay(500), ctx.json(mockDeltakerlisteVeileder))
 	}),
 	rest.get(appUrl('/amt-tiltak/api/tiltaksarrangor/endringsmelding'), (req, res, ctx) => {
@@ -197,19 +197,14 @@ export const mockHandlers: RequestHandler[] = [
 	rest.patch(appUrl('/amt-tiltak/api/tiltaksarrangor/deltaker/:deltakerId/skjul'), (req, res, ctx) => {
 		return res(ctx.delay(500), ctx.status(200))
 	}),
-	rest.get(appUrl('/amt-tiltak/api/tiltaksarrangor/endringsmelding/aktiv'), (req, res, ctx) => {
-		const deltakerId = req.url.searchParams.get('deltakerId') as string
+	rest.get(appUrl('/amt-tiltaksarrangor-bff/tiltaksarrangor/deltaker/:deltakerId/endringsmeldinger'), (req, res, ctx) => {
+		const deltakerId = req.params.deltakerId as string
 		const endringsmeldinger = mockTiltakDeltakere.find(d => d.id == deltakerId)?.aktiveEndringsmeldinger ?? []
 
 		return res(ctx.delay(500), ctx.json(endringsmeldinger))
 	}),
 	rest.get(appUrl('/amt-tiltak/api/tiltaksarrangor/veiledere/tilgjengelig'), (req, res, ctx) => {
 		return res(ctx.delay(500), ctx.json(mockTilgjengeligeVeiledere))
-	}),
-	rest.get(appUrl('/amt-tiltak/api/tiltaksarrangor/veiledere'), (req, res, ctx) => {
-		const deltakerId = req.url.searchParams.get('deltakerId') as string
-		const veiledere = mockTiltakDeltakere.find(d => d.id === deltakerId)?.aktiveVeiledere
-		return res(ctx.delay(500), ctx.json(veiledere))
 	}),
 	rest.patch(appUrl('/amt-tiltak/api/tiltaksarrangor/veiledere'), (req, res, ctx) => {
 		const deltakerId = req.url.searchParams.get('deltakerId') as string
@@ -256,24 +251,49 @@ const mapToDeltakerListView = (deltaker: MockTiltakDeltaker): TiltakDeltaker => 
 	}
 }
 
-const mapToDeltakerDetaljerView = (deltaker: MockTiltakDeltaker): TiltakDeltakerDetaljer => {
+const tilVeilederMedType = (veileder: Veileder): VeilederMedType => {
+	return {
+		ansattId: veileder.ansattId,
+		deltakerId: veileder.deltakerId,
+		veiledertype: veileder.erMedveileder ? Veiledertype.MEDVEILEDER : Veiledertype.VEILEDER,
+		fornavn: veileder.fornavn,
+		mellomnavn: veileder.mellomnavn,
+		etternavn: veileder.etternavn
+	}
+}
+
+const mapToDeltakerDetaljerView = (deltaker: MockTiltakDeltaker): Deltaker => {
 	return {
 		id: deltaker.id,
+		deltakerliste: {
+			id: deltaker.gjennomforing.id,
+			startDato: deltaker.gjennomforing.startDato,
+			sluttDato: deltaker.gjennomforing.sluttDato
+		},
 		fornavn: deltaker.fornavn,
 		mellomnavn: deltaker.mellomnavn,
 		etternavn: deltaker.etternavn,
 		fodselsnummer: deltaker.fodselsnummer,
+		telefonnummer: deltaker.telefonnummer,
+		epost: deltaker.epost,
+		status: deltaker.status,
 		startDato: deltaker.startDato,
 		sluttDato: deltaker.sluttDato,
 		deltakelseProsent: deltaker.deltakelseProsent,
-		status: deltaker.status,
-		registrertDato: deltaker.registrertDato,
-		epost: deltaker.epost,
-		telefonnummer: deltaker.telefonnummer,
-		navEnhet: deltaker.navEnhet,
-		navVeileder: deltaker.navVeileder,
-		gjennomforing: deltaker.gjennomforing,
+		soktInnPa: deltaker.gjennomforing.navn,
+		soktInnDato: deltaker.registrertDato,
+		tiltakskode: deltaker.gjennomforing.tiltak.tiltakskode,
+		bestillingTekst: deltaker.innsokBegrunnelse,
 		fjernesDato: deltaker.fjernesDato,
-		innsokBegrunnelse: deltaker.innsokBegrunnelse
+		navInformasjon: {
+			navkontor: deltaker.navEnhet?.navn ?? '',
+			navVeileder: deltaker.navVeileder?.navn ? {
+				navn: deltaker.navVeileder?.navn,
+				telefon: deltaker.navVeileder?.telefon,
+				epost: deltaker.navVeileder?.epost
+			} : null
+		},
+		veiledere: deltaker.aktiveVeiledere.map(v => tilVeilederMedType(v)),
+		aktiveEndringsmeldinger: deltaker.aktiveEndringsmeldinger
 	}
 }

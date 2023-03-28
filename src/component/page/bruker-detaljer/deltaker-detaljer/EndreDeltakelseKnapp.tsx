@@ -5,7 +5,7 @@ import { Button } from '@navikt/ds-react'
 import { Dropdown } from '@navikt/ds-react-internal'
 import React from 'react'
 
-import { TiltakDeltakerDetaljer, TiltakDeltakerStatus } from '../../../../api/data/deltaker'
+import { Deltaker, TiltakDeltakerStatus } from '../../../../api/data/deltaker'
 import { DropDownButton } from './DropDownButton'
 import styles from './EndreDeltakelseKnapp.module.scss'
 import { useModalData } from './modal-store'
@@ -14,7 +14,7 @@ import { EndringType } from './types'
 import { Tiltakskode } from '../../../../api/data/tiltak'
 
 interface EndreDeltakelseKnappProps {
-	deltaker: TiltakDeltakerDetaljer
+	deltaker: Deltaker
 	onEndringUtfort: () => void
 }
 
@@ -34,7 +34,7 @@ export const EndreDeltakelseKnapp = (props: EndreDeltakelseKnappProps) => {
 		|| deltaker.status.type === TiltakDeltakerStatus.IKKE_AKTUELL
 		|| deltaker.status.type === TiltakDeltakerStatus.DELTAR
 
-	const visGodkjennVilkaarPanel = deltaker.gjennomforing.tiltak.tiltakskode !== Tiltakskode.VASV
+	const visGodkjennVilkaarPanel = deltaker.tiltakskode !== Tiltakskode.VASV
 
 	return (
 		<>
@@ -79,7 +79,7 @@ export const EndreDeltakelseKnapp = (props: EndreDeltakelseKnappProps) => {
 									deltakerId: deltaker.id,
 									startDato: deltaker.startDato,
 									sluttDato: deltaker.sluttDato,
-									tiltakskode: deltaker.gjennomforing.tiltak.tiltakskode,
+									tiltakskode: deltaker.tiltakskode,
 									visGodkjennVilkaarPanel: visGodkjennVilkaarPanel,
 									onEndringUtfort: props.onEndringUtfort
 								})}/>
@@ -104,8 +104,8 @@ export const EndreDeltakelseKnapp = (props: EndreDeltakelseKnappProps) => {
 									onEndringUtfort: props.onEndringUtfort
 								})}/>
 						}
-						{(deltaker.gjennomforing.tiltak.tiltakskode === 'ARBFORB'
-								|| deltaker.gjennomforing.tiltak.tiltakskode === 'VASV') &&
+						{(deltaker.tiltakskode === 'ARBFORB'
+								|| deltaker.tiltakskode === 'VASV') &&
 							<DropDownButton
 								endringstype={EndringType.ENDRE_DELTAKELSE_PROSENT}
 								onClick={() => visEndreProsentDeltakelseModal({

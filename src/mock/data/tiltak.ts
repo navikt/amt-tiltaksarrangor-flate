@@ -5,9 +5,10 @@ import { arrangorForGjennomforing } from './arrangor'
 import { gjennomforingId } from './id'
 import { Deltakerliste, DeltakerOversikt, TiltakDeltakerStatus, VeiledersDeltaker } from '../../api/data/deltaker'
 import { MockTiltakDeltaker } from './brukere'
-import { randBetween, randomBoolean } from '../utils/faker'
+import { randBetween } from '../utils/faker'
 import { lagMockEndringsmeldingForDeltaker } from './endringsmelding'
 import { Endringsmelding } from '../../api/data/endringsmelding'
+import { Veiledertype } from '../../api/data/veileder'
 
 export type MockGjennomforing = Gjennomforing
 
@@ -170,8 +171,8 @@ export const lagMockDeltakerOversikt = (gjennomforinger: MockGjennomforing[], ve
 	const deltakerlister: Deltakerliste[] = []
 	gjennomforinger.forEach(t => deltakerlister.push(lagMockDeltakerliste(t)))
 
-	const antallVeilederFor = veiledersDeltakere.filter(deltaker => !deltaker.erMedveilederFor).length
-	const antallMedveilederFor = veiledersDeltakere.filter(deltaker => deltaker.erMedveilederFor).length
+	const antallVeilederFor = veiledersDeltakere.filter(deltaker => deltaker.veiledertype === Veiledertype.VEILEDER).length
+	const antallMedveilederFor = veiledersDeltakere.filter(deltaker => deltaker.veiledertype === Veiledertype.MEDVEILEDER).length
 	
 	return {
 		veilederInfo: {
@@ -214,8 +215,16 @@ const lagMockVeiledersDeltaker = (deltaker: MockTiltakDeltaker): VeiledersDeltak
 			type: deltaker.gjennomforing.tiltak.tiltaksnavn,
 			navn: deltaker.gjennomforing.navn
 		},
-		erMedveilederFor: randomBoolean(40),
+		veiledertype: getVeiledertype(),
 		aktiveEndringsmeldinger: getEndringsmeldinger()
+	}
+}
+
+const getVeiledertype = (): Veiledertype => {
+	if (randBetween(0, 10) < 3) {
+		return Veiledertype.MEDVEILEDER
+	} else {
+		return Veiledertype.VEILEDER
 	}
 }
 

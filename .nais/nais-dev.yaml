@@ -9,7 +9,7 @@ spec:
   image: ghcr.io/navikt/poao-frontend/poao-frontend:2023.01.13_08.09-36c09678654f
   port: 8080
   ingresses:
-    - https://amt.dev.nav.no/deltakeroversikt
+    - https://amt.intern.dev.nav.no/deltakeroversikt
   liveness:
     path: /internal/alive
     initialDelay: 10
@@ -30,7 +30,7 @@ spec:
   idporten:
     enabled: true
     postLogoutRedirectURIs:
-      - https://amt.dev.nav.no/deltakeroversikt
+      - https://amt.intern.dev.nav.no/deltakeroversikt
     sidecar:
       enabled: true
       autoLogin: true
@@ -44,6 +44,7 @@ spec:
     outbound:
       rules:
         - application: amt-tiltak
+        - application: amt-tiltaksarrangor-bff
         - application: poao-unleash
           namespace: poao
           cluster: dev-gcp
@@ -63,6 +64,10 @@ spec:
             {
               "fromPath": "/amt-tiltak", "toUrl": "http://amt-tiltak",
               "toApp": { "name": "amt-tiltak", "namespace": "amt", "cluster": "dev-gcp" }
+            },
+            {
+              "fromPath": "/amt-tiltaksarrangor-bff", "toUrl": "http://amt-tiltaksarrangor-bff",
+              "toApp": { "name": "amt-tiltaksarrangor-bff", "namespace": "amt", "cluster": "dev-gcp" }
             },
             {
               "fromPath": "/unleash",

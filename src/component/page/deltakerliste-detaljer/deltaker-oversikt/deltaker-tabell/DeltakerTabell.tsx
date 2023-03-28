@@ -11,6 +11,10 @@ interface Props {
 	onSortChange: (v: string | undefined) => void
 }
 
+/* 
+ * Det er en forholdsvis stor andel brukere med skjermbredde på 1280px så ideelt sett bør 
+ * tabellen ikke ha en horisontalscroll på skjermbredder >= 1280px
+ */
 export const DeltakerTabell = ({
 	deltakere,
 	sortering,

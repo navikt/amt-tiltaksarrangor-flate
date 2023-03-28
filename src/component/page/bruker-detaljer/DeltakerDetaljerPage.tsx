@@ -2,8 +2,8 @@ import { AxiosResponse } from 'axios'
 import React from 'react'
 import { useParams } from 'react-router-dom'
 
-import { TiltakDeltakerDetaljer } from '../../../api/data/deltaker'
-import { fetchTiltakDeltakerDetaljer } from '../../../api/tiltak-api'
+import { Deltaker } from '../../../api/data/deltaker'
+import { fetchDeltaker } from '../../../api/tiltak-api'
 import globalStyles from '../../../globals.module.scss'
 import { useTabTitle } from '../../../hooks/use-tab-title'
 import { isNotStartedOrPending, isRejected, usePromise } from '../../../utils/use-promise'
@@ -25,24 +25,24 @@ export const DeltakerDetaljerPage = (): React.ReactElement => {
 	useTabTitle('Deltakerdetaljer')
 	useStyle(globalStyles.whiteBackground, 'html')
 
-	const fetchTiltakDeltagerDetaljerPromise = usePromise<AxiosResponse<TiltakDeltakerDetaljer>>(
-		() => fetchTiltakDeltakerDetaljer(brukerId), [ brukerId ]
+	const fetchDeltakerPromise = usePromise<AxiosResponse<Deltaker>>(
+		() => fetchDeltaker(brukerId), [ brukerId ]
 	)
 
-	if (isNotStartedOrPending(fetchTiltakDeltagerDetaljerPromise)) {
+	if (isNotStartedOrPending(fetchDeltakerPromise)) {
 		return <SpinnerPage/>
 	}
 
-	if (isRejected(fetchTiltakDeltagerDetaljerPromise)) {
+	if (isRejected(fetchDeltakerPromise)) {
 		return <AlertPage variant="error" tekst="En feil oppstod"/>
 	}
 
-	const deltaker = fetchTiltakDeltagerDetaljerPromise.result.data
+	const deltaker = fetchDeltakerPromise.result.data
 
 	return (
 		<div data-testid="bruker-detaljer-page">
 			<DeltakerDetaljerHeader
-				deltakerlisteId={deltaker.gjennomforing.id}
+				deltakerlisteId={deltaker.deltakerliste.id}
 				fornavn={deltaker.fornavn}
 				mellomnavn={deltaker.mellomnavn}
 				etternavn={deltaker.etternavn}
@@ -50,7 +50,7 @@ export const DeltakerDetaljerPage = (): React.ReactElement => {
 				telefonnummer={deltaker.telefonnummer}
 				epost={deltaker.epost}
 			/>
-			<DeltakerlisteStoreProvider deltakerliste={deltaker.gjennomforing}>
+			<DeltakerlisteStoreProvider deltakerliste={deltaker.deltakerliste}>
 				<DeltakerDetaljer deltaker={deltaker} visTildeling={isKoordinator(roller)}/>
 			</DeltakerlisteStoreProvider>
 		</div>

@@ -1,10 +1,10 @@
 import constate from 'constate'
 import { useState } from 'react'
 
-import { Gjennomforing } from '../../../../api/data/tiltak'
+import { DeltakersDeltakerliste } from '../../../../api/data/deltaker'
 
-export const [ DeltakerlisteStoreProvider, useDeltakerlisteStore ] = constate((props: { deltakerliste: Gjennomforing }) => {
-	const [ deltakerliste ] = useState<Gjennomforing>(props.deltakerliste)
+export const [ DeltakerlisteStoreProvider, useDeltakerlisteStore ] = constate((props: { deltakerliste: DeltakersDeltakerliste }) => {
+	const [ deltakerliste ] = useState<DeltakersDeltakerliste>(props.deltakerliste)
 
 	return {
 		deltakerliste

@@ -24,7 +24,6 @@ export enum DeltakerStatusAarsakType {
     ANNET = 'ANNET'
 }
 
-
 export const deltakerStatusAarsakSchema = z.object({
 	type: z.nativeEnum(DeltakerStatusAarsakType),
 	beskrivelse: z.string().nullable()

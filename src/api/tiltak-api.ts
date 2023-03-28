@@ -5,13 +5,14 @@ import { Nullable } from '../utils/types/or-nothing'
 import { appUrl } from '../utils/url-utils'
 import { Rolle } from './data/ansatt'
 import {
+	Deltaker,
 	deltakerlisteVeilederSchema,
 	DeltakerOversikt,
 	deltakerOversiktSchema,
+	deltakerSchema,
 	TiltakDeltaker,
-	TiltakDeltakerDetaljer,
-	tiltakDeltakerDetaljerSchema,
-	tiltakDeltakereSchema, VeiledersDeltaker
+	tiltakDeltakereSchema,
+	VeiledersDeltaker
 } from './data/deltaker'
 import { DeltakerStatusAarsak, Endringsmelding, endringsmeldingerSchema } from './data/endringsmelding'
 import {
@@ -21,11 +22,11 @@ import {
 	Koordinator,
 	koordinatorListSchema,
 } from './data/tiltak'
-import { tilgjengeligeVeiledereSchema, TilgjengeligVeileder, Veileder, veiledereSchema } from './data/veileder'
+import { tilgjengeligeVeiledereSchema, TilgjengeligVeileder, Veileder } from './data/veileder'
 import { axiosInstance, logAndThrowError, parse } from './utils'
 
 export const fetchMineRoller = (): AxiosPromise<Rolle[]> => {
-	const url = appUrl('/amt-tiltak/api/tiltaksarrangor/ansatt/meg/roller')
+	const url = appUrl('/amt-tiltaksarrangor-bff/tiltaksarrangor/meg/roller')
 	return axiosInstance
 		.get(url)
 		.catch(err => {
@@ -103,23 +104,23 @@ export const fetchDeltakeroversikt = (): AxiosPromise<DeltakerOversikt> => {
 }
 
 export const fetchMineDeltakere = (): AxiosPromise<VeiledersDeltaker[]> => {
-	const url = appUrl('/amt-tiltak/api/tiltaksarrangor/veileder/deltakerliste')
+	const url = appUrl('/amt-tiltaksarrangor-bff/tiltaksarrangor/veileder/mine-deltakere')
 	return axiosInstance
 		.get(url)
 		.then(parse(deltakerlisteVeilederSchema))
 		.catch(err => logAndThrowError(err, url))
 }
 
-export const fetchTiltakDeltakerDetaljer = (tiltakDeltagerId: string): AxiosPromise<TiltakDeltakerDetaljer> => {
-	const url = appUrl(`/amt-tiltak/api/tiltaksarrangor/deltaker/${tiltakDeltagerId}`)
+export const fetchDeltaker = (deltakerId: string): AxiosPromise<Deltaker> => {
+	const url = appUrl(`/amt-tiltaksarrangor-bff/tiltaksarrangor/deltaker/${deltakerId}`)
 	return axiosInstance
 		.get(url)
-		.then(parse(tiltakDeltakerDetaljerSchema))
+		.then(parse(deltakerSchema))
 		.catch(err => logAndThrowError(err, url))
 }
 
 export const hentEndringsmeldinger = (deltakerId: string): AxiosPromise<Endringsmelding[]> => {
-	const url = appUrl(`/amt-tiltak/api/tiltaksarrangor/endringsmelding/aktiv?deltakerId=${deltakerId}`)
+	const url = appUrl(`/amt-tiltaksarrangor-bff/tiltaksarrangor/deltaker/${deltakerId}/endringsmeldinger`)
 	return axiosInstance
 		.get(url)
 		.then(parse(endringsmeldingerSchema))
@@ -209,14 +210,6 @@ export const hentTilgjengeligeVeiledere = (gjennomforingId: string): AxiosPromis
 	return axiosInstance
 		.get(url)
 		.then(parse(tilgjengeligeVeiledereSchema))
-		.catch(err => logAndThrowError(err, url))
-}
-
-export const hentVeiledereForDeltaker = (deltakerId: string): AxiosPromise<Veileder[]> => {
-	const url = appUrl(`/amt-tiltak/api/tiltaksarrangor/veiledere?deltakerId=${deltakerId}`)
-	return axiosInstance
-		.get(url)
-		.then(parse(veiledereSchema))
 		.catch(err => logAndThrowError(err, url))
 }
 
