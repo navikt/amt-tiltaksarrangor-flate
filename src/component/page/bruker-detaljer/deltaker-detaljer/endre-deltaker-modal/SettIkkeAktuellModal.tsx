@@ -34,7 +34,7 @@ export const SettIkkeAktuellModal = (props: SettIkkeAktuellModalProps & SettIkke
 		if (aarsak === DeltakerStatusAarsakType.ANNET && !beskrivelse) {
 			return Promise.reject()
 		}
-		return deltakerIkkeAktuell(deltakerId, { type: aarsak, beskrivelse: beskrivelse ?? null })
+		return deltakerIkkeAktuell(deltakerId, aarsak, (beskrivelse ?? null))
 			.then(onEndringUtfort)
 	}
 

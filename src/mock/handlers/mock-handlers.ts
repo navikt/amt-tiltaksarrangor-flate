@@ -155,7 +155,7 @@ export const mockHandlers: RequestHandler[] = [
 			deltaker.aktiveEndringsmeldinger.push({
 				id: randomUuid(),
 				type: EndringsmeldingType.AVSLUTT_DELTAKELSE,
-				innhold: { sluttdato: dayjs(body.sluttdato).toDate(), aarsak: body.aarsak }
+				innhold: { sluttdato: dayjs(body.sluttdato).toDate(), aarsak: body.aarsak.type, beskrivelse: body.aarsak.beskrivelse }
 			})
 		}
 
@@ -171,7 +171,7 @@ export const mockHandlers: RequestHandler[] = [
 			deltaker.aktiveEndringsmeldinger.push({
 				id: randomUuid(),
 				type: EndringsmeldingType.DELTAKER_IKKE_AKTUELL,
-				innhold: { aarsak: body.aarsak }
+				innhold: { aarsak: body.aarsak.type, beskrivelse: body.aarsak.beskrivelse }
 			})
 		}
 
@@ -197,8 +197,8 @@ export const mockHandlers: RequestHandler[] = [
 	rest.patch(appUrl('/amt-tiltak/api/tiltaksarrangor/deltaker/:deltakerId/skjul'), (req, res, ctx) => {
 		return res(ctx.delay(500), ctx.status(200))
 	}),
-	rest.get(appUrl('/amt-tiltak/api/tiltaksarrangor/endringsmelding/aktiv'), (req, res, ctx) => {
-		const deltakerId = req.url.searchParams.get('deltakerId') as string
+	rest.get(appUrl('/amt-tiltaksarrangor-bff/tiltaksarrangor/deltaker/:deltakerId/endringsmeldinger'), (req, res, ctx) => {
+		const deltakerId = req.params.deltakerId as string
 		const endringsmeldinger = mockTiltakDeltakere.find(d => d.id == deltakerId)?.aktiveEndringsmeldinger ?? []
 
 		return res(ctx.delay(500), ctx.json(endringsmeldinger))

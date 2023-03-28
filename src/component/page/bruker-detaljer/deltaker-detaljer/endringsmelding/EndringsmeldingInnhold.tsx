@@ -17,8 +17,8 @@ export interface EndringsmeldingInnholdProps {
 export const EndringsmeldingInnhold = (props: EndringsmeldingInnholdProps) => {
 	const { endringsmelding } = props
 
-	const getAarsakTekst = (aarsak : DeltakerStatusAarsak) => {
-		return aarsak.type === DeltakerStatusAarsakType.ANNET? aarsak.beskrivelse : aarsakTekstMapper(aarsak.type)
+	const getAarsakTekst = (aarsak : DeltakerStatusAarsak, beskrivelse: string) => {
+		return aarsak === DeltakerStatusAarsakType.ANNET ? beskrivelse : aarsakTekstMapper(aarsak)
 	}
 
 	switch (endringsmelding.type) {
@@ -47,14 +47,14 @@ export const EndringsmeldingInnhold = (props: EndringsmeldingInnholdProps) => {
 			return (
 				<>
 					<BodyShort size="small">Deltaker er ikke aktuell</BodyShort>
-					<BodyShort size="small">Årsak: {getAarsakTekst(endringsmelding.innhold.aarsak)}</BodyShort>
+					<BodyShort size="small">Årsak: {getAarsakTekst(endringsmelding.innhold.aarsak, endringsmelding.innhold.beskrivelse ?? '')}</BodyShort>
 				</>
 			)
 		case EndringsmeldingType.AVSLUTT_DELTAKELSE:
 			return (
 				<>
 					<BodyShort size="small">Avslutt deltakelse </BodyShort>
-					<BodyShort size="small">Årsak: {getAarsakTekst(endringsmelding.innhold.aarsak)}</BodyShort>
+					<BodyShort size="small">Årsak: {getAarsakTekst(endringsmelding.innhold.aarsak, endringsmelding.innhold.beskrivelse ?? '')}</BodyShort>
 					<BodyShort size="small">Ny sluttdato: {formatDate(endringsmelding.innhold.sluttdato)}</BodyShort>
 
 				</>

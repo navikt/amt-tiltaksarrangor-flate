@@ -120,7 +120,7 @@ export const fetchDeltaker = (deltakerId: string): AxiosPromise<Deltaker> => {
 }
 
 export const hentEndringsmeldinger = (deltakerId: string): AxiosPromise<Endringsmelding[]> => {
-	const url = appUrl(`/amt-tiltak/api/tiltaksarrangor/endringsmelding/aktiv?deltakerId=${deltakerId}`)
+	const url = appUrl(`/amt-tiltaksarrangor-bff/tiltaksarrangor/deltaker/${deltakerId}/endringsmeldinger`)
 	return axiosInstance
 		.get(url)
 		.then(parse(endringsmeldingerSchema))
@@ -167,22 +167,22 @@ export const forlengDeltakelse = (deltakerId: string, sluttDato: Date): AxiosPro
 		.catch(err => logAndThrowError(err, url))
 }
 
-export const avsluttDeltakelse = (deltakerId: string, sluttDato: Date, aarsak: DeltakerStatusAarsak): AxiosPromise => {
+export const avsluttDeltakelse = (deltakerId: string, sluttDato: Date, aarsak: DeltakerStatusAarsak, beskrivelse: string | null): AxiosPromise => {
 	const url = appUrl(`/amt-tiltak/api/tiltaksarrangor/deltaker/${deltakerId}/avslutt-deltakelse`)
 	return axiosInstance
 		.patch(
 			url,
-			{ sluttdato: formatDateToDateInputStr(sluttDato), aarsak: aarsak },
+			{ sluttdato: formatDateToDateInputStr(sluttDato), aarsak: { type: aarsak, beskrivelse: beskrivelse } },
 		)
 		.catch(err => logAndThrowError(err, url))
 }
 
-export const deltakerIkkeAktuell = (deltakerId: string, aarsak: DeltakerStatusAarsak): AxiosPromise => {
+export const deltakerIkkeAktuell = (deltakerId: string, aarsak: DeltakerStatusAarsak, beskrivelse: string | null): AxiosPromise => {
 	const url = appUrl(`/amt-tiltak/api/tiltaksarrangor/deltaker/${deltakerId}/ikke-aktuell`)
 	return axiosInstance
 		.patch(
 			url,
-			{ aarsak },
+			{ aarsak: { type: aarsak, beskrivelse: beskrivelse } },
 		)
 		.catch(err => logAndThrowError(err, url))
 }
