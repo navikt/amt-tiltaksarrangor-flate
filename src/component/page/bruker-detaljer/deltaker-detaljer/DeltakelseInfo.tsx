@@ -2,10 +2,9 @@ import { Alert, Button, Loader } from '@navikt/ds-react'
 import { AxiosResponse } from 'axios'
 import React, { useState } from 'react'
 
-import { DeltakerStatus, TiltakDeltakerDetaljer, TiltakDeltakerStatus } from '../../../../api/data/deltaker'
+import { Deltaker, TiltakDeltakerStatus } from '../../../../api/data/deltaker'
 import { skjulDeltaker } from '../../../../api/tiltak-api'
 import { formatDate } from '../../../../utils/date-utils'
-import { Nullable } from '../../../../utils/types/or-nothing'
 import {
 	isNotStarted,
 	isPending,
@@ -21,17 +20,13 @@ import { Endringsmeldinger } from './endringsmelding/Endringsmeldinger'
 import { FjernDeltakerModal } from './fjern-deltaker-modal/FjernDeltakerModal'
 
 interface DeltakelseInfoProps {
-	deltaker: TiltakDeltakerDetaljer
-	status: DeltakerStatus
-	fjernesDato: Nullable<Date>
+	deltaker: Deltaker
 }
 
 export const DeltakelseInfo = ({
-	deltaker,
-	status,
-	fjernesDato
+	deltaker
 }: DeltakelseInfoProps): React.ReactElement => {
-	const [ reloadEndringsmeldinger, setReloadEndringsmeldinger ] = useState(true)
+	const [ reloadEndringsmeldinger, setReloadEndringsmeldinger ] = useState(false)
 	const [ visFjernDeltakerModal, setVisFjernDeltakerModal ] = useState(false)
 
 	const skjulDeltakerPromise = usePromise<AxiosResponse>()
@@ -46,10 +41,10 @@ export const DeltakelseInfo = ({
 	}
 
 	const skalViseDeltakelsesprosent = [ 'ARBFORB', 'VASV' ]
-		.includes(deltaker.gjennomforing.tiltak.tiltakskode)
+		.includes(deltaker.tiltakskode)
 
 	const erIkkeAktuellEllerHarSluttet = [ TiltakDeltakerStatus.IKKE_AKTUELL, TiltakDeltakerStatus.HAR_SLUTTET ]
-		.includes(status.type)
+		.includes(deltaker.status.type)
 
 	return (
 		<div className={styles.section}>
@@ -57,7 +52,7 @@ export const DeltakelseInfo = ({
 			<div className={styles.deltakerInfoWrapper}>
 				<div className={styles.elementWrapper}>
 					<ElementPanel tittel="Status:">
-						<StatusMerkelapp status={status} />
+						<StatusMerkelapp status={deltaker.status} />
 					</ElementPanel>
 					<ElementPanel tittel="Dato:">
 						<span>{formatDate(deltaker.startDato)} - {formatDate(deltaker.sluttDato)}</span>
@@ -76,13 +71,13 @@ export const DeltakelseInfo = ({
 
 			<div className={styles.body}>
 				<Endringsmeldinger
-					deltakerId={deltaker.id}
+					deltaker={deltaker}
 					setReloadEndringsmeldinger={setReloadEndringsmeldinger}
 					reloadEndringsmeldinger={reloadEndringsmeldinger}
 				/>
 				{(erIkkeAktuellEllerHarSluttet && isNotStarted(skjulDeltakerPromise)) &&
 					<Alert variant="warning" size="small" className={styles.statusAlert}>
-						Deltakeren fjernes fra listen {formatDate(fjernesDato)}
+						Deltakeren fjernes fra listen {formatDate(deltaker.fjernesDato)}
 						<Button
 							variant="tertiary"
 							className={styles.fjernDeltakerKnapp}

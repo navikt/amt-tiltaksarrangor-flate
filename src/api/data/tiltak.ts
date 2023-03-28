@@ -21,7 +21,7 @@ export enum TiltakGjennomforingStatus {
 
 const tiltakGjennomforingStatusSchema = z.nativeEnum(TiltakGjennomforingStatus)
 
-const tiltakstypeSchema = z.nativeEnum(Tiltakskode)
+export const tiltakstypeSchema = z.nativeEnum(Tiltakskode)
 
 
 export const tiltakSchema = z.object({

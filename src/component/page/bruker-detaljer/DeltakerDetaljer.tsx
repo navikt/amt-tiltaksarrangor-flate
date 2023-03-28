@@ -1,8 +1,8 @@
 import { BodyShort, Label } from '@navikt/ds-react'
 import React from 'react'
 
-import { TiltakDeltakerDetaljer } from '../../../api/data/deltaker'
-import { Gjennomforing } from '../../../api/data/tiltak'
+import { Deltaker } from '../../../api/data/deltaker'
+import { Tiltakskode } from '../../../api/data/tiltak'
 import { formatDate } from '../../../utils/date-utils'
 import { Show } from '../../felles/Show'
 import { Bestilling } from './bestilling/Bestilling'
@@ -13,35 +13,31 @@ import { VeilederPanel } from './veileder-panel/VeilederPanel'
 import toggle from '../../../utils/toggle'
 
 export const DeltakerDetaljer = (props: {
-	deltaker: TiltakDeltakerDetaljer,
+	deltaker: Deltaker,
 	visTildeling: boolean,
 }): React.ReactElement => {
 	const {
-		navEnhet, navVeileder, gjennomforing, registrertDato, status, fjernesDato,
-		innsokBegrunnelse
+		navInformasjon, soktInnPa, soktInnDato, bestillingTekst, tiltakskode
 	} = props.deltaker
-
 
 	return (
 		<div className={styles.detaljer}>
 			<section className={styles.section}>
 				<DeltakelseInfo
 					deltaker={props.deltaker}
-					status={status}
-					fjernesDato={fjernesDato}
 				/>
 				<div className={styles.innsokt}>
-					<BodyShort size="small"><Label as="span" size="small">Søkt inn på:</Label> {gjennomforing.navn}</BodyShort>
-					<BodyShort size="small"><Label as="span" size="small">Dato:</Label> {formatDate(registrertDato)}</BodyShort>
+					<BodyShort size="small"><Label as="span" size="small">Søkt inn på:</Label> {soktInnPa}</BodyShort>
+					<BodyShort size="small"><Label as="span" size="small">Dato:</Label> {formatDate(soktInnDato)}</BodyShort>
 				</div>
 
-				<Show if={visBestilling(gjennomforing)} >
-					<Bestilling tekst={innsokBegrunnelse} />
+				<Show if={visBestilling(tiltakskode)} >
+					<Bestilling tekst={bestillingTekst} />
 				</Show>
 			</section>
 
 			<section>
-				<NavInfoPanel navEnhet={navEnhet} navVeileder={navVeileder} />
+				<NavInfoPanel navkontor={navInformasjon.navkontor} navVeileder={navInformasjon.navVeileder} />
 				<Show if={toggle.veilederEnabled}>
 					<VeilederPanel deltaker={props.deltaker} visTildeling={props.visTildeling}/>
 				</Show>
@@ -50,6 +46,6 @@ export const DeltakerDetaljer = (props: {
 	)
 }
 
-const visBestilling = (gjennomforing: Gjennomforing) => {
-	return gjennomforing.tiltak.tiltakskode !== 'DIGIOPPARB'
+const visBestilling = (tiltakskode: Tiltakskode) => {
+	return tiltakskode !== 'DIGIOPPARB'
 }

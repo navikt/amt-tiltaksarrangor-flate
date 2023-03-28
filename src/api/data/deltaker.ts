@@ -2,8 +2,8 @@ import { z } from 'zod'
 
 import { dateSchema, nullableDateSchema } from '../utils'
 import { endringsmeldingSchema } from './endringsmelding'
-import { Gjennomforing } from './tiltak'
-import { veilederSchema } from './veileder'
+import { tiltakstypeSchema } from './tiltak'
+import { veilederMedTypeSchema, veilederSchema } from './veileder'
 
 export enum TiltakDeltakerStatus {
 	VENTER_PA_OPPSTART = 'VENTER_PA_OPPSTART',
@@ -17,6 +17,17 @@ const tiltakDeltakerStatusSchema = z.nativeEnum(TiltakDeltakerStatus)
 export const deltakerStatusSchema = z.object({
 	type: tiltakDeltakerStatusSchema,
 	endretDato: dateSchema,
+})
+
+export const navVeilederSchema = z.object({
+	navn: z.string(),
+	telefon: z.string().nullable(),
+	epost: z.string().nullable(),
+})
+
+export const navInformasjonSchema = z.object({
+	navkontor: z.string().nullable(),
+	navVeileder: navVeilederSchema.nullable()
 })
 
 export const tiltakDeltakerSchema = z.object({
@@ -33,34 +44,33 @@ export const tiltakDeltakerSchema = z.object({
 	aktiveVeiledere: z.array(veilederSchema),
 })
 
-export const tiltakDeltakerDetaljerSchema = z.object({
+export const deltakersDeltakerlisteSchema = z.object({
 	id: z.string().uuid(),
+	startDato: nullableDateSchema,
+	sluttDato: nullableDateSchema,
+})
+
+export const deltakerSchema = z.object({
+	id: z.string().uuid(),
+	deltakerliste: deltakersDeltakerlisteSchema,
 	fornavn: z.string(),
 	mellomnavn: z.string().nullable(),
 	etternavn: z.string(),
 	fodselsnummer: z.string(),
+	telefonnummer: z.string().nullable(),
+	epost: z.string().nullable(),
+	status: deltakerStatusSchema,
 	startDato: nullableDateSchema,
 	sluttDato: nullableDateSchema,
 	deltakelseProsent: z.number().nullable(),
-	status: deltakerStatusSchema,
-	registrertDato: dateSchema,
-	epost: z.string().nullable(),
-	telefonnummer: z.string().nullable(),
-	navEnhet: z.custom<NavEnhet>().nullable(),
-	navVeileder: z.custom<NavVeileder>().nullable(),
-	gjennomforing: z.custom<Gjennomforing>(),
+	soktInnPa: z.string(),
+	soktInnDato: dateSchema,
+	tiltakskode: tiltakstypeSchema,
+	bestillingTekst: z.string().nullable(),
 	fjernesDato: nullableDateSchema,
-	innsokBegrunnelse: z.string().nullable()
-})
-
-export const navEnhetSchema = z.object({
-	navn: z.string(),
-})
-
-export const navVeilederSchema = z.object({
-	navn: z.string(),
-	telefon: z.string().nullable(),
-	epost: z.string().nullable(),
+	navInformasjon: navInformasjonSchema,
+	veiledere: z.array(veilederMedTypeSchema),
+	aktiveEndringsmeldinger: z.array(endringsmeldingSchema)
 })
 
 export const veilederInfoSchema = z.object({
@@ -103,11 +113,11 @@ export const tiltakDeltakereSchema = z.array(tiltakDeltakerSchema)
 
 export type NavVeileder = z.infer<typeof navVeilederSchema>
 
-export type NavEnhet = z.infer<typeof navEnhetSchema>
+export type DeltakersDeltakerliste = z.infer<typeof deltakersDeltakerlisteSchema>
 
 export type TiltakDeltaker = z.infer<typeof tiltakDeltakerSchema>
 
-export type TiltakDeltakerDetaljer = z.infer<typeof tiltakDeltakerDetaljerSchema>
+export type Deltaker = z.infer<typeof deltakerSchema>
 
 export type DeltakerStatus = z.infer<typeof deltakerStatusSchema>
 
