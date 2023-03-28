@@ -28,12 +28,14 @@ export const VeilederFiltermenyDeltakerliste = (props: Props): ReactElement => {
 		return dataMap
 	}
 
-	const filtrerDeltakere = (deltakere: VeiledersDeltaker[]): VeiledersDeltaker[] => {
-		const filtrertPaStatus = filtrerDeltakerePaStatus(deltakere)
-		return filtrerDeltakerePaVeiledertype(filtrertPaStatus)
-	}
-
 	useEffect(() => {
+
+		const filtrerDeltakere = (deltakere: VeiledersDeltaker[]): VeiledersDeltaker[] => {
+			const filtrertPaStatus = filtrerDeltakerePaStatus(deltakere)
+			return filtrerDeltakerePaVeiledertype(filtrertPaStatus)
+		}
+
+
 		const data = createInitialDataMap(props.deltakere)
 		filtrerDeltakere(props.deltakere).forEach((deltaker: VeiledersDeltaker) => {
 			const deltakerliste = deltaker.deltakerliste
@@ -48,7 +50,7 @@ export const VeilederFiltermenyDeltakerliste = (props: Props): ReactElement => {
 		})
 
 		setDeltakerlister([ ...data.values() ])
-	}, [ props.deltakere, statusFilter, veiledertypeFilter ])
+	}, [ props.deltakere, statusFilter, veiledertypeFilter, filtrerDeltakerePaStatus, filtrerDeltakerePaVeiledertype ])
 
 
 	const leggTil = (deltakerliste: string) => {

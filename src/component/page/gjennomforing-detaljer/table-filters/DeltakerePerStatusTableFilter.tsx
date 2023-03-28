@@ -19,7 +19,7 @@ export const DeltakerePerStatusTableFilter = (props: Props): React.ReactElement 
 		setStatusFilter,
 		medveilederFilter,
 		veilederFilter,
-		filtrerBrukerePaMedHovedveileder,
+		filtrerBrukerePaMedHovedveileder: filtrerBrukerePaHovedveileder,
 		filtrerBrukerePaMedveileder
 	} = useKoordinatorTableFilterStore()
 
@@ -39,12 +39,12 @@ export const DeltakerePerStatusTableFilter = (props: Props): React.ReactElement 
 		return dataMap
 	}
 
-	const filtrerDeltakere = (deltakere: TiltakDeltaker[]): TiltakDeltaker[] => {
-		const filtrertPaHovedveileder = filtrerBrukerePaMedHovedveileder(deltakere)
-		return filtrerBrukerePaMedveileder(filtrertPaHovedveileder)
-	}
-
 	useEffect(() => {
+		const filtrerDeltakere = (deltakere: TiltakDeltaker[]): TiltakDeltaker[] => {
+			const filtrertPaHovedveileder = filtrerBrukerePaHovedveileder(deltakere)
+			return filtrerBrukerePaMedveileder(filtrertPaHovedveileder)
+		}
+
 		const statusMap = createInitialDataMap(props.deltakere)
 
 		filtrerDeltakere(props.deltakere).forEach((deltaker: TiltakDeltaker) => {
@@ -60,7 +60,7 @@ export const DeltakerePerStatusTableFilter = (props: Props): React.ReactElement 
 		})
 
 		setDeltakerePerStatus([ ...statusMap.values() ])
-	}, [ props.deltakere, medveilederFilter, veilederFilter ])
+	}, [ props.deltakere, medveilederFilter, veilederFilter, filtrerBrukerePaHovedveileder, filtrerBrukerePaMedveileder ])
 
 	const leggTil = (status: string) => {
 		setStatusFilter((prev) => {

@@ -46,12 +46,12 @@ export const DeltakerePerVeilederTableFilter = (props: Props): React.ReactElemen
 		return dataMap
 	}
 
-	const filtrerDeltakere = (deltakere: TiltakDeltaker[]): TiltakDeltaker[] => {
-		const filtrertPaStatus = filtrerDeltakerePaStatus(deltakere)
-		return filtrerBrukerePaMedveileder(filtrertPaStatus)
-	}
-
 	useEffect(() => {
+		const filtrerDeltakere = (deltakere: TiltakDeltaker[]): TiltakDeltaker[] => {
+			const filtrertPaStatus = filtrerDeltakerePaStatus(deltakere)
+			return filtrerBrukerePaMedveileder(filtrertPaStatus)
+		}
+
 		const map = createInitialDataMap(props.deltakere)
 
 		filtrerDeltakere(props.deltakere)
@@ -59,12 +59,14 @@ export const DeltakerePerVeilederTableFilter = (props: Props): React.ReactElemen
 				const hovedveileder = getHovedveileder(deltaker)
 
 				if (hovedveileder === undefined) {
-					const entry = map.get(HAR_IKKE_VEILEDER_FILTER_TEKST)!
-					map.set(HAR_IKKE_VEILEDER_FILTER_TEKST,
-						{
-							...entry,
-							entries: entry.entries + 1
-						})
+					const entry = map.get(HAR_IKKE_VEILEDER_FILTER_TEKST)
+					if(entry !== undefined) {
+						map.set(HAR_IKKE_VEILEDER_FILTER_TEKST,
+							{
+								...entry,
+								entries: entry.entries + 1
+							})
+					}
 				} else {
 					const entry = map.get(hovedveileder.ansattId)
 					map.set(hovedveileder.ansattId, {
@@ -77,7 +79,7 @@ export const DeltakerePerVeilederTableFilter = (props: Props): React.ReactElemen
 			})
 
 		setDeltakerePerVeileder([ ...map.values() ])
-	}, [ props.deltakere, statusFilter, medveilederFilter ])
+	}, [ props.deltakere, statusFilter, medveilederFilter, filtrerBrukerePaMedveileder, filtrerDeltakerePaStatus ])
 
 	const leggTil = (veileder: string) => {
 		setVeilederFilter((prev) => {

@@ -23,34 +23,34 @@ export const VeilederFiltermenyVeilederType = (props: Props): React.ReactElement
 		filtrerDeltakerePaStatus
 	} = useVeilederTableFilterStore()
 
-	const createInitialDataMap = (deltakere: VeiledersDeltaker[]): Map<string, FiltermenyDataEntry> => {
-		const dataMap = new Map<string, FiltermenyDataEntry>()
-		deltakere.forEach((deltaker) => {
-			const veilederType = tilVeiledertype(deltaker.erMedveilederFor)
-			dataMap.set(veilederType, {
-				id: veilederType,
-				displayName: displayName(veilederType),
-				entries: 0
-			})
-		})
-
-		return dataMap
-	}
-
-	const displayName = (veilederType: Veiledertype): string => {
-		if (veilederType === Veiledertype.MEDVEILEDER) {
-			return 'Medveileder'
-		} else {
-			return 'Veileder'
-		}
-	}
-
-	const filtrerDeltakere = (deltakere: VeiledersDeltaker[]): VeiledersDeltaker[] => {
-		const filtrertPaStatus = filtrerDeltakerePaStatus(deltakere)
-		return filtrerDeltakerePaDeltakerliste(filtrertPaStatus)
-	}
-
 	useEffect(() => {
+		const createInitialDataMap = (deltakere: VeiledersDeltaker[]): Map<string, FiltermenyDataEntry> => {
+			const dataMap = new Map<string, FiltermenyDataEntry>()
+			deltakere.forEach((deltaker) => {
+				const veilederType = tilVeiledertype(deltaker.erMedveilederFor)
+				dataMap.set(veilederType, {
+					id: veilederType,
+					displayName: displayName(veilederType),
+					entries: 0
+				})
+			})
+
+			return dataMap
+		}
+
+		const displayName = (veilederType: Veiledertype): string => {
+			if (veilederType === Veiledertype.MEDVEILEDER) {
+				return 'Medveileder'
+			} else {
+				return 'Veileder'
+			}
+		}
+
+		const filtrerDeltakere = (deltakere: VeiledersDeltaker[]): VeiledersDeltaker[] => {
+			const filtrertPaStatus = filtrerDeltakerePaStatus(deltakere)
+			return filtrerDeltakerePaDeltakerliste(filtrertPaStatus)
+		}
+
 		const data = createInitialDataMap(props.deltakere)
 		filtrerDeltakere(props.deltakere).forEach((deltaker: VeiledersDeltaker) => {
 			const veilederType = tilVeiledertype(deltaker.erMedveilederFor)
@@ -63,7 +63,7 @@ export const VeilederFiltermenyVeilederType = (props: Props): React.ReactElement
 		})
 
 		setDeltakerePerVeiledertype([ ...data.values() ])
-	}, [ props.deltakere, statusFilter, deltakerlisteFilter ])
+	}, [ props.deltakere, statusFilter, deltakerlisteFilter, filtrerDeltakerePaDeltakerliste, filtrerDeltakerePaStatus ])
 
 	const leggTil = (veiledertype: string) => {
 		setVeiledertypeFilter((prev) => {
