@@ -3,31 +3,57 @@ import React, { useEffect, useState } from 'react'
 import { useKoordinatorTableFilterStore } from '../store/koordinator-table-filter-store'
 import globalStyles from '../../../../globals.module.scss'
 import { FilterMeny } from '../../../felles/table-filter/FilterMeny'
-import {
-	getMedveiledere,
-	HAR_IKKE_MEDVEILEDER_VILER_TEKST,
-	veilederNavn
-} from '../../../../utils/veileder-utils'
+import { getMedveiledere, HAR_IKKE_MEDVEILEDER_VILER_TEKST, veilederNavn } from '../../../../utils/veileder-utils'
 import { FiltermenyDataEntry } from '../../../felles/table-filter/filtermeny-data-entry'
 
 interface Props {
 	deltakere: TiltakDeltaker[]
 }
 
-export const DeltakerePerMedveilederTableFilter = (props: Props): React.ReactElement => {
+export const KoordinatorFiltermenyMedveileder = (props: Props): React.ReactElement => {
 	const [ deltakerePerMedveileder, setDeltarerePerMedveileder ] = useState<FiltermenyDataEntry[]>([])
 
-	const { medveilederFilter, setMedveilederFilter } = useKoordinatorTableFilterStore()
+	const {
+		medveilederFilter,
+		setMedveilederFilter,
+		statusFilter,
+		veilederFilter,
+		filtrerBrukerePaMedHovedveileder,
+		filtrerDeltakerePaStatus
+	} = useKoordinatorTableFilterStore()
 
-	useEffect(() => {
-		const map = new Map<string, FiltermenyDataEntry>()
-		map.set(HAR_IKKE_MEDVEILEDER_VILER_TEKST, {
+	const createInitialDataMap = (deltakere: TiltakDeltaker[]): Map<string, FiltermenyDataEntry> => {
+		const dataMap = new Map<string, FiltermenyDataEntry>()
+		dataMap.set(HAR_IKKE_MEDVEILEDER_VILER_TEKST, {
 			id: HAR_IKKE_MEDVEILEDER_VILER_TEKST,
 			displayName: HAR_IKKE_MEDVEILEDER_VILER_TEKST,
 			entries: 0
 		})
 
-		props.deltakere.forEach((deltaker) => {
+		deltakere.forEach((deltaker) => {
+			const medveiledere = getMedveiledere(deltaker)
+			medveiledere.forEach(medveileder => {
+				dataMap.set(medveileder.ansattId, {
+					id: medveileder.ansattId,
+					displayName: veilederNavn(medveileder),
+					entries: 0
+				})
+			})
+
+		})
+
+		return dataMap
+	}
+
+	const filtrerDeltakere = (deltakere: TiltakDeltaker[]): TiltakDeltaker[] => {
+		const filtrertPaStatus = filtrerDeltakerePaStatus(deltakere)
+		return filtrerBrukerePaMedHovedveileder(filtrertPaStatus)
+	}
+
+	useEffect(() => {
+		const map = createInitialDataMap(props.deltakere)
+
+		filtrerDeltakere(props.deltakere).forEach((deltaker) => {
 			const medveiledere = getMedveiledere(deltaker)
 
 			if (medveiledere.length === 0) {
@@ -49,9 +75,9 @@ export const DeltakerePerMedveilederTableFilter = (props: Props): React.ReactEle
 		})
 
 		setDeltarerePerMedveileder([ ...map.values() ])
-	}, [ props.deltakere ])
+	}, [ props.deltakere, statusFilter, veilederFilter ])
 
-	const leggTilMedveileder = (veileder: string) => {
+	const leggTil = (veileder: string) => {
 		setMedveilederFilter((prev) => {
 			if (prev.includes(veileder)) {
 				return prev
@@ -60,7 +86,7 @@ export const DeltakerePerMedveilederTableFilter = (props: Props): React.ReactEle
 		})
 	}
 
-	const fjernMedveileder = (veileder: string) => {
+	const fjern = (veileder: string) => {
 		setMedveilederFilter((prev) => {
 			return prev.filter((v) => v !== veileder)
 		})
@@ -72,8 +98,8 @@ export const DeltakerePerMedveilederTableFilter = (props: Props): React.ReactEle
 			data={deltakerePerMedveileder}
 			className={globalStyles.blokkXs}
 			filter={medveilederFilter}
-			addFilter={leggTilMedveileder}
-			removeFilter={fjernMedveileder}
+			addFilter={leggTil}
+			removeFilter={fjern}
 		/>
 	)
 }

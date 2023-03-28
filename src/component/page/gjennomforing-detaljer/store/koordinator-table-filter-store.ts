@@ -1,7 +1,8 @@
 import constate from 'constate'
 import { useState } from 'react'
 import { TiltakDeltaker } from '../../../../api/data/deltaker'
-import { filtrerBrukerePaMedHovedveileder, filtrerBrukerePaMedveileder } from '../../../../utils/filtrering-utils'
+import { getHovedveileder, getMedveiledere, HAR_IKKE_VEILEDER_FILTER_TEKST } from '../../../../utils/veileder-utils'
+import { Veileder } from '../../../../api/data/veileder'
 
 export const [ KoordinatorTableFilterStore, useKoordinatorTableFilterStore ] = constate(() => {
 	const [ veilederFilter, setVeilederFilter ] = useState<string[]>([])
@@ -13,14 +14,41 @@ export const [ KoordinatorTableFilterStore, useKoordinatorTableFilterStore ] = c
 		return statusFilter.includes(brukerStatus)
 	}
 
+	const matcherVeileder = (veilederFiltre: string[], brukersVeileder: Veileder) => {
+		if (veilederFiltre.length === 0) return true
+		if (brukersVeileder === undefined) return veilederFiltre.includes(HAR_IKKE_VEILEDER_FILTER_TEKST)
+		return veilederFiltre.includes(brukersVeileder?.ansattId)
+	}
+
+	const matcherMedveileder = (medveilederFiltre: string[], brukersMedveiledere: Veileder[]) => {
+
+		if (medveilederFiltre.length === 0) return true
+		let retVal = false
+		brukersMedveiledere.forEach(it => {
+			if (medveilederFiltre.includes(it.ansattId)) retVal = true
+		})
+
+		return retVal
+	}
+
 	const filtrerDeltakerePaStatus = (brukere: TiltakDeltaker[]): TiltakDeltaker[] => {
 		return brukere.filter(bruker => matcherStatus(statusFilter, bruker.status.type))
 	}
 
+	const filtrerBrukerePaMedHovedveileder = (brukere: TiltakDeltaker[]): TiltakDeltaker[] => {
+		return brukere.filter(bruker => matcherVeileder(veilederFilter, getHovedveileder(bruker)))
+	}
+
+
+	const filtrerBrukerePaMedveileder = (brukere: TiltakDeltaker[]): TiltakDeltaker[] => {
+		return brukere.filter(bruker => matcherMedveileder(medveilederFilter, getMedveiledere(bruker)))
+	}
+
+
 	const filtrerDeltakere = (deltakere: TiltakDeltaker[]): TiltakDeltaker[] => {
 		const filtrertPaStatus = filtrerDeltakerePaStatus(deltakere)
-		const filtrertPaVeiledere = filtrerBrukerePaMedHovedveileder(filtrertPaStatus, veilederFilter)
-		const filtrertPaMedveileder = filtrerBrukerePaMedveileder(filtrertPaVeiledere, medveilederFilter)
+		const filtrertPaVeiledere = filtrerBrukerePaMedHovedveileder(filtrertPaStatus)
+		const filtrertPaMedveileder = filtrerBrukerePaMedveileder(filtrertPaVeiledere)
 
 		return filtrertPaMedveileder
 	}
@@ -33,6 +61,8 @@ export const [ KoordinatorTableFilterStore, useKoordinatorTableFilterStore ] = c
 		statusFilter,
 		setStatusFilter,
 		filtrerDeltakerePaStatus,
+		filtrerBrukerePaMedHovedveileder,
+		filtrerBrukerePaMedveileder,
 		filtrerDeltakere
 	}
 

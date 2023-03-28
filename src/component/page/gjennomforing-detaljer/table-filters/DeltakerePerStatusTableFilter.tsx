@@ -8,17 +8,46 @@ import { FiltermenyDataEntry } from '../../../felles/table-filter/filtermeny-dat
 import { klikkFilterMeny, loggKlikk } from '../../../../utils/amplitude-utils'
 
 interface Props {
-    deltakere: TiltakDeltaker[]
+	deltakere: TiltakDeltaker[]
 }
 
 export const DeltakerePerStatusTableFilter = (props: Props): React.ReactElement => {
 	const [ deltakerePerStatus, setDeltakerePerStatus ] = useState<FiltermenyDataEntry[]>([])
 
-	const { statusFilter, setStatusFilter } = useKoordinatorTableFilterStore()
+	const {
+		statusFilter,
+		setStatusFilter,
+		medveilederFilter,
+		veilederFilter,
+		filtrerBrukerePaMedHovedveileder,
+		filtrerBrukerePaMedveileder
+	} = useKoordinatorTableFilterStore()
+
+	const createInitialDataMap = (deltakere: TiltakDeltaker[]): Map<string, FiltermenyDataEntry> => {
+		const dataMap = new Map<string, FiltermenyDataEntry>()
+
+		deltakere.forEach((deltaker) => {
+			const status = deltaker.status.type
+			const statusTekst = mapTiltakDeltagerStatusTilTekst(status)
+			dataMap.set(statusTekst, {
+				id: status,
+				displayName: statusTekst,
+				entries: 0
+			})
+		})
+
+		return dataMap
+	}
+
+	const filtrerDeltakere = (deltakere: TiltakDeltaker[]): TiltakDeltaker[] => {
+		const filtrertPaHovedveileder = filtrerBrukerePaMedHovedveileder(deltakere)
+		return filtrerBrukerePaMedveileder(filtrertPaHovedveileder)
+	}
 
 	useEffect(() => {
-		const statusMap = new Map<string, FiltermenyDataEntry>()
-		props.deltakere.forEach((deltaker: TiltakDeltaker) => {
+		const statusMap = createInitialDataMap(props.deltakere)
+
+		filtrerDeltakere(props.deltakere).forEach((deltaker: TiltakDeltaker) => {
 			const status = deltaker.status.type
 			const statusTekst = mapTiltakDeltagerStatusTilTekst(status)
 			const entry = statusMap.get(statusTekst)
@@ -31,9 +60,9 @@ export const DeltakerePerStatusTableFilter = (props: Props): React.ReactElement 
 		})
 
 		setDeltakerePerStatus([ ...statusMap.values() ])
-	}, [ props.deltakere ])
+	}, [ props.deltakere, medveilederFilter, veilederFilter ])
 
-	const leggTilStatus = (status: string) => {
+	const leggTil = (status: string) => {
 		setStatusFilter((prev) => {
 			if (prev.includes(status)) {
 				return prev
@@ -43,7 +72,7 @@ export const DeltakerePerStatusTableFilter = (props: Props): React.ReactElement 
 		loggKlikk(klikkFilterMeny, status, 'checked')
 	}
 
-	const fjernStatus = (status: string) => {
+	const fjern = (status: string) => {
 		setStatusFilter((prev) => {
 			return prev.filter((v) => v !== status)
 		})
@@ -56,8 +85,8 @@ export const DeltakerePerStatusTableFilter = (props: Props): React.ReactElement 
 			data={deltakerePerStatus}
 			className={globalStyles.blokkXs}
 			filter={statusFilter}
-			addFilter={leggTilStatus}
-			removeFilter={fjernStatus}
+			addFilter={leggTil}
+			removeFilter={fjern}
 		/>
 	)
 }

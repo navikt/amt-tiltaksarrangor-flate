@@ -21,8 +21,8 @@ import {
 	DeltakerePerVeilederTableFilter
 } from '../gjennomforing-detaljer/table-filters/DeltakerePerVeilederTableFilter'
 import {
-	DeltakerePerMedveilederTableFilter
-} from '../gjennomforing-detaljer/table-filters/DeltakerePerMedveilederTableFilter'
+	KoordinatorFiltermenyMedveileder
+} from '../gjennomforing-detaljer/table-filters/KoordinatorFiltermenyMedveileder'
 import { DeltakerePerStatusTableFilter } from '../gjennomforing-detaljer/table-filters/DeltakerePerStatusTableFilter'
 
 export const DeltakerlisteDetaljerPage = (): React.ReactElement => {
@@ -78,7 +78,7 @@ export const DeltakerlisteDetaljerPage = (): React.ReactElement => {
 					<KoordinatorInfo deltakerlisteId={deltakerliste.id} />
 					<DeltakerePerStatusTableFilter deltakere={deltakere}/>
 					<DeltakerePerVeilederTableFilter deltakere={deltakere}/>
-					<DeltakerePerMedveilederTableFilter deltakere={deltakere}/>
+					<KoordinatorFiltermenyMedveileder deltakere={deltakere}/>
 				</section>
 
 				<DeltakerOversiktTabell deltakere={deltakere} />
