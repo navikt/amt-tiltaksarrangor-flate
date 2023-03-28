@@ -8,17 +8,45 @@ import globalStyles from '../../../../globals.module.scss'
 import { useVeilederTableFilterStore } from '../store/veileder-table-filter-store'
 
 interface Props {
-    deltakere: VeiledersDeltaker[]
+	deltakere: VeiledersDeltaker[]
 }
 
 export const VeilederFiltermenyStatus = (props: Props): React.ReactElement => {
-	const [ deltakerePerStatus, setDeltakerePerStatus ] = useState<FiltermenyDataEntry[]>([])
+	const [deltakerePerStatus, setDeltakerePerStatus] = useState<FiltermenyDataEntry[]>([])
 
-	const { statusFilter, setStatusFilter } = useVeilederTableFilterStore()
+	const {
+		statusFilter,
+		veiledertypeFilter,
+		deltakerlisteFilter,
+		setStatusFilter,
+		filtrerDeltakerePaDeltakerliste,
+		filtrerDeltakerePaVeiledertype
+	} = useVeilederTableFilterStore()
+
+	const createInitialDataMap = (deltakere: VeiledersDeltaker[]): Map<string, FiltermenyDataEntry> => {
+		const dataMap = new Map<string, FiltermenyDataEntry>()
+		deltakere.forEach((deltaker) => {
+			const status = deltaker.status.type
+			const statusTekst = mapTiltakDeltagerStatusTilTekst(status)
+			dataMap.set(statusTekst, {
+				id: status,
+				displayName: statusTekst,
+				entries: 0
+			})
+		})
+
+		return dataMap
+	}
+
+	const filtrerDeltakere = (deltakere: VeiledersDeltaker[]): VeiledersDeltaker[] => {
+		const filtrertPaDeltakerliste = filtrerDeltakerePaDeltakerliste(deltakere)
+		return filtrerDeltakerePaVeiledertype(filtrertPaDeltakerliste)
+	}
 
 	useEffect(() => {
-		const statusMap = new Map<string, FiltermenyDataEntry>()
-		props.deltakere.forEach((deltaker: VeiledersDeltaker) => {
+		const statusMap = createInitialDataMap(props.deltakere)
+
+		filtrerDeltakere(props.deltakere).forEach((deltaker: VeiledersDeltaker) => {
 			const status = deltaker.status.type
 			const statusTekst = mapTiltakDeltagerStatusTilTekst(status)
 			const entry = statusMap.get(statusTekst)
@@ -30,20 +58,20 @@ export const VeilederFiltermenyStatus = (props: Props): React.ReactElement => {
 			})
 		})
 
-		setDeltakerePerStatus([ ...statusMap.values() ])
-	}, [ props.deltakere ])
+		setDeltakerePerStatus([...statusMap.values()])
+	}, [props.deltakere, veiledertypeFilter, deltakerlisteFilter])
 
-	const leggTilStatus = (status: string) => {
+	const leggTil = (status: string) => {
 		setStatusFilter((prev) => {
 			if (prev.includes(status)) {
 				return prev
 			}
-			return [ ...prev, status ]
+			return [...prev, status]
 		})
 		loggKlikk(klikkFilterMeny, status, 'checked')
 	}
 
-	const fjernStatus = (status: string) => {
+	const fjern = (status: string) => {
 		setStatusFilter((prev) => {
 			return prev.filter((v) => v !== status)
 		})
@@ -56,8 +84,8 @@ export const VeilederFiltermenyStatus = (props: Props): React.ReactElement => {
 			data={deltakerePerStatus}
 			className={globalStyles.blokkXs}
 			filter={statusFilter}
-			addFilter={leggTilStatus}
-			removeFilter={fjernStatus}
+			addFilter={leggTil}
+			removeFilter={fjern}
 		/>
 	)
 }
