@@ -3,7 +3,7 @@ import { z } from 'zod'
 import { dateSchema, nullableDateSchema } from '../utils'
 import { endringsmeldingSchema } from './endringsmelding'
 import { tiltakstypeSchema } from './tiltak'
-import { veilederMedTypeSchema, veilederSchema } from './veileder'
+import { veilederMedTypeSchema, veilederSchema, veiledertypeSchema } from './veileder'
 
 export enum TiltakDeltakerStatus {
 	VENTER_PA_OPPSTART = 'VENTER_PA_OPPSTART',
@@ -103,7 +103,7 @@ export const veiledersDeltakerSchema = z.object({
 	sluttDato: nullableDateSchema,
 	status: deltakerStatusSchema,
 	deltakerliste: deltakerlisteSchema,
-	erMedveilederFor: z.boolean(),
+	veiledertype: veiledertypeSchema,
 	aktiveEndringsmeldinger: z.array(endringsmeldingSchema)
 })
 

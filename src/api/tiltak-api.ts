@@ -104,7 +104,7 @@ export const fetchDeltakeroversikt = (): AxiosPromise<DeltakerOversikt> => {
 }
 
 export const fetchMineDeltakere = (): AxiosPromise<VeiledersDeltaker[]> => {
-	const url = appUrl('/amt-tiltak/api/tiltaksarrangor/veileder/deltakerliste')
+	const url = appUrl('/amt-tiltaksarrangor-bff/tiltaksarrangor/veileder/mine-deltakere')
 	return axiosInstance
 		.get(url)
 		.then(parse(deltakerlisteVeilederSchema))
