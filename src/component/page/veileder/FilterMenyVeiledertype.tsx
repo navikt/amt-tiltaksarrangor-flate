@@ -4,7 +4,7 @@ import React from 'react'
 import { useTiltaksoversiktSokStore } from '../../../store/tiltaksoversikt-sok-store'
 import { klikkVeiledertypeFilterMeny, loggKlikk } from '../../../utils/amplitude-utils'
 import styles from './FilterMenyDeltakerliste.module.scss'
-import { Veiledertype } from './Veiledertype'
+import { Veiledertype } from '../../../api/data/veileder'
 
 interface Props {
 	veiledertypeMap: Map<Veiledertype, number>
@@ -37,7 +37,7 @@ export const FilterMenyVeiledertype = (props: Props): React.ReactElement => {
 				value={veiledertype.valueOf()}
 			>
 				<span className={styles.content}>
-					<span>{veiledertype}</span>
+					<span>{getVeiledertypeVisningsnavn(veiledertype)}</span>
 					<span className={styles.occurrences}>{antallDeltakere}</span>
 				</span>
 			</Checkbox>
@@ -52,4 +52,8 @@ export const FilterMenyVeiledertype = (props: Props): React.ReactElement => {
 			</CheckboxGroup>
 		</Panel>
 	)
+}
+
+const getVeiledertypeVisningsnavn = (veiledertype: Veiledertype) : string => {
+	return veiledertype.substring(0,1).toUpperCase() + veiledertype.substring(1).toLowerCase()
 }
