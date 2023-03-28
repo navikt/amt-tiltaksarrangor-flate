@@ -1,24 +1,24 @@
-import { TiltakDeltaker } from '../../../../api/data/deltaker'
+import { VeiledersDeltaker } from '../../../../api/data/deltaker'
 import React, { useEffect, useState } from 'react'
-import { useKoordinatorTableFilterStore } from '../store/koordinator-table-filter-store'
-import globalStyles from '../../../../globals.module.scss'
-import { FilterMeny } from '../../../felles/table-filter/FilterMeny'
-import { mapTiltakDeltagerStatusTilTekst } from '../../../../utils/text-mappers'
 import { FiltermenyDataEntry } from '../../../felles/table-filter/filtermeny-data-entry'
+import { mapTiltakDeltagerStatusTilTekst } from '../../../../utils/text-mappers'
 import { klikkFilterMeny, loggKlikk } from '../../../../utils/amplitude-utils'
+import { FilterMeny } from '../../../felles/table-filter/FilterMeny'
+import globalStyles from '../../../../globals.module.scss'
+import { useVeilederTableFilterStore } from '../store/veileder-table-filter-store'
 
 interface Props {
-    deltakere: TiltakDeltaker[]
+    deltakere: VeiledersDeltaker[]
 }
 
-export const DeltakerePerStatusTableFilter = (props: Props): React.ReactElement => {
+export const VeilederFiltermenyStatus = (props: Props): React.ReactElement => {
 	const [ deltakerePerStatus, setDeltakerePerStatus ] = useState<FiltermenyDataEntry[]>([])
 
-	const { statusFilter, setStatusFilter } = useKoordinatorTableFilterStore()
+	const { statusFilter, setStatusFilter } = useVeilederTableFilterStore()
 
 	useEffect(() => {
 		const statusMap = new Map<string, FiltermenyDataEntry>()
-		props.deltakere.forEach((deltaker: TiltakDeltaker) => {
+		props.deltakere.forEach((deltaker: VeiledersDeltaker) => {
 			const status = deltaker.status.type
 			const statusTekst = mapTiltakDeltagerStatusTilTekst(status)
 			const entry = statusMap.get(statusTekst)

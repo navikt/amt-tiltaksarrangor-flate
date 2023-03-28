@@ -28,28 +28,28 @@ export const DeltakerePerVeilederTableFilter = (props: Props): React.ReactElemen
 
 		filtrerDeltakerePaStatus(props.deltakere)
 			.forEach((deltaker) => {
-			const hovedveileder = getHovedveileder(deltaker)
+				const hovedveileder = getHovedveileder(deltaker)
 
-			if (hovedveileder === undefined) {
-				const entry = map.get(HAR_IKKE_VEILEDER_FILTER_TEKST)!
-				map.set(HAR_IKKE_VEILEDER_FILTER_TEKST,
-					{
-						...entry,
-						entries: entry.entries + 1
+				if (hovedveileder === undefined) {
+					const entry = map.get(HAR_IKKE_VEILEDER_FILTER_TEKST)!
+					map.set(HAR_IKKE_VEILEDER_FILTER_TEKST,
+						{
+							...entry,
+							entries: entry.entries + 1
+						})
+				} else {
+					const entry = map.get(hovedveileder.ansattId)
+					map.set(hovedveileder.ansattId, {
+						id: hovedveileder.ansattId,
+						displayName: veilederNavn(hovedveileder),
+						entries: entry ? entry.entries + 1 : 1
 					})
-			} else {
-				const entry = map.get(hovedveileder.ansattId)
-				map.set(hovedveileder.ansattId, {
-					id: hovedveileder.ansattId,
-					displayName: veilederNavn(hovedveileder),
-					entries: entry ? entry.entries + 1 : 1
-				})
 
-			}
-		})
+				}
+			})
 
 		setDeltakerePerVeileder([ ...map.values() ])
-	}, [ props.deltakere, statusFilter ])
+	}, [ props.deltakere, statusFilter, filtrerDeltakerePaStatus ])
 
 	const leggTilVeileder = (veileder: string) => {
 		setVeilederFilter((prev) => {

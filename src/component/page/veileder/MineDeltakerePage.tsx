@@ -10,19 +10,15 @@ import styles from './MineDeltakerePage.module.scss'
 import { MineDeltakereTabell } from './MineDeltakereTabell'
 import { Detail, Heading } from '@navikt/ds-react'
 import globalStyles from '../../../globals.module.scss'
-import { FilterMenyStatus } from '../deltakerliste-detaljer/FilterMenyStatus'
-import {
-	getAntallVeiledersDeltakerePerStatus,
-	getDeltakerePerDeltakerliste,
-	getDeltakerePerVeilederType
-} from '../../../utils/deltakerliste-utils'
-import { FilterMenyDeltakerliste } from './FilterMenyDeltakerliste'
-import { FilterMenyVeiledertype } from './FilterMenyVeiledertype'
 import { useStyle } from '../../../utils/use-style'
 import { useTilbakelenkeStore } from '../../../store/tilbakelenke-store'
 import { MINE_DELTAKERLISTER_PAGE_ROUTE } from '../../../navigation'
 import { useInnloggetBrukerStore } from '../../../store/innlogget-bruker-store'
 import { isKoordinatorAndVeileder } from '../../../utils/rolle-utils'
+import { VeilederFiltermenyStatus } from './table-filters/VeilederFiltermenyStatus'
+import { VeilederTableFilterStore } from './store/veileder-table-filter-store'
+import { VeilederFiltermenyVeilederType } from './table-filters/VeilederFiltermenyVeilederType'
+import { VeilederFiltermenyDeltakerliste } from './table-filters/VeilederFiltermenyDeltakerliste'
 
 export const MineDeltakerePage = (): React.ReactElement => {
 	const { setTilbakeTilUrl } = useTilbakelenkeStore()
@@ -55,22 +51,24 @@ export const MineDeltakerePage = (): React.ReactElement => {
 
 	const mineDeltakere = fetchMineDeltakerePromise.result.data
 
-	const deltakerePerStatus = getAntallVeiledersDeltakerePerStatus(mineDeltakere)
-
-	const deltakerePerDeltakerliste = getDeltakerePerDeltakerliste(mineDeltakere)
-
-	const deltakerePerVeilederType = getDeltakerePerVeilederType(mineDeltakere)
+	const showDeltakerlisteFilter = mineDeltakere
+		.map((deltaker) => deltaker.deltakerliste.id)
+		.filter((item, i, ar) => ar.indexOf(item) === i)
+		.length > 1
 
 	return (
-		<div className={styles.deltakerlisteVeileder} data-testid="deltakerliste-veileder-page">
-			<section className={styles.infoSection}>
-				<Detail><b>Veileder:</b></Detail>
-				<Heading size="medium" level="2" className={globalStyles.blokkXs}>Mine deltakere</Heading>
-				<FilterMenyStatus statusMap={deltakerePerStatus} className={globalStyles.blokkXs} />
-				{ deltakerePerDeltakerliste.size > 1 && <FilterMenyDeltakerliste deltakerlisteMap={deltakerePerDeltakerliste} className={globalStyles.blokkXs} /> }
-				<FilterMenyVeiledertype veiledertypeMap={deltakerePerVeilederType} className={globalStyles.blokkXs} />
-			</section>
-			<MineDeltakereTabell mineDeltakere={mineDeltakere} />
-		</div>
+		<VeilederTableFilterStore>
+			<div className={styles.deltakerlisteVeileder} data-testid="deltakerliste-veileder-page">
+				<section className={styles.infoSection}>
+					<Detail><b>Veileder:</b></Detail>
+					<Heading size="medium" level="2" className={globalStyles.blokkXs}>Mine deltakere</Heading>
+					<VeilederFiltermenyStatus deltakere={mineDeltakere}/>
+					{showDeltakerlisteFilter &&
+						<VeilederFiltermenyDeltakerliste deltakere={mineDeltakere}/>}
+					<VeilederFiltermenyVeilederType deltakere={mineDeltakere}/>
+				</section>
+				<MineDeltakereTabell mineDeltakere={mineDeltakere}/>
+			</div>
+		</VeilederTableFilterStore>
 	)
 }
