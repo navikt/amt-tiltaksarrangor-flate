@@ -44,7 +44,7 @@ export const AvsluttDeltakelseModal = (props: AvsluttDeltakelseModalProps & Avsl
 			return Promise.reject('Beskrivelse er påkrevd for å sende AvsluttDeltakelse endringsmelding med årsak ANNET')
 		}
 		const nyAarsak = { beskrivelse: beskrivelse ?? null, type: aarsak }
-		return avsluttDeltakelse(deltakerId, sluttDato, nyAarsak.type, nyAarsak.beskrivelse).then(onEndringUtfort)
+		return avsluttDeltakelse(deltakerId, sluttDato, nyAarsak).then(onEndringUtfort)
 	}
 
 	const onAarsakSelected = (nyAarsak: DeltakerStatusAarsakType, nyBeskrivelse: Nullable<string>) => {

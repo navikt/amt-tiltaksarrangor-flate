@@ -167,22 +167,22 @@ export const forlengDeltakelse = (deltakerId: string, sluttDato: Date): AxiosPro
 		.catch(err => logAndThrowError(err, url))
 }
 
-export const avsluttDeltakelse = (deltakerId: string, sluttDato: Date, aarsak: DeltakerStatusAarsak, beskrivelse: string | null): AxiosPromise => {
+export const avsluttDeltakelse = (deltakerId: string, sluttDato: Date, aarsak: DeltakerStatusAarsak): AxiosPromise => {
 	const url = appUrl(`/amt-tiltak/api/tiltaksarrangor/deltaker/${deltakerId}/avslutt-deltakelse`)
 	return axiosInstance
 		.patch(
 			url,
-			{ sluttdato: formatDateToDateInputStr(sluttDato), aarsak: { type: aarsak, beskrivelse: beskrivelse } },
+			{ sluttdato: formatDateToDateInputStr(sluttDato), aarsak: aarsak },
 		)
 		.catch(err => logAndThrowError(err, url))
 }
 
-export const deltakerIkkeAktuell = (deltakerId: string, aarsak: DeltakerStatusAarsak, beskrivelse: string | null): AxiosPromise => {
+export const deltakerIkkeAktuell = (deltakerId: string, aarsak: DeltakerStatusAarsak): AxiosPromise => {
 	const url = appUrl(`/amt-tiltak/api/tiltaksarrangor/deltaker/${deltakerId}/ikke-aktuell`)
 	return axiosInstance
 		.patch(
 			url,
-			{ aarsak: { type: aarsak, beskrivelse: beskrivelse } },
+			{ aarsak },
 		)
 		.catch(err => logAndThrowError(err, url))
 }

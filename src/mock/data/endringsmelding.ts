@@ -33,7 +33,7 @@ export const lagMockEndringsmeldingForDeltaker = (deltakerStatus: TiltakDeltaker
 			{
 				id: endringsmeldingId(),
 				type: EndringsmeldingType.AVSLUTT_DELTAKELSE,
-				innhold: { sluttdato: faker.date.soon(), aarsak: DeltakerStatusAarsakType.SYK, beskrivelse: null }
+				innhold: { sluttdato: faker.date.soon(), aarsak: { type: DeltakerStatusAarsakType.SYK, beskrivelse: null } }
 			}
 		]
 	}
@@ -44,7 +44,10 @@ export const lagMockEndringsmeldingForDeltaker = (deltakerStatus: TiltakDeltaker
 				id: endringsmeldingId(),
 				type: EndringsmeldingType.AVSLUTT_DELTAKELSE,
 				innhold: {
-					sluttdato: faker.date.soon(), aarsak: DeltakerStatusAarsakType.ANNET, beskrivelse: 'Har flyttet til annen kommune'
+					sluttdato: faker.date.soon(), aarsak: {
+						type: DeltakerStatusAarsakType.ANNET,
+						beskrivelse: 'Har flyttet til annen kommune'
+					}
 				}
 			}
 		]

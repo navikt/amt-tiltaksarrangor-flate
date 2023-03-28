@@ -155,7 +155,7 @@ export const mockHandlers: RequestHandler[] = [
 			deltaker.aktiveEndringsmeldinger.push({
 				id: randomUuid(),
 				type: EndringsmeldingType.AVSLUTT_DELTAKELSE,
-				innhold: { sluttdato: dayjs(body.sluttdato).toDate(), aarsak: body.aarsak.type, beskrivelse: body.aarsak.beskrivelse }
+				innhold: { sluttdato: dayjs(body.sluttdato).toDate(), aarsak: body.aarsak }
 			})
 		}
 
@@ -171,7 +171,7 @@ export const mockHandlers: RequestHandler[] = [
 			deltaker.aktiveEndringsmeldinger.push({
 				id: randomUuid(),
 				type: EndringsmeldingType.DELTAKER_IKKE_AKTUELL,
-				innhold: { aarsak: body.aarsak.type, beskrivelse: body.aarsak.beskrivelse }
+				innhold: { aarsak: body.aarsak }
 			})
 		}
 
