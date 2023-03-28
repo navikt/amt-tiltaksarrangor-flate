@@ -97,102 +97,64 @@ export const mockHandlers: RequestHandler[] = [
 
 		return res(ctx.delay(500), ctx.status(200))
 	}),
-	rest.post(appUrl('/amt-tiltak/api/tiltaksarrangor/deltaker/:deltakerId/oppstartsdato'), (req, res, ctx) => {
+	rest.post(appUrl('/amt-tiltaksarrangor-bff/tiltaksarrangor/deltaker/:deltakerId/endringsmelding'), (req, res, ctx) => {
 		const deltakerId = req.params.deltakerId as string
-		const body = req.body as { oppstartsdato: string }
+		const bodyType = req.body as { innhold: { type: string } }
 
 		const deltaker = mockTiltakDeltakere.find(d => d.id == deltakerId)
 
 		if (deltaker) {
-			deltaker.aktiveEndringsmeldinger.push({
-				id: randomUuid(),
-				type: EndringsmeldingType.LEGG_TIL_OPPSTARTSDATO,
-				innhold: { oppstartsdato: dayjs(body.oppstartsdato).toDate() }
-			})
+			if (bodyType.innhold.type === EndringsmeldingType.LEGG_TIL_OPPSTARTSDATO) {
+				const body = req.body as { innhold: { type: string, oppstartsdato: string } }
+				deltaker.aktiveEndringsmeldinger.push({
+					id: randomUuid(),
+					type: EndringsmeldingType.LEGG_TIL_OPPSTARTSDATO,
+					innhold: { oppstartsdato: dayjs(body.innhold.oppstartsdato).toDate() }
+				})
+			}
+			if (bodyType.innhold.type === EndringsmeldingType.ENDRE_OPPSTARTSDATO) {
+				const body = req.body as { innhold: { type: string, oppstartsdato: string } }
+				deltaker.aktiveEndringsmeldinger.push({
+					id: randomUuid(),
+					type: EndringsmeldingType.ENDRE_OPPSTARTSDATO,
+					innhold: { oppstartsdato: dayjs(body.innhold.oppstartsdato).toDate() }
+				})
+			}
+			if (bodyType.innhold.type === EndringsmeldingType.ENDRE_DELTAKELSE_PROSENT) {
+				const body = req.body as { innhold: { type: string, deltakelseProsent: number, gyldigFraDato: string } }
+				deltaker.aktiveEndringsmeldinger.push({
+					id: randomUuid(),
+					type: EndringsmeldingType.ENDRE_DELTAKELSE_PROSENT,
+					innhold: { deltakelseProsent: body.innhold.deltakelseProsent, gyldigFraDato: dayjs(body.innhold.gyldigFraDato).toDate() }
+				})
+			}
+			if (bodyType.innhold.type === EndringsmeldingType.FORLENG_DELTAKELSE) {
+				const body = req.body as { innhold: { type: string, sluttdato: string } }
+				deltaker.aktiveEndringsmeldinger.push({
+					id: randomUuid(),
+					type: EndringsmeldingType.FORLENG_DELTAKELSE,
+					innhold: { sluttdato: dayjs(body.innhold.sluttdato).toDate() }
+				})
+			}
+			if (bodyType.innhold.type === EndringsmeldingType.AVSLUTT_DELTAKELSE) {
+				const body = req.body as { innhold: { type: string, sluttdato: string, aarsak: DeltakerStatusAarsakType, beskrivelse: string | null } }
+				deltaker.aktiveEndringsmeldinger.push({
+					id: randomUuid(),
+					type: EndringsmeldingType.AVSLUTT_DELTAKELSE,
+					innhold: { sluttdato: dayjs(body.innhold.sluttdato).toDate(), aarsak: { type: body.innhold.aarsak, beskrivelse: body.innhold.beskrivelse } }
+				})
+			}
+			if (bodyType.innhold.type === EndringsmeldingType.DELTAKER_IKKE_AKTUELL) {
+				const body = req.body as { innhold: { type: string, aarsak: DeltakerStatusAarsakType, beskrivelse: string | null } }
+				deltaker.aktiveEndringsmeldinger.push({
+					id: randomUuid(),
+					type: EndringsmeldingType.DELTAKER_IKKE_AKTUELL,
+					innhold: { aarsak: { type: body.innhold.aarsak, beskrivelse: body.innhold.beskrivelse } }
+				})
+			}
 		}
 
 		return res(ctx.delay(500), ctx.status(200))
-	}),
-	rest.patch(appUrl('/amt-tiltak/api/tiltaksarrangor/deltaker/:deltakerId/oppstartsdato'), (req, res, ctx) => {
-		const deltakerId = req.params.deltakerId as string
-		const body = req.body as { oppstartsdato: string }
-
-		const deltaker = mockTiltakDeltakere.find(d => d.id == deltakerId)
-
-		if (deltaker) {
-			deltaker.aktiveEndringsmeldinger.push({
-				id: randomUuid(),
-				type: EndringsmeldingType.ENDRE_OPPSTARTSDATO,
-				innhold: { oppstartsdato: dayjs(body.oppstartsdato).toDate() }
-			})
-		}
-
-		return res(ctx.delay(500), ctx.status(200))
-	}),
-	rest.patch(appUrl('/amt-tiltak/api/tiltaksarrangor/deltaker/:deltakerId/forleng-deltakelse'), (req, res, ctx) => {
-		const deltakerId = req.params.deltakerId as string
-		const body = req.body as { sluttdato: string }
-
-		const deltaker = mockTiltakDeltakere.find(d => d.id == deltakerId)
-
-		if (deltaker) {
-			deltaker.aktiveEndringsmeldinger.push({
-				id: randomUuid(),
-				type: EndringsmeldingType.FORLENG_DELTAKELSE,
-				innhold: { sluttdato: dayjs(body.sluttdato).toDate() }
-			})
-		}
-
-		return res(ctx.delay(500), ctx.status(200))
-	}),
-	rest.patch(appUrl('/amt-tiltak/api/tiltaksarrangor/deltaker/:deltakerId/avslutt-deltakelse'), (req, res, ctx) => {
-		const deltakerId = req.params.deltakerId as string
-		const body = req.body as { sluttdato: string, aarsak: { type: DeltakerStatusAarsakType, beskrivelse: string | null } }
-
-		const deltaker = mockTiltakDeltakere.find(d => d.id == deltakerId)
-
-		if (deltaker) {
-			deltaker.aktiveEndringsmeldinger.push({
-				id: randomUuid(),
-				type: EndringsmeldingType.AVSLUTT_DELTAKELSE,
-				innhold: { sluttdato: dayjs(body.sluttdato).toDate(), aarsak: body.aarsak }
-			})
-		}
-
-		return res(ctx.delay(500), ctx.status(200))
-	}),
-	rest.patch(appUrl('/amt-tiltak/api/tiltaksarrangor/deltaker/:deltakerId/ikke-aktuell'), (req, res, ctx) => {
-		const deltakerId = req.params.deltakerId as string
-		const body = req.body as { aarsak: { type: DeltakerStatusAarsakType, beskrivelse: string | null } }
-
-		const deltaker = mockTiltakDeltakere.find(d => d.id == deltakerId)
-
-		if (deltaker) {
-			deltaker.aktiveEndringsmeldinger.push({
-				id: randomUuid(),
-				type: EndringsmeldingType.DELTAKER_IKKE_AKTUELL,
-				innhold: { aarsak: body.aarsak }
-			})
-		}
-
-		return res(ctx.delay(500), ctx.status(200))
-	}),
-	rest.patch(appUrl('/amt-tiltak/api/tiltaksarrangor/deltaker/:deltakerId/deltakelse-prosent'), (req, res, ctx) => {
-		const deltakerId = req.params.deltakerId as string
-		const body = req.body as { deltakelseProsent: number, gyldigFraDato: Date }
-
-		const deltaker = mockTiltakDeltakere.find(d => d.id == deltakerId)
-
-		if (deltaker) {
-			deltaker.aktiveEndringsmeldinger.push({
-				id: randomUuid(),
-				type: EndringsmeldingType.ENDRE_DELTAKELSE_PROSENT,
-				innhold: body
-			})
-		}
-
-		return res(ctx.delay(500), ctx.status(200))
-
 	}),
 	rest.patch(appUrl('/amt-tiltak/api/tiltaksarrangor/deltaker/:deltakerId/skjul'), (req, res, ctx) => {
 		return res(ctx.delay(500), ctx.status(200))
