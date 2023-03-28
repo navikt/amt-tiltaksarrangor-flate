@@ -11,11 +11,31 @@ interface Props {
 
 export const VeilederFiltermenyDeltakerliste = (props: Props): ReactElement => {
 	const [ deltakerlister, setDeltakerlister ] = useState<FiltermenyDataEntry[]>([])
-	const { deltakerlisteFilter, setDeltakerlisteFilter } = useVeilederTableFilterStore()
+	const { deltakerlisteFilter, setDeltakerlisteFilter, statusFilter, veiledertypeFilter, filtrerDeltakerePaStatus, filtrerDeltakerePaVeiledertype } = useVeilederTableFilterStore()
+
+	const createInitialDataMap = (deltakere: VeiledersDeltaker[]): Map<string, FiltermenyDataEntry> => {
+		const dataMap = new Map<string, FiltermenyDataEntry>()
+
+		deltakere.forEach((deltaker) => {
+			const deltakerliste = deltaker.deltakerliste
+			dataMap.set(deltakerliste.navn, {
+				id: deltakerliste.navn,
+				displayName: deltakerliste.navn,
+				entries: 0
+			})
+		})
+
+		return dataMap
+	}
+
+	const filtrerDeltakere = (deltakere: VeiledersDeltaker[]): VeiledersDeltaker[] => {
+		const filtrertPaStatus = filtrerDeltakerePaStatus(deltakere)
+		return filtrerDeltakerePaVeiledertype(filtrertPaStatus)
+	}
 
 	useEffect(() => {
-		const data = new Map<string, FiltermenyDataEntry>()
-		props.deltakere.forEach((deltaker: VeiledersDeltaker) => {
+		const data = createInitialDataMap(props.deltakere)
+		filtrerDeltakere(props.deltakere).forEach((deltaker: VeiledersDeltaker) => {
 			const deltakerliste = deltaker.deltakerliste
 
 			const entry = data.get(deltakerliste.navn)
@@ -28,7 +48,7 @@ export const VeilederFiltermenyDeltakerliste = (props: Props): ReactElement => {
 		})
 
 		setDeltakerlister([ ...data.values() ])
-	}, [ props.deltakere ])
+	}, [ props.deltakere, statusFilter, veiledertypeFilter ])
 
 
 	const leggTil = (deltakerliste: string) => {

@@ -9,23 +9,50 @@ import globalStyles from '../../../../globals.module.scss'
 import { FilterMeny } from '../../../felles/table-filter/FilterMeny'
 
 interface Props {
-    deltakere: VeiledersDeltaker[]
+	deltakere: VeiledersDeltaker[]
 }
 
 export const VeilederFiltermenyVeilederType = (props: Props): React.ReactElement => {
 	const [ deltakerePerVeiledertype, setDeltakerePerVeiledertype ] = useState<FiltermenyDataEntry[]>([])
-	const { veiledertypeFilter, setVeiledertypeFilter } = useVeilederTableFilterStore()
+	const {
+		veiledertypeFilter,
+		setVeiledertypeFilter,
+		statusFilter,
+		deltakerlisteFilter,
+		filtrerDeltakerePaDeltakerliste,
+		filtrerDeltakerePaStatus
+	} = useVeilederTableFilterStore()
+
+	const createInitialDataMap = (deltakere: VeiledersDeltaker[]): Map<string, FiltermenyDataEntry> => {
+		const dataMap = new Map<string, FiltermenyDataEntry>()
+		deltakere.forEach((deltaker) => {
+			const veilederType = tilVeiledertype(deltaker.erMedveilederFor)
+			dataMap.set(veilederType, {
+				id: veilederType,
+				displayName: displayName(veilederType),
+				entries: 0
+			})
+		})
+
+		return dataMap
+	}
+
 	const displayName = (veilederType: Veiledertype): string => {
-		if(veilederType === Veiledertype.MEDVEILEDER) {
+		if (veilederType === Veiledertype.MEDVEILEDER) {
 			return 'Medveileder'
 		} else {
 			return 'Veileder'
 		}
 	}
 
+	const filtrerDeltakere = (deltakere: VeiledersDeltaker[]): VeiledersDeltaker[] => {
+		const filtrertPaStatus = filtrerDeltakerePaStatus(deltakere)
+		return filtrerDeltakerePaDeltakerliste(filtrertPaStatus)
+	}
+
 	useEffect(() => {
-		const data = new Map<string, FiltermenyDataEntry>()
-		props.deltakere.forEach((deltaker: VeiledersDeltaker) => {
+		const data = createInitialDataMap(props.deltakere)
+		filtrerDeltakere(props.deltakere).forEach((deltaker: VeiledersDeltaker) => {
 			const veilederType = tilVeiledertype(deltaker.erMedveilederFor)
 			const entry = data.get(veilederType)
 			data.set(veilederType, {
@@ -36,11 +63,11 @@ export const VeilederFiltermenyVeilederType = (props: Props): React.ReactElement
 		})
 
 		setDeltakerePerVeiledertype([ ...data.values() ])
-	}, [ props.deltakere ])
+	}, [ props.deltakere, statusFilter, deltakerlisteFilter ])
 
 	const leggTil = (veiledertype: string) => {
 		setVeiledertypeFilter((prev) => {
-			if(prev.includes(veiledertype)) {
+			if (prev.includes(veiledertype)) {
 				return prev
 			}
 			return [ ...prev, veiledertype ]

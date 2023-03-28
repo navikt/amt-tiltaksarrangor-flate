@@ -4,10 +4,10 @@ import { VeiledersDeltaker } from '../../../../api/data/deltaker'
 import { Veiledertype } from '../Veiledertype'
 import { tilVeiledertype } from '../../../../utils/deltakerliste-utils'
 
-export const [VeilederTableFilterStore, useVeilederTableFilterStore] = constate(() => {
-	const [statusFilter, setStatusFilter] = useState<string[]>([])
-	const [deltakerlisteFilter, setDeltakerlisteFilter] = useState<string[]>([])
-	const [veiledertypeFilter, setVeiledertypeFilter] = useState<string[]>([Veiledertype.VEILEDER])
+export const [ VeilederTableFilterStore, useVeilederTableFilterStore ] = constate(() => {
+	const [ statusFilter, setStatusFilter ] = useState<string[]>([])
+	const [ deltakerlisteFilter, setDeltakerlisteFilter ] = useState<string[]>([])
+	const [ veiledertypeFilter, setVeiledertypeFilter ] = useState<string[]>([ Veiledertype.VEILEDER ])
 
 	const matcherStatus = (statusFilter: string[], brukerStatus: string) => {
 		if (statusFilter.length === 0) return true

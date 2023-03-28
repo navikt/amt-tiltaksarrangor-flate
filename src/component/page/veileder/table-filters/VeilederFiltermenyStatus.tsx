@@ -12,7 +12,7 @@ interface Props {
 }
 
 export const VeilederFiltermenyStatus = (props: Props): React.ReactElement => {
-	const [deltakerePerStatus, setDeltakerePerStatus] = useState<FiltermenyDataEntry[]>([])
+	const [ deltakerePerStatus, setDeltakerePerStatus ] = useState<FiltermenyDataEntry[]>([])
 
 	const {
 		statusFilter,
@@ -58,15 +58,15 @@ export const VeilederFiltermenyStatus = (props: Props): React.ReactElement => {
 			})
 		})
 
-		setDeltakerePerStatus([...statusMap.values()])
-	}, [props.deltakere, veiledertypeFilter, deltakerlisteFilter])
+		setDeltakerePerStatus([ ...statusMap.values() ])
+	}, [ props.deltakere, veiledertypeFilter, deltakerlisteFilter ])
 
 	const leggTil = (status: string) => {
 		setStatusFilter((prev) => {
 			if (prev.includes(status)) {
 				return prev
 			}
-			return [...prev, status]
+			return [ ...prev, status ]
 		})
 		loggKlikk(klikkFilterMeny, status, 'checked')
 	}
