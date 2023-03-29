@@ -3,7 +3,7 @@ import { rest } from 'msw'
 import { RequestHandler } from 'msw/lib/types/handlers/RequestHandler'
 
 import { TiltakDeltaker, Deltaker } from '../../api/data/deltaker'
-import { DeltakerStatusAarsakType, EndringsmeldingType } from '../../api/data/endringsmelding'
+import { DeltakerStatusAarsak, EndringsmeldingType } from '../../api/data/endringsmelding'
 import { VIS_DRIFTSMELDING_TOGGLE_NAVN } from '../../api/data/feature-toggle'
 import { Veileder, VeilederMedType, Veiledertype } from '../../api/data/veileder'
 import { appUrl } from '../../utils/url-utils'
@@ -137,19 +137,19 @@ export const mockHandlers: RequestHandler[] = [
 				})
 			}
 			if (bodyType.innhold.type === EndringsmeldingType.AVSLUTT_DELTAKELSE) {
-				const body = req.body as { innhold: { type: string, sluttdato: string, aarsak: DeltakerStatusAarsakType, beskrivelse: string | null } }
+				const body = req.body as { innhold: { type: string, sluttdato: string, aarsak: DeltakerStatusAarsak } }
 				deltaker.aktiveEndringsmeldinger.push({
 					id: randomUuid(),
 					type: EndringsmeldingType.AVSLUTT_DELTAKELSE,
-					innhold: { sluttdato: dayjs(body.innhold.sluttdato).toDate(), aarsak: { type: body.innhold.aarsak, beskrivelse: body.innhold.beskrivelse } }
+					innhold: { sluttdato: dayjs(body.innhold.sluttdato).toDate(), aarsak: body.innhold.aarsak }
 				})
 			}
 			if (bodyType.innhold.type === EndringsmeldingType.DELTAKER_IKKE_AKTUELL) {
-				const body = req.body as { innhold: { type: string, aarsak: DeltakerStatusAarsakType, beskrivelse: string | null } }
+				const body = req.body as { innhold: { type: string, aarsak: DeltakerStatusAarsak } }
 				deltaker.aktiveEndringsmeldinger.push({
 					id: randomUuid(),
 					type: EndringsmeldingType.DELTAKER_IKKE_AKTUELL,
-					innhold: { aarsak: { type: body.innhold.aarsak, beskrivelse: body.innhold.beskrivelse } }
+					innhold: { aarsak: body.innhold.aarsak }
 				})
 			}
 		}

@@ -177,7 +177,7 @@ export const avsluttDeltakelse = (deltakerId: string, sluttDato: Date, aarsak: D
 	return axiosInstance
 		.post(
 			url,
-			{ innhold: { type: EndringsmeldingType.AVSLUTT_DELTAKELSE, sluttdato: formatDateToDateInputStr(sluttDato), aarsak: aarsak.type, beskrivelse: aarsak.beskrivelse } },
+			{ innhold: { type: EndringsmeldingType.AVSLUTT_DELTAKELSE, sluttdato: formatDateToDateInputStr(sluttDato), aarsak: aarsak } },
 		)
 		.catch(err => logAndThrowError(err, url))
 }
@@ -187,7 +187,7 @@ export const deltakerIkkeAktuell = (deltakerId: string, aarsak: DeltakerStatusAa
 	return axiosInstance
 		.post(
 			url,
-			{ innhold: { type: EndringsmeldingType.DELTAKER_IKKE_AKTUELL, aarsak: aarsak.type, beskrivelse: aarsak.beskrivelse } },
+			{ innhold: { type: EndringsmeldingType.DELTAKER_IKKE_AKTUELL, aarsak: aarsak } },
 		)
 		.catch(err => logAndThrowError(err, url))
 }
