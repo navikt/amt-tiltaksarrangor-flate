@@ -14,7 +14,12 @@ import {
 	tiltakDeltakereSchema,
 	VeiledersDeltaker
 } from './data/deltaker'
-import { DeltakerStatusAarsak, Endringsmelding, endringsmeldingerSchema } from './data/endringsmelding'
+import {
+	DeltakerStatusAarsak,
+	Endringsmelding,
+	endringsmeldingerSchema,
+	EndringsmeldingType
+} from './data/endringsmelding'
 import {
 	Gjennomforing,
 	gjennomforingerSchema,
@@ -128,61 +133,61 @@ export const hentEndringsmeldinger = (deltakerId: string): AxiosPromise<Endrings
 }
 
 export const leggTilOppstartsdato = (deltakerId: string, startDato: Date): AxiosPromise => {
-	const url = appUrl(`/amt-tiltak/api/tiltaksarrangor/deltaker/${deltakerId}/oppstartsdato`)
+	const url = appUrl(`/amt-tiltaksarrangor-bff/tiltaksarrangor/deltaker/${deltakerId}/endringsmelding`)
 	return axiosInstance
 		.post(
 			url,
-			{ oppstartsdato: formatDateToDateInputStr(startDato) },
+			{ innhold: { type: EndringsmeldingType.LEGG_TIL_OPPSTARTSDATO, oppstartsdato: formatDateToDateInputStr(startDato) } },
 		)
 		.catch(err => logAndThrowError(err, url))
 }
 
 export const endreOppstartsdato = (deltakerId: string, startDato: Date): AxiosPromise => {
-	const url = appUrl(`/amt-tiltak/api/tiltaksarrangor/deltaker/${deltakerId}/oppstartsdato`)
+	const url = appUrl(`/amt-tiltaksarrangor-bff/tiltaksarrangor/deltaker/${deltakerId}/endringsmelding`)
 	return axiosInstance
-		.patch(
+		.post(
 			url,
-			{ oppstartsdato: formatDateToDateInputStr(startDato) },
+			{ innhold: { type: EndringsmeldingType.ENDRE_OPPSTARTSDATO, oppstartsdato: formatDateToDateInputStr(startDato) } },
 		)
 		.catch(err => logAndThrowError(err, url))
 }
 
 export const endreDeltakelsesprosent = (deltakerId: string, deltakelseProsent: number, gyldigFraDato: Nullable<Date>): AxiosPromise => {
-	const url = appUrl(`/amt-tiltak/api/tiltaksarrangor/deltaker/${deltakerId}/deltakelse-prosent`)
+	const url = appUrl(`/amt-tiltaksarrangor-bff/tiltaksarrangor/deltaker/${deltakerId}/endringsmelding`)
 	return axiosInstance
-		.patch(
+		.post(
 			url,
-			{ deltakelseProsent: deltakelseProsent, gyldigFraDato: formatNullableDateToDateInputStr(gyldigFraDato) }
+			{ innhold: { type: EndringsmeldingType.ENDRE_DELTAKELSE_PROSENT, deltakelseProsent: deltakelseProsent, gyldigFraDato: formatNullableDateToDateInputStr(gyldigFraDato) } }
 		)
 		.catch(err => logAndThrowError(err, url))
 }
 
 export const forlengDeltakelse = (deltakerId: string, sluttDato: Date): AxiosPromise => {
-	const url = appUrl(`/amt-tiltak/api/tiltaksarrangor/deltaker/${deltakerId}/forleng-deltakelse`)
+	const url = appUrl(`/amt-tiltaksarrangor-bff/tiltaksarrangor/deltaker/${deltakerId}/endringsmelding`)
 	return axiosInstance
-		.patch(
+		.post(
 			url,
-			{ sluttdato: formatDateToDateInputStr(sluttDato) },
+			{ innhold: { type: EndringsmeldingType.FORLENG_DELTAKELSE, sluttdato: formatDateToDateInputStr(sluttDato) } },
 		)
 		.catch(err => logAndThrowError(err, url))
 }
 
 export const avsluttDeltakelse = (deltakerId: string, sluttDato: Date, aarsak: DeltakerStatusAarsak): AxiosPromise => {
-	const url = appUrl(`/amt-tiltak/api/tiltaksarrangor/deltaker/${deltakerId}/avslutt-deltakelse`)
+	const url = appUrl(`/amt-tiltaksarrangor-bff/tiltaksarrangor/deltaker/${deltakerId}/endringsmelding`)
 	return axiosInstance
-		.patch(
+		.post(
 			url,
-			{ sluttdato: formatDateToDateInputStr(sluttDato), aarsak: aarsak },
+			{ innhold: { type: EndringsmeldingType.AVSLUTT_DELTAKELSE, sluttdato: formatDateToDateInputStr(sluttDato), aarsak: aarsak } },
 		)
 		.catch(err => logAndThrowError(err, url))
 }
 
 export const deltakerIkkeAktuell = (deltakerId: string, aarsak: DeltakerStatusAarsak): AxiosPromise => {
-	const url = appUrl(`/amt-tiltak/api/tiltaksarrangor/deltaker/${deltakerId}/ikke-aktuell`)
+	const url = appUrl(`/amt-tiltaksarrangor-bff/tiltaksarrangor/deltaker/${deltakerId}/endringsmelding`)
 	return axiosInstance
-		.patch(
+		.post(
 			url,
-			{ aarsak },
+			{ innhold: { type: EndringsmeldingType.DELTAKER_IKKE_AKTUELL, aarsak: aarsak } },
 		)
 		.catch(err => logAndThrowError(err, url))
 }
