@@ -7,9 +7,8 @@ import { Rolle } from './data/ansatt'
 import {
 	Deltaker,
 	deltakerlisteVeilederSchema,
-	DeltakerOversikt,
-	deltakerOversiktSchema,
 	deltakerSchema,
+	MineDeltakerlister, mineDeltakerlisterSchema,
 	TiltakDeltaker,
 	tiltakDeltakereSchema,
 	VeiledersDeltaker
@@ -100,11 +99,11 @@ export const fetchDeltakerePaTiltakGjennomforing = (gjennomforingId: string): Ax
 		.catch(err => logAndThrowError(err, url))
 }
 
-export const fetchDeltakeroversikt = (): AxiosPromise<DeltakerOversikt> => {
-	const url = appUrl('/amt-tiltak/api/tiltaksarrangor/deltakeroversikt')
+export const fetchDeltakeroversikt = (): AxiosPromise<MineDeltakerlister> => {
+	const url = appUrl('/amt-tiltaksarrangor-bff/tiltaksarrangor/koordinator/mine-deltakerlister')
 	return axiosInstance
 		.get(url)
-		.then(parse(deltakerOversiktSchema))
+		.then(parse(mineDeltakerlisterSchema))
 		.catch(err => logAndThrowError(err, url))
 }
 

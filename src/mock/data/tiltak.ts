@@ -3,7 +3,12 @@ import * as faker from 'faker'
 import { Gjennomforing, Koordinator, TiltakGjennomforingStatus, Tiltakskode } from '../../api/data/tiltak'
 import { arrangorForGjennomforing } from './arrangor'
 import { gjennomforingId } from './id'
-import { Deltakerliste, DeltakerOversikt, TiltakDeltakerStatus, VeiledersDeltaker } from '../../api/data/deltaker'
+import {
+	Deltakerliste,
+	MineDeltakerlister,
+	TiltakDeltakerStatus,
+	VeiledersDeltaker
+} from '../../api/data/deltaker'
 import { MockTiltakDeltaker } from './brukere'
 import { randBetween } from '../utils/faker'
 import { lagMockEndringsmeldingForDeltaker } from './endringsmelding'
@@ -167,7 +172,7 @@ export const lagMockKoordinatorer = (): Koordinator[] => {
 	]
 }
 
-export const lagMockDeltakerOversikt = (gjennomforinger: MockGjennomforing[], veiledersDeltakere: VeiledersDeltaker[]): DeltakerOversikt => {
+export const lagMockMineDeltakerlister = (gjennomforinger: MockGjennomforing[], veiledersDeltakere: VeiledersDeltaker[]): MineDeltakerlister => {
 	const deltakerlister: Deltakerliste[] = []
 	gjennomforinger.forEach(t => deltakerlister.push(lagMockDeltakerliste(t)))
 
@@ -175,11 +180,11 @@ export const lagMockDeltakerOversikt = (gjennomforinger: MockGjennomforing[], ve
 	const antallMedveilederFor = veiledersDeltakere.filter(deltaker => deltaker.veiledertype === Veiledertype.MEDVEILEDER).length
 	
 	return {
-		veilederInfo: {
+		veilederFor: {
 			veilederFor: antallVeilederFor,
 			medveilederFor: antallMedveilederFor
 		},
-		koordinatorInfo: {
+		koordinatorFor: {
 			deltakerlister: deltakerlister
 		}
 	}

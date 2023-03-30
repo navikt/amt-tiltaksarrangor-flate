@@ -14,7 +14,7 @@ import { IkonLenke } from '../../felles/ikon-lenke/IkonLenke'
 import { SpinnerPage } from '../../felles/spinner-page/SpinnerPage'
 import styles from './MineDeltakerlisterPage.module.scss'
 import { Alert, BodyShort, Link } from '@navikt/ds-react'
-import { DeltakerOversikt } from '../../../api/data/deltaker'
+import { MineDeltakerlister } from '../../../api/data/deltaker'
 import { DeltakerListe } from './mine-deltakerlister/DeltakerListe'
 import { MineDeltakerePanel } from './mine-deltakere/MineDeltakerePanel'
 import toggle from '../../../utils/toggle'
@@ -33,25 +33,25 @@ export const MineDeltakerlisterPage = (): React.ReactElement => {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [])
 
-	const fetchDeltakerOversiktPromise = usePromise<AxiosResponse<DeltakerOversikt>>(
+	const fetchMineDeltakerlisterPromise = usePromise<AxiosResponse<MineDeltakerlister>>(
 		() => fetchDeltakeroversikt()
 	)
 
-	if (isNotStartedOrPending(fetchDeltakerOversiktPromise)) {
+	if (isNotStartedOrPending(fetchMineDeltakerlisterPromise)) {
 		return <SpinnerPage />
 	}
 
-	if (isRejected(fetchDeltakerOversiktPromise)) {
+	if (isRejected(fetchMineDeltakerlisterPromise)) {
 		return <AlertPage variant="error" tekst="Noe gikk galt" />
 	}
 	
-	const deltakerOversikt = fetchDeltakerOversiktPromise.result.data
+	const mineDeltakerlister = fetchMineDeltakerlisterPromise.result.data
 
-	if (deltakerOversikt.koordinatorInfo) {
+	if (mineDeltakerlister.koordinatorFor) {
 		return (
 			<div className={styles.page} data-testid="gjennomforing-oversikt-page">
-				{ toggle.veilederEnabled && isVeileder(roller) && deltakerOversikt.veilederInfo && <MineDeltakerePanel veileder={deltakerOversikt.veilederInfo}/> }
-				<DeltakerListe deltakerliste={deltakerOversikt.koordinatorInfo.deltakerlister}/>
+				{ toggle.veilederEnabled && isVeileder(roller) && mineDeltakerlister.veilederFor && <MineDeltakerePanel veileder={mineDeltakerlister.veilederFor}/> }
+				<DeltakerListe deltakerliste={mineDeltakerlister.koordinatorFor.deltakerlister}/>
 
 				<IkonLenke
 					to={LEGG_TIL_DELTAKERLISTE_PAGE_ROUTE}
