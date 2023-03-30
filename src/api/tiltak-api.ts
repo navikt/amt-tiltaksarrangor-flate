@@ -7,10 +7,10 @@ import { Rolle } from './data/ansatt'
 import {
 	Deltaker,
 	deltakerlisteVeilederSchema,
-	deltakerSchema,
-	MineDeltakerlister, mineDeltakerlisterSchema,
-	TiltakDeltaker,
-	tiltakDeltakereSchema,
+	deltakerSchema, KoordinatorsDeltakerliste,
+	koordinatorsDeltakerlisteSchema,
+	MineDeltakerlister,
+	mineDeltakerlisterSchema,
 	VeiledersDeltaker
 } from './data/deltaker'
 import {
@@ -22,9 +22,6 @@ import {
 import {
 	Gjennomforing,
 	gjennomforingerSchema,
-	gjennomforingSchema,
-	Koordinator,
-	koordinatorListSchema,
 } from './data/tiltak'
 import { tilgjengeligeVeiledereSchema, TilgjengeligVeileder, Veileder } from './data/veileder'
 import { axiosInstance, logAndThrowError, parse } from './utils'
@@ -75,27 +72,11 @@ export const fjernTilgangTilGjennomforing = (gjennomforingId: string): AxiosProm
 		.catch(err => logAndThrowError(err, url))
 }
 
-export const fetchTiltakGjennomforing = (gjennomforingId: string): AxiosPromise<Gjennomforing> => {
-	const url = appUrl(`/amt-tiltak/api/tiltaksarrangor/gjennomforing/${gjennomforingId}`)
+export const fetchKoordinatorsDeltakerliste = (deltakerlisteId: string): AxiosPromise<KoordinatorsDeltakerliste> => {
+	const url = appUrl(`/amt-tiltaksarrangor-bff/tiltaksarrangor/koordinator/deltakerliste/${deltakerlisteId}`)
 	return axiosInstance
 		.get(url)
-		.then(parse(gjennomforingSchema))
-		.catch(err => logAndThrowError(err, url))
-}
-
-export const fetchKoordinatorerForDeltakerliste = (deltakerlisteId: string): AxiosPromise<Koordinator[]> => {
-	const url = appUrl(`/amt-tiltak/api/tiltaksarrangor/gjennomforing/${deltakerlisteId}/koordinatorer`)
-	return axiosInstance
-		.get(url)
-		.then(parse(koordinatorListSchema))
-		.catch(err => logAndThrowError(err, url))
-}
-
-export const fetchDeltakerePaTiltakGjennomforing = (gjennomforingId: string): AxiosPromise<TiltakDeltaker[]> => {
-	const url = appUrl(`/amt-tiltak/api/tiltaksarrangor/deltaker?gjennomforingId=${gjennomforingId}`)
-	return axiosInstance
-		.get(url)
-		.then(parse(tiltakDeltakereSchema))
+		.then(parse(koordinatorsDeltakerlisteSchema))
 		.catch(err => logAndThrowError(err, url))
 }
 

@@ -71,7 +71,7 @@ export const sorterDeltakere = (deltakere: TiltakDeltaker[], sortering: Sorterin
 			case DeltakerKolonne.FODSELSNUMMER:
 				return compareAsc(a.fodselsnummer, b.fodselsnummer)
 			case DeltakerKolonne.SOKT_INN:
-				return compareAsc(a.registrertDato, b.registrertDato)
+				return compareAsc(a.soktInnDato, b.soktInnDato)
 			default:
 				return 0
 		}

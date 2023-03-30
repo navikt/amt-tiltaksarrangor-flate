@@ -2,7 +2,7 @@ import { z } from 'zod'
 
 import { dateSchema, nullableDateSchema } from '../utils'
 import { endringsmeldingSchema } from './endringsmelding'
-import { tiltakstypeSchema } from './tiltak'
+import { koordinatorListSchema, tiltakGjennomforingStatusSchema, tiltakstypeSchema } from './tiltak'
 import { veilederMedTypeSchema, veilederSchema, veiledertypeSchema } from './veileder'
 
 export enum TiltakDeltakerStatus {
@@ -39,7 +39,7 @@ export const tiltakDeltakerSchema = z.object({
 	startDato: nullableDateSchema,
 	sluttDato: nullableDateSchema,
 	status: deltakerStatusSchema,
-	registrertDato: dateSchema,
+	soktInnDato: dateSchema,
 	aktiveEndringsmeldinger: z.array(endringsmeldingSchema),
 	aktiveVeiledere: z.array(veilederSchema),
 })
@@ -111,6 +111,18 @@ export const deltakerlisteVeilederSchema = z.array(veiledersDeltakerSchema)
 
 export const tiltakDeltakereSchema = z.array(tiltakDeltakerSchema)
 
+export const koordinatorsDeltakerlisteSchema = z.object({
+	id: z.string(),
+	navn: z.string(),
+	tiltaksnavn: z.string(),
+	arrangorNavn: z.string(),
+	startDato: nullableDateSchema,
+	sluttDato: nullableDateSchema,
+	status: tiltakGjennomforingStatusSchema,
+	koordinatorer: koordinatorListSchema,
+	deltakere: tiltakDeltakereSchema,
+})
+
 export type NavVeileder = z.infer<typeof navVeilederSchema>
 
 export type DeltakersDeltakerliste = z.infer<typeof deltakersDeltakerlisteSchema>
@@ -128,3 +140,5 @@ export type Deltakerliste = z.infer<typeof deltakerlisteSchema>
 export type MineDeltakerlister = z.infer<typeof mineDeltakerlisterSchema>
 
 export type VeiledersDeltaker = z.infer<typeof veiledersDeltakerSchema>
+
+export type KoordinatorsDeltakerliste = z.infer<typeof koordinatorsDeltakerlisteSchema>

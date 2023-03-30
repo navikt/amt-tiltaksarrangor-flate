@@ -29,7 +29,7 @@ export const Rad = (props: RadProps): React.ReactElement<RadProps> => {
 		id,
 		startDato,
 		sluttDato,
-		registrertDato,
+		soktInnDato,
 		status,
 		aktiveEndringsmeldinger,
 		aktiveVeiledere,
@@ -63,7 +63,7 @@ export const Rad = (props: RadProps): React.ReactElement<RadProps> => {
 				</Link>
 			</Table.DataCell>
 			<Table.DataCell><Fnr fnr={fodselsnummer} /></Table.DataCell>
-			<Table.DataCell>{formatDate(registrertDato)}</Table.DataCell>
+			<Table.DataCell>{formatDate(soktInnDato)}</Table.DataCell>
 			<Table.DataCell>{startDatoTekst}</Table.DataCell>
 			<Table.DataCell>{sluttDatoTekst}</Table.DataCell>
 			<Table.DataCell>
