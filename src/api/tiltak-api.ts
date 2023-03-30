@@ -209,8 +209,8 @@ export const skjulDeltaker = (deltakerId: string): AxiosPromise => {
 		.catch(err => logAndThrowError(err, url))
 }
 
-export const hentTilgjengeligeVeiledere = (gjennomforingId: string): AxiosPromise<TilgjengeligVeileder[]> => {
-	const url = appUrl(`/amt-tiltak/api/tiltaksarrangor/veiledere/tilgjengelig?gjennomforingId=${gjennomforingId}`)
+export const hentTilgjengeligeVeiledere = (deltakerlisteId: string): AxiosPromise<TilgjengeligVeileder[]> => {
+	const url = appUrl(`/amt-tiltaksarrangor-bff/tiltaksarrangor/koordinator/${deltakerlisteId}/veiledere`)
 	return axiosInstance
 		.get(url)
 		.then(parse(tilgjengeligeVeiledereSchema))
@@ -218,9 +218,9 @@ export const hentTilgjengeligeVeiledere = (gjennomforingId: string): AxiosPromis
 }
 
 export const tildelVeilederForDeltaker = (deltakerId: string, veiledere: Veileder[]): AxiosPromise => {
-	const url = appUrl(`/amt-tiltak/api/tiltaksarrangor/veiledere?deltakerId=${deltakerId}`)
+	const url = appUrl(`/amt-tiltaksarrangor-bff/tiltaksarrangor/koordinator/veiledere?deltakerId=${deltakerId}`)
 	return axiosInstance
-		.patch(
+		.post(
 			url,
 			{ veiledere: veiledere.map(v => { return { ansattId: v.ansattId, erMedveileder: v.erMedveileder } }) },
 		)
