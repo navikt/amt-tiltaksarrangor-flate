@@ -9,7 +9,7 @@ import { Veileder, VeilederMedType, Veiledertype } from '../../api/data/veileder
 import { appUrl } from '../../utils/url-utils'
 import {
 	mockDeltakerlisteVeileder,
-	mockDeltakeroversikt,
+	mockMineDeltakerlister,
 	mockGjennomforinger,
 	mockKoordinatorer,
 	mockTilgjengeligGjennomforinger,
@@ -71,8 +71,8 @@ export const mockHandlers: RequestHandler[] = [
 	rest.delete(appUrl('/amt-tiltak/api/tiltaksarrangor/gjennomforing/:gjennomforingId/tilgang'), (_req, res, ctx) => {
 		return res(ctx.delay(500), ctx.status(200))
 	}),
-	rest.get(appUrl('/amt-tiltak/api/tiltaksarrangor/deltakeroversikt'), (_req, res, ctx) => {
-		return res(ctx.delay(500), ctx.json(mockDeltakeroversikt))
+	rest.get(appUrl('/amt-tiltaksarrangor-bff/tiltaksarrangor/koordinator/mine-deltakerlister'), (_req, res, ctx) => {
+		return res(ctx.delay(500), ctx.json(mockMineDeltakerlister))
 	}),
 	rest.get(appUrl('/amt-tiltaksarrangor-bff/tiltaksarrangor/veileder/mine-deltakere'), (_req, res, ctx) => {
 		return res(ctx.delay(500), ctx.json(mockDeltakerlisteVeileder))
