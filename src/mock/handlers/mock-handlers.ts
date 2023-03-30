@@ -165,10 +165,10 @@ export const mockHandlers: RequestHandler[] = [
 
 		return res(ctx.delay(500), ctx.json(endringsmeldinger))
 	}),
-	rest.get(appUrl('/amt-tiltak/api/tiltaksarrangor/veiledere/tilgjengelig'), (req, res, ctx) => {
+	rest.get(appUrl('/amt-tiltaksarrangor-bff/tiltaksarrangor/koordinator/:deltakerlisteId/veiledere'), (req, res, ctx) => {
 		return res(ctx.delay(500), ctx.json(mockTilgjengeligeVeiledere))
 	}),
-	rest.patch(appUrl('/amt-tiltak/api/tiltaksarrangor/veiledere'), (req, res, ctx) => {
+	rest.post(appUrl('/amt-tiltaksarrangor-bff/tiltaksarrangor/koordinator/veiledere'), (req, res, ctx) => {
 		const deltakerId = req.url.searchParams.get('deltakerId') as string
 		const body = req.body as { veiledere: Veileder[] }
 
