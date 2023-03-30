@@ -97,6 +97,7 @@ const IngenRolleRoutes = (): React.ReactElement => {
 	return (
 		<Routes>
 			<Route path={INGEN_ROLLE_PAGE_ROUTE} element={<IngenRollePage />} />
+			<Route path={DU_ER_LOGGET_UT_PAGE_ROUTE} element={<LoggetUtPage/>}/>
 			<Route path="*" element={<Navigate replace to={INGEN_ROLLE_PAGE_ROUTE}/>} />
 		</Routes>
 	)
