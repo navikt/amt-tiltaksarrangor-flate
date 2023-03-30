@@ -84,7 +84,7 @@ export const mockHandlers: RequestHandler[] = [
 
 		return res(ctx.delay(500), ctx.json(meldinger))
 	}),
-	rest.patch(appUrl('/amt-tiltak/api/tiltaksarrangor/endringsmelding/:endringsmeldingId/tilbakekall'), (req, res, ctx) => {
+	rest.delete(appUrl('/amt-tiltaksarrangor-bff/tiltaksarrangor/endringsmelding/:endringsmeldingId'), (req, res, ctx) => {
 		const endringsmeldingId = req.params.endringsmeldingId as string
 
 		const deltaker = mockTiltakDeltakere.find(d => {

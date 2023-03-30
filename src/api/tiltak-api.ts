@@ -193,9 +193,9 @@ export const deltakerIkkeAktuell = (deltakerId: string, aarsak: DeltakerStatusAa
 }
 
 export const tilbakekallEndringsmelding = (endringsmeldingId: string): AxiosPromise => {
-	const url = appUrl(`/amt-tiltak/api/tiltaksarrangor/endringsmelding/${endringsmeldingId}/tilbakekall`)
+	const url = appUrl(`/amt-tiltaksarrangor-bff/tiltaksarrangor/endringsmelding/${endringsmeldingId}`)
 	return axiosInstance
-		.patch(
+		.delete(
 			url,
 		)
 		.catch(err => logAndThrowError(err, url))
