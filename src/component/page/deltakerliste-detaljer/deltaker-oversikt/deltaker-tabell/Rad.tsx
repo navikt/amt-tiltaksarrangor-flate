@@ -14,6 +14,7 @@ import { Show } from '../../../../felles/Show'
 import { StatusMerkelapp } from '../../../../felles/status-merkelapp/StatusMerkelapp'
 
 import styles from './Rad.module.scss'
+import { Veiledertype } from '../../../../../api/data/veileder'
 
 interface RadProps {
 	idx: number
@@ -29,10 +30,10 @@ export const Rad = (props: RadProps): React.ReactElement<RadProps> => {
 		id,
 		startDato,
 		sluttDato,
-		registrertDato,
+		soktInnDato,
 		status,
 		aktiveEndringsmeldinger,
-		aktiveVeiledere,
+		veiledere,
 	} = props.deltaker
 
 	const aktivSluttdato = aktiveEndringsmeldinger?.flatMap(e => {
@@ -50,7 +51,7 @@ export const Rad = (props: RadProps): React.ReactElement<RadProps> => {
 		? formatDate(aktivSluttdato) + '*'
 		: formatDate(sluttDato)
 
-	const veileder = aktiveVeiledere.filter(v => !v.erMedveileder)[0]
+	const veileder = veiledere.filter(v => v.veiledertype === Veiledertype.VEILEDER)[0]
 
 	const veiledernavn = veileder ? lagKommaSeparertBrukerNavn(veileder.fornavn, veileder.mellomnavn, veileder.etternavn) : EMDASH
 	const deltakerNavn = lagKommaSeparertBrukerNavn(fornavn, mellomnavn, etternavn)
@@ -63,7 +64,7 @@ export const Rad = (props: RadProps): React.ReactElement<RadProps> => {
 				</Link>
 			</Table.DataCell>
 			<Table.DataCell><Fnr fnr={fodselsnummer} /></Table.DataCell>
-			<Table.DataCell>{formatDate(registrertDato)}</Table.DataCell>
+			<Table.DataCell>{formatDate(soktInnDato)}</Table.DataCell>
 			<Table.DataCell>{startDatoTekst}</Table.DataCell>
 			<Table.DataCell>{sluttDatoTekst}</Table.DataCell>
 			<Table.DataCell>

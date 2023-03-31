@@ -1,12 +1,9 @@
 import { People } from '@navikt/ds-icons'
-import { Alert, Heading, Loader } from '@navikt/ds-react'
-import { AxiosResponse } from 'axios'
+import { Heading } from '@navikt/ds-react'
 import React from 'react'
 
 import { Koordinator } from '../../../api/data/tiltak'
-import { fetchKoordinatorerForDeltakerliste } from '../../../api/tiltak-api'
 import globalStyles from '../../../globals.module.scss'
-import { isNotStartedOrPending, isRejected, usePromise } from '../../../utils/use-promise'
 import styles from './KoordinatorInfo.module.scss'
 
 const koordinatorDisplayString = (k: Koordinator): string => {
@@ -17,27 +14,11 @@ const koordinatorDisplayString = (k: Koordinator): string => {
 }
 
 interface KoordinatorInfoProps {
-	deltakerlisteId: string
+	koordinatorer: Koordinator[]
 }
 
 export const KoordinatorInfo = (props: KoordinatorInfoProps) => {
-
-	const fetchKoordinatorerPromise = usePromise<AxiosResponse<Koordinator[]>>(
-		() => fetchKoordinatorerForDeltakerliste(props.deltakerlisteId), [ props.deltakerlisteId ]
-	)
-
-
-	if (isNotStartedOrPending(fetchKoordinatorerPromise)) {
-		return <Loader size="2xlarge" className={globalStyles.blokkS}/>
-	}
-
-	if (isRejected(fetchKoordinatorerPromise)) {
-		return <Alert variant="error">Kan ikke vise Koordinatorer.</Alert>
-	}
-
-	const koordinatorer = fetchKoordinatorerPromise.result.data
-
-	if (koordinatorer.length === 0) {
+	if (props.koordinatorer.length === 0) {
 		return <></>
 	}
 
@@ -45,7 +26,7 @@ export const KoordinatorInfo = (props: KoordinatorInfoProps) => {
 		<div className={globalStyles.blokkM}>
 			<Heading size="xsmall" level="3" className={globalStyles.blokkXxs}>Koordinatorer</Heading>
 			<ul className={styles.koordinatorList}>
-				{koordinatorer.map(k =>
+				{props.koordinatorer.map(k =>
 					<li className={styles.koordinator} key={koordinatorDisplayString(k)}>
 						<People aria-hidden/> {koordinatorDisplayString(k)}
 					</li>)}

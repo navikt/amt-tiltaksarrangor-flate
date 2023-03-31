@@ -3,7 +3,7 @@ import faker from 'faker'
 import { TiltakDeltakerStatus } from '../../api/data/deltaker'
 import { Endringsmelding } from '../../api/data/endringsmelding'
 import { Gjennomforing } from '../../api/data/tiltak'
-import { Veileder } from '../../api/data/veileder'
+import { VeilederMedType } from '../../api/data/veileder'
 import { randBetween, randomBoolean, randomFnr } from '../utils/faker'
 import { lagMockEndringsmeldingForDeltaker } from './endringsmelding'
 import { deltakerId } from './id'
@@ -42,7 +42,7 @@ export interface MockTiltakDeltaker {
 	fjernesDato: Date | null,
 	innsokBegrunnelse: string | null,
 	aktiveEndringsmeldinger: Endringsmelding[]
-	aktiveVeiledere: Veileder[]
+	veiledere: VeilederMedType[]
 }
 
 const navEnheter: MockNavEnhet[] = [
@@ -145,7 +145,7 @@ const lagMockTiltakDeltagerForGjennomforing = (gjennomforing: Gjennomforing): Mo
 		registrertDato: faker.date.past(),
 		innsokBegrunnelse: genererBegrunnelse(brukerFornavn),
 		aktiveEndringsmeldinger: lagMockEndringsmeldingForDeltaker(status),
-		aktiveVeiledere: lagMockVeiledereForDeltaker(id),
+		veiledere: lagMockVeiledereForDeltaker(id),
 	}
 }
 

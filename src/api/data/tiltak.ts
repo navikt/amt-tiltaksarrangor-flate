@@ -19,10 +19,9 @@ export enum TiltakGjennomforingStatus {
 	AVSLUTTET = 'AVSLUTTET'
 }
 
-const tiltakGjennomforingStatusSchema = z.nativeEnum(TiltakGjennomforingStatus)
+export const tiltakGjennomforingStatusSchema = z.nativeEnum(TiltakGjennomforingStatus)
 
 export const tiltakstypeSchema = z.nativeEnum(Tiltakskode)
-
 
 export const tiltakSchema = z.object({
 	tiltakskode: tiltakstypeSchema,
@@ -57,8 +56,6 @@ export const koordinatorListSchema = z.array(koordinatorSchema)
 export const gjennomforingerSchema = z.array(gjennomforingSchema)
 
 export type Gjennomforing = z.infer<typeof gjennomforingSchema>
-
-export type Tiltak = z.infer<typeof tiltakSchema>
 
 export type Arrangor = z.infer<typeof arrangorSchema>
 

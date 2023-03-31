@@ -2,27 +2,26 @@ import { Alert, BodyLong, BodyShort } from '@navikt/ds-react'
 import cls from 'classnames'
 import React from 'react'
 
-import { Gjennomforing, TiltakGjennomforingStatus } from '../../../api/data/tiltak'
+import { TiltakGjennomforingStatus } from '../../../api/data/tiltak'
 import globalStyles from '../../../globals.module.scss'
 import { dateStrWithMonthName } from '../../../utils/date-utils'
 import { Show } from '../../felles/Show'
 import styles from './DeltakerlisteDetaljerPage.module.scss'
+import { KoordinatorsDeltakerliste } from '../../../api/data/deltaker'
 
 interface TiltakInfoProps {
-	gjennomforing: Gjennomforing
+	deltakerliste: KoordinatorsDeltakerliste,
 	className?: string
 }
 
-export const TiltakInfo = ({ gjennomforing, className }: TiltakInfoProps) => {
+export const TiltakInfo = ({ deltakerliste, className }: TiltakInfoProps) => {
 	return (
 		<div className={className}>
-			<BodyShort size="small" className={styles.textXs}>{gjennomforing.tiltak.tiltaksnavn}</BodyShort>
-			<BodyShort size="small" className={styles.textXs}>{dateStrWithMonthName(gjennomforing.startDato)} - {dateStrWithMonthName(gjennomforing.sluttDato)}</BodyShort>
-			<BodyShort size="small" className={cls(styles.textXs, globalStyles.blokkXxs)}>
-				{gjennomforing.arrangor.organisasjonNavn ?? gjennomforing.arrangor.virksomhetNavn}
-			</BodyShort>
+			<BodyShort size="small" className={styles.textXs}>{deltakerliste.tiltaksnavn}</BodyShort>
+			<BodyShort size="small" className={styles.textXs}>{dateStrWithMonthName(deltakerliste.startDato)} - {dateStrWithMonthName(deltakerliste.sluttDato)}</BodyShort>
+			<BodyShort size="small" className={cls(styles.textXs, globalStyles.blokkXxs)}>{deltakerliste.arrangorNavn}</BodyShort>
 
-			<Show if={gjennomforing.status === TiltakGjennomforingStatus.AVSLUTTET}>
+			<Show if={deltakerliste.status === TiltakGjennomforingStatus.AVSLUTTET}>
 				<Alert variant="warning" className={styles.statusAlert}>
 					<strong>Tiltaket er avsluttet</strong>
 					<br />
