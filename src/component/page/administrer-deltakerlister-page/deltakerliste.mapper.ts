@@ -1,37 +1,33 @@
-import { Gjennomforing } from '../../../api/data/tiltak'
+import { AdminDeltakerliste } from '../../../api/data/tiltak'
 import { ArrangorOverenhet } from './deltakerliste.viewobjects'
 
-export const deltakerlisteMapper = (gjennomforinger: Gjennomforing[]): ArrangorOverenhet[] => {
+export const deltakerlisteMapper = (adminDeltakerlister: AdminDeltakerliste[]): ArrangorOverenhet[] => {
 	const data: ArrangorOverenhet[] = []
 
-	gjennomforinger.forEach((gjennomforing) => {
-		const overordnetEnhetNavn = gjennomforing.arrangor.organisasjonNavn != null
-			? gjennomforing.arrangor.organisasjonNavn
-			: gjennomforing.arrangor.virksomhetNavn
-
-		if (!data.some((i) => i.navn === overordnetEnhetNavn)) {
-			data.push({ navn: overordnetEnhetNavn, arrangorer: [] })
+	adminDeltakerlister.forEach((deltakerliste) => {
+		if (!data.some((i) => i.navn === deltakerliste.arrangorParentNavn)) {
+			data.push({ navn: deltakerliste.arrangorParentNavn, arrangorer: [] })
 		}
 
-		const overornetEnhet = data.find((i) => i.navn === overordnetEnhetNavn)
+		const overornetEnhet = data.find((i) => i.navn === deltakerliste.arrangorParentNavn)
 
 		if (overornetEnhet !== undefined) {
-			if (!overornetEnhet.arrangorer.some((i) => i.navn === gjennomforing.arrangor.virksomhetNavn)) {
+			if (!overornetEnhet.arrangorer.some((i) => i.navn === deltakerliste.arrangorNavn)) {
 				overornetEnhet.arrangorer.push({
-					id: gjennomforing.arrangor.virksomhetOrgnr,
-					navn: gjennomforing.arrangor.virksomhetNavn,
+					id: deltakerliste.arrangorOrgnummer,
+					navn: deltakerliste.arrangorNavn,
 					deltakerlister: []
 				})
 			}
 
-			const enhet = overornetEnhet.arrangorer.find((i) => i.navn === gjennomforing.arrangor.virksomhetNavn)
+			const enhet = overornetEnhet.arrangorer.find((i) => i.navn === deltakerliste.arrangorNavn)
 
 			enhet?.deltakerlister.push({
-				id: gjennomforing.id,
-				navn: gjennomforing.navn,
-				tiltaksnavn: gjennomforing.tiltak.tiltaksnavn,
-				startDato: gjennomforing.startDato,
-				sluttDato: gjennomforing.sluttDato,
+				id: deltakerliste.id,
+				navn: deltakerliste.navn,
+				tiltaksnavn: deltakerliste.tiltaksnavn,
+				startDato: deltakerliste.startDato,
+				sluttDato: deltakerliste.sluttDato,
 			})
 		}
 
