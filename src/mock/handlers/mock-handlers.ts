@@ -239,11 +239,9 @@ const mapGjennomforingTilAdminDeltakerliste = (gjennomforing: MockGjennomforing,
 		id: gjennomforing.id,
 		navn: gjennomforing.navn,
 		tiltaksnavn: gjennomforing.tiltak.tiltaksnavn,
-		arrangorNavn: gjennomforing.arrangor.virksomhetNavn,
+		arrangorNavn: gjennomforing.arrangor.organisasjonNavn != null ? gjennomforing.arrangor.organisasjonNavn : gjennomforing.arrangor.virksomhetNavn,
 		arrangorOrgnummer: gjennomforing.arrangor.virksomhetOrgnr,
-		arrangorParentNavn: gjennomforing.arrangor.organisasjonNavn != null
-			? gjennomforing.arrangor.organisasjonNavn
-			: gjennomforing.arrangor.virksomhetNavn,
+		arrangorParentNavn: gjennomforing.arrangor.virksomhetNavn,
 		startDato: gjennomforing.startDato,
 		sluttDato: gjennomforing.sluttDato,
 		lagtTil: lagtTil
