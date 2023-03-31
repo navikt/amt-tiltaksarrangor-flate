@@ -158,16 +158,20 @@ export const mockHandlers: RequestHandler[] = [
 		if (!deltaker) {
 			return res(ctx.delay(500), ctx.status(404))
 		}
-		const nyeVeiledere: Veileder[] = body.veiledere.map(v => {
+		const nyeVeiledere: VeilederMedType[] = body.veiledere.map(v => {
+			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+			const veileder = mockTilgjengeligeVeiledere.find(tv => tv.ansattId === v.ansattId)!
 			return {
-				// eslint-disable-next-line  @typescript-eslint/no-non-null-assertion
-				...mockTilgjengeligeVeiledere.find(tv => tv.ansattId === v.ansattId)!,
+				ansattId: veileder.ansattId,
 				deltakerId: deltakerId,
-				erMedveileder: v.erMedveileder,
+				veiledertype: v.erMedveileder ? Veiledertype.MEDVEILEDER : Veiledertype.VEILEDER,
+				fornavn: veileder.fornavn,
+				mellomnavn: veileder.mellomnavn,
+				etternavn: veileder.etternavn,
 			}
 		})
 
-		deltaker.aktiveVeiledere = nyeVeiledere
+		deltaker.veiledere = nyeVeiledere
 
 		return res(ctx.delay(500), ctx.status(200))
 	}),
@@ -191,18 +195,7 @@ export const mapToDeltakerListView = (deltaker: MockTiltakDeltaker): TiltakDelta
 		status: deltaker.status,
 		soktInnDato: deltaker.registrertDato,
 		aktiveEndringsmeldinger: deltaker.aktiveEndringsmeldinger,
-		aktiveVeiledere: deltaker.aktiveVeiledere,
-	}
-}
-
-const tilVeilederMedType = (veileder: Veileder): VeilederMedType => {
-	return {
-		ansattId: veileder.ansattId,
-		deltakerId: veileder.deltakerId,
-		veiledertype: veileder.erMedveileder ? Veiledertype.MEDVEILEDER : Veiledertype.VEILEDER,
-		fornavn: veileder.fornavn,
-		mellomnavn: veileder.mellomnavn,
-		etternavn: veileder.etternavn
+		veiledere: deltaker.veiledere,
 	}
 }
 
@@ -237,7 +230,7 @@ const mapToDeltakerDetaljerView = (deltaker: MockTiltakDeltaker): Deltaker => {
 				epost: deltaker.navVeileder?.epost
 			} : null
 		},
-		veiledere: deltaker.aktiveVeiledere.map(v => tilVeilederMedType(v)),
+		veiledere: deltaker.veiledere,
 		aktiveEndringsmeldinger: deltaker.aktiveEndringsmeldinger
 	}
 }

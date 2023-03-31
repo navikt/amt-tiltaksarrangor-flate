@@ -8,6 +8,7 @@ import {
 	LeggTilOppstartsdatoEndringsmelding
 } from '../../../../../api/data/endringsmelding'
 import { compareAsc, Sortering } from '../../../../../utils/sortering-utils'
+import { Veiledertype } from '../../../../../api/data/veileder'
 
 export enum DeltakerKolonne {
 	NAVN = 'NAVN',
@@ -51,8 +52,8 @@ export const sorterDeltakere = (deltakere: TiltakDeltaker[], sortering: Sorterin
 				return compareRes != 0 ? compareRes : compareAsc(a.fornavn, b.fornavn)
 			}
 			case DeltakerKolonne.VEILEDER: {
-				const v1 = a.aktiveVeiledere.filter(v => !v.erMedveileder)[0]
-				const v2 = b.aktiveVeiledere.filter(v => !v.erMedveileder)[0]
+				const v1 = a.veiledere.filter(v => v.veiledertype === Veiledertype.VEILEDER)[0]
+				const v2 = b.veiledere.filter(v => v.veiledertype === Veiledertype.VEILEDER)[0]
 				const compareRes = compareAsc(v1?.etternavn, v2?.etternavn)
 				return compareRes != 0 ? compareRes : compareAsc(v1?.fornavn, v2?.fornavn)
 			}
