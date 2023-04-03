@@ -48,15 +48,15 @@ export const fetchAlleDeltakerlister = (): AxiosPromise<AdminDeltakerliste[]> =>
 		.catch(err => logAndThrowError(err, url))
 }
 
-export const opprettTilgangTilGjennomforing = (gjennomforingId: string): AxiosPromise => {
-	const url = appUrl(`/amt-tiltak/api/tiltaksarrangor/gjennomforing/${gjennomforingId}/tilgang`)
+export const leggTilDeltakerliste = (deltakerlisteId: string): AxiosPromise => {
+	const url = appUrl(`/amt-tiltaksarrangor-bff/tiltaksarrangor/koordinator/admin/deltakerliste/${deltakerlisteId}`)
 	return axiosInstance
 		.post(url)
 		.catch(err => logAndThrowError(err, url))
 }
 
-export const fjernTilgangTilGjennomforing = (gjennomforingId: string): AxiosPromise => {
-	const url = appUrl(`/amt-tiltak/api/tiltaksarrangor/gjennomforing/${gjennomforingId}/tilgang`)
+export const fjernDeltakerliste = (deltakerlisteId: string): AxiosPromise => {
+	const url = appUrl(`/amt-tiltaksarrangor-bff/tiltaksarrangor/koordinator/admin/deltakerliste/${deltakerlisteId}`)
 	return axiosInstance
 		.delete(url)
 		.catch(err => logAndThrowError(err, url))

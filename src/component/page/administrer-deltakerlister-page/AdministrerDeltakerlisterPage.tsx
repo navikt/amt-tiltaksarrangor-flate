@@ -7,8 +7,8 @@ import { AxiosResponse } from 'axios'
 import { AdminDeltakerliste } from '../../../api/data/tiltak'
 import {
 	fetchAlleDeltakerlister,
-	fjernTilgangTilGjennomforing,
-	opprettTilgangTilGjennomforing
+	fjernDeltakerliste,
+	leggTilDeltakerliste
 } from '../../../api/tiltak-api'
 import { ArrangorOverenhet } from './deltakerliste.viewobjects'
 import { DeltakerlisterForArrangorWrapper } from './underenheter-pa-overenhet/DeltakerlisterForArrangorWrapper'
@@ -60,7 +60,7 @@ export const AdministrerDeltakerlisterPage = () => {
 	const onFjern = (deltakerlisteId: string) => {
 		setDeltakerlisteIdUpdating(deltakerlisteId)
 
-		fjernTilgangTilGjennomforing(deltakerlisteId)
+		fjernDeltakerliste(deltakerlisteId)
 			.then(() => {
 				setDeltakerlisteIderLagtTil([ ...deltakerlisteIderLagtTil.filter((i) => i !== deltakerlisteId) ])
 				setDeltakerlisteIdUpdating(undefined)
@@ -68,7 +68,7 @@ export const AdministrerDeltakerlisterPage = () => {
 	}
 
 	const leggTilConfirmed = (id: string) => {
-		opprettTilgangTilGjennomforing(id)
+		leggTilDeltakerliste(id)
 			.then(() => {
 				setDeltakerlisteIderLagtTil([ ...deltakerlisteIderLagtTil, id ])
 				setDeltakerlisteIdUpdating(undefined)
