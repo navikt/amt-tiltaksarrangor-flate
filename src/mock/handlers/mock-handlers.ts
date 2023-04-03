@@ -53,10 +53,10 @@ export const mockHandlers: RequestHandler[] = [
 
 		return res(ctx.delay(500), ctx.json(deltakerMedGjennomforing))
 	}),
-	rest.post(appUrl('/amt-tiltak/api/tiltaksarrangor/gjennomforing/:gjennomforingId/tilgang'), (_req, res, ctx) => {
+	rest.post(appUrl('/amt-tiltaksarrangor-bff/tiltaksarrangor/koordinator/admin/deltakerliste/:deltakerlisteId'), (_req, res, ctx) => {
 		return res(ctx.delay(500), ctx.status(200))
 	}),
-	rest.delete(appUrl('/amt-tiltak/api/tiltaksarrangor/gjennomforing/:gjennomforingId/tilgang'), (_req, res, ctx) => {
+	rest.delete(appUrl('/amt-tiltaksarrangor-bff/tiltaksarrangor/koordinator/admin/deltakerliste/:deltakerlisteId'), (_req, res, ctx) => {
 		return res(ctx.delay(500), ctx.status(200))
 	}),
 	rest.get(appUrl('/amt-tiltaksarrangor-bff/tiltaksarrangor/koordinator/mine-deltakerlister'), (_req, res, ctx) => {
