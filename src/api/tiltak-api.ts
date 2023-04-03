@@ -20,8 +20,8 @@ import {
 	EndringsmeldingType
 } from './data/endringsmelding'
 import {
-	Gjennomforing,
-	gjennomforingerSchema,
+	AdminDeltakerliste,
+	adminDeltakerlisterSchema,
 } from './data/tiltak'
 import { tilgjengeligeVeiledereSchema, TilgjengeligVeileder, Veileder } from './data/veileder'
 import { axiosInstance, logAndThrowError, parse } from './utils'
@@ -40,21 +40,11 @@ export const fetchMineRoller = (): AxiosPromise<Rolle[]> => {
 		})
 }
 
-// Henter gjennomføringer som er lagt til i oversikten
-export const fetchTiltakGjennomforinger = (): AxiosPromise<Gjennomforing[]> => {
-	const url = appUrl('/amt-tiltak/api/tiltaksarrangor/gjennomforing')
+export const fetchAlleDeltakerlister = (): AxiosPromise<AdminDeltakerliste[]> => {
+	const url = appUrl('/amt-tiltaksarrangor-bff/tiltaksarrangor/koordinator/admin/deltakerlister')
 	return axiosInstance
 		.get(url)
-		.then(parse(gjennomforingerSchema))
-		.catch(err => logAndThrowError(err, url))
-}
-
-// Henter alle gjennomføringer som er tilgjengelig, noen gjennomføringer kan allerede være lagt til i oversikten
-export const fetchTilgjengeligGjennomforinger = (): AxiosPromise<Gjennomforing[]> => {
-	const url = appUrl('/amt-tiltak/api/tiltaksarrangor/gjennomforing/tilgjengelig')
-	return axiosInstance
-		.get(url)
-		.then(parse(gjennomforingerSchema))
+		.then(parse(adminDeltakerlisterSchema))
 		.catch(err => logAndThrowError(err, url))
 }
 

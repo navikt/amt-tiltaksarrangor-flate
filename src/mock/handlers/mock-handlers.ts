@@ -20,6 +20,8 @@ import { mockAuthInfo } from '../data/auth'
 import { MockTiltakDeltaker } from '../data/brukere'
 import { mockTilgjengeligeVeiledere } from '../data/veileder'
 import { randomUuid } from '../utils/faker'
+import { MockGjennomforing } from '../data/tiltak'
+import { AdminDeltakerliste } from '../../api/data/tiltak'
 
 export const mockHandlers: RequestHandler[] = [
 	rest.get(appUrl('/auth/info'), (_req, res, ctx) => {
@@ -28,8 +30,8 @@ export const mockHandlers: RequestHandler[] = [
 	rest.get(appUrl('/amt-tiltaksarrangor-bff/tiltaksarrangor/meg/roller'), (_req, res, ctx) => {
 		return res(ctx.delay(500), ctx.json(mockMineRoller))
 	}),
-	rest.get(appUrl('/amt-tiltak/api/tiltaksarrangor/gjennomforing/tilgjengelig'), (_req, res, ctx) => {
-		const gjennomforinger = [ mockGjennomforinger[0], ...mockTilgjengeligGjennomforinger ]
+	rest.get(appUrl('/amt-tiltaksarrangor-bff/tiltaksarrangor/koordinator/admin/deltakerlister'), (_req, res, ctx) => {
+		const gjennomforinger = [ mapGjennomforingTilAdminDeltakerliste(mockGjennomforinger[0], true), ...mockTilgjengeligGjennomforinger.map(g => mapGjennomforingTilAdminDeltakerliste(g, false)) ]
 		return res(ctx.delay(500), ctx.json(gjennomforinger))
 	}),
 	rest.get(appUrl('/amt-tiltaksarrangor-bff/tiltaksarrangor/koordinator/deltakerliste/:deltakerlisteId'), (req, res, ctx) => {
@@ -50,9 +52,6 @@ export const mockHandlers: RequestHandler[] = [
 		const deltakerMedGjennomforing = mapToDeltakerDetaljerView(deltaker)
 
 		return res(ctx.delay(500), ctx.json(deltakerMedGjennomforing))
-	}),
-	rest.get(appUrl('/amt-tiltak/api/tiltaksarrangor/gjennomforing'), (_req, res, ctx) => {
-		return res(ctx.delay(500), ctx.json(mockGjennomforinger))
 	}),
 	rest.post(appUrl('/amt-tiltak/api/tiltaksarrangor/gjennomforing/:gjennomforingId/tilgang'), (_req, res, ctx) => {
 		return res(ctx.delay(500), ctx.status(200))
@@ -232,5 +231,19 @@ const mapToDeltakerDetaljerView = (deltaker: MockTiltakDeltaker): Deltaker => {
 		},
 		veiledere: deltaker.veiledere,
 		aktiveEndringsmeldinger: deltaker.aktiveEndringsmeldinger
+	}
+}
+
+const mapGjennomforingTilAdminDeltakerliste = (gjennomforing: MockGjennomforing, lagtTil: boolean): AdminDeltakerliste => {
+	return {
+		id: gjennomforing.id,
+		navn: gjennomforing.navn,
+		tiltaksnavn: gjennomforing.tiltak.tiltaksnavn,
+		arrangorNavn: gjennomforing.arrangor.organisasjonNavn != null ? gjennomforing.arrangor.organisasjonNavn : gjennomforing.arrangor.virksomhetNavn,
+		arrangorOrgnummer: gjennomforing.arrangor.virksomhetOrgnr,
+		arrangorParentNavn: gjennomforing.arrangor.virksomhetNavn,
+		startDato: gjennomforing.startDato,
+		sluttDato: gjennomforing.sluttDato,
+		lagtTil: lagtTil
 	}
 }
