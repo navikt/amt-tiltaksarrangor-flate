@@ -2,11 +2,11 @@ import { VeiledersDeltaker } from '../../../../api/data/deltaker'
 import React, { useEffect, useState } from 'react'
 import { FiltermenyDataEntry } from '../../../felles/table-filter/filtermeny-data-entry'
 import { useVeilederTableFilterStore } from '../store/veileder-table-filter-store'
-import { Veiledertype } from '../Veiledertype'
 import { tilVeiledertype } from '../../../../utils/deltakerliste-utils'
 import { klikkFilterMeny, loggKlikk } from '../../../../utils/amplitude-utils'
 import globalStyles from '../../../../globals.module.scss'
 import { FilterMeny } from '../../../felles/table-filter/FilterMeny'
+import { Veiledertype } from '../../../../api/data/veileder'
 
 interface Props {
 	deltakere: VeiledersDeltaker[]
@@ -27,7 +27,7 @@ export const VeilederFiltermenyVeilederType = (props: Props): React.ReactElement
 		const createInitialDataMap = (deltakere: VeiledersDeltaker[]): Map<string, FiltermenyDataEntry> => {
 			const dataMap = new Map<string, FiltermenyDataEntry>()
 			deltakere.forEach((deltaker) => {
-				const veilederType = tilVeiledertype(deltaker.erMedveilederFor)
+				const veilederType = tilVeiledertype(deltaker.veiledertype === Veiledertype.MEDVEILEDER)
 				dataMap.set(veilederType, {
 					id: veilederType,
 					displayName: displayName(veilederType),
@@ -53,7 +53,7 @@ export const VeilederFiltermenyVeilederType = (props: Props): React.ReactElement
 
 		const data = createInitialDataMap(props.deltakere)
 		filtrerDeltakere(props.deltakere).forEach((deltaker: VeiledersDeltaker) => {
-			const veilederType = tilVeiledertype(deltaker.erMedveilederFor)
+			const veilederType = tilVeiledertype(deltaker.veiledertype === Veiledertype.MEDVEILEDER)
 			const entry = data.get(veilederType)
 			data.set(veilederType, {
 				id: veilederType,

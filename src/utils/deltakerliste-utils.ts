@@ -1,4 +1,4 @@
-import { Deltakerliste, VeiledersDeltaker } from '../api/data/deltaker'
+import { Deltakerliste } from '../api/data/deltaker'
 import { Veiledertype } from '../api/data/veileder'
 
 export const finnUnikeTiltakstyper = (detakerlister: Deltakerliste[]): string[] => {

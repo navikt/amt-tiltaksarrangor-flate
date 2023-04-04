@@ -1,8 +1,8 @@
 import constate from 'constate'
 import { useState } from 'react'
 import { VeiledersDeltaker } from '../../../../api/data/deltaker'
-import { Veiledertype } from '../Veiledertype'
 import { tilVeiledertype } from '../../../../utils/deltakerliste-utils'
+import { Veiledertype } from '../../../../api/data/veileder'
 
 export const [ VeilederTableFilterStore, useVeilederTableFilterStore ] = constate(() => {
 	const [ statusFilter, setStatusFilter ] = useState<string[]>([])
@@ -33,7 +33,7 @@ export const [ VeilederTableFilterStore, useVeilederTableFilterStore ] = constat
 	}
 
 	const filtrerDeltakerePaVeiledertype = (brukere: VeiledersDeltaker[]): VeiledersDeltaker[] => {
-		return brukere.filter(bruker => matcherVeiledertype(tilVeiledertype(bruker.erMedveilederFor)))
+		return brukere.filter(bruker => matcherVeiledertype(tilVeiledertype(bruker.veiledertype === Veiledertype.MEDVEILEDER)))
 	}
 
 	const filtrerDeltakere = (deltakere: VeiledersDeltaker[]): VeiledersDeltaker[] => {
