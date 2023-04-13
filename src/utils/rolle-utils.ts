@@ -19,3 +19,7 @@ export const isVeileder = (roller: Rolle[]): boolean => {
 export const isKoordinator = (roller: Rolle[]): boolean => {
 	return roller.includes(Rolle.KOORDINATOR)
 }
+
+export const isKoordinatorForDeltakerliste = (deltakerliste: string, koordinatorForDeltakerlister: string[]): boolean => {
+	return koordinatorForDeltakerlister.includes(deltakerliste)
+}

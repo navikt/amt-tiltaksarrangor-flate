@@ -8,7 +8,7 @@ import {
 	LEGG_TIL_DELTAKERLISTE_PAGE_ROUTE
 } from '../../../navigation'
 import { useTilbakelenkeStore } from '../../../store/tilbakelenke-store'
-import { isNotStartedOrPending, isRejected, usePromise } from '../../../utils/use-promise'
+import { isNotStartedOrPending, isRejected, isResolved, usePromise } from '../../../utils/use-promise'
 import { AlertPage } from '../../felles/alert-page/AlertPage'
 import { IkonLenke } from '../../felles/ikon-lenke/IkonLenke'
 import { SpinnerPage } from '../../felles/spinner-page/SpinnerPage'
@@ -21,21 +21,26 @@ import toggle from '../../../utils/toggle'
 import globalStyles from '../../../globals.module.scss'
 import { useInnloggetBrukerStore } from '../../../store/innlogget-bruker-store'
 import { isVeileder } from '../../../utils/rolle-utils'
+import { useKoordinatorsDeltakerlisterStore } from '../../../store/koordinators-deltakerlister-store'
 
 export const MineDeltakerlisterPage = (): React.ReactElement => {
 	const { setTilbakeTilUrl } = useTilbakelenkeStore()
 	const { roller } = useInnloggetBrukerStore()
+	const { setKoordinatorsDeltakerlister } = useKoordinatorsDeltakerlisterStore()
 
 	useTabTitle('Deltakeroversikt')
-
-	useEffect(() => {
-		setTilbakeTilUrl(null)
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [])
 
 	const fetchMineDeltakerlisterPromise = usePromise<AxiosResponse<MineDeltakerlister>>(
 		() => fetchDeltakeroversikt()
 	)
+
+	useEffect(() => {
+		setTilbakeTilUrl(null)
+		if (isResolved(fetchMineDeltakerlisterPromise) && fetchMineDeltakerlisterPromise.result.data.koordinatorFor) {
+			setKoordinatorsDeltakerlister(fetchMineDeltakerlisterPromise.result.data.koordinatorFor.deltakerlister.map(l => l.id))
+		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [ fetchMineDeltakerlisterPromise.result ])
 
 	if (isNotStartedOrPending(fetchMineDeltakerlisterPromise)) {
 		return <SpinnerPage />
