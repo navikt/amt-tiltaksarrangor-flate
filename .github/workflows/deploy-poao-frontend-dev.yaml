@@ -1,13 +1,14 @@
 name: Deploy poao-frontend to dev
 on:
   push:
-    branches:
-      - '**'
+    paths:
+      - ".nais/nais-dev.yaml"
 
 jobs:
   deploy-dev:
     name: Deploy poao-frontend to dev
     runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
     steps:
       - name: Checkout
         uses: actions/checkout@v3
