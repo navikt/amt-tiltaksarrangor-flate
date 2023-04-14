@@ -33,14 +33,12 @@ export const MineDeltakerlisterPage = (): React.ReactElement => {
 	if (!koordinatorsDeltakerlister) {
 		return <AlertPage variant="error" tekst="Noe gikk galt" />
 	}
-	
-	const mineDeltakerlister = koordinatorsDeltakerlister
 
-	if (mineDeltakerlister.koordinatorFor) {
+	if (koordinatorsDeltakerlister.koordinatorFor) {
 		return (
 			<div className={styles.page} data-testid="gjennomforing-oversikt-page">
-				{ toggle.veilederEnabled && isVeileder(roller) && mineDeltakerlister.veilederFor && <MineDeltakerePanel veileder={mineDeltakerlister.veilederFor}/> }
-				<DeltakerListe deltakerliste={mineDeltakerlister.koordinatorFor.deltakerlister}/>
+				{ toggle.veilederEnabled && isVeileder(roller) && koordinatorsDeltakerlister.veilederFor && <MineDeltakerePanel veileder={koordinatorsDeltakerlister.veilederFor}/> }
+				<DeltakerListe deltakerliste={koordinatorsDeltakerlister.koordinatorFor.deltakerlister}/>
 
 				<IkonLenke
 					to={LEGG_TIL_DELTAKERLISTE_PAGE_ROUTE}
