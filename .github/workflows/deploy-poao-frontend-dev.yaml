@@ -1,4 +1,8 @@
 name: Deploy poao-frontend to dev
+on:
+  push:
+    branches:
+      - '**'
 
 jobs:
   deploy-dev:
