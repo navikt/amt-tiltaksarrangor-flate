@@ -67,8 +67,12 @@ export const AdministrerDeltakerlisterPage = () => {
 				setDeltakerlisteIderLagtTil([ ...deltakerlisteIderLagtTil.filter((i) => i !== deltakerlisteId) ])
 				setDeltakerlisteIdUpdating(undefined)
 				if (koordinatorsDeltakerlister && koordinatorsDeltakerlister.koordinatorFor != null) {
-					koordinatorsDeltakerlister.koordinatorFor.deltakerlister = koordinatorsDeltakerlister.koordinatorFor.deltakerlister.filter(l => l.id != deltakerlisteId)
-					setKoordinatorsDeltakerlister(koordinatorsDeltakerlister)
+					const nyDeltakerliste = [ ...koordinatorsDeltakerlister.koordinatorFor.deltakerlister ].filter(l => l.id != deltakerlisteId)
+					const nyKoordinatorsDeltakerlister = {
+						...koordinatorsDeltakerlister,
+						koordinatorFor: { ...koordinatorsDeltakerlister.koordinatorFor, deltakerlister: nyDeltakerliste }
+					}
+					setKoordinatorsDeltakerlister(nyKoordinatorsDeltakerlister)
 				}
 			})
 	}
@@ -79,8 +83,13 @@ export const AdministrerDeltakerlisterPage = () => {
 				setDeltakerlisteIderLagtTil([ ...deltakerlisteIderLagtTil, id ])
 				setDeltakerlisteIdUpdating(undefined)
 				if (koordinatorsDeltakerlister && koordinatorsDeltakerlister.koordinatorFor != null) {
-					koordinatorsDeltakerlister.koordinatorFor.deltakerlister.push({ id: id, type: type, navn: navn })
-					setKoordinatorsDeltakerlister(koordinatorsDeltakerlister)
+					const nyDeltakerliste = [ ...koordinatorsDeltakerlister.koordinatorFor.deltakerlister ]
+					nyDeltakerliste.push({ id: id, type: type, navn: navn })
+					const nyKoordinatorsDeltakerlister = {
+						...koordinatorsDeltakerlister,
+						koordinatorFor: { ...koordinatorsDeltakerlister.koordinatorFor, deltakerlister: nyDeltakerliste }
+					}
+					setKoordinatorsDeltakerlister(nyKoordinatorsDeltakerlister)
 				}
 			})
 
