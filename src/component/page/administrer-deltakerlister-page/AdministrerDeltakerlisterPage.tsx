@@ -67,7 +67,7 @@ export const AdministrerDeltakerlisterPage = () => {
 				setDeltakerlisteIderLagtTil([ ...deltakerlisteIderLagtTil.filter((i) => i !== deltakerlisteId) ])
 				setDeltakerlisteIdUpdating(undefined)
 				if (koordinatorsDeltakerlister && koordinatorsDeltakerlister.koordinatorFor != null) {
-					const nyDeltakerliste = [ ...koordinatorsDeltakerlister.koordinatorFor.deltakerlister ].filter(l => l.id != deltakerlisteId)
+					const nyDeltakerliste = koordinatorsDeltakerlister.koordinatorFor.deltakerlister.filter(l => l.id != deltakerlisteId)
 					const nyKoordinatorsDeltakerlister = {
 						...koordinatorsDeltakerlister,
 						koordinatorFor: { ...koordinatorsDeltakerlister.koordinatorFor, deltakerlister: nyDeltakerliste }
