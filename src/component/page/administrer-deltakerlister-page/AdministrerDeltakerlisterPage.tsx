@@ -20,10 +20,12 @@ import { LeggTilDeltakerlisteModal } from './legg-til-deltakerliste-modal/LeggTi
 import { useTilbakelenkeStore } from '../../../store/tilbakelenke-store'
 import { MINE_DELTAKERLISTER_PAGE_ROUTE } from '../../../navigation'
 import { useTabTitle } from '../../../hooks/use-tab-title'
+import { useKoordinatorsDeltakerlisterStore } from '../../../store/koordinators-deltakerlister-store'
 
 
 export const AdministrerDeltakerlisterPage = () => {
 	const { setTilbakeTilUrl } = useTilbakelenkeStore()
+	const { koordinatorsDeltakerlister, setKoordinatorsDeltakerlister } = useKoordinatorsDeltakerlisterStore()
 
 	const [ arrangorer, setArrangorer ] = useState<ArrangorOverenhet[]>([])
 	const [ deltakerlisteIderLagtTil, setDeltakerlisteIderLagtTil ] = useState<string[]>([])
@@ -64,14 +66,31 @@ export const AdministrerDeltakerlisterPage = () => {
 			.then(() => {
 				setDeltakerlisteIderLagtTil([ ...deltakerlisteIderLagtTil.filter((i) => i !== deltakerlisteId) ])
 				setDeltakerlisteIdUpdating(undefined)
+				if (koordinatorsDeltakerlister && koordinatorsDeltakerlister.koordinatorFor != null) {
+					const nyDeltakerliste = koordinatorsDeltakerlister.koordinatorFor.deltakerlister.filter(l => l.id != deltakerlisteId)
+					const nyKoordinatorsDeltakerlister = {
+						...koordinatorsDeltakerlister,
+						koordinatorFor: { ...koordinatorsDeltakerlister.koordinatorFor, deltakerlister: nyDeltakerliste }
+					}
+					setKoordinatorsDeltakerlister(nyKoordinatorsDeltakerlister)
+				}
 			})
 	}
 
-	const leggTilConfirmed = (id: string) => {
+	const leggTilConfirmed = (id: string, navn: string, type: string) => {
 		leggTilDeltakerliste(id)
 			.then(() => {
 				setDeltakerlisteIderLagtTil([ ...deltakerlisteIderLagtTil, id ])
 				setDeltakerlisteIdUpdating(undefined)
+				if (koordinatorsDeltakerlister && koordinatorsDeltakerlister.koordinatorFor != null) {
+					const nyDeltakerliste = [ ...koordinatorsDeltakerlister.koordinatorFor.deltakerlister ]
+					nyDeltakerliste.push({ id: id, type: type, navn: navn })
+					const nyKoordinatorsDeltakerlister = {
+						...koordinatorsDeltakerlister,
+						koordinatorFor: { ...koordinatorsDeltakerlister.koordinatorFor, deltakerlister: nyDeltakerliste }
+					}
+					setKoordinatorsDeltakerlister(nyKoordinatorsDeltakerlister)
+				}
 			})
 
 		setShowLeggTilModal(false)
@@ -89,6 +108,16 @@ export const AdministrerDeltakerlisterPage = () => {
 
 		return deltakerliste != undefined
 			? deltakerliste.navn
+			: ''
+	}
+
+	const getTiltaksnavnForDeltakerliste = (deltakerlisteId: string | undefined): string => {
+		if (deltakerlisteId === undefined) return ''
+
+		const deltakerliste = fetchAlleDeltakerlisterPromise.result?.data.find((g) => g.id === deltakerlisteId)
+
+		return deltakerliste != undefined
+			? deltakerliste.tiltaksnavn
 			: ''
 	}
 
@@ -134,6 +163,7 @@ export const AdministrerDeltakerlisterPage = () => {
 			<LeggTilDeltakerlisteModal
 				open={showLeggTilModal}
 				deltakerlisteNavn={getNavnPaDeltakerliste(deltakerlisteIdUpdating)}
+				deltakerlisteTiltaksnavn={getTiltaksnavnForDeltakerliste(deltakerlisteIdUpdating)}
 				deltakerlisteId={deltakerlisteIdUpdating as string}
 				onConfirm={leggTilConfirmed}
 				onClose={onLeggTilModalClosed}
