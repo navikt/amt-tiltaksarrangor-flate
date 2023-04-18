@@ -23,17 +23,12 @@ export const KoordinatorFiltermenyMedveileder = (props: Props): React.ReactEleme
 	} = useKoordinatorTableFilterStore()
 
 	const createInitialDataMap = (deltakere: TiltakDeltaker[]): Map<string, FiltermenyDataEntry> => {
-		const dataMap = new Map<string, FiltermenyDataEntry>()
-		dataMap.set(HAR_IKKE_MEDVEILEDER_VILER_TEKST, {
-			id: HAR_IKKE_MEDVEILEDER_VILER_TEKST,
-			displayName: HAR_IKKE_MEDVEILEDER_VILER_TEKST,
-			entries: 0
-		})
+		const medveilederMap = new Map<string, FiltermenyDataEntry>()
 
 		deltakere.forEach((deltaker) => {
 			const medveiledere = getMedveiledere(deltaker)
 			medveiledere.forEach(medveileder => {
-				dataMap.set(medveileder.ansattId, {
+				medveilederMap.set(medveileder.ansattId, {
 					id: medveileder.ansattId,
 					displayName: veilederNavn(medveileder),
 					entries: 0
@@ -42,7 +37,17 @@ export const KoordinatorFiltermenyMedveileder = (props: Props): React.ReactEleme
 
 		})
 
-		return dataMap
+		const sortedMap = new Map([...medveilederMap.entries()]
+			.sort((a, b) => a[1].displayName.localeCompare(b[1].displayName)))
+
+		const utenMedveilederMap = new Map<string, FiltermenyDataEntry>()
+		utenMedveilederMap.set(HAR_IKKE_MEDVEILEDER_VILER_TEKST, {
+			id: HAR_IKKE_MEDVEILEDER_VILER_TEKST,
+			displayName: HAR_IKKE_MEDVEILEDER_VILER_TEKST,
+			entries: 0
+		})
+
+		return new Map<string, FiltermenyDataEntry>([...utenMedveilederMap, ...sortedMap])
 	}
 
 	useEffect(() => {
