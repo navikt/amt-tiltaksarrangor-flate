@@ -4,12 +4,25 @@
   border-radius: var(--a-border-radius-small);
   border: 1px solid var(--ac-panel-border, var(--a-border-default));
   margin-bottom: 1rem;
+
+  ::-webkit-scrollbar {
+    -webkit-appearance: none;
+    width: 7px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    border-radius: 4px;
+    background-color: rgba(0, 0, 0, .5);
+    box-shadow: 0 0 1px rgba(255, 255, 255, .5);
+  }
 }
 
 .panelHeader {
   display: flex;
   justify-content: space-between;
-  padding-bottom: .5rem;
+  text-align: center;
+  padding-top: 0.2rem;
+  padding-bottom: 0.2rem;
 
   &:hover {
     cursor: pointer;
@@ -34,9 +47,11 @@
 .rotateDown {
   transform: rotate(180deg);
   transition: transform 0.3s ease-in-out;
+  color: black;
 }
 
 .rotateUp {
   transform: rotate(0deg);
   transition: transform 0.3s ease-in-out;
+  color: black;
 }

@@ -37,7 +37,7 @@ export const KoordinatorFiltermenyMedveileder = (props: Props): React.ReactEleme
 
 		})
 
-		const sortedMap = new Map([...medveilederMap.entries()]
+		const sortedMap = new Map([ ...medveilederMap.entries() ]
 			.sort((a, b) => a[1].displayName.localeCompare(b[1].displayName)))
 
 		const utenMedveilederMap = new Map<string, FiltermenyDataEntry>()
@@ -47,7 +47,7 @@ export const KoordinatorFiltermenyMedveileder = (props: Props): React.ReactEleme
 			entries: 0
 		})
 
-		return new Map<string, FiltermenyDataEntry>([...utenMedveilederMap, ...sortedMap])
+		return new Map<string, FiltermenyDataEntry>([ ...utenMedveilederMap, ...sortedMap ])
 	}
 
 	useEffect(() => {

@@ -37,7 +37,7 @@ export const DeltakerePerVeilederTableFilter = (props: Props): React.ReactElemen
 			}
 		})
 
-		const sortedMap = new Map([...veilederMap.entries()]
+		const sortedMap = new Map([ ...veilederMap.entries() ]
 			.sort((a, b) => a[1].displayName.localeCompare(b[1].displayName)))
 
 		const utenVeilederMap = new Map<string, FiltermenyDataEntry>()
@@ -48,7 +48,7 @@ export const DeltakerePerVeilederTableFilter = (props: Props): React.ReactElemen
 			entries: 0
 		})
 
-		return new Map<string, FiltermenyDataEntry>([...utenVeilederMap, ...sortedMap])
+		return new Map<string, FiltermenyDataEntry>([ ...utenVeilederMap, ...sortedMap ])
 	}
 
 	useEffect(() => {

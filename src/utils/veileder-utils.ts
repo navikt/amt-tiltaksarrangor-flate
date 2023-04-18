@@ -1,8 +1,8 @@
 import { TiltakDeltaker } from '../api/data/deltaker'
 import { Veileder } from '../api/data/veileder'
 
-export const HAR_IKKE_VEILEDER_FILTER_TEKST = 'Uten Veileder'
-export const HAR_IKKE_MEDVEILEDER_VILER_TEKST = 'Uten Medveileder'
+export const HAR_IKKE_VEILEDER_FILTER_TEKST = 'Uten veileder'
+export const HAR_IKKE_MEDVEILEDER_VILER_TEKST = 'Uten medveileder'
 
 
 export const getHovedveileder = (deltaker: TiltakDeltaker): Veileder => {

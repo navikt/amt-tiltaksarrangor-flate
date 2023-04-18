@@ -1,6 +1,6 @@
 import React, { ReactElement, useEffect, useRef, useState } from 'react'
 import styles from './CollapsablePanel.module.scss'
-import { ChevronDownIcon } from '@navikt/aksel-icons'
+import { ChevronUpIcon } from '@navikt/aksel-icons'
 
 interface Props {
 	title?: string
@@ -24,7 +24,7 @@ export const CollapsablePanel = (props: Props) => {
 	}
 
 	const getIcon = () => {
-		return <ChevronDownIcon className={isExpanded ? styles.rotateUp : styles.rotateDown}/>
+		return <ChevronUpIcon className={isExpanded ? styles.rotateUp : styles.rotateDown}/>
 	}
 
 	return (
