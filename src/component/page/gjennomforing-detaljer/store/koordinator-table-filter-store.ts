@@ -2,7 +2,7 @@ import constate from 'constate'
 import { useState } from 'react'
 import { TiltakDeltaker } from '../../../../api/data/deltaker'
 import { getHovedveileder, getMedveiledere, HAR_IKKE_VEILEDER_FILTER_TEKST } from '../../../../utils/veileder-utils'
-import { Veileder } from '../../../../api/data/veileder'
+import { VeilederMedType } from '../../../../api/data/veileder'
 
 export const [ KoordinatorTableFilterStore, useKoordinatorTableFilterStore ] = constate(() => {
 	const [ veilederFilter, setVeilederFilter ] = useState<string[]>([])
@@ -14,13 +14,13 @@ export const [ KoordinatorTableFilterStore, useKoordinatorTableFilterStore ] = c
 		return statusFilter.includes(brukerStatus)
 	}
 
-	const matcherVeileder = (veilederFiltre: string[], brukersVeileder: Veileder) => {
+	const matcherVeileder = (veilederFiltre: string[], brukersVeileder: VeilederMedType) => {
 		if (veilederFiltre.length === 0) return true
 		if (brukersVeileder === undefined) return veilederFiltre.includes(HAR_IKKE_VEILEDER_FILTER_TEKST)
 		return veilederFiltre.includes(brukersVeileder?.ansattId)
 	}
 
-	const matcherMedveileder = (medveilederFiltre: string[], brukersMedveiledere: Veileder[]) => {
+	const matcherMedveileder = (medveilederFiltre: string[], brukersMedveiledere: VeilederMedType[]) => {
 
 		if (medveilederFiltre.length === 0) return true
 		let retVal = false

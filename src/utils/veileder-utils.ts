@@ -1,30 +1,16 @@
 import { TiltakDeltaker } from '../api/data/deltaker'
-import { Veileder } from '../api/data/veileder'
+import { Veileder, VeilederMedType, Veiledertype } from '../api/data/veileder'
 
 export const HAR_IKKE_VEILEDER_FILTER_TEKST = 'Uten veileder'
 export const HAR_IKKE_MEDVEILEDER_VILER_TEKST = 'Uten medveileder'
 
 
-export const getHovedveileder = (deltaker: TiltakDeltaker): Veileder => {
-	return deltaker.aktiveVeiledere.filter((t) => !t.erMedveileder)[0]
+export const getHovedveileder = (deltaker: TiltakDeltaker): VeilederMedType => {
+	return deltaker.veiledere.filter((t) => t.veiledertype=== Veiledertype.VEILEDER)[0]
 }
 
-export const getMedveiledere = (deltaker: TiltakDeltaker): Veileder[] => {
-	return deltaker.aktiveVeiledere.filter((t) => t.erMedveileder)
-}
-
-export const getHovedveilederNavn = (deltaker: TiltakDeltaker): string => {
-	const hovedveileder = deltaker.aktiveVeiledere.filter((t) => !t.erMedveileder)[0]
-	return hovedveileder
-		? veilederNavn(hovedveileder)
-		: HAR_IKKE_VEILEDER_FILTER_TEKST
-}
-
-export const getMedveiledereNavn = (deltaker: TiltakDeltaker): string[] => {
-	const medveiledere = deltaker.aktiveVeiledere.filter((t) => t.erMedveileder)
-	return medveiledere.length > 0
-		? medveiledere.map(it => veilederNavn(it))
-		: [ HAR_IKKE_MEDVEILEDER_VILER_TEKST ]
+export const getMedveiledere = (deltaker: TiltakDeltaker): VeilederMedType[] => {
+	return deltaker.veiledere.filter((t) => t.veiledertype === Veiledertype.MEDVEILEDER)
 }
 
 export const veilederNavn = (veileder: Veileder): string => {
