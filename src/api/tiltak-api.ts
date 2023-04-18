@@ -7,20 +7,21 @@ import { Rolle } from './data/ansatt'
 import {
 	Deltaker,
 	deltakerlisteVeilederSchema,
-	DeltakerOversikt,
-	deltakerOversiktSchema,
-	deltakerSchema,
-	TiltakDeltaker,
-	tiltakDeltakereSchema,
+	deltakerSchema, KoordinatorsDeltakerliste,
+	koordinatorsDeltakerlisteSchema,
+	MineDeltakerlister,
+	mineDeltakerlisterSchema,
 	VeiledersDeltaker
 } from './data/deltaker'
-import { DeltakerStatusAarsak, Endringsmelding, endringsmeldingerSchema } from './data/endringsmelding'
 import {
-	Gjennomforing,
-	gjennomforingerSchema,
-	gjennomforingSchema,
-	Koordinator,
-	koordinatorListSchema,
+	DeltakerStatusAarsak,
+	Endringsmelding,
+	endringsmeldingerSchema,
+	EndringsmeldingType
+} from './data/endringsmelding'
+import {
+	AdminDeltakerliste,
+	adminDeltakerlisterSchema,
 } from './data/tiltak'
 import { tilgjengeligeVeiledereSchema, TilgjengeligVeileder, Veileder } from './data/veileder'
 import { axiosInstance, logAndThrowError, parse } from './utils'
@@ -39,67 +40,41 @@ export const fetchMineRoller = (): AxiosPromise<Rolle[]> => {
 		})
 }
 
-// Henter gjennomføringer som er lagt til i oversikten
-export const fetchTiltakGjennomforinger = (): AxiosPromise<Gjennomforing[]> => {
-	const url = appUrl('/amt-tiltak/api/tiltaksarrangor/gjennomforing')
+export const fetchAlleDeltakerlister = (): AxiosPromise<AdminDeltakerliste[]> => {
+	const url = appUrl('/amt-tiltaksarrangor-bff/tiltaksarrangor/koordinator/admin/deltakerlister')
 	return axiosInstance
 		.get(url)
-		.then(parse(gjennomforingerSchema))
+		.then(parse(adminDeltakerlisterSchema))
 		.catch(err => logAndThrowError(err, url))
 }
 
-// Henter alle gjennomføringer som er tilgjengelig, noen gjennomføringer kan allerede være lagt til i oversikten
-export const fetchTilgjengeligGjennomforinger = (): AxiosPromise<Gjennomforing[]> => {
-	const url = appUrl('/amt-tiltak/api/tiltaksarrangor/gjennomforing/tilgjengelig')
-	return axiosInstance
-		.get(url)
-		.then(parse(gjennomforingerSchema))
-		.catch(err => logAndThrowError(err, url))
-}
-
-export const opprettTilgangTilGjennomforing = (gjennomforingId: string): AxiosPromise => {
-	const url = appUrl(`/amt-tiltak/api/tiltaksarrangor/gjennomforing/${gjennomforingId}/tilgang`)
+export const leggTilDeltakerliste = (deltakerlisteId: string): AxiosPromise => {
+	const url = appUrl(`/amt-tiltaksarrangor-bff/tiltaksarrangor/koordinator/admin/deltakerliste/${deltakerlisteId}`)
 	return axiosInstance
 		.post(url)
 		.catch(err => logAndThrowError(err, url))
 }
 
-export const fjernTilgangTilGjennomforing = (gjennomforingId: string): AxiosPromise => {
-	const url = appUrl(`/amt-tiltak/api/tiltaksarrangor/gjennomforing/${gjennomforingId}/tilgang`)
+export const fjernDeltakerliste = (deltakerlisteId: string): AxiosPromise => {
+	const url = appUrl(`/amt-tiltaksarrangor-bff/tiltaksarrangor/koordinator/admin/deltakerliste/${deltakerlisteId}`)
 	return axiosInstance
 		.delete(url)
 		.catch(err => logAndThrowError(err, url))
 }
 
-export const fetchTiltakGjennomforing = (gjennomforingId: string): AxiosPromise<Gjennomforing> => {
-	const url = appUrl(`/amt-tiltak/api/tiltaksarrangor/gjennomforing/${gjennomforingId}`)
+export const fetchKoordinatorsDeltakerliste = (deltakerlisteId: string): AxiosPromise<KoordinatorsDeltakerliste> => {
+	const url = appUrl(`/amt-tiltaksarrangor-bff/tiltaksarrangor/koordinator/deltakerliste/${deltakerlisteId}`)
 	return axiosInstance
 		.get(url)
-		.then(parse(gjennomforingSchema))
+		.then(parse(koordinatorsDeltakerlisteSchema))
 		.catch(err => logAndThrowError(err, url))
 }
 
-export const fetchKoordinatorerForDeltakerliste = (deltakerlisteId: string): AxiosPromise<Koordinator[]> => {
-	const url = appUrl(`/amt-tiltak/api/tiltaksarrangor/gjennomforing/${deltakerlisteId}/koordinatorer`)
+export const fetchDeltakeroversikt = (): AxiosPromise<MineDeltakerlister> => {
+	const url = appUrl('/amt-tiltaksarrangor-bff/tiltaksarrangor/koordinator/mine-deltakerlister')
 	return axiosInstance
 		.get(url)
-		.then(parse(koordinatorListSchema))
-		.catch(err => logAndThrowError(err, url))
-}
-
-export const fetchDeltakerePaTiltakGjennomforing = (gjennomforingId: string): AxiosPromise<TiltakDeltaker[]> => {
-	const url = appUrl(`/amt-tiltak/api/tiltaksarrangor/deltaker?gjennomforingId=${gjennomforingId}`)
-	return axiosInstance
-		.get(url)
-		.then(parse(tiltakDeltakereSchema))
-		.catch(err => logAndThrowError(err, url))
-}
-
-export const fetchDeltakeroversikt = (): AxiosPromise<DeltakerOversikt> => {
-	const url = appUrl('/amt-tiltak/api/tiltaksarrangor/deltakeroversikt')
-	return axiosInstance
-		.get(url)
-		.then(parse(deltakerOversiktSchema))
+		.then(parse(mineDeltakerlisterSchema))
 		.catch(err => logAndThrowError(err, url))
 }
 
@@ -128,85 +103,85 @@ export const hentEndringsmeldinger = (deltakerId: string): AxiosPromise<Endrings
 }
 
 export const leggTilOppstartsdato = (deltakerId: string, startDato: Date): AxiosPromise => {
-	const url = appUrl(`/amt-tiltak/api/tiltaksarrangor/deltaker/${deltakerId}/oppstartsdato`)
+	const url = appUrl(`/amt-tiltaksarrangor-bff/tiltaksarrangor/deltaker/${deltakerId}/endringsmelding`)
 	return axiosInstance
 		.post(
 			url,
-			{ oppstartsdato: formatDateToDateInputStr(startDato) },
+			{ innhold: { type: EndringsmeldingType.LEGG_TIL_OPPSTARTSDATO, oppstartsdato: formatDateToDateInputStr(startDato) } },
 		)
 		.catch(err => logAndThrowError(err, url))
 }
 
 export const endreOppstartsdato = (deltakerId: string, startDato: Date): AxiosPromise => {
-	const url = appUrl(`/amt-tiltak/api/tiltaksarrangor/deltaker/${deltakerId}/oppstartsdato`)
+	const url = appUrl(`/amt-tiltaksarrangor-bff/tiltaksarrangor/deltaker/${deltakerId}/endringsmelding`)
 	return axiosInstance
-		.patch(
+		.post(
 			url,
-			{ oppstartsdato: formatDateToDateInputStr(startDato) },
+			{ innhold: { type: EndringsmeldingType.ENDRE_OPPSTARTSDATO, oppstartsdato: formatDateToDateInputStr(startDato) } },
 		)
 		.catch(err => logAndThrowError(err, url))
 }
 
 export const endreDeltakelsesprosent = (deltakerId: string, deltakelseProsent: number, gyldigFraDato: Nullable<Date>): AxiosPromise => {
-	const url = appUrl(`/amt-tiltak/api/tiltaksarrangor/deltaker/${deltakerId}/deltakelse-prosent`)
+	const url = appUrl(`/amt-tiltaksarrangor-bff/tiltaksarrangor/deltaker/${deltakerId}/endringsmelding`)
 	return axiosInstance
-		.patch(
+		.post(
 			url,
-			{ deltakelseProsent: deltakelseProsent, gyldigFraDato: formatNullableDateToDateInputStr(gyldigFraDato) }
+			{ innhold: { type: EndringsmeldingType.ENDRE_DELTAKELSE_PROSENT, deltakelseProsent: deltakelseProsent, gyldigFraDato: formatNullableDateToDateInputStr(gyldigFraDato) } }
 		)
 		.catch(err => logAndThrowError(err, url))
 }
 
 export const forlengDeltakelse = (deltakerId: string, sluttDato: Date): AxiosPromise => {
-	const url = appUrl(`/amt-tiltak/api/tiltaksarrangor/deltaker/${deltakerId}/forleng-deltakelse`)
+	const url = appUrl(`/amt-tiltaksarrangor-bff/tiltaksarrangor/deltaker/${deltakerId}/endringsmelding`)
 	return axiosInstance
-		.patch(
+		.post(
 			url,
-			{ sluttdato: formatDateToDateInputStr(sluttDato) },
+			{ innhold: { type: EndringsmeldingType.FORLENG_DELTAKELSE, sluttdato: formatDateToDateInputStr(sluttDato) } },
 		)
 		.catch(err => logAndThrowError(err, url))
 }
 
 export const avsluttDeltakelse = (deltakerId: string, sluttDato: Date, aarsak: DeltakerStatusAarsak): AxiosPromise => {
-	const url = appUrl(`/amt-tiltak/api/tiltaksarrangor/deltaker/${deltakerId}/avslutt-deltakelse`)
+	const url = appUrl(`/amt-tiltaksarrangor-bff/tiltaksarrangor/deltaker/${deltakerId}/endringsmelding`)
 	return axiosInstance
-		.patch(
+		.post(
 			url,
-			{ sluttdato: formatDateToDateInputStr(sluttDato), aarsak: aarsak },
+			{ innhold: { type: EndringsmeldingType.AVSLUTT_DELTAKELSE, sluttdato: formatDateToDateInputStr(sluttDato), aarsak: aarsak } },
 		)
 		.catch(err => logAndThrowError(err, url))
 }
 
 export const deltakerIkkeAktuell = (deltakerId: string, aarsak: DeltakerStatusAarsak): AxiosPromise => {
-	const url = appUrl(`/amt-tiltak/api/tiltaksarrangor/deltaker/${deltakerId}/ikke-aktuell`)
+	const url = appUrl(`/amt-tiltaksarrangor-bff/tiltaksarrangor/deltaker/${deltakerId}/endringsmelding`)
 	return axiosInstance
-		.patch(
+		.post(
 			url,
-			{ aarsak },
+			{ innhold: { type: EndringsmeldingType.DELTAKER_IKKE_AKTUELL, aarsak: aarsak } },
 		)
 		.catch(err => logAndThrowError(err, url))
 }
 
 export const tilbakekallEndringsmelding = (endringsmeldingId: string): AxiosPromise => {
-	const url = appUrl(`/amt-tiltak/api/tiltaksarrangor/endringsmelding/${endringsmeldingId}/tilbakekall`)
+	const url = appUrl(`/amt-tiltaksarrangor-bff/tiltaksarrangor/endringsmelding/${endringsmeldingId}`)
 	return axiosInstance
-		.patch(
+		.delete(
 			url,
 		)
 		.catch(err => logAndThrowError(err, url))
 }
 
 export const skjulDeltaker = (deltakerId: string): AxiosPromise => {
-	const url = appUrl(`/amt-tiltak/api/tiltaksarrangor/deltaker/${deltakerId}/skjul`)
+	const url = appUrl(`/amt-tiltaksarrangor-bff/tiltaksarrangor/deltaker/${deltakerId}`)
 	return axiosInstance
-		.patch(
+		.delete(
 			url,
 		)
 		.catch(err => logAndThrowError(err, url))
 }
 
-export const hentTilgjengeligeVeiledere = (gjennomforingId: string): AxiosPromise<TilgjengeligVeileder[]> => {
-	const url = appUrl(`/amt-tiltak/api/tiltaksarrangor/veiledere/tilgjengelig?gjennomforingId=${gjennomforingId}`)
+export const hentTilgjengeligeVeiledere = (deltakerlisteId: string): AxiosPromise<TilgjengeligVeileder[]> => {
+	const url = appUrl(`/amt-tiltaksarrangor-bff/tiltaksarrangor/koordinator/${deltakerlisteId}/veiledere`)
 	return axiosInstance
 		.get(url)
 		.then(parse(tilgjengeligeVeiledereSchema))
@@ -214,9 +189,9 @@ export const hentTilgjengeligeVeiledere = (gjennomforingId: string): AxiosPromis
 }
 
 export const tildelVeilederForDeltaker = (deltakerId: string, veiledere: Veileder[]): AxiosPromise => {
-	const url = appUrl(`/amt-tiltak/api/tiltaksarrangor/veiledere?deltakerId=${deltakerId}`)
+	const url = appUrl(`/amt-tiltaksarrangor-bff/tiltaksarrangor/koordinator/veiledere?deltakerId=${deltakerId}`)
 	return axiosInstance
-		.patch(
+		.post(
 			url,
 			{ veiledere: veiledere.map(v => { return { ansattId: v.ansattId, erMedveileder: v.erMedveileder } }) },
 		)

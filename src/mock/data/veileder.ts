@@ -1,5 +1,5 @@
 import faker from 'faker'
-import { TilgjengeligVeileder, Veileder } from '../../api/data/veileder'
+import { TilgjengeligVeileder, VeilederMedType, Veiledertype } from '../../api/data/veileder'
 import { randBetween } from '../utils/faker'
 import { ansattId } from './id'
 
@@ -24,12 +24,12 @@ const mellomNavnEllerNull = (): string | null => {
 
 export const mockTilgjengeligeVeiledere = lagMockTilgjengeligeVeiledere(50)
 
-export const lagMockVeiledereForDeltaker = (deltakerId: string): Veileder[] => {
+export const lagMockVeiledereForDeltaker = (deltakerId: string): VeilederMedType[] => {
 	const tilgjengelige = [ ...mockTilgjengeligeVeiledere ]
 
 	faker.helpers.shuffle(tilgjengelige)
 
-	const veiledere: Veileder[] = []
+	const veiledere: VeilederMedType[] = []
 	if (randBetween(0, 10) < 1) {
 		return veiledere
 	}
@@ -42,7 +42,7 @@ export const lagMockVeiledereForDeltaker = (deltakerId: string): Veileder[] => {
 				// eslint-disable-next-line  @typescript-eslint/no-non-null-assertion
 				...tilgjengelige.pop()!,
 				deltakerId: deltakerId,
-				erMedveileder: false,
+				veiledertype: Veiledertype.VEILEDER,
 			}
 		)
 	}
@@ -53,7 +53,7 @@ export const lagMockVeiledereForDeltaker = (deltakerId: string): Veileder[] => {
 				// eslint-disable-next-line  @typescript-eslint/no-non-null-assertion
 				...tilgjengelige.pop()!,
 				deltakerId: deltakerId,
-				erMedveileder: true,
+				veiledertype: Veiledertype.MEDVEILEDER,
 			}
 		)
 	}

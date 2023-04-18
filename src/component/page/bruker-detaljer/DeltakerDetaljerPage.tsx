@@ -13,12 +13,12 @@ import { SpinnerPage } from '../../felles/spinner-page/SpinnerPage'
 import { DeltakerlisteStoreProvider } from './deltaker-detaljer/deltakerliste-store'
 import { DeltakerDetaljer } from './DeltakerDetaljer'
 import { DeltakerDetaljerHeader } from './DeltakerDetaljerHeader'
-import { isKoordinator } from '../../../utils/rolle-utils'
-import { useInnloggetBrukerStore } from '../../../store/innlogget-bruker-store'
+import { isKoordinatorForDeltakerliste } from '../../../utils/rolle-utils'
+import { useKoordinatorsDeltakerlisterStore } from '../../../store/koordinators-deltakerlister-store'
 
 export const DeltakerDetaljerPage = (): React.ReactElement => {
 	const params = useParams<{ brukerId: string }>()
-	const { roller } = useInnloggetBrukerStore()
+	const { koordinatorsDeltakerlister } = useKoordinatorsDeltakerlisterStore()
 
 	const brukerId = params.brukerId || ''
 
@@ -51,7 +51,7 @@ export const DeltakerDetaljerPage = (): React.ReactElement => {
 				epost={deltaker.epost}
 			/>
 			<DeltakerlisteStoreProvider deltakerliste={deltaker.deltakerliste}>
-				<DeltakerDetaljer deltaker={deltaker} visTildeling={isKoordinator(roller)}/>
+				<DeltakerDetaljer deltaker={deltaker} visTildeling={isKoordinatorForDeltakerliste(deltaker.deltakerliste.id, koordinatorsDeltakerlister)}/>
 			</DeltakerlisteStoreProvider>
 		</div>
 	)

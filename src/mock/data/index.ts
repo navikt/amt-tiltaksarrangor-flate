@@ -1,18 +1,35 @@
 import { Koordinator } from '../../api/data/tiltak'
 import { lagMockTiltakDeltagereForGjennomforing, MockTiltakDeltaker } from './brukere'
 import {
-	gjennomforingInfoListe, lagMockDeltakerlisteVeileder, lagMockDeltakerOversikt,
+	gjennomforingInfoListe, lagMockDeltakerlisteVeileder, lagMockMineDeltakerlister,
 	lagMockGjennomforinger, lagMockKoordinatorer,
 	MockGjennomforing,
 	tilgjengeligGjennomforinger
 } from './tiltak'
-import { DeltakerOversikt, VeiledersDeltaker } from '../../api/data/deltaker'
+import { KoordinatorsDeltakerliste, MineDeltakerlister, VeiledersDeltaker } from '../../api/data/deltaker'
+import { mapToDeltakerListView } from '../handlers/mock-handlers'
 
 export const mockGjennomforinger: MockGjennomforing[] = lagMockGjennomforinger(gjennomforingInfoListe)
 
-export const mockTilgjengeligGjennomforinger: MockGjennomforing[] = lagMockGjennomforinger(tilgjengeligGjennomforinger)
-
 export const mockKoordinatorer: Koordinator[] = lagMockKoordinatorer()
+
+export const mockKoordinatorsDeltakerliste = (gjennomforing: MockGjennomforing): KoordinatorsDeltakerliste => {
+	return {
+		id: gjennomforing.id,
+		navn: gjennomforing.navn,
+		tiltaksnavn: gjennomforing.tiltak.tiltaksnavn,
+		arrangorNavn: gjennomforing.arrangor.organisasjonNavn ?? gjennomforing.arrangor.virksomhetNavn,
+		startDato: gjennomforing.startDato,
+		sluttDato: gjennomforing.sluttDato,
+		status: gjennomforing.status,
+		koordinatorer: mockKoordinatorer,
+		deltakere: mockTiltakDeltakere
+			.filter(deltaker => deltaker.gjennomforing.id === gjennomforing.id)
+			.map(deltaker => mapToDeltakerListView(deltaker))
+	}
+}
+
+export const mockTilgjengeligGjennomforinger: MockGjennomforing[] = lagMockGjennomforinger(tilgjengeligGjennomforinger)
 
 export const lagMockTiltakDeltakere = (antallGjennomforinger: number, antallDeltakere: number): MockTiltakDeltaker[] => {
 	return mockGjennomforinger.slice(0, antallGjennomforinger)
@@ -34,5 +51,5 @@ export const mockTiltakDeltakere: MockTiltakDeltaker[] = lagMockTiltakDeltakere(
 
 export const mockDeltakerlisteVeileder: VeiledersDeltaker[] = deltakereTilVeileder()
 
-export const mockDeltakeroversikt: DeltakerOversikt = lagMockDeltakerOversikt(mockGjennomforinger, mockDeltakerlisteVeileder)
+export const mockMineDeltakerlister: MineDeltakerlister = lagMockMineDeltakerlister(mockGjennomforinger, mockDeltakerlisteVeileder)
 

@@ -19,10 +19,9 @@ export enum TiltakGjennomforingStatus {
 	AVSLUTTET = 'AVSLUTTET'
 }
 
-const tiltakGjennomforingStatusSchema = z.nativeEnum(TiltakGjennomforingStatus)
+export const tiltakGjennomforingStatusSchema = z.nativeEnum(TiltakGjennomforingStatus)
 
 export const tiltakstypeSchema = z.nativeEnum(Tiltakskode)
-
 
 export const tiltakSchema = z.object({
 	tiltakskode: tiltakstypeSchema,
@@ -45,6 +44,17 @@ export const gjennomforingSchema = z.object({
 	arrangor: arrangorSchema
 })
 
+export const adminDeltakerlisteSchema = z.object({
+	id: z.string(),
+	navn: z.string(),
+	tiltaksnavn: z.string(),
+	arrangorNavn: z.string(),
+	arrangorOrgnummer: z.string(),
+	arrangorParentNavn: z.string(),
+	startDato: nullableDateSchema,
+	sluttDato: nullableDateSchema,
+	lagtTil: z.boolean()
+})
 
 export const koordinatorSchema = z.object({
 	fornavn: z.string(),
@@ -54,11 +64,11 @@ export const koordinatorSchema = z.object({
 
 export const koordinatorListSchema = z.array(koordinatorSchema)
 
-export const gjennomforingerSchema = z.array(gjennomforingSchema)
+export const adminDeltakerlisterSchema = z.array(adminDeltakerlisteSchema)
 
 export type Gjennomforing = z.infer<typeof gjennomforingSchema>
 
-export type Tiltak = z.infer<typeof tiltakSchema>
+export type AdminDeltakerliste = z.infer<typeof adminDeltakerlisteSchema>
 
 export type Arrangor = z.infer<typeof arrangorSchema>
 

@@ -4,12 +4,11 @@ import styles from './AdministrerDeltakerlisterPage.module.scss'
 import React, { useEffect, useState } from 'react'
 import { isNotStartedOrPending, isRejected, usePromise } from '../../../utils/use-promise'
 import { AxiosResponse } from 'axios'
-import { Gjennomforing } from '../../../api/data/tiltak'
+import { AdminDeltakerliste } from '../../../api/data/tiltak'
 import {
-	fetchTilgjengeligGjennomforinger,
-	fetchTiltakGjennomforinger,
-	fjernTilgangTilGjennomforing,
-	opprettTilgangTilGjennomforing
+	fetchAlleDeltakerlister,
+	fjernDeltakerliste,
+	leggTilDeltakerliste
 } from '../../../api/tiltak-api'
 import { ArrangorOverenhet } from './deltakerliste.viewobjects'
 import { DeltakerlisterForArrangorWrapper } from './underenheter-pa-overenhet/DeltakerlisterForArrangorWrapper'
@@ -21,19 +20,20 @@ import { LeggTilDeltakerlisteModal } from './legg-til-deltakerliste-modal/LeggTi
 import { useTilbakelenkeStore } from '../../../store/tilbakelenke-store'
 import { MINE_DELTAKERLISTER_PAGE_ROUTE } from '../../../navigation'
 import { useTabTitle } from '../../../hooks/use-tab-title'
+import { useKoordinatorsDeltakerlisterStore } from '../../../store/koordinators-deltakerlister-store'
 
 
 export const AdministrerDeltakerlisterPage = () => {
 	const { setTilbakeTilUrl } = useTilbakelenkeStore()
+	const { koordinatorsDeltakerlister, setKoordinatorsDeltakerlister } = useKoordinatorsDeltakerlisterStore()
 
 	const [ arrangorer, setArrangorer ] = useState<ArrangorOverenhet[]>([])
 	const [ deltakerlisteIderLagtTil, setDeltakerlisteIderLagtTil ] = useState<string[]>([])
 
 	const [ deltakerlisteIdUpdating, setDeltakerlisteIdUpdating ] = useState<string | undefined>(undefined)
 	const [ showLeggTilModal, setShowLeggTilModal ] = useState(false)
-
-	const fetchGjennomforingerPromise = usePromise<AxiosResponse<Gjennomforing[]>>(fetchTiltakGjennomforinger)
-	const fetchTilgjengeligGjennomforingerPromise = usePromise<AxiosResponse<Gjennomforing[]>>(fetchTilgjengeligGjennomforinger)
+	
+	const fetchAlleDeltakerlisterPromise = usePromise<AxiosResponse<AdminDeltakerliste[]>>(fetchAlleDeltakerlister)
 
 	useTabTitle('Legg til og fjern deltakerlister')
 
@@ -43,14 +43,14 @@ export const AdministrerDeltakerlisterPage = () => {
 	}, [])
 
 	useEffect(() => {
-		const gjennomforinger: Gjennomforing[] = fetchTilgjengeligGjennomforingerPromise.result?.data || []
-		const gjennomforingIderAlleredeLagtTil = fetchGjennomforingerPromise.result?.data.map(g => g.id) || []
-		const data = deltakerlisteMapper(gjennomforinger)
+		const alleDeltakerlister: AdminDeltakerliste[] = fetchAlleDeltakerlisterPromise.result?.data || []
+		const deltakerlisteIderAlleredeLagtTil = fetchAlleDeltakerlisterPromise.result?.data.filter(dl => dl.lagtTil).map(d => d.id) || []
+		const data = deltakerlisteMapper(alleDeltakerlister)
 			.sort((a, b) => a.navn.localeCompare(b.navn))
 
-		setDeltakerlisteIderLagtTil(gjennomforingIderAlleredeLagtTil)
+		setDeltakerlisteIderLagtTil(deltakerlisteIderAlleredeLagtTil)
 		setArrangorer(data)
-	}, [ fetchTilgjengeligGjennomforingerPromise.result, fetchGjennomforingerPromise.result ])
+	}, [ fetchAlleDeltakerlisterPromise.result ])
 
 
 	const onLeggTil = (deltakerlisteId: string) => {
@@ -62,18 +62,35 @@ export const AdministrerDeltakerlisterPage = () => {
 	const onFjern = (deltakerlisteId: string) => {
 		setDeltakerlisteIdUpdating(deltakerlisteId)
 
-		fjernTilgangTilGjennomforing(deltakerlisteId)
+		fjernDeltakerliste(deltakerlisteId)
 			.then(() => {
 				setDeltakerlisteIderLagtTil([ ...deltakerlisteIderLagtTil.filter((i) => i !== deltakerlisteId) ])
 				setDeltakerlisteIdUpdating(undefined)
+				if (koordinatorsDeltakerlister && koordinatorsDeltakerlister.koordinatorFor != null) {
+					const nyDeltakerliste = koordinatorsDeltakerlister.koordinatorFor.deltakerlister.filter(l => l.id != deltakerlisteId)
+					const nyKoordinatorsDeltakerlister = {
+						...koordinatorsDeltakerlister,
+						koordinatorFor: { ...koordinatorsDeltakerlister.koordinatorFor, deltakerlister: nyDeltakerliste }
+					}
+					setKoordinatorsDeltakerlister(nyKoordinatorsDeltakerlister)
+				}
 			})
 	}
 
-	const leggTilConfirmed = (id: string) => {
-		opprettTilgangTilGjennomforing(id)
+	const leggTilConfirmed = (id: string, navn: string, type: string) => {
+		leggTilDeltakerliste(id)
 			.then(() => {
 				setDeltakerlisteIderLagtTil([ ...deltakerlisteIderLagtTil, id ])
 				setDeltakerlisteIdUpdating(undefined)
+				if (koordinatorsDeltakerlister && koordinatorsDeltakerlister.koordinatorFor != null) {
+					const nyDeltakerliste = [ ...koordinatorsDeltakerlister.koordinatorFor.deltakerlister ]
+					nyDeltakerliste.push({ id: id, type: type, navn: navn })
+					const nyKoordinatorsDeltakerlister = {
+						...koordinatorsDeltakerlister,
+						koordinatorFor: { ...koordinatorsDeltakerlister.koordinatorFor, deltakerlister: nyDeltakerliste }
+					}
+					setKoordinatorsDeltakerlister(nyKoordinatorsDeltakerlister)
+				}
 			})
 
 		setShowLeggTilModal(false)
@@ -84,27 +101,31 @@ export const AdministrerDeltakerlisterPage = () => {
 		setDeltakerlisteIdUpdating(undefined)
 	}
 
-	const getNavnPaGjennomforing = (gjennomforingId: string | undefined): string => {
-		if (gjennomforingId === undefined) return ''
+	const getNavnPaDeltakerliste = (deltakerlisteId: string | undefined): string => {
+		if (deltakerlisteId === undefined) return ''
 
-		const gjennomforing = fetchTilgjengeligGjennomforingerPromise.result?.data.find((g) => g.id === gjennomforingId)
+		const deltakerliste = fetchAlleDeltakerlisterPromise.result?.data.find((g) => g.id === deltakerlisteId)
 
-		return gjennomforing != undefined
-			? gjennomforing.navn
+		return deltakerliste != undefined
+			? deltakerliste.navn
 			: ''
 	}
 
-	if (
-		isNotStartedOrPending(fetchGjennomforingerPromise) ||
-		isNotStartedOrPending(fetchTilgjengeligGjennomforingerPromise)
-	) {
+	const getTiltaksnavnForDeltakerliste = (deltakerlisteId: string | undefined): string => {
+		if (deltakerlisteId === undefined) return ''
+
+		const deltakerliste = fetchAlleDeltakerlisterPromise.result?.data.find((g) => g.id === deltakerlisteId)
+
+		return deltakerliste != undefined
+			? deltakerliste.tiltaksnavn
+			: ''
+	}
+
+	if (isNotStartedOrPending(fetchAlleDeltakerlisterPromise)) {
 		return <SpinnerPage/>
 	}
 
-	if (
-		isRejected(fetchGjennomforingerPromise) ||
-		isRejected(fetchTilgjengeligGjennomforingerPromise)
-	) {
+	if (isRejected(fetchAlleDeltakerlisterPromise)) {
 		return <AlertPage variant="error" tekst="Noe gikk galt"/>
 	}
 
@@ -141,7 +162,8 @@ export const AdministrerDeltakerlisterPage = () => {
 
 			<LeggTilDeltakerlisteModal
 				open={showLeggTilModal}
-				deltakerlisteNavn={getNavnPaGjennomforing(deltakerlisteIdUpdating)}
+				deltakerlisteNavn={getNavnPaDeltakerliste(deltakerlisteIdUpdating)}
+				deltakerlisteTiltaksnavn={getTiltaksnavnForDeltakerliste(deltakerlisteIdUpdating)}
 				deltakerlisteId={deltakerlisteIdUpdating as string}
 				onConfirm={leggTilConfirmed}
 				onClose={onLeggTilModalClosed}

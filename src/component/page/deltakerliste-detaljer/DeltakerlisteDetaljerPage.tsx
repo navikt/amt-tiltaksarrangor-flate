@@ -2,6 +2,8 @@ import { Heading } from '@navikt/ds-react'
 import { AxiosResponse } from 'axios'
 import React, { useEffect } from 'react'
 import { Navigate, useParams } from 'react-router-dom'
+
+import { fetchKoordinatorsDeltakerliste } from '../../../api/tiltak-api'
 import { TiltakDeltaker } from '../../../api/data/deltaker'
 import { Gjennomforing } from '../../../api/data/tiltak'
 import { fetchDeltakerePaTiltakGjennomforing, fetchTiltakGjennomforing } from '../../../api/tiltak-api'
@@ -16,6 +18,7 @@ import { DeltakerOversiktTabell } from './deltaker-oversikt/DeltakerOversiktTabe
 import styles from './DeltakerlisteDetaljerPage.module.scss'
 import { KoordinatorInfo } from './KoordinatorInfo'
 import { TiltakInfo } from './TiltakInfo'
+import { KoordinatorsDeltakerliste } from '../../../api/data/deltaker'
 import { KoordinatorTableFilterStore } from '../gjennomforing-detaljer/store/koordinator-table-filter-store'
 import {
 	DeltakerePerVeilederTableFilter
@@ -30,7 +33,6 @@ export const DeltakerlisteDetaljerPage = (): React.ReactElement => {
 	const params = useParams<{ deltakerlisteId: string }>()
 	const deltakerlisteId = params.deltakerlisteId || ''
 
-
 	useEffect(() => {
 		setTilbakeTilUrl(MINE_DELTAKERLISTER_PAGE_ROUTE)
 		// eslint-disable-next-line react-hooks/exhaustive-deps
@@ -38,38 +40,36 @@ export const DeltakerlisteDetaljerPage = (): React.ReactElement => {
 
 	useTabTitle('Deltakerliste')
 
-	const fetchDeltakerePaGjennomforingPromise = usePromise<AxiosResponse<TiltakDeltaker[]>>(
-		() => fetchDeltakerePaTiltakGjennomforing(deltakerlisteId), [ deltakerlisteId ]
+	const fetchKoordinatorsDeltakerlistePromise = usePromise<AxiosResponse<KoordinatorsDeltakerliste>>(
+		() => fetchKoordinatorsDeltakerliste(deltakerlisteId), [ deltakerlisteId ]
 	)
 
-	const fetchDeltakerlistePromise = usePromise<AxiosResponse<Gjennomforing>>(
-		() => fetchTiltakGjennomforing(deltakerlisteId), [ deltakerlisteId ]
-	)
-
-	if (
-		isNotStartedOrPending(fetchDeltakerePaGjennomforingPromise)
-		|| isNotStartedOrPending(fetchDeltakerlistePromise)
-	) {
+	if (isNotStartedOrPending(fetchKoordinatorsDeltakerlistePromise)) {
 		return <SpinnerPage />
 	}
 
-	if (
-		isRejected(fetchDeltakerePaGjennomforingPromise)
-		|| isRejected(fetchDeltakerlistePromise)
-	) {
-
-		if(isNotFound(fetchDeltakerlistePromise)) {
+	if (isRejected(fetchKoordinatorsDeltakerlistePromise)) {
+		if(isNotFound(fetchKoordinatorsDeltakerlistePromise)) {
 			return <Navigate replace to={MINE_DELTAKERLISTER_PAGE_ROUTE}/>
 		}
 
 		return <AlertPage variant="error" tekst="Noe gikk galt" />
 	}
 
-	const deltakere = fetchDeltakerePaGjennomforingPromise.result.data
+	const deltakerliste = fetchKoordinatorsDeltakerlistePromise.result.data
+
+	const deltakerePerStatus = getAntallDeltakerePerStatus(deltakerliste.deltakere)
 
 	const deltakerliste = fetchDeltakerlistePromise.result.data
 
 	return (
+		<div className={styles.deltakerlisteDetaljer} data-testid="gjennomforing-detaljer-page">
+			<section className={styles.infoSection}>
+				<Heading size="small" level="2" className={globalStyles.blokkXs}>{deltakerliste.navn}</Heading>
+				<TiltakInfo deltakerliste={deltakerliste} className={globalStyles.blokkXs} />
+				<KoordinatorInfo koordinatorer={deltakerliste.koordinatorer} />
+				<FilterMenyStatus statusMap={deltakerePerStatus} className={globalStyles.blokkXs} />
+			</section>
 		<KoordinatorTableFilterStore>
 			<div className={styles.deltakerlisteDetaljer} data-testid="gjennomforing-detaljer-page">
 				<section className={styles.infoSection}>
@@ -81,6 +81,8 @@ export const DeltakerlisteDetaljerPage = (): React.ReactElement => {
 					<KoordinatorFiltermenyMedveileder deltakere={deltakere}/>
 				</section>
 
+			<DeltakerOversiktTabell deltakere={deltakerliste.deltakere} />
+		</div>
 				<DeltakerOversiktTabell deltakere={deltakere} />
 			</div>
 		</KoordinatorTableFilterStore>

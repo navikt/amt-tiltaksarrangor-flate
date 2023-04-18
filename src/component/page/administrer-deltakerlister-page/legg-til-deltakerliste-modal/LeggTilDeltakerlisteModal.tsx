@@ -6,15 +6,16 @@ import React from 'react'
 interface LeggTilDeltakerlisteModalProps {
     open: boolean;
     deltakerlisteNavn: string;
+	deltakerlisteTiltaksnavn: string;
     deltakerlisteId: string;
-    onConfirm: (id: string) => void;
+    onConfirm: (id: string, navn: string, type: string) => void;
     onClose: () => void;
 }
 
 export const LeggTilDeltakerlisteModal = (props: LeggTilDeltakerlisteModalProps) => {
 
 	const onLeggTilClicked = () => {
-		props.onConfirm(props.deltakerlisteId)
+		props.onConfirm(props.deltakerlisteId, props.deltakerlisteNavn, props.deltakerlisteTiltaksnavn)
 	}
 
 	return (

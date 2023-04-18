@@ -2,12 +2,12 @@ import { LinkPanel } from '@navikt/ds-react'
 import React from 'react'
 
 import styles from './MineDeltakerePanel.module.scss'
-import { VeilederInfo } from '../../../../api/data/deltaker'
+import { VeilederFor } from '../../../../api/data/deltaker'
 import { MINE_DELTAKERE_PAGE_ROUTE } from '../../../../navigation'
 import clipboard from './clipboard.svg'
 
 interface MineDeltakerePanelProps {
-    veileder: VeilederInfo
+    veileder: VeilederFor
 }
 
 export const MineDeltakerePanel = (props: MineDeltakerePanelProps): React.ReactElement<MineDeltakerePanelProps> => {

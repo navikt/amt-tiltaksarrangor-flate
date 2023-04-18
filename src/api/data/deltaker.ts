@@ -2,8 +2,8 @@ import { z } from 'zod'
 
 import { dateSchema, nullableDateSchema } from '../utils'
 import { endringsmeldingSchema } from './endringsmelding'
-import { tiltakstypeSchema } from './tiltak'
-import { veilederMedTypeSchema, veilederSchema, veiledertypeSchema } from './veileder'
+import { koordinatorListSchema, tiltakGjennomforingStatusSchema, tiltakstypeSchema } from './tiltak'
+import { veilederMedTypeSchema, veiledertypeSchema } from './veileder'
 
 export enum TiltakDeltakerStatus {
 	VENTER_PA_OPPSTART = 'VENTER_PA_OPPSTART',
@@ -39,9 +39,9 @@ export const tiltakDeltakerSchema = z.object({
 	startDato: nullableDateSchema,
 	sluttDato: nullableDateSchema,
 	status: deltakerStatusSchema,
-	registrertDato: dateSchema,
+	soktInnDato: dateSchema,
 	aktiveEndringsmeldinger: z.array(endringsmeldingSchema),
-	aktiveVeiledere: z.array(veilederSchema),
+	veiledere: z.array(veilederMedTypeSchema),
 })
 
 export const deltakersDeltakerlisteSchema = z.object({
@@ -73,7 +73,7 @@ export const deltakerSchema = z.object({
 	aktiveEndringsmeldinger: z.array(endringsmeldingSchema)
 })
 
-export const veilederInfoSchema = z.object({
+export const veilederForSchema = z.object({
 	veilederFor: z.number(),
 	medveilederFor: z.number()
 })
@@ -84,13 +84,13 @@ export const deltakerlisteSchema = z.object({
 	navn: z.string()
 })
 
-export const koordinatorInfoSchema = z.object({
+export const koordinatorForSchema = z.object({
 	deltakerlister: z.array(deltakerlisteSchema)
 })
 
-export const deltakerOversiktSchema = z.object({
-	veilederInfo: veilederInfoSchema.nullable(),
-	koordinatorInfo: koordinatorInfoSchema.nullable()
+export const mineDeltakerlisterSchema = z.object({
+	veilederFor: veilederForSchema.nullable(),
+	koordinatorFor: koordinatorForSchema.nullable()
 })
 
 export const veiledersDeltakerSchema = z.object({
@@ -111,6 +111,18 @@ export const deltakerlisteVeilederSchema = z.array(veiledersDeltakerSchema)
 
 export const tiltakDeltakereSchema = z.array(tiltakDeltakerSchema)
 
+export const koordinatorsDeltakerlisteSchema = z.object({
+	id: z.string(),
+	navn: z.string(),
+	tiltaksnavn: z.string(),
+	arrangorNavn: z.string(),
+	startDato: nullableDateSchema,
+	sluttDato: nullableDateSchema,
+	status: tiltakGjennomforingStatusSchema,
+	koordinatorer: koordinatorListSchema,
+	deltakere: tiltakDeltakereSchema,
+})
+
 export type NavVeileder = z.infer<typeof navVeilederSchema>
 
 export type DeltakersDeltakerliste = z.infer<typeof deltakersDeltakerlisteSchema>
@@ -121,10 +133,12 @@ export type Deltaker = z.infer<typeof deltakerSchema>
 
 export type DeltakerStatus = z.infer<typeof deltakerStatusSchema>
 
-export type VeilederInfo = z.infer<typeof veilederInfoSchema>
+export type VeilederFor = z.infer<typeof veilederForSchema>
 
 export type Deltakerliste = z.infer<typeof deltakerlisteSchema>
 
-export type DeltakerOversikt = z.infer<typeof deltakerOversiktSchema>
+export type MineDeltakerlister = z.infer<typeof mineDeltakerlisterSchema>
 
 export type VeiledersDeltaker = z.infer<typeof veiledersDeltakerSchema>
+
+export type KoordinatorsDeltakerliste = z.infer<typeof koordinatorsDeltakerlisteSchema>
