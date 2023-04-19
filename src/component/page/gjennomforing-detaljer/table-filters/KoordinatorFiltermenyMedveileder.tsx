@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { useKoordinatorTableFilterStore } from '../store/koordinator-table-filter-store'
 import globalStyles from '../../../../globals.module.scss'
 import { FilterMeny } from '../../../felles/table-filter/FilterMeny'
-import { getMedveiledere, HAR_IKKE_MEDVEILEDER_VILER_TEKST, veilederNavn } from '../../../../utils/veileder-utils'
+import { getMedveiledere, HAR_IKKE_MEDVEILEDER_FILTER_TEKST, veilederNavn } from '../../../../utils/veileder-utils'
 import { FiltermenyDataEntry } from '../../../felles/table-filter/filtermeny-data-entry'
 
 interface Props {
@@ -41,9 +41,9 @@ export const KoordinatorFiltermenyMedveileder = (props: Props): React.ReactEleme
 			.sort((a, b) => a[1].displayName.localeCompare(b[1].displayName)))
 
 		const utenMedveilederMap = new Map<string, FiltermenyDataEntry>()
-		utenMedveilederMap.set(HAR_IKKE_MEDVEILEDER_VILER_TEKST, {
-			id: HAR_IKKE_MEDVEILEDER_VILER_TEKST,
-			displayName: HAR_IKKE_MEDVEILEDER_VILER_TEKST,
+		utenMedveilederMap.set(HAR_IKKE_MEDVEILEDER_FILTER_TEKST, {
+			id: HAR_IKKE_MEDVEILEDER_FILTER_TEKST,
+			displayName: HAR_IKKE_MEDVEILEDER_FILTER_TEKST,
 			entries: 0
 		})
 
@@ -62,11 +62,11 @@ export const KoordinatorFiltermenyMedveileder = (props: Props): React.ReactEleme
 			const medveiledere = getMedveiledere(deltaker)
 
 			if (medveiledere.length === 0) {
-				const entry = map.get(HAR_IKKE_MEDVEILEDER_VILER_TEKST)
+				const entry = map.get(HAR_IKKE_MEDVEILEDER_FILTER_TEKST)
 				if(entry !== null) {
-					map.set(HAR_IKKE_MEDVEILEDER_VILER_TEKST, {
-						id: HAR_IKKE_MEDVEILEDER_VILER_TEKST,
-						displayName: HAR_IKKE_MEDVEILEDER_VILER_TEKST,
+					map.set(HAR_IKKE_MEDVEILEDER_FILTER_TEKST, {
+						id: HAR_IKKE_MEDVEILEDER_FILTER_TEKST,
+						displayName: HAR_IKKE_MEDVEILEDER_FILTER_TEKST,
 						entries: entry ? entry.entries + 1 : 1
 					})
 				}
