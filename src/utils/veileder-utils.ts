@@ -1,5 +1,5 @@
 import { TiltakDeltaker } from '../api/data/deltaker'
-import { Veileder, VeilederMedType, Veiledertype } from '../api/data/veileder'
+import { VeilederMedType, Veiledertype } from '../api/data/veileder'
 
 export const HAR_IKKE_VEILEDER_FILTER_TEKST = 'Uten veileder'
 export const HAR_IKKE_MEDVEILEDER_FILTER_TEKST = 'Uten medveileder'
