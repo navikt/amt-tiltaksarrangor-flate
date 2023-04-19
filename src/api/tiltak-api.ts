@@ -75,7 +75,14 @@ export const fetchDeltakeroversikt = (): AxiosPromise<MineDeltakerlister> => {
 	return axiosInstance
 		.get(url)
 		.then(parse(mineDeltakerlisterSchema))
-		.catch(err => logAndThrowError(err, url))
+		.catch(err => {
+			// Ikke logg 403-feil til sentry
+			if ((err as AxiosError).response?.status === 403) {
+				throw err
+			}
+
+			return logAndThrowError(err, url)
+		})
 }
 
 export const fetchMineDeltakere = (): AxiosPromise<VeiledersDeltaker[]> => {
