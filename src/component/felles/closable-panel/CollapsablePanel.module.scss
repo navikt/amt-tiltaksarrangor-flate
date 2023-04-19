@@ -1,0 +1,57 @@
+.expandablePanel {
+  background-color: var(--ac-panel-bg, var(--a-surface-default));
+  padding: var(--a-spacing-4);
+  border-radius: var(--a-border-radius-small);
+  border: 1px solid var(--ac-panel-border, var(--a-border-default));
+  margin-bottom: 1rem;
+
+  ::-webkit-scrollbar {
+    -webkit-appearance: none;
+    width: 7px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    border-radius: 4px;
+    background-color: rgba(0, 0, 0, .5);
+    box-shadow: 0 0 1px rgba(255, 255, 255, .5);
+  }
+}
+
+.panelHeader {
+  display: flex;
+  justify-content: space-between;
+  text-align: center;
+  padding-top: 0.2rem;
+  padding-bottom: 0.2rem;
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.title {
+  font-size: var(--a-font-size-large);
+  font-weight: var(--a-font-weight-bold);
+  letter-spacing: 0;
+  line-height: var(--a-font-line-height-large);
+  margin: 0;
+}
+
+.expandablePanel .panelContent {
+  max-height: 500px;
+  overflow-y: auto;
+  padding-right: 15px;
+  transition: height 0.3s ease-in-out;
+}
+
+.rotateDown {
+  transform: rotate(180deg);
+  transition: transform 0.3s ease-in-out;
+  color: black;
+}
+
+.rotateUp {
+  transform: rotate(0deg);
+  transition: transform 0.3s ease-in-out;
+  color: black;
+}

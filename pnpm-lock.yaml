@@ -2,6 +2,7 @@ lockfileVersion: 5.4
 
 specifiers:
   '@babel/core': ^7.20.5
+  '@navikt/aksel-icons': ^2.7.8
   '@navikt/ds-css': ^2.1.0
   '@navikt/ds-css-internal': ^2.1.0
   '@navikt/ds-icons': ^2.1.0
@@ -50,6 +51,7 @@ specifiers:
 
 dependencies:
   '@babel/core': 7.20.5
+  '@navikt/aksel-icons': 2.8.0
   '@navikt/ds-css': 2.1.0
   '@navikt/ds-css-internal': 2.1.0
   '@navikt/ds-icons': 2.1.0_kzbn2opkn2327fwg5yzwzya5o4
@@ -820,6 +822,10 @@ packages:
     transitivePeerDependencies:
       - supports-color
     dev: true
+
+  /@navikt/aksel-icons/2.8.0:
+    resolution: {integrity: sha512-wqmCryZOWygtXZwX+iRJKCOLwupst3VOBaH94dX/ZmbXxFw2k/E9HLkHVJBzv4jddsda7C0SyO7uedFYTYJ1Aw==, tarball: download/@navikt/aksel-icons/2.8.0/c32509aa5b65e3b20ad2c3ba4e84dad688cb9725}
+    dev: false
 
   /@navikt/ds-css-internal/2.1.0:
     resolution: {integrity: sha512-MVhdoWDSYURX84zVu3X7Lz8SmRrACsXiBvK6VjmVQfo8r+qj4gmK6Ev9Dumu1sIi1YvGga5H3WNZDc77puWuvw==, tarball: download/@navikt/ds-css-internal/2.1.0/3b5531020239f1f7c3ad85527222987ea3910235}
