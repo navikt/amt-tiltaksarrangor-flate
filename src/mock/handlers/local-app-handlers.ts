@@ -13,7 +13,7 @@ export const localAppHandlers: RequestHandler[] = [
 	rest.get(appUrl('/auth/info'), (_req, res, ctx) => {
 		return res(ctx.delay(500), ctx.json(mockAuthInfo))
 	}),
-	rest.all(appUrl('/amt-tiltak/*'), async(req, res, ctx) => {
+	rest.all(appUrl('/amt-tiltaksarrangor-bff/*'), async(req, res, ctx) => {
 		return handleReq(localAmtTiltakUrl(), req, res, ctx)
 	})
 ]
@@ -27,7 +27,7 @@ const stripContextPath = (path: string, contextPath: string): string => {
 }
 
 const handleReq = async(proxyUrl: string, req: RestRequest, res: ResponseComposition, ctx: RestContext): Promise<MockedResponse> => {
-	const reqPath = stripContextPath(req.url.pathname, `${environment.baseUrl}amt-tiltak`)
+	const reqPath = stripContextPath(req.url.pathname, `${environment.baseUrl}amt-tiltaksarrangor-bff`)
 	const proxiedUrl = `${joinUrlAndPath(proxyUrl, reqPath)}${req.url.search}`
 
 	req.headers.append('Authorization', getRequestAuthHeader())

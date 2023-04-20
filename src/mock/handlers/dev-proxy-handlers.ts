@@ -12,7 +12,7 @@ getRequestCookie()
 	.forEach(c => document.cookie = c.trim() + '; path=/')
 
 export const devProxyHandlers: RequestHandler[] = [
-	rest.all(appUrl('/amt-tiltak/*'), async(req, res, ctx) => {
+	rest.all(appUrl('/amt-tiltaksarrangor-bff/*'), async(req, res, ctx) => {
 
 		return handleReq(getProxyUrl(), req, res, ctx)
 	})
