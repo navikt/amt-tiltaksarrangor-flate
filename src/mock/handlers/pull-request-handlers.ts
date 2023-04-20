@@ -9,7 +9,7 @@ export const pullRequestHandlers: RequestHandler[] = [
 	rest.get(appUrl('/auth/info'), (req, res, ctx) => {
 		return handleReq(req, res, ctx)
 	}),
-	rest.all(appUrl('/amt-tiltak/*'), async(req, res, ctx) => {
+	rest.all(appUrl('/amt-tiltaksarrangor-bff/*'), async(req, res, ctx) => {
 		return handleReq(req, res, ctx)
 	}),
 	rest.get(appUrl('/unleash/*'), async(req, res, ctx) => {

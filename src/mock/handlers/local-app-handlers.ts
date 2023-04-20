@@ -13,7 +13,7 @@ export const localAppHandlers: RequestHandler[] = [
 	rest.get(appUrl('/auth/info'), (_req, res, ctx) => {
 		return res(ctx.delay(500), ctx.json(mockAuthInfo))
 	}),
-	rest.all(appUrl('/amt-tiltak/*'), async(req, res, ctx) => {
+	rest.all(appUrl('/amt-tiltaksarrangor-bff/*'), async(req, res, ctx) => {
 		return handleReq(localAmtTiltakUrl(), req, res, ctx)
 	})
 ]
