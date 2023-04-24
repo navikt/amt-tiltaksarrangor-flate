@@ -5,16 +5,24 @@ import { endringsmeldingSchema } from './endringsmelding'
 import { koordinatorListSchema, tiltakGjennomforingStatusSchema, tiltakstypeSchema } from './tiltak'
 import { veilederMedTypeSchema, veiledertypeSchema } from './veileder'
 
-export enum TiltakDeltakerStatus {
+export enum KursDeltakerStatuser {
+	VURDERES = 'VURDERES',
+	VENTER_PA_OPPSTART = 'VENTER_PA_OPPSTART',
+	DELTAR = 'DELTAR',
+	FULLFORT = 'FULLFORT',
+	AVBRUTT = 'AVBRUTT',
+	IKKE_AKTUELL = 'IKKE_AKTUELL',
+
+}
+
+export enum IndividuellDeltakerStatus {
 	VENTER_PA_OPPSTART = 'VENTER_PA_OPPSTART',
 	DELTAR = 'DELTAR',
 	HAR_SLUTTET = 'HAR_SLUTTET',
 	IKKE_AKTUELL = 'IKKE_AKTUELL',
-	VURDERES = 'VURDERES',
-	FULLFORT = 'FULLFORT',
-	AVBRUTT = 'AVBRUTT'
 
 }
+export const TiltakDeltakerStatus = { ...KursDeltakerStatuser, ...IndividuellDeltakerStatus }
 
 const tiltakDeltakerStatusSchema = z.nativeEnum(TiltakDeltakerStatus)
 
@@ -125,6 +133,7 @@ export const koordinatorsDeltakerlisteSchema = z.object({
 	status: tiltakGjennomforingStatusSchema,
 	koordinatorer: koordinatorListSchema,
 	deltakere: tiltakDeltakereSchema,
+	erKurs: z.boolean()
 })
 
 export type NavVeileder = z.infer<typeof navVeilederSchema>

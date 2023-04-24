@@ -30,7 +30,7 @@ export const FilterMeny = (props: Props) => {
 			>
 				<span className={styles.content}>
 					<span>{entry.displayName}</span>
-					<span className={styles.occurrences}>{entry.entries}</span>
+					<span className={styles.occurrences}>{entry.antallDeltakere}</span>
 				</span>
 			</Checkbox>
 		)
@@ -40,7 +40,7 @@ export const FilterMeny = (props: Props) => {
 		<CollapsablePanel title={props.navn}>
 			<CheckboxGroup legend="" aria-label="Filtrer deltakere på status" value={props.filter}>
 				{props.data.map((e: FiltermenyDataEntry) => (
-					<FilterCheckbox key={e.id} id={e.id} displayName={e.displayName} entries={e.entries}/>
+					<FilterCheckbox key={e.id} id={e.id} displayName={e.displayName} antallDeltakere={e.antallDeltakere}/>
 				))}
 			</CheckboxGroup>
 		</CollapsablePanel>

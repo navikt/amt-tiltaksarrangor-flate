@@ -31,7 +31,7 @@ export const VeilederFiltermenyVeilederType = (props: Props): React.ReactElement
 				dataMap.set(veilederType, {
 					id: veilederType,
 					displayName: displayName(veilederType),
-					entries: 0
+					antallDeltakere: 0
 				})
 			})
 
@@ -58,7 +58,7 @@ export const VeilederFiltermenyVeilederType = (props: Props): React.ReactElement
 			data.set(veilederType, {
 				id: veilederType,
 				displayName: displayName(veilederType),
-				entries: entry ? entry.entries + 1 : 1
+				antallDeltakere: entry ? entry.antallDeltakere + 1 : 1
 			})
 		})
 

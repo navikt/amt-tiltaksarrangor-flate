@@ -1,7 +1,7 @@
 import { VeiledersDeltaker } from '../../../../api/data/deltaker'
 import React, { useEffect, useState } from 'react'
 import { FiltermenyDataEntry } from '../../../felles/table-filter/filtermeny-data-entry'
-import { mapTiltakDeltagerStatusTilTekst } from '../../../../utils/text-mappers'
+import { mapTiltakDeltakerStatusTilTekst } from '../../../../utils/text-mappers'
 import { klikkFilterMeny, loggKlikk } from '../../../../utils/amplitude-utils'
 import { FilterMeny } from '../../../felles/table-filter/FilterMeny'
 import globalStyles from '../../../../globals.module.scss'
@@ -27,11 +27,11 @@ export const VeilederFiltermenyStatus = (props: Props): React.ReactElement => {
 		const dataMap = new Map<string, FiltermenyDataEntry>()
 		deltakere.forEach((deltaker) => {
 			const status = deltaker.status.type
-			const statusTekst = mapTiltakDeltagerStatusTilTekst(status)
+			const statusTekst = mapTiltakDeltakerStatusTilTekst(status)
 			dataMap.set(statusTekst, {
 				id: status,
 				displayName: statusTekst,
-				entries: 0
+				antallDeltakere: 0
 			})
 		})
 
@@ -48,13 +48,13 @@ export const VeilederFiltermenyStatus = (props: Props): React.ReactElement => {
 
 		filtrerDeltakere(props.deltakere).forEach((deltaker: VeiledersDeltaker) => {
 			const status = deltaker.status.type
-			const statusTekst = mapTiltakDeltagerStatusTilTekst(status)
+			const statusTekst = mapTiltakDeltakerStatusTilTekst(status)
 			const entry = statusMap.get(statusTekst)
 
 			statusMap.set(statusTekst, {
 				id: status,
 				displayName: statusTekst,
-				entries: entry ? entry.entries + 1 : 1
+				antallDeltakere: entry ? entry.antallDeltakere + 1 : 1
 			})
 		})
 

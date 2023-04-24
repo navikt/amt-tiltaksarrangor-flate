@@ -21,7 +21,7 @@ export const VeilederFiltermenyDeltakerliste = (props: Props): ReactElement => {
 			dataMap.set(deltakerliste.navn, {
 				id: deltakerliste.navn,
 				displayName: deltakerliste.navn,
-				entries: 0
+				antallDeltakere: 0
 			})
 		})
 
@@ -45,7 +45,7 @@ export const VeilederFiltermenyDeltakerliste = (props: Props): ReactElement => {
 			data.set(deltakerliste.navn, {
 				id: deltakerliste.navn,
 				displayName: deltakerliste.navn,
-				entries: entry ? entry.entries + 1 : 1
+				antallDeltakere: entry ? entry.antallDeltakere + 1 : 1
 			})
 		})
 

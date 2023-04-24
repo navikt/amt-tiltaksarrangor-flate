@@ -3,10 +3,10 @@ import classNames from 'classnames'
 import React from 'react'
 
 import { DeltakerStatus, TiltakDeltakerStatus } from '../../../api/data/deltaker'
-import { mapTiltakDeltagerStatusTilTekst } from '../../../utils/text-mappers'
+import { mapTiltakDeltakerStatusTilTekst } from '../../../utils/text-mappers'
 import styles from './StatusMerkelapp.module.scss'
 
-const getStyle = (statusType: TiltakDeltakerStatus) => {
+const getStyle = (statusType: typeof TiltakDeltakerStatus | string) => {
 	switch (statusType) {
 		case TiltakDeltakerStatus.IKKE_AKTUELL:
 		case TiltakDeltakerStatus.AVBRUTT:
@@ -18,7 +18,7 @@ const getStyle = (statusType: TiltakDeltakerStatus) => {
 	}
 }
 
-const deltakerlisteStyle = (statusType: TiltakDeltakerStatus) => {
+const deltakerlisteStyle = (statusType: typeof TiltakDeltakerStatus | string) => {
 	switch (statusType) {
 		case TiltakDeltakerStatus.IKKE_AKTUELL:
 		case TiltakDeltakerStatus.AVBRUTT:
@@ -39,7 +39,7 @@ export const StatusMerkelapp = (props: StatusProps) => {
 	const { type } = props.status
 	return(
 		<Tag variant="info" size="small" className={classNames(getStyle(type), props.erDeltakerlisteVisning ? deltakerlisteStyle(type) : undefined)}>
-			{mapTiltakDeltagerStatusTilTekst(type)}
+			{mapTiltakDeltakerStatusTilTekst(type)}
 		</Tag>
 	)
 }

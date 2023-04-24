@@ -1,6 +1,6 @@
 import { TiltakDeltakerStatus } from '../api/data/deltaker'
 
-export const mapTiltakDeltagerStatusTilTekst = (tiltakDeltakerStatus: TiltakDeltakerStatus | string): string => {
+export const mapTiltakDeltakerStatusTilTekst = (tiltakDeltakerStatus: typeof TiltakDeltakerStatus | string): string => {
 	switch (tiltakDeltakerStatus) {
 		case TiltakDeltakerStatus.VENTER_PA_OPPSTART:
 			return 'Venter på oppstart'
@@ -17,6 +17,6 @@ export const mapTiltakDeltagerStatusTilTekst = (tiltakDeltakerStatus: TiltakDelt
 		case TiltakDeltakerStatus.AVBRUTT:
 			return 'Avbrutt'
 		default:
-			return tiltakDeltakerStatus
+			return tiltakDeltakerStatus.toString()
 	}
 }
