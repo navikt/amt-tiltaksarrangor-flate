@@ -15,7 +15,6 @@ export enum Tiltakskode {
 
 export enum TiltakGjennomforingStatus {
 	APENT_FOR_INNSOK = 'APENT_FOR_INNSOK',
-	IKKE_STARTET = 'IKKE_STARTET',
 	GJENNOMFORES = 'GJENNOMFORES',
 	AVSLUTTET = 'AVSLUTTET'
 }
