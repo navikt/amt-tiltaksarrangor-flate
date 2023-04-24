@@ -1,6 +1,6 @@
 import { TiltakDeltakerStatus } from '../api/data/deltaker'
 
-export const mapTiltakDeltagerStatusTilTekst = (tiltakDeltagerStatus: TiltakDeltakerStatus): string => {
+export const mapTiltakDeltagerStatusTilTekst = (tiltakDeltagerStatus: TiltakDeltakerStatus | string): string => {
 	switch (tiltakDeltagerStatus) {
 		case TiltakDeltakerStatus.VENTER_PA_OPPSTART:
 			return 'Venter på oppstart'
