@@ -1,4 +1,4 @@
-import { TiltakDeltaker } from '../../../../api/data/deltaker'
+import { TiltakDeltaker, TiltakDeltakerStatus } from '../../../../api/data/deltaker'
 import React, { useEffect, useState } from 'react'
 import { useKoordinatorTableFilterStore } from '../store/koordinator-table-filter-store'
 import globalStyles from '../../../../globals.module.scss'
@@ -23,18 +23,18 @@ export const DeltakerePerStatusTableFilter = (props: Props): React.ReactElement 
 		filtrerBrukerePaMedveileder
 	} = useKoordinatorTableFilterStore()
 
-	const createInitialDataMap = (deltakere: TiltakDeltaker[]): Map<string, FiltermenyDataEntry> => {
+	const createInitialDataMap = (): Map<string, FiltermenyDataEntry> => {
 		const dataMap = new Map<string, FiltermenyDataEntry>()
 
-		deltakere.forEach((deltaker) => {
-			const status = deltaker.status.type
-			const statusTekst = mapTiltakDeltagerStatusTilTekst(status)
-			dataMap.set(statusTekst, {
+		for(const status in TiltakDeltakerStatus) {
+			const tekst = mapTiltakDeltagerStatusTilTekst(status)
+
+			dataMap.set(tekst, {
 				id: status,
-				displayName: statusTekst,
+				displayName: tekst,
 				entries: 0
 			})
-		})
+		}
 
 		return dataMap
 	}
@@ -45,7 +45,7 @@ export const DeltakerePerStatusTableFilter = (props: Props): React.ReactElement 
 			return filtrerBrukerePaMedveileder(filtrertPaHovedveileder)
 		}
 
-		const statusMap = createInitialDataMap(props.deltakere)
+		const statusMap = createInitialDataMap()
 
 		filtrerDeltakere(props.deltakere).forEach((deltaker: TiltakDeltaker) => {
 			const status = deltaker.status.type
