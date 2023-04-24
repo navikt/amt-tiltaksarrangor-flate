@@ -9,15 +9,20 @@ import styles from './StatusMerkelapp.module.scss'
 const getStyle = (statusType: TiltakDeltakerStatus) => {
 	switch (statusType) {
 		case TiltakDeltakerStatus.IKKE_AKTUELL:
+		case TiltakDeltakerStatus.AVBRUTT:
+		case TiltakDeltakerStatus.FULLFORT:
 		case TiltakDeltakerStatus.HAR_SLUTTET: return styles.statusTagOrange
 		case TiltakDeltakerStatus.DELTAR: return styles.statusTagHvit
 		case TiltakDeltakerStatus.VENTER_PA_OPPSTART: return styles.statusTagBla
+		case TiltakDeltakerStatus.VURDERES: return styles.statusTagLilla
 	}
 }
 
 const deltakerlisteStyle = (statusType: TiltakDeltakerStatus) => {
 	switch (statusType) {
 		case TiltakDeltakerStatus.IKKE_AKTUELL:
+		case TiltakDeltakerStatus.AVBRUTT:
+		case TiltakDeltakerStatus.FULLFORT:
 		case TiltakDeltakerStatus.HAR_SLUTTET: return styles.statusTagOrangeSmall
 		case TiltakDeltakerStatus.VENTER_PA_OPPSTART: return styles.statusTagBlaSmall
 		case TiltakDeltakerStatus.DELTAR: 
@@ -27,7 +32,7 @@ const deltakerlisteStyle = (statusType: TiltakDeltakerStatus) => {
 
 interface StatusProps {
     status: DeltakerStatus
-		erDeltakerlisteVisning?: boolean
+	erDeltakerlisteVisning?: boolean
 }
 
 export const StatusMerkelapp = (props: StatusProps) => {

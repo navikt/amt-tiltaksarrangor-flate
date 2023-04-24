@@ -9,7 +9,11 @@ export enum TiltakDeltakerStatus {
 	VENTER_PA_OPPSTART = 'VENTER_PA_OPPSTART',
 	DELTAR = 'DELTAR',
 	HAR_SLUTTET = 'HAR_SLUTTET',
-	IKKE_AKTUELL = 'IKKE_AKTUELL'
+	IKKE_AKTUELL = 'IKKE_AKTUELL',
+	VURDERES = 'VURDERES',
+	FULLFORT = 'FULLFORT',
+	AVBRUTT = 'AVBRUTT'
+
 }
 
 const tiltakDeltakerStatusSchema = z.nativeEnum(TiltakDeltakerStatus)

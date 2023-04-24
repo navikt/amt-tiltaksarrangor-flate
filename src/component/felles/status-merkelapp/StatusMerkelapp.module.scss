@@ -16,6 +16,11 @@
   border-color: $navGra80;
 }
 
+.statusTagLilla {
+  background-color: var(--a-surface-alt-1-subtle);
+  border-color: var(--a-surface-alt-1);
+}
+
 .statusTagBlaSmall {
   white-space: nowrap;
   min-width: fit-content;

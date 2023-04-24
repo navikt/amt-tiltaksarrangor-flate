@@ -9,7 +9,7 @@ specifiers:
   '@navikt/ds-react': ^2.1.0
   '@navikt/ds-react-internal': ^2.1.0
   '@navikt/ds-tokens': ^2.1.0
-  '@navikt/nav-dekoratoren-moduler': ^1.8.1
+  '@navikt/nav-dekoratoren-moduler': ^1.9.0
   '@sentry/react': ^7.3.1
   '@sentry/tracing': ^7.3.1
   '@types/amplitude-js': ^8.9.3
@@ -51,14 +51,14 @@ specifiers:
 
 dependencies:
   '@babel/core': 7.20.5
-  '@navikt/aksel-icons': 2.8.0
+  '@navikt/aksel-icons': 2.8.13
   '@navikt/ds-css': 2.1.0
   '@navikt/ds-css-internal': 2.1.0
   '@navikt/ds-icons': 2.1.0_kzbn2opkn2327fwg5yzwzya5o4
   '@navikt/ds-react': 2.1.0_ib3m5ricvtkl2cll7qpr2f6lvq
   '@navikt/ds-react-internal': 2.1.0_ib3m5ricvtkl2cll7qpr2f6lvq
   '@navikt/ds-tokens': 2.1.0
-  '@navikt/nav-dekoratoren-moduler': 1.8.1
+  '@navikt/nav-dekoratoren-moduler': 1.9.0
   '@sentry/react': 7.27.0_react@18.2.0
   '@sentry/tracing': 7.27.0
   '@types/react': 18.0.26
@@ -823,8 +823,8 @@ packages:
       - supports-color
     dev: true
 
-  /@navikt/aksel-icons/2.8.0:
-    resolution: {integrity: sha512-wqmCryZOWygtXZwX+iRJKCOLwupst3VOBaH94dX/ZmbXxFw2k/E9HLkHVJBzv4jddsda7C0SyO7uedFYTYJ1Aw==, tarball: download/@navikt/aksel-icons/2.8.0/c32509aa5b65e3b20ad2c3ba4e84dad688cb9725}
+  /@navikt/aksel-icons/2.8.13:
+    resolution: {integrity: sha512-uGk1CyVAKGKLCTP7rFnIwoACMZGwW0OM6N2kQrYbfXHlBOMKcctnUJDmadztuWC7feiw9e12QR4Z2gJ/Xq74pQ==, tarball: download/@navikt/aksel-icons/2.8.13/6a5d79984a3c1c276c892069d2f2c235842ef7b6}
     dev: false
 
   /@navikt/ds-css-internal/2.1.0:
@@ -894,8 +894,8 @@ packages:
     resolution: {integrity: sha512-TyaeDOmaGKh0Ru0kogQSXyjA3LlfgeKaTa57G5301T8jgX0JDqpEFtGvqvEDTP0n4U9Mn0iYqgXZBoX70ZWhqQ==, tarball: download/@navikt/ds-tokens/2.1.0/c08d048f3c76f562626e0aad644e6ae8e0fe0745}
     dev: false
 
-  /@navikt/nav-dekoratoren-moduler/1.8.1:
-    resolution: {integrity: sha512-0e9RgMxA/n47iJybXdW2m7bUC7SB1w6312sQw6Rlzlqg4ImCdz6mDtg+Qf94Erua1IRX/Yrey+pVGODXCkm/cA==, tarball: download/@navikt/nav-dekoratoren-moduler/1.8.1/27402c518cc145a1261a790793eee7408b8b8350}
+  /@navikt/nav-dekoratoren-moduler/1.9.0:
+    resolution: {integrity: sha512-0YUAvNnCCATZmit66XnxjngAEpEdUl3uae8gecBElXh59LFUVS6YHZt1MBGIxEzJ+ZVTYh5bOfPRyKuuJvdX4A==, tarball: download/@navikt/nav-dekoratoren-moduler/1.9.0/846eb07e61407c96215bfff3070933d7a858b55a}
     engines: {node: '>=10'}
     dependencies:
       csp-header: 5.1.0
