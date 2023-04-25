@@ -2,7 +2,7 @@ import {
 	IndividuellDeltakerStatus, KursDeltakerStatuser,
 	TiltakDeltaker,
 } from '../../../../api/data/deltaker'
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { useKoordinatorTableFilterStore } from '../store/koordinator-table-filter-store'
 import globalStyles from '../../../../globals.module.scss'
 import { FilterMeny } from '../../../felles/table-filter/FilterMeny'
@@ -27,7 +27,7 @@ export const DeltakerePerStatusTableFilter = (props: Props): React.ReactElement 
 		filtrerBrukerePaMedveileder
 	} = useKoordinatorTableFilterStore()
 
-	const createInitialDataMap = (): Map<string, FiltermenyDataEntry> => {
+	const createInitialDataMap = useCallback((): Map<string, FiltermenyDataEntry> => {
 		const dataMap = new Map<string, FiltermenyDataEntry>()
 		const statuser = props.erKurs? KursDeltakerStatuser : IndividuellDeltakerStatus
 
@@ -40,9 +40,8 @@ export const DeltakerePerStatusTableFilter = (props: Props): React.ReactElement 
 				antallDeltakere: 0
 			})
 		})
-
 		return dataMap
-	}
+	}, [ props.erKurs ])
 
 	useEffect(() => {
 		const filtrerDeltakere = (deltakere: TiltakDeltaker[]): TiltakDeltaker[] => {
@@ -64,7 +63,7 @@ export const DeltakerePerStatusTableFilter = (props: Props): React.ReactElement 
 		})
 
 		setDeltakerePerStatus([ ...statusMap.values() ])
-	}, [ props.deltakere, medveilederFilter, veilederFilter, filtrerBrukerePaHovedveileder, filtrerBrukerePaMedveileder ])
+	}, [ props.deltakere, medveilederFilter, veilederFilter, filtrerBrukerePaHovedveileder, filtrerBrukerePaMedveileder, createInitialDataMap ])
 
 	const leggTil = (status: string) => {
 		setStatusFilter((prev) => {
