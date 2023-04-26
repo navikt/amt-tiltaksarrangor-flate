@@ -11,7 +11,6 @@ import {
 	mockDeltakerlisteVeileder,
 	mockMineDeltakerlister,
 	mockGjennomforinger,
-	mockTilgjengeligGjennomforinger,
 	mockTiltakDeltakere,
 	mockKoordinatorsDeltakerliste
 } from '../data'
@@ -31,7 +30,7 @@ export const mockHandlers: RequestHandler[] = [
 		return res(ctx.delay(500), ctx.json(mockMineRoller))
 	}),
 	rest.get(appUrl('/amt-tiltaksarrangor-bff/tiltaksarrangor/koordinator/admin/deltakerlister'), (_req, res, ctx) => {
-		const gjennomforinger = [ mapGjennomforingTilAdminDeltakerliste(mockGjennomforinger[0], true), ...mockTilgjengeligGjennomforinger.map(g => mapGjennomforingTilAdminDeltakerliste(g, false)) ]
+		const gjennomforinger = [ mapGjennomforingTilAdminDeltakerliste(mockGjennomforinger[0], true), ...mockGjennomforinger.map(g => mapGjennomforingTilAdminDeltakerliste(g, false)) ]
 		return res(ctx.delay(500), ctx.json(gjennomforinger))
 	}),
 	rest.get(appUrl('/amt-tiltaksarrangor-bff/tiltaksarrangor/koordinator/deltakerliste/:deltakerlisteId'), (req, res, ctx) => {
