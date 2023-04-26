@@ -31,7 +31,7 @@ export const KoordinatorFiltermenyMedveileder = (props: Props): React.ReactEleme
 				medveilederMap.set(medveileder.ansattId, {
 					id: medveileder.ansattId,
 					displayName: veilederNavn(medveileder),
-					entries: 0
+					antallDeltakere: 0
 				})
 			})
 
@@ -44,7 +44,7 @@ export const KoordinatorFiltermenyMedveileder = (props: Props): React.ReactEleme
 		utenMedveilederMap.set(HAR_IKKE_MEDVEILEDER_FILTER_TEKST, {
 			id: HAR_IKKE_MEDVEILEDER_FILTER_TEKST,
 			displayName: HAR_IKKE_MEDVEILEDER_FILTER_TEKST,
-			entries: 0
+			antallDeltakere: 0
 		})
 
 		return new Map<string, FiltermenyDataEntry>([ ...utenMedveilederMap, ...sortedMap ])
@@ -67,7 +67,7 @@ export const KoordinatorFiltermenyMedveileder = (props: Props): React.ReactEleme
 					map.set(HAR_IKKE_MEDVEILEDER_FILTER_TEKST, {
 						id: HAR_IKKE_MEDVEILEDER_FILTER_TEKST,
 						displayName: HAR_IKKE_MEDVEILEDER_FILTER_TEKST,
-						entries: entry ? entry.entries + 1 : 1
+						antallDeltakere: entry ? entry.antallDeltakere + 1 : 1
 					})
 				}
 			} else {
@@ -76,7 +76,7 @@ export const KoordinatorFiltermenyMedveileder = (props: Props): React.ReactEleme
 					map.set(medveileder.ansattId, {
 						id: medveileder.ansattId,
 						displayName: veilederNavn(medveileder),
-						entries: entry ? entry.entries + 1 : 1
+						antallDeltakere: entry ? entry.antallDeltakere + 1 : 1
 					})
 				})
 			}

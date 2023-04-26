@@ -25,7 +25,8 @@ export const mockKoordinatorsDeltakerliste = (gjennomforing: MockGjennomforing):
 		koordinatorer: mockKoordinatorer,
 		deltakere: mockTiltakDeltakere
 			.filter(deltaker => deltaker.gjennomforing.id === gjennomforing.id)
-			.map(deltaker => mapToDeltakerListView(deltaker))
+			.map(deltaker => mapToDeltakerListView(deltaker)),
+		erKurs: false
 	}
 }
 

@@ -18,6 +18,7 @@ import { ElementPanel } from './ElementPanel'
 import { EndreDeltakelseKnapp } from './EndreDeltakelseKnapp'
 import { Endringsmeldinger } from './endringsmelding/Endringsmeldinger'
 import { FjernDeltakerModal } from './fjern-deltaker-modal/FjernDeltakerModal'
+import { Tiltakskode } from '../../../../api/data/tiltak'
 
 interface DeltakelseInfoProps {
 	deltaker: Deltaker
@@ -40,10 +41,10 @@ export const DeltakelseInfo = ({
 		skjulDeltakerPromise.setPromise(skjulDeltaker(deltaker.id))
 	}
 
-	const skalViseDeltakelsesprosent = [ 'ARBFORB', 'VASV' ]
+	const skalViseDeltakelsesprosent = [ Tiltakskode.ARBFORB, Tiltakskode.VASV ]
 		.includes(deltaker.tiltakskode)
 
-	const erIkkeAktuellEllerHarSluttet = [ TiltakDeltakerStatus.IKKE_AKTUELL, TiltakDeltakerStatus.HAR_SLUTTET ]
+	const erIkkeAktuellEllerHarSluttet = [ TiltakDeltakerStatus.IKKE_AKTUELL, TiltakDeltakerStatus.HAR_SLUTTET, TiltakDeltakerStatus.AVBRUTT ]
 		.includes(deltaker.status.type)
 
 	return (

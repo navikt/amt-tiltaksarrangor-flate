@@ -63,7 +63,7 @@ export const DeltakerlisteDetaljerPage = (): React.ReactElement => {
 					<Heading size="small" level="2" className={globalStyles.blokkXs}>{deltakerliste.navn}</Heading>
 					<TiltakInfo deltakerliste={deltakerliste} className={globalStyles.blokkXs} />
 					<KoordinatorInfo koordinatorer={deltakerliste.koordinatorer} />
-					<DeltakerePerStatusTableFilter deltakere={deltakerliste.deltakere}/>
+					<DeltakerePerStatusTableFilter erKurs={deltakerliste.erKurs} deltakere={deltakerliste.deltakere}/>
 					<DeltakerePerVeilederTableFilter deltakere={deltakerliste.deltakere}/>
 					<KoordinatorFiltermenyMedveileder deltakere={deltakerliste.deltakere}/>
 				</section>

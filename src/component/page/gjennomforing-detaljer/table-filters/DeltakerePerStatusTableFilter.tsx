@@ -1,14 +1,18 @@
-import { TiltakDeltaker, TiltakDeltakerStatus } from '../../../../api/data/deltaker'
-import React, { useEffect, useState } from 'react'
+import {
+	IndividuellDeltakerStatus, KursDeltakerStatuser,
+	TiltakDeltaker,
+} from '../../../../api/data/deltaker'
+import React, { useCallback, useEffect, useState } from 'react'
 import { useKoordinatorTableFilterStore } from '../store/koordinator-table-filter-store'
 import globalStyles from '../../../../globals.module.scss'
 import { FilterMeny } from '../../../felles/table-filter/FilterMeny'
-import { mapTiltakDeltagerStatusTilTekst } from '../../../../utils/text-mappers'
+import { mapTiltakDeltakerStatusTilTekst } from '../../../../utils/text-mappers'
 import { FiltermenyDataEntry } from '../../../felles/table-filter/filtermeny-data-entry'
 import { klikkFilterMeny, loggKlikk } from '../../../../utils/amplitude-utils'
 
 interface Props {
 	deltakere: TiltakDeltaker[]
+	erKurs: boolean
 }
 
 export const DeltakerePerStatusTableFilter = (props: Props): React.ReactElement => {
@@ -23,21 +27,21 @@ export const DeltakerePerStatusTableFilter = (props: Props): React.ReactElement 
 		filtrerBrukerePaMedveileder
 	} = useKoordinatorTableFilterStore()
 
-	const createInitialDataMap = (): Map<string, FiltermenyDataEntry> => {
+	const createInitialDataMap = useCallback((): Map<string, FiltermenyDataEntry> => {
 		const dataMap = new Map<string, FiltermenyDataEntry>()
+		const statuser = props.erKurs? KursDeltakerStatuser : IndividuellDeltakerStatus
 
-		for(const status in TiltakDeltakerStatus) {
-			const tekst = mapTiltakDeltagerStatusTilTekst(status)
+		Object.keys(statuser).forEach(status => {
+			const tekst = mapTiltakDeltakerStatusTilTekst(status)
 
-			dataMap.set(tekst, {
+			dataMap.set(status, {
 				id: status,
 				displayName: tekst,
-				entries: 0
+				antallDeltakere: 0
 			})
-		}
-
+		})
 		return dataMap
-	}
+	}, [ props.erKurs ])
 
 	useEffect(() => {
 		const filtrerDeltakere = (deltakere: TiltakDeltaker[]): TiltakDeltaker[] => {
@@ -49,18 +53,17 @@ export const DeltakerePerStatusTableFilter = (props: Props): React.ReactElement 
 
 		filtrerDeltakere(props.deltakere).forEach((deltaker: TiltakDeltaker) => {
 			const status = deltaker.status.type
-			const statusTekst = mapTiltakDeltagerStatusTilTekst(status)
-			const entry = statusMap.get(statusTekst)
+			const entry = statusMap.get(status)
 
-			statusMap.set(statusTekst, {
+			statusMap.set(status, {
 				id: status,
-				displayName: statusTekst,
-				entries: entry ? entry.entries + 1 : 1
+				displayName: entry ? entry.displayName: '',
+				antallDeltakere: entry ? entry.antallDeltakere + 1 : 1
 			})
 		})
 
 		setDeltakerePerStatus([ ...statusMap.values() ])
-	}, [ props.deltakere, medveilederFilter, veilederFilter, filtrerBrukerePaHovedveileder, filtrerBrukerePaMedveileder ])
+	}, [ props.deltakere, medveilederFilter, veilederFilter, filtrerBrukerePaHovedveileder, filtrerBrukerePaMedveileder, createInitialDataMap ])
 
 	const leggTil = (status: string) => {
 		setStatusFilter((prev) => {
