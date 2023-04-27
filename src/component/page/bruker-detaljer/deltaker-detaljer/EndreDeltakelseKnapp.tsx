@@ -27,6 +27,9 @@ export const EndreDeltakelseKnapp = (props: EndreDeltakelseKnappProps) => {
 		visSettDeltakerIkkeAktuellModal,
 		visAvsluttDeltakerModal,
 		visEndreProsentDeltakelseModal,
+		visTilbyPlassModal,
+		visSettPaaVentelisteModal,
+		visEndreSluttdatoModal,
 		lukkModal
 	} = useModalData()
 	const { deltaker } = props
@@ -72,7 +75,8 @@ export const EndreDeltakelseKnapp = (props: EndreDeltakelseKnappProps) => {
 						}
 
 						{(deltaker.status.type === TiltakDeltakerStatus.HAR_SLUTTET
-								|| deltaker.status.type === TiltakDeltakerStatus.DELTAR) &&
+								|| (deltaker.status.type === TiltakDeltakerStatus.DELTAR && (!deltaker.sluttDato || !deltaker.deltakerliste.sluttDato ||
+									deltaker.sluttDato <= deltaker.deltakerliste.sluttDato))) &&
 							<DropDownButton
 								endringstype={EndringType.FORLENG_DELTAKELSE}
 								onClick={() => visForlengDeltakelseModal({
@@ -104,13 +108,46 @@ export const EndreDeltakelseKnapp = (props: EndreDeltakelseKnappProps) => {
 									onEndringUtfort: props.onEndringUtfort
 								})}/>
 						}
-						{(deltaker.tiltakskode === 'ARBFORB'
-								|| deltaker.tiltakskode === 'VASV') &&
+						{(deltaker.tiltakskode === Tiltakskode.ARBFORB
+								|| deltaker.tiltakskode === Tiltakskode.VASV) &&
 							<DropDownButton
 								endringstype={EndringType.ENDRE_DELTAKELSE_PROSENT}
 								onClick={() => visEndreProsentDeltakelseModal({
 									deltakerId: deltaker.id,
 									gammelProsentDeltakelse: deltaker.deltakelseProsent,
+									visGodkjennVilkaarPanel: visGodkjennVilkaarPanel,
+									onEndringUtfort: props.onEndringUtfort
+								})}/>
+						}
+						{ deltaker.status.type === TiltakDeltakerStatus.VURDERES &&
+							<>
+								<DropDownButton
+									endringstype={EndringType.TILBY_PLASS}
+									onClick={() => visTilbyPlassModal({
+										deltakerId: deltaker.id,
+										onEndringUtfort: props.onEndringUtfort
+									})}/>
+								<DropDownButton
+									endringstype={EndringType.SETT_PAA_VENTELISTE}
+									onClick={() => visSettPaaVentelisteModal({
+										deltakerId: deltaker.id,
+										onEndringUtfort: props.onEndringUtfort
+									})}/>
+								<DropDownButton
+									endringstype={EndringType.DELTAKER_IKKE_AKTUELL}
+									onClick={() => visSettDeltakerIkkeAktuellModal({
+										deltakerId: deltaker.id,
+										visGodkjennVilkaarPanel: visGodkjennVilkaarPanel,
+										onEndringUtfort: props.onEndringUtfort
+									})}/>
+							</>
+						}
+						{ (deltaker.status.type === TiltakDeltakerStatus.FULLFORT ||
+							deltaker.status.type === TiltakDeltakerStatus.AVBRUTT) &&
+							<DropDownButton
+								endringstype={EndringType.ENDRE_SLUTTDATO}
+								onClick={() => visEndreSluttdatoModal({
+									deltakerId: deltaker.id,
 									visGodkjennVilkaarPanel: visGodkjennVilkaarPanel,
 									onEndringUtfort: props.onEndringUtfort
 								})}/>

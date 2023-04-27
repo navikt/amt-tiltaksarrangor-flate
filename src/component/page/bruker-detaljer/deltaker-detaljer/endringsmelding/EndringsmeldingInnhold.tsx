@@ -67,6 +67,21 @@ export const EndringsmeldingInnhold = (props: EndringsmeldingInnholdProps) => {
 					{ endringsmelding.innhold.gyldigFraDato && <BodyShort size="small">Gjelder fra {formatDate(endringsmelding.innhold.gyldigFraDato)}</BodyShort> }
 				</>
 			)
+		case EndringsmeldingType.TILBY_PLASS:
+			return (
+				<BodyShort size="small">Foreslår å tilby plass til denne personen.</BodyShort>
+			)
+		case EndringsmeldingType.SETT_PAA_VENTELISTE:
+			return (
+				<BodyShort size="small">Sett på venteliste</BodyShort>
+			)
+		case EndringsmeldingType.ENDRE_SLUTTDATO:
+			return (
+				<>
+					<BodyShort size="small">Endre sluttdato</BodyShort>
+					<BodyShort size="small">Ny sluttdato: {formatDate(endringsmelding.innhold.sluttdato)}</BodyShort>
+				</>
+			)
 		default: return null
 	}
 }

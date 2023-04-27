@@ -6,7 +6,7 @@ import { isPending, usePromise } from '../../../../../utils/use-promise'
 interface SendTilNavKnappProps {
 	onEndringSendt: () => void
 	sendEndring: () => Promise<void>
-	disabled: boolean
+	disabled?: boolean
 }
 
 export const SendTilNavKnapp = (props: SendTilNavKnappProps) => {

@@ -2,10 +2,7 @@ import { Close } from '@navikt/ds-icons'
 import { Alert, Button, Heading, Panel, Tooltip } from '@navikt/ds-react'
 import React, { ReactElement } from 'react'
 
-import {
-	Endringsmelding,
-	EndringsmeldingType
-} from '../../../../../api/data/endringsmelding'
+import { Endringsmelding, EndringsmeldingType } from '../../../../../api/data/endringsmelding'
 import { tilbakekallEndringsmelding } from '../../../../../api/tiltak-api'
 import { isPending, isRejected, isResolved, usePromise } from '../../../../../utils/use-promise'
 import { EndringTypeIkon } from '../EndringTypeIkon'
@@ -19,7 +16,7 @@ export interface EndringsmeldingPanelProps {
 }
 
 export const EndringsmeldingPanel = ({ endringsmelding, onEndringsmeldingTilbakekalt, children }: EndringsmeldingPanelProps) => {
-	const tilbakekallEndringsmeldingPromise = usePromise()
+	const tilbakekallEndringsmeldingPromise = usePromise<void>()
 
 	const handleClick = () => {
 		tilbakekallEndringsmeldingPromise.setPromise(
@@ -66,6 +63,9 @@ const mapTilEndringType = (endringsmeldingType: EndringsmeldingType) => {
 		case EndringsmeldingType.DELTAKER_IKKE_AKTUELL: return EndringType.DELTAKER_IKKE_AKTUELL
 		case EndringsmeldingType.AVSLUTT_DELTAKELSE: return EndringType.AVSLUTT_DELTAKELSE
 		case EndringsmeldingType.ENDRE_DELTAKELSE_PROSENT: return EndringType.ENDRE_DELTAKELSE_PROSENT
+		case EndringsmeldingType.TILBY_PLASS: return EndringType.TILBY_PLASS
+		case EndringsmeldingType.SETT_PAA_VENTELISTE: return EndringType.SETT_PAA_VENTELISTE
+		case EndringsmeldingType.ENDRE_SLUTTDATO: return EndringType.ENDRE_SLUTTDATO
 		default: throw Error(`Kan ikke finne endringsmeldingtype: ${endringsmeldingType}`)
 	}
 }

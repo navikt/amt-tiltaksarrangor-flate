@@ -6,6 +6,9 @@ import { EndreProsentDeltakelseModalDataProps } from './endre-deltaker-modal/End
 import { ForlengDeltakelseModalDataProps } from './endre-deltaker-modal/ForlengDeltakelseModal'
 import { LeggTilOppstartModalDataProps } from './endre-deltaker-modal/LeggTilOppstartModal'
 import { SettIkkeAktuellModalDataProps } from './endre-deltaker-modal/SettIkkeAktuellModal'
+import { TilbyPlassModalDataProps } from './endre-deltaker-modal/TilbyPlassModal'
+import { SettPaaVentelisteModalDataProps } from './endre-deltaker-modal/SettPaaVentelisteModal'
+import { EndreSluttdatoModalDataProps } from './endre-deltaker-modal/EndreSluttdatoModal'
 
 export enum ModalType {
 	LeggTilOppstart,
@@ -13,7 +16,10 @@ export enum ModalType {
 	ForlengDeltakelse,
 	SettDeltakerIkkeAktuell,
 	AvsluttDeltaker,
-	EndreProsentDeltakelse
+	EndreProsentDeltakelse,
+	TilbyPlass,
+	SettPaaVenteliste,
+	EndreSluttdato
 }
 
 
@@ -28,13 +34,19 @@ type ForlengDeltakelseModalData = BaseModalData<ModalType.ForlengDeltakelse, For
 type SettDeltakerIkkeAktuellModalData = BaseModalData<ModalType.SettDeltakerIkkeAktuell, SettIkkeAktuellModalDataProps>
 type AvsluttDeltakerModalData = BaseModalData<ModalType.AvsluttDeltaker, AvsluttDeltakelseModalDataProps>
 type EndreProsentDeltakelse = BaseModalData<ModalType.EndreProsentDeltakelse, EndreProsentDeltakelseModalDataProps>
+type TilbyPlass = BaseModalData<ModalType.TilbyPlass, TilbyPlassModalDataProps>
+type SettPaaVenteliste = BaseModalData<ModalType.SettPaaVenteliste, SettPaaVentelisteModalDataProps>
+type EndreSluttdato = BaseModalData<ModalType.EndreSluttdato, EndreSluttdatoModalDataProps>
 
 export type ModalData = LeggTilOppstartData |
 	EndreOppstartModalData |
 	ForlengDeltakelseModalData |
 	SettDeltakerIkkeAktuellModalData |
 	AvsluttDeltakerModalData |
-	EndreProsentDeltakelse
+	EndreProsentDeltakelse |
+	TilbyPlass |
+	SettPaaVenteliste |
+	EndreSluttdato
 
 
 export const useModalData = () => {
@@ -85,6 +97,27 @@ export const useModalData = () => {
 		})
 	}
 
+	const visTilbyPlassModal = (props: TilbyPlassModalDataProps) => {
+		setModalData({
+			type: ModalType.TilbyPlass,
+			props: props
+		})
+	}
+
+	const visSettPaaVentelisteModal = (props: SettPaaVentelisteModalDataProps) => {
+		setModalData({
+			type: ModalType.SettPaaVenteliste,
+			props: props
+		})
+	}
+
+	const visEndreSluttdatoModal = (props: EndreSluttdatoModalDataProps) => {
+		setModalData({
+			type: ModalType.EndreSluttdato,
+			props: props
+		})
+	}
+
 	return {
 		modalData,
 		lukkModal,
@@ -93,6 +126,9 @@ export const useModalData = () => {
 		visForlengDeltakelseModal,
 		visSettDeltakerIkkeAktuellModal,
 		visAvsluttDeltakerModal,
-		visEndreProsentDeltakelseModal
+		visEndreProsentDeltakelseModal,
+		visTilbyPlassModal,
+		visSettPaaVentelisteModal,
+		visEndreSluttdatoModal
 	}
 }

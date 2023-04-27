@@ -116,7 +116,7 @@ const lagMockTiltakDeltagerForGjennomforing = (gjennomforing: Gjennomforing): Mo
 		: null
 
 	const sluttDato = startDato != null
-		? (status === TiltakDeltakerStatus.HAR_SLUTTET ? faker.date.between(startDato, Date()) : faker.date.future(1, startDato))
+		? (status === TiltakDeltakerStatus.HAR_SLUTTET ? faker.date.between(startDato, Date()) : faker.date.between(startDato, gjennomforing.sluttDato? gjennomforing.sluttDato: Date()))
 		: null
 
 	const fjernesDato = status === TiltakDeltakerStatus.IKKE_AKTUELL || status === TiltakDeltakerStatus.HAR_SLUTTET
