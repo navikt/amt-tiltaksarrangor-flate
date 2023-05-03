@@ -11,7 +11,6 @@ import {
 	mockDeltakerlisteVeileder,
 	mockMineDeltakerlister,
 	mockGjennomforinger,
-	mockTilgjengeligGjennomforinger,
 	mockTiltakDeltakere,
 	mockKoordinatorsDeltakerliste
 } from '../data'
@@ -21,7 +20,7 @@ import { MockTiltakDeltaker } from '../data/brukere'
 import { mockTilgjengeligeVeiledere } from '../data/veileder'
 import { randomUuid } from '../utils/faker'
 import { MockGjennomforing } from '../data/tiltak'
-import { AdminDeltakerliste } from '../../api/data/tiltak'
+import { AdminDeltakerliste, Tiltakskode } from '../../api/data/tiltak'
 
 export const mockHandlers: RequestHandler[] = [
 	rest.get(appUrl('/auth/info'), (_req, res, ctx) => {
@@ -31,7 +30,7 @@ export const mockHandlers: RequestHandler[] = [
 		return res(ctx.delay(500), ctx.json(mockMineRoller))
 	}),
 	rest.get(appUrl('/amt-tiltaksarrangor-bff/tiltaksarrangor/koordinator/admin/deltakerlister'), (_req, res, ctx) => {
-		const gjennomforinger = [ mapGjennomforingTilAdminDeltakerliste(mockGjennomforinger[0], true), ...mockTilgjengeligGjennomforinger.map(g => mapGjennomforingTilAdminDeltakerliste(g, false)) ]
+		const gjennomforinger = [ mapGjennomforingTilAdminDeltakerliste(mockGjennomforinger[0], true), ...mockGjennomforinger.map(g => mapGjennomforingTilAdminDeltakerliste(g, false)) ]
 		return res(ctx.delay(500), ctx.json(gjennomforinger))
 	}),
 	rest.get(appUrl('/amt-tiltaksarrangor-bff/tiltaksarrangor/koordinator/deltakerliste/:deltakerlisteId'), (req, res, ctx) => {
@@ -133,6 +132,28 @@ export const mockHandlers: RequestHandler[] = [
 					innhold: { aarsak: body.innhold.aarsak }
 				})
 			}
+
+			if (bodyType.innhold.type === EndringsmeldingType.TILBY_PLASS) {
+				deltaker.aktiveEndringsmeldinger.push({
+					id: randomUuid(),
+					type: EndringsmeldingType.TILBY_PLASS,
+				})
+			}
+			if (bodyType.innhold.type === EndringsmeldingType.SETT_PAA_VENTELISTE) {
+				deltaker.aktiveEndringsmeldinger.push({
+					id: randomUuid(),
+					type: EndringsmeldingType.SETT_PAA_VENTELISTE,
+				})
+			}
+			if (bodyType.innhold.type === EndringsmeldingType.ENDRE_SLUTTDATO) {
+				const body = req.body as { innhold: { type: string, sluttdato: string } }
+				deltaker.aktiveEndringsmeldinger.push({
+					id: randomUuid(),
+					type: EndringsmeldingType.ENDRE_SLUTTDATO,
+					innhold: { sluttdato: dayjs(body.innhold.sluttdato).toDate() }
+
+				})
+			}
 		}
 
 		return res(ctx.delay(500), ctx.status(200))
@@ -204,7 +225,8 @@ const mapToDeltakerDetaljerView = (deltaker: MockTiltakDeltaker): Deltaker => {
 		deltakerliste: {
 			id: deltaker.gjennomforing.id,
 			startDato: deltaker.gjennomforing.startDato,
-			sluttDato: deltaker.gjennomforing.sluttDato
+			sluttDato: deltaker.gjennomforing.sluttDato,
+			erKurs: [ Tiltakskode.GRUFAGYRKE, Tiltakskode.JOBBK, Tiltakskode.GRUPPEAMO ].includes(deltaker.gjennomforing.tiltak.tiltakskode)
 		},
 		fornavn: deltaker.fornavn,
 		mellomnavn: deltaker.mellomnavn,

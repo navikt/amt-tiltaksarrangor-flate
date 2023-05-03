@@ -169,6 +169,37 @@ export const deltakerIkkeAktuell = (deltakerId: string, aarsak: DeltakerStatusAa
 		.catch(err => logAndThrowError(err, url))
 }
 
+export const postTilbyPlass = (deltakerId: string): AxiosPromise => {
+	const url = appUrl(`/amt-tiltaksarrangor-bff/tiltaksarrangor/deltaker/${deltakerId}/endringsmelding`)
+	return axiosInstance
+		.post(
+			url,
+			{ innhold: { type: EndringsmeldingType.TILBY_PLASS } },
+		)
+		.catch(err => logAndThrowError(err, url))
+}
+
+export const postSettPaaVenteliste = (deltakerId: string): AxiosPromise => {
+	const url = appUrl(`/amt-tiltaksarrangor-bff/tiltaksarrangor/deltaker/${deltakerId}/endringsmelding`)
+	return axiosInstance
+		.post(
+			url,
+			{ innhold: { type: EndringsmeldingType.SETT_PAA_VENTELISTE } },
+		)
+		.catch(err => logAndThrowError(err, url))
+}
+
+export const postEndreSluttdato = (deltakerId: string, sluttDato: Date): AxiosPromise => {
+	const url = appUrl(`/amt-tiltaksarrangor-bff/tiltaksarrangor/deltaker/${deltakerId}/endringsmelding`)
+	return axiosInstance
+		.post(
+			url,
+			{ innhold: { type: EndringsmeldingType.ENDRE_SLUTTDATO, sluttdato: formatDateToDateInputStr(sluttDato) } },
+		)
+		.catch(err => logAndThrowError(err, url))
+}
+
+
 export const tilbakekallEndringsmelding = (endringsmeldingId: string): AxiosPromise => {
 	const url = appUrl(`/amt-tiltaksarrangor-bff/tiltaksarrangor/endringsmelding/${endringsmeldingId}`)
 	return axiosInstance
