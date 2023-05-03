@@ -60,6 +60,7 @@ export const deltakersDeltakerlisteSchema = z.object({
 	id: z.string().uuid(),
 	startDato: nullableDateSchema,
 	sluttDato: nullableDateSchema,
+	erKurs: z.boolean()
 })
 
 export const deltakerSchema = z.object({

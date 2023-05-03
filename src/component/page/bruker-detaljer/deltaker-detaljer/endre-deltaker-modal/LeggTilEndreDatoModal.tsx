@@ -9,25 +9,26 @@ import { SendTilNavKnapp } from './SendTilNavKnapp'
 import { VeilederConfirmationPanel } from './VeilederConfirmationPanel'
 import { useDeltakerlisteStore } from '../deltakerliste-store'
 
-export interface LeggTilEndreOppstartModalProps {
+export interface LeggTilEndreDatoModalProps {
 	onClose: () => void
 	sendEndring: (valgtDato: Date) => Promise<void>
 }
 
-interface LeggTilEndreOppstartDataProps {
+interface LeggTilEndreDatoDataProps {
 	tittel: string
+	datoLabel: string
 	visGodkjennVilkaarPanel: boolean
 }
 
 
-export const LeggTilEndreOppstartModal = (props: LeggTilEndreOppstartModalProps & LeggTilEndreOppstartDataProps) => {
-	const { tittel, visGodkjennVilkaarPanel, onClose, sendEndring } = props
+export const LeggTilEndreDatoModal = (props: LeggTilEndreDatoModalProps & LeggTilEndreDatoDataProps) => {
+	const { tittel, datoLabel, visGodkjennVilkaarPanel, onClose, sendEndring } = props
 	const [ valgtDato, setNyDato ] = useState<Nullable<Date>>()
 	const [ vilkaarGodkjent, setVilkaarGodkjent ] = useState(false)
 	const { deltakerliste } = useDeltakerlisteStore()
 
 	const sendEndringsmelding = () => {
-		if (!valgtDato) return Promise.reject('Dato er påkrevd for å sende endringsmelding med endring av oppstartsdato')
+		if (!valgtDato) return Promise.reject('Dato er påkrevd for å sende endringsmelding med endring av start/sluttdato')
 		return sendEndring(valgtDato)
 	}
 
@@ -37,11 +38,11 @@ export const LeggTilEndreOppstartModal = (props: LeggTilEndreOppstartModalProps 
 			onClose={onClose}>
 			<DateField
 				className={styles.datofelt}
-				label="Ny oppstartsdato"
+				label={datoLabel}
 				date={valgtDato}
 				onDateChanged={d => setNyDato(d)}
-				min={kalkulerMinOppstartsdato(deltakerliste.startDato)}
-				max={kalkulerMaxOppstartsdato(deltakerliste.sluttDato)}
+				min={kalkulerMinDato(deltakerliste.startDato)}
+				max={kalkulerMaxDato(deltakerliste.sluttDato)}
 			/>
 			{visGodkjennVilkaarPanel && (
 				<VeilederConfirmationPanel vilkaarGodkjent={vilkaarGodkjent} setVilkaarGodkjent={setVilkaarGodkjent}/>
@@ -59,7 +60,7 @@ export const LeggTilEndreOppstartModal = (props: LeggTilEndreOppstartModalProps 
 	Skal maksimum være 2 måneder tilbake i tid.
 	Hvis deltakerlisteStartDato er satt så må datoen være etter.
 */
-const kalkulerMinOppstartsdato = (deltakerlisteStartDato: Nullable<Date>): Date => {
+const kalkulerMinDato = (deltakerlisteStartDato: Nullable<Date>): Date => {
 	const twoMonthsAgo = dayjs().subtract(2, 'month')
 
 	if (deltakerlisteStartDato && twoMonthsAgo.isBefore(deltakerlisteStartDato)) {
@@ -73,7 +74,7 @@ const kalkulerMinOppstartsdato = (deltakerlisteStartDato: Nullable<Date>): Date 
 Skal maksimum være 2 måneder forover i tid.
 	Hvis deltakerlisteSluttDato er satt så må datoen være før.
 */
-const kalkulerMaxOppstartsdato = (deltakerlisteSluttDato: Nullable<Date>): Date => {
+const kalkulerMaxDato = (deltakerlisteSluttDato: Nullable<Date>): Date => {
 	const twoMonthsInTheFuture = dayjs().add(2, 'month')
 
 	if (deltakerlisteSluttDato && twoMonthsInTheFuture.isAfter(deltakerlisteSluttDato)) {

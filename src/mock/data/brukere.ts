@@ -2,7 +2,7 @@ import faker from 'faker'
 
 import { TiltakDeltakerStatus } from '../../api/data/deltaker'
 import { Endringsmelding } from '../../api/data/endringsmelding'
-import { Gjennomforing } from '../../api/data/tiltak'
+import { Gjennomforing, Tiltakskode } from '../../api/data/tiltak'
 import { VeilederMedType } from '../../api/data/veileder'
 import { randBetween, randomBoolean, randomFnr } from '../utils/faker'
 import { lagMockEndringsmeldingForDeltaker } from './endringsmelding'
@@ -77,9 +77,17 @@ const lagTelefonnummer = (): string => {
 	return faker.phone.phoneNumber().replaceAll(' ', '')
 }
 
-const getStatus = (): TiltakDeltakerStatus => {
+const getStatus = (erKurs: boolean): TiltakDeltakerStatus => {
 	const i = randBetween(0, 10)
 
+	if (erKurs) {
+		if (i < 4) return TiltakDeltakerStatus.VURDERES
+		if (i < 5) return TiltakDeltakerStatus.DELTAR
+		if (i < 7) return TiltakDeltakerStatus.VENTER_PA_OPPSTART
+		if (i < 8) return TiltakDeltakerStatus.FULLFORT
+		if (i < 9) return TiltakDeltakerStatus.AVBRUTT
+		if (i < 10) return TiltakDeltakerStatus.IKKE_AKTUELL
+	}
 	if (i < 5) return TiltakDeltakerStatus.DELTAR
 	if (i < 7) return TiltakDeltakerStatus.VENTER_PA_OPPSTART
 	if (i < 8) return TiltakDeltakerStatus.HAR_SLUTTET
@@ -89,10 +97,9 @@ const getStatus = (): TiltakDeltakerStatus => {
 }
 
 const lagMockTiltakDeltagerForGjennomforing = (gjennomforing: Gjennomforing): MockTiltakDeltaker => {
-	const status = getStatus()
-
+	const erKurs = [ Tiltakskode.GRUFAGYRKE, Tiltakskode.JOBBK, Tiltakskode.GRUPPEAMO ].includes(gjennomforing.tiltak.tiltakskode)
+	const status = getStatus(erKurs, )
 	const gender = randBetween(0, 1)
-
 	const brukerFornavn = faker.name.firstName(gender)
 	const brukerMellomnavn = randomBoolean(50) ? faker.name.firstName(gender) : null
 	const brukerEtternavn = faker.name.lastName()
@@ -109,7 +116,7 @@ const lagMockTiltakDeltagerForGjennomforing = (gjennomforing: Gjennomforing): Mo
 		: null
 
 	const sluttDato = startDato != null
-		? (status === TiltakDeltakerStatus.HAR_SLUTTET ? faker.date.between(startDato, Date()) : faker.date.future(1, startDato))
+		? (status === TiltakDeltakerStatus.HAR_SLUTTET ? faker.date.between(startDato, Date()) : faker.date.between(startDato, gjennomforing.sluttDato? gjennomforing.sluttDato: Date()))
 		: null
 
 	const fjernesDato = status === TiltakDeltakerStatus.IKKE_AKTUELL || status === TiltakDeltakerStatus.HAR_SLUTTET

@@ -2,8 +2,8 @@ import React from 'react'
 
 import { leggTilOppstartsdato } from '../../../../../api/tiltak-api'
 import {
-	LeggTilEndreOppstartModal
-} from './LeggTilEndreOppstartModal'
+	LeggTilEndreDatoModal
+} from './LeggTilEndreDatoModal'
 
 export interface LeggTilOppstartModalProps {
 	onClose: () => void
@@ -24,8 +24,9 @@ export const LeggTilOppstartModal = (props: LeggTilOppstartModalProps & LeggTilO
 	}
 
 	return (
-		<LeggTilEndreOppstartModal
+		<LeggTilEndreDatoModal
 			tittel="Legg til oppstartsdato"
+			datoLabel="Ny oppstartsdato"
 			onClose={onClose}
 			sendEndring={sendEndringsmelding}
 			visGodkjennVilkaarPanel={visGodkjennVilkaarPanel}
