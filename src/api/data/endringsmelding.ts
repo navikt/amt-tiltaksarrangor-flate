@@ -49,41 +49,34 @@ export const endreOppstartsdatoEndringsmeldingSchema = z.intersection(endringsme
 }))
 
 export const forlengDeltakelseEndringsmeldingSchema = z.intersection(endringsmeldingBaseSchema, z.object({
-	id: z.string().uuid(),
 	type: z.literal(EndringsmeldingType.FORLENG_DELTAKELSE),
 	innhold: z.object({ sluttdato: dateSchema }),
 }))
 
 export const avsluttDeltakelseEndringsmeldingSchema = z.intersection(endringsmeldingBaseSchema, z.object({
-	id: z.string().uuid(),
 	type: z.literal(EndringsmeldingType.AVSLUTT_DELTAKELSE),
 	innhold: z.object({ sluttdato: dateSchema, aarsak: deltakerStatusAarsakSchema }),
 }))
 
 export const deltakerIkkeAktuellEndringsmeldingSchema = z.intersection(endringsmeldingBaseSchema, z.object({
-	id: z.string().uuid(),
 	type: z.literal(EndringsmeldingType.DELTAKER_IKKE_AKTUELL),
 	innhold: z.object({ aarsak: deltakerStatusAarsakSchema }),
 }))
 
 export const deltakelseProsentEndringmeldingSchema = z.intersection(endringsmeldingBaseSchema, z.object({
-	id: z.string().uuid(),
 	type: z.literal(EndringsmeldingType.ENDRE_DELTAKELSE_PROSENT),
 	innhold: z.object({ deltakelseProsent: z.number().nullable(), gyldigFraDato: nullableDateSchema }),
 }))
 
 export const tilbyPlassEndringmeldingSchema = z.intersection(endringsmeldingBaseSchema, z.object({
-	id: z.string().uuid(),
 	type: z.literal(EndringsmeldingType.TILBY_PLASS),
 }))
 
 export const settPaaVentelisteEndringmeldingSchema = z.intersection(endringsmeldingBaseSchema, z.object({
-	id: z.string().uuid(),
 	type: z.literal(EndringsmeldingType.SETT_PAA_VENTELISTE),
 }))
 
 export const endreSluttdatoEndringmeldingSchema = z.intersection(endringsmeldingBaseSchema, z.object({
-	id: z.string().uuid(),
 	type: z.literal(EndringsmeldingType.ENDRE_SLUTTDATO),
 	innhold: z.object({ sluttdato: dateSchema }),
 
