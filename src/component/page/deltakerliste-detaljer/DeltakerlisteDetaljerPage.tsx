@@ -16,14 +16,14 @@ import styles from './DeltakerlisteDetaljerPage.module.scss'
 import { KoordinatorInfo } from './KoordinatorInfo'
 import { TiltakInfo } from './TiltakInfo'
 import { KoordinatorsDeltakerliste } from '../../../api/data/deltaker'
-import { KoordinatorTableFilterStore } from '../gjennomforing-detaljer/store/koordinator-table-filter-store'
+import { KoordinatorTableFilterStore } from './store/koordinator-table-filter-store'
 import {
 	DeltakerePerVeilederTableFilter
-} from '../gjennomforing-detaljer/table-filters/DeltakerePerVeilederTableFilter'
+} from './table-filters/DeltakerePerVeilederTableFilter'
 import {
 	KoordinatorFiltermenyMedveileder
-} from '../gjennomforing-detaljer/table-filters/KoordinatorFiltermenyMedveileder'
-import { DeltakerePerStatusTableFilter } from '../gjennomforing-detaljer/table-filters/DeltakerePerStatusTableFilter'
+} from './table-filters/KoordinatorFiltermenyMedveileder'
+import { DeltakerePerStatusTableFilter } from './table-filters/DeltakerePerStatusTableFilter'
 
 export const DeltakerlisteDetaljerPage = (): React.ReactElement => {
 	const { setTilbakeTilUrl } = useTilbakelenkeStore()

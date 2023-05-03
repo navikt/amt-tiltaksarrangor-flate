@@ -104,7 +104,7 @@ export const TildelVeilederModal = (props: Props): React.ReactElement => {
 
 	return (
 		<>
-			<BaseModal tittel={'Tildel veiledere'} open={props.open} onClose={handleClose} className={styles.modal}>
+			<BaseModal tittel={'Endre veiledere'} open={props.open} onClose={handleClose} className={styles.modal}>
 				<Detail className={styles.detail}>
 					Tildel til {lagBrukerNavn(props.deltaker.fornavn, props.deltaker.mellomnavn, props.deltaker.etternavn)}
 				</Detail>
