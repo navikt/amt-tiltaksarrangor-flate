@@ -76,7 +76,7 @@ export const EndreDeltakelseKnapp = (props: EndreDeltakelseKnappProps) => {
 
 						{(deltaker.status.type === TiltakDeltakerStatus.HAR_SLUTTET
 								|| (deltaker.status.type === TiltakDeltakerStatus.DELTAR && (!deltaker.sluttDato || !deltaker.deltakerliste.sluttDato ||
-									deltaker.sluttDato <= deltaker.deltakerliste.sluttDato))) &&
+									deltaker.sluttDato < deltaker.deltakerliste.sluttDato))) &&
 							<DropDownButton
 								endringstype={EndringType.FORLENG_DELTAKELSE}
 								onClick={() => visForlengDeltakelseModal({

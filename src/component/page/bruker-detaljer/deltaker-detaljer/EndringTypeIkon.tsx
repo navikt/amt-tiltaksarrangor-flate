@@ -9,7 +9,10 @@ import React from 'react'
 
 import styles from './EndringTypeIkon.module.scss'
 import { EndringType } from './types'
-import { DocPencilFillIcon, HourglassTopFilledIcon, PersonCrossFillIcon } from '@navikt/aksel-icons'
+import {
+	CheckmarkCircleFillIcon,
+	MenuElipsisHorizontalCircleFillIcon
+} from '@navikt/aksel-icons'
 
 interface EndringTypeIkonProps {
 	type: EndringType
@@ -30,11 +33,11 @@ export const EndringTypeIkon = (props: EndringTypeIkonProps) => {
 		case EndringType.DELTAKER_IKKE_AKTUELL:
 			return <AddCircleFilled className={styles.ikkeAktuellIkon} aria-hidden/>
 		case EndringType.TILBY_PLASS:
-			return <PersonCrossFillIcon className={styles.tilbyPlassIkon} aria-hidden />
+			return <CheckmarkCircleFillIcon className={styles.tilbyPlassIkon} aria-hidden />
 		case EndringType.SETT_PAA_VENTELISTE:
-			return <HourglassTopFilledIcon className={styles.settPaaVentelisteIkon} aria-hidden />
+			return <MenuElipsisHorizontalCircleFillIcon className={styles.settPaaVentelisteIkon} aria-hidden />
 		case EndringType.ENDRE_SLUTTDATO:
-			return <DocPencilFillIcon className={styles.endreProsentDeltakelseIkon} aria-hidden />
+			return <MinusCircleFilled className={styles.avsluttIkon} aria-hidden/>
 	}
 
 }
