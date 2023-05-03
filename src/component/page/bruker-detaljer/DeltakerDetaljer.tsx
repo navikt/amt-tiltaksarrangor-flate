@@ -47,5 +47,5 @@ export const DeltakerDetaljer = (props: {
 }
 
 const visBestilling = (tiltakskode: Tiltakskode) => {
-	return tiltakskode !== 'DIGIOPPARB' && ![ Tiltakskode.GRUFAGYRKE, Tiltakskode.JOBBK, Tiltakskode.GRUPPEAMO ].includes(tiltakskode)
+	return ![ Tiltakskode.DIGIOPPARB, Tiltakskode.GRUFAGYRKE, Tiltakskode.JOBBK, Tiltakskode.GRUPPEAMO ].includes(tiltakskode)
 }
