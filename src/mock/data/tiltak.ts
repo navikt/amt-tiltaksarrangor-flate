@@ -4,7 +4,7 @@ import { Gjennomforing, Koordinator, TiltakGjennomforingStatus, Tiltakskode } fr
 import { arrangorForGjennomforing } from './arrangor'
 import { gjennomforingId } from './id'
 import {
-	Deltakerliste,
+	KoordinatorForDeltakerliste,
 	MineDeltakerlister,
 	TiltakDeltakerStatus,
 	VeiledersDeltaker
@@ -132,8 +132,8 @@ export const lagMockKoordinatorer = (): Koordinator[] => {
 }
 
 export const lagMockMineDeltakerlister = (gjennomforinger: MockGjennomforing[], veiledersDeltakere: VeiledersDeltaker[]): MineDeltakerlister => {
-	const deltakerlister: Deltakerliste[] = []
-	gjennomforinger.forEach(t => deltakerlister.push(lagMockDeltakerliste(t)))
+	const deltakerlister: KoordinatorForDeltakerliste[] = []
+	gjennomforinger.forEach(t => deltakerlister.push(lagMockKoordinatorForDeltakerliste(t)))
 
 	const antallVeilederFor = veiledersDeltakere.filter(deltaker => deltaker.veiledertype === Veiledertype.VEILEDER).length
 	const antallMedveilederFor = veiledersDeltakere.filter(deltaker => deltaker.veiledertype === Veiledertype.MEDVEILEDER).length
@@ -149,13 +149,14 @@ export const lagMockMineDeltakerlister = (gjennomforinger: MockGjennomforing[], 
 	}
 }
 
-const lagMockDeltakerliste = (gjennomforing: MockGjennomforing): Deltakerliste => {
+const lagMockKoordinatorForDeltakerliste = (gjennomforing: MockGjennomforing): KoordinatorForDeltakerliste => {
 	return {
 		id: gjennomforing.id,
 		navn: gjennomforing.navn,
 		type: gjennomforing.tiltak.tiltaksnavn,
-		startdato: deltakerlisteErKurs(gjennomforing.tiltak.tiltakskode) ? gjennomforing.startDato : null,
-		sluttdato: deltakerlisteErKurs(gjennomforing.tiltak.tiltakskode) ? gjennomforing.sluttDato : null
+		startdato: gjennomforing.startDato,
+		sluttdato: gjennomforing.sluttDato,
+		erKurs: deltakerlisteErKurs(gjennomforing.tiltak.tiltakskode)
 	}
 }
 
@@ -179,9 +180,7 @@ const lagMockVeiledersDeltaker = (deltaker: MockTiltakDeltaker): VeiledersDeltak
 		deltakerliste: {
 			id: deltaker.gjennomforing.id,
 			type: deltaker.gjennomforing.tiltak.tiltaksnavn,
-			navn: deltaker.gjennomforing.navn,
-			startdato: null,
-			sluttdato: null
+			navn: deltaker.gjennomforing.navn
 		},
 		veiledertype: getVeiledertype(),
 		aktiveEndringsmeldinger: getEndringsmeldinger()

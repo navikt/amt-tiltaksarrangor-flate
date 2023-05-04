@@ -94,13 +94,20 @@ export const veilederForSchema = z.object({
 export const deltakerlisteSchema = z.object({
 	id: z.string().uuid(),
 	type: z.string(),
+	navn: z.string()
+})
+
+export const koordinatorForDeltakerlisteSchema = z.object({
+	id: z.string().uuid(),
+	type: z.string(),
 	navn: z.string(),
 	startdato: nullableDateSchema,
-	sluttdato: nullableDateSchema
+	sluttdato: nullableDateSchema,
+	erKurs: z.boolean()
 })
 
 export const koordinatorForSchema = z.object({
-	deltakerlister: z.array(deltakerlisteSchema)
+	deltakerlister: z.array(koordinatorForDeltakerlisteSchema)
 })
 
 export const mineDeltakerlisterSchema = z.object({
@@ -152,6 +159,8 @@ export type DeltakerStatus = z.infer<typeof deltakerStatusSchema>
 export type VeilederFor = z.infer<typeof veilederForSchema>
 
 export type Deltakerliste = z.infer<typeof deltakerlisteSchema>
+
+export type KoordinatorForDeltakerliste = z.infer<typeof koordinatorForDeltakerlisteSchema>
 
 export type MineDeltakerlister = z.infer<typeof mineDeltakerlisterSchema>
 
