@@ -3,7 +3,7 @@ lockfileVersion: 5.4
 specifiers:
   '@babel/core': ^7.20.5
   '@navikt/aksel-icons': ^2.7.8
-  '@navikt/ds-css': ^2.1.0
+  '@navikt/ds-css': ^2.9.0
   '@navikt/ds-css-internal': ^2.1.0
   '@navikt/ds-icons': ^2.1.0
   '@navikt/ds-react': ^2.1.0
@@ -52,7 +52,7 @@ specifiers:
 dependencies:
   '@babel/core': 7.20.5
   '@navikt/aksel-icons': 2.8.13
-  '@navikt/ds-css': 2.1.0
+  '@navikt/ds-css': 2.9.3
   '@navikt/ds-css-internal': 2.1.0
   '@navikt/ds-icons': 2.1.0_kzbn2opkn2327fwg5yzwzya5o4
   '@navikt/ds-react': 2.1.0_ib3m5ricvtkl2cll7qpr2f6lvq
@@ -831,8 +831,8 @@ packages:
     resolution: {integrity: sha512-MVhdoWDSYURX84zVu3X7Lz8SmRrACsXiBvK6VjmVQfo8r+qj4gmK6Ev9Dumu1sIi1YvGga5H3WNZDc77puWuvw==, tarball: download/@navikt/ds-css-internal/2.1.0/3b5531020239f1f7c3ad85527222987ea3910235}
     dev: false
 
-  /@navikt/ds-css/2.1.0:
-    resolution: {integrity: sha512-m81u+L62woaR3m+i9EyWuY7/2hFWBnLK+y56CV9how09Q477cVy3jb1OSIS0is4FkiQLwUgFGC9y6ANe0oFJsA==, tarball: download/@navikt/ds-css/2.1.0/294c2855273e6b808767253d356945d7dd63dffd}
+  /@navikt/ds-css/2.9.3:
+    resolution: {integrity: sha512-hTM9deyDTP9hIeQgd9tAMOyB3JKNFxM8I3PUyjF++X2nSzeAYFqyIL/Z0Mo00ZBxzpemwIHJy+UUU+t27BMvNA==, tarball: download/@navikt/ds-css/2.9.3/6c9f7346f7be163fad500c1eac8d07ed24c55f6c}
     dev: false
 
   /@navikt/ds-icons/2.1.0_kzbn2opkn2327fwg5yzwzya5o4:

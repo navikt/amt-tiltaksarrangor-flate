@@ -28,3 +28,14 @@
   color: var(--a-gray-500);
   @extend .ikon;
 }
+
+
+.tilbyPlassIkon {
+  color: var(--a-icon-alt-2);
+  @extend .ikon;
+}
+
+.settPaaVentelisteIkon {
+  color: var(--a-icon-info);
+  @extend .ikon;
+}

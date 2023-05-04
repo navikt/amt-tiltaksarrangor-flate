@@ -7,6 +7,9 @@ import { ForlengDeltakelseModal } from './endre-deltaker-modal/ForlengDeltakelse
 import { LeggTilOppstartModal } from './endre-deltaker-modal/LeggTilOppstartModal'
 import { SettIkkeAktuellModal } from './endre-deltaker-modal/SettIkkeAktuellModal'
 import { ModalData, ModalType } from './modal-store'
+import { TilbyPlassModal } from './endre-deltaker-modal/TilbyPlassModal'
+import { SettPaaVentelisteModal } from './endre-deltaker-modal/SettPaaVentelisteModal'
+import { EndreSluttdatoModal } from './endre-deltaker-modal/EndreSluttdatoModal'
 
 export const ModalController = (props: { modalData: ModalData | undefined, onClose: () => void }): React.ReactElement | null => {
 	const { modalData, onClose } = props
@@ -24,6 +27,12 @@ export const ModalController = (props: { modalData: ModalData | undefined, onClo
 			return <AvsluttDeltakelseModal onClose={onClose} {...modalData.props} />
 		case ModalType.EndreProsentDeltakelse:
 			return <EndreProsentDeltakelseModal onClose={onClose} {...modalData.props} />
+		case ModalType.TilbyPlass:
+			return <TilbyPlassModal onClose={onClose} {...modalData.props} />
+		case ModalType.SettPaaVenteliste:
+			return <SettPaaVentelisteModal onClose={onClose} {...modalData.props}/>
+		case ModalType.EndreSluttdato:
+			return <EndreSluttdatoModal onClose={onClose} {...modalData.props}/>
 		default: return null
 	}
 

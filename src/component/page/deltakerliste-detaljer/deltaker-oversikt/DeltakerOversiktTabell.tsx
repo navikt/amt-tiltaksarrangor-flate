@@ -7,7 +7,7 @@ import { DeltakerTabell } from './deltaker-tabell/DeltakerTabell'
 import { sorterDeltakere } from './deltaker-tabell/sortering'
 import styles from './DeltakerOversiktTabell.module.scss'
 import { IngenDeltakereAlertstripe } from './IngenDeltakereAlertstripe'
-import { useKoordinatorTableFilterStore } from '../../gjennomforing-detaljer/store/koordinator-table-filter-store'
+import { useKoordinatorTableFilterStore } from '../store/koordinator-table-filter-store'
 
 
 interface DeltakerOversiktTabellProps {

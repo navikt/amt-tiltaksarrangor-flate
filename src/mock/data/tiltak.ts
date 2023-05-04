@@ -79,55 +79,10 @@ export const gjennomforingInfoListe: GjennomforingInfo[] = [
 		tiltaksnavn: 'Varig tilrettelagt arbeid i skjermet virksomhet ',
 		status: TiltakGjennomforingStatus.GJENNOMFORES
 	},
-]
-
-export const tilgjengeligGjennomforinger: GjennomforingInfo[] = [
 	{
-		gjennomforingNavn: 'Oppfølging Test 1',
-		tiltakskode: Tiltakskode.INDOPPFAG,
-		tiltaksnavn: 'Oppfølging',
-		status: TiltakGjennomforingStatus.GJENNOMFORES
-	},
-	{
-		gjennomforingNavn: 'Oppfølging Test 2',
-		tiltakskode: Tiltakskode.INDOPPFAG,
-		tiltaksnavn: 'Oppfølging',
-		status: TiltakGjennomforingStatus.GJENNOMFORES
-	},
-	{
-		gjennomforingNavn: 'Avklaring Region Test 2',
-		tiltakskode: Tiltakskode.AVKLARAG,
-		tiltaksnavn: 'Avklaring',
-		status: TiltakGjennomforingStatus.GJENNOMFORES
-	},
-	{
-		gjennomforingNavn: 'AFT Region Vestøst 2',
-		tiltakskode: Tiltakskode.ARBFORB,
-		tiltaksnavn: 'Arbeidsforberedende trening (AFT)',
-		status: TiltakGjennomforingStatus.GJENNOMFORES
-	},
-	{
-		gjennomforingNavn: 'Oppfølging Test 3',
-		tiltakskode: Tiltakskode.INDOPPFAG,
-		tiltaksnavn: 'Oppfølging',
-		status: TiltakGjennomforingStatus.GJENNOMFORES
-	},
-	{
-		gjennomforingNavn: 'Oppfølging Test 3',
-		tiltakskode: Tiltakskode.INDOPPFAG,
-		tiltaksnavn: 'Oppfølging',
-		status: TiltakGjennomforingStatus.GJENNOMFORES
-	},
-	{
-		gjennomforingNavn: 'Avklaring Region Test 3',
-		tiltakskode: Tiltakskode.AVKLARAG,
-		tiltaksnavn: 'Avklaring',
-		status: TiltakGjennomforingStatus.GJENNOMFORES
-	},
-	{
-		gjennomforingNavn: 'AFT Region Vestøst 3',
-		tiltakskode: Tiltakskode.ARBFORB,
-		tiltaksnavn: 'Arbeidsforberedende trening (AFT)',
+		gjennomforingNavn: 'Gruppe AMO Viken',
+		tiltakskode: Tiltakskode.GRUPPEAMO,
+		tiltaksnavn: 'Gruppe AMO',
 		status: TiltakGjennomforingStatus.GJENNOMFORES
 	},
 ]

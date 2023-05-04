@@ -72,7 +72,7 @@ export const VeilederPanel = ({ deltaker, visTildeling }: Props): React.ReactEle
 
 			<Show if={visTildeling}>
 				<Button variant="secondary" size="small" className={styles.knapp} onClick={handleModalState}>
-					<span className={styles.knappTekst}><AddPerson /> Endre</span>
+					<span className={styles.knappTekst}><AddPerson /> Endre veiledere</span>
 				</Button>
 				
 				<TildelVeilederModal
