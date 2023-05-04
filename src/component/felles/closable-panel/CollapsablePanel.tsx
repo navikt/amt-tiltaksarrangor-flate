@@ -33,11 +33,7 @@ export const CollapsablePanel = (props: Props) => {
 				<div className={styles.title}>{props.title}</div>
 				<div className={styles.collapseButton}>{getIcon()}</div>
 			</div>
-			<div className={styles.panelContent}
-				style={{ height: `${height}px` }}
-				ref={panelRef}>
-				{props.children}
-			</div>
+			<div className={styles.panelContent} style={{ height: `${height}px` }} ref={panelRef}>{props.children}</div>
 		</div>
 	)
 }
