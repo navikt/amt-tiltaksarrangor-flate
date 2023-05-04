@@ -1,6 +1,7 @@
-import { Koordinator, Tiltakskode } from '../../api/data/tiltak'
+import { Koordinator } from '../../api/data/tiltak'
 import { lagMockTiltakDeltagereForGjennomforing, MockTiltakDeltaker } from './brukere'
 import {
+	deltakerlisteErKurs,
 	gjennomforingInfoListe,
 	lagMockDeltakerlisteVeileder,
 	lagMockGjennomforinger,
@@ -27,7 +28,7 @@ export const mockKoordinatorsDeltakerliste = (gjennomforing: MockGjennomforing):
 		deltakere: mockTiltakDeltakere
 			.filter(deltaker => deltaker.gjennomforing.id === gjennomforing.id)
 			.map(deltaker => mapToDeltakerListView(deltaker)),
-		erKurs: [ Tiltakskode.GRUFAGYRKE, Tiltakskode.JOBBK, Tiltakskode.GRUPPEAMO ].includes(gjennomforing.tiltak.tiltakskode)
+		erKurs: deltakerlisteErKurs(gjennomforing.tiltak.tiltakskode)
 	}
 }
 export const mockGjennomforinger: MockGjennomforing[] = lagMockGjennomforinger(gjennomforingInfoListe)

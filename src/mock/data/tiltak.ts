@@ -24,6 +24,10 @@ interface GjennomforingInfo {
 	status: TiltakGjennomforingStatus
 }
 
+export const deltakerlisteErKurs = (tiltakskode: Tiltakskode): boolean => {
+	return [ Tiltakskode.GRUFAGYRKE, Tiltakskode.JOBBK, Tiltakskode.GRUPPEAMO ].includes(tiltakskode)
+}
+
 export const gjennomforingInfoListe: GjennomforingInfo[] = [
 	{
 		gjennomforingNavn: 'Oppfølging Åsedalen for alle mennesker og andre. Dette er bare en lang tekst for å sjekke om ting bryter riktig.',
