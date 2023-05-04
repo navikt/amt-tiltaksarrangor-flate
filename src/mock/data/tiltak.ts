@@ -153,7 +153,9 @@ const lagMockDeltakerliste = (gjennomforing: MockGjennomforing): Deltakerliste =
 	return {
 		id: gjennomforing.id,
 		navn: gjennomforing.navn,
-		type: gjennomforing.tiltak.tiltaksnavn
+		type: gjennomforing.tiltak.tiltaksnavn,
+		startdato: deltakerlisteErKurs(gjennomforing.tiltak.tiltakskode) ? gjennomforing.startDato : null,
+		sluttdato: deltakerlisteErKurs(gjennomforing.tiltak.tiltakskode) ? gjennomforing.sluttDato : null
 	}
 }
 
@@ -177,7 +179,9 @@ const lagMockVeiledersDeltaker = (deltaker: MockTiltakDeltaker): VeiledersDeltak
 		deltakerliste: {
 			id: deltaker.gjennomforing.id,
 			type: deltaker.gjennomforing.tiltak.tiltaksnavn,
-			navn: deltaker.gjennomforing.navn
+			navn: deltaker.gjennomforing.navn,
+			startdato: null,
+			sluttdato: null
 		},
 		veiledertype: getVeiledertype(),
 		aktiveEndringsmeldinger: getEndringsmeldinger()

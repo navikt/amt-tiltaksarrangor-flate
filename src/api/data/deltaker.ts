@@ -94,7 +94,9 @@ export const veilederForSchema = z.object({
 export const deltakerlisteSchema = z.object({
 	id: z.string().uuid(),
 	type: z.string(),
-	navn: z.string()
+	navn: z.string(),
+	startdato: nullableDateSchema,
+	sluttdato: nullableDateSchema
 })
 
 export const koordinatorForSchema = z.object({

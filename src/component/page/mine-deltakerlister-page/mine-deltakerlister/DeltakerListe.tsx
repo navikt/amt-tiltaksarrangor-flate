@@ -41,7 +41,8 @@ export const DeltakerListe = (props: DeltakerListeProps): React.ReactElement<Del
 											key={dl.id}
 											id={dl.id}
 											navn={dl.navn}
-										/>
+											startdato={dl.startdato}
+											sluttdato={dl.sluttdato}/>
 									)
 								})}
 						</TiltakSection>
