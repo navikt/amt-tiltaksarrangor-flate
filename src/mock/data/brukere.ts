@@ -2,12 +2,12 @@ import faker from 'faker'
 
 import { TiltakDeltakerStatus } from '../../api/data/deltaker'
 import { Endringsmelding } from '../../api/data/endringsmelding'
-import { Gjennomforing, Tiltakskode } from '../../api/data/tiltak'
+import { Gjennomforing } from '../../api/data/tiltak'
 import { VeilederMedType } from '../../api/data/veileder'
 import { randBetween, randomBoolean, randomFnr } from '../utils/faker'
 import { lagMockEndringsmeldingForDeltaker } from './endringsmelding'
 import { deltakerId } from './id'
-import { MockGjennomforing } from './tiltak'
+import { deltakerlisteErKurs, MockGjennomforing } from './tiltak'
 import { lagMockVeiledereForDeltaker } from './veileder'
 
 export interface MockNavEnhet {
@@ -97,8 +97,8 @@ const getStatus = (erKurs: boolean): TiltakDeltakerStatus => {
 }
 
 const lagMockTiltakDeltagerForGjennomforing = (gjennomforing: Gjennomforing): MockTiltakDeltaker => {
-	const erKurs = [ Tiltakskode.GRUFAGYRKE, Tiltakskode.JOBBK, Tiltakskode.GRUPPEAMO ].includes(gjennomforing.tiltak.tiltakskode)
-	const status = getStatus(erKurs, )
+	const erKurs = deltakerlisteErKurs(gjennomforing.tiltak.tiltakskode)
+	const status = getStatus(erKurs)
 	const gender = randBetween(0, 1)
 	const brukerFornavn = faker.name.firstName(gender)
 	const brukerMellomnavn = randomBoolean(50) ? faker.name.firstName(gender) : null

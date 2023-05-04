@@ -1,4 +1,4 @@
-import { Deltakerliste } from '../api/data/deltaker'
+import { Deltakerliste, KoordinatorForDeltakerliste } from '../api/data/deltaker'
 import { Veiledertype } from '../api/data/veileder'
 
 export const finnUnikeTiltakstyper = (detakerlister: Deltakerliste[]): string[] => {
@@ -15,7 +15,7 @@ export const finnUnikeTiltakstyper = (detakerlister: Deltakerliste[]): string[] 
 	return unikeTiltakstyper
 }
 
-export const finnDeltakerlister = (type: string, deltakerlister: Deltakerliste[]): Deltakerliste[] => {
+export const finnDeltakerlister = (type: string, deltakerlister: KoordinatorForDeltakerliste[]): KoordinatorForDeltakerliste[] => {
 	return deltakerlister.filter(deltakerliste => deltakerliste.type === type)
 }
 

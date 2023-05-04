@@ -19,8 +19,8 @@ import { mockAuthInfo } from '../data/auth'
 import { MockTiltakDeltaker } from '../data/brukere'
 import { mockTilgjengeligeVeiledere } from '../data/veileder'
 import { randomUuid } from '../utils/faker'
-import { MockGjennomforing } from '../data/tiltak'
-import { AdminDeltakerliste, Tiltakskode } from '../../api/data/tiltak'
+import { deltakerlisteErKurs, MockGjennomforing } from '../data/tiltak'
+import { AdminDeltakerliste } from '../../api/data/tiltak'
 
 export const mockHandlers: RequestHandler[] = [
 	rest.get(appUrl('/auth/info'), (_req, res, ctx) => {
@@ -226,7 +226,7 @@ const mapToDeltakerDetaljerView = (deltaker: MockTiltakDeltaker): Deltaker => {
 			id: deltaker.gjennomforing.id,
 			startDato: deltaker.gjennomforing.startDato,
 			sluttDato: deltaker.gjennomforing.sluttDato,
-			erKurs: [ Tiltakskode.GRUFAGYRKE, Tiltakskode.JOBBK, Tiltakskode.GRUPPEAMO ].includes(deltaker.gjennomforing.tiltak.tiltakskode)
+			erKurs: deltakerlisteErKurs(deltaker.gjennomforing.tiltak.tiltakskode)
 		},
 		fornavn: deltaker.fornavn,
 		mellomnavn: deltaker.mellomnavn,

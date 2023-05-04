@@ -4,7 +4,7 @@ import { Gjennomforing, Koordinator, TiltakGjennomforingStatus, Tiltakskode } fr
 import { arrangorForGjennomforing } from './arrangor'
 import { gjennomforingId } from './id'
 import {
-	Deltakerliste,
+	KoordinatorForDeltakerliste,
 	MineDeltakerlister,
 	TiltakDeltakerStatus,
 	VeiledersDeltaker
@@ -22,6 +22,10 @@ interface GjennomforingInfo {
 	tiltakskode: Tiltakskode;
 	tiltaksnavn: string;
 	status: TiltakGjennomforingStatus
+}
+
+export const deltakerlisteErKurs = (tiltakskode: Tiltakskode): boolean => {
+	return [ Tiltakskode.GRUFAGYRKE, Tiltakskode.JOBBK, Tiltakskode.GRUPPEAMO ].includes(tiltakskode)
 }
 
 export const gjennomforingInfoListe: GjennomforingInfo[] = [
@@ -128,8 +132,8 @@ export const lagMockKoordinatorer = (): Koordinator[] => {
 }
 
 export const lagMockMineDeltakerlister = (gjennomforinger: MockGjennomforing[], veiledersDeltakere: VeiledersDeltaker[]): MineDeltakerlister => {
-	const deltakerlister: Deltakerliste[] = []
-	gjennomforinger.forEach(t => deltakerlister.push(lagMockDeltakerliste(t)))
+	const deltakerlister: KoordinatorForDeltakerliste[] = []
+	gjennomforinger.forEach(t => deltakerlister.push(lagMockKoordinatorForDeltakerliste(t)))
 
 	const antallVeilederFor = veiledersDeltakere.filter(deltaker => deltaker.veiledertype === Veiledertype.VEILEDER).length
 	const antallMedveilederFor = veiledersDeltakere.filter(deltaker => deltaker.veiledertype === Veiledertype.MEDVEILEDER).length
@@ -145,11 +149,14 @@ export const lagMockMineDeltakerlister = (gjennomforinger: MockGjennomforing[], 
 	}
 }
 
-const lagMockDeltakerliste = (gjennomforing: MockGjennomforing): Deltakerliste => {
+const lagMockKoordinatorForDeltakerliste = (gjennomforing: MockGjennomforing): KoordinatorForDeltakerliste => {
 	return {
 		id: gjennomforing.id,
 		navn: gjennomforing.navn,
-		type: gjennomforing.tiltak.tiltaksnavn
+		type: gjennomforing.tiltak.tiltaksnavn,
+		startdato: gjennomforing.startDato,
+		sluttdato: gjennomforing.sluttDato,
+		erKurs: deltakerlisteErKurs(gjennomforing.tiltak.tiltakskode)
 	}
 }
 
