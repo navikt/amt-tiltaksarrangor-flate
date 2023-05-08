@@ -1,17 +1,15 @@
-import {
-	AddCircleFilled,
-	ChevronRightCircleFilled,
-	ChevronRightDoubleFilled,
-	MinusCircleFilled
-} from '@navikt/ds-icons'
-import SvgDivideFilled from '@navikt/ds-icons/esm/DivideFilled'
 import React from 'react'
 
 import styles from './EndringTypeIkon.module.scss'
 import { EndringType } from './types'
 import {
 	CheckmarkCircleFillIcon,
-	MenuElipsisHorizontalCircleFillIcon
+	MenuElipsisHorizontalCircleFillIcon,
+	MinusCircleFillIcon,
+	ChevronRightDoubleCircleFillIcon,
+	ChevronRightCircleFillIcon,
+	PlusCircleFillIcon,
+	PieChartFillIcon
 } from '@navikt/aksel-icons'
 
 interface EndringTypeIkonProps {
@@ -21,23 +19,21 @@ interface EndringTypeIkonProps {
 export const EndringTypeIkon = (props: EndringTypeIkonProps) => {
 	switch (props.type) {
 		case EndringType.LEGG_TIL_OPPSTARTSDATO:
-			return <ChevronRightCircleFilled className={styles.endreIkon} aria-hidden/>
 		case EndringType.ENDRE_OPPSTARTSDATO:
-			return <ChevronRightCircleFilled className={styles.endreIkon} aria-hidden/>
+			return <ChevronRightCircleFillIcon className={styles.endreIkon} aria-hidden/>
 		case  EndringType.FORLENG_DELTAKELSE:
-			return <ChevronRightDoubleFilled className={styles.forlengIkon} aria-hidden/>
+			return <ChevronRightDoubleCircleFillIcon className={styles.forlengIkon} aria-hidden/>
 		case EndringType.AVSLUTT_DELTAKELSE:
-			return <MinusCircleFilled className={styles.avsluttIkon} aria-hidden/>
+		case EndringType.ENDRE_SLUTTDATO:
+			return <MinusCircleFillIcon className={styles.avsluttIkon} aria-hidden/>
 		case EndringType.ENDRE_DELTAKELSE_PROSENT:
-			return <SvgDivideFilled className={styles.endreProsentDeltakelseIkon} aria-hidden/>
+			return <PieChartFillIcon className={styles.endreProsentDeltakelseIkon} aria-hidden/>
 		case EndringType.DELTAKER_IKKE_AKTUELL:
-			return <AddCircleFilled className={styles.ikkeAktuellIkon} aria-hidden/>
+			return <PlusCircleFillIcon className={styles.ikkeAktuellIkon} aria-hidden/>
 		case EndringType.TILBY_PLASS:
 			return <CheckmarkCircleFillIcon className={styles.tilbyPlassIkon} aria-hidden />
 		case EndringType.SETT_PAA_VENTELISTE:
 			return <MenuElipsisHorizontalCircleFillIcon className={styles.settPaaVentelisteIkon} aria-hidden />
-		case EndringType.ENDRE_SLUTTDATO:
-			return <MinusCircleFilled className={styles.avsluttIkon} aria-hidden/>
 	}
 
 }
