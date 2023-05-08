@@ -86,7 +86,6 @@ const getStatus = (erKurs: boolean): TiltakDeltakerStatus => {
 		if (i < 7) return TiltakDeltakerStatus.VENTER_PA_OPPSTART
 		if (i < 8) return TiltakDeltakerStatus.FULLFORT
 		if (i < 9) return TiltakDeltakerStatus.AVBRUTT
-		if (i < 10) return TiltakDeltakerStatus.IKKE_AKTUELL
 	}
 	if (i < 5) return TiltakDeltakerStatus.DELTAR
 	if (i < 7) return TiltakDeltakerStatus.VENTER_PA_OPPSTART
