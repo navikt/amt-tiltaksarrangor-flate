@@ -94,6 +94,7 @@ export const EndreDeltakelseKnapp = (props: EndreDeltakelseKnappProps) => {
 								onClick={() => visSettDeltakerIkkeAktuellModal({
 									deltakerId: deltaker.id,
 									visGodkjennVilkaarPanel: visGodkjennVilkaarPanel,
+									erKurs: deltaker.deltakerliste.erKurs,
 									onEndringUtfort: props.onEndringUtfort
 								})}/>
 						}
@@ -137,6 +138,7 @@ export const EndreDeltakelseKnapp = (props: EndreDeltakelseKnappProps) => {
 									onClick={() => visSettDeltakerIkkeAktuellModal({
 										deltakerId: deltaker.id,
 										visGodkjennVilkaarPanel: visGodkjennVilkaarPanel,
+										erKurs: deltaker.deltakerliste.erKurs,
 										onEndringUtfort: props.onEndringUtfort
 									})}/>
 							</>

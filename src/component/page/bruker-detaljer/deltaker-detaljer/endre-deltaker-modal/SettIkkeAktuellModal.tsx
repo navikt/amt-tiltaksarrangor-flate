@@ -14,7 +14,8 @@ interface SettIkkeAktuellModalProps {
 
 export interface SettIkkeAktuellModalDataProps {
 	deltakerId: string
-	visGodkjennVilkaarPanel: boolean
+	visGodkjennVilkaarPanel: boolean,
+	erKurs: boolean,
 	onEndringUtfort: () => void
 }
 
@@ -23,7 +24,7 @@ export const SettIkkeAktuellModal = (props: SettIkkeAktuellModalProps & SettIkke
 	const [ aarsak, settAarsak ] = useState<DeltakerStatusAarsakType>()
 	const [ beskrivelse, settBeskrivelse ] = useState<Nullable<string>>()
 	const [ vilkaarGodkjent, settVilkaarGodkjent ] = useState(false)
-	const kanSendeEndringsmelding = aarsak === DeltakerStatusAarsakType.ANNET?
+	const kanSendeEndringsmelding = (aarsak === DeltakerStatusAarsakType.ANNET || aarsak === DeltakerStatusAarsakType.OPPFYLLER_IKKE_KRAVENE) ?
 		aarsak && (vilkaarGodkjent || !visGodkjennVilkaarPanel) && beskrivelse :
 		aarsak && (vilkaarGodkjent || !visGodkjennVilkaarPanel)
 
@@ -45,7 +46,7 @@ export const SettIkkeAktuellModal = (props: SettIkkeAktuellModalProps & SettIkke
 
 	return (
 		<BaseModal tittel="Deltaker er ikke aktuell" onClose={onClose}>
-			<AarsakSelector tittel="Hva er årsaken til at deltakeren ikke er aktuell?" onAarsakSelected={onAarsakSelected}/>
+			<AarsakSelector tittel="Hva er årsaken til at deltakeren ikke er aktuell?" skalViseOppfyllerIkkeKrav={props.erKurs} onAarsakSelected={onAarsakSelected}/>
 			{ visGodkjennVilkaarPanel && <VeilederConfirmationPanel vilkaarGodkjent={vilkaarGodkjent} setVilkaarGodkjent={settVilkaarGodkjent}/> }
 			<SendTilNavKnapp
 				onEndringSendt={onClose}
