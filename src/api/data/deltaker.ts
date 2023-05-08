@@ -11,7 +11,6 @@ export enum KursDeltakerStatuser {
 	DELTAR = 'DELTAR',
 	FULLFORT = 'FULLFORT',
 	AVBRUTT = 'AVBRUTT',
-	IKKE_AKTUELL = 'IKKE_AKTUELL',
 
 }
 
