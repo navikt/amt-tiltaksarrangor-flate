@@ -19,14 +19,8 @@ interface MineDeltakereTabellProps {
 
 export const MineDeltakereTabell = (props: MineDeltakereTabellProps): React.ReactElement<MineDeltakereTabellProps> => {
 	const { mineDeltakere } = props
-	const {
-		deltakerSortering,
-		tiltakStatusFilter,
-		deltakerlisteFilter,
-		veiledertypeFilter,
-		setDeltakerSortering
-	} = useTiltaksoversiktSokStore()
-	const { filtrerDeltakere, statusFilter } = useVeilederTableFilterStore()
+	const { deltakerSortering, setDeltakerSortering } = useTiltaksoversiktSokStore()
+	const { filtrerDeltakere, statusFilter, deltakerlisteFilter, veiledertypeFilter } = useVeilederTableFilterStore()
 	const [ deltakereBearbeidet, setDeltakereBearbeidet ] = useState<VeiledersDeltaker[]>(sorterVeiledersDeltakere(mineDeltakere, deltakerSortering))
 
 	useEffect(() => {
@@ -36,7 +30,7 @@ export const MineDeltakereTabell = (props: MineDeltakereTabellProps): React.Reac
 		const sortert = sorterVeiledersDeltakere(filtrerteDeltakerlister, deltakerSortering)
 		setDeltakereBearbeidet(sortert)
 
-	}, [ filtrerDeltakere, statusFilter, mineDeltakere, deltakerSortering, tiltakStatusFilter, deltakerlisteFilter, veiledertypeFilter ])
+	}, [ filtrerDeltakere, statusFilter, mineDeltakere, deltakerSortering, deltakerlisteFilter, veiledertypeFilter ])
 
 	const handleOnSortChange = (sortKey: string | undefined) => {
 		setDeltakerSortering(prevSort => finnNesteSortering(sortKey, prevSort))
