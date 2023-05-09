@@ -9,7 +9,7 @@ interface Props {
     deltakere: VeiledersDeltaker[]
 }
 
-export const VeilederFiltermenyDeltakerliste = (props: Props): ReactElement => {
+export const FilterMenyDeltakerliste = (props: Props): ReactElement => {
 	const [ deltakerlister, setDeltakerlister ] = useState<FiltermenyDataEntry[]>([])
 	const { deltakerlisteFilter, setDeltakerlisteFilter, statusFilter, veiledertypeFilter, filtrerDeltakerePaStatus, filtrerDeltakerePaVeiledertype } = useVeilederTableFilterStore()
 

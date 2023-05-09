@@ -15,7 +15,7 @@ interface Props {
 	erKurs: boolean
 }
 
-export const DeltakerePerStatusTableFilter = (props: Props): React.ReactElement => {
+export const FilterMenyStatus = (props: Props): React.ReactElement => {
 	const [ deltakerePerStatus, setDeltakerePerStatus ] = useState<FiltermenyDataEntry[]>([])
 
 	const {

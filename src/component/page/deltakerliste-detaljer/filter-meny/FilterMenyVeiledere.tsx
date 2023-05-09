@@ -10,7 +10,7 @@ interface Props {
 	deltakere: TiltakDeltaker[]
 }
 
-export const DeltakerePerVeilederTableFilter = (props: Props): React.ReactElement => {
+export const FilterMenyVeiledere = (props: Props): React.ReactElement => {
 	const [ deltakerePerVeileder, setDeltakerePerVeileder ] = useState<FiltermenyDataEntry[]>([])
 
 	const {

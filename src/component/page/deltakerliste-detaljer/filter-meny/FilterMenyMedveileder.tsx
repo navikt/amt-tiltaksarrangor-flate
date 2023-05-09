@@ -10,7 +10,7 @@ interface Props {
 	deltakere: TiltakDeltaker[]
 }
 
-export const KoordinatorFiltermenyMedveileder = (props: Props): React.ReactElement => {
+export const FilterMenyMedveileder = (props: Props): React.ReactElement => {
 	const [ deltakerePerMedveileder, setDeltarerePerMedveileder ] = useState<FiltermenyDataEntry[]>([])
 
 	const {
