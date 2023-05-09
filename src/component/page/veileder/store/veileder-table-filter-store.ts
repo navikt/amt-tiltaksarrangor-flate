@@ -9,6 +9,27 @@ export const [ VeilederTableFilterStore, useVeilederTableFilterStore ] = constat
 	const [ deltakerlisteFilter, setDeltakerlisteFilter ] = useState<string[]>([])
 	const [ veiledertypeFilter, setVeiledertypeFilter ] = useState<string[]>([ Veiledertype.VEILEDER ])
 
+	const addStatusFilter = (status: string) => addFilter(status, statusFilter, setStatusFilter)
+
+	const removeStatusFilter = (status: string) => removeFilter(status, statusFilter, setStatusFilter)
+
+	const addVeilederTypeFilter = (status: string) => addFilter(status, veiledertypeFilter, setVeiledertypeFilter)
+
+	const removeVeilederTypeFilter = (status: string) => removeFilter(status, veiledertypeFilter, setVeiledertypeFilter)
+
+	const addDeltakerlisteFilter = (status: string) => addFilter(status, deltakerlisteFilter, setDeltakerlisteFilter)
+
+	const removeDeltakerlisteFilter = (status: string) => removeFilter(status, deltakerlisteFilter, setDeltakerlisteFilter)
+
+	const addFilter = ((value: string, filterValue: string[], setFilter: (value: string[]) => void) => {
+		if(!filterValue.includes(value)) {
+			setFilter([ ...filterValue, value ])
+		}
+	})
+
+	const removeFilter = (value: string, filterValue: string[], setFilter: (value: string[]) => void) =>
+		setFilter(filterValue.filter((v) => v !== value))
+
 	const matcherStatus = (statusFilter: string[], brukerStatus: string) => {
 		if (statusFilter.length === 0) return true
 		return statusFilter.includes(brukerStatus)
@@ -45,11 +66,14 @@ export const [ VeilederTableFilterStore, useVeilederTableFilterStore ] = constat
 
 	return {
 		statusFilter,
-		setStatusFilter,
+		addStatusFilter,
+		removeStatusFilter,
 		veiledertypeFilter,
-		setVeiledertypeFilter,
+		addVeilederTypeFilter,
+		removeVeilederTypeFilter,
 		deltakerlisteFilter,
-		setDeltakerlisteFilter,
+		addDeltakerlisteFilter,
+		removeDeltakerlisteFilter,
 		filtrerDeltakerePaStatus,
 		filtrerDeltakerePaVeiledertype,
 		filtrerDeltakerePaDeltakerliste,

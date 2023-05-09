@@ -18,7 +18,8 @@ export const FilterMenyStatus = (props: Props): React.ReactElement => {
 		statusFilter,
 		veiledertypeFilter,
 		deltakerlisteFilter,
-		setStatusFilter,
+		addStatusFilter,
+		removeStatusFilter,
 		filtrerDeltakerePaDeltakerliste,
 		filtrerDeltakerePaVeiledertype
 	} = useVeilederTableFilterStore()
@@ -46,19 +47,12 @@ export const FilterMenyStatus = (props: Props): React.ReactElement => {
 	}, [ props.deltakere, filtrerDeltakere ])
 
 	const leggTil = (status: string) => {
-		setStatusFilter((prev) => {
-			if (prev.includes(status)) {
-				return prev
-			}
-			return [ ...prev, status ]
-		})
+		addStatusFilter(status)
 		loggKlikk(klikkFilterMeny, status, 'checked')
 	}
 
 	const fjern = (status: string) => {
-		setStatusFilter((prev) => {
-			return prev.filter((v) => v !== status)
-		})
+		removeStatusFilter(status)
 		loggKlikk(klikkFilterMeny, status, 'unchecked')
 	}
 

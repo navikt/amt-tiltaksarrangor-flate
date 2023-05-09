@@ -15,7 +15,8 @@ export const FilterMenyMedveileder = (props: Props): React.ReactElement => {
 
 	const {
 		medveilederFilter,
-		setMedveilederFilter,
+		addMedveilederFilter,
+		removeMedveilederFilter,
 		statusFilter,
 		veilederFilter,
 		filtrerBrukerePaMedHovedveileder,
@@ -85,29 +86,14 @@ export const FilterMenyMedveileder = (props: Props): React.ReactElement => {
 		setDeltarerePerMedveileder([ ...map.values() ])
 	}, [ props.deltakere, statusFilter, veilederFilter, filtrerBrukerePaMedHovedveileder, filtrerDeltakerePaStatus ])
 
-	const leggTil = (veileder: string) => {
-		setMedveilederFilter((prev) => {
-			if (prev.includes(veileder)) {
-				return prev
-			}
-			return [ ...prev, veileder ]
-		})
-	}
-
-	const fjern = (veileder: string) => {
-		setMedveilederFilter((prev) => {
-			return prev.filter((v) => v !== veileder)
-		})
-	}
-
 	return (
 		<FilterMeny
 			navn="Medveileder"
 			data={deltakerePerMedveileder}
 			className={globalStyles.blokkXs}
 			filter={medveilederFilter}
-			addFilter={leggTil}
-			removeFilter={fjern}
+			addFilter={addMedveilederFilter}
+			removeFilter={removeMedveilederFilter}
 		/>
 	)
 }

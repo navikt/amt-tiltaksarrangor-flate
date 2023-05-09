@@ -20,7 +20,8 @@ export const FilterMenyStatus = (props: Props): React.ReactElement => {
 
 	const {
 		statusFilter,
-		setStatusFilter,
+		addStatusFilter,
+		removeStatusFilter,
 		medveilederFilter,
 		veilederFilter,
 		filtrerBrukerePaMedHovedveileder: filtrerBrukerePaHovedveileder,
@@ -66,19 +67,12 @@ export const FilterMenyStatus = (props: Props): React.ReactElement => {
 	}, [ props.deltakere, medveilederFilter, veilederFilter, filtrerBrukerePaHovedveileder, filtrerBrukerePaMedveileder, createInitialDataMap ])
 
 	const leggTil = (status: string) => {
-		setStatusFilter((prev) => {
-			if (prev.includes(status)) {
-				return prev
-			}
-			return [ ...prev, status ]
-		})
+		addStatusFilter(status)
 		loggKlikk(klikkFilterMeny, status, 'checked')
 	}
 
 	const fjern = (status: string) => {
-		setStatusFilter((prev) => {
-			return prev.filter((v) => v !== status)
-		})
+		removeStatusFilter(status)
 		loggKlikk(klikkFilterMeny, status, 'unchecked')
 	}
 

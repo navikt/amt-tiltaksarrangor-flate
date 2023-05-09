@@ -16,7 +16,8 @@ export const FilterMenyVeilederType = (props: Props): React.ReactElement => {
 	const [ deltakerePerVeiledertype, setDeltakerePerVeiledertype ] = useState<FiltermenyDataEntry[]>([])
 	const {
 		veiledertypeFilter,
-		setVeiledertypeFilter,
+		addVeilederTypeFilter,
+		removeVeilederTypeFilter,
 		statusFilter,
 		deltakerlisteFilter,
 		filtrerDeltakerePaDeltakerliste,
@@ -66,19 +67,12 @@ export const FilterMenyVeilederType = (props: Props): React.ReactElement => {
 	}, [ props.deltakere, statusFilter, deltakerlisteFilter, filtrerDeltakerePaDeltakerliste, filtrerDeltakerePaStatus ])
 
 	const leggTil = (veiledertype: string) => {
-		setVeiledertypeFilter((prev) => {
-			if (prev.includes(veiledertype)) {
-				return prev
-			}
-			return [ ...prev, veiledertype ]
-		})
+		addVeilederTypeFilter(veiledertype)
 		loggKlikk(klikkFilterMeny, veiledertype, 'checked')
 	}
 
 	const fjern = (veiledertype: string) => {
-		setVeiledertypeFilter((prev) => {
-			return prev.filter((v) => v !== veiledertype)
-		})
+		removeVeilederTypeFilter(veiledertype)
 		loggKlikk(klikkFilterMeny, veiledertype, 'unchecked')
 	}
 
