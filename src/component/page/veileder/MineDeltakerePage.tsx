@@ -15,10 +15,10 @@ import { useTilbakelenkeStore } from '../../../store/tilbakelenke-store'
 import { MINE_DELTAKERLISTER_PAGE_ROUTE } from '../../../navigation'
 import { useInnloggetBrukerStore } from '../../../store/innlogget-bruker-store'
 import { isKoordinatorAndVeileder } from '../../../utils/rolle-utils'
-import { VeilederFiltermenyStatus } from './table-filters/VeilederFiltermenyStatus'
+import { FilterMenyStatus } from './filter-meny/FilterMenyStatus'
 import { VeilederTableFilterStore } from './store/veileder-table-filter-store'
-import { VeilederFiltermenyVeilederType } from './table-filters/VeilederFiltermenyVeilederType'
-import { VeilederFiltermenyDeltakerliste } from './table-filters/VeilederFiltermenyDeltakerliste'
+import { FilterMenyVeilederType } from './filter-meny/FilterMenyVeilederType'
+import { FilterMenyDeltakerliste } from './filter-meny/FilterMenyDeltakerliste'
 
 export const MineDeltakerePage = (): React.ReactElement => {
 	const { setTilbakeTilUrl } = useTilbakelenkeStore()
@@ -62,10 +62,10 @@ export const MineDeltakerePage = (): React.ReactElement => {
 				<section className={styles.infoSection}>
 					<Detail><b>Veileder:</b></Detail>
 					<Heading size="medium" level="2" className={globalStyles.blokkXs}>Mine deltakere</Heading>
-					<VeilederFiltermenyStatus deltakere={mineDeltakere}/>
+					<FilterMenyStatus deltakere={mineDeltakere}/>
 					{showDeltakerlisteFilter &&
-						<VeilederFiltermenyDeltakerliste deltakere={mineDeltakere}/>}
-					<VeilederFiltermenyVeilederType deltakere={mineDeltakere}/>
+						<FilterMenyDeltakerliste deltakere={mineDeltakere}/>}
+					<FilterMenyVeilederType deltakere={mineDeltakere}/>
 				</section>
 				<MineDeltakereTabell mineDeltakere={mineDeltakere}/>
 			</div>

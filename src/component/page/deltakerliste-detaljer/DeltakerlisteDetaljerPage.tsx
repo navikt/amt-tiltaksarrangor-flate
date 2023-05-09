@@ -18,12 +18,12 @@ import { TiltakInfo } from './TiltakInfo'
 import { KoordinatorsDeltakerliste } from '../../../api/data/deltaker'
 import { KoordinatorTableFilterStore } from './store/koordinator-table-filter-store'
 import {
-	DeltakerePerVeilederTableFilter
-} from './table-filters/DeltakerePerVeilederTableFilter'
+	FilterMenyVeiledere
+} from './filter-meny/FilterMenyVeiledere'
 import {
-	KoordinatorFiltermenyMedveileder
-} from './table-filters/KoordinatorFiltermenyMedveileder'
-import { DeltakerePerStatusTableFilter } from './table-filters/DeltakerePerStatusTableFilter'
+	FilterMenyMedveileder
+} from './filter-meny/FilterMenyMedveileder'
+import { FilterMenyStatus } from './filter-meny/FilterMenyStatus'
 
 export const DeltakerlisteDetaljerPage = (): React.ReactElement => {
 	const { setTilbakeTilUrl } = useTilbakelenkeStore()
@@ -63,9 +63,9 @@ export const DeltakerlisteDetaljerPage = (): React.ReactElement => {
 					<Heading size="small" level="2" className={globalStyles.blokkXs}>{deltakerliste.navn}</Heading>
 					<TiltakInfo deltakerliste={deltakerliste} className={globalStyles.blokkXs} />
 					<KoordinatorInfo koordinatorer={deltakerliste.koordinatorer} />
-					<DeltakerePerStatusTableFilter erKurs={deltakerliste.erKurs} deltakere={deltakerliste.deltakere}/>
-					<DeltakerePerVeilederTableFilter deltakere={deltakerliste.deltakere}/>
-					<KoordinatorFiltermenyMedveileder deltakere={deltakerliste.deltakere}/>
+					<FilterMenyStatus erKurs={deltakerliste.erKurs} deltakere={deltakerliste.deltakere}/>
+					<FilterMenyVeiledere deltakere={deltakerliste.deltakere}/>
+					<FilterMenyMedveileder deltakere={deltakerliste.deltakere}/>
 				</section>
 
 				<DeltakerOversiktTabell deltakere={deltakerliste.deltakere} />

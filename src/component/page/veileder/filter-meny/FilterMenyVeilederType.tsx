@@ -12,7 +12,7 @@ interface Props {
 	deltakere: VeiledersDeltaker[]
 }
 
-export const VeilederFiltermenyVeilederType = (props: Props): React.ReactElement => {
+export const FilterMenyVeilederType = (props: Props): React.ReactElement => {
 	const [ deltakerePerVeiledertype, setDeltakerePerVeiledertype ] = useState<FiltermenyDataEntry[]>([])
 	const {
 		veiledertypeFilter,
