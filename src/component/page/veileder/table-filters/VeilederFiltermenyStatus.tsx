@@ -1,5 +1,5 @@
-import { VeiledersDeltaker } from '../../../../api/data/deltaker'
-import React, { useEffect, useState } from 'react'
+import { IndividuellDeltakerStatus, KursDeltakerStatuser, VeiledersDeltaker } from '../../../../api/data/deltaker'
+import React, { useCallback, useEffect, useState } from 'react'
 import { FiltermenyDataEntry } from '../../../felles/table-filter/filtermeny-data-entry'
 import { mapTiltakDeltakerStatusTilTekst } from '../../../../utils/text-mappers'
 import { klikkFilterMeny, loggKlikk } from '../../../../utils/amplitude-utils'
@@ -23,43 +23,27 @@ export const VeilederFiltermenyStatus = (props: Props): React.ReactElement => {
 		filtrerDeltakerePaVeiledertype
 	} = useVeilederTableFilterStore()
 
-	const createInitialDataMap = (deltakere: VeiledersDeltaker[]): Map<string, FiltermenyDataEntry> => {
-		const dataMap = new Map<string, FiltermenyDataEntry>()
-		deltakere.forEach((deltaker) => {
-			const status = deltaker.status.type
-			const statusTekst = mapTiltakDeltakerStatusTilTekst(status)
-			dataMap.set(statusTekst, {
-				id: status,
-				displayName: statusTekst,
-				antallDeltakere: 0
-			})
-		})
-
-		return dataMap
-	}
+	const filtrerDeltakere = useCallback((deltakere: VeiledersDeltaker[]): VeiledersDeltaker[] => {
+		const filtrertPaDeltakerliste = filtrerDeltakerePaDeltakerliste(deltakere)
+		return filtrerDeltakerePaVeiledertype(filtrertPaDeltakerliste)
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [ props.deltakere, deltakerlisteFilter, veiledertypeFilter ])
 
 	useEffect(() => {
-		const statusMap = createInitialDataMap(props.deltakere)
+		const statuser = { ...KursDeltakerStatuser, ...IndividuellDeltakerStatus }
+		const deltakereFiltrert = filtrerDeltakere(props.deltakere)
 
-		const filtrerDeltakere = (deltakere: VeiledersDeltaker[]): VeiledersDeltaker[] => {
-			const filtrertPaDeltakerliste = filtrerDeltakerePaDeltakerliste(deltakere)
-			return filtrerDeltakerePaVeiledertype(filtrertPaDeltakerliste)
-		}
-
-		filtrerDeltakere(props.deltakere).forEach((deltaker: VeiledersDeltaker) => {
-			const status = deltaker.status.type
-			const statusTekst = mapTiltakDeltakerStatusTilTekst(status)
-			const entry = statusMap.get(statusTekst)
-
-			statusMap.set(statusTekst, {
+		const statusMap =  Object.keys(statuser).reduce((list: Map<string, FiltermenyDataEntry>, status: string) => {
+			const antallDeltakereTotalt = props.deltakere.filter(deltaker => deltaker.status.type === status).length
+			const antallDeltakereFiltrert = deltakereFiltrert.filter(deltaker => deltaker.status.type === status).length
+			return antallDeltakereTotalt == 0? list: list.set(status, {
 				id: status,
-				displayName: statusTekst,
-				antallDeltakere: entry ? entry.antallDeltakere + 1 : 1
-			})
-		})
+				displayName: mapTiltakDeltakerStatusTilTekst(status),
+				antallDeltakere: antallDeltakereFiltrert
+			})}, new Map<string, FiltermenyDataEntry>())
 
 		setDeltakerePerStatus([ ...statusMap.values() ])
-	}, [ props.deltakere, veiledertypeFilter, deltakerlisteFilter, filtrerDeltakerePaDeltakerliste, filtrerDeltakerePaVeiledertype ])
+	}, [ props.deltakere, filtrerDeltakere ])
 
 	const leggTil = (status: string) => {
 		setStatusFilter((prev) => {
