@@ -18,7 +18,7 @@ export const EndringsmeldingInnhold = (props: EndringsmeldingInnholdProps) => {
 	const { endringsmelding } = props
 
 	const getAarsakTekst = (aarsak : DeltakerStatusAarsak) => {
-		return aarsak.type === DeltakerStatusAarsakType.ANNET? aarsak.beskrivelse : aarsakTekstMapper(aarsak.type)
+		return (aarsak.type === DeltakerStatusAarsakType.ANNET || aarsak.type === DeltakerStatusAarsakType.OPPFYLLER_IKKE_KRAVENE) ? aarsak.beskrivelse : aarsakTekstMapper(aarsak.type)
 	}
 
 	switch (endringsmelding.type) {

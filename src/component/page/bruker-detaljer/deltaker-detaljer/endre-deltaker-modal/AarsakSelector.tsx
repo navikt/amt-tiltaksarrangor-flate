@@ -1,27 +1,28 @@
-import { Detail, RadioGroup, TextField, useId } from '@navikt/ds-react'
+import { RadioGroup } from '@navikt/ds-react'
 import React, { useEffect, useState } from 'react'
 
 import { DeltakerStatusAarsakType } from '../../../../../api/data/endringsmelding'
 import { Nullable } from '../../../../../utils/types/or-nothing'
-import { aarsakTekstMapper } from '../tekst-mappers'
 import { AarsakRadio } from './AarsakRadio'
-import styles from './AarsakSelector.module.scss'
+import { AarsakRadioMedBeskrivelse } from './AarsakRadioMedBeskrivelse'
 
 interface AarsakSelectorProps {
-	tittel: string
+	tittel: string,
+	skalViseOppfyllerIkkeKrav: boolean,
 	onAarsakSelected: (aarsak: DeltakerStatusAarsakType, beskrivelse: Nullable<string>) => void
 }
 
-export const AarsakSelector = ({ tittel, onAarsakSelected }: AarsakSelectorProps) => {
+export const AarsakSelector = ({ tittel, skalViseOppfyllerIkkeKrav, onAarsakSelected }: AarsakSelectorProps) => {
 	const [ aarsak, settAarsak ] = useState<DeltakerStatusAarsakType>()
 	const [ beskrivelse, settBeskrivelse ] = useState<Nullable<string>>()
-	const annetDetailId = useId()
 
-	const visBeskrivelse = aarsak === DeltakerStatusAarsakType.ANNET
+	const onBeskrivelse = (nyBeskrivelse: Nullable<string>) => {
+		settBeskrivelse(nyBeskrivelse)
+	}
 
 	useEffect(() => {
 		if (!aarsak) return
-		const aarsakBeskrivelse = aarsak === DeltakerStatusAarsakType.ANNET ? beskrivelse : null
+		const aarsakBeskrivelse = (aarsak === DeltakerStatusAarsakType.ANNET || aarsak === DeltakerStatusAarsakType.OPPFYLLER_IKKE_KRAVENE) ? beskrivelse : null
 		onAarsakSelected(aarsak, aarsakBeskrivelse)
 	}, [ beskrivelse, aarsak, onAarsakSelected, tittel ])
 	return (
@@ -33,22 +34,8 @@ export const AarsakSelector = ({ tittel, onAarsakSelected }: AarsakSelectorProps
 			<AarsakRadio aarsakType={DeltakerStatusAarsakType.TRENGER_ANNEN_STOTTE} />
 			<AarsakRadio aarsakType={DeltakerStatusAarsakType.IKKE_MOTT} />
 			<AarsakRadio aarsakType={DeltakerStatusAarsakType.UTDANNING} />
-			<AarsakRadio aarsakType={DeltakerStatusAarsakType.ANNET} >
-				{visBeskrivelse ? <>
-					<TextField
-						onChange={e => settBeskrivelse(e.target.value)}
-						value={beskrivelse ?? ''}
-						size="small"
-						label={null}
-						maxLength={40}
-						className={styles.tekstboks}
-						aria-label={aarsakTekstMapper(DeltakerStatusAarsakType.ANNET)}
-						aria-describedby={annetDetailId}
-					/>
-					<Detail id={annetDetailId} className={styles.detail}>Maks antall tegn: 40</Detail>
-				</> : <></>
-				}
-			</AarsakRadio>
+			{ skalViseOppfyllerIkkeKrav && <AarsakRadioMedBeskrivelse aarsakType={DeltakerStatusAarsakType.OPPFYLLER_IKKE_KRAVENE} valgtAarsak={aarsak} onBeskrivelse={onBeskrivelse}/> }
+			<AarsakRadioMedBeskrivelse aarsakType={DeltakerStatusAarsakType.ANNET} valgtAarsak={aarsak} onBeskrivelse={onBeskrivelse}/>
 		</RadioGroup>
 	)
 }
