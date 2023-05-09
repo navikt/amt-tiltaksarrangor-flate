@@ -9,11 +9,29 @@ export const [ KoordinatorTableFilterStore, useKoordinatorTableFilterStore ] = c
 	const [ medveilederFilter, setMedveilederFilter ] = useState<string[]>([])
 	const [ statusFilter, setStatusFilter ] = useState<string[]>([])
 
+	const addStatusFilter = (status: string) => addFilter(status, statusFilter, setStatusFilter)
+	const removeStatusFilter = (status: string) => removeFilter(status, statusFilter, setStatusFilter)
+
+	const addVeilederFilter = (status: string) => addFilter(status, veilederFilter, setVeilederFilter)
+	const removeVeilederFilter = (status: string) => removeFilter(status, veilederFilter, setVeilederFilter)
+
+	const addMedveilederFilter = (status: string) => addFilter(status, medveilederFilter, setMedveilederFilter)
+	const removeMedveilederFilter = (status: string) => removeFilter(status, medveilederFilter, setMedveilederFilter)
+
+
+	const addFilter = ((value: string, filterValue: string[], setFilter: (value: string[]) => void) => {
+		if(!filterValue.includes(value)) {
+			setFilter([ ...filterValue, value ])
+		}
+	})
+
+	const removeFilter = (value: string, filterValue: string[], setFilter: (value: string[]) => void) =>
+		setFilter(filterValue.filter((v) => v !== value))
+
 	const matcherStatus = (statusFilter: string[], brukerStatus: string) => {
 		if (statusFilter.length === 0) return true
 		return statusFilter.includes(brukerStatus)
 	}
-
 	const matcherVeileder = (veilederFiltre: string[], brukersVeileder: VeilederMedType) => {
 		if (veilederFiltre.length === 0) return true
 		if (brukersVeileder === undefined) return veilederFiltre.includes(HAR_IKKE_VEILEDER_FILTER_TEKST)
@@ -55,11 +73,14 @@ export const [ KoordinatorTableFilterStore, useKoordinatorTableFilterStore ] = c
 
 	return {
 		veilederFilter,
-		setVeilederFilter,
+		addVeilederFilter,
+		removeVeilederFilter,
 		medveilederFilter,
-		setMedveilederFilter,
+		addMedveilederFilter,
+		removeMedveilederFilter,
 		statusFilter,
-		setStatusFilter,
+		addStatusFilter,
+		removeStatusFilter,
 		filtrerDeltakerePaStatus,
 		filtrerBrukerePaMedHovedveileder,
 		filtrerBrukerePaMedveileder,

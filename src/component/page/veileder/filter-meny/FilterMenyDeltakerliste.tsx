@@ -11,7 +11,7 @@ interface Props {
 
 export const FilterMenyDeltakerliste = (props: Props): ReactElement => {
 	const [ deltakerlister, setDeltakerlister ] = useState<FiltermenyDataEntry[]>([])
-	const { deltakerlisteFilter, setDeltakerlisteFilter, statusFilter, veiledertypeFilter, filtrerDeltakerePaStatus, filtrerDeltakerePaVeiledertype } = useVeilederTableFilterStore()
+	const { deltakerlisteFilter, addDeltakerlisteFilter, removeDeltakerlisteFilter, statusFilter, veiledertypeFilter, filtrerDeltakerePaStatus, filtrerDeltakerePaVeiledertype } = useVeilederTableFilterStore()
 
 	const createInitialDataMap = (deltakere: VeiledersDeltaker[]): Map<string, FiltermenyDataEntry> => {
 		const dataMap = new Map<string, FiltermenyDataEntry>()
@@ -52,30 +52,14 @@ export const FilterMenyDeltakerliste = (props: Props): ReactElement => {
 		setDeltakerlister([ ...data.values() ])
 	}, [ props.deltakere, statusFilter, veiledertypeFilter, filtrerDeltakerePaStatus, filtrerDeltakerePaVeiledertype ])
 
-
-	const leggTil = (deltakerliste: string) => {
-		setDeltakerlisteFilter((prev) => {
-			if (prev.includes(deltakerliste)) {
-				return prev
-			}
-			return [ ...prev, deltakerliste ]
-		})
-	}
-
-	const fjern = (deltakerliste: string) => {
-		setDeltakerlisteFilter((prev) => {
-			return prev.filter((v) => v !== deltakerliste)
-		})
-	}
-
 	return (
 		<FilterMeny
 			navn="Deltakerliste"
 			data={deltakerlister}
 			className={globalStyles.blokkXs}
 			filter={deltakerlisteFilter}
-			addFilter={leggTil}
-			removeFilter={fjern}
+			addFilter={addDeltakerlisteFilter}
+			removeFilter={removeDeltakerlisteFilter}
 		/>
 	)
 }
