@@ -16,7 +16,7 @@ import { MINE_DELTAKERLISTER_PAGE_ROUTE } from '../../../navigation'
 import { useInnloggetBrukerStore } from '../../../store/innlogget-bruker-store'
 import { isKoordinatorAndVeileder } from '../../../utils/rolle-utils'
 import { FilterMenyStatus } from './filter-meny/FilterMenyStatus'
-import { VeilederTableFilterStore } from './store/veileder-table-filter-store'
+import { VeilederFilterMenyStoreProvider } from './store/veileder-filter-meny-store-provider'
 import { FilterMenyVeilederType } from './filter-meny/FilterMenyVeilederType'
 import { FilterMenyDeltakerliste } from './filter-meny/FilterMenyDeltakerliste'
 
@@ -57,7 +57,7 @@ export const MineDeltakerePage = (): React.ReactElement => {
 		.length > 1
 
 	return (
-		<VeilederTableFilterStore>
+		<VeilederFilterMenyStoreProvider>
 			<div className={styles.deltakerlisteVeileder} data-testid="deltakerliste-veileder-page">
 				<section className={styles.infoSection}>
 					<Detail><b>Veileder:</b></Detail>
@@ -69,6 +69,6 @@ export const MineDeltakerePage = (): React.ReactElement => {
 				</section>
 				<MineDeltakereTabell mineDeltakere={mineDeltakere}/>
 			</div>
-		</VeilederTableFilterStore>
+		</VeilederFilterMenyStoreProvider>
 	)
 }

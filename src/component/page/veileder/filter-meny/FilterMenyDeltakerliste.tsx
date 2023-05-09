@@ -1,7 +1,7 @@
 import React, { ReactElement, useEffect, useState } from 'react'
 import { VeiledersDeltaker } from '../../../../api/data/deltaker'
 import { FiltermenyDataEntry } from '../../../felles/table-filter/filtermeny-data-entry'
-import { useVeilederTableFilterStore } from '../store/veileder-table-filter-store'
+import { useVeilederFilterMenyStore } from '../store/veileder-filter-meny-store-provider'
 import { FilterMeny } from '../../../felles/table-filter/FilterMeny'
 import globalStyles from '../../../../globals.module.scss'
 
@@ -11,7 +11,7 @@ interface Props {
 
 export const FilterMenyDeltakerliste = (props: Props): ReactElement => {
 	const [ deltakerlister, setDeltakerlister ] = useState<FiltermenyDataEntry[]>([])
-	const { deltakerlisteFilter, addDeltakerlisteFilter, removeDeltakerlisteFilter, statusFilter, veiledertypeFilter, filtrerDeltakerePaStatus, filtrerDeltakerePaVeiledertype } = useVeilederTableFilterStore()
+	const { deltakerlisteFilter, addDeltakerlisteFilter, removeDeltakerlisteFilter, statusFilter, veiledertypeFilter, filtrerDeltakerePaStatus, filtrerDeltakerePaVeiledertype } = useVeilederFilterMenyStore()
 
 	const createInitialDataMap = (deltakere: VeiledersDeltaker[]): Map<string, FiltermenyDataEntry> => {
 		const dataMap = new Map<string, FiltermenyDataEntry>()

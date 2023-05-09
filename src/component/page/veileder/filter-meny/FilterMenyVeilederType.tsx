@@ -1,7 +1,7 @@
 import { VeiledersDeltaker } from '../../../../api/data/deltaker'
 import React, { useEffect, useState } from 'react'
 import { FiltermenyDataEntry } from '../../../felles/table-filter/filtermeny-data-entry'
-import { useVeilederTableFilterStore } from '../store/veileder-table-filter-store'
+import { useVeilederFilterMenyStore } from '../store/veileder-filter-meny-store-provider'
 import { tilVeiledertype } from '../../../../utils/deltakerliste-utils'
 import { klikkFilterMeny, loggKlikk } from '../../../../utils/amplitude-utils'
 import globalStyles from '../../../../globals.module.scss'
@@ -22,7 +22,7 @@ export const FilterMenyVeilederType = (props: Props): React.ReactElement => {
 		deltakerlisteFilter,
 		filtrerDeltakerePaDeltakerliste,
 		filtrerDeltakerePaStatus
-	} = useVeilederTableFilterStore()
+	} = useVeilederFilterMenyStore()
 
 	useEffect(() => {
 		const createInitialDataMap = (deltakere: VeiledersDeltaker[]): Map<string, FiltermenyDataEntry> => {

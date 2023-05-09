@@ -4,7 +4,7 @@ import { VeiledersDeltaker } from '../../../../api/data/deltaker'
 import { tilVeiledertype } from '../../../../utils/deltakerliste-utils'
 import { Veiledertype } from '../../../../api/data/veileder'
 
-export const [ VeilederTableFilterStore, useVeilederTableFilterStore ] = constate(() => {
+export const [ VeilederFilterMenyStoreProvider, useVeilederFilterMenyStore ] = constate(() => {
 	const [ statusFilter, setStatusFilter ] = useState<string[]>([])
 	const [ deltakerlisteFilter, setDeltakerlisteFilter ] = useState<string[]>([])
 	const [ veiledertypeFilter, setVeiledertypeFilter ] = useState<string[]>([ Veiledertype.VEILEDER ])

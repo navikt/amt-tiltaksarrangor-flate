@@ -2,7 +2,7 @@ import { TiltakDeltaker } from '../../../../api/data/deltaker'
 import globalStyles from '../../../../globals.module.scss'
 import { FilterMeny } from '../../../felles/table-filter/FilterMeny'
 import React, { useEffect, useState } from 'react'
-import { useKoordinatorTableFilterStore } from '../store/koordinator-table-filter-store'
+import { useKoordinatorFilterMenyStore } from '../store/koordinator-filter-meny-store-provider'
 import { getHovedveileder, HAR_IKKE_VEILEDER_FILTER_TEKST, veilederNavn } from '../../../../utils/veileder-utils'
 import { FiltermenyDataEntry } from '../../../felles/table-filter/filtermeny-data-entry'
 
@@ -21,7 +21,7 @@ export const FilterMenyVeiledere = (props: Props): React.ReactElement => {
 		filtrerBrukerePaMedveileder,
 		medveilederFilter,
 		statusFilter
-	} = useKoordinatorTableFilterStore()
+	} = useKoordinatorFilterMenyStore()
 
 	const createInitialDataMap = (deltakere: TiltakDeltaker[]): Map<string, FiltermenyDataEntry> => {
 		const veilederMap = new Map<string, FiltermenyDataEntry>()

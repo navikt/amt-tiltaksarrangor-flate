@@ -4,7 +4,7 @@ import { TiltakDeltaker } from '../../../../api/data/deltaker'
 import { getHovedveileder, getMedveiledere, HAR_IKKE_VEILEDER_FILTER_TEKST } from '../../../../utils/veileder-utils'
 import { VeilederMedType } from '../../../../api/data/veileder'
 
-export const [ KoordinatorTableFilterStore, useKoordinatorTableFilterStore ] = constate(() => {
+export const [ KoordinatorFilterMenyStoreProvider, useKoordinatorFilterMenyStore ] = constate(() => {
 	const [ veilederFilter, setVeilederFilter ] = useState<string[]>([])
 	const [ medveilederFilter, setMedveilederFilter ] = useState<string[]>([])
 	const [ statusFilter, setStatusFilter ] = useState<string[]>([])
