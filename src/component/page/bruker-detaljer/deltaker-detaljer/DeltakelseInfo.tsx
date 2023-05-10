@@ -48,14 +48,6 @@ export const DeltakelseInfo = ({
 	const erIkkeAktuellEllerHarSluttet = [ TiltakDeltakerStatus.IKKE_AKTUELL, TiltakDeltakerStatus.HAR_SLUTTET, TiltakDeltakerStatus.AVBRUTT ]
 		.includes(deltaker.status.type)
 
-	const getDagerPerUkeTekst = (dagerPerUke: number): string => {
-		if (dagerPerUke === 1) {
-			return `${dagerPerUke} dag i uka`
-		} else {
-			return `${dagerPerUke} dager i uka`
-		}
-	}
-
 	const getDeltakelsesmengdetekst = (deltakelseProsent: Nullable<number>, dagerPerUke: Nullable<number>): string => {
 		if ((deltakelseProsent === null || deltakelseProsent === undefined) && (dagerPerUke === null || dagerPerUke === undefined)){
 			return 'Ikke satt'
@@ -124,4 +116,12 @@ export const DeltakelseInfo = ({
 			/>
 		</div>
 	)
+}
+
+export const getDagerPerUkeTekst = (dagerPerUke: number): string => {
+	if (dagerPerUke === 1) {
+		return `${dagerPerUke} dag i uka`
+	} else {
+		return `${dagerPerUke} dager i uka`
+	}
 }

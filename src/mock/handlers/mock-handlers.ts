@@ -101,11 +101,11 @@ export const mockHandlers: RequestHandler[] = [
 				})
 			}
 			if (bodyType.innhold.type === EndringsmeldingType.ENDRE_DELTAKELSE_PROSENT) {
-				const body = req.body as { innhold: { type: string, deltakelseProsent: number, gyldigFraDato: string } }
+				const body = req.body as { innhold: { type: string, deltakelseProsent: number, dagerPerUke: number|null, gyldigFraDato: string } }
 				deltaker.aktiveEndringsmeldinger.push({
 					id: randomUuid(),
 					type: EndringsmeldingType.ENDRE_DELTAKELSE_PROSENT,
-					innhold: { deltakelseProsent: body.innhold.deltakelseProsent, gyldigFraDato: dayjs(body.innhold.gyldigFraDato).toDate() }
+					innhold: { deltakelseProsent: body.innhold.deltakelseProsent, dagerPerUke: body.innhold.dagerPerUke, gyldigFraDato: dayjs(body.innhold.gyldigFraDato).toDate() }
 				})
 			}
 			if (bodyType.innhold.type === EndringsmeldingType.FORLENG_DELTAKELSE) {

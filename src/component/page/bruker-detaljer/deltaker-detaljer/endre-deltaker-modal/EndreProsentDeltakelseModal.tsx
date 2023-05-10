@@ -20,18 +20,23 @@ interface EndreProsentDeltakelseModalProps {
 export interface EndreProsentDeltakelseModalDataProps {
 	deltakerId: string,
 	gammelProsentDeltakelse: number | null,
+	gammelDagerPerUke: number | null,
 	visGodkjennVilkaarPanel: boolean,
 	onEndringUtfort: () => void
 }
 
 export const EndreProsentDeltakelseModal = (props: EndreProsentDeltakelseModalProps & EndreProsentDeltakelseModalDataProps) => {
-	const { deltakerId, gammelProsentDeltakelse, visGodkjennVilkaarPanel, onEndringUtfort } = props
+	const { deltakerId, gammelProsentDeltakelse, gammelDagerPerUke, visGodkjennVilkaarPanel, onEndringUtfort } = props
 	const today = dayjs().toDate()
 	const { deltakerliste } = useDeltakerlisteStore()
 	const [ prosentDeltakelseFelt, settProsentDeltakelseFelt ] = useState<string>('')
+	const [ dagerPerUkeFelt, settDagerPerUkeFelt ] = useState<string>('')
 	const [ gyldigFraDato, setGyldigFraDato ] = useState<Nullable<Date>>(today)
 	const [ errorMessage, settErrorMessage ] = useState<string>()
+	const [ dagerPerUkeErrorMessage, settDagerPerUkeErrorMessage ] = useState<string>()
 	const [ vilkaarGodkjent, settVilkaarGodkjent ] = useState(false)
+
+	const visDagerPerUke = prosentDeltakelseFelt !== '100' && prosentDeltakelseFelt !== ''
 
 	const sendTilNavDisabled = (!vilkaarGodkjent && visGodkjennVilkaarPanel)
 		|| prosentDeltakelseFelt === ''
@@ -53,21 +58,33 @@ export const EndreProsentDeltakelseModal = (props: EndreProsentDeltakelseModalPr
 		if (isInvalid) settErrorMessage('Tallet må være et helt tall fra 1 til 100')
 		else if (newValue === gammelProsentDeltakelse) settErrorMessage('Gammel deltakelse kan ikke være lik ny deltakelse')
 		else settErrorMessage(undefined)
-	}, [ prosentDeltakelseFelt, gammelProsentDeltakelse ])
+
+		const newDagerPerUkeValue = parseInt(dagerPerUkeFelt)
+		const dagerPerUkeIsInvalid = newDagerPerUkeValue !== null &&
+			(!dagerPerUkeFelt.match(/^\d*$/)
+			|| newDagerPerUkeValue < 1
+			|| newDagerPerUkeValue > 5)
+
+		if (dagerPerUkeIsInvalid) settDagerPerUkeErrorMessage('Dager per uke må være et helt tall fra 1 til 5')
+		else if (newDagerPerUkeValue !== null && newDagerPerUkeValue === gammelDagerPerUke) settDagerPerUkeErrorMessage('Gammel deltakelse kan ikke være lik ny deltakelse')
+		else settDagerPerUkeErrorMessage(undefined)
+
+	}, [ prosentDeltakelseFelt, gammelProsentDeltakelse, dagerPerUkeFelt, gammelDagerPerUke ])
 
 	const sendEndringsmelding = () => {
 		const prosentDeltakelse = parseInt(prosentDeltakelseFelt)
+		const dagerPerUke = parseInt(dagerPerUkeFelt)
 
 		if (isNaN(prosentDeltakelse))
 			return Promise.reject('Kan ikke sende Prosent Deltakelse endringsmelding')
 
-		return endreDeltakelsesprosent(deltakerId, prosentDeltakelse, gyldigFraDato)
+		return endreDeltakelsesprosent(deltakerId, prosentDeltakelse, dagerPerUke, gyldigFraDato)
 			.then(onEndringUtfort)
 	}
 
 	return (
 		<BaseModal
-			tittel="Endre deltakelsesprosent"
+			tittel="Endre deltakelsesmengde"
 			onClose={props.onClose}>
 
 			<TextField
@@ -80,6 +97,17 @@ export const EndreProsentDeltakelseModal = (props: EndreProsentDeltakelseModalPr
 				error={errorMessage}
 				onChange={e => settProsentDeltakelseFelt(e.target.value)}
 			/>
+
+			{visDagerPerUke && <TextField
+				className={styles.prosentDeltakselseTextField}
+				label="Hvor mange dager i uka? (valgfritt)"
+				type="number"
+				value={dagerPerUkeFelt}
+				min={1}
+				max={5}
+				error={dagerPerUkeErrorMessage}
+				onChange={e => settDagerPerUkeFelt(e.target.value)}
+			/>}
 
 			<DateField
 				className={styles.datofelt}
