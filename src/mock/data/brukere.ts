@@ -29,6 +29,7 @@ export interface MockTiltakDeltaker {
 	startDato: Date | null,
 	sluttDato: Date | null,
 	deltakelseProsent: number | null,
+	dagerPerUke: number | null,
 	status: {
 		type: TiltakDeltakerStatus,
 		endretDato: Date,
@@ -140,6 +141,7 @@ const lagMockTiltakDeltagerForGjennomforing = (gjennomforing: Gjennomforing): Mo
 		startDato: startDato,
 		sluttDato: sluttDato,
 		deltakelseProsent: randBetween(0, 10) > 4 ? randBetween(0, 100) : null,
+		dagerPerUke: randBetween(0, 10) > 5 ? randBetween(1, 5) : null,
 		status: {
 			type: status,
 			endretDato: faker.date.recent()

@@ -19,6 +19,7 @@ import { EndreDeltakelseKnapp } from './EndreDeltakelseKnapp'
 import { Endringsmeldinger } from './endringsmelding/Endringsmeldinger'
 import { FjernDeltakerModal } from './fjern-deltaker-modal/FjernDeltakerModal'
 import { Tiltakskode } from '../../../../api/data/tiltak'
+import { Nullable } from '../../../../utils/types/or-nothing'
 
 interface DeltakelseInfoProps {
 	deltaker: Deltaker
@@ -41,11 +42,31 @@ export const DeltakelseInfo = ({
 		skjulDeltakerPromise.setPromise(skjulDeltaker(deltaker.id))
 	}
 
-	const skalViseDeltakelsesprosent = [ Tiltakskode.ARBFORB, Tiltakskode.VASV ]
+	const skalViseDeltakelsesmengde = [ Tiltakskode.ARBFORB, Tiltakskode.VASV ]
 		.includes(deltaker.tiltakskode)
 
 	const erIkkeAktuellEllerHarSluttet = [ TiltakDeltakerStatus.IKKE_AKTUELL, TiltakDeltakerStatus.HAR_SLUTTET, TiltakDeltakerStatus.AVBRUTT ]
 		.includes(deltaker.status.type)
+
+	const getDagerPerUkeTekst = (dagerPerUke: number): string => {
+		if (dagerPerUke === 1) {
+			return `${dagerPerUke} dag i uka`
+		} else {
+			return `${dagerPerUke} dager i uka`
+		}
+	}
+
+	const getDeltakelsesmengdetekst = (deltakelseProsent: Nullable<number>, dagerPerUke: Nullable<number>): string => {
+		if ((deltakelseProsent === null || deltakelseProsent === undefined) && (dagerPerUke === null || dagerPerUke === undefined)){
+			return 'Ikke satt'
+		} else if (deltakelseProsent === 100 || dagerPerUke === null || dagerPerUke === undefined) {
+			return `${deltaker.deltakelseProsent}%`
+		} else if (deltakelseProsent !== null) {
+			return `${deltakelseProsent}% ${getDagerPerUkeTekst(dagerPerUke)}`
+		} else {
+			return `${getDagerPerUkeTekst(dagerPerUke)}`
+		}
+	}
 
 	return (
 		<div className={styles.section}>
@@ -58,11 +79,9 @@ export const DeltakelseInfo = ({
 					<ElementPanel tittel="Dato:">
 						<span>{formatDate(deltaker.startDato)} - {formatDate(deltaker.sluttDato)}</span>
 					</ElementPanel>
-					{skalViseDeltakelsesprosent && (
-						<ElementPanel tittel="Deltakelsesprosent:" className={styles.deltakelsesProsentPanel}>
-							<span>{deltaker.deltakelseProsent !== null
-								? `${deltaker.deltakelseProsent}%`
-								: 'Ikke satt'}
+					{skalViseDeltakelsesmengde && (
+						<ElementPanel tittel="Deltakelsesmengde:" className={styles.deltakelsesProsentPanel}>
+							<span>{getDeltakelsesmengdetekst(deltaker.deltakelseProsent, deltaker.dagerPerUke)}
 							</span>
 						</ElementPanel>
 					)}

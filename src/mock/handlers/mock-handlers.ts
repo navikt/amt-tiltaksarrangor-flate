@@ -238,6 +238,7 @@ const mapToDeltakerDetaljerView = (deltaker: MockTiltakDeltaker): Deltaker => {
 		startDato: deltaker.startDato,
 		sluttDato: deltaker.sluttDato,
 		deltakelseProsent: deltaker.deltakelseProsent,
+		dagerPerUke: deltaker.dagerPerUke,
 		soktInnPa: deltaker.gjennomforing.navn,
 		soktInnDato: deltaker.registrertDato,
 		tiltakskode: deltaker.gjennomforing.tiltak.tiltakskode,
