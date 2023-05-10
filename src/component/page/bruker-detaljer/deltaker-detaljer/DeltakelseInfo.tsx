@@ -49,9 +49,9 @@ export const DeltakelseInfo = ({
 		.includes(deltaker.status.type)
 
 	const getDeltakelsesmengdetekst = (deltakelseProsent: Nullable<number>, dagerPerUke: Nullable<number>): string => {
-		if ((deltakelseProsent === null || deltakelseProsent === undefined) && (dagerPerUke === null || dagerPerUke === undefined)){
+		if ((deltakelseProsent === null || deltakelseProsent === undefined) && (dagerPerUke === null || dagerPerUke === undefined || dagerPerUke < 1 || dagerPerUke > 5)){
 			return 'Ikke satt'
-		} else if (deltakelseProsent === 100 || dagerPerUke === null || dagerPerUke === undefined) {
+		} else if (deltakelseProsent === 100 || dagerPerUke === null || dagerPerUke === undefined || dagerPerUke < 1 || dagerPerUke > 5) {
 			return `${deltaker.deltakelseProsent}%`
 		} else if (deltakelseProsent !== null) {
 			return `${deltakelseProsent}% ${getDagerPerUkeTekst(dagerPerUke)}`
