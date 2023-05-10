@@ -16,7 +16,7 @@ import styles from './DeltakerlisteDetaljerPage.module.scss'
 import { KoordinatorInfo } from './KoordinatorInfo'
 import { TiltakInfo } from './TiltakInfo'
 import { KoordinatorsDeltakerliste } from '../../../api/data/deltaker'
-import { KoordinatorTableFilterStore } from './store/koordinator-table-filter-store'
+
 import {
 	FilterMenyVeiledere
 } from './filter-meny/FilterMenyVeiledere'
@@ -57,18 +57,16 @@ export const DeltakerlisteDetaljerPage = (): React.ReactElement => {
 	const deltakerliste = fetchKoordinatorsDeltakerlistePromise.result.data
 
 	return (
-		<KoordinatorTableFilterStore>
-			<div className={styles.deltakerlisteDetaljer} data-testid="gjennomforing-detaljer-page">
-				<section className={styles.infoSection}>
-					<Heading size="small" level="2" className={globalStyles.blokkXs}>{deltakerliste.navn}</Heading>
-					<TiltakInfo deltakerliste={deltakerliste} className={globalStyles.blokkXs} />
-					<KoordinatorInfo koordinatorer={deltakerliste.koordinatorer} />
-					<FilterMenyStatus erKurs={deltakerliste.erKurs} deltakere={deltakerliste.deltakere}/>
-					<FilterMenyVeiledere deltakere={deltakerliste.deltakere}/>
-					<FilterMenyMedveileder deltakere={deltakerliste.deltakere}/>
-				</section>
+		<div className={styles.deltakerlisteDetaljer} data-testid="gjennomforing-detaljer-page">
+			<section className={styles.infoSection}>
+				<Heading size="small" level="2" className={globalStyles.blokkXs}>{deltakerliste.navn}</Heading>
+				<TiltakInfo deltakerliste={deltakerliste} className={globalStyles.blokkXs} />
+				<KoordinatorInfo koordinatorer={deltakerliste.koordinatorer} />
+				<FilterMenyStatus erKurs={deltakerliste.erKurs} deltakere={deltakerliste.deltakere}/>
+				<FilterMenyVeiledere deltakere={deltakerliste.deltakere}/>
+				<FilterMenyMedveileder deltakere={deltakerliste.deltakere}/>
+			</section>
 
-				<DeltakerOversiktTabell deltakere={deltakerliste.deltakere} />
-			</div>
-		</KoordinatorTableFilterStore>
+			<DeltakerOversiktTabell deltakere={deltakerliste.deltakere} />
+		</div>
 	)}

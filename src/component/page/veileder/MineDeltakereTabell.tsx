@@ -10,7 +10,7 @@ import { IngenDeltakere } from './ingen-deltakere/IngenDeltakere'
 import { TabellHeaderVeileder } from './TabellHeaderVeileder'
 import { TabellBodyVeileder } from './TabellBodyVeileder'
 import { filtrerDeltakerliste } from '../../../utils/filtrering-utils'
-import { useVeilederTableFilterStore } from './store/veileder-table-filter-store'
+import { useVeilederFilterMenyStore } from './store/veileder-filter-meny-store-provider'
 
 
 interface MineDeltakereTabellProps {
@@ -20,7 +20,7 @@ interface MineDeltakereTabellProps {
 export const MineDeltakereTabell = (props: MineDeltakereTabellProps): React.ReactElement<MineDeltakereTabellProps> => {
 	const { mineDeltakere } = props
 	const { deltakerSortering, setDeltakerSortering } = useTiltaksoversiktSokStore()
-	const { filtrerDeltakere, statusFilter, deltakerlisteFilter, veiledertypeFilter } = useVeilederTableFilterStore()
+	const { filtrerDeltakere, statusFilter, deltakerlisteFilter, veiledertypeFilter } = useVeilederFilterMenyStore()
 	const [ deltakereBearbeidet, setDeltakereBearbeidet ] = useState<VeiledersDeltaker[]>(sorterVeiledersDeltakere(mineDeltakere, deltakerSortering))
 
 	useEffect(() => {

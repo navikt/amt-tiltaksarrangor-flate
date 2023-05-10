@@ -5,7 +5,7 @@ import { mapTiltakDeltakerStatusTilTekst } from '../../../../utils/text-mappers'
 import { klikkFilterMeny, loggKlikk } from '../../../../utils/amplitude-utils'
 import { FilterMeny } from '../../../felles/table-filter/FilterMeny'
 import globalStyles from '../../../../globals.module.scss'
-import { useVeilederTableFilterStore } from '../store/veileder-table-filter-store'
+import { useVeilederFilterMenyStore } from '../store/veileder-filter-meny-store-provider'
 
 interface Props {
 	deltakere: VeiledersDeltaker[]
@@ -22,7 +22,7 @@ export const FilterMenyStatus = (props: Props): React.ReactElement => {
 		removeStatusFilter,
 		filtrerDeltakerePaDeltakerliste,
 		filtrerDeltakerePaVeiledertype
-	} = useVeilederTableFilterStore()
+	} = useVeilederFilterMenyStore()
 
 	const filtrerDeltakere = useCallback((deltakere: VeiledersDeltaker[]): VeiledersDeltaker[] => {
 		const filtrertPaDeltakerliste = filtrerDeltakerePaDeltakerliste(deltakere)

@@ -7,7 +7,7 @@ import { DeltakerTabell } from './deltaker-tabell/DeltakerTabell'
 import { sorterDeltakere } from './deltaker-tabell/sortering'
 import styles from './DeltakerOversiktTabell.module.scss'
 import { IngenDeltakereAlertstripe } from './IngenDeltakereAlertstripe'
-import { useKoordinatorTableFilterStore } from '../store/koordinator-table-filter-store'
+import { useKoordinatorFilterMenyStore } from '../store/koordinator-filter-meny-store-provider'
 
 
 interface DeltakerOversiktTabellProps {
@@ -16,7 +16,7 @@ interface DeltakerOversiktTabellProps {
 
 export const DeltakerOversiktTabell = (props: DeltakerOversiktTabellProps): React.ReactElement<DeltakerOversiktTabellProps> => {
 	const { deltakere } = props
-	const { filtrerDeltakere, veilederFilter, medveilederFilter, statusFilter } = useKoordinatorTableFilterStore()
+	const { filtrerDeltakere, veilederFilter, medveilederFilter, statusFilter } = useKoordinatorFilterMenyStore()
 	const { deltakerSortering, setDeltakerSortering } = useTiltaksoversiktSokStore()
 	const [ deltakereBearbeidet, setDeltakereBearbeidet ] = useState<TiltakDeltaker[]>(sorterDeltakere(deltakere, deltakerSortering))
 
