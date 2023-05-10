@@ -12,7 +12,7 @@ export const TabellBodyVeileder = (props: TabellBodyProps): JSX.Element => {
 	return (
 		<Table.Body>
 			{props.brukere.map((bruker, idx) => (
-				<RadVeileder idx={idx} bruker={bruker} key={bruker.id} />
+				<RadVeileder idx={idx} deltaker={bruker} key={bruker.id} />
 			))}
 		</Table.Body>
 	)
