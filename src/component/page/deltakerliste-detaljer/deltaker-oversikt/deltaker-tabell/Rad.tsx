@@ -2,7 +2,7 @@ import { Table } from '@navikt/ds-react'
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { TiltakDeltaker } from '../../../../../api/data/deltaker'
-import { EndringsmeldingType } from '../../../../../api/data/endringsmelding'
+import { Endringsmelding, EndringsmeldingType } from '../../../../../api/data/endringsmelding'
 import { brukerDetaljerPageUrl } from '../../../../../navigation'
 import { klikkDeltakerRadOversikt, loggKlikk } from '../../../../../utils/amplitude-utils'
 import { lagKommaSeparertBrukerNavn } from '../../../../../utils/bruker-utils'
@@ -21,6 +21,28 @@ interface RadProps {
 	deltaker: TiltakDeltaker
 }
 
+const hentEndringsmeldingSluttdato = (endringsmeldinger: Endringsmelding[]) => {
+	return endringsmeldinger?.flatMap(e => {
+		return e.type === EndringsmeldingType.FORLENG_DELTAKELSE || e.type === EndringsmeldingType.AVSLUTT_DELTAKELSE || e.type === EndringsmeldingType.ENDRE_SLUTTDATO ? e.innhold.sluttdato : []
+	})[0]
+}
+
+const hentEndringsmeldingStartdato = (endringsmeldinger: Endringsmelding[]) => {
+	return endringsmeldinger?.flatMap(e => {
+		return e.type === EndringsmeldingType.ENDRE_OPPSTARTSDATO || e.type === EndringsmeldingType.LEGG_TIL_OPPSTARTSDATO ? e.innhold.oppstartsdato : []
+	})[0]
+}
+
+export const utledStartdato = (deltakerStartdato: Date | null, endringsmeldinger: Endringsmelding[]) => {
+	const endringsmeldingStartdato = hentEndringsmeldingStartdato(endringsmeldinger)
+	return endringsmeldingStartdato? formatDate(endringsmeldingStartdato)+ '*': formatDate(deltakerStartdato)
+}
+
+export const utledSluttdato = (deltakerSluttdato: Date | null, endringsmeldinger: Endringsmelding[]) => {
+	const endringsmeldingSluttdato = hentEndringsmeldingSluttdato(endringsmeldinger)
+	return endringsmeldingSluttdato? formatDate(endringsmeldingSluttdato)+ '*': formatDate(deltakerSluttdato)
+}
+
 export const Rad = (props: RadProps): React.ReactElement<RadProps> => {
 	const {
 		fodselsnummer,
@@ -36,21 +58,6 @@ export const Rad = (props: RadProps): React.ReactElement<RadProps> => {
 		veiledere,
 	} = props.deltaker
 
-	const aktivSluttdato = aktiveEndringsmeldinger?.flatMap(e => {
-		return e.type === EndringsmeldingType.FORLENG_DELTAKELSE || e.type === EndringsmeldingType.AVSLUTT_DELTAKELSE ? e.innhold.sluttdato : []
-	})[0]
-	const aktivStartdato = aktiveEndringsmeldinger?.flatMap(e => {
-		return e.type === EndringsmeldingType.ENDRE_OPPSTARTSDATO || e.type === EndringsmeldingType.LEGG_TIL_OPPSTARTSDATO ? e.innhold.oppstartsdato : []
-	})[0]
-
-	const startDatoTekst = aktivStartdato
-		? formatDate(aktivStartdato) + '*'
-		: formatDate(startDato)
-
-	const sluttDatoTekst = aktivSluttdato
-		? formatDate(aktivSluttdato) + '*'
-		: formatDate(sluttDato)
-
 	const veileder = veiledere.filter(v => v.veiledertype === Veiledertype.VEILEDER)[0]
 
 	const veiledernavn = veileder ? lagKommaSeparertBrukerNavn(veileder.fornavn, veileder.mellomnavn, veileder.etternavn) : EMDASH
@@ -65,8 +72,8 @@ export const Rad = (props: RadProps): React.ReactElement<RadProps> => {
 			</Table.DataCell>
 			<Table.DataCell><Fnr fnr={fodselsnummer} /></Table.DataCell>
 			<Table.DataCell>{formatDate(soktInnDato)}</Table.DataCell>
-			<Table.DataCell>{startDatoTekst}</Table.DataCell>
-			<Table.DataCell>{sluttDatoTekst}</Table.DataCell>
+			<Table.DataCell>{utledStartdato(startDato, aktiveEndringsmeldinger)}</Table.DataCell>
+			<Table.DataCell>{utledSluttdato(sluttDato, aktiveEndringsmeldinger)}</Table.DataCell>
 			<Table.DataCell>
 				<StatusMerkelapp status={status} erDeltakerlisteVisning />
 			</Table.DataCell>
