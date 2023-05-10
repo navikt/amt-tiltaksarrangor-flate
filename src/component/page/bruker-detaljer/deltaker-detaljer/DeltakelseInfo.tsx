@@ -44,7 +44,7 @@ export const DeltakelseInfo = ({
 	const skalViseDeltakelsesprosent = [ Tiltakskode.ARBFORB, Tiltakskode.VASV ]
 		.includes(deltaker.tiltakskode)
 
-	const erIkkeAktuellEllerHarSluttet = [ TiltakDeltakerStatus.IKKE_AKTUELL, TiltakDeltakerStatus.HAR_SLUTTET, TiltakDeltakerStatus.AVBRUTT ]
+	const kanFjerneDeltaker = [ TiltakDeltakerStatus.IKKE_AKTUELL, TiltakDeltakerStatus.HAR_SLUTTET, TiltakDeltakerStatus.AVBRUTT, TiltakDeltakerStatus.FULLFORT ]
 		.includes(deltaker.status.type)
 
 	return (
@@ -76,7 +76,7 @@ export const DeltakelseInfo = ({
 					setReloadEndringsmeldinger={setReloadEndringsmeldinger}
 					reloadEndringsmeldinger={reloadEndringsmeldinger}
 				/>
-				{(erIkkeAktuellEllerHarSluttet && isNotStarted(skjulDeltakerPromise)) &&
+				{(kanFjerneDeltaker && isNotStarted(skjulDeltakerPromise)) &&
 					<Alert variant="warning" size="small" className={styles.statusAlert}>
 						Deltakeren fjernes fra listen {formatDate(deltaker.fjernesDato)}
 						<Button
