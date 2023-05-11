@@ -55,7 +55,7 @@ export const EndreProsentDeltakelseModal = (props: EndreProsentDeltakelseModalPr
 			|| newValue > 100
 
 		if (isInvalid) settErrorMessage('Tallet må være et helt tall fra 1 til 100')
-		else if (newValue === gammelProsentDeltakelse) settErrorMessage('Ny deltakelsesprosent kan ikke være lik den som er registrert')
+		else if (newValue === gammelProsentDeltakelse) settErrorMessage('Kan ikke være lik prosenten som er registrert')
 		else settErrorMessage(undefined)
 
 		const dagerPerUkeValue = parseInt(dagerPerUkeFelt)
