@@ -20,13 +20,12 @@ interface EndreProsentDeltakelseModalProps {
 export interface EndreProsentDeltakelseModalDataProps {
 	deltakerId: string,
 	gammelProsentDeltakelse: number | null,
-	gammelDagerPerUke: number | null,
 	visGodkjennVilkaarPanel: boolean,
 	onEndringUtfort: () => void
 }
 
 export const EndreProsentDeltakelseModal = (props: EndreProsentDeltakelseModalProps & EndreProsentDeltakelseModalDataProps) => {
-	const { deltakerId, gammelProsentDeltakelse, gammelDagerPerUke, visGodkjennVilkaarPanel, onEndringUtfort } = props
+	const { deltakerId, gammelProsentDeltakelse, visGodkjennVilkaarPanel, onEndringUtfort } = props
 	const today = dayjs().toDate()
 	const { deltakerliste } = useDeltakerlisteStore()
 	const [ prosentDeltakelseFelt, settProsentDeltakelseFelt ] = useState<string>('')
@@ -59,17 +58,16 @@ export const EndreProsentDeltakelseModal = (props: EndreProsentDeltakelseModalPr
 		else if (newValue === gammelProsentDeltakelse) settErrorMessage('Gammel deltakelse kan ikke være lik ny deltakelse')
 		else settErrorMessage(undefined)
 
-		const newDagerPerUkeValue = parseInt(dagerPerUkeFelt)
-		const dagerPerUkeIsInvalid = newDagerPerUkeValue !== null &&
+		const dagerPerUkeValue = parseInt(dagerPerUkeFelt)
+		const dagerPerUkeIsInvalid = dagerPerUkeValue !== null &&
 			(!dagerPerUkeFelt.match(/^\d*$/)
-			|| newDagerPerUkeValue < 1
-			|| newDagerPerUkeValue > 5)
+			|| dagerPerUkeValue < 1
+			|| dagerPerUkeValue > 5)
 
 		if (dagerPerUkeIsInvalid) settDagerPerUkeErrorMessage('Dager per uke må være et helt tall fra 1 til 5')
-		else if (newDagerPerUkeValue !== null && newDagerPerUkeValue === gammelDagerPerUke) settDagerPerUkeErrorMessage('Gammel deltakelse kan ikke være lik ny deltakelse')
 		else settDagerPerUkeErrorMessage(undefined)
 
-	}, [ prosentDeltakelseFelt, gammelProsentDeltakelse, dagerPerUkeFelt, gammelDagerPerUke ])
+	}, [ prosentDeltakelseFelt, gammelProsentDeltakelse, dagerPerUkeFelt ])
 
 	const sendEndringsmelding = () => {
 		const prosentDeltakelse = parseInt(prosentDeltakelseFelt)
