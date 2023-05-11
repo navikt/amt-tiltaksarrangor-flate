@@ -36,7 +36,7 @@ export const FilterMenyVeilederType = (props: Props): React.ReactElement => {
 				})
 			})
 
-			return dataMap
+			return new Map<string, FiltermenyDataEntry>([ ...dataMap.entries() ].sort().reverse())
 		}
 
 		const displayName = (veilederType: Veiledertype): string => {
