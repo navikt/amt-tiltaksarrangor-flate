@@ -71,7 +71,7 @@ export const EndreProsentDeltakelseModal = (props: EndreProsentDeltakelseModalPr
 
 	const sendEndringsmelding = () => {
 		const prosentDeltakelse = parseInt(prosentDeltakelseFelt)
-		const dagerPerUke = parseInt(dagerPerUkeFelt)
+		const dagerPerUke = prosentDeltakelse === 100 ? null : parseInt(dagerPerUkeFelt)
 
 		if (isNaN(prosentDeltakelse))
 			return Promise.reject('Kan ikke sende Prosent Deltakelse endringsmelding')
