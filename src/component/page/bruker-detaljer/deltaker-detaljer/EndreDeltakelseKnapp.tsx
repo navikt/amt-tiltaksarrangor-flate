@@ -49,7 +49,7 @@ export const EndreDeltakelseKnapp = (props: EndreDeltakelseKnappProps) => {
 						Endre deltakelse
 					</span>
 				</Button>
-				<Dropdown.Menu>
+				<Dropdown.Menu className={styles.dropdownMenu}>
 					<Dropdown.Menu.GroupedList className={styles.dropdown}>
 						<Dropdown.Menu.GroupedList.Heading>
 							Velg endring
