@@ -9,6 +9,7 @@ import {
 } from '../../../../../api/data/endringsmelding'
 import { formatDate } from '../../../../../utils/date-utils'
 import { aarsakTekstMapper } from '../tekst-mappers'
+import { getDagerPerUkeTekst } from '../DeltakelseInfo'
 
 export interface EndringsmeldingInnholdProps {
 	endringsmelding: Endringsmelding
@@ -62,8 +63,9 @@ export const EndringsmeldingInnhold = (props: EndringsmeldingInnholdProps) => {
 		case EndringsmeldingType.ENDRE_DELTAKELSE_PROSENT:
 			return (
 				<>
-					<BodyShort size="small">Endre prosent</BodyShort>
+					<BodyShort size="small">Endre deltakelsesmengde</BodyShort>
 					<BodyShort size="small">Ny deltakelsesprosent: {endringsmelding.innhold.deltakelseProsent}%</BodyShort>
+					{ endringsmelding.innhold.dagerPerUke && <BodyShort size="small">{getDagerPerUkeTekst(endringsmelding.innhold.dagerPerUke)}</BodyShort>}
 					{ endringsmelding.innhold.gyldigFraDato && <BodyShort size="small">Gjelder fra {formatDate(endringsmelding.innhold.gyldigFraDato)}</BodyShort> }
 				</>
 			)

@@ -129,12 +129,12 @@ export const endreOppstartsdato = (deltakerId: string, startDato: Date): AxiosPr
 		.catch(err => logAndThrowError(err, url))
 }
 
-export const endreDeltakelsesprosent = (deltakerId: string, deltakelseProsent: number, gyldigFraDato: Nullable<Date>): AxiosPromise => {
+export const endreDeltakelsesprosent = (deltakerId: string, deltakelseProsent: number, dagerPerUke: Nullable<number>, gyldigFraDato: Nullable<Date>): AxiosPromise => {
 	const url = appUrl(`/amt-tiltaksarrangor-bff/tiltaksarrangor/deltaker/${deltakerId}/endringsmelding`)
 	return axiosInstance
 		.post(
 			url,
-			{ innhold: { type: EndringsmeldingType.ENDRE_DELTAKELSE_PROSENT, deltakelseProsent: deltakelseProsent, gyldigFraDato: formatNullableDateToDateInputStr(gyldigFraDato) } }
+			{ innhold: { type: EndringsmeldingType.ENDRE_DELTAKELSE_PROSENT, deltakelseProsent: deltakelseProsent, dagerPerUke: dagerPerUke, gyldigFraDato: formatNullableDateToDateInputStr(gyldigFraDato) } }
 		)
 		.catch(err => logAndThrowError(err, url))
 }

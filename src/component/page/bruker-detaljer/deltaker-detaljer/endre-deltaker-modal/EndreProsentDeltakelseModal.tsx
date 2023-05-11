@@ -29,9 +29,13 @@ export const EndreProsentDeltakelseModal = (props: EndreProsentDeltakelseModalPr
 	const today = dayjs().toDate()
 	const { deltakerliste } = useDeltakerlisteStore()
 	const [ prosentDeltakelseFelt, settProsentDeltakelseFelt ] = useState<string>('')
+	const [ dagerPerUkeFelt, settDagerPerUkeFelt ] = useState<string>('')
 	const [ gyldigFraDato, setGyldigFraDato ] = useState<Nullable<Date>>(today)
 	const [ errorMessage, settErrorMessage ] = useState<string>()
+	const [ dagerPerUkeErrorMessage, settDagerPerUkeErrorMessage ] = useState<string>()
 	const [ vilkaarGodkjent, settVilkaarGodkjent ] = useState(false)
+
+	const visDagerPerUke = prosentDeltakelseFelt !== '100' && prosentDeltakelseFelt !== ''
 
 	const sendTilNavDisabled = (!vilkaarGodkjent && visGodkjennVilkaarPanel)
 		|| prosentDeltakelseFelt === ''
@@ -51,23 +55,34 @@ export const EndreProsentDeltakelseModal = (props: EndreProsentDeltakelseModalPr
 			|| newValue > 100
 
 		if (isInvalid) settErrorMessage('Tallet må være et helt tall fra 1 til 100')
-		else if (newValue === gammelProsentDeltakelse) settErrorMessage('Gammel deltakelse kan ikke være lik ny deltakelse')
+		else if (newValue === gammelProsentDeltakelse) settErrorMessage('Kan ikke være lik prosenten som er registrert')
 		else settErrorMessage(undefined)
-	}, [ prosentDeltakelseFelt, gammelProsentDeltakelse ])
+
+		const dagerPerUkeValue = parseInt(dagerPerUkeFelt)
+		const dagerPerUkeIsInvalid = dagerPerUkeValue !== null &&
+			(!dagerPerUkeFelt.match(/^\d*$/)
+			|| dagerPerUkeValue < 1
+			|| dagerPerUkeValue > 5)
+
+		if (dagerPerUkeIsInvalid) settDagerPerUkeErrorMessage('Dager per uke må være et helt tall fra 1 til 5')
+		else settDagerPerUkeErrorMessage(undefined)
+
+	}, [ prosentDeltakelseFelt, gammelProsentDeltakelse, dagerPerUkeFelt ])
 
 	const sendEndringsmelding = () => {
 		const prosentDeltakelse = parseInt(prosentDeltakelseFelt)
+		const dagerPerUke = prosentDeltakelse === 100 ? null : parseInt(dagerPerUkeFelt)
 
 		if (isNaN(prosentDeltakelse))
 			return Promise.reject('Kan ikke sende Prosent Deltakelse endringsmelding')
 
-		return endreDeltakelsesprosent(deltakerId, prosentDeltakelse, gyldigFraDato)
+		return endreDeltakelsesprosent(deltakerId, prosentDeltakelse, dagerPerUke, gyldigFraDato)
 			.then(onEndringUtfort)
 	}
 
 	return (
 		<BaseModal
-			tittel="Endre deltakelsesprosent"
+			tittel="Endre deltakelsesmengde"
 			onClose={props.onClose}>
 
 			<TextField
@@ -81,9 +96,20 @@ export const EndreProsentDeltakelseModal = (props: EndreProsentDeltakelseModalPr
 				onChange={e => settProsentDeltakelseFelt(e.target.value)}
 			/>
 
+			{visDagerPerUke && <TextField
+				className={styles.prosentDeltakselseTextField}
+				label="Hvor mange dager i uka? (valgfritt)"
+				type="number"
+				value={dagerPerUkeFelt}
+				min={1}
+				max={5}
+				error={dagerPerUkeErrorMessage}
+				onChange={e => settDagerPerUkeFelt(e.target.value)}
+			/>}
+
 			<DateField
 				className={styles.datofelt}
-				label="Fra når gjelder ny deltakelsesprosent?"
+				label="Fra når gjelder ny deltakelsesmengde?"
 				date={gyldigFraDato}
 				onDateChanged={d => setGyldigFraDato(d)}
 				min={deltakerliste.startDato}

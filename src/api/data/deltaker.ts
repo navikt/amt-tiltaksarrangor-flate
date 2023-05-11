@@ -75,6 +75,7 @@ export const deltakerSchema = z.object({
 	startDato: nullableDateSchema,
 	sluttDato: nullableDateSchema,
 	deltakelseProsent: z.number().nullable(),
+	dagerPerUke: z.number().nullable(),
 	soktInnPa: z.string(),
 	soktInnDato: dateSchema,
 	tiltakskode: tiltakstypeSchema,
