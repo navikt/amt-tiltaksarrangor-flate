@@ -109,7 +109,7 @@ export const EndreProsentDeltakelseModal = (props: EndreProsentDeltakelseModalPr
 
 			<DateField
 				className={styles.datofelt}
-				label="Fra når gjelder ny deltakelsesprosent?"
+				label="Fra når gjelder ny deltakelsesmengde?"
 				date={gyldigFraDato}
 				onDateChanged={d => setGyldigFraDato(d)}
 				min={deltakerliste.startDato}
