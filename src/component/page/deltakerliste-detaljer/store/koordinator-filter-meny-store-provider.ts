@@ -1,7 +1,12 @@
 import constate from 'constate'
 import { useState } from 'react'
 import { TiltakDeltaker } from '../../../../api/data/deltaker'
-import { getHovedveileder, getMedveiledere, HAR_IKKE_VEILEDER_FILTER_TEKST } from '../../../../utils/veileder-utils'
+import {
+	getHovedveileder,
+	getMedveiledere,
+	HAR_IKKE_MEDVEILEDER_FILTER_TEKST,
+	HAR_IKKE_VEILEDER_FILTER_TEKST
+} from '../../../../utils/veileder-utils'
 import { VeilederMedType } from '../../../../api/data/veileder'
 
 export const [ KoordinatorFilterMenyStoreProvider, useKoordinatorFilterMenyStore ] = constate(() => {
@@ -32,41 +37,42 @@ export const [ KoordinatorFilterMenyStoreProvider, useKoordinatorFilterMenyStore
 		if (statusFilter.length === 0) return true
 		return statusFilter.includes(brukerStatus)
 	}
-	const matcherVeileder = (veilederFiltre: string[], brukersVeileder: VeilederMedType) => {
-		if (veilederFiltre.length === 0) return true
-		if (brukersVeileder === undefined) return veilederFiltre.includes(HAR_IKKE_VEILEDER_FILTER_TEKST)
-		return veilederFiltre.includes(brukersVeileder?.ansattId)
+	const matcherVeileder = (brukersVeileder: VeilederMedType) => {
+		if (veilederFilter.length === 0) return true
+		if (brukersVeileder === undefined) return veilederFilter.includes(HAR_IKKE_VEILEDER_FILTER_TEKST)
+		return veilederFilter.includes(brukersVeileder?.ansattId)
 	}
 
-	const matcherMedveileder = (medveilederFiltre: string[], brukersMedveiledere: VeilederMedType[]) => {
+	const matcherMedveileder = (brukersMedveiledere: VeilederMedType[]) => {
+		if (medveilederFilter.length === 0) return true
+		if (brukersMedveiledere.length === 0 && medveilederFilter.includes(HAR_IKKE_MEDVEILEDER_FILTER_TEKST)) return true
 
-		if (medveilederFiltre.length === 0) return true
 		let retVal = false
-		brukersMedveiledere.forEach(it => {
-			if (medveilederFiltre.includes(it.ansattId)) retVal = true
+		brukersMedveiledere.forEach(medveileder => {
+			if (medveilederFilter.includes(medveileder.ansattId)) retVal = true
 		})
 
 		return retVal
 	}
 
-	const filtrerDeltakerePaStatus = (brukere: TiltakDeltaker[]): TiltakDeltaker[] => {
-		return brukere.filter(bruker => matcherStatus(statusFilter, bruker.status.type))
+	const filtrerDeltakerePaStatus = (deltakere: TiltakDeltaker[]): TiltakDeltaker[] => {
+		return deltakere.filter(bruker => matcherStatus(statusFilter, bruker.status.type))
 	}
 
-	const filtrerBrukerePaMedHovedveileder = (brukere: TiltakDeltaker[]): TiltakDeltaker[] => {
-		return brukere.filter(bruker => matcherVeileder(veilederFilter, getHovedveileder(bruker)))
+	const filtrerDeltakereMedHovedveileder = (deltakere: TiltakDeltaker[]): TiltakDeltaker[] => {
+		return deltakere.filter(bruker => matcherVeileder(getHovedveileder(bruker)))
 	}
 
 
-	const filtrerBrukerePaMedveileder = (brukere: TiltakDeltaker[]): TiltakDeltaker[] => {
-		return brukere.filter(bruker => matcherMedveileder(medveilederFilter, getMedveiledere(bruker)))
+	const filtrerDeltakereMedMedveileder = (brukere: TiltakDeltaker[]): TiltakDeltaker[] => {
+		return brukere.filter(bruker => matcherMedveileder(getMedveiledere(bruker)))
 	}
 
 
 	const filtrerDeltakere = (deltakere: TiltakDeltaker[]): TiltakDeltaker[] => {
 		const filtrertPaStatus = filtrerDeltakerePaStatus(deltakere)
-		const filtrertPaVeiledere = filtrerBrukerePaMedHovedveileder(filtrertPaStatus)
-		const filtrertPaMedveileder = filtrerBrukerePaMedveileder(filtrertPaVeiledere)
+		const filtrertPaVeiledere = filtrerDeltakereMedHovedveileder(filtrertPaStatus)
+		const filtrertPaMedveileder = filtrerDeltakereMedMedveileder(filtrertPaVeiledere)
 
 		return filtrertPaMedveileder
 	}
@@ -81,9 +87,6 @@ export const [ KoordinatorFilterMenyStoreProvider, useKoordinatorFilterMenyStore
 		statusFilter,
 		addStatusFilter,
 		removeStatusFilter,
-		filtrerDeltakerePaStatus,
-		filtrerBrukerePaMedHovedveileder,
-		filtrerBrukerePaMedveileder,
 		filtrerDeltakere
 	}
 

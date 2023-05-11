@@ -11,7 +11,7 @@ interface Props {
 
 export const FilterMenyDeltakerliste = (props: Props): ReactElement => {
 	const [ deltakerlister, setDeltakerlister ] = useState<FiltermenyDataEntry[]>([])
-	const { deltakerlisteFilter, addDeltakerlisteFilter, removeDeltakerlisteFilter, statusFilter, veiledertypeFilter, filtrerDeltakerePaStatus, filtrerDeltakerePaVeiledertype } = useVeilederFilterMenyStore()
+	const { deltakerlisteFilter, addDeltakerlisteFilter, removeDeltakerlisteFilter, statusFilter, veiledertypeFilter, filtrerDeltakere } = useVeilederFilterMenyStore()
 
 	const createInitialDataMap = (deltakere: VeiledersDeltaker[]): Map<string, FiltermenyDataEntry> => {
 		const dataMap = new Map<string, FiltermenyDataEntry>()
@@ -29,13 +29,6 @@ export const FilterMenyDeltakerliste = (props: Props): ReactElement => {
 	}
 
 	useEffect(() => {
-
-		const filtrerDeltakere = (deltakere: VeiledersDeltaker[]): VeiledersDeltaker[] => {
-			const filtrertPaStatus = filtrerDeltakerePaStatus(deltakere)
-			return filtrerDeltakerePaVeiledertype(filtrertPaStatus)
-		}
-
-
 		const data = createInitialDataMap(props.deltakere)
 		filtrerDeltakere(props.deltakere).forEach((deltaker: VeiledersDeltaker) => {
 			const deltakerliste = deltaker.deltakerliste
@@ -50,7 +43,7 @@ export const FilterMenyDeltakerliste = (props: Props): ReactElement => {
 		})
 
 		setDeltakerlister([ ...data.values() ])
-	}, [ props.deltakere, statusFilter, veiledertypeFilter, filtrerDeltakerePaStatus, filtrerDeltakerePaVeiledertype ])
+	}, [ props.deltakere, statusFilter, veiledertypeFilter, filtrerDeltakere ])
 
 	return (
 		<FilterMeny
