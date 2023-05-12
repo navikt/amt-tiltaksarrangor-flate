@@ -74,8 +74,9 @@ export const EndreDeltakelseKnapp = (props: EndreDeltakelseKnappProps) => {
 								})}/>
 						}
 
-						{ deltaker.status.type === TiltakDeltakerStatus.DELTAR && (!deltaker.sluttDato || !deltaker.deltakerliste.sluttDato ||
-									deltaker.sluttDato < deltaker.deltakerliste.sluttDato) &&
+						{ (deltaker.status.type === TiltakDeltakerStatus.HAR_SLUTTET ||
+							(deltaker.status.type === TiltakDeltakerStatus.DELTAR && (!deltaker.sluttDato || !deltaker.deltakerliste.sluttDato ||
+									deltaker.sluttDato < deltaker.deltakerliste.sluttDato))) &&
 							<DropDownButton
 								endringstype={EndringType.FORLENG_DELTAKELSE}
 								onClick={() => visForlengDeltakelseModal({
@@ -144,8 +145,7 @@ export const EndreDeltakelseKnapp = (props: EndreDeltakelseKnappProps) => {
 							</>
 						}
 						{ (deltaker.status.type === TiltakDeltakerStatus.FULLFORT ||
-							deltaker.status.type === TiltakDeltakerStatus.AVBRUTT ||
-							deltaker.status.type === TiltakDeltakerStatus.HAR_SLUTTET ) &&
+							deltaker.status.type === TiltakDeltakerStatus.AVBRUTT ) &&
 							<DropDownButton
 								endringstype={EndringType.ENDRE_SLUTTDATO}
 								onClick={() => visEndreSluttdatoModal({
