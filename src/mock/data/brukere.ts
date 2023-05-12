@@ -96,6 +96,26 @@ const getStatus = (erKurs: boolean): TiltakDeltakerStatus => {
 	return TiltakDeltakerStatus.DELTAR
 }
 
+const finnStartdato = (erGruppeAmoSorvest: boolean, gjennomforing: Gjennomforing, skalHaDatoer: boolean, deltakerstatus: TiltakDeltakerStatus): Date|null => {
+	if (erGruppeAmoSorvest && randBetween(0, 10) < 9) {
+		return gjennomforing.startDato
+	} else {
+		return skalHaDatoer
+			? (deltakerstatus === TiltakDeltakerStatus.VENTER_PA_OPPSTART ? faker.date.future() : faker.date.past())
+			: null
+	}
+}
+
+const finnSluttdato = (erGruppeAmoSorvest: boolean, gjennomforing: Gjennomforing, startDato: Date|null, deltakerstatus: TiltakDeltakerStatus): Date|null => {
+	if (erGruppeAmoSorvest && randBetween(0, 10) < 9) {
+		return gjennomforing.sluttDato
+	} else {
+		return startDato != null
+			? (deltakerstatus === TiltakDeltakerStatus.HAR_SLUTTET ? faker.date.between(startDato, Date()) : faker.date.between(startDato, gjennomforing.sluttDato? gjennomforing.sluttDato: Date()))
+			: null
+	}
+}
+
 const lagMockTiltakDeltagerForGjennomforing = (gjennomforing: Gjennomforing): MockTiltakDeltaker => {
 	const erKurs = deltakerlisteErKurs(gjennomforing.tiltak.tiltakskode)
 	const status = getStatus(erKurs)
@@ -111,13 +131,11 @@ const lagMockTiltakDeltagerForGjennomforing = (gjennomforing: Gjennomforing): Mo
 		? randomBoolean(20)
 		: true
 
-	const startDato = skalHaDatoer
-		? (status === TiltakDeltakerStatus.VENTER_PA_OPPSTART ? faker.date.future() : faker.date.past())
-		: null
+	// 90% av deltakerne på Gruppe AMO Sørvest skal ha samme start- og sluttdato som gjennomføringen
+	const erGruppeAmoSorvest = gjennomforing.navn === 'Gruppe AMO Sørvest'
 
-	const sluttDato = startDato != null
-		? (status === TiltakDeltakerStatus.HAR_SLUTTET ? faker.date.between(startDato, Date()) : faker.date.between(startDato, gjennomforing.sluttDato? gjennomforing.sluttDato: Date()))
-		: null
+	const startDato = finnStartdato(erGruppeAmoSorvest, gjennomforing, skalHaDatoer, status)
+	const sluttDato = finnSluttdato(erGruppeAmoSorvest, gjennomforing, startDato, status)
 
 	const fjernesDato = status === TiltakDeltakerStatus.IKKE_AKTUELL || status === TiltakDeltakerStatus.HAR_SLUTTET
 		? faker.date.future()

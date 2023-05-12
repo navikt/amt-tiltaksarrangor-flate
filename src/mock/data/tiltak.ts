@@ -72,19 +72,25 @@ export const gjennomforingInfoListe: GjennomforingInfo[] = [
 		status: TiltakGjennomforingStatus.GJENNOMFORES
 	},
 	{
-		gjennomforingNavn: 'Gruppe Fag- og yrkesopplæring Region Nordsør',
-		tiltakskode: Tiltakskode.GRUFAGYRKE,
-		tiltaksnavn: 'Gruppe Fag- og yrkesopplæring VGS og høyere yrkesfaglig utdanning',
-		status: TiltakGjennomforingStatus.GJENNOMFORES
-	},
-	{
 		gjennomforingNavn: 'Varig tilrettelagt arbeid i skjermet virksomhet Region Nordsør',
 		tiltakskode: Tiltakskode.VASV,
 		tiltaksnavn: 'Varig tilrettelagt arbeid i skjermet virksomhet ',
 		status: TiltakGjennomforingStatus.GJENNOMFORES
 	},
 	{
-		gjennomforingNavn: 'Gruppe AMO Viken',
+		gjennomforingNavn: 'Jobbklubb i tjenesteområde 1',
+		tiltakskode: Tiltakskode.JOBBK,
+		tiltaksnavn: 'Jobbklubb',
+		status: TiltakGjennomforingStatus.GJENNOMFORES
+	},
+	{
+		gjennomforingNavn: 'Gruppe AMO Nordvest',
+		tiltakskode: Tiltakskode.GRUPPEAMO,
+		tiltaksnavn: 'Gruppe AMO',
+		status: TiltakGjennomforingStatus.GJENNOMFORES
+	},
+	{
+		gjennomforingNavn: 'Gruppe AMO Sørvest',
 		tiltakskode: Tiltakskode.GRUPPEAMO,
 		tiltaksnavn: 'Gruppe AMO',
 		status: TiltakGjennomforingStatus.GJENNOMFORES
