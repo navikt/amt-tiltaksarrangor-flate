@@ -38,7 +38,7 @@ export const EndreDeltakelseKnapp = (props: EndreDeltakelseKnappProps) => {
 		|| deltaker.status.type === TiltakDeltakerStatus.DELTAR
 
 	const visGodkjennVilkaarPanel = deltaker.tiltakskode !== Tiltakskode.VASV
-
+	const kanHaSenereSluttdato = !deltaker.sluttDato || !deltaker.deltakerliste.sluttDato || deltaker.sluttDato < deltaker.deltakerliste.sluttDato
 	return (
 		<>
 			<ModalController modalData={modalData} onClose={lukkModal}/>
@@ -75,8 +75,7 @@ export const EndreDeltakelseKnapp = (props: EndreDeltakelseKnappProps) => {
 						}
 
 						{ (deltaker.status.type === TiltakDeltakerStatus.HAR_SLUTTET ||
-							(deltaker.status.type === TiltakDeltakerStatus.DELTAR && (!deltaker.sluttDato || !deltaker.deltakerliste.sluttDato ||
-									deltaker.sluttDato < deltaker.deltakerliste.sluttDato))) &&
+							(deltaker.status.type === TiltakDeltakerStatus.DELTAR && kanHaSenereSluttdato)) &&
 							<DropDownButton
 								endringstype={EndringType.FORLENG_DELTAKELSE}
 								onClick={() => visForlengDeltakelseModal({
