@@ -36,7 +36,7 @@ export const FilterMenyVeilederType = (props: Props): React.ReactElement => {
 				})
 			})
 
-			return new Map<string, FiltermenyDataEntry>([ ...dataMap.entries() ].sort().reverse())
+			return new Map<string, FiltermenyDataEntry>([ ...dataMap.entries() ].sort(([ keyA ], [ keyB ]) => keyB.localeCompare(keyA)))
 		}
 
 		const displayName = (veilederType: Veiledertype): string => {
