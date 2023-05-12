@@ -1,5 +1,5 @@
 import { IndividuellDeltakerStatus, KursDeltakerStatuser, VeiledersDeltaker } from '../../../../api/data/deltaker'
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { FiltermenyDataEntry } from '../../../felles/table-filter/filtermeny-data-entry'
 import { mapTiltakDeltakerStatusTilTekst } from '../../../../utils/text-mappers'
 import { klikkFilterMeny, loggKlikk } from '../../../../utils/amplitude-utils'
@@ -16,19 +16,10 @@ export const FilterMenyStatus = (props: Props): React.ReactElement => {
 
 	const {
 		statusFilter,
-		veiledertypeFilter,
-		deltakerlisteFilter,
 		addStatusFilter,
 		removeStatusFilter,
-		filtrerDeltakerePaDeltakerliste,
-		filtrerDeltakerePaVeiledertype
+		filtrerDeltakere
 	} = useVeilederFilterMenyStore()
-
-	const filtrerDeltakere = useCallback((deltakere: VeiledersDeltaker[]): VeiledersDeltaker[] => {
-		const filtrertPaDeltakerliste = filtrerDeltakerePaDeltakerliste(deltakere)
-		return filtrerDeltakerePaVeiledertype(filtrertPaDeltakerliste)
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [ props.deltakere, deltakerlisteFilter, veiledertypeFilter ])
 
 	useEffect(() => {
 		const statuser = { ...KursDeltakerStatuser, ...IndividuellDeltakerStatus }

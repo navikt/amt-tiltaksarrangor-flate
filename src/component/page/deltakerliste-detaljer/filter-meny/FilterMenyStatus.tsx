@@ -24,8 +24,7 @@ export const FilterMenyStatus = (props: Props): React.ReactElement => {
 		removeStatusFilter,
 		medveilederFilter,
 		veilederFilter,
-		filtrerBrukerePaMedHovedveileder: filtrerBrukerePaHovedveileder,
-		filtrerBrukerePaMedveileder
+		filtrerDeltakere
 	} = useKoordinatorFilterMenyStore()
 
 	const createInitialDataMap = useCallback((): Map<string, FiltermenyDataEntry> => {
@@ -45,11 +44,6 @@ export const FilterMenyStatus = (props: Props): React.ReactElement => {
 	}, [ props.erKurs ])
 
 	useEffect(() => {
-		const filtrerDeltakere = (deltakere: TiltakDeltaker[]): TiltakDeltaker[] => {
-			const filtrertPaHovedveileder = filtrerBrukerePaHovedveileder(deltakere)
-			return filtrerBrukerePaMedveileder(filtrertPaHovedveileder)
-		}
-
 		const statusMap = createInitialDataMap()
 
 		filtrerDeltakere(props.deltakere).forEach((deltaker: TiltakDeltaker) => {
@@ -64,7 +58,7 @@ export const FilterMenyStatus = (props: Props): React.ReactElement => {
 		})
 
 		setDeltakerePerStatus([ ...statusMap.values() ])
-	}, [ props.deltakere, medveilederFilter, veilederFilter, filtrerBrukerePaHovedveileder, filtrerBrukerePaMedveileder, createInitialDataMap ])
+	}, [ props.deltakere, medveilederFilter, veilederFilter, filtrerDeltakere, createInitialDataMap ])
 
 	const leggTil = (status: string) => {
 		addStatusFilter(status)

@@ -11,7 +11,7 @@ interface Props {
 }
 
 export const FilterMenyMedveileder = (props: Props): React.ReactElement => {
-	const [ deltakerePerMedveileder, setDeltarerePerMedveileder ] = useState<FiltermenyDataEntry[]>([])
+	const [ deltakerePerMedveileder, setDeltakerePerMedveileder ] = useState<FiltermenyDataEntry[]>([])
 
 	const {
 		medveilederFilter,
@@ -19,8 +19,7 @@ export const FilterMenyMedveileder = (props: Props): React.ReactElement => {
 		removeMedveilederFilter,
 		statusFilter,
 		veilederFilter,
-		filtrerBrukerePaMedHovedveileder,
-		filtrerDeltakerePaStatus
+		filtrerDeltakere
 	} = useKoordinatorFilterMenyStore()
 
 	const createInitialDataMap = (deltakere: TiltakDeltaker[]): Map<string, FiltermenyDataEntry> => {
@@ -52,11 +51,6 @@ export const FilterMenyMedveileder = (props: Props): React.ReactElement => {
 	}
 
 	useEffect(() => {
-		const filtrerDeltakere = (deltakere: TiltakDeltaker[]): TiltakDeltaker[] => {
-			const filtrertPaStatus = filtrerDeltakerePaStatus(deltakere)
-			return filtrerBrukerePaMedHovedveileder(filtrertPaStatus)
-		}
-
 		const map = createInitialDataMap(props.deltakere)
 
 		filtrerDeltakere(props.deltakere).forEach((deltaker) => {
@@ -83,8 +77,8 @@ export const FilterMenyMedveileder = (props: Props): React.ReactElement => {
 			}
 		})
 
-		setDeltarerePerMedveileder([ ...map.values() ])
-	}, [ props.deltakere, statusFilter, veilederFilter, filtrerBrukerePaMedHovedveileder, filtrerDeltakerePaStatus ])
+		setDeltakerePerMedveileder([ ...map.values() ])
+	}, [ props.deltakere, statusFilter, veilederFilter, filtrerDeltakere ])
 
 	return (
 		<FilterMeny

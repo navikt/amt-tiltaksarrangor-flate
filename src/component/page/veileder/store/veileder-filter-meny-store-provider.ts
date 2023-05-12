@@ -45,16 +45,16 @@ export const [ VeilederFilterMenyStoreProvider, useVeilederFilterMenyStore ] = c
 		return deltakerlisteFilter.includes(deltakerliste)
 	}
 
-	const filtrerDeltakerePaStatus = (brukere: VeiledersDeltaker[]): VeiledersDeltaker[] => {
-		return brukere.filter(bruker => matcherStatus(statusFilter, bruker.status.type))
+	const filtrerDeltakerePaStatus = (deltakere: VeiledersDeltaker[]): VeiledersDeltaker[] => {
+		return deltakere.filter(bruker => matcherStatus(statusFilter, bruker.status.type))
 	}
 
-	const filtrerDeltakerePaDeltakerliste = (brukere: VeiledersDeltaker[]): VeiledersDeltaker[] => {
-		return brukere.filter(bruker => matcherDeltakerliste(bruker.deltakerliste.navn))
+	const filtrerDeltakerePaDeltakerliste = (deltakere: VeiledersDeltaker[]): VeiledersDeltaker[] => {
+		return deltakere.filter(bruker => matcherDeltakerliste(bruker.deltakerliste.navn))
 	}
 
-	const filtrerDeltakerePaVeiledertype = (brukere: VeiledersDeltaker[]): VeiledersDeltaker[] => {
-		return brukere.filter(bruker => matcherVeiledertype(tilVeiledertype(bruker.veiledertype === Veiledertype.MEDVEILEDER)))
+	const filtrerDeltakerePaVeiledertype = (deltakere: VeiledersDeltaker[]): VeiledersDeltaker[] => {
+		return deltakere.filter(bruker => matcherVeiledertype(tilVeiledertype(bruker.veiledertype === Veiledertype.MEDVEILEDER)))
 	}
 
 	const filtrerDeltakere = (deltakere: VeiledersDeltaker[]): VeiledersDeltaker[] => {
@@ -74,9 +74,6 @@ export const [ VeilederFilterMenyStoreProvider, useVeilederFilterMenyStore ] = c
 		deltakerlisteFilter,
 		addDeltakerlisteFilter,
 		removeDeltakerlisteFilter,
-		filtrerDeltakerePaStatus,
-		filtrerDeltakerePaVeiledertype,
-		filtrerDeltakerePaDeltakerliste,
 		filtrerDeltakere
 	}
 

@@ -20,8 +20,7 @@ export const FilterMenyVeilederType = (props: Props): React.ReactElement => {
 		removeVeilederTypeFilter,
 		statusFilter,
 		deltakerlisteFilter,
-		filtrerDeltakerePaDeltakerliste,
-		filtrerDeltakerePaStatus
+		filtrerDeltakere
 	} = useVeilederFilterMenyStore()
 
 	useEffect(() => {
@@ -47,11 +46,6 @@ export const FilterMenyVeilederType = (props: Props): React.ReactElement => {
 			}
 		}
 
-		const filtrerDeltakere = (deltakere: VeiledersDeltaker[]): VeiledersDeltaker[] => {
-			const filtrertPaStatus = filtrerDeltakerePaStatus(deltakere)
-			return filtrerDeltakerePaDeltakerliste(filtrertPaStatus)
-		}
-
 		const data = createInitialDataMap(props.deltakere)
 		filtrerDeltakere(props.deltakere).forEach((deltaker: VeiledersDeltaker) => {
 			const veilederType = tilVeiledertype(deltaker.veiledertype === Veiledertype.MEDVEILEDER)
@@ -64,7 +58,7 @@ export const FilterMenyVeilederType = (props: Props): React.ReactElement => {
 		})
 
 		setDeltakerePerVeiledertype([ ...data.values() ])
-	}, [ props.deltakere, statusFilter, deltakerlisteFilter, filtrerDeltakerePaDeltakerliste, filtrerDeltakerePaStatus ])
+	}, [ props.deltakere, statusFilter, deltakerlisteFilter, filtrerDeltakere ])
 
 	const leggTil = (veiledertype: string) => {
 		addVeilederTypeFilter(veiledertype)
