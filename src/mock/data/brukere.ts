@@ -82,11 +82,11 @@ const getStatus = (erKurs: boolean): TiltakDeltakerStatus => {
 	const i = randBetween(0, 10)
 
 	if (erKurs) {
-		if (i < 4) return TiltakDeltakerStatus.VURDERES
-		if (i < 5) return TiltakDeltakerStatus.DELTAR
+		if (i < 2) return TiltakDeltakerStatus.VURDERES
+		if (i < 4) return TiltakDeltakerStatus.DELTAR
 		if (i < 7) return TiltakDeltakerStatus.VENTER_PA_OPPSTART
 		if (i < 8) return TiltakDeltakerStatus.FULLFORT
-		if (i < 9) return TiltakDeltakerStatus.AVBRUTT
+		if (i < 10) return TiltakDeltakerStatus.AVBRUTT
 	}
 	if (i < 5) return TiltakDeltakerStatus.DELTAR
 	if (i < 7) return TiltakDeltakerStatus.VENTER_PA_OPPSTART
