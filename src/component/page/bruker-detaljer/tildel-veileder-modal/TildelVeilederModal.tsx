@@ -129,7 +129,7 @@ export const TildelVeilederModal = (props: Props): React.ReactElement => {
 					feilmelding="Deltaker kan ha maks 3 medveiledere"
 				/>
 				<Alert variant="info" className={styles.alert}>
-					Finner du ikke veilederen du leter etter? Sjekk at veilederen har logget seg inn i deltakeroversikten etter å ha fått riktig tilgang i Altinn.
+					Finner du ikke veilederen du leter etter? Veilederen må først få riktig rettighet i Altinn, og deretter logge inn i deltakeroversikten.
 				</Alert>
 				{tildelingFeiletError && <Alert variant="error" size="small">Kunne ikke tildele veiledere. Prøv igjen eller kontakt brukerstøtte </Alert>}
 				<div className={styles.buttonRow}>
