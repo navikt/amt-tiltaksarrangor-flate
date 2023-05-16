@@ -61,7 +61,7 @@ export const [ KoordinatorFilterMenyStoreProvider, useKoordinatorFilterMenyStore
 
 	const matcherNavKontor = (brukersNavKontor: string|null) => {
 		if (navKontorFilter.length === 0) return true
-		if (brukersNavKontor === null) return true
+		if (brukersNavKontor === null) return false
 		return navKontorFilter.includes(brukersNavKontor)
 	}
 
