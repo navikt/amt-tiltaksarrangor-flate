@@ -4,7 +4,7 @@ import { ChevronUpIcon } from '@navikt/aksel-icons'
 
 interface Props {
 	title?: string
-	children: ReactElement[] | ReactElement
+	children: ReactElement[] | ReactElement,
 }
 
 export const CollapsablePanel = (props: Props) => {

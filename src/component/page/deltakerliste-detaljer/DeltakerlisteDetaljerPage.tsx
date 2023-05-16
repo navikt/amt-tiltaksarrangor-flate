@@ -24,6 +24,7 @@ import {
 	FilterMenyMedveileder
 } from './filter-meny/FilterMenyMedveileder'
 import { FilterMenyStatus } from './filter-meny/FilterMenyStatus'
+import { FilterMenyNavKontor } from './filter-meny/FilterMenyNavKontor'
 
 export const DeltakerlisteDetaljerPage = (): React.ReactElement => {
 	const { setTilbakeTilUrl } = useTilbakelenkeStore()
@@ -65,6 +66,7 @@ export const DeltakerlisteDetaljerPage = (): React.ReactElement => {
 				<FilterMenyStatus erKurs={deltakerliste.erKurs} deltakere={deltakerliste.deltakere}/>
 				<FilterMenyVeiledere deltakere={deltakerliste.deltakere}/>
 				<FilterMenyMedveileder deltakere={deltakerliste.deltakere}/>
+				<FilterMenyNavKontor deltakere={deltakerliste.deltakere}/>
 			</section>
 
 			<DeltakerOversiktTabell deltakere={deltakerliste.deltakere} />

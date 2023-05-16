@@ -216,6 +216,7 @@ export const mapToDeltakerListView = (deltaker: MockTiltakDeltaker): TiltakDelta
 		soktInnDato: deltaker.registrertDato,
 		aktiveEndringsmeldinger: deltaker.aktiveEndringsmeldinger,
 		veiledere: deltaker.veiledere,
+		navKontor: deltaker.navEnhet ? deltaker.navEnhet.navn : null
 	}
 }
 

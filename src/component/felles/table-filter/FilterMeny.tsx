@@ -10,7 +10,7 @@ interface Props {
 	className?: string
 	filter: string[]
 	addFilter: (f: string) => void
-	removeFilter: (f: string) => void
+	removeFilter: (f: string) => void,
 }
 
 export const FilterMeny = (props: Props) => {
