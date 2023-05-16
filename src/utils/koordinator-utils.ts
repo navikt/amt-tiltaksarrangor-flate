@@ -1,1 +1,0 @@
-export const HAR_IKKE_NAVKONTOR_FILTER_TEKST = 'Uten NAV-kontor'

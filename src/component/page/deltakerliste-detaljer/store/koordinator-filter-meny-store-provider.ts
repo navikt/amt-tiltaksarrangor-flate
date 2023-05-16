@@ -8,7 +8,6 @@ import {
 	HAR_IKKE_VEILEDER_FILTER_TEKST
 } from '../../../../utils/veileder-utils'
 import { VeilederMedType } from '../../../../api/data/veileder'
-import { HAR_IKKE_NAVKONTOR_FILTER_TEKST } from '../../../../utils/koordinator-utils'
 
 export const [ KoordinatorFilterMenyStoreProvider, useKoordinatorFilterMenyStore ] = constate(() => {
 	const [ veilederFilter, setVeilederFilter ] = useState<string[]>([])
@@ -62,7 +61,7 @@ export const [ KoordinatorFilterMenyStoreProvider, useKoordinatorFilterMenyStore
 
 	const matcherNavKontor = (brukersNavKontor: string|null) => {
 		if (navKontorFilter.length === 0) return true
-		if (brukersNavKontor === null) return navKontorFilter.includes(HAR_IKKE_NAVKONTOR_FILTER_TEKST)
+		if (brukersNavKontor === null) return true
 		return navKontorFilter.includes(brukersNavKontor)
 	}
 

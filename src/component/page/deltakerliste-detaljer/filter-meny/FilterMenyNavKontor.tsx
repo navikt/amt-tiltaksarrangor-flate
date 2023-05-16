@@ -4,7 +4,6 @@ import { FiltermenyDataEntry } from '../../../felles/table-filter/filtermeny-dat
 import { useKoordinatorFilterMenyStore } from '../store/koordinator-filter-meny-store-provider'
 import { FilterMeny } from '../../../felles/table-filter/FilterMeny'
 import globalStyles from '../../../../globals.module.scss'
-import { HAR_IKKE_NAVKONTOR_FILTER_TEKST } from '../../../../utils/koordinator-utils'
 
 interface Props {
     deltakere: TiltakDeltaker[]
@@ -38,15 +37,7 @@ export const FilterMenyNavKontor = (props: Props): React.ReactElement => {
 			}
 		})
 
-		const utenNavKontorMap = new Map<string, FiltermenyDataEntry>()
-
-		utenNavKontorMap.set(HAR_IKKE_NAVKONTOR_FILTER_TEKST, {
-			id: HAR_IKKE_NAVKONTOR_FILTER_TEKST,
-			displayName: HAR_IKKE_NAVKONTOR_FILTER_TEKST,
-			antallDeltakere: 0
-		})
-
-		return new Map<string, FiltermenyDataEntry>([ ...utenNavKontorMap, ...navKontorMap ])
+		return new Map<string, FiltermenyDataEntry>([ ...navKontorMap ])
 	}
 
 	useEffect(() => {
@@ -56,16 +47,7 @@ export const FilterMenyNavKontor = (props: Props): React.ReactElement => {
 			.forEach((deltaker) => {
 				const navkontor = deltaker.navKontor
 
-				if (navkontor === null) {
-					const entry = map.get(HAR_IKKE_NAVKONTOR_FILTER_TEKST)
-					if(entry !== undefined) {
-						map.set(HAR_IKKE_NAVKONTOR_FILTER_TEKST,
-							{
-								...entry,
-								antallDeltakere: entry.antallDeltakere + 1
-							})
-					}
-				} else {
+				if (navkontor !== null) {
 					const entry = map.get(navkontor)
 					map.set(navkontor, {
 						id: navkontor,
