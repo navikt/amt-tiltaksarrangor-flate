@@ -8,11 +8,13 @@ import {
 	HAR_IKKE_VEILEDER_FILTER_TEKST
 } from '../../../../utils/veileder-utils'
 import { VeilederMedType } from '../../../../api/data/veileder'
+import { HAR_IKKE_NAVKONTOR_FILTER_TEKST } from '../../../../utils/koordinator-utils'
 
 export const [ KoordinatorFilterMenyStoreProvider, useKoordinatorFilterMenyStore ] = constate(() => {
 	const [ veilederFilter, setVeilederFilter ] = useState<string[]>([])
 	const [ medveilederFilter, setMedveilederFilter ] = useState<string[]>([])
 	const [ statusFilter, setStatusFilter ] = useState<string[]>([])
+	const [ navKontorFilter, setNavKontorFilter ] = useState<string[]>([])
 
 	const addStatusFilter = (status: string) => addFilter(status, statusFilter, setStatusFilter)
 	const removeStatusFilter = (status: string) => removeFilter(status, statusFilter, setStatusFilter)
@@ -22,6 +24,9 @@ export const [ KoordinatorFilterMenyStoreProvider, useKoordinatorFilterMenyStore
 
 	const addMedveilederFilter = (status: string) => addFilter(status, medveilederFilter, setMedveilederFilter)
 	const removeMedveilederFilter = (status: string) => removeFilter(status, medveilederFilter, setMedveilederFilter)
+
+	const addNavKontorFilter = (status: string) => addFilter(status, navKontorFilter, setNavKontorFilter)
+	const removeNavKontorFilter = (status: string) => removeFilter(status, navKontorFilter, setNavKontorFilter)
 
 
 	const addFilter = ((value: string, filterValue: string[], setFilter: (value: string[]) => void) => {
@@ -55,6 +60,12 @@ export const [ KoordinatorFilterMenyStoreProvider, useKoordinatorFilterMenyStore
 		return retVal
 	}
 
+	const matcherNavKontor = (brukersNavKontor: string|null) => {
+		if (navKontorFilter.length === 0) return true
+		if (brukersNavKontor === null) return navKontorFilter.includes(HAR_IKKE_NAVKONTOR_FILTER_TEKST)
+		return navKontorFilter.includes(brukersNavKontor)
+	}
+
 	const filtrerDeltakerePaStatus = (deltakere: TiltakDeltaker[]): TiltakDeltaker[] => {
 		return deltakere.filter(bruker => matcherStatus(statusFilter, bruker.status.type))
 	}
@@ -68,13 +79,17 @@ export const [ KoordinatorFilterMenyStoreProvider, useKoordinatorFilterMenyStore
 		return brukere.filter(bruker => matcherMedveileder(getMedveiledere(bruker)))
 	}
 
+	const filtrerDeltakerePaNavKontor = (deltakere: TiltakDeltaker[]): TiltakDeltaker[] => {
+		return deltakere.filter(bruker => matcherNavKontor(bruker.navKontor))
+	}
 
 	const filtrerDeltakere = (deltakere: TiltakDeltaker[]): TiltakDeltaker[] => {
 		const filtrertPaStatus = filtrerDeltakerePaStatus(deltakere)
 		const filtrertPaVeiledere = filtrerDeltakereMedHovedveileder(filtrertPaStatus)
 		const filtrertPaMedveileder = filtrerDeltakereMedMedveileder(filtrertPaVeiledere)
+		const filtrertPaNavKontor = filtrerDeltakerePaNavKontor(filtrertPaMedveileder)
 
-		return filtrertPaMedveileder
+		return filtrertPaNavKontor
 	}
 
 	return {
@@ -87,6 +102,9 @@ export const [ KoordinatorFilterMenyStoreProvider, useKoordinatorFilterMenyStore
 		statusFilter,
 		addStatusFilter,
 		removeStatusFilter,
+		navKontorFilter,
+		addNavKontorFilter,
+		removeNavKontorFilter,
 		filtrerDeltakere
 	}
 

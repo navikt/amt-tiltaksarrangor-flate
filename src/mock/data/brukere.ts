@@ -164,7 +164,7 @@ const lagMockTiltakDeltagerForGjennomforing = (gjennomforing: Gjennomforing): Mo
 			type: status,
 			endretDato: faker.date.recent()
 		},
-		navEnhet: faker.random.arrayElement(navEnheter),
+		navEnhet: randBetween(0, 10) < 9 ? faker.random.arrayElement(navEnheter) : null,
 		navVeileder: veileder,
 		fjernesDato: fjernesDato,
 		gjennomforing: gjennomforing,

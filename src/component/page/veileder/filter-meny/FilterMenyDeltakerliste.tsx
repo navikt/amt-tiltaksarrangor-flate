@@ -53,6 +53,7 @@ export const FilterMenyDeltakerliste = (props: Props): ReactElement => {
 			filter={deltakerlisteFilter}
 			addFilter={addDeltakerlisteFilter}
 			removeFilter={removeDeltakerlisteFilter}
+			isExpandedDefaultValue={true}
 		/>
 	)
 }

@@ -78,6 +78,7 @@ export const FilterMenyStatus = (props: Props): React.ReactElement => {
 			filter={statusFilter}
 			addFilter={leggTil}
 			removeFilter={fjern}
+			isExpandedDefaultValue={true}
 		/>
 	)
 }

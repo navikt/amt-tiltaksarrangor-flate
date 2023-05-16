@@ -53,6 +53,7 @@ export const tiltakDeltakerSchema = z.object({
 	soktInnDato: dateSchema,
 	aktiveEndringsmeldinger: z.array(endringsmeldingSchema),
 	veiledere: z.array(veilederMedTypeSchema),
+	navKontor: z.string().nullable()
 })
 
 export const deltakersDeltakerlisteSchema = z.object({

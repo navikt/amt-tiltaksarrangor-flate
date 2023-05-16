@@ -89,6 +89,7 @@ export const FilterMenyVeiledere = (props: Props): React.ReactElement => {
 			filter={veilederFilter}
 			addFilter={addVeilederFilter}
 			removeFilter={removeVeilederFilter}
+			isExpandedDefaultValue={true}
 		/>
 	)
 }

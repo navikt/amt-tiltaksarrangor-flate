@@ -78,6 +78,7 @@ export const FilterMenyVeilederType = (props: Props): React.ReactElement => {
 			filter={veiledertypeFilter}
 			addFilter={leggTil}
 			removeFilter={fjern}
+			isExpandedDefaultValue={true}
 		/>
 	)
 }

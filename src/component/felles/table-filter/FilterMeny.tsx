@@ -10,7 +10,8 @@ interface Props {
 	className?: string
 	filter: string[]
 	addFilter: (f: string) => void
-	removeFilter: (f: string) => void
+	removeFilter: (f: string) => void,
+	isExpandedDefaultValue: boolean
 }
 
 export const FilterMeny = (props: Props) => {
@@ -37,7 +38,7 @@ export const FilterMeny = (props: Props) => {
 	}
 
 	return (
-		<CollapsablePanel title={props.navn}>
+		<CollapsablePanel title={props.navn} isExpandedDefaultValue={props.isExpandedDefaultValue}>
 			<CheckboxGroup legend="" aria-label="Filtrer deltakere på status" value={props.filter}>
 				{props.data.map((e: FiltermenyDataEntry) => (
 					<FilterCheckbox key={e.id} id={e.id} displayName={e.displayName} antallDeltakere={e.antallDeltakere}/>

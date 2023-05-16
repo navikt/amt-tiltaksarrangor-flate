@@ -4,11 +4,12 @@ import { ChevronUpIcon } from '@navikt/aksel-icons'
 
 interface Props {
 	title?: string
-	children: ReactElement[] | ReactElement
+	children: ReactElement[] | ReactElement,
+	isExpandedDefaultValue: boolean
 }
 
 export const CollapsablePanel = (props: Props) => {
-	const [ isExpanded, setIsExpanded ] = useState<boolean>(true)
+	const [ isExpanded, setIsExpanded ] = useState<boolean>(props.isExpandedDefaultValue)
 	const [ height, setHeight ] = useState<number>(0)
 
 	const panelRef = useRef<HTMLDivElement>(null)
