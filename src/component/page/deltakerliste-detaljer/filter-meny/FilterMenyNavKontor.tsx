@@ -69,7 +69,6 @@ export const FilterMenyNavKontor = (props: Props): React.ReactElement => {
 			filter={navKontorFilter}
 			addFilter={addNavKontorFilter}
 			removeFilter={removeNavKontorFilter}
-			isExpandedDefaultValue={false}
 		/>
 	)
 }

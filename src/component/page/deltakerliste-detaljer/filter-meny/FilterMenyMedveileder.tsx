@@ -88,7 +88,6 @@ export const FilterMenyMedveileder = (props: Props): React.ReactElement => {
 			filter={medveilederFilter}
 			addFilter={addMedveilederFilter}
 			removeFilter={removeMedveilederFilter}
-			isExpandedDefaultValue={true}
 		/>
 	)
 }
