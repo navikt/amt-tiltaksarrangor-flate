@@ -5,7 +5,7 @@ import { mapTiltakDeltakerStatusTilTekst } from '../../../../utils/text-mappers'
 import { klikkFilterMeny, loggKlikk } from '../../../../utils/amplitude-utils'
 import { FilterMeny } from '../../../felles/table-filter/FilterMeny'
 import globalStyles from '../../../../globals.module.scss'
-import { useVeilederFilterMenyStore } from '../store/veileder-filter-meny-store-provider'
+import { FilterType, useVeilederFilterMenyStore } from '../store/veileder-filter-meny-store-provider'
 
 interface Props {
 	deltakere: VeiledersDeltaker[]
@@ -18,15 +18,17 @@ export const FilterMenyStatus = (props: Props): React.ReactElement => {
 		statusFilter,
 		addStatusFilter,
 		removeStatusFilter,
-		filtrerDeltakere
+		filtrerDeltakere,
+		filtrerDeltakerePaaAltUtenom
 	} = useVeilederFilterMenyStore()
 
 	useEffect(() => {
 		const statuser = { ...KursDeltakerStatuser, ...IndividuellDeltakerStatus }
-		const deltakereFiltrert = filtrerDeltakere(props.deltakere)
+		const deltakereFiltrert = filtrerDeltakerePaaAltUtenom(FilterType.Status, props.deltakere)
+		filtrerDeltakere(props.deltakere)
 
 		const statusMap =  Object.keys(statuser).reduce((list: Map<string, FiltermenyDataEntry>, status: string) => {
-			const antallDeltakereTotalt = props.deltakere.filter(deltaker => deltaker.status.type === status).length
+			const antallDeltakereTotalt = deltakereFiltrert.filter(deltaker => deltaker.status.type === status).length
 			const antallDeltakereFiltrert = deltakereFiltrert.filter(deltaker => deltaker.status.type === status).length
 			return antallDeltakereTotalt == 0? list: list.set(status, {
 				id: status,
@@ -35,7 +37,7 @@ export const FilterMenyStatus = (props: Props): React.ReactElement => {
 			})}, new Map<string, FiltermenyDataEntry>())
 
 		setDeltakerePerStatus([ ...statusMap.values() ])
-	}, [ props.deltakere, filtrerDeltakere ])
+	}, [ props.deltakere, filtrerDeltakere, filtrerDeltakerePaaAltUtenom ])
 
 	const leggTil = (status: string) => {
 		addStatusFilter(status)

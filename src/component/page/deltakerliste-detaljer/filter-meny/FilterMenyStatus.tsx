@@ -3,7 +3,7 @@ import {
 	TiltakDeltaker,
 } from '../../../../api/data/deltaker'
 import React, { useCallback, useEffect, useState } from 'react'
-import { useKoordinatorFilterMenyStore } from '../store/koordinator-filter-meny-store-provider'
+import { FilterType, useKoordinatorFilterMenyStore } from '../store/koordinator-filter-meny-store-provider'
 import globalStyles from '../../../../globals.module.scss'
 import { FilterMeny } from '../../../felles/table-filter/FilterMeny'
 import { mapTiltakDeltakerStatusTilTekst } from '../../../../utils/text-mappers'
@@ -24,7 +24,8 @@ export const FilterMenyStatus = (props: Props): React.ReactElement => {
 		removeStatusFilter,
 		medveilederFilter,
 		veilederFilter,
-		filtrerDeltakere
+		filtrerDeltakere,
+		filtrerDeltakerePaaAltUtenom
 	} = useKoordinatorFilterMenyStore()
 
 	const createInitialDataMap = useCallback((): Map<string, FiltermenyDataEntry> => {
@@ -46,7 +47,8 @@ export const FilterMenyStatus = (props: Props): React.ReactElement => {
 	useEffect(() => {
 		const statusMap = createInitialDataMap()
 
-		filtrerDeltakere(props.deltakere).forEach((deltaker: TiltakDeltaker) => {
+		filtrerDeltakere(props.deltakere)
+		filtrerDeltakerePaaAltUtenom(FilterType.Status, props.deltakere).forEach((deltaker: TiltakDeltaker) => {
 			const status = deltaker.status.type
 			const entry = statusMap.get(status)
 
@@ -58,7 +60,7 @@ export const FilterMenyStatus = (props: Props): React.ReactElement => {
 		})
 
 		setDeltakerePerStatus([ ...statusMap.values() ])
-	}, [ props.deltakere, medveilederFilter, veilederFilter, filtrerDeltakere, createInitialDataMap ])
+	}, [ props.deltakere, medveilederFilter, veilederFilter, filtrerDeltakere, createInitialDataMap, filtrerDeltakerePaaAltUtenom ])
 
 	const leggTil = (status: string) => {
 		addStatusFilter(status)

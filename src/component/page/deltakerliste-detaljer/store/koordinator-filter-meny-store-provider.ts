@@ -9,6 +9,9 @@ import {
 } from '../../../../utils/veileder-utils'
 import { VeilederMedType } from '../../../../api/data/veileder'
 
+export enum FilterType {
+	Ingen, Status, Veileder, Medveileder, NavKontor
+}
 export const [ KoordinatorFilterMenyStoreProvider, useKoordinatorFilterMenyStore ] = constate(() => {
 	const [ veilederFilter, setVeilederFilter ] = useState<string[]>([])
 	const [ medveilederFilter, setMedveilederFilter ] = useState<string[]>([])
@@ -73,7 +76,6 @@ export const [ KoordinatorFilterMenyStoreProvider, useKoordinatorFilterMenyStore
 		return deltakere.filter(bruker => matcherVeileder(getHovedveileder(bruker)))
 	}
 
-
 	const filtrerDeltakereMedMedveileder = (brukere: TiltakDeltaker[]): TiltakDeltaker[] => {
 		return brukere.filter(bruker => matcherMedveileder(getMedveiledere(bruker)))
 	}
@@ -83,12 +85,14 @@ export const [ KoordinatorFilterMenyStoreProvider, useKoordinatorFilterMenyStore
 	}
 
 	const filtrerDeltakere = (deltakere: TiltakDeltaker[]): TiltakDeltaker[] => {
-		const filtrertPaStatus = filtrerDeltakerePaStatus(deltakere)
-		const filtrertPaVeiledere = filtrerDeltakereMedHovedveileder(filtrertPaStatus)
-		const filtrertPaMedveileder = filtrerDeltakereMedMedveileder(filtrertPaVeiledere)
-		const filtrertPaNavKontor = filtrerDeltakerePaNavKontor(filtrertPaMedveileder)
+		return filtrerDeltakerePaaAltUtenom(FilterType.Ingen, deltakere)
+	}
 
-		return filtrertPaNavKontor
+	const filtrerDeltakerePaaAltUtenom = (filterType: FilterType, deltakere: TiltakDeltaker[]) => {
+		const filtrertPaStatus = filterType == FilterType.Status? deltakere: filtrerDeltakerePaStatus(deltakere)
+		const filtrertPaVeiledere = filterType === FilterType.Veileder? filtrertPaStatus: filtrerDeltakereMedHovedveileder(filtrertPaStatus)
+		const filtrertPaMedveileder = filterType == FilterType.Medveileder? filtrertPaVeiledere: filtrerDeltakereMedMedveileder(filtrertPaVeiledere)
+		return filterType == FilterType.NavKontor? filtrertPaMedveileder: filtrerDeltakerePaNavKontor(filtrertPaMedveileder)
 	}
 
 	return {
@@ -104,7 +108,8 @@ export const [ KoordinatorFilterMenyStoreProvider, useKoordinatorFilterMenyStore
 		navKontorFilter,
 		addNavKontorFilter,
 		removeNavKontorFilter,
-		filtrerDeltakere
+		filtrerDeltakere,
+		filtrerDeltakerePaaAltUtenom
 	}
 
 })
