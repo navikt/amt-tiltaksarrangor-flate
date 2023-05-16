@@ -4,6 +4,9 @@ import { VeiledersDeltaker } from '../../../../api/data/deltaker'
 import { tilVeiledertype } from '../../../../utils/deltakerliste-utils'
 import { Veiledertype } from '../../../../api/data/veileder'
 
+export enum FilterType {
+	Ingen, Status, VeilederType, Deltakerliste
+}
 export const [ VeilederFilterMenyStoreProvider, useVeilederFilterMenyStore ] = constate(() => {
 	const [ statusFilter, setStatusFilter ] = useState<string[]>([])
 	const [ deltakerlisteFilter, setDeltakerlisteFilter ] = useState<string[]>([])
@@ -58,10 +61,13 @@ export const [ VeilederFilterMenyStoreProvider, useVeilederFilterMenyStore ] = c
 	}
 
 	const filtrerDeltakere = (deltakere: VeiledersDeltaker[]): VeiledersDeltaker[] => {
-		const filtrertPaStatus = filtrerDeltakerePaStatus(deltakere)
-		const filtrertPaVeiledertype = filtrerDeltakerePaVeiledertype(filtrertPaStatus)
-		const filtrertPaDeltakerliste = filtrerDeltakerePaDeltakerliste(filtrertPaVeiledertype)
-		return filtrertPaDeltakerliste
+		return filtrerDeltakerePaaAltUtenom(FilterType.Ingen, deltakere)
+	}
+
+	const filtrerDeltakerePaaAltUtenom = (filterType: FilterType, deltakere: VeiledersDeltaker[]) => {
+		const filtrertPaStatus = filterType == FilterType.Status? deltakere: filtrerDeltakerePaStatus(deltakere)
+		const filtrertPaVeiledertype = filterType == FilterType.VeilederType? filtrertPaStatus: filtrerDeltakerePaVeiledertype(filtrertPaStatus)
+		return filterType == FilterType.Deltakerliste? filtrertPaVeiledertype: filtrerDeltakerePaDeltakerliste(filtrertPaVeiledertype)
 	}
 
 	return {
@@ -74,7 +80,8 @@ export const [ VeilederFilterMenyStoreProvider, useVeilederFilterMenyStore ] = c
 		deltakerlisteFilter,
 		addDeltakerlisteFilter,
 		removeDeltakerlisteFilter,
-		filtrerDeltakere
+		filtrerDeltakere,
+		filtrerDeltakerePaaAltUtenom
 	}
 
 })

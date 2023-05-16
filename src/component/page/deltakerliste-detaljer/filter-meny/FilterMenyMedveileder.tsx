@@ -1,6 +1,6 @@
 import { TiltakDeltaker } from '../../../../api/data/deltaker'
-import React, { useEffect, useState } from 'react'
-import { useKoordinatorFilterMenyStore } from '../store/koordinator-filter-meny-store-provider'
+import React, { useCallback, useEffect, useState } from 'react'
+import { FilterType, useKoordinatorFilterMenyStore } from '../store/koordinator-filter-meny-store-provider'
 import globalStyles from '../../../../globals.module.scss'
 import { FilterMeny } from '../../../felles/table-filter/FilterMeny'
 import { getMedveiledere, HAR_IKKE_MEDVEILEDER_FILTER_TEKST, veilederNavn } from '../../../../utils/veileder-utils'
@@ -19,13 +19,14 @@ export const FilterMenyMedveileder = (props: Props): React.ReactElement => {
 		removeMedveilederFilter,
 		statusFilter,
 		veilederFilter,
-		filtrerDeltakere
+		filtrerDeltakere,
+		filtrerDeltakerePaaAltUtenom
 	} = useKoordinatorFilterMenyStore()
 
-	const createInitialDataMap = (deltakere: TiltakDeltaker[]): Map<string, FiltermenyDataEntry> => {
+	const createInitialDataMap = useCallback((): Map<string, FiltermenyDataEntry> => {
 		const medveilederMap = new Map<string, FiltermenyDataEntry>()
 
-		deltakere.forEach((deltaker) => {
+		props.deltakere.forEach((deltaker) => {
 			const medveiledere = getMedveiledere(deltaker)
 			medveiledere.forEach(medveileder => {
 				medveilederMap.set(medveileder.ansattId, {
@@ -48,12 +49,12 @@ export const FilterMenyMedveileder = (props: Props): React.ReactElement => {
 		})
 
 		return new Map<string, FiltermenyDataEntry>([ ...utenMedveilederMap, ...sortedMap ])
-	}
+	}, [ props.deltakere ])
 
 	useEffect(() => {
-		const map = createInitialDataMap(props.deltakere)
-
-		filtrerDeltakere(props.deltakere).forEach((deltaker) => {
+		const map = createInitialDataMap()
+		filtrerDeltakere(props.deltakere)
+		filtrerDeltakerePaaAltUtenom(FilterType.Medveileder, props.deltakere).forEach((deltaker) => {
 			const medveiledere = getMedveiledere(deltaker)
 
 			if (medveiledere.length === 0) {
@@ -78,7 +79,7 @@ export const FilterMenyMedveileder = (props: Props): React.ReactElement => {
 		})
 
 		setDeltakerePerMedveileder([ ...map.values() ])
-	}, [ props.deltakere, statusFilter, veilederFilter, filtrerDeltakere ])
+	}, [ props.deltakere, statusFilter, veilederFilter, filtrerDeltakere, filtrerDeltakerePaaAltUtenom, createInitialDataMap ])
 
 	return (
 		<FilterMeny

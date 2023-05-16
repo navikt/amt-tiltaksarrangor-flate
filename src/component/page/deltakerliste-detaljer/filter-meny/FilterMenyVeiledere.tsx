@@ -1,8 +1,8 @@
 import { TiltakDeltaker } from '../../../../api/data/deltaker'
 import globalStyles from '../../../../globals.module.scss'
 import { FilterMeny } from '../../../felles/table-filter/FilterMeny'
-import React, { useEffect, useState } from 'react'
-import { useKoordinatorFilterMenyStore } from '../store/koordinator-filter-meny-store-provider'
+import React, { useCallback, useEffect, useState } from 'react'
+import { FilterType, useKoordinatorFilterMenyStore } from '../store/koordinator-filter-meny-store-provider'
 import { getHovedveileder, HAR_IKKE_VEILEDER_FILTER_TEKST, veilederNavn } from '../../../../utils/veileder-utils'
 import { FiltermenyDataEntry } from '../../../felles/table-filter/filtermeny-data-entry'
 
@@ -19,13 +19,14 @@ export const FilterMenyVeiledere = (props: Props): React.ReactElement => {
 		removeVeilederFilter,
 		medveilederFilter,
 		statusFilter,
-		filtrerDeltakere
+		filtrerDeltakere,
+		filtrerDeltakerePaaAltUtenom
 	} = useKoordinatorFilterMenyStore()
 
-	const createInitialDataMap = (deltakere: TiltakDeltaker[]): Map<string, FiltermenyDataEntry> => {
+	const createInitialDataMap = useCallback((): Map<string, FiltermenyDataEntry> => {
 		const veilederMap = new Map<string, FiltermenyDataEntry>()
 
-		deltakere.forEach((deltaker) => {
+		props.deltakere.forEach((deltaker) => {
 			const hovedveileder = getHovedveileder(deltaker)
 
 			if(hovedveileder !== undefined) {
@@ -49,37 +50,37 @@ export const FilterMenyVeiledere = (props: Props): React.ReactElement => {
 		})
 
 		return new Map<string, FiltermenyDataEntry>([ ...utenVeilederMap, ...sortedMap ])
-	}
+	}, [ props.deltakere ])
 
 	useEffect(() => {
-		const map = createInitialDataMap(props.deltakere)
+		const map = createInitialDataMap()
 
 		filtrerDeltakere(props.deltakere)
-			.forEach((deltaker) => {
-				const hovedveileder = getHovedveileder(deltaker)
+		filtrerDeltakerePaaAltUtenom(FilterType.Veileder, props.deltakere).forEach((deltaker) => {
+			const hovedveileder = getHovedveileder(deltaker)
 
-				if (hovedveileder === undefined) {
-					const entry = map.get(HAR_IKKE_VEILEDER_FILTER_TEKST)
-					if(entry !== undefined) {
-						map.set(HAR_IKKE_VEILEDER_FILTER_TEKST,
-							{
-								...entry,
-								antallDeltakere: entry.antallDeltakere + 1
-							})
-					}
-				} else {
-					const entry = map.get(hovedveileder.ansattId)
-					map.set(hovedveileder.ansattId, {
-						id: hovedveileder.ansattId,
-						displayName: veilederNavn(hovedveileder),
-						antallDeltakere: entry ? entry.antallDeltakere + 1 : 1
-					})
-
+			if (hovedveileder === undefined) {
+				const entry = map.get(HAR_IKKE_VEILEDER_FILTER_TEKST)
+				if(entry !== undefined) {
+					map.set(HAR_IKKE_VEILEDER_FILTER_TEKST,
+						{
+							...entry,
+							antallDeltakere: entry.antallDeltakere + 1
+						})
 				}
-			})
+			} else {
+				const entry = map.get(hovedveileder.ansattId)
+				map.set(hovedveileder.ansattId, {
+					id: hovedveileder.ansattId,
+					displayName: veilederNavn(hovedveileder),
+					antallDeltakere: entry ? entry.antallDeltakere + 1 : 1
+				})
+
+			}
+		})
 
 		setDeltakerePerVeileder([ ...map.values() ])
-	}, [ props.deltakere, statusFilter, medveilederFilter, filtrerDeltakere ])
+	}, [ props.deltakere, statusFilter, medveilederFilter, filtrerDeltakere, filtrerDeltakerePaaAltUtenom, createInitialDataMap ])
 
 	return (
 		<FilterMeny
