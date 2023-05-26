@@ -22,8 +22,8 @@ export const TilbyPlassModal = (props: TilbyPlassModalProps & TilbyPlassModalDat
 	}
 
 	return (
-		<BaseModal tittel="Tilby plass" onClose={onClose} className={styles.window}>
-			<Label size="small" spacing as="p">Foreslår å tilby plass til denne personen.</Label>
+		<BaseModal tittel="Er aktuell" onClose={onClose} className={styles.window}>
+			<Label size="small" spacing as="p">Personen vurderes som aktuell for dette arbeidsmarkedstiltaket.</Label>
 			<SendTilNavKnapp
 				onEndringSendt={onClose}
 				sendEndring={sendEndringsmelding}
