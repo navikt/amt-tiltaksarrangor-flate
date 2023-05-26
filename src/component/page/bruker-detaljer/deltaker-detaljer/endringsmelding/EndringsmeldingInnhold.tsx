@@ -47,7 +47,7 @@ export const EndringsmeldingInnhold = (props: EndringsmeldingInnholdProps) => {
 		case EndringsmeldingType.DELTAKER_IKKE_AKTUELL:
 			return (
 				<>
-					<BodyShort size="small">Deltaker er ikke aktuell</BodyShort>
+					<BodyShort size="small">Personen er ikke aktuell</BodyShort>
 					<BodyShort size="small">Årsak: {getAarsakTekst(endringsmelding.innhold.aarsak)}</BodyShort>
 				</>
 			)
