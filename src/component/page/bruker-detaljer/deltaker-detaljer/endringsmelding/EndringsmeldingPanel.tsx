@@ -64,7 +64,6 @@ const mapTilEndringType = (endringsmeldingType: EndringsmeldingType) => {
 		case EndringsmeldingType.AVSLUTT_DELTAKELSE: return EndringType.AVSLUTT_DELTAKELSE
 		case EndringsmeldingType.ENDRE_DELTAKELSE_PROSENT: return EndringType.ENDRE_DELTAKELSE_PROSENT
 		case EndringsmeldingType.TILBY_PLASS: return EndringType.TILBY_PLASS
-		case EndringsmeldingType.SETT_PAA_VENTELISTE: return EndringType.SETT_PAA_VENTELISTE
 		case EndringsmeldingType.ENDRE_SLUTTDATO: return EndringType.ENDRE_SLUTTDATO
 		default: throw Error(`Kan ikke finne endringsmeldingtype: ${endringsmeldingType}`)
 	}

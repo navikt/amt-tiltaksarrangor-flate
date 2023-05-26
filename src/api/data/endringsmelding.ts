@@ -10,7 +10,6 @@ export enum EndringsmeldingType {
     DELTAKER_IKKE_AKTUELL = 'DELTAKER_IKKE_AKTUELL',
 	ENDRE_DELTAKELSE_PROSENT = 'ENDRE_DELTAKELSE_PROSENT',
 	TILBY_PLASS = 'TILBY_PLASS',
-	SETT_PAA_VENTELISTE = 'SETT_PAA_VENTELISTE',
 	ENDRE_SLUTTDATO = 'ENDRE_SLUTTDATO'
 
 
@@ -22,10 +21,8 @@ export enum DeltakerStatusAarsakType {
     TRENGER_ANNEN_STOTTE = 'TRENGER_ANNEN_STOTTE',
     FIKK_IKKE_PLASS = 'FIKK_IKKE_PLASS',
     UTDANNING = 'UTDANNING',
-    FERDIG = 'FERDIG',
     AVLYST_KONTRAKT = 'AVLYST_KONTRAKT',
     IKKE_MOTT = 'IKKE_MOTT',
-    FEILREGISTRERT = 'FEILREGISTRERT',
 	OPPFYLLER_IKKE_KRAVENE = 'OPPFYLLER_IKKE_KRAVENE',
     ANNET = 'ANNET'
 }
@@ -73,10 +70,6 @@ export const tilbyPlassEndringmeldingSchema = z.intersection(endringsmeldingBase
 	type: z.literal(EndringsmeldingType.TILBY_PLASS),
 }))
 
-export const settPaaVentelisteEndringmeldingSchema = z.intersection(endringsmeldingBaseSchema, z.object({
-	type: z.literal(EndringsmeldingType.SETT_PAA_VENTELISTE),
-}))
-
 export const endreSluttdatoEndringmeldingSchema = z.intersection(endringsmeldingBaseSchema, z.object({
 	type: z.literal(EndringsmeldingType.ENDRE_SLUTTDATO),
 	innhold: z.object({ sluttdato: dateSchema }),
@@ -90,7 +83,6 @@ export const endringsmeldingSchema = z.union([
 	deltakerIkkeAktuellEndringsmeldingSchema,
 	deltakelseProsentEndringmeldingSchema,
 	tilbyPlassEndringmeldingSchema,
-	settPaaVentelisteEndringmeldingSchema,
 	endreSluttdatoEndringmeldingSchema
 
 ])
