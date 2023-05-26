@@ -73,10 +73,6 @@ export const EndringsmeldingInnhold = (props: EndringsmeldingInnholdProps) => {
 			return (
 				<BodyShort size="small">Foreslår å tilby plass til denne personen.</BodyShort>
 			)
-		case EndringsmeldingType.SETT_PAA_VENTELISTE:
-			return (
-				<BodyShort size="small">Sett på venteliste</BodyShort>
-			)
 		case EndringsmeldingType.ENDRE_SLUTTDATO:
 			return (
 				<>

@@ -4,7 +4,6 @@ import styles from './EndringTypeIkon.module.scss'
 import { EndringType } from './types'
 import {
 	CheckmarkCircleFillIcon,
-	MenuElipsisHorizontalCircleFillIcon,
 	MinusCircleFillIcon,
 	ChevronRightDoubleCircleFillIcon,
 	ChevronRightCircleFillIcon,
@@ -32,8 +31,6 @@ export const EndringTypeIkon = (props: EndringTypeIkonProps) => {
 			return <PlusCircleFillIcon className={styles.ikkeAktuellIkon} aria-hidden/>
 		case EndringType.TILBY_PLASS:
 			return <CheckmarkCircleFillIcon className={styles.tilbyPlassIkon} aria-hidden />
-		case EndringType.SETT_PAA_VENTELISTE:
-			return <MenuElipsisHorizontalCircleFillIcon className={styles.settPaaVentelisteIkon} aria-hidden />
 	}
 
 }

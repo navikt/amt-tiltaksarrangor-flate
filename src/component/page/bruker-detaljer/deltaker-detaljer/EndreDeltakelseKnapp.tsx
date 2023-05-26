@@ -28,7 +28,6 @@ export const EndreDeltakelseKnapp = (props: EndreDeltakelseKnappProps) => {
 		visAvsluttDeltakerModal,
 		visEndreProsentDeltakelseModal,
 		visTilbyPlassModal,
-		visSettPaaVentelisteModal,
 		visEndreSluttdatoModal,
 		lukkModal
 	} = useModalData()
@@ -124,12 +123,6 @@ export const EndreDeltakelseKnapp = (props: EndreDeltakelseKnappProps) => {
 								<DropDownButton
 									endringstype={EndringType.TILBY_PLASS}
 									onClick={() => visTilbyPlassModal({
-										deltakerId: deltaker.id,
-										onEndringUtfort: props.onEndringUtfort
-									})}/>
-								<DropDownButton
-									endringstype={EndringType.SETT_PAA_VENTELISTE}
-									onClick={() => visSettPaaVentelisteModal({
 										deltakerId: deltaker.id,
 										onEndringUtfort: props.onEndringUtfort
 									})}/>

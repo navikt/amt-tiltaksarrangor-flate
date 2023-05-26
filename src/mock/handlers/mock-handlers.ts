@@ -139,12 +139,6 @@ export const mockHandlers: RequestHandler[] = [
 					type: EndringsmeldingType.TILBY_PLASS,
 				})
 			}
-			if (bodyType.innhold.type === EndringsmeldingType.SETT_PAA_VENTELISTE) {
-				deltaker.aktiveEndringsmeldinger.push({
-					id: randomUuid(),
-					type: EndringsmeldingType.SETT_PAA_VENTELISTE,
-				})
-			}
 			if (bodyType.innhold.type === EndringsmeldingType.ENDRE_SLUTTDATO) {
 				const body = req.body as { innhold: { type: string, sluttdato: string } }
 				deltaker.aktiveEndringsmeldinger.push({

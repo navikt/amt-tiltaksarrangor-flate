@@ -179,16 +179,6 @@ export const postTilbyPlass = (deltakerId: string): AxiosPromise => {
 		.catch(err => logAndThrowError(err, url))
 }
 
-export const postSettPaaVenteliste = (deltakerId: string): AxiosPromise => {
-	const url = appUrl(`/amt-tiltaksarrangor-bff/tiltaksarrangor/deltaker/${deltakerId}/endringsmelding`)
-	return axiosInstance
-		.post(
-			url,
-			{ innhold: { type: EndringsmeldingType.SETT_PAA_VENTELISTE } },
-		)
-		.catch(err => logAndThrowError(err, url))
-}
-
 export const postEndreSluttdato = (deltakerId: string, sluttDato: Date): AxiosPromise => {
 	const url = appUrl(`/amt-tiltaksarrangor-bff/tiltaksarrangor/deltaker/${deltakerId}/endringsmelding`)
 	return axiosInstance
