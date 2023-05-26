@@ -71,7 +71,7 @@ export const EndringsmeldingInnhold = (props: EndringsmeldingInnholdProps) => {
 			)
 		case EndringsmeldingType.TILBY_PLASS:
 			return (
-				<BodyShort size="small">Foreslår å tilby plass til denne personen.</BodyShort>
+				<BodyShort size="small">Personen er aktuell.</BodyShort>
 			)
 		case EndringsmeldingType.ENDRE_SLUTTDATO:
 			return (
