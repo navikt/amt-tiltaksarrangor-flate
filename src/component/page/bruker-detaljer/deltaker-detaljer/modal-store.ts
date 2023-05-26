@@ -6,7 +6,7 @@ import { EndreProsentDeltakelseModalDataProps } from './endre-deltaker-modal/End
 import { ForlengDeltakelseModalDataProps } from './endre-deltaker-modal/ForlengDeltakelseModal'
 import { LeggTilOppstartModalDataProps } from './endre-deltaker-modal/LeggTilOppstartModal'
 import { SettIkkeAktuellModalDataProps } from './endre-deltaker-modal/SettIkkeAktuellModal'
-import { TilbyPlassModalDataProps } from './endre-deltaker-modal/TilbyPlassModal'
+import { ErAktuellModalDataProps } from './endre-deltaker-modal/SettErAktuellModal'
 import { EndreSluttdatoModalDataProps } from './endre-deltaker-modal/EndreSluttdatoModal'
 
 export enum ModalType {
@@ -16,8 +16,7 @@ export enum ModalType {
 	SettDeltakerIkkeAktuell,
 	AvsluttDeltaker,
 	EndreProsentDeltakelse,
-	TilbyPlass,
-	SettPaaVenteliste,
+	SettDeltakerErAktuell,
 	EndreSluttdato
 }
 
@@ -33,7 +32,7 @@ type ForlengDeltakelseModalData = BaseModalData<ModalType.ForlengDeltakelse, For
 type SettDeltakerIkkeAktuellModalData = BaseModalData<ModalType.SettDeltakerIkkeAktuell, SettIkkeAktuellModalDataProps>
 type AvsluttDeltakerModalData = BaseModalData<ModalType.AvsluttDeltaker, AvsluttDeltakelseModalDataProps>
 type EndreProsentDeltakelse = BaseModalData<ModalType.EndreProsentDeltakelse, EndreProsentDeltakelseModalDataProps>
-type TilbyPlass = BaseModalData<ModalType.TilbyPlass, TilbyPlassModalDataProps>
+type SettDeltakerErAktuellData = BaseModalData<ModalType.SettDeltakerErAktuell, ErAktuellModalDataProps>
 type EndreSluttdato = BaseModalData<ModalType.EndreSluttdato, EndreSluttdatoModalDataProps>
 
 export type ModalData = LeggTilOppstartData |
@@ -42,7 +41,7 @@ export type ModalData = LeggTilOppstartData |
 	SettDeltakerIkkeAktuellModalData |
 	AvsluttDeltakerModalData |
 	EndreProsentDeltakelse |
-	TilbyPlass |
+	SettDeltakerErAktuellData |
 	EndreSluttdato
 
 
@@ -94,9 +93,9 @@ export const useModalData = () => {
 		})
 	}
 
-	const visTilbyPlassModal = (props: TilbyPlassModalDataProps) => {
+	const visSettDeltakerErAktuellModal = (props: ErAktuellModalDataProps) => {
 		setModalData({
-			type: ModalType.TilbyPlass,
+			type: ModalType.SettDeltakerErAktuell,
 			props: props
 		})
 	}
@@ -117,7 +116,7 @@ export const useModalData = () => {
 		visSettDeltakerIkkeAktuellModal,
 		visAvsluttDeltakerModal,
 		visEndreProsentDeltakelseModal,
-		visTilbyPlassModal,
+		visSettDeltakerErAktuellModal,
 		visEndreSluttdatoModal
 	}
 }

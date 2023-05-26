@@ -22,7 +22,7 @@ export const endringTypeTekstMapper = (endringsType: EndringType) => {
 		case EndringType.DELTAKER_IKKE_AKTUELL: return 'Er ikke aktuell'
 		case EndringType.AVSLUTT_DELTAKELSE: return 'Avslutt deltakelse'
 		case EndringType.ENDRE_DELTAKELSE_PROSENT: return 'Endre deltakelsesmengde'
-		case EndringType.TILBY_PLASS: return 'Er aktuell'
+		case EndringType.DELTAKER_ER_AKTUELL: return 'Er aktuell'
 		case EndringType.ENDRE_SLUTTDATO: return 'Endre sluttdato'
 
 		default: return 'Ukjent'

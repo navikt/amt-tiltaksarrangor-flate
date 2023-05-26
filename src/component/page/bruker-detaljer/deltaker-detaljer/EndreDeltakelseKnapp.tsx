@@ -27,7 +27,7 @@ export const EndreDeltakelseKnapp = (props: EndreDeltakelseKnappProps) => {
 		visSettDeltakerIkkeAktuellModal,
 		visAvsluttDeltakerModal,
 		visEndreProsentDeltakelseModal,
-		visTilbyPlassModal,
+		visSettDeltakerErAktuellModal,
 		visEndreSluttdatoModal,
 		lukkModal
 	} = useModalData()
@@ -121,8 +121,8 @@ export const EndreDeltakelseKnapp = (props: EndreDeltakelseKnappProps) => {
 						{ deltaker.status.type === TiltakDeltakerStatus.VURDERES &&
 							<>
 								<DropDownButton
-									endringstype={EndringType.TILBY_PLASS}
-									onClick={() => visTilbyPlassModal({
+									endringstype={EndringType.DELTAKER_ER_AKTUELL}
+									onClick={() => visSettDeltakerErAktuellModal({
 										deltakerId: deltaker.id,
 										onEndringUtfort: props.onEndringUtfort
 									})}/>

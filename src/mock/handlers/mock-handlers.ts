@@ -133,10 +133,10 @@ export const mockHandlers: RequestHandler[] = [
 				})
 			}
 
-			if (bodyType.innhold.type === EndringsmeldingType.TILBY_PLASS) {
+			if (bodyType.innhold.type === EndringsmeldingType.DELTAKER_ER_AKTUELL) {
 				deltaker.aktiveEndringsmeldinger.push({
 					id: randomUuid(),
-					type: EndringsmeldingType.TILBY_PLASS,
+					type: EndringsmeldingType.DELTAKER_ER_AKTUELL,
 				})
 			}
 			if (bodyType.innhold.type === EndringsmeldingType.ENDRE_SLUTTDATO) {
