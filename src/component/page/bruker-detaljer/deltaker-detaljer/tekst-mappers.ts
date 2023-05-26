@@ -19,7 +19,7 @@ export const endringTypeTekstMapper = (endringsType: EndringType) => {
 		case EndringType.LEGG_TIL_OPPSTARTSDATO: return 'Legg til oppstartsdato'
 		case EndringType.ENDRE_OPPSTARTSDATO: return 'Endre oppstartsdato'
 		case EndringType.FORLENG_DELTAKELSE: return 'Forleng deltakelse'
-		case EndringType.DELTAKER_IKKE_AKTUELL: return 'Deltaker er ikke aktuell'
+		case EndringType.DELTAKER_IKKE_AKTUELL: return 'Er ikke aktuell'
 		case EndringType.AVSLUTT_DELTAKELSE: return 'Avslutt deltakelse'
 		case EndringType.ENDRE_DELTAKELSE_PROSENT: return 'Endre deltakelsesmengde'
 		case EndringType.TILBY_PLASS: return 'Tilby plass'
