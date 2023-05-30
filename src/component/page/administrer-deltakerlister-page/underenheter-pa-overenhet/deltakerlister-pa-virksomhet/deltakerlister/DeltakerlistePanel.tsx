@@ -9,11 +9,11 @@ import { Add, Close } from '@navikt/ds-icons'
 import React, { useEffect, useState } from 'react'
 
 interface DeltakerlistePanelProps {
-    deltakerliste: Deltakerliste;
-    deltakerlisterLagtTil: string[];
-    deltakerlisteIdLoading: string | undefined;
-    onLeggTil: (id: string) => void;
-    onFjern: (id: string) => void;
+	deltakerliste: Deltakerliste;
+	deltakerlisterLagtTil: string[];
+	deltakerlisteIdLoading: string | undefined;
+	onLeggTil: (id: string) => void;
+	onFjern: (id: string) => void;
 }
 
 const SUCCESS_ALERT_TIMEOUT_MS = 2000
@@ -60,8 +60,8 @@ export const DeltakerlistePanel = (props: DeltakerlistePanelProps) => {
 				<div>
 					<div className={cls(styles.rad, globalStyles.blokkXxs)}>
 						<BodyShort size="small" className={styles.tiltaksinfo}>
-							<span
-								className={styles.tiltaknavn}>{deltakerliste.tiltaksnavn}</span> {formatDate(deltakerliste.startDato)} - {formatDate(deltakerliste.sluttDato)}
+							<span className={styles.tiltaknavn}>{deltakerliste.tiltaksnavn}</span>
+							<span> {formatDate(deltakerliste.startDato)} - {formatDate(deltakerliste.sluttDato)}</span>
 						</BodyShort>
 					</div>
 
