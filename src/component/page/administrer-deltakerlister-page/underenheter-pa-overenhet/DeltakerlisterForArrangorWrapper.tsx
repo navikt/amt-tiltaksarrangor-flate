@@ -1,4 +1,4 @@
-import { Arrangor } from '../deltakerliste.viewobjects'
+import { Arrangor, Deltakerliste } from '../deltakerliste.viewobjects'
 import { DeltakerlisterForArrangor } from './deltakerlister-pa-virksomhet/DeltakerlisterForArrangor'
 import { Heading } from '@navikt/ds-react'
 import React from 'react'
@@ -14,6 +14,10 @@ interface DeltakerlisterForArrangorWrapperProps {
     onFjern: (id: string) => void;
 }
 
+const sortDeltakerlister = (deltakerlister: Deltakerliste[]): Deltakerliste[] => {
+	return deltakerlister.sort((a, b) => a.navn.localeCompare(b.navn))
+}
+
 export const DeltakerlisterForArrangorWrapper = (props: DeltakerlisterForArrangorWrapperProps) => {
 	return (
 		<div className={globalStyles.blokkM}>
@@ -21,14 +25,15 @@ export const DeltakerlisterForArrangorWrapper = (props: DeltakerlisterForArrango
 
 			{props.arrangorer.map((arrangor) =>
 				<DeltakerlisterForArrangor key={arrangor.id} navn={arrangor.navn} orgNr={arrangor.id}>
-					{arrangor.deltakerlister.map((deltakerliste) =>
-						<DeltakerlistePanel key={deltakerliste.id}
-							deltakerliste={deltakerliste}
-							deltakerlisterLagtTil={props.deltakerlisterLagtTil}
-							deltakerlisteIdLoading={props.deltakerlisteIdLoading}
-							onLeggTil={props.onLeggTil}
-							onFjern={props.onFjern}/>
-					)}
+					{sortDeltakerlister(arrangor.deltakerlister)
+						.map((deltakerliste) =>
+							<DeltakerlistePanel key={deltakerliste.id}
+								deltakerliste={deltakerliste}
+								deltakerlisterLagtTil={props.deltakerlisterLagtTil}
+								deltakerlisteIdLoading={props.deltakerlisteIdLoading}
+								onLeggTil={props.onLeggTil}
+								onFjern={props.onFjern}/>
+						)}
 				</DeltakerlisterForArrangor>
 			)}
 		</div>
