@@ -29,8 +29,8 @@ export const EndringTypeIkon = (props: EndringTypeIkonProps) => {
 			return <PieChartFillIcon className={styles.endreProsentDeltakelseIkon} aria-hidden/>
 		case EndringType.DELTAKER_IKKE_AKTUELL:
 			return <PlusCircleFillIcon className={styles.ikkeAktuellIkon} aria-hidden/>
-		case EndringType.TILBY_PLASS:
-			return <CheckmarkCircleFillIcon className={styles.tilbyPlassIkon} aria-hidden />
+		case EndringType.DELTAKER_ER_AKTUELL:
+			return <CheckmarkCircleFillIcon className={styles.erAktuellIkon} aria-hidden />
 	}
 
 }

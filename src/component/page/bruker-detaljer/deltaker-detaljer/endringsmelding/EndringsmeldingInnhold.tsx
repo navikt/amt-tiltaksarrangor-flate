@@ -69,7 +69,7 @@ export const EndringsmeldingInnhold = (props: EndringsmeldingInnholdProps) => {
 					{ endringsmelding.innhold.gyldigFraDato && <BodyShort size="small">Gjelder fra {formatDate(endringsmelding.innhold.gyldigFraDato)}</BodyShort> }
 				</>
 			)
-		case EndringsmeldingType.TILBY_PLASS:
+		case EndringsmeldingType.DELTAKER_ER_AKTUELL:
 			return (
 				<BodyShort size="small">Personen er aktuell.</BodyShort>
 			)
