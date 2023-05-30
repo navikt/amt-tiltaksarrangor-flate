@@ -169,12 +169,12 @@ export const deltakerIkkeAktuell = (deltakerId: string, aarsak: DeltakerStatusAa
 		.catch(err => logAndThrowError(err, url))
 }
 
-export const postTilbyPlass = (deltakerId: string): AxiosPromise => {
+export const postDeltakerErAktuell = (deltakerId: string): AxiosPromise => {
 	const url = appUrl(`/amt-tiltaksarrangor-bff/tiltaksarrangor/deltaker/${deltakerId}/endringsmelding`)
 	return axiosInstance
 		.post(
 			url,
-			{ innhold: { type: EndringsmeldingType.TILBY_PLASS } },
+			{ innhold: { type: EndringsmeldingType.DELTAKER_ER_AKTUELL } },
 		)
 		.catch(err => logAndThrowError(err, url))
 }

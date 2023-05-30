@@ -1,23 +1,23 @@
 import React from 'react'
-import { postTilbyPlass } from '../../../../../api/tiltak-api'
+import { postDeltakerErAktuell } from '../../../../../api/tiltak-api'
 import { BaseModal } from '../../../../felles/base-modal/BaseModal'
 import { SendTilNavKnapp } from './SendTilNavKnapp'
 import { Label } from '@navikt/ds-react'
-import styles from './TilbyPlassModal.module.scss'
+import styles from './SettErAktuellModal.module.scss'
 
-interface TilbyPlassModalProps {
+interface ErAktuellModalProps {
 	onClose: () => void
 }
 
-export interface TilbyPlassModalDataProps {
+export interface ErAktuellModalDataProps {
 	deltakerId: string
 	onEndringUtfort: () => void
 }
 
-export const TilbyPlassModal = (props: TilbyPlassModalProps & TilbyPlassModalDataProps) => {
+export const SettErAktuellModal = (props: ErAktuellModalProps & ErAktuellModalDataProps) => {
 	const { deltakerId, onClose, onEndringUtfort } = props
 	const sendEndringsmelding = () => {
-		return postTilbyPlass(deltakerId)
+		return postDeltakerErAktuell(deltakerId)
 			.then(onEndringUtfort)
 	}
 

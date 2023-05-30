@@ -9,7 +9,7 @@ export enum EndringsmeldingType {
     AVSLUTT_DELTAKELSE = 'AVSLUTT_DELTAKELSE',
     DELTAKER_IKKE_AKTUELL = 'DELTAKER_IKKE_AKTUELL',
 	ENDRE_DELTAKELSE_PROSENT = 'ENDRE_DELTAKELSE_PROSENT',
-	TILBY_PLASS = 'TILBY_PLASS',
+	DELTAKER_ER_AKTUELL = 'DELTAKER_ER_AKTUELL',
 	ENDRE_SLUTTDATO = 'ENDRE_SLUTTDATO'
 
 
@@ -66,8 +66,8 @@ export const deltakelseProsentEndringmeldingSchema = z.intersection(endringsmeld
 	innhold: z.object({ deltakelseProsent: z.number().nullable(), dagerPerUke: z.number().nullable(), gyldigFraDato: nullableDateSchema }),
 }))
 
-export const tilbyPlassEndringmeldingSchema = z.intersection(endringsmeldingBaseSchema, z.object({
-	type: z.literal(EndringsmeldingType.TILBY_PLASS),
+export const erAktuellEndringmeldingSchema = z.intersection(endringsmeldingBaseSchema, z.object({
+	type: z.literal(EndringsmeldingType.DELTAKER_ER_AKTUELL),
 }))
 
 export const endreSluttdatoEndringmeldingSchema = z.intersection(endringsmeldingBaseSchema, z.object({
@@ -82,7 +82,7 @@ export const endringsmeldingSchema = z.union([
 	avsluttDeltakelseEndringsmeldingSchema,
 	deltakerIkkeAktuellEndringsmeldingSchema,
 	deltakelseProsentEndringmeldingSchema,
-	tilbyPlassEndringmeldingSchema,
+	erAktuellEndringmeldingSchema,
 	endreSluttdatoEndringmeldingSchema
 
 ])
