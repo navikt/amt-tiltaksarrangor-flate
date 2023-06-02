@@ -84,15 +84,13 @@ spec:
                   "*.psplugin.com",
                   "*.hotjar.com",
                   "*.hotjar.io",
-                  "*.taskanalytics.com",
-                  "*.uxsignals.com"
+                  "*.taskanalytics.com"
                 ],
                 "scriptSrc":[
                   "*.nav.no",
                   "*.psplugin.com",
                   "*.hotjar.com",
                   "*.taskanalytics.com",
-                  "*.uxsignals.app.iterate.no",
                   "nav.boost.ai",
                   "'unsafe-inline'",
                   "'unsafe-eval'",
