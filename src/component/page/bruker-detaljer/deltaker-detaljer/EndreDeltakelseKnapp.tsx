@@ -36,7 +36,7 @@ export const EndreDeltakelseKnapp = (props: EndreDeltakelseKnappProps) => {
 		|| deltaker.status.type === TiltakDeltakerStatus.IKKE_AKTUELL
 		|| deltaker.status.type === TiltakDeltakerStatus.DELTAR
 
-	const visGodkjennVilkaarPanel = deltaker.tiltakskode !== Tiltakskode.VASV
+	const visGodkjennVilkaarPanel = deltaker.tiltakskode !== Tiltakskode.VASV && deltaker.status.type !== TiltakDeltakerStatus.VURDERES
 	const kanHaSenereSluttdato = !deltaker.sluttDato || !deltaker.deltakerliste.sluttDato || deltaker.sluttDato < deltaker.deltakerliste.sluttDato
 	return (
 		<>
