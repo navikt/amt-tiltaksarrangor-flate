@@ -26,19 +26,6 @@ export const MineDeltakerlisterPage = (): React.ReactElement => {
 	useTabTitle('Deltakeroversikt')
 
 
-	useEffect(() => { 
-		// https://app.uxsignals.com/docs
-		const script = document.createElement('script')
-		script.async = true
-		script.src = 'https://uxsignals-frontend.uxsignals.app.iterate.no/embed.js'
-
-		document.body.appendChild(script)
-
-		return () => {
-			document.body.removeChild(script)
-		}
-	}, [])
-
 	useEffect(() => {
 		setTilbakeTilUrl(null)
 		// eslint-disable-next-line react-hooks/exhaustive-deps
@@ -51,7 +38,6 @@ export const MineDeltakerlisterPage = (): React.ReactElement => {
 	if (koordinatorsDeltakerlister.koordinatorFor) {
 		return (
 			<div className={styles.page} data-testid="gjennomforing-oversikt-page">
-				<div data-uxsignals-embed="study-sfjvce2qhn" style={{ maxWidth: '620px' }} />
 				{ toggle.veilederEnabled && isVeileder(roller) && koordinatorsDeltakerlister.veilederFor && <MineDeltakerePanel veileder={koordinatorsDeltakerlister.veilederFor}/>}
 				<DeltakerListe deltakerliste={koordinatorsDeltakerlister.koordinatorFor.deltakerlister}/>
 
