@@ -4,10 +4,6 @@ class Toggle {
 	// get navDekoratorEnabled(): boolean {
 	// 	return !env.isProd
 	// }
-    
-	get veilederEnabled(): boolean {
-		return true
-	}
 
 }
 

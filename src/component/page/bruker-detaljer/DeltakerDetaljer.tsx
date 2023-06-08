@@ -10,7 +10,6 @@ import { DeltakelseInfo } from './deltaker-detaljer/DeltakelseInfo'
 import styles from './DeltakerDetaljer.module.scss'
 import { NavInfoPanel } from './nav-info-panel/NavInfoPanel'
 import { VeilederPanel } from './veileder-panel/VeilederPanel'
-import toggle from '../../../utils/toggle'
 
 export const DeltakerDetaljer = (props: {
 	deltaker: Deltaker,
@@ -38,9 +37,7 @@ export const DeltakerDetaljer = (props: {
 
 			<section>
 				<NavInfoPanel navkontor={navInformasjon.navkontor} navVeileder={navInformasjon.navVeileder} />
-				<Show if={toggle.veilederEnabled}>
-					<VeilederPanel deltaker={props.deltaker} visTildeling={props.visTildeling}/>
-				</Show>
+				<VeilederPanel deltaker={props.deltaker} visTildeling={props.visTildeling}/>
 			</section>
 		</div>
 	)

@@ -1,8 +1,6 @@
 import { Table } from '@navikt/ds-react'
 import React from 'react'
 import { DeltakerKolonne } from './sortering'
-import toggle from '../../../../../utils/toggle'
-import { Show } from '../../../../felles/Show'
 
 function dynamicWidth(minPixels: number): React.CSSProperties {
 	return { minWidth: minPixels + 'px' }
@@ -34,11 +32,9 @@ export const TabellHeader = () => (
 			<Table.ColumnHeader sortKey={DeltakerKolonne.STATUS} style={dynamicWidth(70)} sortable>
 				Status
 			</Table.ColumnHeader>
-			<Show if={toggle.veilederEnabled}>
-				<Table.ColumnHeader sortKey={DeltakerKolonne.VEILEDER} style={dynamicWidth(160)} sortable>
-					Veileder
-				</Table.ColumnHeader>
-			</Show>
+			<Table.ColumnHeader sortKey={DeltakerKolonne.VEILEDER} style={dynamicWidth(160)} sortable>
+				Veileder
+			</Table.ColumnHeader>
 		</Table.Row>
 	</Table.Header>
 )

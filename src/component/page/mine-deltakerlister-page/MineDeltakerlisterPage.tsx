@@ -12,7 +12,6 @@ import styles from './MineDeltakerlisterPage.module.scss'
 import { Alert, BodyShort, Link } from '@navikt/ds-react'
 import { DeltakerListe } from './mine-deltakerlister/DeltakerListe'
 import { MineDeltakerePanel } from './mine-deltakere/MineDeltakerePanel'
-import toggle from '../../../utils/toggle'
 import globalStyles from '../../../globals.module.scss'
 import { useInnloggetBrukerStore } from '../../../store/innlogget-bruker-store'
 import { isVeileder } from '../../../utils/rolle-utils'
@@ -38,7 +37,7 @@ export const MineDeltakerlisterPage = (): React.ReactElement => {
 	if (koordinatorsDeltakerlister.koordinatorFor) {
 		return (
 			<div className={styles.page} data-testid="gjennomforing-oversikt-page">
-				{ toggle.veilederEnabled && isVeileder(roller) && koordinatorsDeltakerlister.veilederFor && <MineDeltakerePanel veileder={koordinatorsDeltakerlister.veilederFor}/>}
+				{ isVeileder(roller) && koordinatorsDeltakerlister.veilederFor && <MineDeltakerePanel veileder={koordinatorsDeltakerlister.veilederFor}/>}
 				<DeltakerListe deltakerliste={koordinatorsDeltakerlister.koordinatorFor.deltakerlister}/>
 
 				<IkonLenke
