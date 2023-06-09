@@ -8,9 +8,7 @@ import { klikkDeltakerRadOversikt, loggKlikk } from '../../../../../utils/amplit
 import { lagKommaSeparertBrukerNavn } from '../../../../../utils/bruker-utils'
 import { EMDASH } from '../../../../../utils/constants'
 import { formatDate } from '../../../../../utils/date-utils'
-import toggle from '../../../../../utils/toggle'
 import { Fnr } from '../../../../felles/fnr/Fnr'
-import { Show } from '../../../../felles/Show'
 import { StatusMerkelapp } from '../../../../felles/status-merkelapp/StatusMerkelapp'
 
 import styles from './Rad.module.scss'
@@ -77,11 +75,9 @@ export const Rad = (props: RadProps): React.ReactElement<RadProps> => {
 			<Table.DataCell>
 				<StatusMerkelapp status={status} erDeltakerlisteVisning />
 			</Table.DataCell>
-			<Show if={toggle.veilederEnabled}>
-				<Table.DataCell>
-					{veiledernavn}
-				</Table.DataCell>
-			</Show>
+			<Table.DataCell>
+				{veiledernavn}
+			</Table.DataCell>
 		</Table.Row >
 	)
 }

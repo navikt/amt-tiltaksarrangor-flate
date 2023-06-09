@@ -21,7 +21,6 @@ import {
 } from './navigation'
 import { LoggetUtPage } from './component/page/LoggetUtPage'
 import { MineDeltakerePage } from './component/page/veileder/MineDeltakerePage'
-import toggle from './utils/toggle'
 import {
 	AdministrerDeltakerlisterPage
 } from './component/page/administrer-deltakerlister-page/AdministrerDeltakerlisterPage'
@@ -38,8 +37,8 @@ interface AppRoutesProps {
 export const AppRoutes = ({ isLoading, isRejected, roller }: AppRoutesProps) => {
 	if (isLoading) return <SpinnerPage/>
 	if (isRejected) return <ErrorPage/>
-	else if (toggle.veilederEnabled && isKoordinatorAndVeileder(roller)) return <VeilederOgKoordinatorRoutes />
-	else if (toggle.veilederEnabled && isOnlyVeileder(roller)) return <VeilederRoutes />
+	else if (isKoordinatorAndVeileder(roller)) return <VeilederOgKoordinatorRoutes />
+	else if (isOnlyVeileder(roller)) return <VeilederRoutes />
 	else if (isKoordinator(roller)) return <KoordinatorRoutes />
 	return <IngenRolleRoutes/>
 }

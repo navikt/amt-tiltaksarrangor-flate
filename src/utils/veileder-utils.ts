@@ -15,8 +15,8 @@ export const getMedveiledere = (deltaker: TiltakDeltaker): VeilederMedType[] => 
 
 export const veilederNavn = (veileder: VeilederMedType): string => {
 	if (veileder.mellomnavn === null) {
-		return veileder.fornavn + ' ' + veileder.etternavn
+		return veileder.etternavn + ', ' + veileder.fornavn
 	} else {
-		return veileder.fornavn + ' ' + veileder.mellomnavn + ' ' + veileder.etternavn
+		return veileder.etternavn + ', ' + veileder.fornavn + ' ' + veileder.mellomnavn
 	}
 }
