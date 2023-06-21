@@ -7,6 +7,7 @@ import { klikkFilterMeny, loggKlikk } from '../../../../utils/amplitude-utils'
 import globalStyles from '../../../../globals.module.scss'
 import { FilterMeny } from '../../../felles/table-filter/FilterMeny'
 import { Veiledertype } from '../../../../api/data/veileder'
+import { mapVeilderTypeTilTekst } from '../../../../utils/text-mappers'
 
 interface Props {
 	deltakere: VeiledersDeltaker[]
@@ -31,20 +32,12 @@ export const FilterMenyVeilederType = (props: Props): React.ReactElement => {
 				const veilederType = tilVeiledertype(deltaker.veiledertype === Veiledertype.MEDVEILEDER)
 				dataMap.set(veilederType, {
 					id: veilederType,
-					displayName: displayName(veilederType),
+					displayName: mapVeilderTypeTilTekst(veilederType),
 					antallDeltakere: 0
 				})
 			})
 
 			return new Map<string, FiltermenyDataEntry>([ ...dataMap.entries() ].sort(([ keyA ], [ keyB ]) => keyB.localeCompare(keyA)))
-		}
-
-		const displayName = (veilederType: Veiledertype): string => {
-			if (veilederType === Veiledertype.MEDVEILEDER) {
-				return 'Medveileder'
-			} else {
-				return 'Veileder'
-			}
 		}
 
 		const data = createInitialDataMap(props.deltakere)
@@ -54,7 +47,7 @@ export const FilterMenyVeilederType = (props: Props): React.ReactElement => {
 			const entry = data.get(veilederType)
 			data.set(veilederType, {
 				id: veilederType,
-				displayName: displayName(veilederType),
+				displayName: mapVeilderTypeTilTekst(veilederType),
 				antallDeltakere: entry ? entry.antallDeltakere + 1 : 1
 			})
 		})

@@ -25,12 +25,12 @@ import {
 } from './filter-meny/FilterMenyMedveileder'
 import { FilterMenyStatus } from './filter-meny/FilterMenyStatus'
 import { FilterMenyNavKontor } from './filter-meny/FilterMenyNavKontor'
+import { FilterMenyChips } from './filter-meny/FilterMenyChips'
 
 export const DeltakerlisteDetaljerPage = (): React.ReactElement => {
 	const { setTilbakeTilUrl } = useTilbakelenkeStore()
 	const params = useParams<{ deltakerlisteId: string }>()
 	const deltakerlisteId = params.deltakerlisteId || ''
-
 
 	useEffect(() => {
 		setTilbakeTilUrl(MINE_DELTAKERLISTER_PAGE_ROUTE)
@@ -63,6 +63,7 @@ export const DeltakerlisteDetaljerPage = (): React.ReactElement => {
 				<Heading size="small" level="2" className={globalStyles.blokkXs}>{deltakerliste.navn}</Heading>
 				<TiltakInfo deltakerliste={deltakerliste} className={globalStyles.blokkXs} />
 				<KoordinatorInfo koordinatorer={deltakerliste.koordinatorer} />
+				<Heading size="small" level="3" className={globalStyles.srOnly}>Filtrer liste</Heading><FilterMenyChips deltakere={deltakerliste.deltakere} />
 				<FilterMenyStatus erKurs={deltakerliste.erKurs} deltakere={deltakerliste.deltakere}/>
 				<FilterMenyVeiledere deltakere={deltakerliste.deltakere}/>
 				<FilterMenyMedveileder deltakere={deltakerliste.deltakere}/>

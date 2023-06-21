@@ -1,4 +1,5 @@
 import { TiltakDeltakerStatus } from '../api/data/deltaker'
+import { Veiledertype } from '../api/data/veileder'
 
 export const mapTiltakDeltakerStatusTilTekst = (tiltakDeltakerStatus: typeof TiltakDeltakerStatus | string): string => {
 	switch (tiltakDeltakerStatus) {
@@ -18,5 +19,13 @@ export const mapTiltakDeltakerStatusTilTekst = (tiltakDeltakerStatus: typeof Til
 			return 'Avbrutt'
 		default:
 			return tiltakDeltakerStatus.toString()
+	}
+}
+
+export const mapVeilderTypeTilTekst = (veilederType: Veiledertype | string): string => {
+	if (veilederType === Veiledertype.MEDVEILEDER) {
+		return 'Medveileder'
+	} else {
+		return 'Veileder'
 	}
 }
