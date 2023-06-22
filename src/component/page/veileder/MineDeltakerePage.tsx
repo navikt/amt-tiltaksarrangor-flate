@@ -61,8 +61,10 @@ export const MineDeltakerePage = (): React.ReactElement => {
 			<section className={styles.infoSection}>
 				<Detail><b>Veileder:</b></Detail>
 				<Heading size="medium" level="2" className={globalStyles.blokkXs}>Mine deltakere</Heading>
-				<Heading size="small" level="3" className={globalStyles.srOnly}>Filtrer liste</Heading>
+
+				<Heading size="small" level="3" className={globalStyles.screenReaderOnly}>Filtrer mine deltakere liste</Heading>
 				<FilterMenyChips />
+
 				<FilterMenyStatus deltakere={mineDeltakere}/>
 				{showDeltakerlisteFilter &&
 					<FilterMenyDeltakerliste deltakere={mineDeltakere}/>}
