@@ -9,7 +9,7 @@ All dataen i demo appen er mocket. Demoen vil i mest mulig grad være lik den re
 
 https://navikt.github.io/amt-tiltaksarrangor-flate/
 
-## Intallere avhegnigheter
+## Installere avhengigheter
 `pnpm install`
 Nåværende versjon av pnpm er 8.6.2
 
