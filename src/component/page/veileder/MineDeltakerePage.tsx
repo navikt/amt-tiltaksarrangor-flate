@@ -18,6 +18,7 @@ import { isKoordinatorAndVeileder } from '../../../utils/rolle-utils'
 import { FilterMenyStatus } from './filter-meny/FilterMenyStatus'
 import { FilterMenyVeilederType } from './filter-meny/FilterMenyVeilederType'
 import { FilterMenyDeltakerliste } from './filter-meny/FilterMenyDeltakerliste'
+import { FilterMenyChips } from './filter-meny/FilterMenyChips'
 
 export const MineDeltakerePage = (): React.ReactElement => {
 	const { setTilbakeTilUrl } = useTilbakelenkeStore()
@@ -60,6 +61,10 @@ export const MineDeltakerePage = (): React.ReactElement => {
 			<section className={styles.infoSection}>
 				<Detail><b>Veileder:</b></Detail>
 				<Heading size="medium" level="2" className={globalStyles.blokkXs}>Mine deltakere</Heading>
+
+				<Heading size="small" level="3" className={globalStyles.screenReaderOnly}>Filtrer mine deltakere liste</Heading>
+				<FilterMenyChips />
+
 				<FilterMenyStatus deltakere={mineDeltakere}/>
 				{showDeltakerlisteFilter &&
 					<FilterMenyDeltakerliste deltakere={mineDeltakere}/>}
