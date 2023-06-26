@@ -1,10 +1,10 @@
-import { Dropdown } from '@navikt/ds-react-internal'
 import React from 'react'
-
 import styles from './DropDownButton.module.scss'
+
 import { EndringTypeIkon } from './EndringTypeIkon'
 import { endringTypeTekstMapper } from './tekst-mappers'
 import { EndringType } from './types'
+import { Dropdown } from '@navikt/ds-react'
 
 interface DropDownButtonProps {
 	onClick: () => void
