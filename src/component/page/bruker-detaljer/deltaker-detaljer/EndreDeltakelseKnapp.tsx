@@ -1,8 +1,5 @@
-import '@navikt/ds-css-internal'
-
-import { Edit } from '@navikt/ds-icons'
-import { Button } from '@navikt/ds-react'
-import { Dropdown } from '@navikt/ds-react-internal'
+import { PencilIcon } from '@navikt/aksel-icons'
+import { Button, Dropdown } from '@navikt/ds-react'
 import React from 'react'
 
 import { Deltaker, TiltakDeltakerStatus } from '../../../../api/data/deltaker'
@@ -44,7 +41,7 @@ export const EndreDeltakelseKnapp = (props: EndreDeltakelseKnappProps) => {
 			<Dropdown>
 				<Button className={styles.knapp} as={Dropdown.Toggle} variant="secondary" size="small">
 					<span className={styles.knappTekst}>
-						<Edit aria-hidden/>
+						<PencilIcon aria-hidden />
 						Endre deltakelse
 					</span>
 				</Button>
