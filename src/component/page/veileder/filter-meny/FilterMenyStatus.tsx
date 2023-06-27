@@ -6,6 +6,7 @@ import { klikkFilterMeny, loggKlikk } from '../../../../utils/amplitude-utils'
 import { FilterMeny } from '../../../felles/table-filter/FilterMeny'
 import globalStyles from '../../../../globals.module.scss'
 import { FilterType, useVeilederFilterMenyStore } from '../store/veileder-filter-meny-store-provider'
+import useLocalStorage from '../../../../hooks/useLocalStorage'
 
 interface Props {
 	deltakere: VeiledersDeltaker[]
@@ -13,6 +14,7 @@ interface Props {
 
 export const FilterMenyStatus = (props: Props): React.ReactElement => {
 	const [ deltakerePerStatus, setDeltakerePerStatus ] = useState<FiltermenyDataEntry[]>([])
+	const [ filterOpen, setFilterOpen ] = useLocalStorage('filter-veileder-status-mine-deltakere', true)
 
 	const {
 		statusFilter,
@@ -55,6 +57,8 @@ export const FilterMenyStatus = (props: Props): React.ReactElement => {
 			data={deltakerePerStatus}
 			className={globalStyles.blokkXs}
 			filter={statusFilter}
+			open={ filterOpen }
+			onToggle={ () => { setFilterOpen(!filterOpen) } }
 			addFilter={leggTil}
 			removeFilter={fjern}
 		/>

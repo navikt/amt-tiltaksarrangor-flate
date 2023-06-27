@@ -9,6 +9,7 @@ import { FilterMeny } from '../../../felles/table-filter/FilterMeny'
 import { mapTiltakDeltakerStatusTilTekst } from '../../../../utils/text-mappers'
 import { FiltermenyDataEntry } from '../../../felles/table-filter/filtermeny-data-entry'
 import { klikkFilterMeny, loggKlikk } from '../../../../utils/amplitude-utils'
+import useLocalStorage from '../../../../hooks/useLocalStorage'
 
 interface Props {
 	deltakere: TiltakDeltaker[]
@@ -17,6 +18,7 @@ interface Props {
 
 export const FilterMenyStatus = (props: Props): React.ReactElement => {
 	const [ deltakerePerStatus, setDeltakerePerStatus ] = useState<FiltermenyDataEntry[]>([])
+	const [ filterOpen, setFilterOpen ] = useLocalStorage('filter-deltakerliste-status', true)
 
 	const {
 		statusFilter,
@@ -78,6 +80,8 @@ export const FilterMenyStatus = (props: Props): React.ReactElement => {
 			data={deltakerePerStatus}
 			className={globalStyles.blokkXs}
 			filter={statusFilter}
+			open={ filterOpen }
+			onToggle={ () => { setFilterOpen(!filterOpen) } }
 			addFilter={leggTil}
 			removeFilter={fjern}
 		/>
