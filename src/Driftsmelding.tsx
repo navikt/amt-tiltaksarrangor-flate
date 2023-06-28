@@ -10,8 +10,7 @@ export const Driftsmelding = () => {
 
 	return (
 		<Alert variant="error" className={styles.alertstripe}>
-			Deltakeroversikten er noe ustabil nå. Hvis du opplever at noe ikke fungerer kan du prøve å laste siden på nytt. <br />
-			Vi jobber med å fikse problemet. Vi beklager ulempen.
+			Deltakeroversikten er noe ustabil nå. Hvis du opplever at noe ikke fungerer kan du prøve å laste siden på nytt. Vi jobber med å fikse problemet. Vi beklager ulempen.
 		</Alert>
 	)
 }
