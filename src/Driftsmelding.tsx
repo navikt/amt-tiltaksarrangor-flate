@@ -10,8 +10,8 @@ export const Driftsmelding = () => {
 
 	return (
 		<Alert variant="error" className={styles.alertstripe}>
-			På grunn av en forsinkelse i dataoverføring vil du kunne oppleve feil. <br />
-			Vi jobber med feilsøking og retting. Beklager ulempen dette medfører.
+			Deltakeroversikten er noe ustabil nå. Hvis du opplever at noe ikke fungerer kan du prøve å laste siden på nytt. <br />
+			Vi jobber med å fikse problemet. Vi beklager ulempen.
 		</Alert>
 	)
 }
