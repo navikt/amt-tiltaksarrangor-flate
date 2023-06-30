@@ -1,9 +1,7 @@
 import React from 'react'
 import { Navigate, Route, Routes, useLocation } from 'react-router-dom'
 
-import { SpinnerPage } from './component/felles/spinner-page/SpinnerPage'
 import { DeltakerDetaljerPage } from './component/page/bruker-detaljer/DeltakerDetaljerPage'
-import { ErrorPage } from './component/page/error/ErrorPage'
 import { DeltakerlisteDetaljerPage } from './component/page/deltakerliste-detaljer/DeltakerlisteDetaljerPage'
 import { MineDeltakerlisterPage } from './component/page/mine-deltakerlister-page/MineDeltakerlisterPage'
 import { IngenRollePage } from './component/page/ingen-rolle-page/IngenRollePage'
@@ -29,18 +27,15 @@ import { isKoordinator, isKoordinatorAndVeileder, isOnlyVeileder } from './utils
 
 
 interface AppRoutesProps {
-	isLoading: boolean
-	isRejected: boolean
 	roller: Rolle[]
 }
 
-export const AppRoutes = ({ isLoading, isRejected, roller }: AppRoutesProps) => {
-	if (isLoading) return <SpinnerPage/>
-	if (isRejected) return <ErrorPage/>
+export const AppRoutes = ({ roller }: AppRoutesProps) => {
+	if(roller.length === 0) return <IngenRolleRoutes />
 	else if (isKoordinatorAndVeileder(roller)) return <VeilederOgKoordinatorRoutes />
 	else if (isOnlyVeileder(roller)) return <VeilederRoutes />
 	else if (isKoordinator(roller)) return <KoordinatorRoutes />
-	return <IngenRolleRoutes/>
+	return <></>
 }
 
 const KoordinatorRoutes = (): React.ReactElement => {

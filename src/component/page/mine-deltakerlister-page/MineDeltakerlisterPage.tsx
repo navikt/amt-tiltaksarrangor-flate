@@ -16,11 +16,13 @@ import globalStyles from '../../../globals.module.scss'
 import { useInnloggetBrukerStore } from '../../../store/innlogget-bruker-store'
 import { isVeileder } from '../../../utils/rolle-utils'
 import { useKoordinatorsDeltakerlisterStore } from '../../../store/koordinators-deltakerlister-store'
+import { isNotStartedOrPending, isRejected } from '../../../utils/use-promise'
+import { SpinnerPage } from '../../felles/spinner-page/SpinnerPage'
 
 export const MineDeltakerlisterPage = (): React.ReactElement => {
 	const { setTilbakeTilUrl } = useTilbakelenkeStore()
 	const { roller } = useInnloggetBrukerStore()
-	const { koordinatorsDeltakerlister } = useKoordinatorsDeltakerlisterStore()
+	const { koordinatorsDeltakerlister, fetchMineDeltakerlisterPromise } = useKoordinatorsDeltakerlisterStore()
 
 	useTabTitle('Deltakeroversikt')
 
@@ -30,11 +32,14 @@ export const MineDeltakerlisterPage = (): React.ReactElement => {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [])
 
-	if (!koordinatorsDeltakerlister) {
+	if (isRejected(fetchMineDeltakerlisterPromise)) {
 		return <AlertPage variant="error" tekst="Noe gikk galt" />
 	}
+	if (isNotStartedOrPending(fetchMineDeltakerlisterPromise)) {
+		return <SpinnerPage />
+	}
 
-	if (koordinatorsDeltakerlister.koordinatorFor) {
+	if (koordinatorsDeltakerlister && koordinatorsDeltakerlister.koordinatorFor) {
 		return (
 			<div className={styles.page} data-testid="gjennomforing-oversikt-page">
 				{ isVeileder(roller) && koordinatorsDeltakerlister.veilederFor && <MineDeltakerePanel veileder={koordinatorsDeltakerlister.veilederFor}/>}
