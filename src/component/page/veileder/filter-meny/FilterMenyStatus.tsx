@@ -2,7 +2,6 @@ import { IndividuellDeltakerStatus, KursDeltakerStatuser, VeiledersDeltaker } fr
 import React, { useEffect, useState } from 'react'
 import { FiltermenyDataEntry } from '../../../felles/table-filter/filtermeny-data-entry'
 import { mapTiltakDeltakerStatusTilTekst } from '../../../../utils/text-mappers'
-import { klikkFilterMeny, loggKlikk } from '../../../../utils/amplitude-utils'
 import { FilterMeny } from '../../../felles/table-filter/FilterMeny'
 import globalStyles from '../../../../globals.module.scss'
 import { FilterType, useVeilederFilterMenyStore } from '../store/veileder-filter-meny-store-provider'
@@ -18,16 +17,15 @@ export const FilterMenyStatus = (props: Props): React.ReactElement => {
 
 	const {
 		statusFilter,
-		addStatusFilter,
-		removeStatusFilter,
-		filtrerDeltakere,
+		veiledertypeFilter,
+		deltakerlisteFilter,
+		updateStatusFilter,
 		filtrerDeltakerePaaAltUtenom
 	} = useVeilederFilterMenyStore()
 
 	useEffect(() => {
 		const statuser = { ...KursDeltakerStatuser, ...IndividuellDeltakerStatus }
-		const deltakereFiltrert = filtrerDeltakerePaaAltUtenom(FilterType.Status, props.deltakere)
-		filtrerDeltakere(props.deltakere)
+		const deltakereFiltrert = filtrerDeltakerePaaAltUtenom( FilterType.Status, props.deltakere )
 
 		const statusMap =  Object.keys(statuser).reduce((list: Map<string, FiltermenyDataEntry>, status: string) => {
 			const antallDeltakereTotalt = deltakereFiltrert.filter(deltaker => deltaker.status.type === status).length
@@ -39,17 +37,7 @@ export const FilterMenyStatus = (props: Props): React.ReactElement => {
 			})}, new Map<string, FiltermenyDataEntry>())
 
 		setDeltakerePerStatus([ ...statusMap.values() ])
-	}, [ props.deltakere, filtrerDeltakere, filtrerDeltakerePaaAltUtenom ])
-
-	const leggTil = (status: string) => {
-		addStatusFilter(status)
-		loggKlikk(klikkFilterMeny, status, 'checked')
-	}
-
-	const fjern = (status: string) => {
-		removeStatusFilter(status)
-		loggKlikk(klikkFilterMeny, status, 'unchecked')
-	}
+	}, [ props.deltakere, veiledertypeFilter, deltakerlisteFilter, filtrerDeltakerePaaAltUtenom ] )
 
 	return (
 		<FilterMeny
@@ -57,10 +45,9 @@ export const FilterMenyStatus = (props: Props): React.ReactElement => {
 			data={deltakerePerStatus}
 			className={globalStyles.blokkXs}
 			filter={statusFilter}
-			open={ filterOpen }
-			onToggle={ () => { setFilterOpen(!filterOpen) } }
-			addFilter={leggTil}
-			removeFilter={fjern}
+			open={filterOpen}
+			onToggle={() => {setFilterOpen( !filterOpen )}}
+			updateFilter={updateStatusFilter}
 		/>
 	)
 }
