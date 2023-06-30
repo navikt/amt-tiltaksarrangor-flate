@@ -56,7 +56,6 @@ export const DeltakerlisteDetaljerPage = (): React.ReactElement => {
 				<KoordinatorInfo koordinatorer={deltakerliste.koordinatorer} />
 				<FilterMenyDeltakerListeDetaljer deltakerliste={deltakerliste} />
 			</section>
-
 			<DeltakerOversiktTabell deltakere={deltakerliste.deltakere} />
 		</div>
 	)

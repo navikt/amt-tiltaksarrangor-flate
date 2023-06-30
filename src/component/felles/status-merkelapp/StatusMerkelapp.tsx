@@ -25,7 +25,7 @@ const deltakerlisteStyle = (statusType: typeof TiltakDeltakerStatus | string) =>
 		case TiltakDeltakerStatus.FULLFORT:
 		case TiltakDeltakerStatus.HAR_SLUTTET: return styles.statusTagOrangeSmall
 		case TiltakDeltakerStatus.VENTER_PA_OPPSTART: return styles.statusTagBlaSmall
-		case TiltakDeltakerStatus.DELTAR: 
+		case TiltakDeltakerStatus.DELTAR:
 		default: return undefined
 	}
 }
@@ -38,7 +38,7 @@ interface StatusProps {
 export const StatusMerkelapp = (props: StatusProps) => {
 	const { type } = props.status
 	return(
-		<Tag variant="info" size="small" className={classNames(getStyle(type), props.erDeltakerlisteVisning ? deltakerlisteStyle(type) : undefined)}>
+		<Tag variant="info" size="xsmall" className={classNames( getStyle( type ), props.erDeltakerlisteVisning ? deltakerlisteStyle( type ) : undefined )}>
 			{mapTiltakDeltakerStatusTilTekst(type)}
 		</Tag>
 	)
