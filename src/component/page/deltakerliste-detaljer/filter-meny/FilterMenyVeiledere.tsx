@@ -17,8 +17,7 @@ export const FilterMenyVeiledere = (props: Props): React.ReactElement => {
 
 	const {
 		veilederFilter,
-		addVeilederFilter,
-		removeVeilederFilter,
+		updateVeilederFilter,
 		medveilederFilter,
 		statusFilter,
 		filtrerDeltakere,
@@ -57,7 +56,6 @@ export const FilterMenyVeiledere = (props: Props): React.ReactElement => {
 	useEffect(() => {
 		const map = createInitialDataMap()
 
-		filtrerDeltakere(props.deltakere)
 		filtrerDeltakerePaaAltUtenom(FilterType.Veileder, props.deltakere).forEach((deltaker) => {
 			const hovedveileder = getHovedveileder(deltaker)
 
@@ -90,10 +88,9 @@ export const FilterMenyVeiledere = (props: Props): React.ReactElement => {
 			data={deltakerePerVeileder}
 			className={globalStyles.blokkXs}
 			filter={veilederFilter}
-			open={ filterOpen }
-			onToggle={ () => { setFilterOpen(!filterOpen) } }
-			addFilter={addVeilederFilter}
-			removeFilter={removeVeilederFilter}
+			open={filterOpen}
+			onToggle={() => {setFilterOpen( !filterOpen )}}
+			updateFilter={updateVeilederFilter}
 		/>
 	)
 }

@@ -10,7 +10,11 @@ import {
 import { VeilederMedType } from '../../../../api/data/veileder'
 
 export enum FilterType {
-	Ingen, Status, Veileder, Medveileder, NavKontor
+	Ingen,
+	Status,
+	Veileder,
+	Medveileder,
+	NavKontor
 }
 export const [ KoordinatorFilterMenyStoreProvider, useKoordinatorFilterMenyStore ] = constate(() => {
 	const [ veilederFilter, setVeilederFilter ] = useState<string[]>([])
@@ -18,24 +22,17 @@ export const [ KoordinatorFilterMenyStoreProvider, useKoordinatorFilterMenyStore
 	const [ statusFilter, setStatusFilter ] = useState<string[]>([])
 	const [ navKontorFilter, setNavKontorFilter ] = useState<string[]>([])
 
-	const addStatusFilter = (status: string) => addFilter(status, statusFilter, setStatusFilter)
+	const updateStatusFilter = (newFilter: string[]) => setStatusFilter(newFilter)
 	const removeStatusFilter = (status: string) => removeFilter(status, statusFilter, setStatusFilter)
 
-	const addVeilederFilter = (status: string) => addFilter(status, veilederFilter, setVeilederFilter)
+	const updateVeilederFilter = (newFilter: string[]) => setVeilederFilter(newFilter)
 	const removeVeilederFilter = (status: string) => removeFilter(status, veilederFilter, setVeilederFilter)
 
-	const addMedveilederFilter = (status: string) => addFilter(status, medveilederFilter, setMedveilederFilter)
+	const updateMedveilederFilter = (newFilter: string[]) => setMedveilederFilter(newFilter)
 	const removeMedveilederFilter = (status: string) => removeFilter(status, medveilederFilter, setMedveilederFilter)
 
-	const addNavKontorFilter = (status: string) => addFilter(status, navKontorFilter, setNavKontorFilter)
+	const updateNavKontorFilter = (newFilter: string[]) => setNavKontorFilter(newFilter)
 	const removeNavKontorFilter = (status: string) => removeFilter(status, navKontorFilter, setNavKontorFilter)
-
-
-	const addFilter = ((value: string, filterValue: string[], setFilter: (value: string[]) => void) => {
-		if(!filterValue.includes(value)) {
-			setFilter([ ...filterValue, value ])
-		}
-	})
 
 	const removeFilter = (value: string, filterValue: string[], setFilter: (value: string[]) => void) =>
 		setFilter(filterValue.filter((v) => v !== value))
@@ -52,36 +49,37 @@ export const [ KoordinatorFilterMenyStoreProvider, useKoordinatorFilterMenyStore
 
 	const matcherMedveileder = (brukersMedveiledere: VeilederMedType[]) => {
 		if (medveilederFilter.length === 0) return true
-		if (brukersMedveiledere.length === 0 && medveilederFilter.includes(HAR_IKKE_MEDVEILEDER_FILTER_TEKST)) return true
+		if (brukersMedveiledere.length === 0 && medveilederFilter.includes(HAR_IKKE_MEDVEILEDER_FILTER_TEKST))
+			return true
 
 		let retVal = false
-		brukersMedveiledere.forEach(medveileder => {
+		brukersMedveiledere.forEach((medveileder) => {
 			if (medveilederFilter.includes(medveileder.ansattId)) retVal = true
 		})
 
 		return retVal
 	}
 
-	const matcherNavKontor = (brukersNavKontor: string|null) => {
+	const matcherNavKontor = (brukersNavKontor: string | null) => {
 		if (navKontorFilter.length === 0) return true
 		if (brukersNavKontor === null) return false
 		return navKontorFilter.includes(brukersNavKontor)
 	}
 
 	const filtrerDeltakerePaStatus = (deltakere: TiltakDeltaker[]): TiltakDeltaker[] => {
-		return deltakere.filter(bruker => matcherStatus(statusFilter, bruker.status.type))
+		return deltakere.filter((bruker) => matcherStatus(statusFilter, bruker.status.type))
 	}
 
 	const filtrerDeltakereMedHovedveileder = (deltakere: TiltakDeltaker[]): TiltakDeltaker[] => {
-		return deltakere.filter(bruker => matcherVeileder(getHovedveileder(bruker)))
+		return deltakere.filter((bruker) => matcherVeileder(getHovedveileder(bruker)))
 	}
 
 	const filtrerDeltakereMedMedveileder = (brukere: TiltakDeltaker[]): TiltakDeltaker[] => {
-		return brukere.filter(bruker => matcherMedveileder(getMedveiledere(bruker)))
+		return brukere.filter((bruker) => matcherMedveileder(getMedveiledere(bruker)))
 	}
 
 	const filtrerDeltakerePaNavKontor = (deltakere: TiltakDeltaker[]): TiltakDeltaker[] => {
-		return deltakere.filter(bruker => matcherNavKontor(bruker.navKontor))
+		return deltakere.filter((bruker) => matcherNavKontor(bruker.navKontor))
 	}
 
 	const filtrerDeltakere = (deltakere: TiltakDeltaker[]): TiltakDeltaker[] => {
@@ -89,27 +87,32 @@ export const [ KoordinatorFilterMenyStoreProvider, useKoordinatorFilterMenyStore
 	}
 
 	const filtrerDeltakerePaaAltUtenom = (filterType: FilterType, deltakere: TiltakDeltaker[]) => {
-		const filtrertPaStatus = filterType == FilterType.Status? deltakere: filtrerDeltakerePaStatus(deltakere)
-		const filtrertPaVeiledere = filterType === FilterType.Veileder? filtrertPaStatus: filtrerDeltakereMedHovedveileder(filtrertPaStatus)
-		const filtrertPaMedveileder = filterType == FilterType.Medveileder? filtrertPaVeiledere: filtrerDeltakereMedMedveileder(filtrertPaVeiledere)
-		return filterType == FilterType.NavKontor? filtrertPaMedveileder: filtrerDeltakerePaNavKontor(filtrertPaMedveileder)
+		const filtrertPaStatus = filterType == FilterType.Status ? deltakere : filtrerDeltakerePaStatus(deltakere)
+		const filtrertPaVeiledere =
+			filterType === FilterType.Veileder ? filtrertPaStatus : filtrerDeltakereMedHovedveileder(filtrertPaStatus)
+		const filtrertPaMedveileder =
+			filterType == FilterType.Medveileder
+				? filtrertPaVeiledere
+				: filtrerDeltakereMedMedveileder(filtrertPaVeiledere)
+		return filterType == FilterType.NavKontor
+			? filtrertPaMedveileder
+			: filtrerDeltakerePaNavKontor(filtrertPaMedveileder)
 	}
 
 	return {
 		veilederFilter,
-		addVeilederFilter,
+		updateVeilederFilter,
 		removeVeilederFilter,
 		medveilederFilter,
-		addMedveilederFilter,
+		updateMedveilederFilter,
 		removeMedveilederFilter,
 		statusFilter,
-		addStatusFilter,
+		updateStatusFilter,
 		removeStatusFilter,
 		navKontorFilter,
-		addNavKontorFilter,
+		updateNavKontorFilter,
 		removeNavKontorFilter,
 		filtrerDeltakere,
 		filtrerDeltakerePaaAltUtenom
 	}
-
 })

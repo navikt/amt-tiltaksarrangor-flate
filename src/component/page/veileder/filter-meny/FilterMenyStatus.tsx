@@ -2,7 +2,6 @@ import { IndividuellDeltakerStatus, KursDeltakerStatuser, VeiledersDeltaker } fr
 import React, { useEffect, useState } from 'react'
 import { FiltermenyDataEntry } from '../../../felles/table-filter/filtermeny-data-entry'
 import { mapTiltakDeltakerStatusTilTekst } from '../../../../utils/text-mappers'
-import { klikkFilterMeny, loggKlikk } from '../../../../utils/amplitude-utils'
 import { FilterMeny } from '../../../felles/table-filter/FilterMeny'
 import globalStyles from '../../../../globals.module.scss'
 import { FilterType, useVeilederFilterMenyStore } from '../store/veileder-filter-meny-store-provider'
@@ -18,8 +17,7 @@ export const FilterMenyStatus = (props: Props): React.ReactElement => {
 
 	const {
 		statusFilter,
-		addStatusFilter,
-		removeStatusFilter,
+		updateStatusFilter,
 		filtrerDeltakere,
 		filtrerDeltakerePaaAltUtenom
 	} = useVeilederFilterMenyStore()
@@ -41,26 +39,15 @@ export const FilterMenyStatus = (props: Props): React.ReactElement => {
 		setDeltakerePerStatus([ ...statusMap.values() ])
 	}, [ props.deltakere, filtrerDeltakere, filtrerDeltakerePaaAltUtenom ])
 
-	const leggTil = (status: string) => {
-		addStatusFilter(status)
-		loggKlikk(klikkFilterMeny, status, 'checked')
-	}
-
-	const fjern = (status: string) => {
-		removeStatusFilter(status)
-		loggKlikk(klikkFilterMeny, status, 'unchecked')
-	}
-
 	return (
 		<FilterMeny
 			navn="Status"
 			data={deltakerePerStatus}
 			className={globalStyles.blokkXs}
 			filter={statusFilter}
-			open={ filterOpen }
-			onToggle={ () => { setFilterOpen(!filterOpen) } }
-			addFilter={leggTil}
-			removeFilter={fjern}
+			open={filterOpen}
+			onToggle={() => {setFilterOpen( !filterOpen )}}
+			updateFilter={updateStatusFilter}
 		/>
 	)
 }

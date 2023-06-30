@@ -1,7 +1,7 @@
 import { TiltakDeltaker } from '../../../../api/data/deltaker'
 import React, { useEffect, useState } from 'react'
 import { FiltermenyDataEntry } from '../../../felles/table-filter/filtermeny-data-entry'
-import { useKoordinatorFilterMenyStore } from '../store/koordinator-filter-meny-store-provider'
+import { FilterType, useKoordinatorFilterMenyStore } from '../store/koordinator-filter-meny-store-provider'
 import { FilterMeny } from '../../../felles/table-filter/FilterMeny'
 import globalStyles from '../../../../globals.module.scss'
 import useLocalStorage from '../../../../hooks/useLocalStorage'
@@ -19,9 +19,8 @@ export const FilterMenyNavKontor = (props: Props): React.ReactElement => {
 		medveilederFilter,
 		statusFilter,
 		navKontorFilter,
-		addNavKontorFilter,
-		removeNavKontorFilter,
-		filtrerDeltakere
+		updateNavKontorFilter,
+		filtrerDeltakerePaaAltUtenom
 	} = useKoordinatorFilterMenyStore()
 
 	const createInitialDataMap = (deltakere: TiltakDeltaker[]): Map<string, FiltermenyDataEntry> => {
@@ -45,7 +44,7 @@ export const FilterMenyNavKontor = (props: Props): React.ReactElement => {
 	useEffect(() => {
 		const map = createInitialDataMap(props.deltakere)
 
-		filtrerDeltakere(props.deltakere)
+		filtrerDeltakerePaaAltUtenom(FilterType.NavKontor, props.deltakere)
 			.forEach((deltaker) => {
 				const navkontor = deltaker.navKontor
 
@@ -61,7 +60,7 @@ export const FilterMenyNavKontor = (props: Props): React.ReactElement => {
 			})
 
 		setDeltakerePerNavKontor([ ...map.values() ])
-	}, [ props.deltakere, statusFilter, medveilederFilter, veilederFilter, filtrerDeltakere ])
+	}, [ props.deltakere, statusFilter, medveilederFilter, veilederFilter, filtrerDeltakerePaaAltUtenom ])
 
 	return (
 		<FilterMeny
@@ -71,8 +70,7 @@ export const FilterMenyNavKontor = (props: Props): React.ReactElement => {
 			filter={navKontorFilter}
 			open={filterOpen}
 			onToggle={() => {setFilterOpen( !filterOpen )}}
-			addFilter={addNavKontorFilter}
-			removeFilter={removeNavKontorFilter}
+			updateFilter={ updateNavKontorFilter }
 		/>
 	)
 }

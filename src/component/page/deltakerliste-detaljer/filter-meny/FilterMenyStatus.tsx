@@ -8,7 +8,6 @@ import globalStyles from '../../../../globals.module.scss'
 import { FilterMeny } from '../../../felles/table-filter/FilterMeny'
 import { mapTiltakDeltakerStatusTilTekst } from '../../../../utils/text-mappers'
 import { FiltermenyDataEntry } from '../../../felles/table-filter/filtermeny-data-entry'
-import { klikkFilterMeny, loggKlikk } from '../../../../utils/amplitude-utils'
 import useLocalStorage from '../../../../hooks/useLocalStorage'
 
 interface Props {
@@ -22,8 +21,7 @@ export const FilterMenyStatus = (props: Props): React.ReactElement => {
 
 	const {
 		statusFilter,
-		addStatusFilter,
-		removeStatusFilter,
+		updateStatusFilter,
 		medveilederFilter,
 		veilederFilter,
 		filtrerDeltakere,
@@ -49,7 +47,6 @@ export const FilterMenyStatus = (props: Props): React.ReactElement => {
 	useEffect(() => {
 		const statusMap = createInitialDataMap()
 
-		filtrerDeltakere(props.deltakere)
 		filtrerDeltakerePaaAltUtenom(FilterType.Status, props.deltakere).forEach((deltaker: TiltakDeltaker) => {
 			const status = deltaker.status.type
 			const entry = statusMap.get(status)
@@ -64,26 +61,15 @@ export const FilterMenyStatus = (props: Props): React.ReactElement => {
 		setDeltakerePerStatus([ ...statusMap.values() ])
 	}, [ props.deltakere, medveilederFilter, veilederFilter, filtrerDeltakere, createInitialDataMap, filtrerDeltakerePaaAltUtenom ])
 
-	const leggTil = (status: string) => {
-		addStatusFilter(status)
-		loggKlikk(klikkFilterMeny, status, 'checked')
-	}
-
-	const fjern = (status: string) => {
-		removeStatusFilter(status)
-		loggKlikk(klikkFilterMeny, status, 'unchecked')
-	}
-
 	return (
 		<FilterMeny
 			navn="Status"
 			data={deltakerePerStatus}
 			className={globalStyles.blokkXs}
 			filter={statusFilter}
-			open={ filterOpen }
-			onToggle={ () => { setFilterOpen(!filterOpen) } }
-			addFilter={leggTil}
-			removeFilter={fjern}
+			open={filterOpen}
+			onToggle={() => {setFilterOpen( !filterOpen )}}
+			updateFilter={updateStatusFilter}
 		/>
 	)
 }

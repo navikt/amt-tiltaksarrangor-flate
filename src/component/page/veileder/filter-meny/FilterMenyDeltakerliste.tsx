@@ -16,8 +16,7 @@ export const FilterMenyDeltakerliste = (props: Props): ReactElement => {
 
 	const {
 		deltakerlisteFilter,
-		addDeltakerlisteFilter,
-		removeDeltakerlisteFilter,
+		updateDeltakerlisteFilter,
 		statusFilter,
 		veiledertypeFilter,
 		filtrerDeltakere,
@@ -41,7 +40,7 @@ export const FilterMenyDeltakerliste = (props: Props): ReactElement => {
 
 	useEffect(() => {
 		const data = createInitialDataMap(props.deltakere)
-		filtrerDeltakere(props.deltakere)
+
 		filtrerDeltakerePaaAltUtenom(FilterType.Deltakerliste, props.deltakere).forEach((deltaker: VeiledersDeltaker) => {
 			const deltakerliste = deltaker.deltakerliste
 
@@ -63,10 +62,9 @@ export const FilterMenyDeltakerliste = (props: Props): ReactElement => {
 			data={deltakerlister}
 			className={globalStyles.blokkXs}
 			filter={deltakerlisteFilter}
-			open={ filterOpen }
-			onToggle={ () => { setFilterOpen(!filterOpen) } }
-			addFilter={addDeltakerlisteFilter}
-			removeFilter={removeDeltakerlisteFilter}
+			open={filterOpen}
+			onToggle={() => {setFilterOpen( !filterOpen )}}
+			updateFilter={updateDeltakerlisteFilter}
 		/>
 	)
 }

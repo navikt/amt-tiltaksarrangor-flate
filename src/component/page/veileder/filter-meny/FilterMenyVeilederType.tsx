@@ -3,7 +3,6 @@ import React, { useEffect, useState } from 'react'
 import { FiltermenyDataEntry } from '../../../felles/table-filter/filtermeny-data-entry'
 import { FilterType, useVeilederFilterMenyStore } from '../store/veileder-filter-meny-store-provider'
 import { tilVeiledertype } from '../../../../utils/deltakerliste-utils'
-import { klikkFilterMeny, loggKlikk } from '../../../../utils/amplitude-utils'
 import globalStyles from '../../../../globals.module.scss'
 import { FilterMeny } from '../../../felles/table-filter/FilterMeny'
 import { Veiledertype } from '../../../../api/data/veileder'
@@ -20,8 +19,7 @@ export const FilterMenyVeilederType = (props: Props): React.ReactElement => {
 
 	const {
 		veiledertypeFilter,
-		addVeilederTypeFilter,
-		removeVeilederTypeFilter,
+		updateVeilederTypeFilter,
 		statusFilter,
 		deltakerlisteFilter,
 		filtrerDeltakere,
@@ -58,26 +56,15 @@ export const FilterMenyVeilederType = (props: Props): React.ReactElement => {
 		setDeltakerePerVeiledertype([ ...data.values() ])
 	}, [ props.deltakere, statusFilter, deltakerlisteFilter, filtrerDeltakere, filtrerDeltakerePaaAltUtenom ])
 
-	const leggTil = (veiledertype: string) => {
-		addVeilederTypeFilter(veiledertype)
-		loggKlikk(klikkFilterMeny, veiledertype, 'checked')
-	}
-
-	const fjern = (veiledertype: string) => {
-		removeVeilederTypeFilter(veiledertype)
-		loggKlikk(klikkFilterMeny, veiledertype, 'unchecked')
-	}
-
 	return (
 		<FilterMeny
 			navn="Type veileder"
 			data={deltakerePerVeiledertype}
 			className={globalStyles.blokkXs}
 			filter={veiledertypeFilter}
-			open={ filterOpen }
-			onToggle={ () => { setFilterOpen(!filterOpen) } }
-			addFilter={leggTil}
-			removeFilter={fjern}
+			open={filterOpen}
+			onToggle={() => {setFilterOpen( !filterOpen )}}
+			updateFilter={updateVeilederTypeFilter}
 		/>
 	)
 }
