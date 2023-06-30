@@ -13,13 +13,13 @@ dependencies:
     version: 2.9.8
   '@navikt/ds-css':
     specifier: ^4.4.0
-    version: 4.4.0
+    version: 4.4.2
   '@navikt/ds-icons':
     specifier: ^2.1.0
     version: 2.1.0(@types/react@18.0.26)(react@18.2.0)
   '@navikt/ds-react':
     specifier: ^4.4.0
-    version: 4.4.0(@types/react@18.0.26)(react-dom@18.2.0)(react@18.2.0)
+    version: 4.4.2(@types/react@18.0.26)(react-dom@18.2.0)(react@18.2.0)
   '@navikt/ds-tokens':
     specifier: ^2.1.0
     version: 2.1.0
@@ -361,13 +361,6 @@ packages:
     engines: {node: '>=6.9.0'}
     dependencies:
       regenerator-runtime: 0.13.11
-
-  /@babel/runtime@7.22.5:
-    resolution: {integrity: sha512-ecjvYlnAaZ/KVneE/OdKYBYfgXV3Ptu6zQWmgEF7vwKhQnvVS6bjMD2XYgj+SNvQ1GfK/pjgokfPkC/2CO8CuA==}
-    engines: {node: '>=6.9.0'}
-    dependencies:
-      regenerator-runtime: 0.13.11
-    dev: false
 
   /@babel/template@7.18.10:
     resolution: {integrity: sha512-TI+rCtooWHr3QJ27kJxfjutghu44DLnasDMwpDqCXVTal9RLp3RSYNh4NdBrRP2cQAoG9A8juOQl6P6oZG4JxA==}
@@ -785,17 +778,19 @@ packages:
       react-dom: 18.2.0(react@18.2.0)
     dev: false
 
-  /@floating-ui/react@0.24.1(react-dom@18.2.0)(react@18.2.0):
+  /@floating-ui/react@0.24.1(@types/react@18.0.26)(react-dom@18.2.0)(react@18.2.0):
     resolution: {integrity: sha512-qjCKUZDEz/4bnJmu4gn66TqsoX912/re8JGEi3pXazsphmyh327l0UpTgpBAT3WkNbnzAH7Adt3wKlLMNtfupw==}
     peerDependencies:
       react: '>=16.8.0'
       react-dom: '>=16.8.0'
     dependencies:
       '@floating-ui/react-dom': 2.0.1(react-dom@18.2.0)(react@18.2.0)
-      aria-hidden: 1.2.3
+      aria-hidden: 1.2.2(@types/react@18.0.26)(react@18.2.0)
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
-      tabbable: 6.1.2
+      tabbable: 6.0.1
+    transitivePeerDependencies:
+      - '@types/react'
     dev: false
 
   /@humanwhocodes/config-array@0.11.8:
@@ -875,12 +870,12 @@ packages:
     resolution: {integrity: sha512-HANk2yejzzQxj4UefLg5Q8YXqkwh98SN98fNJUIlfonnh1bla1XB2h690QZJiY5SghHDnb2RGo/aojc8BwI8kQ==, tarball: https://npm.pkg.github.com/download/@navikt/aksel-icons/2.9.8/04e4868d2f8f1022b52e9de54668127f6d0f5052}
     dev: false
 
-  /@navikt/aksel-icons@4.4.0:
-    resolution: {integrity: sha512-0ocpEXeg8doTfVBnjqqxvuMcBrAzUKMKBUewlJ1hyma53VLWVBfDQZqlr/9QvvWyN5wx8Go4jrwVye3AViXirg==, tarball: https://npm.pkg.github.com/download/@navikt/aksel-icons/4.4.0/c5a5086226e7a738da887f253b0d37675db0e2ac}
+  /@navikt/aksel-icons@4.4.2:
+    resolution: {integrity: sha512-i4ubW/IR5yZxHftHrmaftPHBelvpcfzxbuamrKM5tiniGWJzH7Gk8AvT6pXqzqi+l4wXW4pSYitAlMVxEeGDAA==, tarball: https://npm.pkg.github.com/download/@navikt/aksel-icons/4.4.2/3547541631b662313ce39f1bb0fe59b52bfd80f9}
     dev: false
 
-  /@navikt/ds-css@4.4.0:
-    resolution: {integrity: sha512-zAc/FmYPD3BbCJ6N2Nw5vLcFEaYofG7ypNL0Rm47o3jlorVtb+sz3GgeqckmMdEC/d8eIZdIZDakYSTzaYJWaQ==, tarball: https://npm.pkg.github.com/download/@navikt/ds-css/4.4.0/f8793291536f0e8ff8a6a28a58b7173efccb4254}
+  /@navikt/ds-css@4.4.2:
+    resolution: {integrity: sha512-rY0AIi8/+Q+IndCH+bCCZxQ4gharu4ReVSo/92qs8Jdk+KMlPLPX+C3ikl7g67twnY2RbXleHJMPRJJzqmhL7w==, tarball: https://npm.pkg.github.com/download/@navikt/ds-css/4.4.2/b2ea08f8991c43733d51bda9e47a3bfe25289899}
     dev: false
 
   /@navikt/ds-icons@2.1.0(@types/react@18.0.26)(react@18.2.0):
@@ -896,8 +891,8 @@ packages:
       react: 18.2.0
     dev: false
 
-  /@navikt/ds-react@4.4.0(@types/react@18.0.26)(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-G9bABtvMsyngllSbufsEOVPChe0Fjo6qL7CMSnrBtXY2IaPAwtd2OLiNKmXpSazQwwhakpz9eco24QzItotFSA==, tarball: https://npm.pkg.github.com/download/@navikt/ds-react/4.4.0/60db7c5c41fc26d467ce184704191191b744a33a}
+  /@navikt/ds-react@4.4.2(@types/react@18.0.26)(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-yRo9Fm2+SS8DzHteS1YIYk5TrOoNUbIVe83GcpCwYJzvXfVj6Fk36Xdqjps4GpgsYgBsuGlhkygb7qezsL9G+Q==, tarball: https://npm.pkg.github.com/download/@navikt/ds-react/4.4.2/06ef7cf36247e906d644c594659e6c05ca4fb95d}
     peerDependencies:
       '@types/react': ^17.0.30 || ^18.0.0
       react: ^17.0.0 || ^18.0.0
@@ -905,8 +900,8 @@ packages:
       '@types/react':
         optional: true
     dependencies:
-      '@floating-ui/react': 0.24.1(react-dom@18.2.0)(react@18.2.0)
-      '@navikt/aksel-icons': 4.4.0
+      '@floating-ui/react': 0.24.1(@types/react@18.0.26)(react-dom@18.2.0)(react@18.2.0)
+      '@navikt/aksel-icons': 4.4.2
       '@radix-ui/react-tabs': 1.0.0(react-dom@18.2.0)(react@18.2.0)
       '@radix-ui/react-toggle-group': 1.0.0(react-dom@18.2.0)(react@18.2.0)
       '@types/react': 18.0.26
@@ -1031,7 +1026,7 @@ packages:
       react: ^16.8 || ^17.0 || ^18.0
       react-dom: ^16.8 || ^17.0 || ^18.0
     dependencies:
-      '@babel/runtime': 7.22.5
+      '@babel/runtime': 7.20.6
       '@radix-ui/react-compose-refs': 1.0.0(react@18.2.0)
       '@radix-ui/react-use-layout-effect': 1.0.0(react@18.2.0)
       react: 18.2.0
@@ -1086,7 +1081,7 @@ packages:
       react: ^16.8 || ^17.0 || ^18.0
       react-dom: ^16.8 || ^17.0 || ^18.0
     dependencies:
-      '@babel/runtime': 7.22.5
+      '@babel/runtime': 7.20.6
       '@radix-ui/primitive': 1.0.0
       '@radix-ui/react-context': 1.0.0(react@18.2.0)
       '@radix-ui/react-direction': 1.0.0(react@18.2.0)
@@ -1667,11 +1662,19 @@ packages:
     resolution: {integrity: sha512-8+9WqebbFzpX9OR+Wa6O29asIogeRMzcGtAINdpMHHyAg10f05aSFVBbcEqGf/PXw1EjAZ+q2/bEBg3DvurK3Q==}
     dev: true
 
-  /aria-hidden@1.2.3:
-    resolution: {integrity: sha512-xcLxITLe2HYa1cnYnwCjkOO1PqUHQpozB8x9AR0OgWN2woOBi5kSDVxKfd0b7sb1hw5qFeJhXm9H1nu3xSfLeQ==}
+  /aria-hidden@1.2.2(@types/react@18.0.26)(react@18.2.0):
+    resolution: {integrity: sha512-6y/ogyDTk/7YAe91T3E2PR1ALVKyM2QbTio5HwM+N1Q6CMlCKhvClyIjkckBswa0f2xJhjsfzIGa1yVSe1UMVA==}
     engines: {node: '>=10'}
+    peerDependencies:
+      '@types/react': ^16.9.0 || ^17.0.0 || ^18.0.0
+      react: ^16.9.0 || ^17.0.0 || ^18.0.0
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
     dependencies:
-      tslib: 2.5.3
+      '@types/react': 18.0.26
+      react: 18.2.0
+      tslib: 2.4.1
     dev: false
 
   /aria-query@4.2.2:
@@ -5018,8 +5021,8 @@ packages:
     resolution: {integrity: sha512-9QNk5KwDF+Bvz+PyObkmSYjI5ksVUYtjW7AU22r2NKcfLJcXp96hkDWU3+XndOsUb+AQ9QhfzfCT2O+CNWT5Tw==}
     dev: false
 
-  /tabbable@6.1.2:
-    resolution: {integrity: sha512-qCN98uP7i9z0fIS4amQ5zbGBOq+OSigYeGvPy7NDk8Y9yncqDZ9pRPgfsc2PJIVM9RrJj7GIfuRgmjoUU9zTHQ==}
+  /tabbable@6.0.1:
+    resolution: {integrity: sha512-SYJSIgeyXW7EuX1ytdneO5e8jip42oHWg9xl/o3oTYhmXusZVgiA+VlPvjIN+kHii9v90AmzTZEBcsEvuAY+TA==}
     dev: false
 
   /table@6.8.1:
@@ -5122,10 +5125,6 @@ packages:
 
   /tslib@2.4.1:
     resolution: {integrity: sha512-tGyy4dAjRIEwI7BzsB0lynWgOpfqjUdq91XXAlIWD2OwKBH7oCl/GZG/HT4BOHrTlPMOASlMQ7veyTqpmRcrNA==}
-
-  /tslib@2.5.3:
-    resolution: {integrity: sha512-mSxlJJwl3BMEQCUNnxXBU9jP4JBktcEGhURcPR6VQVlnP0FdDEsIaz0C35dXNGLyRfrATNofF0F5p2KPxQgB+w==}
-    dev: false
 
   /tsutils@3.21.0(typescript@4.9.4):
     resolution: {integrity: sha512-mHKK3iUXL+3UF6xL5k0PEhKRUBKPBCv/+RkEOpjRWxxx27KKRBmmA60A9pgOUvMi8GKhRMPEmjBRPzs2W7O1OA==}
