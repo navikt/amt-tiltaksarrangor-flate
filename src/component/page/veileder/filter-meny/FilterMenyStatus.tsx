@@ -17,15 +17,15 @@ export const FilterMenyStatus = (props: Props): React.ReactElement => {
 
 	const {
 		statusFilter,
+		veiledertypeFilter,
+		deltakerlisteFilter,
 		updateStatusFilter,
-		filtrerDeltakere,
 		filtrerDeltakerePaaAltUtenom
 	} = useVeilederFilterMenyStore()
 
 	useEffect(() => {
 		const statuser = { ...KursDeltakerStatuser, ...IndividuellDeltakerStatus }
-		const deltakereFiltrert = filtrerDeltakerePaaAltUtenom(FilterType.Status, props.deltakere)
-		filtrerDeltakere(props.deltakere)
+		const deltakereFiltrert = filtrerDeltakerePaaAltUtenom( FilterType.Status, props.deltakere )
 
 		const statusMap =  Object.keys(statuser).reduce((list: Map<string, FiltermenyDataEntry>, status: string) => {
 			const antallDeltakereTotalt = deltakereFiltrert.filter(deltaker => deltaker.status.type === status).length
@@ -37,7 +37,7 @@ export const FilterMenyStatus = (props: Props): React.ReactElement => {
 			})}, new Map<string, FiltermenyDataEntry>())
 
 		setDeltakerePerStatus([ ...statusMap.values() ])
-	}, [ props.deltakere, filtrerDeltakere, filtrerDeltakerePaaAltUtenom ])
+	}, [ props.deltakere, veiledertypeFilter, deltakerlisteFilter, filtrerDeltakerePaaAltUtenom ] )
 
 	return (
 		<FilterMeny

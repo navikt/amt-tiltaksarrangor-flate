@@ -42,7 +42,7 @@ export const FilterMenyVeilederType = (props: Props): React.ReactElement => {
 		}
 
 		const data = createInitialDataMap(props.deltakere)
-		filtrerDeltakere(props.deltakere)
+
 		filtrerDeltakerePaaAltUtenom(FilterType.VeilederType, props.deltakere).forEach((deltaker: VeiledersDeltaker) => {
 			const veilederType = tilVeiledertype(deltaker.veiledertype === Veiledertype.MEDVEILEDER)
 			const entry = data.get(veilederType)

@@ -70,7 +70,7 @@ export const FilterMenyNavKontor = (props: Props): React.ReactElement => {
 			filter={navKontorFilter}
 			open={filterOpen}
 			onToggle={() => {setFilterOpen( !filterOpen )}}
-			updateFilter={ updateNavKontorFilter }
+			updateFilter={updateNavKontorFilter}
 		/>
 	)
 }
