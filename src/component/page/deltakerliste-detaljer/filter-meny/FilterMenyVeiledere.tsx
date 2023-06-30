@@ -5,6 +5,7 @@ import React, { useCallback, useEffect, useState } from 'react'
 import { FilterType, useKoordinatorFilterMenyStore } from '../store/koordinator-filter-meny-store-provider'
 import { getHovedveileder, HAR_IKKE_VEILEDER_FILTER_TEKST, veilederNavn } from '../../../../utils/veileder-utils'
 import { FiltermenyDataEntry } from '../../../felles/table-filter/filtermeny-data-entry'
+import useLocalStorage from '../../../../hooks/useLocalStorage'
 
 interface Props {
 	deltakere: TiltakDeltaker[]
@@ -12,6 +13,7 @@ interface Props {
 
 export const FilterMenyVeiledere = (props: Props): React.ReactElement => {
 	const [ deltakerePerVeileder, setDeltakerePerVeileder ] = useState<FiltermenyDataEntry[]>([])
+	const [ filterOpen, setFilterOpen ] = useLocalStorage('filter-deltakerliste-veiledere', true)
 
 	const {
 		veilederFilter,
@@ -88,6 +90,8 @@ export const FilterMenyVeiledere = (props: Props): React.ReactElement => {
 			data={deltakerePerVeileder}
 			className={globalStyles.blokkXs}
 			filter={veilederFilter}
+			open={ filterOpen }
+			onToggle={ () => { setFilterOpen(!filterOpen) } }
 			addFilter={addVeilederFilter}
 			removeFilter={removeVeilederFilter}
 		/>

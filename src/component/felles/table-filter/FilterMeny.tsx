@@ -1,7 +1,6 @@
-import { Checkbox, CheckboxGroup } from '@navikt/ds-react'
+import { Checkbox, CheckboxGroup, ExpansionCard } from '@navikt/ds-react'
 import React from 'react'
 import styles from './TableFilter.module.scss'
-import { CollapsablePanel } from '../closable-panel/CollapsablePanel'
 import { FiltermenyDataEntry } from './filtermeny-data-entry'
 
 interface Props {
@@ -9,6 +8,8 @@ interface Props {
 	data: FiltermenyDataEntry[]
 	className?: string
 	filter: string[]
+	open: boolean
+	onToggle: (f: boolean) => void
 	addFilter: (f: string) => void
 	removeFilter: (f: string) => void,
 }
@@ -18,7 +19,6 @@ export const FilterMeny = (props: Props) => {
 		return (
 			<Checkbox
 				className={styles.checkbox}
-				name="filter-tiltakstatus"
 				onChange={(e) => {
 					if (e.target.checked) {
 						props.addFilter(entry.id)
@@ -37,13 +37,29 @@ export const FilterMeny = (props: Props) => {
 	}
 
 	return (
-		<CollapsablePanel title={props.navn}>
-			<CheckboxGroup legend="" aria-label="Filtrer deltakere på status" value={props.filter}>
-				{props.data.map((e: FiltermenyDataEntry) => (
-					<FilterCheckbox key={e.id} id={e.id} displayName={e.displayName} antallDeltakere={e.antallDeltakere}/>
-				))}
-			</CheckboxGroup>
-		</CollapsablePanel>
-	)
+		<ExpansionCard
+			className={styles.expansionCard}
+			size="small"
+			aria-label={props.navn}
+			open={props.open}
+			onToggle={props.onToggle}
+		>
+			<ExpansionCard.Header>
+				<ExpansionCard.Title size="small" as="h4" >{ props.navn }</ExpansionCard.Title>
+			</ExpansionCard.Header>
 
+			<ExpansionCard.Content className={styles.expansionContent} >
+				<CheckboxGroup
+					legend=""
+					className={styles.checkboxGroup}
+					aria-label={`Filtrer deltakere på ${props.navn}`}
+					value={props.filter}
+				>
+					{props.data.map( ( e: FiltermenyDataEntry ) => (
+						<FilterCheckbox key={e.id} id={e.id} displayName={e.displayName} antallDeltakere={e.antallDeltakere} />
+					) )}
+				</CheckboxGroup>
+			</ExpansionCard.Content>
+		</ExpansionCard>
+	)
 }

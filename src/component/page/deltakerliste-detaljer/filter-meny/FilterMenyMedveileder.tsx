@@ -5,6 +5,7 @@ import globalStyles from '../../../../globals.module.scss'
 import { FilterMeny } from '../../../felles/table-filter/FilterMeny'
 import { getMedveiledere, HAR_IKKE_MEDVEILEDER_FILTER_TEKST, veilederNavn } from '../../../../utils/veileder-utils'
 import { FiltermenyDataEntry } from '../../../felles/table-filter/filtermeny-data-entry'
+import useLocalStorage from '../../../../hooks/useLocalStorage'
 
 interface Props {
 	deltakere: TiltakDeltaker[]
@@ -12,6 +13,7 @@ interface Props {
 
 export const FilterMenyMedveileder = (props: Props): React.ReactElement => {
 	const [ deltakerePerMedveileder, setDeltakerePerMedveileder ] = useState<FiltermenyDataEntry[]>([])
+	const [ filterOpen, setFilterOpen ] = useLocalStorage('filter-deltakerliste-medveileder', true)
 
 	const {
 		medveilederFilter,
@@ -87,6 +89,8 @@ export const FilterMenyMedveileder = (props: Props): React.ReactElement => {
 			data={deltakerePerMedveileder}
 			className={globalStyles.blokkXs}
 			filter={medveilederFilter}
+			open={ filterOpen }
+			onToggle={ () => { setFilterOpen(!filterOpen) } }
 			addFilter={addMedveilederFilter}
 			removeFilter={removeMedveilederFilter}
 		/>

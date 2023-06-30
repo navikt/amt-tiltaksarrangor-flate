@@ -4,6 +4,7 @@ import { FiltermenyDataEntry } from '../../../felles/table-filter/filtermeny-dat
 import { useKoordinatorFilterMenyStore } from '../store/koordinator-filter-meny-store-provider'
 import { FilterMeny } from '../../../felles/table-filter/FilterMeny'
 import globalStyles from '../../../../globals.module.scss'
+import useLocalStorage from '../../../../hooks/useLocalStorage'
 
 interface Props {
     deltakere: TiltakDeltaker[]
@@ -11,6 +12,7 @@ interface Props {
 
 export const FilterMenyNavKontor = (props: Props): React.ReactElement => {
 	const [ deltakerePerNavKontor, setDeltakerePerNavKontor ] = useState<FiltermenyDataEntry[]>([])
+	const [ filterOpen, setFilterOpen ] = useLocalStorage('filter-deltakerliste-nav-kontor', true)
 
 	const {
 		veilederFilter,
@@ -21,7 +23,7 @@ export const FilterMenyNavKontor = (props: Props): React.ReactElement => {
 		removeNavKontorFilter,
 		filtrerDeltakere
 	} = useKoordinatorFilterMenyStore()
-	
+
 	const createInitialDataMap = (deltakere: TiltakDeltaker[]): Map<string, FiltermenyDataEntry> => {
 		const navKontorMap = new Map<string, FiltermenyDataEntry>()
 
@@ -67,6 +69,8 @@ export const FilterMenyNavKontor = (props: Props): React.ReactElement => {
 			data={deltakerePerNavKontor}
 			className={globalStyles.blokkXs}
 			filter={navKontorFilter}
+			open={filterOpen}
+			onToggle={() => {setFilterOpen( !filterOpen )}}
 			addFilter={addNavKontorFilter}
 			removeFilter={removeNavKontorFilter}
 		/>
