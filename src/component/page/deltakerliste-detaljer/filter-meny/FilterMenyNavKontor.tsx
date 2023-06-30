@@ -69,8 +69,8 @@ export const FilterMenyNavKontor = (props: Props): React.ReactElement => {
 			data={deltakerePerNavKontor}
 			className={globalStyles.blokkXs}
 			filter={navKontorFilter}
-			open={ filterOpen }
-			onToggle={ () => { setFilterOpen(!filterOpen) } }
+			open={filterOpen}
+			onToggle={() => {setFilterOpen( !filterOpen )}}
 			addFilter={addNavKontorFilter}
 			removeFilter={removeNavKontorFilter}
 		/>

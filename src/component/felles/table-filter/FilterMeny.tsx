@@ -18,7 +18,7 @@ export const FilterMeny = (props: Props) => {
 	const FilterCheckbox = (entry: FiltermenyDataEntry) => {
 		return (
 			<Checkbox
-				className={ styles.checkbox }
+				className={styles.checkbox}
 				onChange={(e) => {
 					if (e.target.checked) {
 						props.addFilter(entry.id)
@@ -38,26 +38,26 @@ export const FilterMeny = (props: Props) => {
 
 	return (
 		<ExpansionCard
-			className={ styles.expansionCard }
+			className={styles.expansionCard}
 			size="small"
-			aria-label={ props.navn }
-			open={ props.open }
-			onToggle={ props.onToggle }
+			aria-label={props.navn}
+			open={props.open}
+			onToggle={props.onToggle}
 		>
 			<ExpansionCard.Header>
 				<ExpansionCard.Title size="small" as="h4" >{ props.navn }</ExpansionCard.Title>
 			</ExpansionCard.Header>
 
-			<ExpansionCard.Content className={ styles.expansionContent } >
+			<ExpansionCard.Content className={styles.expansionContent} >
 				<CheckboxGroup
 					legend=""
-					className={ styles.checkboxGroup }
-					aria-label={ `Filtrer deltakere på ${props.navn}` }
-					value={ props.filter }
+					className={styles.checkboxGroup}
+					aria-label={`Filtrer deltakere på ${props.navn}`}
+					value={props.filter}
 				>
-					{ props.data.map((e: FiltermenyDataEntry) => (
-						<FilterCheckbox key={ e.id } id={ e.id } displayName={ e.displayName } antallDeltakere={ e.antallDeltakere } />
-					)) }
+					{props.data.map( ( e: FiltermenyDataEntry ) => (
+						<FilterCheckbox key={e.id} id={e.id} displayName={e.displayName} antallDeltakere={e.antallDeltakere} />
+					) )}
 				</CheckboxGroup>
 			</ExpansionCard.Content>
 		</ExpansionCard>

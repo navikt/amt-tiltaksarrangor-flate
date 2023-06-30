@@ -25,7 +25,22 @@
   margin-bottom: 1rem;
 }
 
+::-webkit-scrollbar {
+  -webkit-appearance: none;
+  width: 7px;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 4px;
+  background-color: var(--a-gray-500);
+  box-shadow: 0 0 1px var(--a-gray-50)
+}
+
 .expansionContent {
   padding-top: 0;
   padding-bottom: 0.5rem;
+  height: 500px;
+  max-height: 500px;
+  overflow-y: auto;
+  padding-right: 1.5rem;
 }
