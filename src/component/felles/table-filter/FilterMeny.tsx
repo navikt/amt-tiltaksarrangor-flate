@@ -33,6 +33,8 @@ export const FilterMeny = (props: Props) => {
 			className={styles.expansionCard}
 			size="small"
 			aria-label={props.navn}
+			open={props.open}
+			onToggle={props.onToggle}
 		>
 			<ExpansionCard.Header>
 				<ExpansionCard.Title size="small" as="h4" >{props.navn}</ExpansionCard.Title>

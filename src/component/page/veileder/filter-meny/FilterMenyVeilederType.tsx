@@ -56,6 +56,8 @@ export const FilterMenyVeilederType = (props: Props): React.ReactElement => {
 		setDeltakerePerVeiledertype([ ...data.values() ])
 	}, [ props.deltakere, statusFilter, deltakerlisteFilter, filtrerDeltakere, filtrerDeltakerePaaAltUtenom ])
 
+	console.log( 'filterOpen', filterOpen )
+
 	return (
 		<FilterMeny
 			navn="Type veileder"
