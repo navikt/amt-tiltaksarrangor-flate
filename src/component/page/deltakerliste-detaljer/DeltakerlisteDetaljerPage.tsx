@@ -16,40 +16,31 @@ import styles from './DeltakerlisteDetaljerPage.module.scss'
 import { KoordinatorInfo } from './KoordinatorInfo'
 import { TiltakInfo } from './TiltakInfo'
 import { KoordinatorsDeltakerliste } from '../../../api/data/deltaker'
-
-import {
-	FilterMenyVeiledere
-} from './filter-meny/FilterMenyVeiledere'
-import {
-	FilterMenyMedveileder
-} from './filter-meny/FilterMenyMedveileder'
-import { FilterMenyStatus } from './filter-meny/FilterMenyStatus'
-import { FilterMenyNavKontor } from './filter-meny/FilterMenyNavKontor'
-import { FilterMenyChips } from './filter-meny/FilterMenyChips'
+import { FilterMenyDeltakerListeDetaljer } from './filter-meny/FilterMenyDeltakerListeDetaljer'
 
 export const DeltakerlisteDetaljerPage = (): React.ReactElement => {
 	const { setTilbakeTilUrl } = useTilbakelenkeStore()
-	const params = useParams<{ deltakerlisteId: string }>()
+	const params = useParams<{deltakerlisteId: string}>()
 	const deltakerlisteId = params.deltakerlisteId || ''
 
-	useEffect(() => {
-		setTilbakeTilUrl(MINE_DELTAKERLISTER_PAGE_ROUTE)
+	useEffect( () => {
+		setTilbakeTilUrl( MINE_DELTAKERLISTER_PAGE_ROUTE )
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [])
+	}, [] )
 
-	useTabTitle('Deltakerliste')
+	useTabTitle( 'Deltakerliste' )
 
 	const fetchKoordinatorsDeltakerlistePromise = usePromise<AxiosResponse<KoordinatorsDeltakerliste>>(
-		() => fetchKoordinatorsDeltakerliste(deltakerlisteId), [ deltakerlisteId ]
+		() => fetchKoordinatorsDeltakerliste( deltakerlisteId ), [ deltakerlisteId ]
 	)
 
-	if (isNotStartedOrPending(fetchKoordinatorsDeltakerlistePromise)) {
+	if ( isNotStartedOrPending( fetchKoordinatorsDeltakerlistePromise ) ) {
 		return <SpinnerPage />
 	}
 
-	if (isRejected(fetchKoordinatorsDeltakerlistePromise)) {
-		if(isNotFound(fetchKoordinatorsDeltakerlistePromise)) {
-			return <Navigate replace to={MINE_DELTAKERLISTER_PAGE_ROUTE}/>
+	if ( isRejected( fetchKoordinatorsDeltakerlistePromise ) ) {
+		if ( isNotFound( fetchKoordinatorsDeltakerlistePromise ) ) {
+			return <Navigate replace to={MINE_DELTAKERLISTER_PAGE_ROUTE} />
 		}
 
 		return <AlertPage variant="error" tekst="Noe gikk galt" />
@@ -63,15 +54,10 @@ export const DeltakerlisteDetaljerPage = (): React.ReactElement => {
 				<Heading size="small" level="2" className={globalStyles.blokkXs}>{deltakerliste.navn}</Heading>
 				<TiltakInfo deltakerliste={deltakerliste} className={globalStyles.blokkXs} />
 				<KoordinatorInfo koordinatorer={deltakerliste.koordinatorer} />
-
-				<Heading size="small" level="3" className={globalStyles.screenReaderOnly}>Filtrer deltakerliste</Heading><FilterMenyChips deltakere={deltakerliste.deltakere} />
-				<FilterMenyStatus erKurs={deltakerliste.erKurs} deltakere={deltakerliste.deltakere}/>
-
-				<FilterMenyVeiledere deltakere={deltakerliste.deltakere}/>
-				<FilterMenyMedveileder deltakere={deltakerliste.deltakere}/>
-				<FilterMenyNavKontor deltakere={deltakerliste.deltakere}/>
+				<FilterMenyDeltakerListeDetaljer deltakerliste={deltakerliste} />
 			</section>
 
 			<DeltakerOversiktTabell deltakere={deltakerliste.deltakere} />
 		</div>
-	)}
+	)
+}

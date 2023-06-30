@@ -1,0 +1,40 @@
+import { Heading } from '@navikt/ds-react'
+import React, { useEffect } from 'react'
+import globalStyles from '../../../../globals.module.scss'
+import { KoordinatorsDeltakerliste } from '../../../../api/data/deltaker'
+import {
+	FilterMenyVeiledere
+} from './FilterMenyVeiledere'
+import {
+	FilterMenyMedveileder
+} from './FilterMenyMedveileder'
+import { FilterMenyStatus } from './FilterMenyStatus'
+import { FilterMenyNavKontor } from './FilterMenyNavKontor'
+import { FilterMenyChips } from './FilterMenyChips'
+import { useKoordinatorFilterMenyStore } from '../store/koordinator-filter-meny-store-provider'
+
+interface Props {
+	deltakerliste: KoordinatorsDeltakerliste
+}
+
+export const FilterMenyDeltakerListeDetaljer: React.FC<Props> = ( { deltakerliste } ) => {
+
+	const { updateFiltersToBeValid } = useKoordinatorFilterMenyStore()
+
+	useEffect( () => {
+		updateFiltersToBeValid( deltakerliste.deltakere )
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [ deltakerliste.deltakere ] )
+
+	return (
+		<div >
+			<Heading size="small" level="3" className={globalStyles.screenReaderOnly}>Filtrer deltakerliste</Heading>
+			<FilterMenyChips deltakere={deltakerliste.deltakere} />
+
+			<FilterMenyStatus erKurs={deltakerliste.erKurs} deltakere={deltakerliste.deltakere} />
+			<FilterMenyVeiledere deltakere={deltakerliste.deltakere} />
+			<FilterMenyMedveileder deltakere={deltakerliste.deltakere} />
+			<FilterMenyNavKontor deltakere={deltakerliste.deltakere} />
+		</div>
+	)
+}
