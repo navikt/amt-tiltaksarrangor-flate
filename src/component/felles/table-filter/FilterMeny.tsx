@@ -30,15 +30,15 @@ const FilterCheckbox = (entry: FiltermenyDataEntry) => {
 export const FilterMeny = (props: Props) => {
 	return (
 		<ExpansionCard
-			className={ styles.expansionCard }
+			className={styles.expansionCard}
 			size="small"
-			aria-label={ props.navn }
+			aria-label={props.navn}
 		>
 			<ExpansionCard.Header>
-				<ExpansionCard.Title size="small" as="h4" >{ props.navn }</ExpansionCard.Title>
+				<ExpansionCard.Title size="small" as="h4" >{props.navn}</ExpansionCard.Title>
 			</ExpansionCard.Header>
 
-			<ExpansionCard.Content className={ styles.expansionContent } >
+			<ExpansionCard.Content className={styles.expansionContent} >
 				<CheckboxGroup
 					legend=""
 					className={styles.checkboxGroup}
