@@ -1,13 +1,9 @@
 import { Heading } from '@navikt/ds-react'
-import React, { useEffect } from 'react'
+import React, { useLayoutEffect } from 'react'
 import globalStyles from '../../../../globals.module.scss'
 import { KoordinatorsDeltakerliste } from '../../../../api/data/deltaker'
-import {
-	FilterMenyVeiledere
-} from './FilterMenyVeiledere'
-import {
-	FilterMenyMedveileder
-} from './FilterMenyMedveileder'
+import { FilterMenyVeiledere } from './FilterMenyVeiledere'
+import { FilterMenyMedveileder } from './FilterMenyMedveileder'
 import { FilterMenyStatus } from './FilterMenyStatus'
 import { FilterMenyNavKontor } from './FilterMenyNavKontor'
 import { FilterMenyChips } from './FilterMenyChips'
@@ -17,18 +13,19 @@ interface Props {
 	deltakerliste: KoordinatorsDeltakerliste
 }
 
-export const FilterMenyDeltakerListeDetaljer: React.FC<Props> = ( { deltakerliste } ) => {
+export const FilterMenyDeltakerListeDetaljer: React.FC<Props> = ({ deltakerliste }) => {
+	const { fjernUgyldigeFilter } = useKoordinatorFilterMenyStore()
 
-	const { updateFiltersToBeValid } = useKoordinatorFilterMenyStore()
-
-	useEffect( () => {
-		updateFiltersToBeValid( deltakerliste.deltakere )
+	useLayoutEffect(() => {
+		fjernUgyldigeFilter(deltakerliste.deltakere)
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [ deltakerliste.deltakere ] )
+	}, [deltakerliste.deltakere])
 
 	return (
-		<div >
-			<Heading size="small" level="3" className={globalStyles.screenReaderOnly}>Filtrer deltakerliste</Heading>
+		<div>
+			<Heading size="small" level="3" className={globalStyles.screenReaderOnly}>
+				Filtrer deltakerliste
+			</Heading>
 			<FilterMenyChips deltakere={deltakerliste.deltakere} />
 
 			<FilterMenyStatus erKurs={deltakerliste.erKurs} deltakere={deltakerliste.deltakere} />

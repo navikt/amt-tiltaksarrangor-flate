@@ -99,7 +99,7 @@ export const [ KoordinatorFilterMenyStoreProvider, useKoordinatorFilterMenyStore
 			: filtrerDeltakerePaNavKontor(filtrertPaMedveileder)
 	}
 
-	const updateFiltersToBeValid = (deltakere: TiltakDeltaker[]) => {
+	const fjernUgyldigeFilter = (deltakere: TiltakDeltaker[]) => {
 		const gyldigVeilederFIlter = veilederFilter.filter((veileder) => {
 			if (veileder === HAR_IKKE_VEILEDER_FILTER_TEKST) {
 				return true
@@ -151,6 +151,6 @@ export const [ KoordinatorFilterMenyStoreProvider, useKoordinatorFilterMenyStore
 		removeNavKontorFilter,
 		filtrerDeltakere,
 		filtrerDeltakerePaaAltUtenom,
-		updateFiltersToBeValid
+		fjernUgyldigeFilter
 	}
 })

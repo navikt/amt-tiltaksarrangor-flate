@@ -37,8 +37,12 @@ interface StatusProps {
 
 export const StatusMerkelapp = (props: StatusProps) => {
 	const { type } = props.status
-	return(
-		<Tag variant="info" size="xsmall" className={classNames( getStyle( type ), props.erDeltakerlisteVisning ? deltakerlisteStyle( type ) : undefined )}>
+	return (
+		<Tag
+			variant="info"
+			size="xsmall"
+			className={classNames(getStyle(type), props.erDeltakerlisteVisning ? deltakerlisteStyle(type) : undefined)}
+		>
 			{mapTiltakDeltakerStatusTilTekst(type)}
 		</Tag>
 	)
