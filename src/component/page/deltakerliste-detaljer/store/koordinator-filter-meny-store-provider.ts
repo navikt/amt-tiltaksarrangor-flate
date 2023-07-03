@@ -99,6 +99,43 @@ export const [ KoordinatorFilterMenyStoreProvider, useKoordinatorFilterMenyStore
 			: filtrerDeltakerePaNavKontor(filtrertPaMedveileder)
 	}
 
+	const fjernUgyldigeFilter = (deltakere: TiltakDeltaker[]) => {
+		const gyldigVeilederFIlter = veilederFilter.filter((veileder) => {
+			if (veileder === HAR_IKKE_VEILEDER_FILTER_TEKST) {
+				return true
+			}
+			return deltakere.find((deltaker) => {
+				const hovedveileder = getHovedveileder(deltaker)
+				return hovedveileder?.ansattId === veileder
+			})
+		})
+		setVeilederFilter(gyldigVeilederFIlter)
+
+		const gyldigMedveilederFIlter = medveilederFilter.filter((medveileder) => {
+			if (medveileder === HAR_IKKE_MEDVEILEDER_FILTER_TEKST) {
+				return true
+			}
+
+			return deltakere.find((deltaker) => {
+				const deltakersMedveiledere = getMedveiledere(deltaker)
+				return deltakersMedveiledere.find(
+					(deltakersMedveileder) => deltakersMedveileder.ansattId === medveileder
+				)
+			})
+		})
+		setMedveilederFilter(gyldigMedveilederFIlter)
+
+		const gyldigNavKontorFIlter = navKontorFilter.filter((navKontor) =>
+			deltakere.find((deltaker) => deltaker.navKontor === navKontor)
+		)
+		setNavKontorFilter(gyldigNavKontorFIlter)
+
+		const gyldigStatusFIlter = statusFilter.filter((status) =>
+			deltakere.find((deltaker) => deltaker.status.type === status)
+		)
+		setStatusFilter(gyldigStatusFIlter)
+	}
+
 	return {
 		veilederFilter,
 		updateVeilederFilter,
@@ -113,6 +150,7 @@ export const [ KoordinatorFilterMenyStoreProvider, useKoordinatorFilterMenyStore
 		updateNavKontorFilter,
 		removeNavKontorFilter,
 		filtrerDeltakere,
-		filtrerDeltakerePaaAltUtenom
+		filtrerDeltakerePaaAltUtenom,
+		fjernUgyldigeFilter
 	}
 })
