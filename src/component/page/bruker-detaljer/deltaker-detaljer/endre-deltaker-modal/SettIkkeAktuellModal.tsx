@@ -7,6 +7,7 @@ import { BaseModal } from '../../../../felles/base-modal/BaseModal'
 import { AarsakSelector } from './AarsakSelector'
 import { SendTilNavKnapp } from './SendTilNavKnapp'
 import { VeilederConfirmationPanel } from './VeilederConfirmationPanel'
+import { aarsakTekstMapper } from '../tekst-mappers'
 
 interface SettIkkeAktuellModalProps {
 	onClose: () => void
@@ -14,19 +15,20 @@ interface SettIkkeAktuellModalProps {
 
 export interface SettIkkeAktuellModalDataProps {
 	deltakerId: string
-	visGodkjennVilkaarPanel: boolean,
-	erKurs: boolean,
+	visGodkjennVilkaarPanel: boolean
+	erKurs: boolean
 	onEndringUtfort: () => void
 }
 
 export const SettIkkeAktuellModal = (props: SettIkkeAktuellModalProps & SettIkkeAktuellModalDataProps) => {
 	const { deltakerId, onClose, visGodkjennVilkaarPanel, onEndringUtfort } = props
-	const [ aarsak, settAarsak ] = useState<DeltakerStatusAarsakType>()
-	const [ beskrivelse, settBeskrivelse ] = useState<Nullable<string>>()
-	const [ vilkaarGodkjent, settVilkaarGodkjent ] = useState(false)
-	const kanSendeEndringsmelding = (aarsak === DeltakerStatusAarsakType.ANNET || aarsak === DeltakerStatusAarsakType.OPPFYLLER_IKKE_KRAVENE) ?
-		aarsak && (vilkaarGodkjent || !visGodkjennVilkaarPanel) && beskrivelse :
-		aarsak && (vilkaarGodkjent || !visGodkjennVilkaarPanel)
+	const [aarsak, settAarsak] = useState<DeltakerStatusAarsakType>()
+	const [beskrivelse, settBeskrivelse] = useState<Nullable<string>>()
+	const [vilkaarGodkjent, settVilkaarGodkjent] = useState(false)
+	const kanSendeEndringsmelding =
+		aarsak === DeltakerStatusAarsakType.ANNET || aarsak === DeltakerStatusAarsakType.OPPFYLLER_IKKE_KRAVENE
+			? aarsak && (vilkaarGodkjent || !visGodkjennVilkaarPanel) && beskrivelse
+			: aarsak && (vilkaarGodkjent || !visGodkjennVilkaarPanel)
 
 	const sendEndringsmelding = () => {
 		if (!aarsak) {
@@ -36,7 +38,9 @@ export const SettIkkeAktuellModal = (props: SettIkkeAktuellModalProps & SettIkke
 			(aarsak === DeltakerStatusAarsakType.ANNET || aarsak === DeltakerStatusAarsakType.OPPFYLLER_IKKE_KRAVENE) &&
 			!beskrivelse
 		) {
-			return Promise.reject(`Beskrivelse er påkrevd for å sende IkkeAktuell endringsmelding med årsak ${aarsak}`)
+			return Promise.reject(
+				`Beskrivelse er påkrevd for å sende endringsmelding med årsak '${aarsakTekstMapper(aarsak)}'`
+			)
 		}
 		if (
 			(aarsak === DeltakerStatusAarsakType.ANNET || aarsak === DeltakerStatusAarsakType.OPPFYLLER_IKKE_KRAVENE) &&
@@ -44,11 +48,12 @@ export const SettIkkeAktuellModal = (props: SettIkkeAktuellModalProps & SettIkke
 			beskrivelse?.length > 40
 		) {
 			return Promise.reject(
-				`Beskrivelse kan ikke være mer enn 40 tegn for å sende IkkeAktuell endringsmelding med årsak ${aarsak}`
+				`Beskrivelse kan ikke være mer enn 40 tegn for å sende endringsmelding med årsak '${aarsakTekstMapper(
+					aarsak
+				)}'`
 			)
 		}
-		return deltakerIkkeAktuell(deltakerId, { type: aarsak, beskrivelse: beskrivelse ?? null })
-			.then(onEndringUtfort)
+		return deltakerIkkeAktuell(deltakerId, { type: aarsak, beskrivelse: beskrivelse ?? null }).then(onEndringUtfort)
 	}
 
 	const onAarsakSelected = (nyAarsak: DeltakerStatusAarsakType, nyBeskrivelse: Nullable<string>) => {
@@ -58,12 +63,19 @@ export const SettIkkeAktuellModal = (props: SettIkkeAktuellModalProps & SettIkke
 
 	return (
 		<BaseModal tittel="Er ikke aktuell" onClose={onClose}>
-			<AarsakSelector tittel="Hva er årsaken til at personen ikke er aktuell?" skalViseOppfyllerIkkeKrav={props.erKurs} onAarsakSelected={onAarsakSelected}/>
-			{ visGodkjennVilkaarPanel && <VeilederConfirmationPanel vilkaarGodkjent={vilkaarGodkjent} setVilkaarGodkjent={settVilkaarGodkjent}/> }
+			<AarsakSelector
+				tittel="Hva er årsaken til at personen ikke er aktuell?"
+				skalViseOppfyllerIkkeKrav={props.erKurs}
+				onAarsakSelected={onAarsakSelected}
+			/>
+			{visGodkjennVilkaarPanel && (
+				<VeilederConfirmationPanel vilkaarGodkjent={vilkaarGodkjent} setVilkaarGodkjent={settVilkaarGodkjent} />
+			)}
 			<SendTilNavKnapp
 				onEndringSendt={onClose}
 				sendEndring={sendEndringsmelding}
-				disabled={!kanSendeEndringsmelding} />
+				disabled={!kanSendeEndringsmelding}
+			/>
 		</BaseModal>
 	)
 }
