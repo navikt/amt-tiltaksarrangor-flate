@@ -43,7 +43,9 @@ export const SettIkkeAktuellModal = (props: SettIkkeAktuellModalProps & SettIkke
 			beskrivelse &&
 			beskrivelse?.length > 40
 		) {
-			return Promise.reject(`Beskrivelse kan ikke være med enn 40 tegn med årsak ${aarsak}`)
+			return Promise.reject(
+				`Beskrivelse kan ikke være mer enn 40 tegn for å sende IkkeAktuell endringsmelding med årsak ${aarsak}`
+			)
 		}
 		return deltakerIkkeAktuell(deltakerId, { type: aarsak, beskrivelse: beskrivelse ?? null })
 			.then(onEndringUtfort)
