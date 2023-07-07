@@ -43,16 +43,10 @@ export const AvsluttDeltakelseModal = (props: AvsluttDeltakelseModalProps & Avsl
 			return Promise.reject('Årsak og sluttdato er påkrevd for å sende AvsluttDeltakelse endringsmelding')
 		}
 		if (aarsak === DeltakerStatusAarsakType.ANNET && !beskrivelse) {
-			return Promise.reject(
-				`Beskrivelse er påkrevd for å sende endringsmelding med årsak '${aarsakTekstMapper(aarsak)}''`
-			)
+			return Promise.reject(`Beskrivelse er påkrevd med årsak '${aarsakTekstMapper(aarsak)}''`)
 		}
 		if (aarsak === DeltakerStatusAarsakType.ANNET && beskrivelse && beskrivelse?.length > 40) {
-			return Promise.reject(
-				`Beskrivelse kan ikke være mer enn 40 tegn for å sende endringsmelding med årsak '${aarsakTekstMapper(
-					aarsak
-				)}'`
-			)
+			return Promise.reject(`Beskrivelse kan ikke være mer enn 40 tegn med årsak '${aarsakTekstMapper(aarsak)}'`)
 		}
 		const nyAarsak = { beskrivelse: beskrivelse ?? null, type: aarsak }
 		return avsluttDeltakelse(deltakerId, sluttDato, nyAarsak).then(onEndringUtfort)

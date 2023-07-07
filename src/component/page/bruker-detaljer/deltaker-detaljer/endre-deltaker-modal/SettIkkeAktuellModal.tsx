@@ -38,20 +38,14 @@ export const SettIkkeAktuellModal = (props: SettIkkeAktuellModalProps & SettIkke
 			(aarsak === DeltakerStatusAarsakType.ANNET || aarsak === DeltakerStatusAarsakType.OPPFYLLER_IKKE_KRAVENE) &&
 			!beskrivelse
 		) {
-			return Promise.reject(
-				`Beskrivelse er påkrevd for å sende endringsmelding med årsak '${aarsakTekstMapper(aarsak)}'`
-			)
+			return Promise.reject(`Beskrivelse er påkrevd med årsak '${aarsakTekstMapper(aarsak)}'`)
 		}
 		if (
 			(aarsak === DeltakerStatusAarsakType.ANNET || aarsak === DeltakerStatusAarsakType.OPPFYLLER_IKKE_KRAVENE) &&
 			beskrivelse &&
 			beskrivelse?.length > 40
 		) {
-			return Promise.reject(
-				`Beskrivelse kan ikke være mer enn 40 tegn for å sende endringsmelding med årsak '${aarsakTekstMapper(
-					aarsak
-				)}'`
-			)
+			return Promise.reject(`Beskrivelse kan ikke være mer enn 40 tegn med årsak '${aarsakTekstMapper(aarsak)}'`)
 		}
 		return deltakerIkkeAktuell(deltakerId, { type: aarsak, beskrivelse: beskrivelse ?? null }).then(onEndringUtfort)
 	}

@@ -1,6 +1,6 @@
 import { Alert, Button } from '@navikt/ds-react'
 import React, { useState } from 'react'
-
+import styles from './SendTilNavKnapp.module.scss'
 import { isPending, usePromise } from '../../../../../utils/use-promise'
 
 interface SendTilNavKnappProps {
@@ -40,7 +40,11 @@ export const SendTilNavKnapp = ({ disabled, sendEndring, onEndringSendt }: SendT
 			>
 				Send til NAV
 			</Button>
-			{showError && <Alert variant="error">{errorMessage || 'Noe gikk galt'}</Alert>}
+			{showError && (
+				<Alert variant="error" className={styles.alert}>
+					{errorMessage || 'Noe gikk galt'}
+				</Alert>
+			)}
 		</>
 	)
 }
