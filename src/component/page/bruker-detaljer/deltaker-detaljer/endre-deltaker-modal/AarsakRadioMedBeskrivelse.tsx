@@ -1,23 +1,27 @@
 import { DeltakerStatusAarsakType } from '../../../../../api/data/endringsmelding'
 import React, { useEffect, useState } from 'react'
 import { aarsakTekstMapper } from '../tekst-mappers'
-import { Detail, TextField, useId } from '@navikt/ds-react'
+import { Textarea, useId } from '@navikt/ds-react'
 import styles from './AarsakSelector.module.scss'
 import { AarsakRadio } from './AarsakRadio'
 import { Nullable } from '../../../../../utils/types/or-nothing'
 
 interface AarsakRadioMedBeskrivelseProps {
-    aarsakType: DeltakerStatusAarsakType,
-    valgtAarsak: DeltakerStatusAarsakType | undefined,
-    onBeskrivelse: (beskrivelse: Nullable<string>) => void
+	aarsakType: DeltakerStatusAarsakType
+	valgtAarsak: DeltakerStatusAarsakType | undefined
+	onBeskrivelse: (beskrivelse: Nullable<string>) => void
 }
 
-export const AarsakRadioMedBeskrivelse = ({ aarsakType, valgtAarsak, onBeskrivelse }: AarsakRadioMedBeskrivelseProps) => {
-	const [ beskrivelse, settBeskrivelse ] = useState<Nullable<string>>()
+export const AarsakRadioMedBeskrivelse = ({
+	aarsakType,
+	valgtAarsak,
+	onBeskrivelse
+}: AarsakRadioMedBeskrivelseProps) => {
+	const [beskrivelse, settBeskrivelse] = useState<Nullable<string>>()
 	const detailId = useId()
 	const visBeskrivelse = valgtAarsak === aarsakType
 
-	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+	const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
 		const nyBeskrivelse = e.target.value
 		settBeskrivelse(nyBeskrivelse)
 		onBeskrivelse(nyBeskrivelse)
@@ -27,12 +31,12 @@ export const AarsakRadioMedBeskrivelse = ({ aarsakType, valgtAarsak, onBeskrivel
 		if (valgtAarsak === aarsakType) {
 			onBeskrivelse(beskrivelse)
 		}
-	}, [ aarsakType, beskrivelse, onBeskrivelse, valgtAarsak ])
+	}, [aarsakType, beskrivelse, onBeskrivelse, valgtAarsak])
 
 	return (
-		<AarsakRadio aarsakType={aarsakType} >
-			{visBeskrivelse ? <>
-				<TextField
+		<AarsakRadio aarsakType={aarsakType}>
+			{visBeskrivelse ? (
+				<Textarea
 					onChange={handleChange}
 					value={beskrivelse ?? ''}
 					size="small"
@@ -42,9 +46,9 @@ export const AarsakRadioMedBeskrivelse = ({ aarsakType, valgtAarsak, onBeskrivel
 					aria-label={aarsakTekstMapper(aarsakType)}
 					aria-describedby={detailId}
 				/>
-				<Detail id={detailId} className={styles.detail}>Maks antall tegn: 40</Detail>
-			</> : <></>
-			}
+			) : (
+				<></>
+			)}
 		</AarsakRadio>
 	)
 }

@@ -9,19 +9,23 @@ interface SendTilNavKnappProps {
 	disabled?: boolean
 }
 
-export const SendTilNavKnapp = (props: SendTilNavKnappProps) => {
-	const { disabled, sendEndring } = props
-	const [ showError, setShowError ] = useState<boolean>()
+export const SendTilNavKnapp: React.FC<SendTilNavKnappProps> = ({ disabled, sendEndring, onEndringSendt }) => {
+	const [showError, setShowError] = useState<boolean>()
+	const [errorMessage, setErrorMessage] = useState<string | null>()
 	const opprettEndringPromise = usePromise<void>()
 
 	const onClick = () => {
 		opprettEndringPromise.setPromise(
 			sendEndring()
 				.then(() => {
-					props.onEndringSendt()
+					onEndringSendt()
 					setShowError(false)
+					setErrorMessage(null)
 				})
-				.catch(() => setShowError(true))
+				.catch((message: string | null) => {
+					setErrorMessage(message)
+					setShowError(true)
+				})
 		)
 	}
 
@@ -32,10 +36,11 @@ export const SendTilNavKnapp = (props: SendTilNavKnappProps) => {
 				size="small"
 				loading={isPending(opprettEndringPromise)}
 				onClick={onClick}
-				disabled={disabled}>
+				disabled={disabled}
+			>
 				Send til NAV
 			</Button>
-			{showError && <Alert variant="error">Noe gikk galt</Alert>}
+			{showError && <Alert variant="error">{errorMessage || 'Noe gikk galt'}</Alert>}
 		</>
 	)
 }
