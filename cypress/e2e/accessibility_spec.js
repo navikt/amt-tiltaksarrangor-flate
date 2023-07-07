@@ -1,17 +1,21 @@
 import { logViolations } from '../log-utils'
 
 function visit(path) {
-	cy.intercept('GET', 'https://dekoratoren.ekstern.dev.nav.no/**/*', {statusCode: 0})
-	cy.intercept('GET', 'https://www.nav.no/samarbeidspartner/deltakeroversikt', {statusCode: 0})
+	cy.intercept('GET', 'https://dekoratoren.ekstern.dev.nav.no/**/*', { statusCode: 0 })
+	cy.intercept('GET', 'https://www.nav.no/samarbeidspartner/deltakeroversikt', { statusCode: 0 })
 	return cy.visit(path)
 }
 
 function sjekkUU() {
 	cy.injectAxe()
 	// Vi får SVGer fra @navikt/ds-icons som mangler "title", dette er ikke et problem siden ikonene ikke trenger er viktige for innholdet
-	cy.checkA11y(null, { 
-		rules: { 'svg-img-alt': { enabled: false } } 
-	}, logViolations)
+	cy.checkA11y(
+		null,
+		{
+			rules: { 'svg-img-alt': { enabled: false } }
+		},
+		logViolations
+	)
 }
 
 function gaTilTiltakGjennomforingOversikt() {
@@ -19,7 +23,6 @@ function gaTilTiltakGjennomforingOversikt() {
 	cy.screenshot()
 	cy.get('[data-testid=gjennomforing-oversikt-page]', { timeout: 30_000 })
 	cy.screenshot()
-
 }
 
 function navigerTilTiltakGjennomforingDetaljer() {
