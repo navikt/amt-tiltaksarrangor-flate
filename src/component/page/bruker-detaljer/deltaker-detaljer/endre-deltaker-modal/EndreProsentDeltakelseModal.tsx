@@ -58,20 +58,20 @@ export const EndreProsentDeltakelseModal = (props: EndreProsentDeltakelseModalPr
 		else if (newValue === gammelProsentDeltakelse) settErrorMessage('Kan ikke være lik prosenten som er registrert')
 		else settErrorMessage(undefined)
 
-		const dagerPerUkeValue = parseInt(dagerPerUkeFelt)
+		const dagerPerUkeValue = parseFloat(dagerPerUkeFelt)
 		const dagerPerUkeIsInvalid = dagerPerUkeValue !== null &&
-			(!dagerPerUkeFelt.match(/^\d*$/)
+			(!dagerPerUkeFelt.match(/^\d*\.?\d*$/)
 			|| dagerPerUkeValue < 1
 			|| dagerPerUkeValue > 5)
 
-		if (dagerPerUkeIsInvalid) settDagerPerUkeErrorMessage('Dager per uke må være et helt tall fra 1 til 5')
+		if (dagerPerUkeIsInvalid) settDagerPerUkeErrorMessage('Dager per uke må være et tall fra 1 til 5. Tallet kan ha desimaler')
 		else settDagerPerUkeErrorMessage(undefined)
 
 	}, [ prosentDeltakelseFelt, gammelProsentDeltakelse, dagerPerUkeFelt ])
 
 	const sendEndringsmelding = () => {
 		const prosentDeltakelse = parseInt(prosentDeltakelseFelt)
-		const dagerPerUke = prosentDeltakelse === 100 ? null : parseInt(dagerPerUkeFelt)
+		const dagerPerUke = prosentDeltakelse === 100 ? null : parseFloat(dagerPerUkeFelt)
 
 		if (isNaN(prosentDeltakelse))
 			return Promise.reject('Kan ikke sende Prosent Deltakelse endringsmelding')
