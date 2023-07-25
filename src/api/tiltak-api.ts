@@ -131,7 +131,6 @@ export const endreOppstartsdato = (deltakerId: string, startDato: Date): AxiosPr
 
 export const endreDeltakelsesprosent = (deltakerId: string, deltakelseProsent: number, dagerPerUke: Nullable<number>, gyldigFraDato: Nullable<Date>): AxiosPromise => {
 	const url = appUrl(`/amt-tiltaksarrangor-bff/tiltaksarrangor/deltaker/${deltakerId}/endringsmelding`)
-	console.log('wololo', deltakelseProsent, dagerPerUke, gyldigFraDato)
 	return axiosInstance
 		.post(
 			url,
