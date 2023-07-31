@@ -12,6 +12,7 @@ import { SendTilNavKnapp } from './SendTilNavKnapp'
 import { VeilederConfirmationPanel } from './VeilederConfirmationPanel'
 import { useDeltakerlisteStore } from '../deltakerliste-store'
 import { aarsakTekstMapper } from '../tekst-mappers'
+import { BESKRIVELSE_ANNET_MAKS_TEGN } from '../../../../../utils/endre-deltaker-utils'
 
 interface AvsluttDeltakelseModalProps {
 	onClose: () => void
@@ -35,7 +36,11 @@ export const AvsluttDeltakelseModal = (props: AvsluttDeltakelseModalProps & Avsl
 	const minDato = maxDate(startDato, deltakerliste.startDato)
 	const kanSendeEndringsmelding =
 		aarsak === DeltakerStatusAarsakType.ANNET
-			? aarsak && (vilkaarGodkjent || !visGodkjennVilkaarPanel) && sluttDato && beskrivelse
+			? aarsak &&
+				(vilkaarGodkjent || !visGodkjennVilkaarPanel) &&
+				sluttDato &&
+				beskrivelse &&
+				beskrivelse.length <= BESKRIVELSE_ANNET_MAKS_TEGN
 			: aarsak && (vilkaarGodkjent || !visGodkjennVilkaarPanel) && sluttDato
 
 	const sendEndring = () => {

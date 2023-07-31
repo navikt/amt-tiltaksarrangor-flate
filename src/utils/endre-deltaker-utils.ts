@@ -1,0 +1,1 @@
+export const BESKRIVELSE_ANNET_MAKS_TEGN = 40
