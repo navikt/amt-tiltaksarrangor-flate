@@ -1,4 +1,4 @@
-import { People } from '@navikt/ds-icons'
+import { PersonIcon } from '@navikt/aksel-icons'
 import { Heading } from '@navikt/ds-react'
 import React from 'react'
 
@@ -24,15 +24,16 @@ export const KoordinatorInfo = (props: KoordinatorInfoProps) => {
 
 	return (
 		<div className={globalStyles.blokkM}>
-			<Heading size="xsmall" level="3" className={globalStyles.blokkXxs}>Koordinatorer</Heading>
+			<Heading size="xsmall" level="3" className={globalStyles.blokkXxs}>
+				Koordinatorer
+			</Heading>
 			<ul className={styles.koordinatorList}>
-				{props.koordinatorer.map(k =>
+				{props.koordinatorer.map((k) => (
 					<li className={styles.koordinator} key={koordinatorDisplayString(k)}>
-						<People aria-hidden/> {koordinatorDisplayString(k)}
-					</li>)}
+						<PersonIcon aria-hidden className={styles.koordinatorIcon} /> {koordinatorDisplayString(k)}
+					</li>
+				))}
 			</ul>
-
 		</div>
 	)
-
 }

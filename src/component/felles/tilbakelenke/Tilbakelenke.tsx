@@ -1,4 +1,4 @@
-import { Back } from '@navikt/ds-icons'
+import { ChevronLeftIcon } from '@navikt/aksel-icons'
 import { Label } from '@navikt/ds-react'
 import cls from 'classnames'
 import React from 'react'
@@ -12,10 +12,9 @@ interface TilbakelenkeProps {
 }
 
 export const Tilbakelenke = (props: TilbakelenkeProps): React.ReactElement<TilbakelenkeProps> => {
-
 	return (
 		<Link to={props.to} className={cls(styles.tilbakelenke, props.className)}>
-			<Back className={styles.pil} />
+			<ChevronLeftIcon className={styles.pil} />
 			<Label as="span" size="small">
 				Tilbake
 			</Label>

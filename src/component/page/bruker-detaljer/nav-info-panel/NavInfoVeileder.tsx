@@ -1,4 +1,4 @@
-import { Email, People, Telephone } from '@navikt/ds-icons'
+import { EnvelopeClosedIcon, PersonIcon, PhoneIcon } from '@navikt/aksel-icons'
 import { Alert, Heading } from '@navikt/ds-react'
 import React from 'react'
 
@@ -22,17 +22,17 @@ export const NavInfoVeileder = (props: Props): React.ReactElement => {
 			<div className={styles.contentBlock}>
 				<IconLabel
 					labelValue={navVeileder?.navn}
-					icon={<People title="Veileder navn" />}
+					icon={<PersonIcon title="Veileder navn" />}
 					iconWrapperClassName={styles.iconWrapper}
 				/>
 				<IconLabel
 					labelValue={formaterTelefonnummer(navVeileder?.telefon)}
-					icon={<Telephone title="Veileder telefonnummer" />}
+					icon={<PhoneIcon title="Veileder telefonnummer" />}
 					iconWrapperClassName={styles.iconWrapper}
 				/>
 				<IconLabel
 					labelValue={navVeileder?.epost}
-					icon={<Email title="Veileder epost" />}
+					icon={<EnvelopeClosedIcon title="Veileder epost" />}
 					iconWrapperClassName={styles.iconWrapper}
 				/>
 			</div>
@@ -47,7 +47,9 @@ export const NavInfoVeileder = (props: Props): React.ReactElement => {
 
 	return (
 		<>
-			<Heading size="xsmall" level="3" className={globalStyles.blokkXs}>NAV-veileder</Heading>
+			<Heading size="xsmall" level="3" className={globalStyles.blokkXs}>
+				NAV-veileder
+			</Heading>
 			{veileder}
 		</>
 	)

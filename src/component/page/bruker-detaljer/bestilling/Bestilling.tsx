@@ -1,4 +1,4 @@
-import { Collapse, Expand } from '@navikt/ds-icons'
+import { ChevronUpIcon, ChevronDownIcon } from '@navikt/aksel-icons'
 import { BodyLong, Label } from '@navikt/ds-react'
 import React, { useState } from 'react'
 
@@ -14,7 +14,7 @@ interface BestillingProps {
 const MAX_LENGTH = 350
 
 export const Bestilling = (props: BestillingProps) => {
-	const [ showAll, setShowAll ] = useState(false)
+	const [showAll, setShowAll] = useState(false)
 
 	const erBestillingOverMax = (props.tekst?.length || 0) > MAX_LENGTH
 	let bestillingTekst = props.tekst || EMDASH
@@ -29,27 +29,25 @@ export const Bestilling = (props: BestillingProps) => {
 
 	return (
 		<div className={styles.wrapper}>
-			<Label size="small" as="p">Bestilling</Label>
+			<Label size="small" as="p">
+				Bestilling
+			</Label>
 
 			<BodyLong size="small" className={styles.tekst}>
 				{bestillingTekst}
 			</BodyLong>
 
 			<Show if={erBestillingOverMax}>
-				{
-					showAll && (
-						<button className={styles.toggleKnapp} onClick={toggleShowAll}>
-							Skjul <Collapse />
-						</button>
-					)
-				}
-				{
-					!showAll && (
-						<button className={styles.toggleKnapp} onClick={toggleShowAll}>
-							Les mer <Expand />
-						</button>
-					)
-				}
+				{showAll && (
+					<button className={styles.toggleKnapp} onClick={toggleShowAll}>
+						Skjul <ChevronUpIcon />
+					</button>
+				)}
+				{!showAll && (
+					<button className={styles.toggleKnapp} onClick={toggleShowAll}>
+						Les mer <ChevronDownIcon />
+					</button>
+				)}
 			</Show>
 		</div>
 	)

@@ -1,4 +1,4 @@
-import { Close } from '@navikt/ds-icons'
+import { XMarkIcon } from '@navikt/aksel-icons'
 import { Alert, Button, Heading, Panel, Tooltip } from '@navikt/ds-react'
 import React, { ReactElement } from 'react'
 
@@ -15,19 +15,25 @@ export interface EndringsmeldingPanelProps {
 	children: ReactElement
 }
 
-export const EndringsmeldingPanel = ({ endringsmelding, onEndringsmeldingTilbakekalt, children }: EndringsmeldingPanelProps) => {
+export const EndringsmeldingPanel = ({
+	endringsmelding,
+	onEndringsmeldingTilbakekalt,
+	children
+}: EndringsmeldingPanelProps) => {
 	const tilbakekallEndringsmeldingPromise = usePromise<void>()
 
 	const handleClick = () => {
 		tilbakekallEndringsmeldingPromise.setPromise(
-			tilbakekallEndringsmelding(endringsmelding.id)
-				.then(onEndringsmeldingTilbakekalt)
+			tilbakekallEndringsmelding(endringsmelding.id).then(onEndringsmeldingTilbakekalt)
 		)
 	}
 
 	if (isRejected(tilbakekallEndringsmeldingPromise)) {
-		return <Alert className={styles.alert} role="status" variant="error">Meldingen ble ikke tilbakekalt. En annen person har gjort at meldingen er utdatert.</Alert>
-
+		return (
+			<Alert className={styles.alert} role="status" variant="error">
+				Meldingen ble ikke tilbakekalt. En annen person har gjort at meldingen er utdatert.
+			</Alert>
+		)
 	}
 
 	return (
@@ -35,14 +41,18 @@ export const EndringsmeldingPanel = ({ endringsmelding, onEndringsmeldingTilbake
 			<div className={styles.innholdWrapper}>
 				<EndringTypeIkon type={mapTilEndringType(endringsmelding.type)} />
 				<div className={styles.innhold}>
-					<Heading size="xsmall" level="4">Sendt til NAV:</Heading>
+					<Heading size="xsmall" level="4">
+						Sendt til NAV:
+					</Heading>
 					{children}
 				</div>
 			</div>
 			<Tooltip content="Tilbakekall melding" className={styles.tooltip}>
 				<Button
-					icon={<Close aria-hidden/>}
-					loading={isPending(tilbakekallEndringsmeldingPromise) || isResolved(tilbakekallEndringsmeldingPromise)}
+					icon={<XMarkIcon aria-hidden />}
+					loading={
+						isPending(tilbakekallEndringsmeldingPromise) || isResolved(tilbakekallEndringsmeldingPromise)
+					}
 					variant="tertiary"
 					size="small"
 					onClick={handleClick}
@@ -54,17 +64,25 @@ export const EndringsmeldingPanel = ({ endringsmelding, onEndringsmeldingTilbake
 	)
 }
 
-
 const mapTilEndringType = (endringsmeldingType: EndringsmeldingType) => {
 	switch (endringsmeldingType) {
-		case EndringsmeldingType.LEGG_TIL_OPPSTARTSDATO: return EndringType.LEGG_TIL_OPPSTARTSDATO
-		case EndringsmeldingType.ENDRE_OPPSTARTSDATO: return EndringType.ENDRE_OPPSTARTSDATO
-		case EndringsmeldingType.FORLENG_DELTAKELSE: return EndringType.FORLENG_DELTAKELSE
-		case EndringsmeldingType.DELTAKER_IKKE_AKTUELL: return EndringType.DELTAKER_IKKE_AKTUELL
-		case EndringsmeldingType.AVSLUTT_DELTAKELSE: return EndringType.AVSLUTT_DELTAKELSE
-		case EndringsmeldingType.ENDRE_DELTAKELSE_PROSENT: return EndringType.ENDRE_DELTAKELSE_PROSENT
-		case EndringsmeldingType.DELTAKER_ER_AKTUELL: return EndringType.DELTAKER_ER_AKTUELL
-		case EndringsmeldingType.ENDRE_SLUTTDATO: return EndringType.ENDRE_SLUTTDATO
-		default: throw Error(`Kan ikke finne endringsmeldingtype: ${endringsmeldingType}`)
+		case EndringsmeldingType.LEGG_TIL_OPPSTARTSDATO:
+			return EndringType.LEGG_TIL_OPPSTARTSDATO
+		case EndringsmeldingType.ENDRE_OPPSTARTSDATO:
+			return EndringType.ENDRE_OPPSTARTSDATO
+		case EndringsmeldingType.FORLENG_DELTAKELSE:
+			return EndringType.FORLENG_DELTAKELSE
+		case EndringsmeldingType.DELTAKER_IKKE_AKTUELL:
+			return EndringType.DELTAKER_IKKE_AKTUELL
+		case EndringsmeldingType.AVSLUTT_DELTAKELSE:
+			return EndringType.AVSLUTT_DELTAKELSE
+		case EndringsmeldingType.ENDRE_DELTAKELSE_PROSENT:
+			return EndringType.ENDRE_DELTAKELSE_PROSENT
+		case EndringsmeldingType.DELTAKER_ER_AKTUELL:
+			return EndringType.DELTAKER_ER_AKTUELL
+		case EndringsmeldingType.ENDRE_SLUTTDATO:
+			return EndringType.ENDRE_SLUTTDATO
+		default:
+			throw Error(`Kan ikke finne endringsmeldingtype: ${endringsmeldingType}`)
 	}
 }
