@@ -5,15 +5,15 @@ import globalStyles from '../../../../../../globals.module.scss'
 import cls from 'classnames'
 import { formatDate } from '../../../../../../utils/date-utils'
 import { Show } from '../../../../../felles/Show'
-import { Add, Close } from '@navikt/ds-icons'
+import { PlusIcon, XMarkIcon } from '@navikt/aksel-icons'
 import React, { useEffect, useState } from 'react'
 
 interface DeltakerlistePanelProps {
-	deltakerliste: Deltakerliste;
-	deltakerlisterLagtTil: string[];
-	deltakerlisteIdLoading: string | undefined;
-	onLeggTil: (id: string) => void;
-	onFjern: (id: string) => void;
+	deltakerliste: Deltakerliste
+	deltakerlisterLagtTil: string[]
+	deltakerlisteIdLoading: string | undefined
+	onLeggTil: (id: string) => void
+	onFjern: (id: string) => void
 }
 
 const SUCCESS_ALERT_TIMEOUT_MS = 2000
@@ -21,9 +21,9 @@ const SUCCESS_ALERT_TIMEOUT_MS = 2000
 export const DeltakerlistePanel = (props: DeltakerlistePanelProps) => {
 	const deltakerliste = props.deltakerliste
 
-	const [ lagtTil, setLagtTil ] = useState<boolean | undefined>()
-	const [ isLoading, setIsLoading ] = useState(false)
-	const [ showSuccessAlert, setShowSuccessAlert ] = useState(false)
+	const [lagtTil, setLagtTil] = useState<boolean | undefined>()
+	const [isLoading, setIsLoading] = useState(false)
+	const [showSuccessAlert, setShowSuccessAlert] = useState(false)
 
 	useEffect(() => {
 		const nyStatus = props.deltakerlisterLagtTil.includes(deltakerliste.id)
@@ -37,13 +37,11 @@ export const DeltakerlistePanel = (props: DeltakerlistePanelProps) => {
 		}
 
 		setLagtTil(nyStatus)
-
-	}, [ props.deltakerliste, props.deltakerlisterLagtTil, deltakerliste.id, lagtTil ])
+	}, [props.deltakerliste, props.deltakerlisterLagtTil, deltakerliste.id, lagtTil])
 
 	useEffect(() => {
 		setIsLoading(props.deltakerliste.id === props.deltakerlisteIdLoading)
-	}, [ props.deltakerlisteIdLoading, props.deltakerliste.id ])
-
+	}, [props.deltakerlisteIdLoading, props.deltakerliste.id])
 
 	const onLeggTilClicked = () => {
 		props.onLeggTil(props.deltakerliste.id)
@@ -55,16 +53,20 @@ export const DeltakerlistePanel = (props: DeltakerlistePanelProps) => {
 
 	return (
 		<Panel border className={styles.panel}>
-			<Heading size="xsmall" level="5" className={globalStyles.blokkXxs}>{deltakerliste.navn}</Heading>
+			<Heading size="xsmall" level="5" className={globalStyles.blokkXxs}>
+				{deltakerliste.navn}
+			</Heading>
 			<div className={styles.innhold}>
 				<div>
 					<div className={cls(styles.rad, globalStyles.blokkXxs)}>
 						<BodyShort size="small" className={styles.tiltaksinfo}>
 							<span className={styles.tiltaknavn}>{deltakerliste.tiltaksnavn}</span>
-							<span> {formatDate(deltakerliste.startDato)} - {formatDate(deltakerliste.sluttDato)}</span>
+							<span>
+								{' '}
+								{formatDate(deltakerliste.startDato)} - {formatDate(deltakerliste.sluttDato)}
+							</span>
 						</BodyShort>
 					</div>
-
 				</div>
 
 				<Show if={!lagtTil}>
@@ -77,10 +79,14 @@ export const DeltakerlistePanel = (props: DeltakerlistePanelProps) => {
 							loading={isLoading}
 							onClick={onLeggTilClicked}
 						>
-							<Add/> Legg til
+							<PlusIcon /> Legg til
 						</Button>
 					)}
-					{showSuccessAlert && <Alert size="small" role="status" variant="success">Fjernet</Alert>}
+					{showSuccessAlert && (
+						<Alert size="small" role="status" variant="success">
+							Fjernet
+						</Alert>
+					)}
 				</Show>
 
 				<Show if={lagtTil}>
@@ -93,13 +99,16 @@ export const DeltakerlistePanel = (props: DeltakerlistePanelProps) => {
 							loading={isLoading}
 							onClick={onFjernClicked}
 						>
-							<Close/> Fjern
+							<XMarkIcon /> Fjern
 						</Button>
 					)}
-					{showSuccessAlert && <Alert size="small" role="status" variant="success">Lagt til</Alert>}
+					{showSuccessAlert && (
+						<Alert size="small" role="status" variant="success">
+							Lagt til
+						</Alert>
+					)}
 				</Show>
 			</div>
 		</Panel>
 	)
-
 }

@@ -1,10 +1,8 @@
-import { Add } from '@navikt/ds-icons'
+import { PlusIcon } from '@navikt/aksel-icons'
 import React, { useEffect } from 'react'
 
 import { useTabTitle } from '../../../hooks/use-tab-title'
-import {
-	LEGG_TIL_DELTAKERLISTE_PAGE_ROUTE
-} from '../../../navigation'
+import { LEGG_TIL_DELTAKERLISTE_PAGE_ROUTE } from '../../../navigation'
 import { useTilbakelenkeStore } from '../../../store/tilbakelenke-store'
 import { AlertPage } from '../../felles/alert-page/AlertPage'
 import { IkonLenke } from '../../felles/ikon-lenke/IkonLenke'
@@ -26,7 +24,6 @@ export const MineDeltakerlisterPage = (): React.ReactElement => {
 
 	useTabTitle('Deltakeroversikt')
 
-
 	useEffect(() => {
 		setTilbakeTilUrl(null)
 		// eslint-disable-next-line react-hooks/exhaustive-deps
@@ -42,23 +39,31 @@ export const MineDeltakerlisterPage = (): React.ReactElement => {
 	if (koordinatorsDeltakerlister && koordinatorsDeltakerlister.koordinatorFor) {
 		return (
 			<div className={styles.page} data-testid="gjennomforing-oversikt-page">
-				{ isVeileder(roller) && koordinatorsDeltakerlister.veilederFor && <MineDeltakerePanel veileder={koordinatorsDeltakerlister.veilederFor}/>}
-				<DeltakerListe deltakerliste={koordinatorsDeltakerlister.koordinatorFor.deltakerlister}/>
+				{isVeileder(roller) && koordinatorsDeltakerlister.veilederFor && (
+					<MineDeltakerePanel veileder={koordinatorsDeltakerlister.veilederFor} />
+				)}
+				<DeltakerListe deltakerliste={koordinatorsDeltakerlister.koordinatorFor.deltakerlister} />
 
 				<IkonLenke
 					to={LEGG_TIL_DELTAKERLISTE_PAGE_ROUTE}
 					className={styles.leggTilDeltakerlisteWrapper}
-					ikon={<Add/>}
+					ikon={<PlusIcon />}
 					text="Legg til deltakerliste"
 				/>
 
-				<Link href="https://www.nav.no/samarbeidspartner/deltakeroversikt" className={styles.informasjonLenkeWrapper}>
+				<Link
+					href="https://www.nav.no/samarbeidspartner/deltakeroversikt"
+					className={styles.informasjonLenkeWrapper}
+				>
 					<BodyShort>Info om deltakeroversikten</BodyShort>
 				</Link>
 			</div>
 		)
 	} else {
-		return <Alert variant="info" className={globalStyles.blokkM}>For å se deltakere må du legge til en deltakerliste.</Alert>
+		return (
+			<Alert variant="info" className={globalStyles.blokkM}>
+				For å se deltakere må du legge til en deltakerliste.
+			</Alert>
+		)
 	}
 }
-

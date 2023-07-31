@@ -6,7 +6,6 @@
     "@babel/core": "^7.20.5",
     "@navikt/aksel-icons": "^2.9.8",
     "@navikt/ds-css": "^4.4.0",
-    "@navikt/ds-icons": "^2.1.0",
     "@navikt/ds-react": "^4.4.0",
     "@navikt/ds-tokens": "^2.1.0",
     "@navikt/nav-dekoratoren-moduler": "^1.9.0",

@@ -14,9 +14,6 @@ dependencies:
   '@navikt/ds-css':
     specifier: ^4.4.0
     version: 4.4.2
-  '@navikt/ds-icons':
-    specifier: ^2.1.0
-    version: 2.1.0(@types/react@18.0.26)(react@18.2.0)
   '@navikt/ds-react':
     specifier: ^4.4.0
     version: 4.4.2(@types/react@18.0.26)(react-dom@18.2.0)(react@18.2.0)
@@ -879,19 +876,6 @@ packages:
 
   /@navikt/ds-css@4.4.2:
     resolution: {integrity: sha512-rY0AIi8/+Q+IndCH+bCCZxQ4gharu4ReVSo/92qs8Jdk+KMlPLPX+C3ikl7g67twnY2RbXleHJMPRJJzqmhL7w==, tarball: https://npm.pkg.github.com/download/@navikt/ds-css/4.4.2/b2ea08f8991c43733d51bda9e47a3bfe25289899}
-    dev: false
-
-  /@navikt/ds-icons@2.1.0(@types/react@18.0.26)(react@18.2.0):
-    resolution: {integrity: sha512-7Oervq+hSuMQTDrEgwmJtIDhu6beSC+yHjit1GVQQW0w7qw8S0fK0TX/nmRZ4CVRAjRwJZJX6rfpJqGYrhqghQ==, tarball: https://npm.pkg.github.com/download/@navikt/ds-icons/2.1.0/be6795f7999bfd6b475c977648720821582ced74}
-    peerDependencies:
-      '@types/react': ^17.0.30 || ^18.0.0
-      react: ^17.0.0 || ^18.0.0
-    peerDependenciesMeta:
-      '@types/react':
-        optional: true
-    dependencies:
-      '@types/react': 18.0.26
-      react: 18.2.0
     dev: false
 
   /@navikt/ds-react@4.4.2(@types/react@18.0.26)(react-dom@18.2.0)(react@18.2.0):

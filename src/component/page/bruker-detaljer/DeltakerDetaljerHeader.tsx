@@ -1,4 +1,4 @@
-import { Email, Telephone } from '@navikt/ds-icons'
+import { EnvelopeClosedIcon, PhoneIcon } from '@navikt/aksel-icons'
 import { Heading } from '@navikt/ds-react'
 import cls from 'classnames'
 import React, { useEffect } from 'react'
@@ -14,13 +14,13 @@ import { isOnlyKoordinator, isOnlyVeileder } from '../../../utils/rolle-utils'
 import { useQuery } from '../../../utils/use-query'
 
 interface BrukerPaaTiltakHeaderProps {
-	deltakerlisteId: string,
-	fornavn: string,
-	mellomnavn: string | null,
-	etternavn: string,
-	fodselsnummer: string,
-	telefonnummer: string | null,
-	epost: string | null,
+	deltakerlisteId: string
+	fornavn: string
+	mellomnavn: string | null
+	etternavn: string
+	fodselsnummer: string
+	telefonnummer: string | null
+	epost: string | null
 }
 
 export const DeltakerDetaljerHeader = (props: BrukerPaaTiltakHeaderProps): React.ReactElement => {
@@ -43,14 +43,16 @@ export const DeltakerDetaljerHeader = (props: BrukerPaaTiltakHeaderProps): React
 			}
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [ deltakerlisteId, roller ])
+	}, [deltakerlisteId, roller])
 
 	return (
 		<div className={styles.header}>
 			<div className={styles.headerContent}>
 				<div className={styles.headerInfoWrapper}>
 					<div className={cls(styles.headerTitleWrapper)}>
-						<Heading size="small" level="2" className={styles.headerTitle}>{lagBrukerNavn(fornavn, mellomnavn, etternavn)}</Heading>
+						<Heading size="small" level="2" className={styles.headerTitle}>
+							{lagBrukerNavn(fornavn, mellomnavn, etternavn)}
+						</Heading>
 						{fodselsnummer && (
 							<KopierKnapp
 								kopierTekst={fodselsnummer}
@@ -62,8 +64,11 @@ export const DeltakerDetaljerHeader = (props: BrukerPaaTiltakHeaderProps): React
 					</div>
 
 					<div className={styles.headerInfo}>
-						<IconLabel labelValue={formaterTelefonnummer(telefonnummer)} icon={<Telephone title="Deltaker telefonnummer" />} />
-						<IconLabel labelValue={epost} icon={<Email title="Deltaker e-post" />} />
+						<IconLabel
+							labelValue={formaterTelefonnummer(telefonnummer)}
+							icon={<PhoneIcon title="Deltaker telefonnummer" />}
+						/>
+						<IconLabel labelValue={epost} icon={<EnvelopeClosedIcon title="Deltaker e-post" />} />
 					</div>
 				</div>
 			</div>
