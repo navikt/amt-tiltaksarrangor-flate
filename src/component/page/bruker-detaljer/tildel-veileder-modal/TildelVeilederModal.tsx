@@ -113,7 +113,7 @@ export const TildelVeilederModal = (props: Props): React.ReactElement => {
 					className={styles.select}
 				/>
 				<SelectField
-					label="Medveiledere (valgfritt)"
+					label="Medveiledere"
 					isMulti
 					value={medveiledere.map(veilederToOption)}
 					options={muligeVeiledervalg}
