@@ -1,1 +1,1 @@
-export const BESKRIVELSE_ANNET_MAKS_TEGN = 40
+export const BESKRIVELSE_MAKS_TEGN = 40

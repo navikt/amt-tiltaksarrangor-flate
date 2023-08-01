@@ -8,7 +8,7 @@ import { AarsakSelector } from './AarsakSelector'
 import { SendTilNavKnapp } from './SendTilNavKnapp'
 import { VeilederConfirmationPanel } from './VeilederConfirmationPanel'
 import { aarsakTekstMapper } from '../tekst-mappers'
-import { BESKRIVELSE_ANNET_MAKS_TEGN } from '../../../../../utils/endre-deltaker-utils'
+import { BESKRIVELSE_MAKS_TEGN } from '../../../../../utils/endre-deltaker-utils'
 
 interface SettIkkeAktuellModalProps {
 	onClose: () => void
@@ -31,7 +31,7 @@ export const SettIkkeAktuellModal = (props: SettIkkeAktuellModalProps & SettIkke
 			? aarsak &&
 				(vilkaarGodkjent || !visGodkjennVilkaarPanel) &&
 				beskrivelse &&
-				beskrivelse.length <= BESKRIVELSE_ANNET_MAKS_TEGN
+				beskrivelse.length <= BESKRIVELSE_MAKS_TEGN
 			: aarsak && (vilkaarGodkjent || !visGodkjennVilkaarPanel)
 
 	const sendEndringsmelding = () => {
