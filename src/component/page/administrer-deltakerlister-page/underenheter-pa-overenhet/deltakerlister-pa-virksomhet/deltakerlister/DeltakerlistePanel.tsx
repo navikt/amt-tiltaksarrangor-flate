@@ -104,7 +104,7 @@ export const DeltakerlistePanel = (props: DeltakerlistePanelProps) => {
 					)}
 					{showSuccessAlert && (
 						<Alert size="small" role="status" variant="success">
-							Lagt til
+							<div className={styles.nonBreaking}>Lagt til</div>
 						</Alert>
 					)}
 				</Show>
