@@ -40,6 +40,8 @@ export const AarsakRadioMedBeskrivelse = ({
 				<Textarea
 					onChange={handleChange}
 					value={beskrivelse ?? ''}
+					minRows={1}
+					rows={1}
 					size="small"
 					label={null}
 					maxLength={BESKRIVELSE_MAKS_TEGN}
