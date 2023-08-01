@@ -5,6 +5,7 @@ import { Textarea, useId } from '@navikt/ds-react'
 import styles from './AarsakSelector.module.scss'
 import { AarsakRadio } from './AarsakRadio'
 import { Nullable } from '../../../../../utils/types/or-nothing'
+import { BESKRIVELSE_MAKS_TEGN } from '../../../../../utils/endre-deltaker-utils'
 
 interface AarsakRadioMedBeskrivelseProps {
 	aarsakType: DeltakerStatusAarsakType
@@ -41,7 +42,7 @@ export const AarsakRadioMedBeskrivelse = ({
 					value={beskrivelse ?? ''}
 					size="small"
 					label={null}
-					maxLength={40}
+					maxLength={BESKRIVELSE_MAKS_TEGN}
 					className={styles.tekstboks}
 					aria-label={aarsakTekstMapper(aarsakType)}
 					aria-describedby={detailId}
