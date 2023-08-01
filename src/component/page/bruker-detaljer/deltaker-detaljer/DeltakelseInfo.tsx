@@ -72,7 +72,7 @@ export const DeltakelseInfo = ({
 						<span>{formatDate(deltaker.startDato)} - {formatDate(deltaker.sluttDato)}</span>
 					</ElementPanel>
 					{skalViseDeltakelsesmengde && (
-						<ElementPanel tittel="Deltakelsesmengde:" className={styles.deltakelsesProsentPanel}>
+						<ElementPanel tittel="Deltakelsesmengde:">
 							<span>{getDeltakelsesmengdetekst(deltaker.deltakelseProsent, deltaker.dagerPerUke)}
 							</span>
 						</ElementPanel>
