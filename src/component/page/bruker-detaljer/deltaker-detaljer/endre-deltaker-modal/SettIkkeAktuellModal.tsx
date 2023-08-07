@@ -23,9 +23,9 @@ export interface SettIkkeAktuellModalDataProps {
 
 export const SettIkkeAktuellModal = (props: SettIkkeAktuellModalProps & SettIkkeAktuellModalDataProps) => {
 	const { deltakerId, onClose, visGodkjennVilkaarPanel, onEndringUtfort } = props
-	const [aarsak, settAarsak] = useState<DeltakerStatusAarsakType>()
-	const [beskrivelse, settBeskrivelse] = useState<Nullable<string>>()
-	const [vilkaarGodkjent, settVilkaarGodkjent] = useState(false)
+	const [ aarsak, settAarsak ] = useState<DeltakerStatusAarsakType>()
+	const [ beskrivelse, settBeskrivelse ] = useState<Nullable<string>>()
+	const [ vilkaarGodkjent, settVilkaarGodkjent ] = useState(false)
 	const kanSendeEndringsmelding =
 		aarsak === DeltakerStatusAarsakType.ANNET || aarsak === DeltakerStatusAarsakType.OPPFYLLER_IKKE_KRAVENE
 			? aarsak &&

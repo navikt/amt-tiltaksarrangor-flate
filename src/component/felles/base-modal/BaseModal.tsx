@@ -24,8 +24,11 @@ export const BaseModal = (props: BaseModalProps) => {
 		if (isOpen) {
 			document.getElementById('decorator-header')?.setAttribute('aria-hidden', 'true')
 			document.getElementById('decorator-footer')?.setAttribute('aria-hidden', 'true')
+		} else {
+			document.getElementById('decorator-header')?.setAttribute('aria-hidden', 'false')
+			document.getElementById('decorator-footer')?.setAttribute('aria-hidden', 'false')
 		}
-	}, [isOpen])
+	}, [ isOpen ])
 
 	const handleCloseModal = () => {
 		document.getElementById('root')?.setAttribute('aria-hidden', 'false')

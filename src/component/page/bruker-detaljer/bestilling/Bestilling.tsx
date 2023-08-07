@@ -14,7 +14,7 @@ interface BestillingProps {
 const MAX_LENGTH = 350
 
 export const Bestilling = (props: BestillingProps) => {
-	const [showAll, setShowAll] = useState(false)
+	const [ showAll, setShowAll ] = useState(false)
 
 	const erBestillingOverMax = (props.tekst?.length || 0) > MAX_LENGTH
 	let bestillingTekst = props.tekst || EMDASH

@@ -22,11 +22,11 @@ export const AdministrerDeltakerlisterPage = () => {
 	const { setTilbakeTilUrl } = useTilbakelenkeStore()
 	const { koordinatorsDeltakerlister, setKoordinatorsDeltakerlister } = useKoordinatorsDeltakerlisterStore()
 
-	const [arrangorer, setArrangorer] = useState<ArrangorOverenhet[]>([])
-	const [deltakerlisteIderLagtTil, setDeltakerlisteIderLagtTil] = useState<string[]>([])
+	const [ arrangorer, setArrangorer ] = useState<ArrangorOverenhet[]>([])
+	const [ deltakerlisteIderLagtTil, setDeltakerlisteIderLagtTil ] = useState<string[]>([])
 
-	const [deltakerlisteIdUpdating, setDeltakerlisteIdUpdating] = useState<string | undefined>(undefined)
-	const [showLeggTilModal, setShowLeggTilModal] = useState(false)
+	const [ deltakerlisteIdUpdating, setDeltakerlisteIdUpdating ] = useState<string | undefined>(undefined)
+	const [ showLeggTilModal, setShowLeggTilModal ] = useState(false)
 
 	const fetchAlleDeltakerlisterPromise = usePromise<AxiosResponse<AdminDeltakerliste[]>>(fetchAlleDeltakerlister)
 
@@ -45,7 +45,7 @@ export const AdministrerDeltakerlisterPage = () => {
 
 		setDeltakerlisteIderLagtTil(deltakerlisteIderAlleredeLagtTil)
 		setArrangorer(data)
-	}, [fetchAlleDeltakerlisterPromise.result])
+	}, [ fetchAlleDeltakerlisterPromise.result ])
 
 	const onLeggTil = (deltakerlisteId: string) => {
 		setDeltakerlisteIdUpdating(deltakerlisteId)
@@ -56,7 +56,7 @@ export const AdministrerDeltakerlisterPage = () => {
 		setDeltakerlisteIdUpdating(deltakerlisteId)
 
 		fjernDeltakerliste(deltakerlisteId).then(() => {
-			setDeltakerlisteIderLagtTil([...deltakerlisteIderLagtTil.filter((i) => i !== deltakerlisteId)])
+			setDeltakerlisteIderLagtTil([ ...deltakerlisteIderLagtTil.filter((i) => i !== deltakerlisteId) ])
 			setDeltakerlisteIdUpdating(undefined)
 			if (koordinatorsDeltakerlister && koordinatorsDeltakerlister.koordinatorFor != null) {
 				const nyDeltakerliste = koordinatorsDeltakerlister.koordinatorFor.deltakerlister.filter(
@@ -73,10 +73,10 @@ export const AdministrerDeltakerlisterPage = () => {
 
 	const leggTilConfirmed = (id: string, navn: string, type: string) => {
 		leggTilDeltakerliste(id).then(() => {
-			setDeltakerlisteIderLagtTil([...deltakerlisteIderLagtTil, id])
+			setDeltakerlisteIderLagtTil([ ...deltakerlisteIderLagtTil, id ])
 			setDeltakerlisteIdUpdating(undefined)
 			if (koordinatorsDeltakerlister && koordinatorsDeltakerlister.koordinatorFor != null) {
-				const nyDeltakerliste = [...koordinatorsDeltakerlister.koordinatorFor.deltakerlister]
+				const nyDeltakerliste = [ ...koordinatorsDeltakerlister.koordinatorFor.deltakerlister ]
 				nyDeltakerliste.push({
 					id: id,
 					type: type,

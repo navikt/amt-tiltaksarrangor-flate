@@ -19,7 +19,7 @@ export const FilterMenyDeltakerListeDetaljer: React.FC<Props> = ({ deltakerliste
 	useLayoutEffect(() => {
 		fjernUgyldigeFilter(deltakerliste.deltakere)
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [deltakerliste.deltakere])
+	}, [ deltakerliste.deltakere ])
 
 	return (
 		<div>

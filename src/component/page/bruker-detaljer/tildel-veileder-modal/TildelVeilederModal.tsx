@@ -24,11 +24,11 @@ interface Props {
 const maksMedveiledere = 3
 
 export const TildelVeilederModal = (props: Props): React.ReactElement => {
-	const [tilgjengeligeVeiledere, setTilgjengeligeVeiledere] = useState<TilgjengeligVeileder[]>([])
-	const [muligeVeiledervalg, setMuligeVeiledervalg] = useState<SelectOption[]>()
-	const [veileder, setVeileder] = useState<TilgjengeligVeileder | undefined>()
-	const [medveiledere, setMedveiledere] = useState<TilgjengeligVeileder[]>([])
-	const [tildelingFeiletError, setTildelingFeiletError] = useState(false)
+	const [ tilgjengeligeVeiledere, setTilgjengeligeVeiledere ] = useState<TilgjengeligVeileder[]>([])
+	const [ muligeVeiledervalg, setMuligeVeiledervalg ] = useState<SelectOption[]>()
+	const [ veileder, setVeileder ] = useState<TilgjengeligVeileder | undefined>()
+	const [ medveiledere, setMedveiledere ] = useState<TilgjengeligVeileder[]>([])
+	const [ tildelingFeiletError, setTildelingFeiletError ] = useState(false)
 
 	const tildelVeilederePromise = usePromise<void>()
 	const tilgjengeligeVeilederePromise = usePromise<AxiosResponse<TilgjengeligVeileder[]>>(() =>
@@ -40,7 +40,7 @@ export const TildelVeilederModal = (props: Props): React.ReactElement => {
 			setTilgjengeligeVeiledere(tilgjengeligeVeilederePromise.result.data)
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [tilgjengeligeVeilederePromise.result])
+	}, [ tilgjengeligeVeilederePromise.result ])
 
 	useEffect(() => {
 		if (props.veileder) {
@@ -49,7 +49,7 @@ export const TildelVeilederModal = (props: Props): React.ReactElement => {
 		if (props.medveiledere) {
 			setMedveiledere(props.medveiledere)
 		}
-	}, [props.veileder, props.medveiledere])
+	}, [ props.veileder, props.medveiledere ])
 
 	useEffect(() => {
 		const medveilederIder = medveiledere.map((v) => v.ansattId)
@@ -58,7 +58,7 @@ export const TildelVeilederModal = (props: Props): React.ReactElement => {
 		const muligeValg = tilgjengeligeVeiledere?.filter((v) => !medveilederIder.includes(v.ansattId))
 
 		setMuligeVeiledervalg(muligeValg.map(veilederToOption))
-	}, [veileder, medveiledere, tilgjengeligeVeiledere])
+	}, [ veileder, medveiledere, tilgjengeligeVeiledere ])
 
 	const handleVeilederChange = (valg: SingleValue<SelectOption>) => {
 		setVeileder(tilgjengeligeVeiledere?.find((v) => v.ansattId === valg?.value))
@@ -80,7 +80,7 @@ export const TildelVeilederModal = (props: Props): React.ReactElement => {
 		if (medveiledere.length > maksMedveiledere) return
 
 		const veiledere: Veileder[] = veileder
-			? [{ ...veileder, deltakerId: props.deltaker.id, erMedveileder: false }]
+			? [ { ...veileder, deltakerId: props.deltaker.id, erMedveileder: false } ]
 			: []
 		medveiledere.forEach((v) => veiledere.push({ ...v, deltakerId: props.deltaker.id, erMedveileder: true }))
 
