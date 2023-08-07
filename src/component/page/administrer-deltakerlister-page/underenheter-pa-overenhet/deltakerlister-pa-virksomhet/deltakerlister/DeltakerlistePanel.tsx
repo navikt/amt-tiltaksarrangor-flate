@@ -21,9 +21,9 @@ const SUCCESS_ALERT_TIMEOUT_MS = 2000
 export const DeltakerlistePanel = (props: DeltakerlistePanelProps) => {
 	const deltakerliste = props.deltakerliste
 
-	const [lagtTil, setLagtTil] = useState<boolean | undefined>()
-	const [isLoading, setIsLoading] = useState(false)
-	const [showSuccessAlert, setShowSuccessAlert] = useState(false)
+	const [ lagtTil, setLagtTil ] = useState<boolean | undefined>()
+	const [ isLoading, setIsLoading ] = useState(false)
+	const [ showSuccessAlert, setShowSuccessAlert ] = useState(false)
 
 	useEffect(() => {
 		const nyStatus = props.deltakerlisterLagtTil.includes(deltakerliste.id)
@@ -37,11 +37,11 @@ export const DeltakerlistePanel = (props: DeltakerlistePanelProps) => {
 		}
 
 		setLagtTil(nyStatus)
-	}, [props.deltakerliste, props.deltakerlisterLagtTil, deltakerliste.id, lagtTil])
+	}, [ props.deltakerliste, props.deltakerlisterLagtTil, deltakerliste.id, lagtTil ])
 
 	useEffect(() => {
 		setIsLoading(props.deltakerliste.id === props.deltakerlisteIdLoading)
-	}, [props.deltakerlisteIdLoading, props.deltakerliste.id])
+	}, [ props.deltakerlisteIdLoading, props.deltakerliste.id ])
 
 	const onLeggTilClicked = () => {
 		props.onLeggTil(props.deltakerliste.id)

@@ -18,7 +18,7 @@ export const AarsakRadioMedBeskrivelse = ({
 	valgtAarsak,
 	onBeskrivelse
 }: AarsakRadioMedBeskrivelseProps) => {
-	const [beskrivelse, settBeskrivelse] = useState<Nullable<string>>()
+	const [ beskrivelse, settBeskrivelse ] = useState<Nullable<string>>()
 	const detailId = useId()
 	const visBeskrivelse = valgtAarsak === aarsakType
 
@@ -32,7 +32,7 @@ export const AarsakRadioMedBeskrivelse = ({
 		if (valgtAarsak === aarsakType) {
 			onBeskrivelse(beskrivelse)
 		}
-	}, [aarsakType, beskrivelse, onBeskrivelse, valgtAarsak])
+	}, [ aarsakType, beskrivelse, onBeskrivelse, valgtAarsak ])
 
 	return (
 		<AarsakRadio aarsakType={aarsakType}>

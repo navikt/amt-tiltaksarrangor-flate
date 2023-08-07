@@ -27,10 +27,10 @@ export interface AvsluttDeltakelseModalDataProps {
 
 export const AvsluttDeltakelseModal = (props: AvsluttDeltakelseModalProps & AvsluttDeltakelseModalDataProps) => {
 	const { onClose, deltakerId, startDato, visGodkjennVilkaarPanel, onEndringUtfort } = props
-	const [sluttDato, settSluttDato] = useState<Nullable<Date>>()
-	const [aarsak, settAarsak] = useState<DeltakerStatusAarsakType>()
-	const [beskrivelse, settBeskrivelse] = useState<Nullable<string>>()
-	const [vilkaarGodkjent, settVilkaarGodkjent] = useState(false)
+	const [ sluttDato, settSluttDato ] = useState<Nullable<Date>>()
+	const [ aarsak, settAarsak ] = useState<DeltakerStatusAarsakType>()
+	const [ beskrivelse, settBeskrivelse ] = useState<Nullable<string>>()
+	const [ vilkaarGodkjent, settVilkaarGodkjent ] = useState(false)
 	const { deltakerliste } = useDeltakerlisteStore()
 
 	const minDato = maxDate(startDato, deltakerliste.startDato)

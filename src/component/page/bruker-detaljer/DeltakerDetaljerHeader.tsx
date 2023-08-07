@@ -43,7 +43,7 @@ export const DeltakerDetaljerHeader = (props: BrukerPaaTiltakHeaderProps): React
 			}
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [deltakerlisteId, roller])
+	}, [ deltakerlisteId, roller ])
 
 	return (
 		<div className={styles.header}>

@@ -9,8 +9,8 @@ interface SendTilNavKnappProps {
 }
 
 export const SendTilNavKnapp = ({ disabled, sendEndring, onEndringSendt }: SendTilNavKnappProps) => {
-	const [showError, setShowError] = useState<boolean>()
-	const [errorMessage, setErrorMessage] = useState<string | null>()
+	const [ showError, setShowError ] = useState<boolean>()
+	const [ errorMessage, setErrorMessage ] = useState<string | null>()
 	const opprettEndringPromise = usePromise<void>()
 
 	const onClick = () => {

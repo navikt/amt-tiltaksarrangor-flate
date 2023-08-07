@@ -19,16 +19,16 @@ interface Props {
 }
 
 export const VeilederPanel = ({ deltaker, visTildeling }: Props): React.ReactElement => {
-	const [veileder, setVeileder] = useState<Veileder>()
-	const [medveiledere, setMedveiledere] = useState<Veileder[]>([])
-	const [openModal, setOpenModal] = useState(false)
+	const [ veileder, setVeileder ] = useState<Veileder>()
+	const [ medveiledere, setMedveiledere ] = useState<Veileder[]>([])
+	const [ openModal, setOpenModal ] = useState(false)
 
 	useEffect(() => {
 		const deltakersVeiledere = deltaker.veiledere.map((veilederMedType) => tilVeileder(veilederMedType))
 		setVeileder(deltakersVeiledere.find((v) => !v.erMedveileder))
 		setMedveiledere(deltakersVeiledere.filter((v) => v.erMedveileder))
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [deltaker.veiledere])
+	}, [ deltaker.veiledere ])
 
 	const handleModalState = () => {
 		setOpenModal((prev) => !prev)
