@@ -3,7 +3,7 @@ import { AxiosResponse } from 'axios'
 import dayjs from 'dayjs'
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 
-import { hentAuthInfo } from '../../api/auth-api'
+import { hentAuthInfo, refreshToken } from '../../api/auth-api'
 import { AuthInfo } from '../../api/data/auth'
 import { absolutePath, loginUrl } from '../../utils/url-utils'
 import { isResolved, usePromise } from '../../utils/use-promise'
@@ -65,7 +65,22 @@ export const SesjonNotifikasjon = (): React.ReactElement | null => {
 
 	}, [ tokenExpiryDate, navigate, tokenTimedOut, visDuBlirLoggetUtAlert, visUtloperSnartAlert ])
 
+	const refreshSessionToken = () => {
+		refreshToken()
+			.then(res => setTokenExpiryDate(res.data.tokens.expire_at))
+			.then(() => {
+				clearInterval(tvungenUtloggingTimeoutRef.current)
+				tvungenUtloggingTimeoutRef.current = undefined
+				setAlertType(undefined)
+			})
+			.catch(() => {
+				navigate(loginUrl(window.location.href))
+			})
+	}
+
+
 	const LoginLenke = () => <Link href={loginUrl(absolutePath(MINE_DELTAKERLISTER_PAGE_ROUTE))} className={styles.loginLenke}>Logg inn på nytt</Link>
+	const RefreshLenke = () => <Link href="#" onClick={refreshSessionToken}>Forbli innlogget</Link>
 
 	if (alertType === undefined) return null
 	return (
@@ -82,7 +97,7 @@ export const SesjonNotifikasjon = (): React.ReactElement | null => {
 			}
 			{alertType === AlertType.UTLOPER_SNART &&
 				<Alert variant="warning" role="alert">
-					Du blir snart logget ut.<LoginLenke />
+					Du blir snart logget ut. <RefreshLenke />
 				</Alert>
 			}
 		</div>
