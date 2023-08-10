@@ -132,8 +132,7 @@ export const AdministrerDeltakerlisterPage = () => {
 			</Heading>
 
 			<BodyShort className={globalStyles.blokkM}>
-				Hvilke deltakerlister koordinerer du? Det er viktig at du kun legger til deltakerlister som du er
-				koordinator for.
+				Hvilke deltakerlister koordinerer du? Det er viktig at du kun legger til deltakerlister som du er koordinator for.
 			</BodyShort>
 
 			<Show if={arrangorer.length === 0}>
@@ -141,9 +140,8 @@ export const AdministrerDeltakerlisterPage = () => {
 					På organisasjonsnummeret du har tilgang til finnes det ingen aktive deltakerlister.
 					<br />
 					<br />
-					Hvis du har fått en Altinn-rettighet, men fortsatt ikke ser deltakerlister her, så kan det være
-					fordi deltakerlisten du forventer å se er registrert på et annet org.nr i NAVs datasytem. Ta kontakt
-					med den i NAV som er ansvarlig for avtalen.
+					Mangler det en deltakerliste? Den kan være registrert på et annet org.nr. i NAVs datasystem. Ta kontakt med den i NAV som er ansvarlig for
+					avtalen.
 				</Alert>
 			</Show>
 
