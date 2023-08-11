@@ -10,6 +10,7 @@ import { isResolved, usePromise } from '../../utils/use-promise'
 import styles from './SesjonNotifikasjon.module.scss'
 import { useNavigate } from 'react-router-dom'
 import { DU_ER_LOGGET_UT_PAGE_ROUTE, MINE_DELTAKERLISTER_PAGE_ROUTE } from '../../navigation'
+import { Nullable } from '../../utils/types/or-nothing'
 
 enum AlertType {
 	UTLOPER_SNART,
@@ -23,19 +24,26 @@ export const SesjonNotifikasjon = (): React.ReactElement | null => {
 	const fetchAuthInfo = usePromise<AxiosResponse<AuthInfo>>(hentAuthInfo)
 	const navigate = useNavigate()
 	const tvungenUtloggingTimeoutRef = useRef<number>()
+
+
 	const tokenTimedOut = useCallback(() => {
 		return dayjs().isAfter(dayjs(tokenExpiryDate))
 	}, [ tokenExpiryDate ])
 
 	const visUtloperSnartAlert = useCallback(() => {
-		const visAlert = dayjs(tokenExpiryDate).subtract(5, 'minutes')
-		return dayjs().isAfter(visAlert)
+		return tokenUtloperSnart(tokenExpiryDate)
 	}, [ tokenExpiryDate ])
 
 	const visDuBlirLoggetUtAlert = useCallback(() => {
 		const visAlert = dayjs(tokenExpiryDate).subtract(2, 'minutes')
 		return dayjs().isAfter(visAlert)
 	}, [ tokenExpiryDate ])
+
+
+	const tokenUtloperSnart = (expiryDate: Nullable<Date>) => {
+		const utloperSnartTidspunkt = dayjs(expiryDate).subtract(5, 'minutes')
+		return dayjs().isAfter(utloperSnartTidspunkt)
+	}
 
 	useEffect(() => {
 		if (isResolved(fetchAuthInfo)) {
@@ -67,7 +75,14 @@ export const SesjonNotifikasjon = (): React.ReactElement | null => {
 
 	const refreshSessionToken = () => {
 		refreshToken()
-			.then(res => setTokenExpiryDate(res.data.tokens.expire_at))
+			.then(res => {
+				const expiry = res.data.tokens.expire_at
+				if (tokenUtloperSnart(expiry)) {
+					navigate(loginUrl(window.location.href))
+				} else {
+					setTokenExpiryDate(expiry)
+				}
+			})
 			.then(() => {
 				clearInterval(tvungenUtloggingTimeoutRef.current)
 				tvungenUtloggingTimeoutRef.current = undefined
@@ -80,7 +95,7 @@ export const SesjonNotifikasjon = (): React.ReactElement | null => {
 
 
 	const LoginLenke = () => <Link href={loginUrl(absolutePath(MINE_DELTAKERLISTER_PAGE_ROUTE))} className={styles.loginLenke}>Logg inn på nytt</Link>
-	const RefreshLenke = () => <Link href="#" onClick={refreshSessionToken}>Forbli innlogget</Link>
+	const RefreshLenke = () => <Link href="#" onClick={refreshSessionToken}>Logg inn på nytt</Link>
 
 	if (alertType === undefined) return null
 	return (
