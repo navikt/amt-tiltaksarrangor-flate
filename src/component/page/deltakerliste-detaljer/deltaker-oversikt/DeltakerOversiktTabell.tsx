@@ -6,9 +6,9 @@ import { finnNesteSortering } from '../../../../utils/sortering-utils'
 import { DeltakerTabell } from './deltaker-tabell/DeltakerTabell'
 import { sorterDeltakere } from './deltaker-tabell/sortering'
 import styles from './DeltakerOversiktTabell.module.scss'
+import globalStyles from '../../../../globals.module.scss'
 import { IngenDeltakereAlertstripe } from './IngenDeltakereAlertstripe'
 import { useKoordinatorFilterMenyStore } from '../store/koordinator-filter-meny-store-provider'
-
 
 interface DeltakerOversiktTabellProps {
 	deltakere: TiltakDeltaker[]
@@ -25,26 +25,24 @@ export const DeltakerOversiktTabell = (props: DeltakerOversiktTabellProps): Reac
 		const filtrerteDeltakere = filtrerDeltakere(deltakere)
 		const sortert = sorterDeltakere(filtrerteDeltakere, deltakerSortering)
 		setDeltakereBearbeidet(sortert)
-
 	}, [ deltakere, filtrerDeltakere, deltakerSortering, veilederFilter, medveilederFilter, statusFilter ])
 
 	const handleOnSortChange = (sortKey: string | undefined) => {
 		setDeltakerSortering(prevSort => finnNesteSortering(sortKey, prevSort))
 	}
 
-
 	return (
 		<div className={styles.tableWrapper}>
 			{deltakere.length === 0
 				? <IngenDeltakereAlertstripe/>
 				: (
-					<DeltakerTabell
-						deltakere={deltakereBearbeidet}
-						sortering={deltakerSortering}
-						onSortChange={handleOnSortChange}
-					/>
-				)
-			}
+					<>
+						<DeltakerTabell deltakere={deltakereBearbeidet} sortering={deltakerSortering} onSortChange={handleOnSortChange} />
+						<div aria-live="polite" aria-atomic="true" className={globalStyles.screenReaderOnly}>
+						Viser {deltakereBearbeidet.length} av {deltakere.length} deltakere.
+						</div>
+					</>
+				)}
 		</div>
 	)
 }
