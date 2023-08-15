@@ -9,6 +9,9 @@ export const pullRequestHandlers: RequestHandler[] = [
 	rest.get(appUrl('/auth/info'), (req, res, ctx) => {
 		return handleReq(req, res, ctx)
 	}),
+	rest.get(appUrl('/oauth2/session'), (req, res, ctx) => {
+		return handleReq(req, res, ctx)
+	}),
 	rest.post(appUrl('/oauth2/session/refresh'), (req, res, ctx) => {
 		return handleReq(req, res, ctx)
 	}),

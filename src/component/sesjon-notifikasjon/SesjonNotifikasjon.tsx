@@ -3,8 +3,8 @@ import { AxiosResponse } from 'axios'
 import dayjs from 'dayjs'
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 
-import { hentAuthInfo, refreshToken } from '../../api/auth-api'
-import { AuthInfo } from '../../api/data/auth'
+import { hentSessionInfo, refreshToken } from '../../api/auth-api'
+import { SessionInfo } from '../../api/data/auth'
 import { absolutePath, loginUrl } from '../../utils/url-utils'
 import { isResolved, usePromise } from '../../utils/use-promise'
 import styles from './SesjonNotifikasjon.module.scss'
@@ -21,7 +21,8 @@ enum AlertType {
 export const SesjonNotifikasjon = (): React.ReactElement | null => {
 	const [ alertType, setAlertType ] = useState<AlertType>()
 	const [ tokenExpiryDate, setTokenExpiryDate ] = useState<Date|null>()
-	const fetchAuthInfo = usePromise<AxiosResponse<AuthInfo>>(hentAuthInfo)
+	const [ sessionInfo, setSessionInfo ] = useState<SessionInfo>()
+	const fetchSessionInfo = usePromise<AxiosResponse<SessionInfo>>(hentSessionInfo)
 	const navigate = useNavigate()
 	const tvungenUtloggingTimeoutRef = useRef<number>()
 
@@ -46,10 +47,11 @@ export const SesjonNotifikasjon = (): React.ReactElement | null => {
 	}
 
 	useEffect(() => {
-		if (isResolved(fetchAuthInfo)) {
-			setTokenExpiryDate(fetchAuthInfo.result.data.expirationTime)
+		if (isResolved(fetchSessionInfo)) {
+			setSessionInfo(fetchSessionInfo.result.data)
+			setTokenExpiryDate(fetchSessionInfo.result.data.tokens.expire_at)
 		}
-	}, [ fetchAuthInfo ])
+	}, [ fetchSessionInfo ])
 
 
 	useEffect(() => {
@@ -60,7 +62,6 @@ export const SesjonNotifikasjon = (): React.ReactElement | null => {
 			if (tokenTimedOut()) {
 				setAlertType(AlertType.LOGGET_UT)
 				navigate(DU_ER_LOGGET_UT_PAGE_ROUTE)
-
 			}
 			else if (visDuBlirLoggetUtAlert()) {
 				setAlertType(AlertType.TVUNGEN_UTLOGGING_SNART)
@@ -75,27 +76,28 @@ export const SesjonNotifikasjon = (): React.ReactElement | null => {
 
 	const refreshSessionToken = () => {
 		refreshToken()
-			.then(res => {
-				const expiry = res.data.tokens.expire_at
-				if (tokenUtloperSnart(expiry)) {
-					navigate(loginUrl(window.location.href))
-				} else {
-					setTokenExpiryDate(expiry)
-				}
-			})
+			.then(res => setTokenExpiryDate(res.data.tokens.expire_at))
 			.then(() => {
 				clearInterval(tvungenUtloggingTimeoutRef.current)
 				tvungenUtloggingTimeoutRef.current = undefined
 				setAlertType(undefined)
 			})
 			.catch(() => {
-				navigate(loginUrl(window.location.href))
+				navigate(loginUrl(absolutePath(MINE_DELTAKERLISTER_PAGE_ROUTE)))
 			})
 	}
 
 
 	const LoginLenke = () => <Link href={loginUrl(absolutePath(MINE_DELTAKERLISTER_PAGE_ROUTE))} className={styles.loginLenke}>Logg inn på nytt</Link>
-	const RefreshLenke = () => <Link href="#" onClick={refreshSessionToken}>Logg inn på nytt</Link>
+	const RefreshLenke = () => <Link href="#" onClick={refreshSessionToken} className={styles.loginLenke}>Logg inn på nytt</Link>
+
+	const LoginEllerRefreshLenke = () => {
+		const sessionAvsluttesSnart = dayjs().add(5, 'minutes').isAfter(sessionInfo?.session.ends_at)
+		if (sessionAvsluttesSnart || !sessionInfo?.session.active) {
+			return <LoginLenke />
+		}
+		return <RefreshLenke />
+	}
 
 	if (alertType === undefined) return null
 	return (
@@ -107,12 +109,12 @@ export const SesjonNotifikasjon = (): React.ReactElement | null => {
 			}
 			{alertType === AlertType.TVUNGEN_UTLOGGING_SNART &&
 				<Alert variant="error" role="alert">
-					Du blir logget ut nå, og må logge inn på ny.<LoginLenke />
+					Du blir logget ut nå, og må logge inn på ny.<LoginEllerRefreshLenke />
 				</Alert>
 			}
 			{alertType === AlertType.UTLOPER_SNART &&
 				<Alert variant="warning" role="alert">
-					Du blir snart logget ut. <RefreshLenke />
+					Du blir snart logget ut.<LoginEllerRefreshLenke />
 				</Alert>
 			}
 		</div>

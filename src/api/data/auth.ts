@@ -10,6 +10,14 @@ export const authInfoSchema = z.object({
 })
 
 export const sessionInfoSchema = z.object({
+	session: z.object({
+		created_at: nullableDateSchema,
+		ends_at: nullableDateSchema,
+		timeout_at: nullableDateSchema,
+		ends_in_seconds: z.number(),
+		active: z.boolean(),
+		timeout_in_seconds: z.number(),
+	}),
 	tokens: z.object({
 		expire_at: nullableDateSchema,
 		refreshed_at: nullableDateSchema,

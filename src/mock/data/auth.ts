@@ -10,8 +10,8 @@ export const mockAuthInfo = {
 export const mockSessionInfo = () => {
 	return {
 		session: {
-			created_at: dayjs().subtract(4, 'hours').toISOString(),
-			ends_at: dayjs().add(4, 'hours').toISOString(),
+			created_at: dayjs().subtract(5, 'hours').toISOString(),
+			ends_at: dayjs().add(1, 'hours').toISOString(),
 			timeout_at: dayjs().add(1, 'hour').toISOString(),
 			ends_in_seconds: 14400,
 			active: true,
