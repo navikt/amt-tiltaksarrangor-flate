@@ -1,0 +1,20 @@
+.wrapper {
+  margin: 0;
+  padding: 2rem;
+}
+
+.table {
+  text-align: left;
+  position: relative;
+  border-collapse: collapse;
+}
+
+.cell {
+  padding: 0.25rem
+}
+
+.headerCell {
+  background: grey;
+  position: sticky;
+  top: 0;
+}

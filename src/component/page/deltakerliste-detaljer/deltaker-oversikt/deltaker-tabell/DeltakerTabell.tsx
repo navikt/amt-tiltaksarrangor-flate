@@ -4,6 +4,7 @@ import { TiltakDeltaker } from '../../../../../api/data/deltaker'
 import { Sortering } from '../../../../../utils/sortering-utils'
 import { TabellBody } from './TabellBody'
 import { TabellHeader } from './TabellHeader'
+import styles from './DeltakerTabell.module.scss'
 
 interface Props {
 	deltakere: TiltakDeltaker[]

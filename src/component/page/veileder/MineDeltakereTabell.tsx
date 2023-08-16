@@ -12,6 +12,7 @@ import { TabellHeaderVeileder } from './TabellHeaderVeileder'
 import { TabellBodyVeileder } from './TabellBodyVeileder'
 import { filtrerDeltakerliste } from '../../../utils/filtrering-utils'
 import { useVeilederFilterMenyStore } from './store/veileder-filter-meny-store-provider'
+import { TestTabell } from '../deltakerliste-detaljer/deltaker-oversikt/deltaker-tabell/TestTabell';
 
 interface MineDeltakereTabellProps {
 	mineDeltakere: VeiledersDeltaker[]
@@ -54,6 +55,7 @@ export const MineDeltakereTabell = (props: MineDeltakereTabellProps): React.Reac
 						<div aria-live="polite" aria-atomic="true" className={globalStyles.screenReaderOnly}>
 							Viser {deltakereBearbeidet.length} av {mineDeltakere.length} deltakere.
 						</div>
+						<TestTabell/>
 					</>
 				)}
 		</div>
