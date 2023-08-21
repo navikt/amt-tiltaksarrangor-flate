@@ -12,6 +12,9 @@ export const pullRequestHandlers: RequestHandler[] = [
 	rest.post(appUrl('/oauth2/session/refresh'), (req, res, ctx) => {
 		return handleReq(req, res, ctx)
 	}),
+	rest.get(appUrl('/oauth2/session'), (req, res, ctx) => {
+		return handleReq(req, res, ctx)
+	}),
 	rest.all(appUrl('/amt-tiltaksarrangor-bff/*'), async(req, res, ctx) => {
 		return handleReq(req, res, ctx)
 	}),

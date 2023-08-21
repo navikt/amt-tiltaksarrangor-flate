@@ -29,6 +29,9 @@ export const mockHandlers: RequestHandler[] = [
 	rest.post(appUrl('/oauth2/session/refresh'), (_req, res, ctx) => {
 		return res(ctx.delay(500), ctx.json(mockSessionInfo()))
 	}),
+	rest.get(appUrl('/oauth2/session'), (_req, res, ctx) => {
+		return res(ctx.delay(500), ctx.json(mockSessionInfo()))
+	}),
 	rest.get(appUrl('/amt-tiltaksarrangor-bff/tiltaksarrangor/meg/roller'), (_req, res, ctx) => {
 		return res(ctx.delay(500), ctx.json(mockMineRoller))
 	}),

@@ -18,7 +18,7 @@ export const mockSessionInfo = () => {
 			timeout_in_seconds: 3600
 		},
 		tokens: {
-			expire_at: dayjs().add(1, 'hour').toISOString(),
+			expire_at: dayjs().add(5, 'minutes').toISOString(),
 			refreshed_at: dayjs().toISOString(),
 			expire_in_seconds: 3600,
 			next_auto_refresh_in_seconds: -1,
