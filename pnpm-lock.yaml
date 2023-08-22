@@ -21,8 +21,8 @@ dependencies:
     specifier: ^2.1.0
     version: 2.1.0
   '@navikt/nav-dekoratoren-moduler':
-    specifier: ^2.1.2
-    version: 2.1.2(jsdom@16.7.0)(react@18.2.0)
+    specifier: ^2.1.3
+    version: 2.1.3(jsdom@16.7.0)(react@18.2.0)
   '@sentry/react':
     specifier: ^7.3.1
     version: 7.27.0(react@18.2.0)
@@ -912,8 +912,8 @@ packages:
     resolution: {integrity: sha512-TyaeDOmaGKh0Ru0kogQSXyjA3LlfgeKaTa57G5301T8jgX0JDqpEFtGvqvEDTP0n4U9Mn0iYqgXZBoX70ZWhqQ==, tarball: https://npm.pkg.github.com/download/@navikt/ds-tokens/2.1.0/c08d048f3c76f562626e0aad644e6ae8e0fe0745}
     dev: false
 
-  /@navikt/nav-dekoratoren-moduler@2.1.2(jsdom@16.7.0)(react@18.2.0):
-    resolution: {integrity: sha512-ILvwJmTObdpjwvLVMLPtshZmQyIGo8dXVgbR2VHB5eCsJCZfeg35pJejB8fP2O5gHCvsK+tG0igd+3q2y3zd+Q==, tarball: https://npm.pkg.github.com/download/@navikt/nav-dekoratoren-moduler/2.1.2/94a62ec711e5eda65652ad96b0bcabddad347f00}
+  /@navikt/nav-dekoratoren-moduler@2.1.3(jsdom@16.7.0)(react@18.2.0):
+    resolution: {integrity: sha512-jjiRlW4xPoZHyudAwZForfvO7LZiRXkMpPLMXE3OvO/GR2Guk2eacAKxkvwrKPN/r5jQvgREI1CJnYuYMFN9Lw==, tarball: https://npm.pkg.github.com/download/@navikt/nav-dekoratoren-moduler/2.1.3/e2081da2da26254fa4eeaf564286e19452ec790f}
     engines: {node: '>=18'}
     peerDependencies:
       jsdom: '>=16.x'

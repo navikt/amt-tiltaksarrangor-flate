@@ -18,16 +18,6 @@ const utledEnforceLogin = (): boolean => {
 	return env.isProd || env.isPreprod
 }
 
-const utledAppBase = (): string => {
-	if (env.isProd || env.isDemo) {
-		return 'https://www.nav.no/deltakeroversikt'
-	} else if (env.isPreprod) {
-		return 'https://amt.intern.dev.nav.no/deltakeroversikt'
-	} else {
-		return '/deltakeroversikt'
-	}
-}
-
 export const setupNavDekorator = (): Promise<void> => {
 	return injectDecoratorClientSide({
 		env: utledEnv(),
@@ -38,7 +28,6 @@ export const setupNavDekorator = (): Promise<void> => {
 			shareScreen: false,
 			level: 'Level4',
 			logoutWarning: true,
-			appBase: utledAppBase(),
 		}
 	})
 }
