@@ -4,7 +4,6 @@ import React, { useEffect, useState } from 'react'
 import { useTiltaksoversiktSokStore } from '../../../store/tiltaksoversikt-sok-store'
 import { finnNesteSortering } from '../../../utils/sortering-utils'
 import globalStyles from '../../../globals.module.scss'
-import styles from './MineDeltakereTabell.module.scss'
 import { sorterVeiledersDeltakere } from './sortering'
 import { VeiledersDeltaker } from '../../../api/data/deltaker'
 import { IngenDeltakere } from './ingen-deltakere/IngenDeltakere'
@@ -36,7 +35,7 @@ export const MineDeltakereTabell = (props: MineDeltakereTabellProps): React.Reac
 	}
 
 	return (
-		<div className={styles.tableWrapper}>
+		<div>
 			{mineDeltakere.length === 0
 				? <IngenDeltakere/>
 				: (
