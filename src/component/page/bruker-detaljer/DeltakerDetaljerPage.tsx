@@ -49,6 +49,8 @@ export const DeltakerDetaljerPage = (): React.ReactElement => {
 				fodselsnummer={deltaker.fodselsnummer}
 				telefonnummer={deltaker.telefonnummer}
 				epost={deltaker.epost}
+				adresse={deltaker.adresse}
+				tiltakskode={deltaker.tiltakskode}
 			/>
 			<DeltakerlisteStoreProvider deltakerliste={deltaker.deltakerliste}>
 				<DeltakerDetaljer deltaker={deltaker} visTildeling={isKoordinatorForDeltakerliste(deltaker.deltakerliste.id, koordinatorsDeltakerlister)}/>

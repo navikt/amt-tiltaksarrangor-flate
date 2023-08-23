@@ -1,6 +1,6 @@
 import faker from 'faker'
 
-import { TiltakDeltakerStatus } from '../../api/data/deltaker'
+import { Adresse, Adressetype, TiltakDeltakerStatus } from '../../api/data/deltaker'
 import { Endringsmelding } from '../../api/data/endringsmelding'
 import { Gjennomforing } from '../../api/data/tiltak'
 import { VeilederMedType } from '../../api/data/veileder'
@@ -13,6 +13,8 @@ import { lagMockVeiledereForDeltaker } from './veileder'
 export interface MockNavEnhet {
 	navn: string
 }
+
+export type MockAdresse = Adresse
 
 export interface MockNavVeileder {
 	navn: string,
@@ -44,6 +46,7 @@ export interface MockTiltakDeltaker {
 	innsokBegrunnelse: string | null,
 	aktiveEndringsmeldinger: Endringsmelding[]
 	veiledere: VeilederMedType[]
+	adresse: MockAdresse | null
 }
 
 const navEnheter: MockNavEnhet[] = [
@@ -76,6 +79,16 @@ export const lagMockTiltakDeltagereForGjennomforing = (gjennomforing: Gjennomfor
 
 const lagTelefonnummer = (): string => {
 	return faker.phone.phoneNumber().replaceAll(' ', '')
+}
+
+const lagAdresse = (): MockAdresse => {
+	return {
+		adressetype: faker.random.arrayElement( [ Adressetype.BOSTEDSADRESSE, Adressetype.KONTAKTADRESSE, Adressetype.OPPHOLDSADRESSE ] ),
+		postnummer: '0010',
+		poststed: 'Oslo',
+		tilleggsnavn: null,
+		adressenavn: 'Portveien 2'
+	}
 }
 
 const getStatus = (erKurs: boolean): TiltakDeltakerStatus => {
@@ -172,6 +185,7 @@ const lagMockTiltakDeltagerForGjennomforing = (gjennomforing: Gjennomforing): Mo
 		innsokBegrunnelse: genererBegrunnelse(brukerFornavn),
 		aktiveEndringsmeldinger: lagMockEndringsmeldingForDeltaker(status),
 		veiledere: lagMockVeiledereForDeltaker(id),
+		adresse: lagAdresse(),
 	}
 }
 
