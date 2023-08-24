@@ -1,6 +1,6 @@
-import { Heading, Modal } from '@navikt/ds-react'
+import { Modal } from '@navikt/ds-react'
 import classNames from 'classnames'
-import React, { ReactNode, useEffect } from 'react'
+import React, { ReactNode } from 'react'
 
 import styles from './BaseModal.module.scss'
 
