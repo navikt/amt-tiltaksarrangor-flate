@@ -15,7 +15,7 @@ export const DeltakerAdresse = ( { adresse }: DeltakerAdresseProps ): React.Reac
 
 	return (
 		<div className={ styles.adresse }>
-			<HouseIcon />
+			<HouseIcon aria-hidden />
 			<div>
 				<Label htmlFor={ adresseId } as="span" size="small">
 					{ adresse ? mapAdresseTypeTilTekst( adresse?.adressetype ) : 'Adresse' }
