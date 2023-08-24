@@ -4,9 +4,9 @@
   "private": true,
   "dependencies": {
     "@babel/core": "^7.20.5",
-    "@navikt/aksel-icons": "^2.9.8",
-    "@navikt/ds-css": "^4.4.0",
-    "@navikt/ds-react": "^4.4.0",
+    "@navikt/aksel-icons": "^5.0.3",
+    "@navikt/ds-css": "^5.0.3",
+    "@navikt/ds-react": "^5.0.3",
     "@navikt/ds-tokens": "^2.1.0",
     "@navikt/nav-dekoratoren-moduler": "^1.9.0",
     "@sentry/react": "^7.3.1",
