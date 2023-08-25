@@ -27,7 +27,7 @@ export const setupNavDekorator = (): Promise<void> => {
 			simpleFooter: true,
 			shareScreen: false,
 			level: 'Level4',
-			logoutWarning: true,
+			logoutWarning: utledEnforceLogin(),
 		}
 	})
 }
