@@ -21,6 +21,13 @@ export enum IndividuellDeltakerStatus {
 	IKKE_AKTUELL = 'IKKE_AKTUELL',
 
 }
+
+export enum Adressetype {
+	KONTAKTADRESSE = 'KONTAKTADRESSE',
+	OPPHOLDSADRESSE = 'OPPHOLDSADRESSE',
+	BOSTEDSADRESSE = 'BOSTEDSADRESSE'
+}
+
 export const TiltakDeltakerStatus = { ...KursDeltakerStatuser, ...IndividuellDeltakerStatus }
 
 const tiltakDeltakerStatusSchema = z.nativeEnum(TiltakDeltakerStatus)
@@ -63,6 +70,14 @@ export const deltakersDeltakerlisteSchema = z.object({
 	erKurs: z.boolean()
 })
 
+export const adresseSchema = z.object({
+	adressetype: z.nativeEnum(Adressetype),
+	postnummer: z.string(),
+	poststed: z.string(),
+	tilleggsnavn: z.string().nullable(),
+	adressenavn: z.string().nullable()
+})
+
 export const deltakerSchema = z.object({
 	id: z.string().uuid(),
 	deltakerliste: deltakersDeltakerlisteSchema,
@@ -84,7 +99,8 @@ export const deltakerSchema = z.object({
 	fjernesDato: nullableDateSchema,
 	navInformasjon: navInformasjonSchema,
 	veiledere: z.array(veilederMedTypeSchema),
-	aktiveEndringsmeldinger: z.array(endringsmeldingSchema)
+	aktiveEndringsmeldinger: z.array(endringsmeldingSchema),
+	adresse: adresseSchema.nullable()
 })
 
 export const veilederForSchema = z.object({
@@ -154,6 +170,8 @@ export type DeltakersDeltakerliste = z.infer<typeof deltakersDeltakerlisteSchema
 export type TiltakDeltaker = z.infer<typeof tiltakDeltakerSchema>
 
 export type Deltaker = z.infer<typeof deltakerSchema>
+
+export type Adresse = z.infer<typeof adresseSchema>
 
 export type DeltakerStatus = z.infer<typeof deltakerStatusSchema>
 

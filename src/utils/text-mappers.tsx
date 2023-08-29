@@ -1,4 +1,4 @@
-import { TiltakDeltakerStatus } from '../api/data/deltaker'
+import { Adressetype, TiltakDeltakerStatus } from '../api/data/deltaker'
 import { Veiledertype } from '../api/data/veileder'
 
 export const mapTiltakDeltakerStatusTilTekst = (tiltakDeltakerStatus: typeof TiltakDeltakerStatus | string): string => {
@@ -27,5 +27,16 @@ export const mapVeilderTypeTilTekst = (veilederType: Veiledertype | string): str
 		return 'Medveileder'
 	} else {
 		return 'Veileder'
+	}
+}
+
+export const mapAdresseTypeTilTekst = (adressetype: Adressetype) => {
+	switch (adressetype) {
+		case Adressetype.KONTAKTADRESSE:
+			return 'Kontaktadresse'
+		case Adressetype.OPPHOLDSADRESSE:
+			return 'Oppholdsadresse'
+		case Adressetype.BOSTEDSADRESSE:
+			return 'Bostedsadresse'
 	}
 }

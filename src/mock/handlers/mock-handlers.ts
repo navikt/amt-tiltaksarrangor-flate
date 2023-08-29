@@ -251,7 +251,16 @@ const mapToDeltakerDetaljerView = (deltaker: MockTiltakDeltaker): Deltaker => {
 			} : null
 		},
 		veiledere: deltaker.veiledere,
-		aktiveEndringsmeldinger: deltaker.aktiveEndringsmeldinger
+		aktiveEndringsmeldinger: deltaker.aktiveEndringsmeldinger,
+		adresse: deltaker.adresse
+			? {
+				adressetype: deltaker.adresse.adressetype,
+				postnummer: deltaker.adresse.postnummer,
+				poststed: deltaker.adresse.poststed,
+				tilleggsnavn: deltaker.adresse.tilleggsnavn,
+				adressenavn: deltaker.adresse.adressenavn
+			}
+			: null
 	}
 }
 

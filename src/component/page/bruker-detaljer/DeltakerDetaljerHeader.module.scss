@@ -2,15 +2,18 @@
 
 .header {
   background-color: white;
-  padding: 1rem 0;
-
+  padding: 1rem 1rem;
+  margin: auto;
+  max-width: $max-bredde;
   border-bottom: 1px solid #c9c9c9
 }
 
 .headerContent {
-  max-width: $max-bredde;
-  padding: 0 1rem;
   margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 2rem;
 }
 
 .tilbakelenkeWrapper {
@@ -18,9 +21,11 @@
   justify-content: flex-start;
   align-items: center;
 }
+
 .headerInfoWrapper {
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
 }
 
 .headerTitleWrapper {
@@ -39,7 +44,7 @@
 .headerInfo {
   display: flex;
   flex-direction: column;
-  
+
   > * {
       margin-bottom: 0.5rem;
   }
@@ -79,7 +84,27 @@
       }
   }
 
-  .headerContent {
-      padding: 0 2rem;
+  .header {
+    padding: 1rem 2rem;
+  }
+}
+
+.adresse {
+  margin-top: 0.5rem;
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.toggleAdresseKnapp {
+  --ac-button-tertiary-hover-bg: transparent;
+
+  &:hover {
+    text-decoration: underline;
+  }
+  &:active {
+    text-decoration: underline;
+    background-color: transparent !important;
+    color: var(--ac-button-tertiary-text, var(--a-text-action));
   }
 }
