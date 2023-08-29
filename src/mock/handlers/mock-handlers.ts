@@ -253,7 +253,9 @@ const mapToDeltakerDetaljerView = (deltaker: MockTiltakDeltaker): Deltaker => {
 				tilleggsnavn: deltaker.adresse.tilleggsnavn,
 				adressenavn: deltaker.adresse.adressenavn
 			}
-			: null
+			: null,
+		gjeldendeVurderingFraArrangor: deltaker.gjeldendeVurderingFraArrangor,
+		historiskeVurderingerFraArrangor: deltaker.historiskeVurderingerFraArrangor
 	}
 }
 

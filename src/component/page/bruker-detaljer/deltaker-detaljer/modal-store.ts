@@ -6,7 +6,6 @@ import { EndreProsentDeltakelseModalDataProps } from './endre-deltaker-modal/End
 import { ForlengDeltakelseModalDataProps } from './endre-deltaker-modal/ForlengDeltakelseModal'
 import { LeggTilOppstartModalDataProps } from './endre-deltaker-modal/LeggTilOppstartModal'
 import { SettIkkeAktuellModalDataProps } from './endre-deltaker-modal/SettIkkeAktuellModal'
-import { ErAktuellModalDataProps } from './endre-deltaker-modal/SettErAktuellModal'
 import { EndreSluttdatoModalDataProps } from './endre-deltaker-modal/EndreSluttdatoModal'
 
 export enum ModalType {
@@ -16,10 +15,8 @@ export enum ModalType {
 	SettDeltakerIkkeAktuell,
 	AvsluttDeltaker,
 	EndreProsentDeltakelse,
-	SettDeltakerErAktuell,
 	EndreSluttdato
 }
-
 
 interface BaseModalData<T extends ModalType, P> {
 	type: T
@@ -32,7 +29,6 @@ type ForlengDeltakelseModalData = BaseModalData<ModalType.ForlengDeltakelse, For
 type SettDeltakerIkkeAktuellModalData = BaseModalData<ModalType.SettDeltakerIkkeAktuell, SettIkkeAktuellModalDataProps>
 type AvsluttDeltakerModalData = BaseModalData<ModalType.AvsluttDeltaker, AvsluttDeltakelseModalDataProps>
 type EndreProsentDeltakelse = BaseModalData<ModalType.EndreProsentDeltakelse, EndreProsentDeltakelseModalDataProps>
-type SettDeltakerErAktuellData = BaseModalData<ModalType.SettDeltakerErAktuell, ErAktuellModalDataProps>
 type EndreSluttdato = BaseModalData<ModalType.EndreSluttdato, EndreSluttdatoModalDataProps>
 
 export type ModalData = LeggTilOppstartData |
@@ -41,7 +37,6 @@ export type ModalData = LeggTilOppstartData |
 	SettDeltakerIkkeAktuellModalData |
 	AvsluttDeltakerModalData |
 	EndreProsentDeltakelse |
-	SettDeltakerErAktuellData |
 	EndreSluttdato
 
 
@@ -93,13 +88,6 @@ export const useModalData = () => {
 		})
 	}
 
-	const visSettDeltakerErAktuellModal = (props: ErAktuellModalDataProps) => {
-		setModalData({
-			type: ModalType.SettDeltakerErAktuell,
-			props: props
-		})
-	}
-
 	const visEndreSluttdatoModal = (props: EndreSluttdatoModalDataProps) => {
 		setModalData({
 			type: ModalType.EndreSluttdato,
@@ -116,7 +104,6 @@ export const useModalData = () => {
 		visSettDeltakerIkkeAktuellModal,
 		visAvsluttDeltakerModal,
 		visEndreProsentDeltakelseModal,
-		visSettDeltakerErAktuellModal,
 		visEndreSluttdatoModal
 	}
 }

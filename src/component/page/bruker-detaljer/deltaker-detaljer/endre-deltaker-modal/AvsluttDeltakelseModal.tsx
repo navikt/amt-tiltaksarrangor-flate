@@ -66,7 +66,6 @@ export const AvsluttDeltakelseModal = (props: AvsluttDeltakelseModalProps & Avsl
 		<BaseModal tittel="Avslutt deltakelse" onClose={onClose}>
 			<AarsakSelector
 				tittel="Hva er årsaken til avslutning?"
-				skalViseOppfyllerIkkeKrav={false}
 				onAarsakSelected={onAarsakSelected}
 			/>
 			<DateField

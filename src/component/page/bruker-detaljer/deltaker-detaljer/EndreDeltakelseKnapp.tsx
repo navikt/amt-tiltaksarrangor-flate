@@ -24,7 +24,6 @@ export const EndreDeltakelseKnapp = (props: EndreDeltakelseKnappProps) => {
 		visSettDeltakerIkkeAktuellModal,
 		visAvsluttDeltakerModal,
 		visEndreProsentDeltakelseModal,
-		visSettDeltakerErAktuellModal,
 		visEndreSluttdatoModal,
 		lukkModal
 	} = useModalData()
@@ -149,28 +148,17 @@ export const EndreDeltakelseKnapp = (props: EndreDeltakelseKnappProps) => {
 							/>
 						)}
 						{deltaker.status.type === TiltakDeltakerStatus.VURDERES && (
-							<>
-								<DropDownButton
-									endringstype={EndringType.DELTAKER_ER_AKTUELL}
-									onClick={() =>
-										visSettDeltakerErAktuellModal({
-											deltakerId: deltaker.id,
-											onEndringUtfort: props.onEndringUtfort
-										})
-									}
-								/>
-								<DropDownButton
-									endringstype={EndringType.DELTAKER_IKKE_AKTUELL}
-									onClick={() =>
-										visSettDeltakerIkkeAktuellModal({
-											deltakerId: deltaker.id,
-											visGodkjennVilkaarPanel: visGodkjennVilkaarPanel,
-											erKurs: deltaker.deltakerliste.erKurs,
-											onEndringUtfort: props.onEndringUtfort
-										})
-									}
-								/>
-							</>
+							<DropDownButton
+								endringstype={EndringType.DELTAKER_IKKE_AKTUELL}
+								onClick={() =>
+									visSettDeltakerIkkeAktuellModal({
+										deltakerId: deltaker.id,
+										visGodkjennVilkaarPanel: visGodkjennVilkaarPanel,
+										erKurs: deltaker.deltakerliste.erKurs,
+										onEndringUtfort: props.onEndringUtfort
+									})
+								}
+							/>
 						)}
 						{(deltaker.status.type === TiltakDeltakerStatus.FULLFORT ||
 							deltaker.status.type === TiltakDeltakerStatus.AVBRUTT) && (

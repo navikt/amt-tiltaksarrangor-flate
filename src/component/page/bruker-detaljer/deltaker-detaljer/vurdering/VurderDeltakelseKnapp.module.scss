@@ -1,0 +1,27 @@
+.ikon {
+  height: 22px;
+  width: 22px;
+}
+
+.ikkeAktuellIkon {
+  color: var(--a-icon-danger);
+  transform: rotate(45deg);
+  @extend .ikon;
+}
+
+.erAktuellIkon {
+  color: var(--a-icon-alt-2);
+  @extend .ikon;
+}
+
+.knapp{
+  width: fit-content;
+  height: fit-content;
+}
+
+.dropdown {
+  dd {
+    padding-bottom: 0.4rem;
+    padding-top: 0.4rem
+  }
+}
