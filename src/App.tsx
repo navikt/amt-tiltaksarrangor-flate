@@ -4,7 +4,6 @@ import { fetchMineRoller } from './api/tiltak-api'
 import { Header } from './component/felles/header/Header'
 import { AppRoutes } from './Routes'
 import { isNotStartedOrPending, isRejected, isResolved, usePromise } from './utils/use-promise'
-import { SesjonNotifikasjon } from './component/sesjon-notifikasjon/SesjonNotifikasjon'
 import { Rolle } from './api/data/ansatt'
 import { useInnloggetBrukerStore } from './store/innlogget-bruker-store'
 import { useKoordinatorsDeltakerlisterStore } from './store/koordinators-deltakerlister-store'
@@ -37,7 +36,6 @@ export const App = (): React.ReactElement => {
 		<>
 			<Header isLoggedIn={isLoggedIn}/>
 			<main>
-				<SesjonNotifikasjon/>
 				{ isNotStartedOrPending(fetchMineRollerPromise) && <SpinnerPage />}
 				{ isRejected(fetchMineRollerPromise) && <ErrorPage />}
 				{ isLoggedIn && <AppRoutes roller={roller}/> }

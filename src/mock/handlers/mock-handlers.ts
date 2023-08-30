@@ -15,7 +15,6 @@ import {
 	mockKoordinatorsDeltakerliste
 } from '../data'
 import { mockMineRoller } from '../data/ansatt'
-import { mockAuthInfo, mockSessionInfo } from '../data/auth'
 import { MockTiltakDeltaker } from '../data/brukere'
 import { mockTilgjengeligeVeiledere } from '../data/veileder'
 import { randomUuid } from '../utils/faker'
@@ -23,12 +22,6 @@ import { deltakerlisteErKurs, MockGjennomforing } from '../data/tiltak'
 import { AdminDeltakerliste } from '../../api/data/tiltak'
 
 export const mockHandlers: RequestHandler[] = [
-	rest.get(appUrl('/auth/info'), (_req, res, ctx) => {
-		return res(ctx.delay(500), ctx.json(mockAuthInfo))
-	}),
-	rest.post(appUrl('/oauth2/session/refresh'), (_req, res, ctx) => {
-		return res(ctx.delay(500), ctx.json(mockSessionInfo()))
-	}),
 	rest.get(appUrl('/amt-tiltaksarrangor-bff/tiltaksarrangor/meg/roller'), (_req, res, ctx) => {
 		return res(ctx.delay(500), ctx.json(mockMineRoller))
 	}),

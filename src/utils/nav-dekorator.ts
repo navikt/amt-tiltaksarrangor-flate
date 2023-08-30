@@ -21,10 +21,13 @@ const utledEnforceLogin = (): boolean => {
 export const setupNavDekorator = (): Promise<void> => {
 	return injectDecoratorClientSide({
 		env: utledEnv(),
-		context: 'samarbeidspartner',
-		enforceLogin: utledEnforceLogin(),
-		simpleFooter: true,
-		shareScreen: false,
-		level: 'Level4',
+		params: {
+			context: 'samarbeidspartner',
+			enforceLogin: utledEnforceLogin(),
+			simpleFooter: true,
+			shareScreen: false,
+			level: 'Level4',
+			logoutWarning: utledEnforceLogin(),
+		}
 	})
 }

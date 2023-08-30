@@ -6,7 +6,6 @@ export const GJENNOMFORING_DETALJER_PAGE_ROUTE = appUrl('/gjennomforing/:deltake
 export const INGEN_ROLLE_PAGE_ROUTE = appUrl('/ingen-rolle')
 export const LEGG_TIL_DELTAKERLISTE_PAGE_ROUTE = appUrl('/legg-til-deltakerliste')
 export const MINE_DELTAKERE_PAGE_ROUTE = appUrl('/mine-deltakere')
-export const DU_ER_LOGGET_UT_PAGE_ROUTE = appUrl('/du-er-logget-ut')
 
 export const MINE_DELTAKERLISTER_PAGE_ROUTE = appUrl('/')
 

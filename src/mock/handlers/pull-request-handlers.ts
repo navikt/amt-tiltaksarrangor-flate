@@ -6,12 +6,6 @@ import { appUrl } from '../../utils/url-utils'
 import { forwardRequest } from '../utils/request-utils'
 
 export const pullRequestHandlers: RequestHandler[] = [
-	rest.get(appUrl('/auth/info'), (req, res, ctx) => {
-		return handleReq(req, res, ctx)
-	}),
-	rest.post(appUrl('/oauth2/session/refresh'), (req, res, ctx) => {
-		return handleReq(req, res, ctx)
-	}),
 	rest.all(appUrl('/amt-tiltaksarrangor-bff/*'), async(req, res, ctx) => {
 		return handleReq(req, res, ctx)
 	}),
