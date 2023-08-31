@@ -9,7 +9,7 @@ import { SettOppfyllerKravenelModal } from './SettOppfyllerKravenelModal'
 
 interface EndreDeltakelseKnappProps {
 	deltaker: Deltaker
-	onEndringUtfort: () => void
+	onVurderingSendt: () => void
 }
 
 const vurderingDropDownItem = (vurderingstype: Vurderingstype, onClick: React.MouseEventHandler<HTMLElement> ) => {
@@ -24,11 +24,9 @@ const vurderingDropDownItem = (vurderingstype: Vurderingstype, onClick: React.Mo
 		</Dropdown.Menu.GroupedList.Item>
 	)
 }
-export const VurderDeltakelseKnapp = ({ deltaker, onEndringUtfort }: EndreDeltakelseKnappProps) => {
+export const VurderDeltakelseKnapp = ({ deltaker, onVurderingSendt }: EndreDeltakelseKnappProps) => {
 	const [ oppfyllerKraveneModalOpen, setOppfyllerKraveneModalOpen ] = useState(false)
 	const [ oppfyllerIkkeKraveneModalOpen, setOppfyllerIkkeKraveneModalOpen ] = useState(false)
-
-	// TODO onEndringUtfort må hente ny vurdering fra backend?
 
 	const vurderDeltakelseRef = useRef<HTMLButtonElement>(null)
 	const handleCloseModal = () => {
@@ -39,8 +37,18 @@ export const VurderDeltakelseKnapp = ({ deltaker, onEndringUtfort }: EndreDeltak
 
 	return (
 		<>
-			<SettOppfyllerKravenelModal isOpen={oppfyllerKraveneModalOpen} deltakerId={deltaker.id} onClose={handleCloseModal} />
-			<SettOppfyllerIkkeKravenelModal isOpen={oppfyllerIkkeKraveneModalOpen} deltakerId={deltaker.id} onClose={handleCloseModal} />
+			<SettOppfyllerKravenelModal
+				isOpen={oppfyllerKraveneModalOpen}
+				deltakerId={deltaker.id}
+				onClose={handleCloseModal}
+				onVurderingSendt={onVurderingSendt}
+			/>
+			<SettOppfyllerIkkeKravenelModal
+				isOpen={oppfyllerIkkeKraveneModalOpen}
+				deltakerId={deltaker.id}
+				onClose={handleCloseModal}
+				onVurderingSendt={onVurderingSendt}
+			/>
 			<Dropdown>
 				<Button
 					ref={vurderDeltakelseRef}

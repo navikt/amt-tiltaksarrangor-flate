@@ -2,7 +2,7 @@ import dayjs from 'dayjs'
 import { rest } from 'msw'
 import { RequestHandler } from 'msw/lib/types/handlers/RequestHandler'
 
-import { TiltakDeltaker, Deltaker } from '../../api/data/deltaker'
+import { TiltakDeltaker, Deltaker, Vurderingstype } from '../../api/data/deltaker'
 import { DeltakerStatusAarsak, EndringsmeldingType } from '../../api/data/endringsmelding'
 import { VIS_DRIFTSMELDING_TOGGLE_NAVN } from '../../api/data/feature-toggle'
 import { Veileder, VeilederMedType, Veiledertype } from '../../api/data/veileder'
@@ -143,6 +143,36 @@ export const mockHandlers: RequestHandler[] = [
 					innhold: { sluttdato: dayjs(body.innhold.sluttdato).toDate() }
 
 				})
+			}
+		}
+
+		return res(ctx.delay(500), ctx.status(200))
+	}),
+	rest.post(appUrl('/amt-tiltaksarrangor-bff/tiltaksarrangor/deltaker/:deltakerId/vurdering'), (req, res, ctx) => {
+		const deltakerId = req.params.deltakerId as string
+		const bodyType = req.body as { vurderingstype: string }
+
+		const deltaker = mockTiltakDeltakere.find(d => d.id == deltakerId)
+
+		if (deltaker) {
+			if (bodyType.vurderingstype === Vurderingstype.OPPFYLLER_IKKE_KRAVENE) {
+				const body = req.body as { vurderingstype: string; begrunnelse: string }
+
+				deltaker.gjeldendeVurderingFraArrangor = {
+					vurderingstype: Vurderingstype.OPPFYLLER_IKKE_KRAVENE,
+					begrunnelse: body.begrunnelse,
+					gyldigFra: new Date(),
+					gyldigTil: null
+				}
+			}
+
+			if (bodyType.vurderingstype === Vurderingstype.OPPFYLLER_KRAVENE) {
+				deltaker.gjeldendeVurderingFraArrangor = {
+					vurderingstype: Vurderingstype.OPPFYLLER_KRAVENE,
+					begrunnelse: null,
+					gyldigFra: new Date(),
+					gyldigTil: null
+				}
 			}
 		}
 

@@ -8,6 +8,7 @@ import { EMDASH } from '../../../../../utils/constants'
 
 interface DeltakerVurderingProps {
 	deltaker: Deltaker
+	onVurderingSendt: () => void
 }
 
 const getTagType = (vurderingstype:  Vurderingstype | undefined) => {
@@ -18,7 +19,7 @@ const getTagType = (vurderingstype:  Vurderingstype | undefined) => {
 	}
 }
 
-export const DeltakerVurdering = ({ deltaker }: DeltakerVurderingProps): React.ReactElement => {
+export const DeltakerVurdering = ({ deltaker, onVurderingSendt }: DeltakerVurderingProps): React.ReactElement => {
 	const vurderingstype = deltaker.gjeldendeVurderingFraArrangor?.vurderingstype
 	const vurdering = vurderingstype ? vurderingstypeTeksMapper(vurderingstype) : '-'
 	const tagType = getTagType(vurderingstype)
@@ -37,8 +38,8 @@ export const DeltakerVurdering = ({ deltaker }: DeltakerVurderingProps): React.R
 					EMDASH
 				)}
 			</BodyShort>
-			{deltaker.status.type === TiltakDeltakerStatus.VURDERES &&
-				<VurderDeltakelseKnapp deltaker={deltaker} onEndringUtfort={() => null} />
+			{deltaker.status.type === TiltakDeltakerStatus.VURDERES
+				&& <VurderDeltakelseKnapp deltaker={deltaker} onVurderingSendt={onVurderingSendt} />
 			}
 		</div>
 	)

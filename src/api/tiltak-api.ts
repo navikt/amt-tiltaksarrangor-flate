@@ -11,7 +11,8 @@ import {
 	koordinatorsDeltakerlisteSchema,
 	MineDeltakerlister,
 	mineDeltakerlisterSchema,
-	VeiledersDeltaker
+	VeiledersDeltaker,
+	Vurderingstype
 } from './data/deltaker'
 import {
 	DeltakerStatusAarsak,
@@ -224,4 +225,18 @@ export const tildelVeilederForDeltaker = (deltakerId: string, veiledere: Veilede
 			{ veiledere: veiledere.map(v => { return { ansattId: v.ansattId, erMedveileder: v.erMedveileder } }) },
 		)
 		.catch(err => logAndThrowError(err, url))
+}
+
+export const postDeltakerVurderingOppfyllerKravene = (deltakerId: string): AxiosPromise => {
+	const url = appUrl(`/amt-tiltaksarrangor-bff/tiltaksarrangor/deltaker/${deltakerId}/vurdering`)
+	return axiosInstance
+		.post(url, { vurderingstype: Vurderingstype.OPPFYLLER_KRAVENE })
+		.catch((err) => logAndThrowError(err, url))
+}
+
+export const postDeltakerVurderingOppfyllerIkkeKravene = (deltakerId: string, begrunnelse: string): AxiosPromise => {
+	const url = appUrl(`/amt-tiltaksarrangor-bff/tiltaksarrangor/deltaker/${deltakerId}/vurdering`)
+	return axiosInstance
+		.post(url, { vurderingstype: Vurderingstype.OPPFYLLER_IKKE_KRAVENE, begrunnelse })
+		.catch((err) => logAndThrowError(err, url))
 }
