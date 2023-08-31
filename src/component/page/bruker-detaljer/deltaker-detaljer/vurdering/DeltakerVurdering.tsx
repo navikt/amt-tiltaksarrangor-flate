@@ -15,7 +15,6 @@ const getTagType = (vurderingstype:  Vurderingstype | undefined) => {
 	switch (vurderingstype) {
 		case Vurderingstype.OPPFYLLER_IKKE_KRAVENE: return 'error'
 		case Vurderingstype.OPPFYLLER_KRAVENE: return 'success'
-		default: null
 	}
 }
 
