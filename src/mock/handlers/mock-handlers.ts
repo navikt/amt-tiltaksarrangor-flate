@@ -186,7 +186,7 @@ export const mockHandlers: RequestHandler[] = [
 		return res(ctx.delay(500), ctx.status(200))
 	}),
 
-	rest.get(appUrl('/unleash/api/feature'), (req, res, ctx) => {
+	rest.get(appUrl('/amt-tiltaksarrangor-bff/unleash/api/feature'), (req, res, ctx) => {
 		const toggles = { [VIS_DRIFTSMELDING_TOGGLE_NAVN]: false }
 
 		return res(ctx.delay(500), ctx.json(toggles))

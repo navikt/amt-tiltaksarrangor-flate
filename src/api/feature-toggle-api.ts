@@ -7,7 +7,7 @@ import { axiosInstance, logAndThrowError, parse } from './utils'
 
 export const fetchToggles = (): AxiosPromise<FeatureToggles> => {
 	const features = TOGGLES.map(feature => `feature=${feature}`).join('&')
-	const url = appUrl(`/unleash/api/feature?${features}`)
+	const url = appUrl(`/amt-tiltaksarrangor-bff/unleash/api/feature?${features}`)
 	return axiosInstance
 		.get(url)
 		.then(parse(featureToggleSchema))

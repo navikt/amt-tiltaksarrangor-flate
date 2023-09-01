@@ -68,11 +68,6 @@ spec:
             {
               "fromPath": "/amt-tiltaksarrangor-bff", "toUrl": "http://amt-tiltaksarrangor-bff",
               "toApp": { "name": "amt-tiltaksarrangor-bff", "namespace": "amt", "cluster": "dev-gcp" }
-            },
-            {
-              "fromPath": "/unleash",
-              "toUrl": "http://poao-unleash.poao.svc.cluster.local",
-              "preserveFromPath": false
             }
           ],
           "header": {
