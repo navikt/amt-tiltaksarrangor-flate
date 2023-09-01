@@ -8,9 +8,6 @@ import { forwardRequest } from '../utils/request-utils'
 export const pullRequestHandlers: RequestHandler[] = [
 	rest.all(appUrl('/amt-tiltaksarrangor-bff/*'), async(req, res, ctx) => {
 		return handleReq(req, res, ctx)
-	}),
-	rest.get(appUrl('/unleash/*'), async(req, res, ctx) => {
-		return handleReq(req, res, ctx)
 	})
 ]
 
