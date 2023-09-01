@@ -10,6 +10,8 @@ env:
 
 jobs:
   update-gh-pages:
+    permissions:
+      contents: "write"
     name: Update GitHub pages
     runs-on: ubuntu-latest
     steps:
