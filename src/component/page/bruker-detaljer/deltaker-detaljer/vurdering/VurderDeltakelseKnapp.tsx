@@ -1,15 +1,16 @@
 import { CheckmarkCircleFillIcon, PencilIcon, PlusCircleFillIcon } from '@navikt/aksel-icons'
 import { Button, Dropdown } from '@navikt/ds-react'
 import React, { useRef, useState } from 'react'
-import { Deltaker, Vurderingstype } from '../../../../../api/data/deltaker'
+import { Vurdering, Vurderingstype } from '../../../../../api/data/deltaker'
 import styles from './VurderDeltakelseKnapp.module.scss'
 import { vurderingstypeTeksMapper } from '../../deltaker-detaljer/tekst-mappers'
 import { SettOppfyllerIkkeKravenelModal } from './SettOppfyllerIkkeKravenelModal'
 import { SettOppfyllerKravenelModal } from './SettOppfyllerKravenelModal'
+import { fetchDeltaker } from '../../../../../api/tiltak-api'
 
 interface EndreDeltakelseKnappProps {
-	deltaker: Deltaker
-	onVurderingSendt: () => void
+	deltakerId: string
+	updateVurdering: (vurdering: Vurdering | null) => void
 }
 
 const vurderingDropDownItem = (vurderingstype: Vurderingstype, onClick: React.MouseEventHandler<HTMLElement> ) => {
@@ -24,28 +25,38 @@ const vurderingDropDownItem = (vurderingstype: Vurderingstype, onClick: React.Mo
 		</Dropdown.Menu.GroupedList.Item>
 	)
 }
-export const VurderDeltakelseKnapp = ({ deltaker, onVurderingSendt }: EndreDeltakelseKnappProps) => {
+export const VurderDeltakelseKnapp = ({ deltakerId, updateVurdering }: EndreDeltakelseKnappProps) => {
 	const [ oppfyllerKraveneModalOpen, setOppfyllerKraveneModalOpen ] = useState(false)
 	const [ oppfyllerIkkeKraveneModalOpen, setOppfyllerIkkeKraveneModalOpen ] = useState(false)
-
 	const vurderDeltakelseRef = useRef<HTMLButtonElement>(null)
+
 	const handleCloseModal = () => {
 		setOppfyllerKraveneModalOpen(false)
 		setOppfyllerIkkeKraveneModalOpen(false)
 		vurderDeltakelseRef?.current?.focus()
 	}
 
+	const onVurderingSendt = () => {
+		fetchDeltaker(deltakerId)
+			.then((res) => {
+				if(res?.data){
+					updateVurdering(res.data.gjeldendeVurderingFraArrangor)
+				}
+			})
+			.then(() => vurderDeltakelseRef?.current?.focus())
+	}
+
 	return (
 		<>
 			<SettOppfyllerKravenelModal
 				isOpen={oppfyllerKraveneModalOpen}
-				deltakerId={deltaker.id}
+				deltakerId={deltakerId}
 				onClose={handleCloseModal}
 				onVurderingSendt={onVurderingSendt}
 			/>
 			<SettOppfyllerIkkeKravenelModal
 				isOpen={oppfyllerIkkeKraveneModalOpen}
-				deltakerId={deltaker.id}
+				deltakerId={deltakerId}
 				onClose={handleCloseModal}
 				onVurderingSendt={onVurderingSendt}
 			/>

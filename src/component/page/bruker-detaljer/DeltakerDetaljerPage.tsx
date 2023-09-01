@@ -1,5 +1,5 @@
 import { AxiosResponse } from 'axios'
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { useParams } from 'react-router-dom'
 
 import { Deltaker } from '../../../api/data/deltaker'
@@ -19,31 +19,12 @@ import { useKoordinatorsDeltakerlisterStore } from '../../../store/koordinators-
 export const DeltakerDetaljerPage = (): React.ReactElement => {
 	const params = useParams<{ brukerId: string }>()
 	const { koordinatorsDeltakerlister } = useKoordinatorsDeltakerlisterStore()
-	const [ reloadDeltaker, setReloadDeltaker ] = useState(false)
-
-	const onVurderingSendt = () => {
-		setReloadDeltaker(true)
-	}
 
 	const brukerId = params.brukerId || ''
 
 	const fetchDeltakerPromise = usePromise<AxiosResponse<Deltaker>>(
 		() => fetchDeltaker(brukerId), [ brukerId ]
 	)
-
-	useEffect(() => {
-		let ignore = false
-		if (!ignore && reloadDeltaker) {
-			fetchDeltakerPromise.setPromise(fetchDeltaker(brukerId))
-			setReloadDeltaker(false)
-		}
-
-		return () => {
-			ignore = true
-		}
-	// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [ reloadDeltaker ])
-
 
 	useTabTitle('Deltakerdetaljer')
 	useStyle(globalStyles.whiteBackground, 'html')
@@ -75,7 +56,6 @@ export const DeltakerDetaljerPage = (): React.ReactElement => {
 				<DeltakerDetaljer
 					deltaker={deltaker}
 					visTildeling={isKoordinatorForDeltakerliste(deltaker.deltakerliste.id, koordinatorsDeltakerlister)}
-					onVurderingSendt={onVurderingSendt}
 				/>
 			</DeltakerlisteStoreProvider>
 		</div>

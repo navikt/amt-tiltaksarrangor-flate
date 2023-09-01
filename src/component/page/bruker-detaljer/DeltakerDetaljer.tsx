@@ -15,7 +15,6 @@ import { DeltakerVurdering } from './deltaker-detaljer/vurdering/DeltakerVurderi
 export const DeltakerDetaljer = (props: {
 	deltaker: Deltaker,
 	visTildeling: boolean,
-	onVurderingSendt: () => void
 }): React.ReactElement => {
 	const {
 		navInformasjon, soktInnPa, soktInnDato, bestillingTekst, tiltakskode
@@ -27,7 +26,7 @@ export const DeltakerDetaljer = (props: {
 				<DeltakelseInfo deltaker={props.deltaker} />
 
 				{props.deltaker.tiltakskode === Tiltakskode.GRUPPEAMO && (
-					<DeltakerVurdering deltaker={props.deltaker} onVurderingSendt={props.onVurderingSendt} />
+					<DeltakerVurdering deltaker={props.deltaker}/>
 				)}
 
 				<div className={styles.innsokt}>

@@ -1,6 +1,6 @@
 import { BodyShort, Label, Tag } from '@navikt/ds-react'
-import React from 'react'
-import { Deltaker, TiltakDeltakerStatus, Vurderingstype } from '../../../../../api/data/deltaker'
+import React, { useState } from 'react'
+import { Deltaker, TiltakDeltakerStatus, Vurdering, Vurderingstype } from '../../../../../api/data/deltaker'
 import styles from './DeltakerVurdering.module.scss'
 import { VurderDeltakelseKnapp } from './VurderDeltakelseKnapp'
 import { vurderingstypeTeksMapper } from '../../deltaker-detaljer/tekst-mappers'
@@ -8,7 +8,6 @@ import { EMDASH } from '../../../../../utils/constants'
 
 interface DeltakerVurderingProps {
 	deltaker: Deltaker
-	onVurderingSendt: () => void
 }
 
 const getTagType = (vurderingstype:  Vurderingstype | undefined) => {
@@ -18,27 +17,35 @@ const getTagType = (vurderingstype:  Vurderingstype | undefined) => {
 	}
 }
 
-export const DeltakerVurdering = ({ deltaker, onVurderingSendt }: DeltakerVurderingProps): React.ReactElement => {
-	const vurderingstype = deltaker.gjeldendeVurderingFraArrangor?.vurderingstype
-	const vurdering = vurderingstype ? vurderingstypeTeksMapper(vurderingstype) : '-'
+export const DeltakerVurdering = ({ deltaker }: DeltakerVurderingProps): React.ReactElement => {
+	const [ vurdering, setVurdering ] = useState(deltaker.gjeldendeVurderingFraArrangor)
+	const vurderingstype = vurdering?.vurderingstype
+	const vurderingLabel = vurderingstype && vurderingstypeTeksMapper(vurderingstype)
 	const tagType = getTagType(vurderingstype)
 
+	const updateVurdering = (vurdering: Vurdering | null) => {
+		setVurdering(vurdering)
+	}
+
 	return (
-		<div className={styles.vurdering}>
-			<BodyShort size="small">
-				<Label as="span" size="small" className={styles.label}>
+		<div className={styles.vurderingWrapper}>
+			<BodyShort size="small" className={styles.vurdering}>
+				<Label as="span" size="small">
 					Vurdering:
 				</Label>
 				{vurderingstype && tagType ? (
-					<Tag variant={tagType} size="xsmall">
-						{vurdering}
-					</Tag>
+					<>
+						<Tag variant={tagType} size="xsmall">
+							{vurderingLabel}
+						</Tag>
+						{vurdering?.begrunnelse}
+					</>
 				) : (
 					EMDASH
 				)}
 			</BodyShort>
-			{deltaker.status.type === TiltakDeltakerStatus.VURDERES
-				&& <VurderDeltakelseKnapp deltaker={deltaker} onVurderingSendt={onVurderingSendt} />
+			{deltaker.status.type === TiltakDeltakerStatus.VURDERES &&
+				<VurderDeltakelseKnapp deltakerId={deltaker.id} updateVurdering={updateVurdering} />
 			}
 		</div>
 	)

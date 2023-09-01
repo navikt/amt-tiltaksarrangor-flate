@@ -81,7 +81,7 @@ export const adresseSchema = z.object({
 	adressenavn: z.string().nullable()
 })
 
-export const VurderingSchema = z.object({
+export const vurderingSchema = z.object({
 	vurderingstype: z.nativeEnum(Vurderingstype),
 	begrunnelse: z.string().nullable(),
 	gyldigFra: nullableDateSchema,
@@ -111,8 +111,8 @@ export const deltakerSchema = z.object({
 	veiledere: z.array(veilederMedTypeSchema),
 	aktiveEndringsmeldinger: z.array(endringsmeldingSchema),
 	adresse: adresseSchema.nullable(),
-	gjeldendeVurderingFraArrangor: VurderingSchema.nullable(),
-	historiskeVurderingerFraArrangor: z.array(VurderingSchema).nullable()
+	gjeldendeVurderingFraArrangor: vurderingSchema.nullable(),
+	historiskeVurderingerFraArrangor: z.array(vurderingSchema).nullable()
 })
 
 export const veilederForSchema = z.object({
@@ -199,4 +199,4 @@ export type VeiledersDeltaker = z.infer<typeof veiledersDeltakerSchema>
 
 export type KoordinatorsDeltakerliste = z.infer<typeof koordinatorsDeltakerlisteSchema>
 
-export type Vurdering = z.infer<typeof VurderingSchema>
+export type Vurdering = z.infer<typeof vurderingSchema>
