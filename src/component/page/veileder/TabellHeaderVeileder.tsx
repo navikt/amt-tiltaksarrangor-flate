@@ -1,6 +1,6 @@
 import { Table } from '@navikt/ds-react'
 import React from 'react'
-
+import styles from './TabellHeader.module.scss'
 import { DeltakerKolonne } from './sortering'
 
 function dynamicWidth(minPixels: number): React.CSSProperties {
@@ -14,7 +14,7 @@ function fixedWidth(pixels: number): React.CSSProperties {
 
 export const TabellHeaderVeileder = (): JSX.Element => {
 	return (
-		<Table.Header>
+		<Table.Header className={ styles.sticky }>
 			<Table.Row>
 				<Table.ColumnHeader sortKey={DeltakerKolonne.NAVN} style={dynamicWidth(230)} sortable>
 					Etternavn, Fornavn

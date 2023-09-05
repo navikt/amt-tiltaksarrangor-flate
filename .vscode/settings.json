@@ -1,0 +1,8 @@
+{
+    "[javascript][javascriptreact][typescript][typescriptreact]": {
+        /*
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+        */
+        "editor.defaultFormatter": "vscode.typescript-language-features"
+    },
+}
