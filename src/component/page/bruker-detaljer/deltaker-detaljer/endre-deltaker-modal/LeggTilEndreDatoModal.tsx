@@ -11,24 +11,25 @@ import { useDeltakerlisteStore } from '../deltakerliste-store'
 
 export interface LeggTilEndreDatoModalProps {
 	onClose: () => void
-	sendEndring: (valgtDato: Date) => Promise<void>
+	sendEndring: (valgtDato: Nullable<Date>) => Promise<void>
 }
 
 interface LeggTilEndreDatoDataProps {
 	tittel: string
 	datoLabel: string
 	visGodkjennVilkaarPanel: boolean
+	kanNullstilleDato?: boolean
 }
 
 
 export const LeggTilEndreDatoModal = (props: LeggTilEndreDatoModalProps & LeggTilEndreDatoDataProps) => {
-	const { tittel, datoLabel, visGodkjennVilkaarPanel, onClose, sendEndring } = props
+	const { tittel, datoLabel, visGodkjennVilkaarPanel, onClose, sendEndring, kanNullstilleDato } = props
 	const [ valgtDato, setNyDato ] = useState<Nullable<Date>>()
 	const [ vilkaarGodkjent, setVilkaarGodkjent ] = useState(false)
 	const { deltakerliste } = useDeltakerlisteStore()
 
 	const sendEndringsmelding = () => {
-		if (!valgtDato) return Promise.reject('Dato er påkrevd for å sende endringsmelding med endring av start/sluttdato')
+		if (!valgtDato && !kanNullstilleDato) return Promise.reject('Dato er påkrevd for å sende endringsmelding med endring av dato')
 		return sendEndring(valgtDato)
 	}
 
@@ -50,7 +51,7 @@ export const LeggTilEndreDatoModal = (props: LeggTilEndreDatoModalProps & LeggTi
 			<SendTilNavKnapp
 				onEndringSendt={onClose}
 				sendEndring={sendEndringsmelding}
-				disabled={!valgtDato || (visGodkjennVilkaarPanel && !vilkaarGodkjent)} />
+				disabled={(!valgtDato && !kanNullstilleDato) || (visGodkjennVilkaarPanel && !vilkaarGodkjent)} />
 		</BaseModal>
 	)
 }

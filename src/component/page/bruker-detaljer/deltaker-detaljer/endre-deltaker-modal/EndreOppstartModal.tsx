@@ -1,6 +1,7 @@
 import React from 'react'
 
 import { endreOppstartsdato } from '../../../../../api/tiltak-api'
+import { Nullable } from '../../../../../utils/types/or-nothing'
 import {
 	LeggTilEndreDatoModal
 } from './LeggTilEndreDatoModal'
@@ -18,7 +19,7 @@ export interface EndreOppstartModalDataProps {
 export const EndreOppstartModal = (props: EndreOppstartModalProps & EndreOppstartModalDataProps) => {
 	const { deltakerId, onClose, onEndringUtfort } = props
 
-	const sendEndring = (valgtDato: Date) => {
+	const sendEndring = (valgtDato: Nullable<Date>) => {
 		return endreOppstartsdato(deltakerId, valgtDato)
 			.then(onEndringUtfort)
 	}
@@ -30,6 +31,7 @@ export const EndreOppstartModal = (props: EndreOppstartModalProps & EndreOppstar
 			onClose={onClose}
 			sendEndring={sendEndring}
 			visGodkjennVilkaarPanel={props.visGodkjennVilkaarPanel}
+			kanNullstilleDato
 		/>
 	)
 }
