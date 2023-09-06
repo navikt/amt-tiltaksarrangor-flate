@@ -119,12 +119,12 @@ export const leggTilOppstartsdato = (deltakerId: string, startDato: Date): Axios
 		.catch(err => logAndThrowError(err, url))
 }
 
-export const endreOppstartsdato = (deltakerId: string, startDato: Date): AxiosPromise => {
+export const endreOppstartsdato = (deltakerId: string, startDato: Nullable<Date>): AxiosPromise => {
 	const url = appUrl(`/amt-tiltaksarrangor-bff/tiltaksarrangor/deltaker/${deltakerId}/endringsmelding`)
 	return axiosInstance
 		.post(
 			url,
-			{ innhold: { type: EndringsmeldingType.ENDRE_OPPSTARTSDATO, oppstartsdato: formatDateToDateInputStr(startDato) } },
+			{ innhold: { type: EndringsmeldingType.ENDRE_OPPSTARTSDATO, oppstartsdato: startDato ? formatDateToDateInputStr(startDato) : null } },
 		)
 		.catch(err => logAndThrowError(err, url))
 }

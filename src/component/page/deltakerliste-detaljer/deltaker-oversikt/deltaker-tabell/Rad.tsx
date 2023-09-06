@@ -19,26 +19,36 @@ interface RadProps {
 	deltaker: TiltakDeltaker
 }
 
-const hentEndringsmeldingSluttdato = (endringsmeldinger: Endringsmelding[]) => {
+const hentSluttdatoEndringsmelding = (endringsmeldinger: Endringsmelding[]) => {
 	return endringsmeldinger?.flatMap(e => {
-		return e.type === EndringsmeldingType.FORLENG_DELTAKELSE || e.type === EndringsmeldingType.AVSLUTT_DELTAKELSE || e.type === EndringsmeldingType.ENDRE_SLUTTDATO ? e.innhold.sluttdato : []
+		const erSluttdatoMelding = 
+			e.type === EndringsmeldingType.FORLENG_DELTAKELSE ||
+			e.type === EndringsmeldingType.AVSLUTT_DELTAKELSE ||
+			e.type === EndringsmeldingType.ENDRE_SLUTTDATO
+
+		return erSluttdatoMelding ? e : []
 	})[0]
 }
 
-const hentEndringsmeldingStartdato = (endringsmeldinger: Endringsmelding[]) => {
+const hentStartdatoEndringsmelding = (endringsmeldinger: Endringsmelding[]) => {
 	return endringsmeldinger?.flatMap(e => {
-		return e.type === EndringsmeldingType.ENDRE_OPPSTARTSDATO || e.type === EndringsmeldingType.LEGG_TIL_OPPSTARTSDATO ? e.innhold.oppstartsdato : []
+		const erStartdatoMelding = 
+			e.type === EndringsmeldingType.ENDRE_OPPSTARTSDATO || 
+			e.type === EndringsmeldingType.LEGG_TIL_OPPSTARTSDATO
+
+		return erStartdatoMelding ? e : []
 	})[0]
 }
+
 
 export const utledStartdato = (deltakerStartdato: Date | null, endringsmeldinger: Endringsmelding[]) => {
-	const endringsmeldingStartdato = hentEndringsmeldingStartdato(endringsmeldinger)
-	return endringsmeldingStartdato? formatDate(endringsmeldingStartdato)+ '*': formatDate(deltakerStartdato)
+	const endringsmelding = hentStartdatoEndringsmelding(endringsmeldinger)
+	return endringsmelding ? formatDate(endringsmelding.innhold.oppstartsdato) + '*' : formatDate(deltakerStartdato)
 }
 
 export const utledSluttdato = (deltakerSluttdato: Date | null, endringsmeldinger: Endringsmelding[]) => {
-	const endringsmeldingSluttdato = hentEndringsmeldingSluttdato(endringsmeldinger)
-	return endringsmeldingSluttdato? formatDate(endringsmeldingSluttdato)+ '*': formatDate(deltakerSluttdato)
+	const endringsmelding = hentSluttdatoEndringsmelding(endringsmeldinger)
+	return endringsmelding ? formatDate(endringsmelding.innhold.sluttdato) + '*' : formatDate(deltakerSluttdato)
 }
 
 export const Rad = (props: RadProps): React.ReactElement<RadProps> => {

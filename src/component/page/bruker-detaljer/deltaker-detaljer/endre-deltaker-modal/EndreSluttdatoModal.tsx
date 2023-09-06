@@ -1,6 +1,7 @@
 import React from 'react'
 
 import { postEndreSluttdato } from '../../../../../api/tiltak-api'
+import { Nullable } from '../../../../../utils/types/or-nothing'
 import { LeggTilEndreDatoModal } from './LeggTilEndreDatoModal'
 
 export interface EndreSluttdatoModalProps {
@@ -16,7 +17,9 @@ export interface EndreSluttdatoModalDataProps {
 export const EndreSluttdatoModal = (props: EndreSluttdatoModalProps & EndreSluttdatoModalDataProps) => {
 	const { deltakerId, onClose, onEndringUtfort } = props
 
-	const sendEndring = (valgtDato: Date) => {
+	const sendEndring = (valgtDato: Nullable<Date>) => {
+		if (!valgtDato) return Promise.reject('Sluttdato må være valgt for å sende endring')
+
 		return postEndreSluttdato(deltakerId, valgtDato)
 			.then(onEndringUtfort)
 	}
