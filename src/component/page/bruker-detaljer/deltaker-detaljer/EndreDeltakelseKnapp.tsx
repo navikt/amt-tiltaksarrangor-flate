@@ -39,8 +39,7 @@ export const EndreDeltakelseKnapp = (props: EndreDeltakelseKnappProps) => {
 		endreDeltakelseRef?.current?.focus()
 	}
 
-	const visGodkjennVilkaarPanel =
-		deltaker.tiltakskode !== Tiltakskode.VASV && deltaker.status.type !== TiltakDeltakerStatus.VURDERES
+	const visGodkjennVilkaarPanel = deltaker.tiltakskode !== Tiltakskode.VASV
 	const kanHaSenereSluttdato =
 		!deltaker.sluttDato ||
 		!deltaker.deltakerliste.sluttDato ||
@@ -55,11 +54,9 @@ export const EndreDeltakelseKnapp = (props: EndreDeltakelseKnappProps) => {
 					as={Dropdown.Toggle}
 					variant="secondary"
 					size="small"
+					icon={ <PencilIcon aria-hidden /> }
 				>
-					<span className={styles.knappTekst}>
-						<PencilIcon aria-hidden />
-						Endre deltakelse
-					</span>
+					Endre deltakelse
 				</Button>
 				<Dropdown.Menu className={styles.dropdownMenu}>
 					<Dropdown.Menu.GroupedList className={styles.dropdown}>
