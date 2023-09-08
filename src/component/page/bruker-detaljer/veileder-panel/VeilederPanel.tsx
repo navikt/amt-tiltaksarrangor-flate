@@ -30,10 +30,6 @@ export const VeilederPanel = ({ deltaker, visTildeling }: Props): React.ReactEle
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [ deltaker.veiledere ])
 
-	const handleModalState = () => {
-		setOpenModal((prev) => !prev)
-	}
-
 	const handleSubmit = (veiledere: Veileder[]) => {
 		setVeileder(veiledere.find((v) => !v.erMedveileder))
 		setMedveiledere(veiledere.filter((v) => v.erMedveileder))
@@ -82,7 +78,7 @@ export const VeilederPanel = ({ deltaker, visTildeling }: Props): React.ReactEle
 			</div>
 
 			<Show if={visTildeling}>
-				<Button variant="secondary" size="small" className={styles.knapp} onClick={handleModalState}>
+				<Button variant="secondary" size="small" className={styles.knapp} onClick={() => setOpenModal(true)}>
 					<span className={styles.knappTekst}>
 						<PersonPlusIcon /> Endre veiledere
 					</span>
@@ -93,7 +89,7 @@ export const VeilederPanel = ({ deltaker, visTildeling }: Props): React.ReactEle
 					veileder={veileder}
 					medveiledere={medveiledere}
 					open={openModal}
-					onClose={handleModalState}
+					onClose={ () => setOpenModal( false ) }
 					onSubmit={handleSubmit}
 				/>
 			</Show>

@@ -73,19 +73,19 @@ export const Rad = (props: RadProps): React.ReactElement<RadProps> => {
 
 	return (
 		<Table.Row key={id}>
-			<Table.DataCell>
+			<Table.DataCell className={ styles.smallText }>
 				<Link className={styles.brukersNavn} to={brukerDetaljerPageUrl(id, 'koordinator')} onClick={() => loggKlikk(klikkDeltakerRadOversikt)}>
 					{deltakerNavn}
 				</Link>
 			</Table.DataCell>
-			<Table.DataCell><Fnr fnr={fodselsnummer} /></Table.DataCell>
-			<Table.DataCell>{formatDate(soktInnDato)}</Table.DataCell>
-			<Table.DataCell>{utledStartdato(startDato, aktiveEndringsmeldinger)}</Table.DataCell>
-			<Table.DataCell>{utledSluttdato(sluttDato, aktiveEndringsmeldinger)}</Table.DataCell>
-			<Table.DataCell>
+			<Table.DataCell className={ styles.smallText }><Fnr fnr={fodselsnummer} /></Table.DataCell>
+			<Table.DataCell className={ styles.smallText }>{formatDate(soktInnDato)}</Table.DataCell>
+			<Table.DataCell className={ styles.smallText }>{utledStartdato(startDato, aktiveEndringsmeldinger)}</Table.DataCell>
+			<Table.DataCell className={ styles.smallText }>{utledSluttdato(sluttDato, aktiveEndringsmeldinger)}</Table.DataCell>
+			<Table.DataCell className={ styles.smallText }>
 				<StatusMerkelapp status={status} erDeltakerlisteVisning />
 			</Table.DataCell>
-			<Table.DataCell>
+			<Table.DataCell className={ styles.smallText }>
 				{veiledernavn}
 			</Table.DataCell>
 		</Table.Row >

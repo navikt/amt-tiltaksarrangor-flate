@@ -70,6 +70,7 @@ export const TildelVeilederModal = (props: Props): React.ReactElement => {
 	}
 
 	const handleClose = () => {
+		console.log('Close modal handler')
 		setVeileder(props.veileder)
 		setMedveiledere(props.medveiledere)
 		setTildelingFeiletError(false)
