@@ -71,7 +71,7 @@ export const VurderDeltakelseKnapp = ({ deltakerId, updateVurdering }: EndreDelt
 				>
 					Vurder
 				</Button>
-				<Dropdown.Menu>
+				<Dropdown.Menu className={ styles.dropdownWrapper }>
 					<Dropdown.Menu.GroupedList className={styles.dropdown}>
 						<Dropdown.Menu.GroupedList.Heading>Vurder deltaker</Dropdown.Menu.GroupedList.Heading>
 						{vurderingDropDownItem(Vurderingstype.OPPFYLLER_KRAVENE, () => setOppfyllerKraveneModalOpen(true))}
