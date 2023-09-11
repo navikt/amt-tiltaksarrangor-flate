@@ -11,7 +11,6 @@ export enum KursDeltakerStatuser {
 	DELTAR = 'DELTAR',
 	FULLFORT = 'FULLFORT',
 	AVBRUTT = 'AVBRUTT',
-
 }
 
 export enum IndividuellDeltakerStatus {
@@ -19,13 +18,17 @@ export enum IndividuellDeltakerStatus {
 	DELTAR = 'DELTAR',
 	HAR_SLUTTET = 'HAR_SLUTTET',
 	IKKE_AKTUELL = 'IKKE_AKTUELL',
-
 }
 
 export enum Adressetype {
 	KONTAKTADRESSE = 'KONTAKTADRESSE',
 	OPPHOLDSADRESSE = 'OPPHOLDSADRESSE',
 	BOSTEDSADRESSE = 'BOSTEDSADRESSE'
+}
+
+export enum Vurderingstype {
+	OPPFYLLER_KRAVENE = 'OPPFYLLER_KRAVENE',
+	OPPFYLLER_IKKE_KRAVENE = 'OPPFYLLER_IKKE_KRAVENE'
 }
 
 export const TiltakDeltakerStatus = { ...KursDeltakerStatuser, ...IndividuellDeltakerStatus }
@@ -78,6 +81,13 @@ export const adresseSchema = z.object({
 	adressenavn: z.string().nullable()
 })
 
+export const vurderingSchema = z.object({
+	vurderingstype: z.nativeEnum(Vurderingstype),
+	begrunnelse: z.string().nullable(),
+	gyldigFra: nullableDateSchema,
+	gyldigTil: nullableDateSchema.nullable()
+})
+
 export const deltakerSchema = z.object({
 	id: z.string().uuid(),
 	deltakerliste: deltakersDeltakerlisteSchema,
@@ -100,7 +110,9 @@ export const deltakerSchema = z.object({
 	navInformasjon: navInformasjonSchema,
 	veiledere: z.array(veilederMedTypeSchema),
 	aktiveEndringsmeldinger: z.array(endringsmeldingSchema),
-	adresse: adresseSchema.nullable()
+	adresse: adresseSchema.nullable(),
+	gjeldendeVurderingFraArrangor: vurderingSchema.nullable(),
+	historiskeVurderingerFraArrangor: z.array(vurderingSchema).nullable()
 })
 
 export const veilederForSchema = z.object({
@@ -186,3 +198,5 @@ export type MineDeltakerlister = z.infer<typeof mineDeltakerlisterSchema>
 export type VeiledersDeltaker = z.infer<typeof veiledersDeltakerSchema>
 
 export type KoordinatorsDeltakerliste = z.infer<typeof koordinatorsDeltakerlisteSchema>
+
+export type Vurdering = z.infer<typeof vurderingSchema>

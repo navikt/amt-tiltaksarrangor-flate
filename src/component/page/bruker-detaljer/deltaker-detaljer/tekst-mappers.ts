@@ -1,3 +1,4 @@
+import { Vurderingstype } from '../../../../api/data/deltaker'
 import { DeltakerStatusAarsakType } from '../../../../api/data/endringsmelding'
 import { EndringType } from './types'
 
@@ -25,6 +26,14 @@ export const endringTypeTekstMapper = (endringsType: EndringType) => {
 		case EndringType.DELTAKER_ER_AKTUELL: return 'Er aktuell'
 		case EndringType.ENDRE_SLUTTDATO: return 'Endre sluttdato'
 
+		default: return 'Ukjent'
+	}
+}
+
+export const vurderingstypeTeksMapper = (vurderingstype: Vurderingstype) => {
+	switch (vurderingstype) {
+		case Vurderingstype.OPPFYLLER_IKKE_KRAVENE: return 'Oppfyller ikke kravene'
+		case Vurderingstype.OPPFYLLER_KRAVENE: return 'Oppfyller kravene'
 		default: return 'Ukjent'
 	}
 }

@@ -22,12 +22,12 @@ export const DeltakerDetaljerPage = (): React.ReactElement => {
 
 	const brukerId = params.brukerId || ''
 
-	useTabTitle('Deltakerdetaljer')
-	useStyle(globalStyles.whiteBackground, 'html')
-
 	const fetchDeltakerPromise = usePromise<AxiosResponse<Deltaker>>(
 		() => fetchDeltaker(brukerId), [ brukerId ]
 	)
+
+	useTabTitle('Deltakerdetaljer')
+	useStyle(globalStyles.whiteBackground, 'html')
 
 	if (isNotStartedOrPending(fetchDeltakerPromise)) {
 		return <SpinnerPage/>
@@ -53,7 +53,10 @@ export const DeltakerDetaljerPage = (): React.ReactElement => {
 				tiltakskode={deltaker.tiltakskode}
 			/>
 			<DeltakerlisteStoreProvider deltakerliste={deltaker.deltakerliste}>
-				<DeltakerDetaljer deltaker={deltaker} visTildeling={isKoordinatorForDeltakerliste(deltaker.deltakerliste.id, koordinatorsDeltakerlister)}/>
+				<DeltakerDetaljer
+					deltaker={deltaker}
+					visTildeling={isKoordinatorForDeltakerliste(deltaker.deltakerliste.id, koordinatorsDeltakerlister)}
+				/>
 			</DeltakerlisteStoreProvider>
 		</div>
 	)

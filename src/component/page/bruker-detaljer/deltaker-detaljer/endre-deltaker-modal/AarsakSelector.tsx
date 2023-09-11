@@ -8,11 +8,10 @@ import { AarsakRadioMedBeskrivelse } from './AarsakRadioMedBeskrivelse'
 
 interface AarsakSelectorProps {
 	tittel: string,
-	skalViseOppfyllerIkkeKrav: boolean,
 	onAarsakSelected: (aarsak: DeltakerStatusAarsakType, beskrivelse: Nullable<string>) => void
 }
 
-export const AarsakSelector = ({ tittel, skalViseOppfyllerIkkeKrav, onAarsakSelected }: AarsakSelectorProps) => {
+export const AarsakSelector = ({ tittel, onAarsakSelected }: AarsakSelectorProps) => {
 	const [ aarsak, settAarsak ] = useState<DeltakerStatusAarsakType>()
 	const [ beskrivelse, settBeskrivelse ] = useState<Nullable<string>>()
 
@@ -25,6 +24,7 @@ export const AarsakSelector = ({ tittel, skalViseOppfyllerIkkeKrav, onAarsakSele
 		const aarsakBeskrivelse = (aarsak === DeltakerStatusAarsakType.ANNET || aarsak === DeltakerStatusAarsakType.OPPFYLLER_IKKE_KRAVENE) ? beskrivelse : null
 		onAarsakSelected(aarsak, aarsakBeskrivelse)
 	}, [ beskrivelse, aarsak, onAarsakSelected, tittel ])
+
 	return (
 		<RadioGroup
 			legend={tittel}
@@ -34,7 +34,6 @@ export const AarsakSelector = ({ tittel, skalViseOppfyllerIkkeKrav, onAarsakSele
 			<AarsakRadio aarsakType={DeltakerStatusAarsakType.TRENGER_ANNEN_STOTTE} />
 			<AarsakRadio aarsakType={DeltakerStatusAarsakType.IKKE_MOTT} />
 			<AarsakRadio aarsakType={DeltakerStatusAarsakType.UTDANNING} />
-			{ skalViseOppfyllerIkkeKrav && <AarsakRadioMedBeskrivelse aarsakType={DeltakerStatusAarsakType.OPPFYLLER_IKKE_KRAVENE} valgtAarsak={aarsak} onBeskrivelse={onBeskrivelse}/> }
 			<AarsakRadioMedBeskrivelse aarsakType={DeltakerStatusAarsakType.ANNET} valgtAarsak={aarsak} onBeskrivelse={onBeskrivelse}/>
 		</RadioGroup>
 	)

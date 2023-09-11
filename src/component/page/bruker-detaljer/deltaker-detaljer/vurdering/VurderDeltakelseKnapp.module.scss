@@ -1,0 +1,33 @@
+.ikon {
+  height: 22px;
+  width: 22px;
+}
+
+.oppfyllerIkkeKraveneIkon {
+  color: var(--a-icon-danger);
+  transform: rotate(45deg);
+  @extend .ikon;
+}
+
+.oppfyllerKraveneIkon {
+  color: var(--a-green-500);
+  @extend .ikon;
+}
+
+.knapp{
+  place-self: flex-start;
+  width: fit-content;
+  height: fit-content;
+}
+
+.dropdownWrapper {
+  width: fit-content;
+}
+
+.dropdown {
+  dd {
+    padding-bottom: 0.4rem;
+    padding-top: 0.4rem;
+    padding-right: 0.5rem;
+  }
+}

@@ -24,7 +24,6 @@ export const EndreDeltakelseKnapp = (props: EndreDeltakelseKnappProps) => {
 		visSettDeltakerIkkeAktuellModal,
 		visAvsluttDeltakerModal,
 		visEndreProsentDeltakelseModal,
-		visSettDeltakerErAktuellModal,
 		visEndreSluttdatoModal,
 		lukkModal
 	} = useModalData()
@@ -40,8 +39,7 @@ export const EndreDeltakelseKnapp = (props: EndreDeltakelseKnappProps) => {
 		endreDeltakelseRef?.current?.focus()
 	}
 
-	const visGodkjennVilkaarPanel =
-		deltaker.tiltakskode !== Tiltakskode.VASV && deltaker.status.type !== TiltakDeltakerStatus.VURDERES
+	const visGodkjennVilkaarPanel = deltaker.tiltakskode !== Tiltakskode.VASV
 	const kanHaSenereSluttdato =
 		!deltaker.sluttDato ||
 		!deltaker.deltakerliste.sluttDato ||
@@ -56,11 +54,9 @@ export const EndreDeltakelseKnapp = (props: EndreDeltakelseKnappProps) => {
 					as={Dropdown.Toggle}
 					variant="secondary"
 					size="small"
+					icon={ <PencilIcon aria-hidden /> }
 				>
-					<span className={styles.knappTekst}>
-						<PencilIcon aria-hidden />
-						Endre deltakelse
-					</span>
+					Endre deltakelse
 				</Button>
 				<Dropdown.Menu className={styles.dropdownMenu}>
 					<Dropdown.Menu.GroupedList className={styles.dropdown}>
@@ -149,28 +145,17 @@ export const EndreDeltakelseKnapp = (props: EndreDeltakelseKnappProps) => {
 							/>
 						)}
 						{deltaker.status.type === TiltakDeltakerStatus.VURDERES && (
-							<>
-								<DropDownButton
-									endringstype={EndringType.DELTAKER_ER_AKTUELL}
-									onClick={() =>
-										visSettDeltakerErAktuellModal({
-											deltakerId: deltaker.id,
-											onEndringUtfort: props.onEndringUtfort
-										})
-									}
-								/>
-								<DropDownButton
-									endringstype={EndringType.DELTAKER_IKKE_AKTUELL}
-									onClick={() =>
-										visSettDeltakerIkkeAktuellModal({
-											deltakerId: deltaker.id,
-											visGodkjennVilkaarPanel: visGodkjennVilkaarPanel,
-											erKurs: deltaker.deltakerliste.erKurs,
-											onEndringUtfort: props.onEndringUtfort
-										})
-									}
-								/>
-							</>
+							<DropDownButton
+								endringstype={EndringType.DELTAKER_IKKE_AKTUELL}
+								onClick={() =>
+									visSettDeltakerIkkeAktuellModal({
+										deltakerId: deltaker.id,
+										visGodkjennVilkaarPanel: visGodkjennVilkaarPanel,
+										erKurs: deltaker.deltakerliste.erKurs,
+										onEndringUtfort: props.onEndringUtfort
+									})
+								}
+							/>
 						)}
 						{(deltaker.status.type === TiltakDeltakerStatus.FULLFORT ||
 							deltaker.status.type === TiltakDeltakerStatus.AVBRUTT) && (

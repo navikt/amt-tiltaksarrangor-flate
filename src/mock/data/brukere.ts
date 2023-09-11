@@ -1,6 +1,6 @@
 import faker from 'faker'
 
-import { Adresse, Adressetype, TiltakDeltakerStatus } from '../../api/data/deltaker'
+import { Adresse, Adressetype, Vurdering, Vurderingstype, TiltakDeltakerStatus } from '../../api/data/deltaker'
 import { Endringsmelding } from '../../api/data/endringsmelding'
 import { Gjennomforing } from '../../api/data/tiltak'
 import { VeilederMedType } from '../../api/data/veileder'
@@ -9,6 +9,8 @@ import { lagMockEndringsmeldingForDeltaker } from './endringsmelding'
 import { deltakerId } from './id'
 import { deltakerlisteErKurs, MockGjennomforing } from './tiltak'
 import { lagMockVeiledereForDeltaker } from './veileder'
+
+export type MockVurdering = Vurdering
 
 export interface MockNavEnhet {
 	navn: string
@@ -47,6 +49,8 @@ export interface MockTiltakDeltaker {
 	aktiveEndringsmeldinger: Endringsmelding[]
 	veiledere: VeilederMedType[]
 	adresse: MockAdresse | null
+	gjeldendeVurderingFraArrangor: MockVurdering | null
+	historiskeVurderingerFraArrangor: MockVurdering[] | null
 }
 
 const navEnheter: MockNavEnhet[] = [
@@ -129,6 +133,24 @@ const finnSluttdato = (erGruppeAmoSorvest: boolean, gjennomforing: Gjennomforing
 	}
 }
 
+const lagVurdering = (erHistorisk: boolean): MockVurdering => {
+	const vurderingstype = faker.random.arrayElement([ Vurderingstype.OPPFYLLER_KRAVENE, Vurderingstype.OPPFYLLER_IKKE_KRAVENE ])
+	const gyldigFra = faker.date.past()
+	const historiskGyldigTilDato = new Date()
+	historiskGyldigTilDato.setDate(gyldigFra.getDate() + 1)
+
+	return {
+		vurderingstype,
+		begrunnelse: vurderingstype === Vurderingstype.OPPFYLLER_KRAVENE ? null : 'Opfyller ikke kravene',
+		gyldigFra,
+		gyldigTil: erHistorisk ? historiskGyldigTilDato : faker.random.arrayElement([ faker.date.future(), null ])
+	}
+}
+
+const lagHistoriskeVurderinger = (): MockVurdering[] => {
+	return new Array(randBetween(0, 3)).fill(null).map(() => lagVurdering(true))
+}
+
 const lagMockTiltakDeltagerForGjennomforing = (gjennomforing: Gjennomforing): MockTiltakDeltaker => {
 	const erKurs = deltakerlisteErKurs(gjennomforing.tiltak.tiltakskode)
 	const status = getStatus(erKurs)
@@ -160,6 +182,8 @@ const lagMockTiltakDeltagerForGjennomforing = (gjennomforing: Gjennomforing): Mo
 		telefon: lagTelefonnummer()
 	} : null
 
+	const gjeldendeVurderingFraArrangor = lagVurdering(false)
+
 	const id = deltakerId()
 	return {
 		id: id,
@@ -186,6 +210,8 @@ const lagMockTiltakDeltagerForGjennomforing = (gjennomforing: Gjennomforing): Mo
 		aktiveEndringsmeldinger: lagMockEndringsmeldingForDeltaker(status),
 		veiledere: lagMockVeiledereForDeltaker(id),
 		adresse: lagAdresse(),
+		gjeldendeVurderingFraArrangor,
+		historiskeVurderingerFraArrangor: gjeldendeVurderingFraArrangor ? lagHistoriskeVurderinger() : null
 	}
 }
 

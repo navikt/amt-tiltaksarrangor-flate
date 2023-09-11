@@ -63,7 +63,6 @@ export const SettIkkeAktuellModal = (props: SettIkkeAktuellModalProps & SettIkke
 		<BaseModal tittel="Er ikke aktuell" onClose={onClose}>
 			<AarsakSelector
 				tittel="Hva er årsaken til at personen ikke er aktuell?"
-				skalViseOppfyllerIkkeKrav={props.erKurs}
 				onAarsakSelected={onAarsakSelected}
 			/>
 			{visGodkjennVilkaarPanel && (
