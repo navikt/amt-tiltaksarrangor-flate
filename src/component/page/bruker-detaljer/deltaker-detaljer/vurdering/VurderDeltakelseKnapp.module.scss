@@ -3,18 +3,19 @@
   width: 22px;
 }
 
-.ikkeAktuellIkon {
+.oppfyllerIkkeKraveneIkon {
   color: var(--a-icon-danger);
   transform: rotate(45deg);
   @extend .ikon;
 }
 
-.erAktuellIkon {
-  color: var(--a-icon-alt-2);
+.oppfyllerKraveneIkon {
+  color: var(--a-green-500);
   @extend .ikon;
 }
 
 .knapp{
+  place-self: flex-start;
   width: fit-content;
   height: fit-content;
 }

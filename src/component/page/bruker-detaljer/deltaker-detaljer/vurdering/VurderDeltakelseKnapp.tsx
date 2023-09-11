@@ -15,8 +15,8 @@ interface EndreDeltakelseKnappProps {
 
 const vurderingDropDownItem = (vurderingstype: Vurderingstype, onClick: React.MouseEventHandler<HTMLElement> ) => {
 	const icon = vurderingstype === Vurderingstype.OPPFYLLER_IKKE_KRAVENE
-		? <PlusCircleFillIcon className={styles.ikkeAktuellIkon} aria-hidden />
-		: <CheckmarkCircleFillIcon className={styles.erAktuellIkon} aria-hidden />
+		? <PlusCircleFillIcon className={ styles.oppfyllerIkkeKraveneIkon } aria-hidden />
+		: <CheckmarkCircleFillIcon className={ styles.oppfyllerKraveneIkon } aria-hidden />
 
 	return (
 		<Dropdown.Menu.GroupedList.Item onClick={onClick}>

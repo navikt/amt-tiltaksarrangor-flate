@@ -31,7 +31,7 @@ export const DeltakerVurdering = ({ deltaker }: DeltakerVurderingProps): React.R
 		<div className={styles.vurderingWrapper}>
 			<BodyShort size="small" className={styles.vurdering}>
 				<Label as="span" size="small">
-					Vurdering:
+					Vurdering fra tiltaksarrangør:
 				</Label>
 				{vurderingstype && tagType ? (
 					<>
