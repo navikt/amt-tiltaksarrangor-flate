@@ -7,6 +7,7 @@ on:
       - opened
 jobs:
   create-link-to-app:
+    if: github.event.pull_request.head.repo.fork != true && github.event.pull_request.user.login != 'dependabot[bot]'
     permissions:
       pull-requests: "write"
     name: Opprett lenke til test applikasjon for PR
