@@ -1,7 +1,7 @@
 name: Cypress test
 on:
-  push:
-    branches-ignore:
+  pull_request:
+    branches:
       - main
 env:
   CI: true
@@ -37,15 +37,15 @@ jobs:
       - name: Install cypress binary
         if: steps.cypress-cache.outputs.cache-hit != 'true'
         run: pnpm exec cypress install
+      - name: Check if PR is not created by Dependabot
+        run: echo "IS_NOT_DEPENDABOT=${{ github.event.pull_request.user.login != 'dependabot[bot]' }}" >> $GITHUB_ENV
       - name: Run tests
         uses: cypress-io/github-action@v6
         with:
           browser: chrome
-          headless: true
           start: pnpm start
           wait-on: sleep 5
-          parallel: true
-          record: true
+          record: ${{ env.IS_NOT_DEPENDABOT }}
         env:
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
