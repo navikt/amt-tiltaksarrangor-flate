@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@babel/core": "^7.22.15",
+    "@babel/core": "^7.22.17",
     "@navikt/aksel-icons": "^5.3.4",
     "@navikt/ds-css": "^5.3.4",
     "@navikt/ds-react": "^5.3.4",
