@@ -5,7 +5,7 @@
   "dependencies": {
     "@babel/core": "^7.22.15",
     "@navikt/aksel-icons": "^5.3.4",
-    "@navikt/ds-css": "^5.3.4",
+    "@navikt/ds-css": "^5.5.0",
     "@navikt/ds-react": "^5.3.4",
     "@navikt/ds-tokens": "^5.3.4",
     "@navikt/nav-dekoratoren-moduler": "^2.1.3",
