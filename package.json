@@ -58,7 +58,7 @@
     "cpy-cli": "^5.0.0",
     "cypress": "^13.1.0",
     "cypress-axe": "^1.5.0",
-    "eslint": "^8.48.0",
+    "eslint": "^8.49.0",
     "eslint-plugin-cypress": "^2.14.0",
     "eslint-plugin-jsx-a11y": "^6.7.1",
     "eslint-plugin-react": "^7.33.2",
