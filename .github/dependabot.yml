@@ -4,10 +4,12 @@ registries:
     type: npm-registry
     url: https://npm.pkg.github.com
     token: ${{secrets.READER_TOKEN}}
-    replaces-base: true
+    replaces-base: false
 updates:
   - package-ecosystem: "npm"
     directory: "/"
+    registries:
+      - npm-github
     schedule:
       interval: "daily"
     open-pull-requests-limit: 10
