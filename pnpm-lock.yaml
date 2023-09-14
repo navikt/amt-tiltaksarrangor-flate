@@ -18,8 +18,8 @@ dependencies:
     specifier: ^5.3.4
     version: 5.3.4(@types/react@18.2.21)(react-dom@18.2.0)(react@18.2.0)
   '@navikt/ds-tokens':
-    specifier: ^5.3.4
-    version: 5.3.4
+    specifier: ^5.5.0
+    version: 5.5.0
   '@navikt/nav-dekoratoren-moduler':
     specifier: ^2.1.3
     version: 2.1.3(jsdom@22.1.0)(react@18.2.0)
@@ -972,8 +972,8 @@ packages:
       - react-dom
     dev: false
 
-  /@navikt/ds-tokens@5.3.4:
-    resolution: {integrity: sha512-sXFVtI4mAcAtAliF2rB7CHis0SA/KtGEfpJaPiGnqBtiO5KJEgbBIC3hFcMpPSEAFBcNoMuOzha4Ul/Cthq+BQ==, tarball: https://npm.pkg.github.com/download/@navikt/ds-tokens/5.3.4/75f0c1e934ca108290edfa2261eb418021b9839d}
+  /@navikt/ds-tokens@5.5.0:
+    resolution: {integrity: sha512-zV9TfGNjiRgpX1Ec11gK8BtgkiR+HN+qwjVbWt5NA6ux8xIQYdaFqLJWQa585vLl6DEOhwrlzb0FhT+KDvG3Rg==, tarball: https://npm.pkg.github.com/download/@navikt/ds-tokens/5.5.0/f963d7872d9b6eb74198f19f107b6073bfa8c6a5}
     dev: false
 
   /@navikt/nav-dekoratoren-moduler@2.1.3(jsdom@22.1.0)(react@18.2.0):
