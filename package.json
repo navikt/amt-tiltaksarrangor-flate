@@ -51,7 +51,7 @@
   "devDependencies": {
     "@types/amplitude-js": "^8.9.3",
     "@types/faker": "^5.5.9",
-    "@typescript-eslint/eslint-plugin": "^6.6.0",
+    "@typescript-eslint/eslint-plugin": "^6.7.0",
     "@typescript-eslint/parser": "^6.6.0",
     "@vitejs/plugin-react": "^4.0.4",
     "axe-core": "^4.8.1",
