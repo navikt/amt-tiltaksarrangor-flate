@@ -3,7 +3,6 @@ import React from 'react'
 import styles from './EndringTypeIkon.module.scss'
 import { EndringType } from './types'
 import {
-	CheckmarkCircleFillIcon,
 	MinusCircleFillIcon,
 	ChevronRightDoubleCircleFillIcon,
 	ChevronRightCircleFillIcon,
@@ -29,8 +28,6 @@ export const EndringTypeIkon = (props: EndringTypeIkonProps) => {
 			return <PieChartFillIcon className={styles.endreProsentDeltakelseIkon} aria-hidden/>
 		case EndringType.DELTAKER_IKKE_AKTUELL:
 			return <PlusCircleFillIcon className={styles.ikkeAktuellIkon} aria-hidden/>
-		case EndringType.DELTAKER_ER_AKTUELL:
-			return <CheckmarkCircleFillIcon className={styles.erAktuellIkon} aria-hidden />
 	}
 
 }

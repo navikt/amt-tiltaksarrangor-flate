@@ -129,12 +129,6 @@ export const mockHandlers: RequestHandler[] = [
 				})
 			}
 
-			if (bodyType.innhold.type === EndringsmeldingType.DELTAKER_ER_AKTUELL) {
-				deltaker.aktiveEndringsmeldinger.push({
-					id: randomUuid(),
-					type: EndringsmeldingType.DELTAKER_ER_AKTUELL,
-				})
-			}
 			if (bodyType.innhold.type === EndringsmeldingType.ENDRE_SLUTTDATO) {
 				const body = req.body as { innhold: { type: string, sluttdato: string } }
 				deltaker.aktiveEndringsmeldinger.push({

@@ -19,7 +19,7 @@ export const EndringsmeldingInnhold = (props: EndringsmeldingInnholdProps) => {
 	const { endringsmelding } = props
 
 	const getAarsakTekst = (aarsak : DeltakerStatusAarsak) => {
-		return (aarsak.type === DeltakerStatusAarsakType.ANNET || aarsak.type === DeltakerStatusAarsakType.OPPFYLLER_IKKE_KRAVENE) ? aarsak.beskrivelse : aarsakTekstMapper(aarsak.type)
+		return (aarsak.type === DeltakerStatusAarsakType.ANNET) ? aarsak.beskrivelse : aarsakTekstMapper(aarsak.type)
 	}
 
 	switch (endringsmelding.type) {
@@ -68,10 +68,6 @@ export const EndringsmeldingInnhold = (props: EndringsmeldingInnholdProps) => {
 					{ endringsmelding.innhold.dagerPerUke && <BodyShort size="small">{getDagerPerUkeTekst(endringsmelding.innhold.dagerPerUke)}</BodyShort>}
 					{ endringsmelding.innhold.gyldigFraDato && <BodyShort size="small">Gjelder fra {formatDate(endringsmelding.innhold.gyldigFraDato)}</BodyShort> }
 				</>
-			)
-		case EndringsmeldingType.DELTAKER_ER_AKTUELL:
-			return (
-				<BodyShort size="small">Personen er aktuell.</BodyShort>
 			)
 		case EndringsmeldingType.ENDRE_SLUTTDATO:
 			return (

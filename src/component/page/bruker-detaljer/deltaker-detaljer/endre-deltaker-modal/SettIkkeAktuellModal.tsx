@@ -27,7 +27,7 @@ export const SettIkkeAktuellModal = (props: SettIkkeAktuellModalProps & SettIkke
 	const [ beskrivelse, settBeskrivelse ] = useState<Nullable<string>>()
 	const [ vilkaarGodkjent, settVilkaarGodkjent ] = useState(false)
 	const kanSendeEndringsmelding =
-		aarsak === DeltakerStatusAarsakType.ANNET || aarsak === DeltakerStatusAarsakType.OPPFYLLER_IKKE_KRAVENE
+		aarsak === DeltakerStatusAarsakType.ANNET
 			? aarsak &&
 				(vilkaarGodkjent || !visGodkjennVilkaarPanel) &&
 				beskrivelse &&
@@ -39,13 +39,13 @@ export const SettIkkeAktuellModal = (props: SettIkkeAktuellModalProps & SettIkke
 			return Promise.reject()
 		}
 		if (
-			(aarsak === DeltakerStatusAarsakType.ANNET || aarsak === DeltakerStatusAarsakType.OPPFYLLER_IKKE_KRAVENE) &&
+			aarsak === DeltakerStatusAarsakType.ANNET &&
 			!beskrivelse
 		) {
 			return Promise.reject(`Beskrivelse er påkrevd med årsak '${aarsakTekstMapper(aarsak)}'`)
 		}
 		if (
-			(aarsak === DeltakerStatusAarsakType.ANNET || aarsak === DeltakerStatusAarsakType.OPPFYLLER_IKKE_KRAVENE) &&
+			aarsak === DeltakerStatusAarsakType.ANNET &&
 			beskrivelse &&
 			beskrivelse?.length > 40
 		) {

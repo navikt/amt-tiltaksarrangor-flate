@@ -21,7 +21,7 @@ export const AarsakSelector = ({ tittel, onAarsakSelected }: AarsakSelectorProps
 
 	useEffect(() => {
 		if (!aarsak) return
-		const aarsakBeskrivelse = (aarsak === DeltakerStatusAarsakType.ANNET || aarsak === DeltakerStatusAarsakType.OPPFYLLER_IKKE_KRAVENE) ? beskrivelse : null
+		const aarsakBeskrivelse = aarsak === DeltakerStatusAarsakType.ANNET ? beskrivelse : null
 		onAarsakSelected(aarsak, aarsakBeskrivelse)
 	}, [ beskrivelse, aarsak, onAarsakSelected, tittel ])
 
