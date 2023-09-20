@@ -78,8 +78,6 @@ const mapTilEndringType = (endringsmeldingType: EndringsmeldingType) => {
 			return EndringType.AVSLUTT_DELTAKELSE
 		case EndringsmeldingType.ENDRE_DELTAKELSE_PROSENT:
 			return EndringType.ENDRE_DELTAKELSE_PROSENT
-		case EndringsmeldingType.DELTAKER_ER_AKTUELL:
-			return EndringType.DELTAKER_ER_AKTUELL
 		case EndringsmeldingType.ENDRE_SLUTTDATO:
 			return EndringType.ENDRE_SLUTTDATO
 		default:
