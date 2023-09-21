@@ -51,6 +51,13 @@ export const navInformasjonSchema = z.object({
 	navVeileder: navVeilederSchema.nullable()
 })
 
+export const vurderingSchema = z.object( {
+	vurderingstype: z.nativeEnum( Vurderingstype ),
+	begrunnelse: z.string().nullable(),
+	gyldigFra: nullableDateSchema,
+	gyldigTil: nullableDateSchema.nullable()
+} )
+
 export const tiltakDeltakerSchema = z.object({
 	id: z.string().uuid(),
 	fornavn: z.string(),
@@ -63,7 +70,8 @@ export const tiltakDeltakerSchema = z.object({
 	soktInnDato: dateSchema,
 	aktiveEndringsmeldinger: z.array(endringsmeldingSchema),
 	veiledere: z.array(veilederMedTypeSchema),
-	navKontor: z.string().nullable()
+	navKontor: z.string().nullable(),
+	gjeldendeVurderingFraArrangor: vurderingSchema.nullable()
 })
 
 export const deltakersDeltakerlisteSchema = z.object({
@@ -79,13 +87,6 @@ export const adresseSchema = z.object({
 	poststed: z.string(),
 	tilleggsnavn: z.string().nullable(),
 	adressenavn: z.string().nullable()
-})
-
-export const vurderingSchema = z.object({
-	vurderingstype: z.nativeEnum(Vurderingstype),
-	begrunnelse: z.string().nullable(),
-	gyldigFra: nullableDateSchema,
-	gyldigTil: nullableDateSchema.nullable()
 })
 
 export const deltakerSchema = z.object({
