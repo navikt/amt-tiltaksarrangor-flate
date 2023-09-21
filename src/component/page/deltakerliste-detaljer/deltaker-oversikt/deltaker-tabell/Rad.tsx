@@ -1,7 +1,8 @@
 import { Table } from '@navikt/ds-react'
 import React from 'react'
+import cls from 'classnames'
 import { Link } from 'react-router-dom'
-import { TiltakDeltaker } from '../../../../../api/data/deltaker'
+import { KursDeltakerStatuser, TiltakDeltaker, Vurderingstype } from '../../../../../api/data/deltaker'
 import { Endringsmelding, EndringsmeldingType } from '../../../../../api/data/endringsmelding'
 import { brukerDetaljerPageUrl } from '../../../../../navigation'
 import { klikkDeltakerRadOversikt, loggKlikk } from '../../../../../utils/amplitude-utils'
@@ -13,6 +14,7 @@ import { StatusMerkelapp } from '../../../../felles/status-merkelapp/StatusMerke
 
 import styles from './Rad.module.scss'
 import { Veiledertype } from '../../../../../api/data/veileder'
+import { CheckmarkCircleFillIcon, PlusCircleFillIcon } from '@navikt/aksel-icons'
 
 interface RadProps {
 	idx: number
@@ -21,7 +23,7 @@ interface RadProps {
 
 const hentSluttdatoEndringsmelding = (endringsmeldinger: Endringsmelding[]) => {
 	return endringsmeldinger?.flatMap(e => {
-		const erSluttdatoMelding = 
+		const erSluttdatoMelding =
 			e.type === EndringsmeldingType.FORLENG_DELTAKELSE ||
 			e.type === EndringsmeldingType.AVSLUTT_DELTAKELSE ||
 			e.type === EndringsmeldingType.ENDRE_SLUTTDATO
@@ -32,8 +34,8 @@ const hentSluttdatoEndringsmelding = (endringsmeldinger: Endringsmelding[]) => {
 
 const hentStartdatoEndringsmelding = (endringsmeldinger: Endringsmelding[]) => {
 	return endringsmeldinger?.flatMap(e => {
-		const erStartdatoMelding = 
-			e.type === EndringsmeldingType.ENDRE_OPPSTARTSDATO || 
+		const erStartdatoMelding =
+			e.type === EndringsmeldingType.ENDRE_OPPSTARTSDATO ||
 			e.type === EndringsmeldingType.LEGG_TIL_OPPSTARTSDATO
 
 		return erStartdatoMelding ? e : []
@@ -64,12 +66,17 @@ export const Rad = (props: RadProps): React.ReactElement<RadProps> => {
 		status,
 		aktiveEndringsmeldinger,
 		veiledere,
+		gjeldendeVurderingFraArrangor
 	} = props.deltaker
 
 	const veileder = veiledere.filter(v => v.veiledertype === Veiledertype.VEILEDER)[0]
 
 	const veiledernavn = veileder ? lagKommaSeparertBrukerNavn(veileder.fornavn, veileder.mellomnavn, veileder.etternavn) : EMDASH
 	const deltakerNavn = lagKommaSeparertBrukerNavn(fornavn, mellomnavn, etternavn)
+
+	const vurderingIkon = gjeldendeVurderingFraArrangor?.vurderingstype === Vurderingstype.OPPFYLLER_IKKE_KRAVENE
+		? <PlusCircleFillIcon className={ styles.oppfyllerIkkeKraveneIkon } aria-label="Vurdert til oppfyller ikke kravene" />
+		: <CheckmarkCircleFillIcon className={ styles.oppfyllerKraveneIkon } aria-label="Vurdert til oppfyller kravene" />
 
 	return (
 		<Table.Row key={id}>
@@ -82,8 +89,11 @@ export const Rad = (props: RadProps): React.ReactElement<RadProps> => {
 			<Table.DataCell className={ styles.smallText }>{formatDate(soktInnDato)}</Table.DataCell>
 			<Table.DataCell className={ styles.smallText }>{utledStartdato(startDato, aktiveEndringsmeldinger)}</Table.DataCell>
 			<Table.DataCell className={ styles.smallText }>{utledSluttdato(sluttDato, aktiveEndringsmeldinger)}</Table.DataCell>
-			<Table.DataCell className={ styles.smallText }>
-				<StatusMerkelapp status={status} erDeltakerlisteVisning />
+			<Table.DataCell className={ cls( styles.smallText ) }>
+				<div className={ cls( styles.statusCelle ) }>
+					<StatusMerkelapp status={ status } erDeltakerlisteVisning />
+					{ status.type === KursDeltakerStatuser.VURDERES && gjeldendeVurderingFraArrangor && vurderingIkon }
+				</div>
 			</Table.DataCell>
 			<Table.DataCell className={ styles.smallText }>
 				{veiledernavn}

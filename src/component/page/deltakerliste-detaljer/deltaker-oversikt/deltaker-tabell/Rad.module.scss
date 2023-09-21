@@ -12,3 +12,26 @@
 .smallText  {
   font-size: 1rem;
 }
+
+.statusCelle {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+}
+
+.ikon {
+  height: 22px;
+  width: 22px;
+  margin-left: 0.5rem;
+}
+
+.oppfyllerIkkeKraveneIkon {
+  color: var(--a-icon-danger);
+  transform: rotate(45deg);
+  @extend .ikon;
+}
+
+.oppfyllerKraveneIkon {
+  color: var(--a-green-500);
+  @extend .ikon;
+}
