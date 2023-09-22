@@ -41,8 +41,9 @@ export const lagMockTiltakDeltakere = (antallGjennomforinger: number, antallDelt
 	const deltakereJobbklubb = lagMockTiltakDeltagereForGjennomforing(mockGjennomforinger[8], 40)
 	const deltakereGruppeAmoNordvest = lagMockTiltakDeltagereForGjennomforing(mockGjennomforinger[9], 10)
 	const deltakereGruppeAmoSorvest = lagMockTiltakDeltagereForGjennomforing(mockGjennomforinger[10], 15)
+	const deltakereGruppeFagOgYrkeSorvest = lagMockTiltakDeltagereForGjennomforing(mockGjennomforinger[ 11 ], 18)
 
-	return tilfeldigeDeltakere.concat(deltakereJobbklubb, deltakereGruppeAmoNordvest, deltakereGruppeAmoSorvest)
+	return tilfeldigeDeltakere.concat(deltakereJobbklubb, deltakereGruppeAmoNordvest, deltakereGruppeAmoSorvest, deltakereGruppeFagOgYrkeSorvest)
 }
 
 const deltakereTilVeileder = () => {

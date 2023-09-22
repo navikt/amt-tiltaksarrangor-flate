@@ -2,7 +2,7 @@ import faker from 'faker'
 
 import { Adresse, Adressetype, Vurdering, Vurderingstype, TiltakDeltakerStatus } from '../../api/data/deltaker'
 import { Endringsmelding } from '../../api/data/endringsmelding'
-import { Gjennomforing } from '../../api/data/tiltak'
+import { Gjennomforing, Tiltakskode } from '../../api/data/tiltak'
 import { VeilederMedType } from '../../api/data/veileder'
 import { randBetween, randomBoolean, randomFnr } from '../utils/faker'
 import { lagMockEndringsmeldingForDeltaker } from './endringsmelding'
@@ -60,29 +60,29 @@ const navEnheter: MockNavEnhet[] = [
 	{ navn: 'NAV Moss' },
 ]
 
-const lagMailFraNavn = (navn: string, mailDomain: string): string => {
+const lagMailFraNavn = ( navn: string, mailDomain: string ): string => {
 	const mailNavn = navn
-		.replaceAll(' ', '.')
-		.replaceAll('æ', 'ae')
-		.replaceAll('ø', 'o')
-		.replaceAll('å', 'a')
+		.replaceAll( ' ', '.' )
+		.replaceAll( 'æ', 'ae' )
+		.replaceAll( 'ø', 'o' )
+		.replaceAll( 'å', 'a' )
 		.toLowerCase()
 
 	return `${mailNavn}@${mailDomain}`
 }
 
-export const lagMockTiltakDeltagereForGjennomforing = (gjennomforing: Gjennomforing, antallDeltakere = 10): MockTiltakDeltaker[] => {
+export const lagMockTiltakDeltagereForGjennomforing = ( gjennomforing: Gjennomforing, antallDeltakere = 10 ): MockTiltakDeltaker[] => {
 	const deltakere: MockTiltakDeltaker[] = []
 
-	for (let i = 0; i < antallDeltakere; i++) {
-		deltakere.push(lagMockTiltakDeltagerForGjennomforing(gjennomforing))
+	for ( let i = 0; i < antallDeltakere; i++ ) {
+		deltakere.push( lagMockTiltakDeltagerForGjennomforing( gjennomforing ) )
 	}
 
 	return deltakere
 }
 
 const lagTelefonnummer = (): string => {
-	return faker.phone.phoneNumber().replaceAll(' ', '')
+	return faker.phone.phoneNumber().replaceAll( ' ', '' )
 }
 
 const lagAdresse = (): MockAdresse => {
@@ -95,94 +95,100 @@ const lagAdresse = (): MockAdresse => {
 	}
 }
 
-const getStatus = (erKurs: boolean): TiltakDeltakerStatus => {
-	const i = randBetween(0, 10)
+const getStatus = ( erKurs: boolean, tiltakskode: Tiltakskode ): TiltakDeltakerStatus => {
+	const i = randBetween( 0, 10 )
 
-	if (erKurs) {
-		if (i < 2) return TiltakDeltakerStatus.VURDERES
-		if (i < 4) return TiltakDeltakerStatus.DELTAR
-		if (i < 7) return TiltakDeltakerStatus.VENTER_PA_OPPSTART
-		if (i < 8) return TiltakDeltakerStatus.FULLFORT
-		if (i < 10) return TiltakDeltakerStatus.AVBRUTT
+	if ( erKurs && tiltakskode == Tiltakskode.GRUPPEAMO ) {
+		if ( i < 2 ) return TiltakDeltakerStatus.VURDERES
+		if ( i < 4 ) return TiltakDeltakerStatus.DELTAR
+		if ( i < 7 ) return TiltakDeltakerStatus.VENTER_PA_OPPSTART
+		if ( i < 8 ) return TiltakDeltakerStatus.FULLFORT
+		if ( i < 10 ) return TiltakDeltakerStatus.AVBRUTT
 	}
-	if (i < 5) return TiltakDeltakerStatus.DELTAR
-	if (i < 7) return TiltakDeltakerStatus.VENTER_PA_OPPSTART
-	if (i < 8) return TiltakDeltakerStatus.HAR_SLUTTET
-	if (i < 9) return TiltakDeltakerStatus.IKKE_AKTUELL
+	if ( erKurs ) {
+		if ( i < 4 ) return TiltakDeltakerStatus.DELTAR
+		if ( i < 7 ) return TiltakDeltakerStatus.VENTER_PA_OPPSTART
+		if ( i < 8 ) return TiltakDeltakerStatus.FULLFORT
+		if ( i < 10 ) return TiltakDeltakerStatus.AVBRUTT
+	}
+	if ( i < 5 ) return TiltakDeltakerStatus.DELTAR
+	if ( i < 7 ) return TiltakDeltakerStatus.VENTER_PA_OPPSTART
+	if ( i < 8 ) return TiltakDeltakerStatus.HAR_SLUTTET
+	if ( i < 9 ) return TiltakDeltakerStatus.IKKE_AKTUELL
 
 	return TiltakDeltakerStatus.DELTAR
 }
 
-const finnStartdato = (erGruppeAmoSorvest: boolean, gjennomforing: Gjennomforing, skalHaDatoer: boolean, deltakerstatus: TiltakDeltakerStatus): Date|null => {
-	if (erGruppeAmoSorvest && randBetween(0, 10) < 9) {
+const finnStartdato = ( erGruppeAmoSorvest: boolean, gjennomforing: Gjennomforing, skalHaDatoer: boolean, deltakerstatus: TiltakDeltakerStatus ): Date | null => {
+	if ( erGruppeAmoSorvest && randBetween( 0, 10 ) < 9 ) {
 		return gjennomforing.startDato
 	} else {
 		return skalHaDatoer
-			? (deltakerstatus === TiltakDeltakerStatus.VENTER_PA_OPPSTART ? faker.date.future() : faker.date.past())
+			? ( deltakerstatus === TiltakDeltakerStatus.VENTER_PA_OPPSTART ? faker.date.future() : faker.date.past() )
 			: null
 	}
 }
 
-const finnSluttdato = (erGruppeAmoSorvest: boolean, gjennomforing: Gjennomforing, startDato: Date|null, deltakerstatus: TiltakDeltakerStatus): Date|null => {
-	if (erGruppeAmoSorvest && randBetween(0, 10) < 9) {
+const finnSluttdato = ( erGruppeAmoSorvest: boolean, gjennomforing: Gjennomforing, startDato: Date | null, deltakerstatus: TiltakDeltakerStatus ): Date | null => {
+	if ( erGruppeAmoSorvest && randBetween( 0, 10 ) < 9 ) {
 		return gjennomforing.sluttDato
 	} else {
 		return startDato != null
-			? (deltakerstatus === TiltakDeltakerStatus.HAR_SLUTTET ? faker.date.between(startDato, Date()) : faker.date.between(startDato, gjennomforing.sluttDato? gjennomforing.sluttDato: Date()))
+			? ( deltakerstatus === TiltakDeltakerStatus.HAR_SLUTTET ? faker.date.between( startDato, Date() ) : faker.date.between( startDato, gjennomforing.sluttDato ? gjennomforing.sluttDato : Date() ) )
 			: null
 	}
 }
 
-const lagVurdering = (erHistorisk: boolean): MockVurdering => {
-	const vurderingstype = faker.random.arrayElement([ Vurderingstype.OPPFYLLER_KRAVENE, Vurderingstype.OPPFYLLER_IKKE_KRAVENE ])
+const lagVurdering = ( erHistorisk: boolean ): MockVurdering => {
+	const vurderingstype = faker.random.arrayElement( [ Vurderingstype.OPPFYLLER_KRAVENE, Vurderingstype.OPPFYLLER_IKKE_KRAVENE ] )
 	const gyldigFra = faker.date.past()
 	const historiskGyldigTilDato = new Date()
-	historiskGyldigTilDato.setDate(gyldigFra.getDate() + 1)
+	historiskGyldigTilDato.setDate( gyldigFra.getDate() + 1 )
 
 	return {
 		vurderingstype,
 		begrunnelse: vurderingstype === Vurderingstype.OPPFYLLER_KRAVENE ? null : 'Opfyller ikke kravene',
 		gyldigFra,
-		gyldigTil: erHistorisk ? historiskGyldigTilDato : faker.random.arrayElement([ faker.date.future(), null ])
+		gyldigTil: erHistorisk ? historiskGyldigTilDato : faker.random.arrayElement( [ faker.date.future(), null ] )
 	}
 }
 
 const lagHistoriskeVurderinger = (): MockVurdering[] => {
-	return new Array(randBetween(0, 3)).fill(null).map(() => lagVurdering(true))
+	return new Array( randBetween( 0, 3 ) ).fill( null ).map( () => lagVurdering( true ) )
 }
 
-const lagMockTiltakDeltagerForGjennomforing = (gjennomforing: Gjennomforing): MockTiltakDeltaker => {
-	const erKurs = deltakerlisteErKurs(gjennomforing.tiltak.tiltakskode)
-	const status = getStatus(erKurs)
-	const gender = randBetween(0, 1)
-	const brukerFornavn = faker.name.firstName(gender)
-	const brukerMellomnavn = randomBoolean(50) ? faker.name.firstName(gender) : null
+const lagMockTiltakDeltagerForGjennomforing = ( gjennomforing: Gjennomforing ): MockTiltakDeltaker => {
+	const erKurs = deltakerlisteErKurs( gjennomforing.tiltak.tiltakskode )
+	const status = getStatus( erKurs, gjennomforing.tiltak.tiltakskode )
+	const gender = randBetween( 0, 1 )
+	const brukerFornavn = faker.name.firstName( gender )
+	const brukerMellomnavn = randomBoolean( 50 ) ? faker.name.firstName( gender ) : null
 	const brukerEtternavn = faker.name.lastName()
 
 	const veilederNavn = faker.name.firstName() + ' ' + faker.name.lastName()
 
 	// 80% av deltakere med status VENTER_PA_OPPSTART, IKKE_AKTUELL skal ikke ha datoer
-	const skalHaDatoer = [ TiltakDeltakerStatus.VENTER_PA_OPPSTART, TiltakDeltakerStatus.IKKE_AKTUELL ].includes(status)
-		? randomBoolean(20)
+	const skalHaDatoer = [ TiltakDeltakerStatus.VENTER_PA_OPPSTART, TiltakDeltakerStatus.IKKE_AKTUELL ].includes( status )
+		? randomBoolean( 20 )
 		: true
 
 	// 90% av deltakerne på Gruppe AMO Sørvest skal ha samme start- og sluttdato som gjennomføringen
 	const erGruppeAmoSorvest = gjennomforing.navn === 'Gruppe AMO Sørvest'
 
-	const startDato = finnStartdato(erGruppeAmoSorvest, gjennomforing, skalHaDatoer, status)
-	const sluttDato = finnSluttdato(erGruppeAmoSorvest, gjennomforing, startDato, status)
+	const startDato = finnStartdato( erGruppeAmoSorvest, gjennomforing, skalHaDatoer, status )
+	const sluttDato = finnSluttdato( erGruppeAmoSorvest, gjennomforing, startDato, status )
 
 	const fjernesDato = status === TiltakDeltakerStatus.IKKE_AKTUELL || status === TiltakDeltakerStatus.HAR_SLUTTET
 		? faker.date.future()
 		: null
 
-	const veileder = randomBoolean(90) ? {
-		epost: lagMailFraNavn(veilederNavn, 'nav.no'),
+	const veileder = randomBoolean( 90 ) ? {
+		epost: lagMailFraNavn( veilederNavn, 'nav.no' ),
 		navn: veilederNavn,
 		telefon: lagTelefonnummer()
 	} : null
 
-	const gjeldendeVurderingFraArrangor = lagVurdering(false)
+	const gjeldendeVurderingFraArrangor = lagVurdering( false )
 
 	const id = deltakerId()
 	return {
@@ -191,31 +197,31 @@ const lagMockTiltakDeltagerForGjennomforing = (gjennomforing: Gjennomforing): Mo
 		mellomnavn: brukerMellomnavn,
 		etternavn: brukerEtternavn,
 		fodselsnummer: randomFnr(),
-		epost: lagMailFraNavn(`${brukerFornavn} ${brukerEtternavn}`, 'example.com'),
+		epost: lagMailFraNavn( `${brukerFornavn} ${brukerEtternavn}`, 'example.com' ),
 		telefonnummer: lagTelefonnummer(),
 		startDato: startDato,
 		sluttDato: sluttDato,
-		deltakelseProsent: randBetween(0, 10) > 4 ? randBetween(0, 100) : null,
-		dagerPerUke: randBetween(0, 10) > 5 ? randBetween(1, 5) : null,
+		deltakelseProsent: randBetween( 0, 10 ) > 4 ? randBetween( 0, 100 ) : null,
+		dagerPerUke: randBetween( 0, 10 ) > 5 ? randBetween( 1, 5 ) : null,
 		status: {
 			type: status,
 			endretDato: faker.date.recent()
 		},
-		navEnhet: randBetween(0, 10) < 9 ? faker.random.arrayElement(navEnheter) : null,
+		navEnhet: randBetween( 0, 10 ) < 9 ? faker.random.arrayElement( navEnheter ) : null,
 		navVeileder: veileder,
 		fjernesDato: fjernesDato,
 		gjennomforing: gjennomforing,
 		registrertDato: faker.date.past(),
-		innsokBegrunnelse: genererBegrunnelse(brukerFornavn),
-		aktiveEndringsmeldinger: lagMockEndringsmeldingForDeltaker(status),
-		veiledere: lagMockVeiledereForDeltaker(id),
+		innsokBegrunnelse: genererBegrunnelse( brukerFornavn ),
+		aktiveEndringsmeldinger: lagMockEndringsmeldingForDeltaker( status ),
+		veiledere: lagMockVeiledereForDeltaker( id ),
 		adresse: lagAdresse(),
 		gjeldendeVurderingFraArrangor,
 		historiskeVurderingerFraArrangor: gjeldendeVurderingFraArrangor ? lagHistoriskeVurderinger() : null
 	}
 }
 
-const genererBegrunnelse = (fornavn: string) => {
+const genererBegrunnelse = ( fornavn: string ) => {
 	return `\
 ${fornavn} har stått uten arbeid en lengre periode på grunn av helseutfordringer. Hen har mye arbeidserfaring og har spisskompetanse innen ledelse i salg og service. Hen har fått god hjelp fra helsevesenet og er nå klar for å starte prosessen med å finne nytt arbeid. ${fornavn} har et ønske om å bytte bransje, men er usikker på hvilke typer jobber som kan være aktuelle. Hen har trolig også behov for å kartlegge om hen har behov for tilrettelegging på arbeidsplassen.
 

@@ -95,6 +95,12 @@ export const gjennomforingInfoListe: GjennomforingInfo[] = [
 		tiltaksnavn: 'Gruppe AMO',
 		status: TiltakGjennomforingStatus.GJENNOMFORES
 	},
+	{
+		gjennomforingNavn: 'Gruppe fag- og yrkesopplæring VGS og høyere yrkesfaglig utdanning',
+		tiltakskode: Tiltakskode.GRUFAGYRKE,
+		tiltaksnavn: 'Gruppe fag- og yrkesopplæring',
+		status: TiltakGjennomforingStatus.GJENNOMFORES
+	},
 ]
 
 export const lagMockGjennomforinger = (gjennomforingInfoer: GjennomforingInfo[]): MockGjennomforing[] => {
@@ -143,7 +149,7 @@ export const lagMockMineDeltakerlister = (gjennomforinger: MockGjennomforing[], 
 
 	const antallVeilederFor = veiledersDeltakere.filter(deltaker => deltaker.veiledertype === Veiledertype.VEILEDER).length
 	const antallMedveilederFor = veiledersDeltakere.filter(deltaker => deltaker.veiledertype === Veiledertype.MEDVEILEDER).length
-	
+
 	return {
 		veilederFor: {
 			veilederFor: antallVeilederFor,
