@@ -35,6 +35,7 @@ export const AarsakSelector = ({ tittel, onAarsakSelected }: AarsakSelectorProps
 			<AarsakRadio aarsakType={DeltakerStatusAarsakType.IKKE_MOTT} />
 			<AarsakRadio aarsakType={DeltakerStatusAarsakType.UTDANNING} />
 			<AarsakRadioMedBeskrivelse aarsakType={DeltakerStatusAarsakType.ANNET} valgtAarsak={aarsak} onBeskrivelse={onBeskrivelse}/>
+			<AarsakRadioMedBeskrivelse aarsakType={DeltakerStatusAarsakType.TULL} valgtAarsak={aarsak} onBeskrivelse={onBeskrivelse}/>
 		</RadioGroup>
 	)
 }

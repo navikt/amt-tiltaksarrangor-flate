@@ -22,7 +22,8 @@ export enum DeltakerStatusAarsakType {
 	UTDANNING = 'UTDANNING',
 	AVLYST_KONTRAKT = 'AVLYST_KONTRAKT',
 	IKKE_MOTT = 'IKKE_MOTT',
-	ANNET = 'ANNET'
+	ANNET = 'ANNET',
+	TULL = 'TULL'
 }
 
 export const deltakerStatusAarsakSchema = z.object({
