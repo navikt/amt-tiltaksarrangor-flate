@@ -28,7 +28,7 @@ function gaTilTiltakGjennomforingOversikt() {
 function navigerTilTiltakGjennomforingDetaljer() {
 	cy.get('[data-testid=gjennomforing-oversikt-page]').within(() => {
 		cy.get('a')
-			.eq(1)
+			.eq(2)
 			.should('have.class', 'navds-link-panel')
 			.first()
 			.click()
