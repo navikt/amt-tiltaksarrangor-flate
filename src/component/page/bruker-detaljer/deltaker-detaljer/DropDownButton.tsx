@@ -21,9 +21,9 @@ export const DropDownButton = (props: DropDownButtonProps) => {
 	}
 
 	return (
-		<Dropdown.Menu.GroupedList.Item onClick={props.onClick}>
+		<Dropdown.Menu.List.Item onClick={props.onClick}>
 			<EndringTypeIkon type={props.endringstype}/>
 			<span className={endringTypeClassMapper(props.endringstype)}>{endringTypeTekstMapper(props.endringstype)}</span>
-		</Dropdown.Menu.GroupedList.Item>
+		</Dropdown.Menu.List.Item>
 	)
 }

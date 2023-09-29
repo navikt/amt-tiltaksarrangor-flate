@@ -59,8 +59,7 @@ export const EndreDeltakelseKnapp = (props: EndreDeltakelseKnappProps) => {
 					Endre deltakelse
 				</Button>
 				<Dropdown.Menu className={styles.dropdownMenu}>
-					<Dropdown.Menu.GroupedList className={styles.dropdown}>
-						<Dropdown.Menu.GroupedList.Heading>Velg endring</Dropdown.Menu.GroupedList.Heading>
+					<Dropdown.Menu.List className={styles.dropdown}>
 						{kanEndreStartDato && !deltaker.startDato && (
 							<DropDownButton
 								endringstype={EndringType.LEGG_TIL_OPPSTARTSDATO}
@@ -170,7 +169,7 @@ export const EndreDeltakelseKnapp = (props: EndreDeltakelseKnappProps) => {
 								}
 							/>
 						)}
-					</Dropdown.Menu.GroupedList>
+					</Dropdown.Menu.List>
 				</Dropdown.Menu>
 			</Dropdown>
 		</>
