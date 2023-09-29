@@ -2,7 +2,7 @@ import faker from 'faker'
 
 import { Adresse, Adressetype, Vurdering, Vurderingstype, TiltakDeltakerStatus } from '../../api/data/deltaker'
 import { Endringsmelding } from '../../api/data/endringsmelding'
-import { Gjennomforing, Tiltakskode } from '../../api/data/tiltak'
+import { Gjennomforing, TiltakGjennomforingStatus, Tiltakskode } from '../../api/data/tiltak'
 import { VeilederMedType } from '../../api/data/veileder'
 import { randBetween, randomBoolean, randomFnr } from '../utils/faker'
 import { lagMockEndringsmeldingForDeltaker } from './endringsmelding'
@@ -119,8 +119,8 @@ const getStatus = ( erKurs: boolean, tiltakskode: Tiltakskode ): TiltakDeltakerS
 	return TiltakDeltakerStatus.DELTAR
 }
 
-const finnStartdato = ( erGruppeAmoSorvest: boolean, gjennomforing: Gjennomforing, skalHaDatoer: boolean, deltakerstatus: TiltakDeltakerStatus ): Date | null => {
-	if ( erGruppeAmoSorvest && randBetween( 0, 10 ) < 9 ) {
+const finnStartdato = ( erKurs: boolean, gjennomforing: Gjennomforing, skalHaDatoer: boolean, deltakerstatus: TiltakDeltakerStatus ): Date | null => {
+	if ( erKurs ) {
 		return gjennomforing.startDato
 	} else {
 		return skalHaDatoer
@@ -129,8 +129,14 @@ const finnStartdato = ( erGruppeAmoSorvest: boolean, gjennomforing: Gjennomforin
 	}
 }
 
-const finnSluttdato = ( erGruppeAmoSorvest: boolean, gjennomforing: Gjennomforing, startDato: Date | null, deltakerstatus: TiltakDeltakerStatus ): Date | null => {
-	if ( erGruppeAmoSorvest && randBetween( 0, 10 ) < 9 ) {
+const finnSluttdato = ( erKurs: boolean, gjennomforing: Gjennomforing, startDato: Date | null, deltakerstatus: TiltakDeltakerStatus ): Date | null => {
+	const erAvbrutt = deltakerstatus === TiltakDeltakerStatus.AVBRUTT || deltakerstatus === TiltakDeltakerStatus.HAR_SLUTTET || deltakerstatus === TiltakDeltakerStatus.FULLFORT
+
+	if ( erKurs && erAvbrutt ) {
+		return startDato && gjennomforing.sluttDato
+			? faker.date.between( startDato, gjennomforing.sluttDato )
+			: gjennomforing.sluttDato
+	} else if ( erKurs ) {
 		return gjennomforing.sluttDato
 	} else {
 		return startDato != null
@@ -174,9 +180,11 @@ const lagMockTiltakDeltagerForGjennomforing = ( gjennomforing: Gjennomforing ): 
 
 	// 90% av deltakerne på Gruppe AMO Sørvest skal ha samme start- og sluttdato som gjennomføringen
 	const erGruppeAmoSorvest = gjennomforing.navn === 'Gruppe AMO Sørvest'
+	// Hvis status er avbrutt, kan sluttdato være i fortid
+	const erAvbrutt = status === TiltakDeltakerStatus.AVBRUTT || status === TiltakDeltakerStatus.HAR_SLUTTET
 
-	const startDato = finnStartdato( erGruppeAmoSorvest, gjennomforing, skalHaDatoer, status )
-	const sluttDato = finnSluttdato( erGruppeAmoSorvest, gjennomforing, startDato, status )
+	const startDato = finnStartdato( erKurs, gjennomforing, skalHaDatoer, status )
+	const sluttDato = finnSluttdato( erKurs, gjennomforing, startDato, status )
 
 	const fjernesDato = status === TiltakDeltakerStatus.IKKE_AKTUELL || status === TiltakDeltakerStatus.HAR_SLUTTET
 		? faker.date.future()
