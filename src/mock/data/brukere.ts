@@ -2,7 +2,7 @@ import faker from 'faker'
 
 import { Adresse, Adressetype, Vurdering, Vurderingstype, TiltakDeltakerStatus } from '../../api/data/deltaker'
 import { Endringsmelding } from '../../api/data/endringsmelding'
-import { Gjennomforing, TiltakGjennomforingStatus, Tiltakskode } from '../../api/data/tiltak'
+import { Gjennomforing, Tiltakskode } from '../../api/data/tiltak'
 import { VeilederMedType } from '../../api/data/veileder'
 import { randBetween, randomBoolean, randomFnr } from '../utils/faker'
 import { lagMockEndringsmeldingForDeltaker } from './endringsmelding'
