@@ -178,11 +178,6 @@ const lagMockTiltakDeltagerForGjennomforing = ( gjennomforing: Gjennomforing ): 
 		? randomBoolean( 20 )
 		: true
 
-	// 90% av deltakerne på Gruppe AMO Sørvest skal ha samme start- og sluttdato som gjennomføringen
-	const erGruppeAmoSorvest = gjennomforing.navn === 'Gruppe AMO Sørvest'
-	// Hvis status er avbrutt, kan sluttdato være i fortid
-	const erAvbrutt = status === TiltakDeltakerStatus.AVBRUTT || status === TiltakDeltakerStatus.HAR_SLUTTET
-
 	const startDato = finnStartdato( erKurs, gjennomforing, skalHaDatoer, status )
 	const sluttDato = finnSluttdato( erKurs, gjennomforing, startDato, status )
 
