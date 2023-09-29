@@ -1,5 +1,5 @@
 import { CheckmarkCircleFillIcon, PencilIcon, PlusCircleFillIcon } from '@navikt/aksel-icons'
-import { Button, Dropdown, Link } from '@navikt/ds-react'
+import { Button, Dropdown } from '@navikt/ds-react'
 import React, { useRef, useState } from 'react'
 import { Vurdering, Vurderingstype } from '../../../../../api/data/deltaker'
 import styles from './VurderDeltakelseKnapp.module.scss'
