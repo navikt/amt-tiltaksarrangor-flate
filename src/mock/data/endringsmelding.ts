@@ -53,5 +53,20 @@ export const lagMockEndringsmeldingForDeltaker = (deltakerStatus: TiltakDeltaker
 		]
 	}
 
+	if (n < 3 && deltakerStatus == TiltakDeltakerStatus.HAR_SLUTTET) {
+		return [
+			{
+				id: endringsmeldingId(),
+				type: EndringsmeldingType.ENDRE_SLUTTAARSAK,
+				innhold: {
+					aarsak: {
+						type: DeltakerStatusAarsakType.FATT_JOBB,
+						beskrivelse: null,
+					}
+				}
+			}
+		]
+	}
+
 	return []
 }

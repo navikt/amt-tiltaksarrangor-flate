@@ -230,3 +230,14 @@ export const postDeltakerVurderingOppfyllerIkkeKravene = (deltakerId: string, be
 		.post(url, { vurderingstype: Vurderingstype.OPPFYLLER_IKKE_KRAVENE, begrunnelse })
 		.catch((err) => logAndThrowError(err, url))
 }
+
+
+export const endreSluttaarsak = (deltakerId: string, aarsak: DeltakerStatusAarsak): AxiosPromise => {
+	const url = appUrl(`/amt-tiltaksarrangor-bff/tiltaksarrangor/deltaker/${deltakerId}/endringsmelding`)
+	return axiosInstance
+		.post(
+			url,
+			{ innhold: { type: EndringsmeldingType.ENDRE_SLUTTAARSAK, aarsak: aarsak } },
+		)
+		.catch(err => logAndThrowError(err, url))
+}

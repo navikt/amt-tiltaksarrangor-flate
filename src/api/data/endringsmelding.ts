@@ -9,9 +9,8 @@ export enum EndringsmeldingType {
 	AVSLUTT_DELTAKELSE = 'AVSLUTT_DELTAKELSE',
 	DELTAKER_IKKE_AKTUELL = 'DELTAKER_IKKE_AKTUELL',
 	ENDRE_DELTAKELSE_PROSENT = 'ENDRE_DELTAKELSE_PROSENT',
-	ENDRE_SLUTTDATO = 'ENDRE_SLUTTDATO'
-
-
+	ENDRE_SLUTTDATO = 'ENDRE_SLUTTDATO',
+	ENDRE_SLUTTAARSAK = 'ENDRE_SLUTTAARSAK',
 }
 
 export enum DeltakerStatusAarsakType {
@@ -67,8 +66,13 @@ export const deltakelseProsentEndringmeldingSchema = z.intersection(endringsmeld
 export const endreSluttdatoEndringmeldingSchema = z.intersection(endringsmeldingBaseSchema, z.object({
 	type: z.literal(EndringsmeldingType.ENDRE_SLUTTDATO),
 	innhold: z.object({ sluttdato: dateSchema }),
-
 }))
+
+export const endreSluttaarsakEndringmeldingSchema = z.intersection(endringsmeldingBaseSchema, z.object({
+	type: z.literal(EndringsmeldingType.ENDRE_SLUTTAARSAK),
+	innhold: z.object({ aarsak: deltakerStatusAarsakSchema }),
+}))
+
 export const endringsmeldingSchema = z.union([
 	leggTilOppstartsdatoEndringsmeldingSchema,
 	endreOppstartsdatoEndringsmeldingSchema,
@@ -76,8 +80,8 @@ export const endringsmeldingSchema = z.union([
 	avsluttDeltakelseEndringsmeldingSchema,
 	deltakerIkkeAktuellEndringsmeldingSchema,
 	deltakelseProsentEndringmeldingSchema,
-	endreSluttdatoEndringmeldingSchema
-
+	endreSluttdatoEndringmeldingSchema,
+	endreSluttaarsakEndringmeldingSchema,
 ])
 
 export const endringsmeldingerSchema = z.array(endringsmeldingSchema)
@@ -95,3 +99,5 @@ export type ForlengDeltakelseEndringsmelding = z.infer<typeof forlengDeltakelseE
 export type AvsluttDeltakelseEndringsmelding = z.infer<typeof avsluttDeltakelseEndringsmeldingSchema>
 
 export type DeltakerIkkeAktuellEndringsmelding = z.infer<typeof deltakerIkkeAktuellEndringsmeldingSchema>
+
+export type EndreSluttaarsakEndringsmelding = z.infer<typeof endreSluttaarsakEndringmeldingSchema>
