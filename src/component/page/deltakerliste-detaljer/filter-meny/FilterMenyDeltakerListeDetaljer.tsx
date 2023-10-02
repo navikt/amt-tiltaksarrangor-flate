@@ -28,7 +28,7 @@ export const FilterMenyDeltakerListeDetaljer: React.FC<Props> = ({ deltakerliste
 			</Heading>
 			<FilterMenyChips deltakere={deltakerliste.deltakere} />
 
-			<FilterMenyStatus erKurs={deltakerliste.erKurs} deltakere={deltakerliste.deltakere} />
+			<FilterMenyStatus erKurs={ deltakerliste.erKurs } tiltakType={ deltakerliste.tiltakType } deltakere={deltakerliste.deltakere} />
 			<FilterMenyVeiledere deltakere={deltakerliste.deltakere} />
 			<FilterMenyMedveileder deltakere={deltakerliste.deltakere} />
 			<FilterMenyNavKontor deltakere={deltakerliste.deltakere} />
