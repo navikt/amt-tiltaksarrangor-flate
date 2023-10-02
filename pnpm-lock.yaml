@@ -66,8 +66,8 @@ dependencies:
     specifier: ^6.16.0
     version: 6.16.0(react-dom@18.2.0)(react@18.2.0)
   react-select:
-    specifier: ^5.7.5
-    version: 5.7.5(@types/react@18.2.23)(react-dom@18.2.0)(react@18.2.0)
+    specifier: ^5.7.7
+    version: 5.7.7(@types/react@18.2.23)(react-dom@18.2.0)(react@18.2.0)
   typescript:
     specifier: ^5.2.2
     version: 5.2.2
@@ -873,6 +873,9 @@ packages:
     peerDependencies:
       '@types/react': ^17.0.30 || ^18.0.0
       react: ^17.0.0 || ^18.0.0
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
     dependencies:
       '@floating-ui/react': 0.25.4(react-dom@18.2.0)(react@18.2.0)
       '@navikt/aksel-icons': 5.6.1
@@ -1292,7 +1295,11 @@ packages:
     dev: true
 
   /@types/parse-json@4.0.0:
-    resolution: {integrity: sha512-//oorEZjL6sbPcKUaCdIGlIUeH26mgzimjBB77G6XRgnDl/L5wOnpyBGRe/Mmf5CVW3PwEBE1NjiMZ/ssFh4wA==}
+    resolution: {integrity: sha512-cflXkhRjOOCTvvdA/Bn5xKDaN2dvZwE+62hzazFPrIjC1WlKnIsrhHRK5UT8wID+MapfnDftzaRXNojhQZWvkg==, tarball: https://npm.pkg.github.com/download/@types/parse-json/4.0.0/b1f82f2971ff98a729bff1f163b9a3a1e4f9c9ff}
+    dev: false
+
+  /@types/prop-types@15.7.4:
+    resolution: {integrity: sha512-rZ5drC/jWjrArrS8BR6SIr4cWpW09RNTYt9AMZo3Jwwif+iacXAqgVjm0B0Bv/S1jhDXKHqRVNCbACkJ89RAnQ==, tarball: https://npm.pkg.github.com/download/@types/prop-types/15.7.4/fcf7205c25dff795ee79af1e30da2c9790808f11}
     dev: false
 
   /@types/prop-types@15.7.7:
@@ -1323,13 +1330,21 @@ packages:
     resolution: {integrity: sha512-jGjmu/ZqS7FjSH6owMcD5qpq19+1RS9DeVRqfl1FeBMxTDQAGwlMWOcs52NDoXaNKyG3d1cYQFMs9rCrb88o9Q==}
     dependencies:
       '@types/history': 4.7.11
-      '@types/react': 18.2.23
+      '@types/react': 17.0.39
     dev: false
 
-  /@types/react-transition-group@4.4.7:
-    resolution: {integrity: sha512-ICCyBl5mvyqYp8Qeq9B5G/fyBSRC0zx3XM3sCC6KkcMsNeAHqXBKkmat4GqdJET5jtYUpZXrxI5flve5qhi2Eg==}
+  /@types/react-transition-group@4.4.4:
+    resolution: {integrity: sha512-7gAPz7anVK5xzbeQW9wFBDg7G++aPLAFY0QaSMOou9rJZpbuI58WAuJrgu+qR92l61grlnCUe7AFX8KGahAgug==, tarball: https://npm.pkg.github.com/download/@types/react-transition-group/4.4.4/acd4cceaa2be6b757db61ed7b432e103242d163e}
     dependencies:
-      '@types/react': 18.2.23
+      '@types/react': 17.0.39
+    dev: false
+
+  /@types/react@17.0.39:
+    resolution: {integrity: sha512-UVavlfAxDd/AgAacMa60Azl7ygyQNRwC/DsHZmKgNvPmRR5p70AJ5Q9EAmL2NWOJmeV+vVUI4IAP7GZrN8h8Ug==, tarball: https://npm.pkg.github.com/download/@types/react/17.0.39/d0f4cde092502a6db00a1cded6e6bf2abb7633ce}
+    dependencies:
+      '@types/prop-types': 15.7.4
+      '@types/scheduler': 0.16.2
+      csstype: 3.1.2
     dev: false
 
   /@types/react@18.2.23:
@@ -1338,6 +1353,10 @@ packages:
       '@types/prop-types': 15.7.7
       '@types/scheduler': 0.16.4
       csstype: 3.1.2
+    dev: false
+
+  /@types/scheduler@0.16.2:
+    resolution: {integrity: sha512-hppQEBDmlwhFAXKJX2KnWLYu5yMfi91yazPb2l+lbJiwW+wdo1gNeRA+3RgNSO39WYX2euey41KEwnqesU2Jew==, tarball: https://npm.pkg.github.com/download/@types/scheduler/0.16.2/1a62f89525723dde24ba1b01b092bf5df8ad4d39}
     dev: false
 
   /@types/scheduler@0.16.4:
@@ -1362,8 +1381,8 @@ packages:
     resolution: {integrity: sha512-jA2llq2zNkg8HrALI7DtWzhALcVH0l7i89yhY3iBdOz6cBPeACoFq+fkQrjHA39t1hnSFOboZ7A/AY5MMZSlag==}
     dev: true
 
-  /@types/yauzl@2.10.1:
-    resolution: {integrity: sha512-CHzgNU3qYBnp/O4S3yv2tXPlvMTq0YWSTVg2/JYLqWZGHwwgJGAwd00poay/11asPq8wLFwHzubyInqHIFmmiw==}
+  /@types/yauzl@2.9.2:
+    resolution: {integrity: sha512-8uALY5LTvSuHgloDVUvWP3pIauILm+8/0pDMokuDYIoNsOkSwd5AiHBTSEJjKTDcZr5z8UpgOWZkxBF4iJftoA==, tarball: https://npm.pkg.github.com/download/@types/yauzl/2.9.2/c48e5d56aff1444409e39fa164b0b4d4552a7b7a}
     requiresBuild: true
     dependencies:
       '@types/node': 18.18.0
@@ -2914,7 +2933,7 @@ packages:
       get-stream: 5.2.0
       yauzl: 2.10.0
     optionalDependencies:
-      '@types/yauzl': 2.10.1
+      '@types/yauzl': 2.9.2
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -4612,8 +4631,8 @@ packages:
       react: 18.2.0
     dev: false
 
-  /react-select@5.7.5(@types/react@18.2.23)(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-jgYZa2xgKP0DVn5GZk7tZwbRx7kaVz1VqU41S8z1KWmshRDhlrpKS0w80aS1RaK5bVIXpttgSou7XCjWw1ncKA==}
+  /react-select@5.7.7(@types/react@18.2.23)(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-HhashZZJDRlfF/AKj0a0Lnfs3sRdw/46VJIRd8IbB9/Ovr74+ZIwkAdSBjSPXsFMG+u72c5xShqwLSKIJllzqw==}
     peerDependencies:
       react: ^16.8.0 || ^17.0.0 || ^18.0.0
       react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0
@@ -4622,7 +4641,7 @@ packages:
       '@emotion/cache': 11.11.0
       '@emotion/react': 11.11.1(@types/react@18.2.23)(react@18.2.0)
       '@floating-ui/dom': 1.5.3
-      '@types/react-transition-group': 4.4.7
+      '@types/react-transition-group': 4.4.4
       memoize-one: 6.0.0
       prop-types: 15.8.1
       react: 18.2.0
