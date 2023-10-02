@@ -9,9 +9,11 @@ import { FilterMeny } from '../../../felles/table-filter/FilterMeny'
 import { mapTiltakDeltakerStatusTilTekst } from '../../../../utils/text-mappers'
 import { FiltermenyDataEntry } from '../../../felles/table-filter/filtermeny-data-entry'
 import useLocalStorage from '../../../../hooks/useLocalStorage'
+import { Tiltakskode } from '../../../../api/data/tiltak'
 
 interface Props {
 	deltakere: TiltakDeltaker[]
+	tiltakType: Tiltakskode
 	erKurs: boolean
 }
 
@@ -35,6 +37,10 @@ export const FilterMenyStatus = (props: Props): React.ReactElement => {
 		Object.keys(statuser).forEach(status => {
 			const tekst = mapTiltakDeltakerStatusTilTekst(status)
 
+			if ( props.erKurs && props.tiltakType !== Tiltakskode.GRUPPEAMO && status === KursDeltakerStatuser.VURDERES ) {
+				return
+			}
+
 			dataMap.set(status, {
 				id: status,
 				displayName: tekst,
@@ -42,7 +48,7 @@ export const FilterMenyStatus = (props: Props): React.ReactElement => {
 			})
 		})
 		return dataMap
-	}, [ props.erKurs ])
+	}, [ props.erKurs, props.tiltakType ])
 
 	useEffect(() => {
 		const statusMap = createInitialDataMap()
