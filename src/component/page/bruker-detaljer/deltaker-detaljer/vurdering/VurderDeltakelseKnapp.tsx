@@ -19,10 +19,10 @@ const vurderingDropDownItem = (vurderingstype: Vurderingstype, onClick: React.Mo
 		: <CheckmarkCircleFillIcon className={ styles.oppfyllerKraveneIkon } aria-hidden />
 
 	return (
-		<Dropdown.Menu.GroupedList.Item onClick={onClick}>
+		<Dropdown.Menu.List.Item onClick={onClick}>
 			{icon}
 			<span>{vurderingstypeTeksMapper(vurderingstype)}</span>
-		</Dropdown.Menu.GroupedList.Item>
+		</Dropdown.Menu.List.Item>
 	)
 }
 export const VurderDeltakelseKnapp = ({ deltakerId, updateVurdering }: EndreDeltakelseKnappProps) => {
@@ -72,11 +72,10 @@ export const VurderDeltakelseKnapp = ({ deltakerId, updateVurdering }: EndreDelt
 					Vurder
 				</Button>
 				<Dropdown.Menu className={ styles.dropdownWrapper }>
-					<Dropdown.Menu.GroupedList className={styles.dropdown}>
-						<Dropdown.Menu.GroupedList.Heading>Vurder deltaker</Dropdown.Menu.GroupedList.Heading>
+					<Dropdown.Menu.List className={styles.dropdown}>
 						{vurderingDropDownItem(Vurderingstype.OPPFYLLER_KRAVENE, () => setOppfyllerKraveneModalOpen(true))}
 						{vurderingDropDownItem(Vurderingstype.OPPFYLLER_IKKE_KRAVENE, () => setOppfyllerIkkeKraveneModalOpen(true))}
-					</Dropdown.Menu.GroupedList>
+					</Dropdown.Menu.List>
 				</Dropdown.Menu>
 			</Dropdown>
 		</>
