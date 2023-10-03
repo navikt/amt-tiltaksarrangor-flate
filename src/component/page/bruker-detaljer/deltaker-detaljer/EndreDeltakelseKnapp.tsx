@@ -157,7 +157,8 @@ export const EndreDeltakelseKnapp = (props: EndreDeltakelseKnappProps) => {
 							/>
 						)}
 						{(deltaker.status.type === TiltakDeltakerStatus.FULLFORT ||
-							deltaker.status.type === TiltakDeltakerStatus.AVBRUTT) && (
+							deltaker.status.type === TiltakDeltakerStatus.AVBRUTT ||
+							deltaker.status.type === TiltakDeltakerStatus.HAR_SLUTTET) && (
 							<DropDownButton
 								endringstype={EndringType.ENDRE_SLUTTDATO}
 								onClick={() =>
