@@ -10,6 +10,7 @@ import {
 import { formatDate } from '../../../../../utils/date-utils'
 import { aarsakTekstMapper } from '../tekst-mappers'
 import { getDagerPerUkeTekst } from '../DeltakelseInfo'
+import styles from './Endringsmeldinger.module.scss'
 
 export interface EndringsmeldingInnholdProps {
 	endringsmelding: Endringsmelding
@@ -25,63 +26,63 @@ export const EndringsmeldingInnhold = (props: EndringsmeldingInnholdProps) => {
 	switch (endringsmelding.type) {
 		case EndringsmeldingType.LEGG_TIL_OPPSTARTSDATO:
 			return (
-				<>
-					<BodyShort size="small">Legg til oppstartsdato</BodyShort>
+				<div>
+					<BodyShort size="small" weight="semibold" className={ styles.innholdTitle }>Legg til oppstartsdato</BodyShort>
 					<BodyShort size="small">Ny oppstartsdato: {formatDate(endringsmelding.innhold.oppstartsdato)}</BodyShort>
-				</>
+				</div>
 			)
 		case EndringsmeldingType.ENDRE_OPPSTARTSDATO:
 			return (
-				<>
-					<BodyShort size="small">Endre oppstartsdato</BodyShort>
+				<div>
+					<BodyShort size="small" weight="semibold" className={ styles.innholdTitle }>Endre oppstartsdato</BodyShort>
 					<BodyShort size="small">Ny oppstartsdato: {formatDate(endringsmelding.innhold.oppstartsdato)}</BodyShort>
-				</>
+				</div>
 			)
 		case EndringsmeldingType.FORLENG_DELTAKELSE:
 			return (
-				<>
-					<BodyShort size="small">Forlengelse</BodyShort>
+				<div>
+					<BodyShort size="small" weight="semibold" className={ styles.innholdTitle }>Forlengelse</BodyShort>
 					<BodyShort size="small">Ny sluttdato: {formatDate(endringsmelding.innhold.sluttdato)}</BodyShort>
-				</>
+				</div>
 			)
 		case EndringsmeldingType.DELTAKER_IKKE_AKTUELL:
 			return (
-				<>
-					<BodyShort size="small">Personen er ikke aktuell</BodyShort>
+				<div>
+					<BodyShort size="small" weight="semibold" className={ styles.innholdTitle }>Personen er ikke aktuell</BodyShort>
 					<BodyShort size="small">Årsak: {getAarsakTekst(endringsmelding.innhold.aarsak)}</BodyShort>
-				</>
+				</div>
 			)
 		case EndringsmeldingType.AVSLUTT_DELTAKELSE:
 			return (
-				<>
-					<BodyShort size="small">Avslutt deltakelse </BodyShort>
+				<div>
+					<BodyShort size="small" weight="semibold" className={ styles.innholdTitle }>Avslutt deltakelse </BodyShort>
 					<BodyShort size="small">Årsak: {getAarsakTekst(endringsmelding.innhold.aarsak)}</BodyShort>
 					<BodyShort size="small">Ny sluttdato: {formatDate(endringsmelding.innhold.sluttdato)}</BodyShort>
 
-				</>
+				</div>
 			)
 		case EndringsmeldingType.ENDRE_DELTAKELSE_PROSENT:
 			return (
-				<>
-					<BodyShort size="small">Endre deltakelsesmengde</BodyShort>
+				<div>
+					<BodyShort size="small" weight="semibold" className={ styles.innholdTitle }>Endre deltakelsesmengde</BodyShort>
 					<BodyShort size="small">Ny deltakelsesprosent: {endringsmelding.innhold.deltakelseProsent}%</BodyShort>
 					{ endringsmelding.innhold.dagerPerUke && <BodyShort size="small">{getDagerPerUkeTekst(endringsmelding.innhold.dagerPerUke)}</BodyShort>}
 					{ endringsmelding.innhold.gyldigFraDato && <BodyShort size="small">Gjelder fra {formatDate(endringsmelding.innhold.gyldigFraDato)}</BodyShort> }
-				</>
+				</div>
 			)
 		case EndringsmeldingType.ENDRE_SLUTTDATO:
 			return (
-				<>
-					<BodyShort size="small">Endre sluttdato</BodyShort>
+				<div>
+					<BodyShort size="small" weight="semibold" className={ styles.innholdTitle }>Endre sluttdato</BodyShort>
 					<BodyShort size="small">Ny sluttdato: {formatDate(endringsmelding.innhold.sluttdato)}</BodyShort>
-				</>
+				</div>
 			)
 		case EndringsmeldingType.ENDRE_SLUTTAARSAK:
 			return (
-				<>
-					<BodyShort size="small">Endre sluttårsak</BodyShort>
+				<div>
+					<BodyShort size="small" weight="semibold" className={ styles.innholdTitle }>Endre sluttårsak</BodyShort>
 					<BodyShort size="small">Årsak: {getAarsakTekst(endringsmelding.innhold.aarsak)}</BodyShort>
-				</>
+				</div>
 			)
 		default: return null
 	}

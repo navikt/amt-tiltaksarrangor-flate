@@ -200,11 +200,13 @@ export const mockHandlers: RequestHandler[] = [
 	rest.delete(appUrl('/amt-tiltaksarrangor-bff/tiltaksarrangor/deltaker/:deltakerId'), (req, res, ctx) => {
 		return res(ctx.delay(500), ctx.status(200))
 	}),
-	rest.get(appUrl('/amt-tiltaksarrangor-bff/tiltaksarrangor/deltaker/:deltakerId/endringsmeldinger'), (req, res, ctx) => {
+	rest.get(appUrl('/amt-tiltaksarrangor-bff/tiltaksarrangor/deltaker/:deltakerId/alle-endringsmeldinger'), (req, res, ctx) => {
 		const deltakerId = req.params.deltakerId as string
-		const endringsmeldinger = mockTiltakDeltakere.find(d => d.id == deltakerId)?.aktiveEndringsmeldinger ?? []
+		const deltaker = mockTiltakDeltakere.find( d => d.id == deltakerId )
+		const aktiveEndringsmeldinger = deltaker?.aktiveEndringsmeldinger ?? []
+		const historiskeEndringsmeldinger = deltaker?.historiskeEndringsmeldinger ?? []
 
-		return res(ctx.delay(500), ctx.json(endringsmeldinger))
+		return res(ctx.delay(500), ctx.json({ aktiveEndringsmeldinger, historiskeEndringsmeldinger }))
 	}),
 	rest.get(appUrl('/amt-tiltaksarrangor-bff/tiltaksarrangor/koordinator/:deltakerlisteId/veiledere'), (req, res, ctx) => {
 		return res(ctx.delay(500), ctx.json(mockTilgjengeligeVeiledere))

@@ -93,6 +93,11 @@ export const endringsmeldingSchema = z.union([
 	endreSluttaarsakEndringmeldingSchema,
 ])
 
+export const alleEndringsmeldingerSchema = z.object( {
+	aktiveEndringsmeldinger: z.array(endringsmeldingSchema),
+	historiskeEndringsmeldinger: z.array(endringsmeldingSchema)
+} )
+
 export const endringsmeldingerSchema = z.array(endringsmeldingSchema)
 
 export type Endringsmelding = z.infer<typeof endringsmeldingSchema>
@@ -110,3 +115,5 @@ export type AvsluttDeltakelseEndringsmelding = z.infer<typeof avsluttDeltakelseE
 export type DeltakerIkkeAktuellEndringsmelding = z.infer<typeof deltakerIkkeAktuellEndringsmeldingSchema>
 
 export type EndreSluttaarsakEndringsmelding = z.infer<typeof endreSluttaarsakEndringmeldingSchema>
+
+export type AlleEndringsmeldinger = z.infer<typeof alleEndringsmeldingerSchema>

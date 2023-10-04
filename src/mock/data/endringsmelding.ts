@@ -123,11 +123,13 @@ export const lagMockHistoriskeEndringsmeldingForDeltaker = ( deltakerStatus: typ
 		const day3 = new Date()
 		day2.setDate( pastDate.getDate() - 6 )
 		return [
-			// TODO legg til endre sluttårsak
 			{
 				id: endringsmeldingId(),
-				type: EndringsmeldingType.ENDRE_SLUTTDATO,
-				innhold: { sluttdato: faker.date.future() },
+				type: EndringsmeldingType.ENDRE_SLUTTAARSAK,
+				innhold: { aarsak: {
+					type: DeltakerStatusAarsakType.SYK,
+					beskrivelse: null
+				} },
 				sendt: pastDate,
 				status: EndringsmeldingStatus.UTFORT
 			},
@@ -141,7 +143,7 @@ export const lagMockHistoriskeEndringsmeldingForDeltaker = ( deltakerStatus: typ
 					}
 				},
 				sendt: day2,
-				status: EndringsmeldingStatus.UTFORT
+				status: EndringsmeldingStatus.TILBAKEKALT
 			},
 			{
 				id: endringsmeldingId(),
