@@ -23,6 +23,7 @@ export const endringTypeTekstMapper = (endringsType: EndringType) => {
 		case EndringType.AVSLUTT_DELTAKELSE: return 'Avslutt deltakelse'
 		case EndringType.ENDRE_DELTAKELSE_PROSENT: return 'Endre deltakelsesmengde'
 		case EndringType.ENDRE_SLUTTDATO: return 'Endre sluttdato'
+		case EndringType.ENDRE_SLUTTAARSAK: return 'Endre sluttårsak'
 
 		default: return 'Ukjent'
 	}

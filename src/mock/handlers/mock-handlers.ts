@@ -138,6 +138,16 @@ export const mockHandlers: RequestHandler[] = [
 
 				})
 			}
+
+			if (bodyType.innhold.type === EndringsmeldingType.ENDRE_SLUTTAARSAK) {
+				const body = req.body as { innhold: { type: string, aarsak: DeltakerStatusAarsak } }
+				deltaker.aktiveEndringsmeldinger.push({
+					id: randomUuid(),
+					type: EndringsmeldingType.ENDRE_SLUTTAARSAK,
+					innhold: { aarsak: body.innhold.aarsak }
+				})
+			}
+
 		}
 
 		return res(ctx.delay(500), ctx.status(200))

@@ -80,6 +80,8 @@ const mapTilEndringType = (endringsmeldingType: EndringsmeldingType) => {
 			return EndringType.ENDRE_DELTAKELSE_PROSENT
 		case EndringsmeldingType.ENDRE_SLUTTDATO:
 			return EndringType.ENDRE_SLUTTDATO
+		case EndringsmeldingType.ENDRE_SLUTTAARSAK:
+			return EndringType.ENDRE_SLUTTAARSAK
 		default:
 			throw Error(`Kan ikke finne endringsmeldingtype: ${endringsmeldingType}`)
 	}

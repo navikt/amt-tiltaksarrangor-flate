@@ -25,6 +25,7 @@ export const EndreDeltakelseKnapp = (props: EndreDeltakelseKnappProps) => {
 		visAvsluttDeltakerModal,
 		visEndreProsentDeltakelseModal,
 		visEndreSluttdatoModal,
+		visEndreSluttaarsakModal,
 		lukkModal
 	} = useModalData()
 	const { deltaker } = props
@@ -163,6 +164,18 @@ export const EndreDeltakelseKnapp = (props: EndreDeltakelseKnappProps) => {
 								endringstype={EndringType.ENDRE_SLUTTDATO}
 								onClick={() =>
 									visEndreSluttdatoModal({
+										deltakerId: deltaker.id,
+										visGodkjennVilkaarPanel: visGodkjennVilkaarPanel,
+										onEndringUtfort: props.onEndringUtfort
+									})
+								}
+							/>
+						)}
+						{(deltaker.status.type === TiltakDeltakerStatus.HAR_SLUTTET && !deltaker.deltakerliste.erKurs) && (
+							<DropDownButton
+								endringstype={EndringType.ENDRE_SLUTTAARSAK}
+								onClick={() =>
+									visEndreSluttaarsakModal({
 										deltakerId: deltaker.id,
 										visGodkjennVilkaarPanel: visGodkjennVilkaarPanel,
 										onEndringUtfort: props.onEndringUtfort

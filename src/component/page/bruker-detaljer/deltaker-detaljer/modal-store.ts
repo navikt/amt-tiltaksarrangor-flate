@@ -7,6 +7,7 @@ import { ForlengDeltakelseModalDataProps } from './endre-deltaker-modal/ForlengD
 import { LeggTilOppstartModalDataProps } from './endre-deltaker-modal/LeggTilOppstartModal'
 import { SettIkkeAktuellModalDataProps } from './endre-deltaker-modal/SettIkkeAktuellModal'
 import { EndreSluttdatoModalDataProps } from './endre-deltaker-modal/EndreSluttdatoModal'
+import { EndreSluttaarsakModalDataProps } from './endre-deltaker-modal/EndreSluttaarsakModal'
 
 export enum ModalType {
 	LeggTilOppstart,
@@ -15,7 +16,8 @@ export enum ModalType {
 	SettDeltakerIkkeAktuell,
 	AvsluttDeltaker,
 	EndreProsentDeltakelse,
-	EndreSluttdato
+	EndreSluttdato,
+	EndreSluttaarsak
 }
 
 interface BaseModalData<T extends ModalType, P> {
@@ -30,6 +32,7 @@ type SettDeltakerIkkeAktuellModalData = BaseModalData<ModalType.SettDeltakerIkke
 type AvsluttDeltakerModalData = BaseModalData<ModalType.AvsluttDeltaker, AvsluttDeltakelseModalDataProps>
 type EndreProsentDeltakelse = BaseModalData<ModalType.EndreProsentDeltakelse, EndreProsentDeltakelseModalDataProps>
 type EndreSluttdato = BaseModalData<ModalType.EndreSluttdato, EndreSluttdatoModalDataProps>
+type EndreSluttaarsak = BaseModalData<ModalType.EndreSluttaarsak, EndreSluttaarsakModalDataProps>
 
 export type ModalData = LeggTilOppstartData |
 	EndreOppstartModalData |
@@ -37,7 +40,8 @@ export type ModalData = LeggTilOppstartData |
 	SettDeltakerIkkeAktuellModalData |
 	AvsluttDeltakerModalData |
 	EndreProsentDeltakelse |
-	EndreSluttdato
+	EndreSluttdato |
+	EndreSluttaarsak
 
 
 export const useModalData = () => {
@@ -95,6 +99,13 @@ export const useModalData = () => {
 		})
 	}
 
+	const visEndreSluttaarsakModal = (props: EndreSluttaarsakModalDataProps) => {
+		setModalData({
+			type: ModalType.EndreSluttaarsak,
+			props: props
+		})
+	}
+
 	return {
 		modalData,
 		lukkModal,
@@ -104,6 +115,7 @@ export const useModalData = () => {
 		visSettDeltakerIkkeAktuellModal,
 		visAvsluttDeltakerModal,
 		visEndreProsentDeltakelseModal,
-		visEndreSluttdatoModal
+		visEndreSluttdatoModal,
+		visEndreSluttaarsakModal
 	}
 }

@@ -7,8 +7,9 @@ import {
 	ChevronRightDoubleCircleFillIcon,
 	ChevronRightCircleFillIcon,
 	PlusCircleFillIcon,
-	PieChartFillIcon
+	PieChartFillIcon,
 } from '@navikt/aksel-icons'
+import { ChevronRightLastFillIcon } from '../../../../ikoner/ChevronRightLastFillIcon'
 
 interface EndringTypeIkonProps {
 	type: EndringType
@@ -18,16 +19,18 @@ export const EndringTypeIkon = (props: EndringTypeIkonProps) => {
 	switch (props.type) {
 		case EndringType.LEGG_TIL_OPPSTARTSDATO:
 		case EndringType.ENDRE_OPPSTARTSDATO:
-			return <ChevronRightCircleFillIcon className={styles.endreIkon} aria-hidden/>
-		case  EndringType.FORLENG_DELTAKELSE:
-			return <ChevronRightDoubleCircleFillIcon className={styles.forlengIkon} aria-hidden/>
+			return <ChevronRightCircleFillIcon className={styles.endreIkon} aria-hidden />
+		case EndringType.FORLENG_DELTAKELSE:
+			return <ChevronRightDoubleCircleFillIcon className={styles.forlengIkon} aria-hidden />
 		case EndringType.AVSLUTT_DELTAKELSE:
 		case EndringType.ENDRE_SLUTTDATO:
-			return <MinusCircleFillIcon className={styles.avsluttIkon} aria-hidden/>
+			return <MinusCircleFillIcon className={styles.avsluttIkon} aria-hidden />
 		case EndringType.ENDRE_DELTAKELSE_PROSENT:
-			return <PieChartFillIcon className={styles.endreProsentDeltakelseIkon} aria-hidden/>
+			return <PieChartFillIcon className={styles.endreProsentDeltakelseIkon} aria-hidden />
 		case EndringType.DELTAKER_IKKE_AKTUELL:
-			return <PlusCircleFillIcon className={styles.ikkeAktuellIkon} aria-hidden/>
+			return <PlusCircleFillIcon className={styles.ikkeAktuellIkon} aria-hidden />
+		case EndringType.ENDRE_SLUTTAARSAK:
+			return <ChevronRightLastFillIcon ariaHidden />
 	}
-
 }
+

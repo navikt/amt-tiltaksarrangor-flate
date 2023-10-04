@@ -76,6 +76,13 @@ export const EndringsmeldingInnhold = (props: EndringsmeldingInnholdProps) => {
 					<BodyShort size="small">Ny sluttdato: {formatDate(endringsmelding.innhold.sluttdato)}</BodyShort>
 				</>
 			)
+		case EndringsmeldingType.ENDRE_SLUTTAARSAK:
+			return (
+				<>
+					<BodyShort size="small">Endre sluttårsak</BodyShort>
+					<BodyShort size="small">Årsak: {getAarsakTekst(endringsmelding.innhold.aarsak)}</BodyShort>
+				</>
+			)
 		default: return null
 	}
 }
