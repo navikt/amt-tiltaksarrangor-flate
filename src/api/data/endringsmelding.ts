@@ -24,6 +24,13 @@ export enum DeltakerStatusAarsakType {
 	ANNET = 'ANNET'
 }
 
+export enum EndringsmeldingStatus {
+	AKTIV = 'AKTIV',
+	TILBAKEKALT = 'TILBAKEKALT',
+	UTDATERT = 'UTDATERT',
+	UTFORT = 'UTFORT'
+}
+
 export const deltakerStatusAarsakSchema = z.object({
 	type: z.nativeEnum(DeltakerStatusAarsakType),
 	beskrivelse: z.string().nullable()
@@ -31,6 +38,8 @@ export const deltakerStatusAarsakSchema = z.object({
 
 export const endringsmeldingBaseSchema = z.object({
 	id: z.string().uuid(),
+	sendt: dateSchema,
+	status: z.nativeEnum( EndringsmeldingStatus ),
 })
 
 export const leggTilOppstartsdatoEndringsmeldingSchema = z.intersection(endringsmeldingBaseSchema, z.object({
