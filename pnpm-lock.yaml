@@ -18,8 +18,8 @@ dependencies:
     specifier: ^5.6.1
     version: 5.6.1(@types/react@18.2.24)(react-dom@18.2.0)(react@18.2.0)
   '@navikt/ds-tokens':
-    specifier: ^5.6.1
-    version: 5.6.1
+    specifier: ^5.6.3
+    version: 5.6.3
   '@navikt/nav-dekoratoren-moduler':
     specifier: ^2.1.3
     version: 2.1.3(jsdom@22.1.0)(react@18.2.0)
@@ -873,10 +873,13 @@ packages:
     peerDependencies:
       '@types/react': ^17.0.30 || ^18.0.0
       react: ^17.0.0 || ^18.0.0
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
     dependencies:
       '@floating-ui/react': 0.25.4(react-dom@18.2.0)(react@18.2.0)
       '@navikt/aksel-icons': 5.6.1
-      '@navikt/ds-tokens': 5.6.1
+      '@navikt/ds-tokens': 5.6.3
       '@radix-ui/react-tabs': 1.0.0(react-dom@18.2.0)(react@18.2.0)
       '@radix-ui/react-toggle-group': 1.0.0(react-dom@18.2.0)(react@18.2.0)
       '@types/react': 18.2.24
@@ -888,8 +891,8 @@ packages:
       - react-dom
     dev: false
 
-  /@navikt/ds-tokens@5.6.1:
-    resolution: {integrity: sha512-gdg93aLtrPf/fuLXKmtmq/HdZLD/dfk7hbPkeVWi8hC6xetrxIf6ooJOPRX+OG8oW+pofKLStsWOeDutLdbumQ==, tarball: https://npm.pkg.github.com/download/@navikt/ds-tokens/5.6.1/f1ab1e8578b07f3fb62fc6458473c9882ccfe26a}
+  /@navikt/ds-tokens@5.6.3:
+    resolution: {integrity: sha512-/G4to/cg2v4WuTBO8uHS7dwtWBYXFFuq4HwN5JdZcwjPCQxFzcMfYB4lNzDhbn1BboFRyUTkos1yH9iDALa7pg==, tarball: https://npm.pkg.github.com/download/@navikt/ds-tokens/5.6.3/4a8a1619a6815d55226077deb858991d6a7cd5f6}
     dev: false
 
   /@navikt/nav-dekoratoren-moduler@2.1.3(jsdom@22.1.0)(react@18.2.0):
@@ -1362,8 +1365,8 @@ packages:
     resolution: {integrity: sha512-jA2llq2zNkg8HrALI7DtWzhALcVH0l7i89yhY3iBdOz6cBPeACoFq+fkQrjHA39t1hnSFOboZ7A/AY5MMZSlag==}
     dev: true
 
-  /@types/yauzl@2.10.1:
-    resolution: {integrity: sha512-CHzgNU3qYBnp/O4S3yv2tXPlvMTq0YWSTVg2/JYLqWZGHwwgJGAwd00poay/11asPq8wLFwHzubyInqHIFmmiw==}
+  /@types/yauzl@2.9.2:
+    resolution: {integrity: sha512-8uALY5LTvSuHgloDVUvWP3pIauILm+8/0pDMokuDYIoNsOkSwd5AiHBTSEJjKTDcZr5z8UpgOWZkxBF4iJftoA==, tarball: https://npm.pkg.github.com/download/@types/yauzl/2.9.2/c48e5d56aff1444409e39fa164b0b4d4552a7b7a}
     requiresBuild: true
     dependencies:
       '@types/node': 18.18.3
@@ -2914,7 +2917,7 @@ packages:
       get-stream: 5.2.0
       yauzl: 2.10.0
     optionalDependencies:
-      '@types/yauzl': 2.10.1
+      '@types/yauzl': 2.9.2
     transitivePeerDependencies:
       - supports-color
     dev: true
