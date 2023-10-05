@@ -20,10 +20,20 @@
 .panel {
   display: flex;
   gap: 0.5rem;
+  justify-content: space-between;
+}
+
+.melidngInfo{
+  display: flex;
   align-items: center;
+  gap: 0.5rem;
 }
 
 .statusInfo{
   font-size: 14px;
   line-height: 25px;
+}
+
+.sendt{
+  align-self: flex-start;
 }

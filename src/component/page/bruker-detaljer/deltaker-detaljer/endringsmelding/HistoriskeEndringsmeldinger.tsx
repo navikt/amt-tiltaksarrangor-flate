@@ -6,6 +6,7 @@ import styles from './HistoriskeEndringsmeldinger.module.scss'
 import { EndringTypeIkon } from '../EndringTypeIkon'
 import { mapTilEndringType } from './uitls'
 import { EndringsmeldingInnhold } from './EndringsmeldingInnhold'
+import { formatDate } from '../../../../../utils/date-utils'
 
 interface HistoriskeEndringsmeldingerProps {
     historiskeEndringsmeldinger: Endringsmelding[]
@@ -18,11 +19,14 @@ const getHistoriskEnrdingsmeldingPanel = (historiskEndringsmelding: Endringsmeld
 	} // Info hvis melding er utdatert?
 
 	return <div className={styles.panel}>
-		<EndringTypeIkon type={ mapTilEndringType( historiskEndringsmelding.type ) } />
-		<div>
-			<EndringsmeldingInnhold endringsmelding={ historiskEndringsmelding } />
-			{ statusInfo && <BodyShort size="small" className={ styles.statusInfo }>{ statusInfo }</BodyShort> }
+		<div className={ styles.melidngInfo }>
+			<EndringTypeIkon type={ mapTilEndringType( historiskEndringsmelding.type ) } />
+			<div>
+				<EndringsmeldingInnhold endringsmelding={ historiskEndringsmelding } />
+				{ statusInfo && <BodyShort size="small" className={ styles.statusInfo }>{ statusInfo }</BodyShort> }
+			</div>
 		</div>
+		<BodyShort size="small" className={styles.sendt}>Sendt: { formatDate( historiskEndringsmelding.sendt ) }</BodyShort>
 	</div>
 }
 
