@@ -12,8 +12,8 @@ dependencies:
     specifier: ^5.6.1
     version: 5.6.1
   '@navikt/ds-css':
-    specifier: ^5.6.1
-    version: 5.6.1
+    specifier: ^5.6.3
+    version: 5.6.3
   '@navikt/ds-react':
     specifier: ^5.6.1
     version: 5.6.1(@types/react@18.2.24)(react-dom@18.2.0)(react@18.2.0)
@@ -864,8 +864,8 @@ packages:
     resolution: {integrity: sha512-SltUf7YD1+ZGJaww2RA54/r6wnUyYA8hfZeeoqCgOmPtn+tqX751AKxq2QxzHyQmm3EBWbelW8wRKCF9+n5q0w==, tarball: https://npm.pkg.github.com/download/@navikt/aksel-icons/5.6.1/2929441e9c379ca7185235e4b51fd7dce6b333b4}
     dev: false
 
-  /@navikt/ds-css@5.6.1:
-    resolution: {integrity: sha512-FMg0VKp4k7TeyQJ32VuwewQIejMUVdHMsdM6FHY8OOPpcfat/10NtUJSp9rT7A9jZ4Ezi+9eGAz/miNXAiN94w==, tarball: https://npm.pkg.github.com/download/@navikt/ds-css/5.6.1/03f4282efc02cfec2546a60a6ba97fdb2c83d9a6}
+  /@navikt/ds-css@5.6.3:
+    resolution: {integrity: sha512-dlC9ir7EmlGBtGHi6yyLpfNlNFhHWq1dLHFR6zy0nzyyGoTKPSzrHZqzhacO0/r/DZEIpeoPJuwkLslCmt4PPQ==, tarball: https://npm.pkg.github.com/download/@navikt/ds-css/5.6.3/aa618ef975c8361f06874c3c12a05e145e0146ba}
     dev: false
 
   /@navikt/ds-react@5.6.1(@types/react@18.2.24)(react-dom@18.2.0)(react@18.2.0):
@@ -873,6 +873,9 @@ packages:
     peerDependencies:
       '@types/react': ^17.0.30 || ^18.0.0
       react: ^17.0.0 || ^18.0.0
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
     dependencies:
       '@floating-ui/react': 0.25.4(react-dom@18.2.0)(react@18.2.0)
       '@navikt/aksel-icons': 5.6.1
@@ -1362,8 +1365,8 @@ packages:
     resolution: {integrity: sha512-jA2llq2zNkg8HrALI7DtWzhALcVH0l7i89yhY3iBdOz6cBPeACoFq+fkQrjHA39t1hnSFOboZ7A/AY5MMZSlag==}
     dev: true
 
-  /@types/yauzl@2.10.1:
-    resolution: {integrity: sha512-CHzgNU3qYBnp/O4S3yv2tXPlvMTq0YWSTVg2/JYLqWZGHwwgJGAwd00poay/11asPq8wLFwHzubyInqHIFmmiw==}
+  /@types/yauzl@2.9.2:
+    resolution: {integrity: sha512-8uALY5LTvSuHgloDVUvWP3pIauILm+8/0pDMokuDYIoNsOkSwd5AiHBTSEJjKTDcZr5z8UpgOWZkxBF4iJftoA==, tarball: https://npm.pkg.github.com/download/@types/yauzl/2.9.2/c48e5d56aff1444409e39fa164b0b4d4552a7b7a}
     requiresBuild: true
     dependencies:
       '@types/node': 18.18.3
@@ -2914,7 +2917,7 @@ packages:
       get-stream: 5.2.0
       yauzl: 2.10.0
     optionalDependencies:
-      '@types/yauzl': 2.10.1
+      '@types/yauzl': 2.9.2
     transitivePeerDependencies:
       - supports-color
     dev: true
