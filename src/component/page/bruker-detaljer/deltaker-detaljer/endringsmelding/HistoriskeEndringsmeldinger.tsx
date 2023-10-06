@@ -19,14 +19,12 @@ const getHistoriskEnrdingsmeldingPanel = (historiskEndringsmelding: Endringsmeld
 	} // Info hvis melding er utdatert?
 
 	return <div className={styles.panel}>
-		<div className={ styles.melidngInfo }>
-			<EndringTypeIkon type={ mapTilEndringType( historiskEndringsmelding.type ) } />
-			<div>
-				<EndringsmeldingInnhold endringsmelding={ historiskEndringsmelding } />
-				{ statusInfo && <BodyShort size="small" className={ styles.statusInfo }>{ statusInfo }</BodyShort> }
-			</div>
+		<EndringTypeIkon type={ mapTilEndringType( historiskEndringsmelding.type ) } />
+		<div>
+			<EndringsmeldingInnhold endringsmelding={ historiskEndringsmelding } />
+			<BodyShort size="small" className={ styles.sendt }>Sendt: { formatDate( historiskEndringsmelding.sendt ) }</BodyShort>
+			{ statusInfo && <BodyShort size="small" className={ styles.statusInfo }>{ statusInfo }</BodyShort> }
 		</div>
-		<BodyShort size="small" className={styles.sendt}>Sendt: { formatDate( historiskEndringsmelding.sendt ) }</BodyShort>
 	</div>
 }
 

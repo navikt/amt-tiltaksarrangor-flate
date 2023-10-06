@@ -42,14 +42,16 @@ export const Endringsmeldinger = ({
 			{ (endringsmeldinger.length > 0 || historiskeEndringsmeldinger.length > 0 ) &&
 				<BodyShort size="small" className={ styles.endringsmeldingerTitle }>Sendt til NAV:</BodyShort> }
 			{ endringsmeldinger.length > 0 &&
-				endringsmeldinger?.map(melding =>
-					<EndringsmeldingPanel
-						endringsmelding={melding}
-						onEndringsmeldingTilbakekalt={() => setReloadEndringsmeldinger(true)}
-						key={melding.id}
-					>
-						<EndringsmeldingInnhold endringsmelding={melding} />
-					</EndringsmeldingPanel>)
+				<div className={ styles.panelWrapper }>
+					{ endringsmeldinger?.map( melding =>
+						<EndringsmeldingPanel
+							endringsmelding={ melding }
+							onEndringsmeldingTilbakekalt={ () => setReloadEndringsmeldinger( true ) }
+							key={ melding.id }
+						>
+							<EndringsmeldingInnhold endringsmelding={ melding } />
+						</EndringsmeldingPanel> ) }
+				</div>
 			}
 			{ historiskeEndringsmeldinger.length > 0 && <HistoriskeEndringsmeldinger historiskeEndringsmeldinger={ historiskeEndringsmeldinger } />}
 		</div>
