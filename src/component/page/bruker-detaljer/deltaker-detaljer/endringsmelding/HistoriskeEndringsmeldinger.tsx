@@ -16,7 +16,9 @@ const getHistoriskEnrdingsmeldingPanel = (historiskEndringsmelding: Endringsmeld
 	let  statusInfo = null
 	if ( historiskEndringsmelding.status === EndringsmeldingStatus.TILBAKEKALT){
 		statusInfo = 'Arrangør har tilbakekalt meldingen.'
-	} // Info hvis melding er utdatert?
+	} else if ( historiskEndringsmelding.status === EndringsmeldingStatus.UTDATERT ) {
+		statusInfo = 'Meldingen er utdatert.'
+	}
 
 	return <div className={styles.panel}>
 		<EndringTypeIkon type={ mapTilEndringType( historiskEndringsmelding.type ) } />
