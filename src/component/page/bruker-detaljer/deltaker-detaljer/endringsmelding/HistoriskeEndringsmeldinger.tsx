@@ -22,8 +22,8 @@ const getHistoriskEnrdingsmeldingPanel = (historiskEndringsmelding: Endringsmeld
 		<EndringTypeIkon type={ mapTilEndringType( historiskEndringsmelding.type ) } />
 		<div>
 			<EndringsmeldingInnhold endringsmelding={ historiskEndringsmelding } />
-			<BodyShort size="small" className={ styles.sendt }>Sendt: { formatDate( historiskEndringsmelding.sendt ) }</BodyShort>
 			{ statusInfo && <BodyShort size="small" className={ styles.statusInfo }>{ statusInfo }</BodyShort> }
+			<BodyShort size="small" className={ styles.sendt }>Sendt: { formatDate( historiskEndringsmelding.sendt ) }</BodyShort>
 		</div>
 	</div>
 }

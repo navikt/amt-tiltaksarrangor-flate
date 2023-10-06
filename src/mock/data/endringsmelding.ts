@@ -111,7 +111,7 @@ export const lagMockHistoriskeEndringsmeldingForDeltaker = ( deltakerStatus: typ
 				type: EndringsmeldingType.FORLENG_DELTAKELSE,
 				innhold: { sluttdato: faker.date.future() },
 				sendt: faker.date.past(),
-				status: EndringsmeldingStatus.UTFORT
+				status: EndringsmeldingStatus.TILBAKEKALT
 			}
 		]
 	}
