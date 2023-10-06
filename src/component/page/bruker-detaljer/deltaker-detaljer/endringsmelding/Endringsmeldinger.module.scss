@@ -1,13 +1,17 @@
-/*.endringsmeldinger {
-  width: fit-content;
-  margin-top: 1rem;
-  display: grid;
-  grid-template-columns: auto;
-  gap: 1rem;
+.endringsmeldinger {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
 }
 
-@media (min-width: 600px) {
-  .endringsmeldinger {
-    grid-template-columns: fit-content 1fr;
-  }
-}*/
+.endringsmeldingerTitle {
+  font-weight: bold;
+}
+
+.innholdTitle {
+  margin-bottom: 0.25rem;
+}
+
+.panelWrapper{
+  width: fit-content;
+}

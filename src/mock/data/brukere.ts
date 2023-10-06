@@ -5,7 +5,7 @@ import { Endringsmelding } from '../../api/data/endringsmelding'
 import { Gjennomforing, Tiltakskode } from '../../api/data/tiltak'
 import { VeilederMedType } from '../../api/data/veileder'
 import { randBetween, randomBoolean, randomFnr } from '../utils/faker'
-import { lagMockEndringsmeldingForDeltaker } from './endringsmelding'
+import { lagMockEndringsmeldingForDeltaker, lagMockHistoriskeEndringsmeldingForDeltaker } from './endringsmelding'
 import { deltakerId } from './id'
 import { deltakerlisteErKurs, MockGjennomforing } from './tiltak'
 import { lagMockVeiledereForDeltaker } from './veileder'
@@ -47,6 +47,7 @@ export interface MockTiltakDeltaker {
 	fjernesDato: Date | null,
 	innsokBegrunnelse: string | null,
 	aktiveEndringsmeldinger: Endringsmelding[]
+	historiskeEndringsmeldinger: Endringsmelding[]
 	veiledere: VeilederMedType[]
 	adresse: MockAdresse | null
 	gjeldendeVurderingFraArrangor: MockVurdering | null
@@ -217,6 +218,7 @@ const lagMockTiltakDeltagerForGjennomforing = ( gjennomforing: Gjennomforing ): 
 		registrertDato: faker.date.past(),
 		innsokBegrunnelse: genererBegrunnelse( brukerFornavn ),
 		aktiveEndringsmeldinger: lagMockEndringsmeldingForDeltaker( status ),
+		historiskeEndringsmeldinger: lagMockHistoriskeEndringsmeldingForDeltaker( status, startDato, sluttDato ),
 		veiledere: lagMockVeiledereForDeltaker( id ),
 		adresse: lagAdresse(),
 		gjeldendeVurderingFraArrangor,

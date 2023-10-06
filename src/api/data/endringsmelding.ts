@@ -24,6 +24,13 @@ export enum DeltakerStatusAarsakType {
 	ANNET = 'ANNET'
 }
 
+export enum EndringsmeldingStatus {
+	AKTIV = 'AKTIV',
+	TILBAKEKALT = 'TILBAKEKALT',
+	UTDATERT = 'UTDATERT',
+	UTFORT = 'UTFORT'
+}
+
 export const deltakerStatusAarsakSchema = z.object({
 	type: z.nativeEnum(DeltakerStatusAarsakType),
 	beskrivelse: z.string().nullable()
@@ -31,6 +38,8 @@ export const deltakerStatusAarsakSchema = z.object({
 
 export const endringsmeldingBaseSchema = z.object({
 	id: z.string().uuid(),
+	sendt: dateSchema,
+	status: z.nativeEnum( EndringsmeldingStatus ),
 })
 
 export const leggTilOppstartsdatoEndringsmeldingSchema = z.intersection(endringsmeldingBaseSchema, z.object({
@@ -84,6 +93,11 @@ export const endringsmeldingSchema = z.union([
 	endreSluttaarsakEndringmeldingSchema,
 ])
 
+export const alleEndringsmeldingerSchema = z.object( {
+	aktiveEndringsmeldinger: z.array(endringsmeldingSchema),
+	historiskeEndringsmeldinger: z.array(endringsmeldingSchema)
+} )
+
 export const endringsmeldingerSchema = z.array(endringsmeldingSchema)
 
 export type Endringsmelding = z.infer<typeof endringsmeldingSchema>
@@ -101,3 +115,5 @@ export type AvsluttDeltakelseEndringsmelding = z.infer<typeof avsluttDeltakelseE
 export type DeltakerIkkeAktuellEndringsmelding = z.infer<typeof deltakerIkkeAktuellEndringsmeldingSchema>
 
 export type EndreSluttaarsakEndringsmelding = z.infer<typeof endreSluttaarsakEndringmeldingSchema>
+
+export type AlleEndringsmeldinger = z.infer<typeof alleEndringsmeldingerSchema>

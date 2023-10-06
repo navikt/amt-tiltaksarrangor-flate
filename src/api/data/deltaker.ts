@@ -110,7 +110,8 @@ export const deltakerSchema = z.object({
 	fjernesDato: nullableDateSchema,
 	navInformasjon: navInformasjonSchema,
 	veiledere: z.array(veilederMedTypeSchema),
-	aktiveEndringsmeldinger: z.array(endringsmeldingSchema),
+	aktiveEndringsmeldinger: z.array( endringsmeldingSchema ),
+	historiskeEndringsmeldinger: z.array( endringsmeldingSchema ).nullable(),
 	adresse: adresseSchema.nullable(),
 	gjeldendeVurderingFraArrangor: vurderingSchema.nullable(),
 	historiskeVurderingerFraArrangor: z.array(vurderingSchema).nullable()

@@ -15,9 +15,9 @@ import {
 	Vurderingstype
 } from './data/deltaker'
 import {
+	AlleEndringsmeldinger,
+	alleEndringsmeldingerSchema,
 	DeltakerStatusAarsak,
-	Endringsmelding,
-	endringsmeldingerSchema,
 	EndringsmeldingType
 } from './data/endringsmelding'
 import {
@@ -102,11 +102,11 @@ export const fetchDeltaker = (deltakerId: string): AxiosPromise<Deltaker> => {
 		.catch(err => logAndThrowError(err, url))
 }
 
-export const hentEndringsmeldinger = (deltakerId: string): AxiosPromise<Endringsmelding[]> => {
-	const url = appUrl(`/amt-tiltaksarrangor-bff/tiltaksarrangor/deltaker/${deltakerId}/endringsmeldinger`)
+export const hentAlleEndringsmeldinger = ( deltakerId: string ): AxiosPromise<AlleEndringsmeldinger> => {
+	const url = appUrl( `/amt-tiltaksarrangor-bff/tiltaksarrangor/deltaker/${deltakerId}/alle-endringsmeldinger`)
 	return axiosInstance
 		.get(url)
-		.then(parse(endringsmeldingerSchema))
+		.then(parse(alleEndringsmeldingerSchema))
 		.catch(err => logAndThrowError(err, url))
 }
 

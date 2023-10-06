@@ -1,0 +1,34 @@
+.list{
+  list-style: none;
+
+  margin: 0.5rem;
+  padding: 0;
+
+  li{
+    margin: 0;
+    padding: 0;
+  }
+    >li:not(:last-child) {
+      margin-bottom: 1rem;
+    }
+}
+
+.meldinger {
+  margin-top: 0.25rem;;
+}
+
+.panel {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.statusInfo{
+  font-size: 14px;
+  margin-top: 0.25rem;
+}
+
+.sendt{
+  font-size: 14px;
+  line-height: 25px;
+  color: var(--a-text-subtle);
+}

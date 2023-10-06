@@ -1,9 +1,9 @@
 import dayjs from 'dayjs'
 import { rest } from 'msw'
-import { RequestHandler } from 'msw/lib/types/handlers/RequestHandler'
+import { RequestHandler } from 'msw'
 
 import { TiltakDeltaker, Deltaker, Vurderingstype } from '../../api/data/deltaker'
-import { DeltakerStatusAarsak, EndringsmeldingType } from '../../api/data/endringsmelding'
+import { DeltakerStatusAarsak, EndringsmeldingStatus, EndringsmeldingType } from '../../api/data/endringsmelding'
 import { VIS_DRIFTSMELDING_TOGGLE_NAVN } from '../../api/data/feature-toggle'
 import { Veileder, VeilederMedType, Veiledertype } from '../../api/data/veileder'
 import { appUrl } from '../../utils/url-utils'
@@ -85,7 +85,9 @@ export const mockHandlers: RequestHandler[] = [
 				deltaker.aktiveEndringsmeldinger.push({
 					id: randomUuid(),
 					type: EndringsmeldingType.LEGG_TIL_OPPSTARTSDATO,
-					innhold: { oppstartsdato: dayjs(body.innhold.oppstartsdato).toDate() }
+					innhold: { oppstartsdato: dayjs(body.innhold.oppstartsdato).toDate() },
+					sendt: new Date(),
+					status: EndringsmeldingStatus.AKTIV
 				})
 			}
 			if (bodyType.innhold.type === EndringsmeldingType.ENDRE_OPPSTARTSDATO) {
@@ -93,7 +95,9 @@ export const mockHandlers: RequestHandler[] = [
 				deltaker.aktiveEndringsmeldinger.push({
 					id: randomUuid(),
 					type: EndringsmeldingType.ENDRE_OPPSTARTSDATO,
-					innhold: { oppstartsdato: dayjs(body.innhold.oppstartsdato).toDate() }
+					innhold: { oppstartsdato: dayjs( body.innhold.oppstartsdato ).toDate() },
+					sendt: new Date(),
+					status: EndringsmeldingStatus.AKTIV
 				})
 			}
 			if (bodyType.innhold.type === EndringsmeldingType.ENDRE_DELTAKELSE_PROSENT) {
@@ -101,7 +105,9 @@ export const mockHandlers: RequestHandler[] = [
 				deltaker.aktiveEndringsmeldinger.push({
 					id: randomUuid(),
 					type: EndringsmeldingType.ENDRE_DELTAKELSE_PROSENT,
-					innhold: { deltakelseProsent: body.innhold.deltakelseProsent, dagerPerUke: body.innhold.dagerPerUke, gyldigFraDato: dayjs(body.innhold.gyldigFraDato).toDate() }
+					innhold: { deltakelseProsent: body.innhold.deltakelseProsent, dagerPerUke: body.innhold.dagerPerUke, gyldigFraDato: dayjs( body.innhold.gyldigFraDato ).toDate() },
+					sendt: new Date(),
+					status: EndringsmeldingStatus.AKTIV
 				})
 			}
 			if (bodyType.innhold.type === EndringsmeldingType.FORLENG_DELTAKELSE) {
@@ -109,7 +115,9 @@ export const mockHandlers: RequestHandler[] = [
 				deltaker.aktiveEndringsmeldinger.push({
 					id: randomUuid(),
 					type: EndringsmeldingType.FORLENG_DELTAKELSE,
-					innhold: { sluttdato: dayjs(body.innhold.sluttdato).toDate() }
+					innhold: { sluttdato: dayjs( body.innhold.sluttdato ).toDate() },
+					sendt: new Date(),
+					status: EndringsmeldingStatus.AKTIV
 				})
 			}
 			if (bodyType.innhold.type === EndringsmeldingType.AVSLUTT_DELTAKELSE) {
@@ -117,7 +125,9 @@ export const mockHandlers: RequestHandler[] = [
 				deltaker.aktiveEndringsmeldinger.push({
 					id: randomUuid(),
 					type: EndringsmeldingType.AVSLUTT_DELTAKELSE,
-					innhold: { sluttdato: dayjs(body.innhold.sluttdato).toDate(), aarsak: body.innhold.aarsak }
+					innhold: { sluttdato: dayjs( body.innhold.sluttdato ).toDate(), aarsak: body.innhold.aarsak },
+					sendt: new Date(),
+					status: EndringsmeldingStatus.AKTIV
 				})
 			}
 			if (bodyType.innhold.type === EndringsmeldingType.DELTAKER_IKKE_AKTUELL) {
@@ -125,7 +135,9 @@ export const mockHandlers: RequestHandler[] = [
 				deltaker.aktiveEndringsmeldinger.push({
 					id: randomUuid(),
 					type: EndringsmeldingType.DELTAKER_IKKE_AKTUELL,
-					innhold: { aarsak: body.innhold.aarsak }
+					innhold: { aarsak: body.innhold.aarsak },
+					sendt: new Date(),
+					status: EndringsmeldingStatus.AKTIV
 				})
 			}
 
@@ -134,8 +146,9 @@ export const mockHandlers: RequestHandler[] = [
 				deltaker.aktiveEndringsmeldinger.push({
 					id: randomUuid(),
 					type: EndringsmeldingType.ENDRE_SLUTTDATO,
-					innhold: { sluttdato: dayjs(body.innhold.sluttdato).toDate() }
-
+					innhold: { sluttdato: dayjs( body.innhold.sluttdato ).toDate() },
+					sendt: new Date(),
+					status: EndringsmeldingStatus.AKTIV
 				})
 			}
 
@@ -144,7 +157,9 @@ export const mockHandlers: RequestHandler[] = [
 				deltaker.aktiveEndringsmeldinger.push({
 					id: randomUuid(),
 					type: EndringsmeldingType.ENDRE_SLUTTAARSAK,
-					innhold: { aarsak: body.innhold.aarsak }
+					innhold: { aarsak: body.innhold.aarsak },
+					sendt: new Date(),
+					status: EndringsmeldingStatus.AKTIV
 				})
 			}
 
@@ -185,11 +200,13 @@ export const mockHandlers: RequestHandler[] = [
 	rest.delete(appUrl('/amt-tiltaksarrangor-bff/tiltaksarrangor/deltaker/:deltakerId'), (req, res, ctx) => {
 		return res(ctx.delay(500), ctx.status(200))
 	}),
-	rest.get(appUrl('/amt-tiltaksarrangor-bff/tiltaksarrangor/deltaker/:deltakerId/endringsmeldinger'), (req, res, ctx) => {
+	rest.get(appUrl('/amt-tiltaksarrangor-bff/tiltaksarrangor/deltaker/:deltakerId/alle-endringsmeldinger'), (req, res, ctx) => {
 		const deltakerId = req.params.deltakerId as string
-		const endringsmeldinger = mockTiltakDeltakere.find(d => d.id == deltakerId)?.aktiveEndringsmeldinger ?? []
+		const deltaker = mockTiltakDeltakere.find( d => d.id == deltakerId )
+		const aktiveEndringsmeldinger = deltaker?.aktiveEndringsmeldinger ?? []
+		const historiskeEndringsmeldinger = deltaker?.historiskeEndringsmeldinger ?? []
 
-		return res(ctx.delay(500), ctx.json(endringsmeldinger))
+		return res(ctx.delay(500), ctx.json({ aktiveEndringsmeldinger, historiskeEndringsmeldinger }))
 	}),
 	rest.get(appUrl('/amt-tiltaksarrangor-bff/tiltaksarrangor/koordinator/:deltakerlisteId/veiledere'), (req, res, ctx) => {
 		return res(ctx.delay(500), ctx.json(mockTilgjengeligeVeiledere))
@@ -280,6 +297,7 @@ const mapToDeltakerDetaljerView = (deltaker: MockTiltakDeltaker): Deltaker => {
 		},
 		veiledere: deltaker.veiledere,
 		aktiveEndringsmeldinger: deltaker.aktiveEndringsmeldinger,
+		historiskeEndringsmeldinger: deltaker.historiskeEndringsmeldinger,
 		adresse: deltaker.adresse
 			? {
 				adressetype: deltaker.adresse.adressetype,
