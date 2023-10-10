@@ -15,17 +15,21 @@ interface HistoriskeEndringsmeldingerProps {
 const getHistoriskEnrdingsmeldingPanel = (historiskEndringsmelding: Endringsmelding) => {
 	let  statusInfo = null
 	if ( historiskEndringsmelding.status === EndringsmeldingStatus.TILBAKEKALT){
-		statusInfo = 'Arrangør har tilbakekalt meldingen.'
+		statusInfo = 'Arrangør tilbakekalte meldingen.'
 	} else if ( historiskEndringsmelding.status === EndringsmeldingStatus.UTDATERT ) {
-		statusInfo = 'Meldingen er utdatert.'
+		statusInfo = 'Det ble sendt en ny melding av samme type.'
 	}
 
 	return <div className={styles.panel}>
 		<EndringTypeIkon type={ mapTilEndringType( historiskEndringsmelding.type ) } />
 		<div>
 			<EndringsmeldingInnhold endringsmelding={ historiskEndringsmelding } />
-			{ statusInfo && <BodyShort size="small" className={ styles.statusInfo }>{ statusInfo }</BodyShort> }
-			<BodyShort size="small" className={ styles.sendt }>Sendt: { formatDate( historiskEndringsmelding.sendt ) }</BodyShort>
+			<div className={ styles.meldingMeta }>
+				<BodyShort size="small">
+					Sendt: { formatDate( historiskEndringsmelding.sendt ) }
+				</BodyShort>
+				{ statusInfo && <BodyShort size="small">{ statusInfo }</BodyShort> }
+			</div>
 		</div>
 	</div>
 }

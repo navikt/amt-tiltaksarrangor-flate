@@ -22,13 +22,11 @@
   gap: 0.5rem;
 }
 
-.statusInfo{
+.meldingMeta{
   font-size: 14px;
   margin-top: 0.25rem;
-}
-
-.sendt{
-  font-size: 14px;
-  line-height: 25px;
   color: var(--a-text-subtle);
+
+  display: flex;
+  gap: 0.5rem;
 }
