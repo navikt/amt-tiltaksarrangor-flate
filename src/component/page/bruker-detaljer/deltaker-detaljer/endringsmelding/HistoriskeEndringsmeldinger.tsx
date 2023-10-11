@@ -1,4 +1,4 @@
-import { ReadMore, BodyShort } from '@navikt/ds-react'
+import { ReadMore, Detail } from '@navikt/ds-react'
 import React, { useState } from 'react'
 
 import { Endringsmelding, EndringsmeldingStatus } from '../../../../../api/data/endringsmelding'
@@ -25,10 +25,10 @@ const getHistoriskEnrdingsmeldingPanel = (historiskEndringsmelding: Endringsmeld
 		<div>
 			<EndringsmeldingInnhold endringsmelding={ historiskEndringsmelding } />
 			<div className={ styles.meldingMeta }>
-				<BodyShort size="small">
+				<Detail textColor="subtle">
 					Sendt: { formatDate( historiskEndringsmelding.sendt ) }
-				</BodyShort>
-				{ statusInfo && <BodyShort size="small">{ statusInfo }</BodyShort> }
+				</Detail>
+				{ statusInfo && <Detail textColor="subtle">{ statusInfo }</Detail> }
 			</div>
 		</div>
 	</div>
