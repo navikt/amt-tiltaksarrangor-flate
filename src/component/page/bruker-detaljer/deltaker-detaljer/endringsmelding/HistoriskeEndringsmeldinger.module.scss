@@ -22,9 +22,15 @@
   gap: 0.5rem;
 }
 
-.meldingMeta{
+.meldingMeta {
   margin-top: 0.2rem;
 
   display: flex;
-  gap: 0.5rem;
+  flex-direction: column;
+  gap: 0;
+
+  @media (min-width: 479px) {
+    flex-direction: row;
+    gap: 0.5rem;
+  }
 }
