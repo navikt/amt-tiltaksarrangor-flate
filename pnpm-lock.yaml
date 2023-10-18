@@ -15,8 +15,8 @@ dependencies:
     specifier: ^5.7.2
     version: 5.7.2
   '@navikt/ds-react':
-    specifier: ^5.7.2
-    version: 5.7.2(@types/react@18.2.28)(react-dom@18.2.0)(react@18.2.0)
+    specifier: ^5.7.3
+    version: 5.7.3(@types/react@18.2.28)(react-dom@18.2.0)(react@18.2.0)
   '@navikt/ds-tokens':
     specifier: ^5.7.2
     version: 5.7.2
@@ -864,19 +864,23 @@ packages:
     resolution: {integrity: sha512-n46qhpW+KxhNTRGOkidSDOaa2AancHEPUPJe2y5zwXicrXMWz9F97rsPogEqblX7zt0ltl1Kqw5oAIZTl8aXog==, tarball: https://npm.pkg.github.com/download/@navikt/aksel-icons/5.7.2/38619136dc4d27d55d2e5003ffa139168a5dcf86}
     dev: false
 
+  /@navikt/aksel-icons@5.7.3:
+    resolution: {integrity: sha512-drt2yP6I8XvZ7lCv18lgysujSsl9p9q84PznmlIKMb74tMvZp7i7j41XqgeRtsABIldj/8Ir6Y60UOH5/EHvHQ==, tarball: https://npm.pkg.github.com/download/@navikt/aksel-icons/5.7.3/919d932d9d5df5a91d239700256258609add1ef8}
+    dev: false
+
   /@navikt/ds-css@5.7.2:
     resolution: {integrity: sha512-Tr+5ZREbXUJwEWpNXUe/6cx0B91NLRHYVwoKFJ1Do50FjEYscfAxhWgrFwrl/RFxcjMF9mIaI9MwC+CibzukWA==, tarball: https://npm.pkg.github.com/download/@navikt/ds-css/5.7.2/3b37f026826667a2ca165ca593fcaa781bca27b6}
     dev: false
 
-  /@navikt/ds-react@5.7.2(@types/react@18.2.28)(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-O5k5vQNSC8S4rH1pJunS583hcCYdGcpKOvgUWiD4Fb6CpCCNAjgzQoiutJCGzd1m+yy95lsUePYHRofMtlxV8Q==, tarball: https://npm.pkg.github.com/download/@navikt/ds-react/5.7.2/b4c6b236df3c86d0d3f10140e2f779b166293045}
+  /@navikt/ds-react@5.7.3(@types/react@18.2.28)(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-dqzQsWDWD2OckI7AfZ7IjHVFPPUH4hZpODtf92jNyLJhjWHlcm52NYAv57myDyPYC2Z1jm2PIZpFH50bRGs3RQ==, tarball: https://npm.pkg.github.com/download/@navikt/ds-react/5.7.3/a6a0a2bce15a8601b787e03f7a16c95923f0262f}
     peerDependencies:
       '@types/react': ^17.0.30 || ^18.0.0
       react: ^17.0.0 || ^18.0.0
     dependencies:
       '@floating-ui/react': 0.25.4(react-dom@18.2.0)(react@18.2.0)
-      '@navikt/aksel-icons': 5.7.2
-      '@navikt/ds-tokens': 5.7.2
+      '@navikt/aksel-icons': 5.7.3
+      '@navikt/ds-tokens': 5.7.3
       '@radix-ui/react-tabs': 1.0.0(react-dom@18.2.0)(react@18.2.0)
       '@radix-ui/react-toggle-group': 1.0.0(react-dom@18.2.0)(react@18.2.0)
       '@types/react': 18.2.28
@@ -890,6 +894,10 @@ packages:
 
   /@navikt/ds-tokens@5.7.2:
     resolution: {integrity: sha512-jRPyyb2I/9efxscrFbsVJ9o0wHwqtqya02xtcukmVkhyrc3CgCy3Ac1CJmKLxXmCALAdQ4B0a/qXohYlyS0Y5A==, tarball: https://npm.pkg.github.com/download/@navikt/ds-tokens/5.7.2/34bb3982f8da115331fa50c6a3a0c69499a072eb}
+    dev: false
+
+  /@navikt/ds-tokens@5.7.3:
+    resolution: {integrity: sha512-Td/KSSg0HT62tKueCuv+kDF+O4aObcGcftXw00y3jG0J/E5Vql5m9GSuDCUBS1QhUpqiQtJpms6L381TGkBm7g==, tarball: https://npm.pkg.github.com/download/@navikt/ds-tokens/5.7.3/d18f1afc2dbe645a8d1d56b19866a46bf4942bb3}
     dev: false
 
   /@navikt/nav-dekoratoren-moduler@2.1.3(jsdom@22.1.0)(react@18.2.0):
@@ -1364,8 +1372,8 @@ packages:
     resolution: {integrity: sha512-jA2llq2zNkg8HrALI7DtWzhALcVH0l7i89yhY3iBdOz6cBPeACoFq+fkQrjHA39t1hnSFOboZ7A/AY5MMZSlag==}
     dev: true
 
-  /@types/yauzl@2.10.1:
-    resolution: {integrity: sha512-CHzgNU3qYBnp/O4S3yv2tXPlvMTq0YWSTVg2/JYLqWZGHwwgJGAwd00poay/11asPq8wLFwHzubyInqHIFmmiw==}
+  /@types/yauzl@2.9.2:
+    resolution: {integrity: sha512-8uALY5LTvSuHgloDVUvWP3pIauILm+8/0pDMokuDYIoNsOkSwd5AiHBTSEJjKTDcZr5z8UpgOWZkxBF4iJftoA==, tarball: https://npm.pkg.github.com/download/@types/yauzl/2.9.2/c48e5d56aff1444409e39fa164b0b4d4552a7b7a}
     requiresBuild: true
     dependencies:
       '@types/node': 18.18.5
@@ -2916,7 +2924,7 @@ packages:
       get-stream: 5.2.0
       yauzl: 2.10.0
     optionalDependencies:
-      '@types/yauzl': 2.10.1
+      '@types/yauzl': 2.9.2
     transitivePeerDependencies:
       - supports-color
     dev: true
