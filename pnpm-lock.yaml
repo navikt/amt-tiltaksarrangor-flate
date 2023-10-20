@@ -9,8 +9,8 @@ dependencies:
     specifier: ^7.23.2
     version: 7.23.2
   '@navikt/aksel-icons':
-    specifier: ^5.7.2
-    version: 5.7.2
+    specifier: ^5.7.5
+    version: 5.7.5
   '@navikt/ds-css':
     specifier: ^5.7.2
     version: 5.7.2
@@ -860,8 +860,8 @@ packages:
       - supports-color
     dev: true
 
-  /@navikt/aksel-icons@5.7.2:
-    resolution: {integrity: sha512-n46qhpW+KxhNTRGOkidSDOaa2AancHEPUPJe2y5zwXicrXMWz9F97rsPogEqblX7zt0ltl1Kqw5oAIZTl8aXog==, tarball: https://npm.pkg.github.com/download/@navikt/aksel-icons/5.7.2/38619136dc4d27d55d2e5003ffa139168a5dcf86}
+  /@navikt/aksel-icons@5.7.5:
+    resolution: {integrity: sha512-gJKNxv17bvlwskuHKl4M1/K7+kKmKe1bQpNqnL1HAcs+IpRQrvERY+8QUcVRQTGYbThZ23IBYaVmlLUDDUHwtQ==, tarball: https://npm.pkg.github.com/download/@navikt/aksel-icons/5.7.5/5b3e4bcade5631af344d23a32f038cdc7041e7af}
     dev: false
 
   /@navikt/ds-css@5.7.2:
@@ -873,9 +873,12 @@ packages:
     peerDependencies:
       '@types/react': ^17.0.30 || ^18.0.0
       react: ^17.0.0 || ^18.0.0
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
     dependencies:
       '@floating-ui/react': 0.25.4(react-dom@18.2.0)(react@18.2.0)
-      '@navikt/aksel-icons': 5.7.2
+      '@navikt/aksel-icons': 5.7.5
       '@navikt/ds-tokens': 5.7.2
       '@radix-ui/react-tabs': 1.0.0(react-dom@18.2.0)(react@18.2.0)
       '@radix-ui/react-toggle-group': 1.0.0(react-dom@18.2.0)(react@18.2.0)
@@ -1364,8 +1367,8 @@ packages:
     resolution: {integrity: sha512-jA2llq2zNkg8HrALI7DtWzhALcVH0l7i89yhY3iBdOz6cBPeACoFq+fkQrjHA39t1hnSFOboZ7A/AY5MMZSlag==}
     dev: true
 
-  /@types/yauzl@2.10.1:
-    resolution: {integrity: sha512-CHzgNU3qYBnp/O4S3yv2tXPlvMTq0YWSTVg2/JYLqWZGHwwgJGAwd00poay/11asPq8wLFwHzubyInqHIFmmiw==}
+  /@types/yauzl@2.9.2:
+    resolution: {integrity: sha512-8uALY5LTvSuHgloDVUvWP3pIauILm+8/0pDMokuDYIoNsOkSwd5AiHBTSEJjKTDcZr5z8UpgOWZkxBF4iJftoA==, tarball: https://npm.pkg.github.com/download/@types/yauzl/2.9.2/c48e5d56aff1444409e39fa164b0b4d4552a7b7a}
     requiresBuild: true
     dependencies:
       '@types/node': 18.18.5
@@ -2916,7 +2919,7 @@ packages:
       get-stream: 5.2.0
       yauzl: 2.10.0
     optionalDependencies:
-      '@types/yauzl': 2.10.1
+      '@types/yauzl': 2.9.2
     transitivePeerDependencies:
       - supports-color
     dev: true
