@@ -27,8 +27,8 @@ dependencies:
     specifier: ^7.75.0
     version: 7.75.0(react@18.2.0)
   '@sentry/tracing':
-    specifier: ^7.75.0
-    version: 7.75.0
+    specifier: ^7.76.0
+    version: 7.76.0
   '@types/react':
     specifier: ^18.2.31
     version: 18.2.31
@@ -873,6 +873,9 @@ packages:
     peerDependencies:
       '@types/react': ^17.0.30 || ^18.0.0
       react: ^17.0.0 || ^18.0.0
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
     dependencies:
       '@floating-ui/react': 0.25.4(react-dom@18.2.0)(react@18.2.0)
       '@navikt/aksel-icons': 5.7.6
@@ -1137,6 +1140,15 @@ packages:
       '@sentry/utils': 7.75.0
     dev: false
 
+  /@sentry-internal/tracing@7.76.0:
+    resolution: {integrity: sha512-QQVIv+LS2sbGf/e5P2dRisHzXpy02dAcLqENLPG4sZ9otRaFNjdFYEqnlJ4qko+ORpJGQEQp/BX7Q/qzZQHlAg==}
+    engines: {node: '>=8'}
+    dependencies:
+      '@sentry/core': 7.76.0
+      '@sentry/types': 7.76.0
+      '@sentry/utils': 7.76.0
+    dev: false
+
   /@sentry/browser@7.75.0:
     resolution: {integrity: sha512-DXH/69vzp2j8xjydX+lrUYasrk7a1mpbXFGA9GtnII7shMCy55+QkVxpa6cLojYUaG2K/8yFDMcrP9N395LnWg==}
     engines: {node: '>=8'}
@@ -1154,6 +1166,14 @@ packages:
     dependencies:
       '@sentry/types': 7.75.0
       '@sentry/utils': 7.75.0
+    dev: false
+
+  /@sentry/core@7.76.0:
+    resolution: {integrity: sha512-M+ptkCTeCNf6fn7p2MmEb1Wd9/JXUWxIT/0QEc+t11DNR4FYy1ZP2O9Zb3Zp2XacO7ORrlL3Yc+VIfl5JTgjfw==}
+    engines: {node: '>=8'}
+    dependencies:
+      '@sentry/types': 7.76.0
+      '@sentry/utils': 7.76.0
     dev: false
 
   /@sentry/react@7.75.0(react@18.2.0):
@@ -1179,15 +1199,20 @@ packages:
       '@sentry/utils': 7.75.0
     dev: false
 
-  /@sentry/tracing@7.75.0:
-    resolution: {integrity: sha512-EHvkQZdZApESVCwbZoUepjF79LQm2IYC/axj7k2bY5ImTAabS323I5YPwifPAWbtqvjqxakgbKUNjaTMGeSGNg==}
+  /@sentry/tracing@7.76.0:
+    resolution: {integrity: sha512-EgpvTp5IbEsfKAoQw+LxIkH7e3YrzQm1iR/dqa6F8wjSr+lABkSvaXNL5k5xrMB2BWqtu1Rpvf3F6+qpoMu9cw==}
     engines: {node: '>=8'}
     dependencies:
-      '@sentry-internal/tracing': 7.75.0
+      '@sentry-internal/tracing': 7.76.0
     dev: false
 
   /@sentry/types@7.75.0:
     resolution: {integrity: sha512-xG8OLADxG7HpGhMxrF4v4tKq/v/gqmLsTZ858R51pz0xCWM8SK6ZSWOKudkAGBIpRjI6RUHMnkBtRAN2aKDOkQ==}
+    engines: {node: '>=8'}
+    dev: false
+
+  /@sentry/types@7.76.0:
+    resolution: {integrity: sha512-vj6z+EAbVrKAXmJPxSv/clpwS9QjPqzkraMFk2hIdE/kii8s8kwnkBwTSpIrNc8GnzV3qYC4r3qD+BXDxAGPaw==}
     engines: {node: '>=8'}
     dev: false
 
@@ -1196,6 +1221,13 @@ packages:
     engines: {node: '>=8'}
     dependencies:
       '@sentry/types': 7.75.0
+    dev: false
+
+  /@sentry/utils@7.76.0:
+    resolution: {integrity: sha512-40jFD+yfQaKpFYINghdhovzec4IEpB7aAuyH/GtE7E0gLpcqnC72r55krEIVILfqIR2Mlr5OKUzyeoCyWAU/yw==}
+    engines: {node: '>=8'}
+    dependencies:
+      '@sentry/types': 7.76.0
     dev: false
 
   /@sinclair/typebox@0.27.8:
@@ -1360,8 +1392,8 @@ packages:
     resolution: {integrity: sha512-tAe4Q+OLFOA/AMD+0lq8ovp8t3ysxAOeaScnfNdZpUxaGl51ZMDEITxkvFl1STudQ58mz6gzVGl9VhMKhwRnZQ==}
     dev: true
 
-  /@types/yauzl@2.10.2:
-    resolution: {integrity: sha512-Km7XAtUIduROw7QPgvcft0lIupeG8a8rdKL8RiSyKvlE7dYY31fEn41HVuQsRFDuROA8tA4K2UVL+WdfFmErBA==}
+  /@types/yauzl@2.9.2:
+    resolution: {integrity: sha512-8uALY5LTvSuHgloDVUvWP3pIauILm+8/0pDMokuDYIoNsOkSwd5AiHBTSEJjKTDcZr5z8UpgOWZkxBF4iJftoA==, tarball: https://npm.pkg.github.com/download/@types/yauzl/2.9.2/c48e5d56aff1444409e39fa164b0b4d4552a7b7a}
     requiresBuild: true
     dependencies:
       '@types/node': 18.18.6
@@ -2918,7 +2950,7 @@ packages:
       get-stream: 5.2.0
       yauzl: 2.10.0
     optionalDependencies:
-      '@types/yauzl': 2.10.2
+      '@types/yauzl': 2.9.2
     transitivePeerDependencies:
       - supports-color
     dev: true
