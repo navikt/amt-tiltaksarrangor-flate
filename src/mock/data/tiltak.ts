@@ -57,7 +57,7 @@ export const gjennomforingInfoListe: GjennomforingInfo[] = [
 		gjennomforingNavn: 'Oppfølging Region Nordsør',
 		tiltakskode: Tiltakskode.INDOPPFAG,
 		tiltaksnavn: 'Oppfølging',
-		status: TiltakGjennomforingStatus.APENT_FOR_INNSOK
+		status: TiltakGjennomforingStatus.PLANLAGT
 	},
 	{
 		gjennomforingNavn: 'Arbeidsrettet rehabilitering Region Nordsør',
