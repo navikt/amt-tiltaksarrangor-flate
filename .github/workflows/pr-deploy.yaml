@@ -43,6 +43,7 @@ jobs:
         run: gsutil -m rsync -r build gs://amt-tiltaksarrangor-flate-dev/pr-${{ github.event.number }}
   create-link-to-app:
     if: github.event.pull_request.head.repo.fork != true && github.event.pull_request.user.login != 'dependabot[bot]'
+    needs: deploy-pull-request-branch
     permissions:
       pull-requests: "write"
     name: Opprett lenke til test applikasjon for PR
