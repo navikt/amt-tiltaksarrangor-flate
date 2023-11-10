@@ -32,7 +32,8 @@ export const EndreDeltakelseKnapp = (props: EndreDeltakelseKnappProps) => {
 	const kanEndreStartDato =
 		deltaker.status.type === TiltakDeltakerStatus.VENTER_PA_OPPSTART ||
 		deltaker.status.type === TiltakDeltakerStatus.IKKE_AKTUELL ||
-		deltaker.status.type === TiltakDeltakerStatus.DELTAR
+		deltaker.status.type === TiltakDeltakerStatus.DELTAR ||
+		deltaker.status.type === TiltakDeltakerStatus.VURDERES
 
 	const endreDeltakelseRef = useRef<HTMLButtonElement>(null)
 	const handleCloseModal = () => {
