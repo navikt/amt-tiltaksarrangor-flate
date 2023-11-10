@@ -66,8 +66,8 @@ dependencies:
     specifier: ^6.17.0
     version: 6.17.0(react-dom@18.2.0)(react@18.2.0)
   react-select:
-    specifier: ^5.7.7
-    version: 5.7.7(@types/react@18.2.31)(react-dom@18.2.0)(react@18.2.0)
+    specifier: ^5.8.0
+    version: 5.8.0(@types/react@18.2.31)(react-dom@18.2.0)(react@18.2.0)
   typescript:
     specifier: ^5.2.2
     version: 5.2.2
@@ -1292,8 +1292,12 @@ packages:
       undici-types: 5.25.3
     dev: true
 
-  /@types/parse-json@4.0.1:
-    resolution: {integrity: sha512-3YmXzzPAdOTVljVMkTMBdBEvlOLg2cDQaDhnnhT3nT9uDbnJzjWhKlzb+desT12Y7tGqaN6d+AbozcKzyL36Ng==}
+  /@types/parse-json@4.0.0:
+    resolution: {integrity: sha512-cflXkhRjOOCTvvdA/Bn5xKDaN2dvZwE+62hzazFPrIjC1WlKnIsrhHRK5UT8wID+MapfnDftzaRXNojhQZWvkg==, tarball: https://npm.pkg.github.com/download/@types/parse-json/4.0.0/b1f82f2971ff98a729bff1f163b9a3a1e4f9c9ff}
+    dev: false
+
+  /@types/prop-types@15.7.4:
+    resolution: {integrity: sha512-rZ5drC/jWjrArrS8BR6SIr4cWpW09RNTYt9AMZo3Jwwif+iacXAqgVjm0B0Bv/S1jhDXKHqRVNCbACkJ89RAnQ==, tarball: https://npm.pkg.github.com/download/@types/prop-types/15.7.4/fcf7205c25dff795ee79af1e30da2c9790808f11}
     dev: false
 
   /@types/prop-types@15.7.9:
@@ -1324,13 +1328,21 @@ packages:
     resolution: {integrity: sha512-jGjmu/ZqS7FjSH6owMcD5qpq19+1RS9DeVRqfl1FeBMxTDQAGwlMWOcs52NDoXaNKyG3d1cYQFMs9rCrb88o9Q==}
     dependencies:
       '@types/history': 4.7.11
-      '@types/react': 18.2.31
+      '@types/react': 17.0.39
     dev: false
 
-  /@types/react-transition-group@4.4.8:
-    resolution: {integrity: sha512-QmQ22q+Pb+HQSn04NL3HtrqHwYMf4h3QKArOy5F8U5nEVMaihBs3SR10WiOM1iwPz5jIo8x/u11al+iEGZZrvg==}
+  /@types/react-transition-group@4.4.4:
+    resolution: {integrity: sha512-7gAPz7anVK5xzbeQW9wFBDg7G++aPLAFY0QaSMOou9rJZpbuI58WAuJrgu+qR92l61grlnCUe7AFX8KGahAgug==, tarball: https://npm.pkg.github.com/download/@types/react-transition-group/4.4.4/acd4cceaa2be6b757db61ed7b432e103242d163e}
     dependencies:
-      '@types/react': 18.2.31
+      '@types/react': 17.0.39
+    dev: false
+
+  /@types/react@17.0.39:
+    resolution: {integrity: sha512-UVavlfAxDd/AgAacMa60Azl7ygyQNRwC/DsHZmKgNvPmRR5p70AJ5Q9EAmL2NWOJmeV+vVUI4IAP7GZrN8h8Ug==, tarball: https://npm.pkg.github.com/download/@types/react/17.0.39/d0f4cde092502a6db00a1cded6e6bf2abb7633ce}
+    dependencies:
+      '@types/prop-types': 15.7.4
+      '@types/scheduler': 0.16.2
+      csstype: 3.1.2
     dev: false
 
   /@types/react@18.2.31:
@@ -1339,6 +1351,10 @@ packages:
       '@types/prop-types': 15.7.9
       '@types/scheduler': 0.16.5
       csstype: 3.1.2
+    dev: false
+
+  /@types/scheduler@0.16.2:
+    resolution: {integrity: sha512-hppQEBDmlwhFAXKJX2KnWLYu5yMfi91yazPb2l+lbJiwW+wdo1gNeRA+3RgNSO39WYX2euey41KEwnqesU2Jew==, tarball: https://npm.pkg.github.com/download/@types/scheduler/0.16.2/1a62f89525723dde24ba1b01b092bf5df8ad4d39}
     dev: false
 
   /@types/scheduler@0.16.5:
@@ -2255,7 +2271,7 @@ packages:
     resolution: {integrity: sha512-AdmX6xUzdNASswsFtmwSt7Vj8po9IuqXm0UXz7QKPuEUmPB4XyjGfaAr2PSuELMwkRMVH1EpIkX5bTZGRB3eCA==}
     engines: {node: '>=10'}
     dependencies:
-      '@types/parse-json': 4.0.1
+      '@types/parse-json': 4.0.0
       import-fresh: 3.3.0
       parse-json: 5.2.0
       path-type: 4.0.0
@@ -4660,8 +4676,8 @@ packages:
       react: 18.2.0
     dev: false
 
-  /react-select@5.7.7(@types/react@18.2.31)(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-HhashZZJDRlfF/AKj0a0Lnfs3sRdw/46VJIRd8IbB9/Ovr74+ZIwkAdSBjSPXsFMG+u72c5xShqwLSKIJllzqw==}
+  /react-select@5.8.0(@types/react@18.2.31)(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-TfjLDo58XrhP6VG5M/Mi56Us0Yt8X7xD6cDybC7yoRMUNm7BGO7qk8J0TLQOua/prb8vUOtsfnXZwfm30HGsAA==}
     peerDependencies:
       react: ^16.8.0 || ^17.0.0 || ^18.0.0
       react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0
@@ -4670,7 +4686,7 @@ packages:
       '@emotion/cache': 11.11.0
       '@emotion/react': 11.11.1(@types/react@18.2.31)(react@18.2.0)
       '@floating-ui/dom': 1.5.3
-      '@types/react-transition-group': 4.4.8
+      '@types/react-transition-group': 4.4.4
       memoize-one: 6.0.0
       prop-types: 15.8.1
       react: 18.2.0
