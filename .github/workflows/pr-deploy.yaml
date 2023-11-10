@@ -1,5 +1,6 @@
 name: Deploy Pull Request Branch
 on:
+  workflow_dispatch: # This workflow can be triggered manually from: https://github.com/navikt/amt-tiltaksarrangor-flate/actions/workflows/deploy.yaml
   pull_request:
     branches:
       - main
