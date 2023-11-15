@@ -14,6 +14,7 @@ export enum KursDeltakerStatuser {
 }
 
 export enum IndividuellDeltakerStatus {
+	VURDERES = 'VURDERES',
 	VENTER_PA_OPPSTART = 'VENTER_PA_OPPSTART',
 	DELTAR = 'DELTAR',
 	HAR_SLUTTET = 'HAR_SLUTTET',
