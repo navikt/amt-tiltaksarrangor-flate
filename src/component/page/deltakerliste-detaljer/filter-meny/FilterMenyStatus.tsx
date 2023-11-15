@@ -37,7 +37,7 @@ export const FilterMenyStatus = (props: Props): React.ReactElement => {
 		Object.keys(statuser).forEach(status => {
 			const tekst = mapTiltakDeltakerStatusTilTekst(status)
 
-			if ( props.erKurs && props.tiltakType !== Tiltakskode.GRUPPEAMO && status === KursDeltakerStatuser.VURDERES ) {
+			if ( props.tiltakType !== Tiltakskode.GRUPPEAMO && status === KursDeltakerStatuser.VURDERES ) {
 				return
 			}
 
