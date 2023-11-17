@@ -9,26 +9,26 @@ dependencies:
     specifier: ^7.23.3
     version: 7.23.3
   '@navikt/aksel-icons':
-    specifier: ^5.10.1
-    version: 5.10.1
+    specifier: ^5.10.2
+    version: 5.10.2
   '@navikt/ds-css':
-    specifier: ^5.10.1
-    version: 5.10.1
+    specifier: ^5.10.2
+    version: 5.10.2
   '@navikt/ds-react':
-    specifier: ^5.10.1
-    version: 5.10.1(@types/react@18.2.37)(react-dom@18.2.0)(react@18.2.0)
+    specifier: ^5.10.2
+    version: 5.10.2(@types/react@18.2.37)(react-dom@18.2.0)(react@18.2.0)
   '@navikt/ds-tokens':
-    specifier: ^5.10.1
-    version: 5.10.1
+    specifier: ^5.10.2
+    version: 5.10.2
   '@navikt/nav-dekoratoren-moduler':
     specifier: ^2.1.3
     version: 2.1.3(jsdom@22.1.0)(react@18.2.0)
   '@sentry/react':
-    specifier: ^7.80.0
-    version: 7.80.0(react@18.2.0)
+    specifier: ^7.80.1
+    version: 7.80.1(react@18.2.0)
   '@sentry/tracing':
-    specifier: ^7.80.0
-    version: 7.80.0
+    specifier: ^7.80.1
+    version: 7.80.1
   '@types/react':
     specifier: ^18.2.37
     version: 18.2.37
@@ -45,8 +45,8 @@ dependencies:
     specifier: ^8.21.9
     version: 8.21.9
   axios:
-    specifier: ^1.6.1
-    version: 1.6.1
+    specifier: ^1.6.2
+    version: 1.6.2
   classnames:
     specifier: ^2.3.2
     version: 2.3.2
@@ -63,8 +63,8 @@ dependencies:
     specifier: ^18.2.0
     version: 18.2.0(react@18.2.0)
   react-router-dom:
-    specifier: ^6.18.0
-    version: 6.18.0(react-dom@18.2.0)(react@18.2.0)
+    specifier: ^6.19.0
+    version: 6.19.0(react-dom@18.2.0)(react@18.2.0)
   react-select:
     specifier: ^5.8.0
     version: 5.8.0(@types/react@18.2.37)(react-dom@18.2.0)(react@18.2.0)
@@ -89,8 +89,8 @@ devDependencies:
     specifier: ^6.11.0
     version: 6.11.0(eslint@8.53.0)(typescript@5.2.2)
   '@vitejs/plugin-react':
-    specifier: ^4.1.1
-    version: 4.1.1(vite@4.5.0)
+    specifier: ^4.2.0
+    version: 4.2.0(vite@4.5.0)
   axe-core:
     specifier: ^4.8.2
     version: 4.8.2
@@ -98,11 +98,11 @@ devDependencies:
     specifier: ^5.0.0
     version: 5.0.0
   cypress:
-    specifier: ^13.5.0
-    version: 13.5.0
+    specifier: ^13.5.1
+    version: 13.5.1
   cypress-axe:
     specifier: ^1.5.0
-    version: 1.5.0(axe-core@4.8.2)(cypress@13.5.0)
+    version: 1.5.0(axe-core@4.8.2)(cypress@13.5.1)
   eslint:
     specifier: ^8.53.0
     version: 8.53.0
@@ -860,23 +860,26 @@ packages:
       - supports-color
     dev: true
 
-  /@navikt/aksel-icons@5.10.1:
-    resolution: {integrity: sha512-VOwshZoNAOCrmfWyfTkKHwKdUpF9a77zOAuonM3zkrluo66NRwa1p9rqas6ZrAZjGUjtxQ7dXg+reLdqsxfUWw==, tarball: https://npm.pkg.github.com/download/@navikt/aksel-icons/5.10.1/02483b56f481c1bfd1e9256eac9f8c35f920b742}
+  /@navikt/aksel-icons@5.10.2:
+    resolution: {integrity: sha512-C9sMkOxusQ9JrpjmJaD5WR4uUK4qIniQbOKmpPneUG490Qv+g3GFD/0FyHeFSr7t49gItaHtmKvGAckXX2Qkmw==, tarball: https://npm.pkg.github.com/download/@navikt/aksel-icons/5.10.2/8aaaf2bcd8aa704911bb8328da2fa3f6cf09235d}
     dev: false
 
-  /@navikt/ds-css@5.10.1:
-    resolution: {integrity: sha512-+PheVLcMgFz7V/o3LNDOfT2A/pmh57IbTVc4XHedY6y1fmA6YoQ6DeqPKryb1OYrC+hdagMjrA0J/snKsWH2xw==, tarball: https://npm.pkg.github.com/download/@navikt/ds-css/5.10.1/fb0dc63ae42c7ba17aa47992829952d4598d5def}
+  /@navikt/ds-css@5.10.2:
+    resolution: {integrity: sha512-0m1bvv7sCTJqyHsNChVb7R8bfqvZrjON/c3a5tRrsamezFNmLzXaNo8c95N+jS+HfxyNELCJDphWcuH1czpgcQ==, tarball: https://npm.pkg.github.com/download/@navikt/ds-css/5.10.2/4bc63fc4a3c4b754dabf7ae5e1fcdfe28e77f51c}
     dev: false
 
-  /@navikt/ds-react@5.10.1(@types/react@18.2.37)(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-60y6aovWVdycRI6WczBnvjzAbRSK0wa6XAwx53NULmBM/KnqLurYlg61P8twx+HE959LDlZ2x/R6+oSYGWBRBA==, tarball: https://npm.pkg.github.com/download/@navikt/ds-react/5.10.1/57cd27a134fac3c2c92aadaa86d4864d1efa2c3d}
+  /@navikt/ds-react@5.10.2(@types/react@18.2.37)(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-r8+Kp0LANLqwXu7DmvSCYjcsiBWLB0kGDIBxhhpoBfYycSPgcbSFogXa+Eyek6AnSn5ZT0/Gp0VeGKNkIibx3Q==, tarball: https://npm.pkg.github.com/download/@navikt/ds-react/5.10.2/e10d1b7f8329060ddd8c8e144229aa9bebef3e12}
     peerDependencies:
       '@types/react': ^17.0.30 || ^18.0.0
       react: ^17.0.0 || ^18.0.0
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
     dependencies:
       '@floating-ui/react': 0.25.4(react-dom@18.2.0)(react@18.2.0)
-      '@navikt/aksel-icons': 5.10.1
-      '@navikt/ds-tokens': 5.10.1
+      '@navikt/aksel-icons': 5.10.2
+      '@navikt/ds-tokens': 5.10.2
       '@radix-ui/react-tabs': 1.0.0(react-dom@18.2.0)(react@18.2.0)
       '@radix-ui/react-toggle-group': 1.0.0(react-dom@18.2.0)(react@18.2.0)
       '@types/react': 18.2.37
@@ -888,8 +891,8 @@ packages:
       - react-dom
     dev: false
 
-  /@navikt/ds-tokens@5.10.1:
-    resolution: {integrity: sha512-7M6sUuuoS4aY/xPbTJNsrer2zFXq7hzkQ5Ccv6WjpLh3wZ51Hy+fqSeyMZrsEo4/IPdVvErndDWMyDKmfoGThQ==, tarball: https://npm.pkg.github.com/download/@navikt/ds-tokens/5.10.1/e6ad53ab10ea5a6e9e206fe010c5781fdda949c3}
+  /@navikt/ds-tokens@5.10.2:
+    resolution: {integrity: sha512-2GpYEtJU5p2GiD73pQYQpTASqClBxjHufFNk7FufyV5kWsnPg8K4YyV5LKAPBKmyJmCxPNOXWsdGamGcllmt5A==, tarball: https://npm.pkg.github.com/download/@navikt/ds-tokens/5.10.2/5eaa10408143cfc46449ae8c6910ecfd760f18f8}
     dev: false
 
   /@navikt/nav-dekoratoren-moduler@2.1.3(jsdom@22.1.0)(react@18.2.0):
@@ -1123,79 +1126,79 @@ packages:
       react: 18.2.0
     dev: false
 
-  /@remix-run/router@1.11.0:
-    resolution: {integrity: sha512-BHdhcWgeiudl91HvVa2wxqZjSHbheSgIiDvxrF1VjFzBzpTtuDPkOdOi3Iqvc08kXtFkLjhbS+ML9aM8mJS+wQ==}
+  /@remix-run/router@1.12.0:
+    resolution: {integrity: sha512-2hXv036Bux90e1GXTWSMfNzfDDK8LA8JYEWfyHxzvwdp6GyoWEovKc9cotb3KCKmkdwsIBuFGX7ScTWyiHv7Eg==}
     engines: {node: '>=14.0.0'}
     dev: false
 
-  /@sentry-internal/tracing@7.80.0:
-    resolution: {integrity: sha512-P1Ab9gamHLsbH9D82i1HY8xfq9dP8runvc4g50AAd6OXRKaJ45f2KGRZUmnMEVqBQ7YoPYp2LFMkrhNYbcZEoQ==}
+  /@sentry-internal/tracing@7.80.1:
+    resolution: {integrity: sha512-5gZ4LPIj2vpQl2/dHBM4uXMi9OI5E0VlOhJQt0foiuN6JJeiOjdpJFcfVqJk69wrc0deVENTtgKKktxqMwVeWQ==}
     engines: {node: '>=8'}
     dependencies:
-      '@sentry/core': 7.80.0
-      '@sentry/types': 7.80.0
-      '@sentry/utils': 7.80.0
+      '@sentry/core': 7.80.1
+      '@sentry/types': 7.80.1
+      '@sentry/utils': 7.80.1
     dev: false
 
-  /@sentry/browser@7.80.0:
-    resolution: {integrity: sha512-Ngwjc+yyf/aH5q7iQM1LeDNlhM1Ilt4ZLUogTghZR/guwNWmCtk3OHcjOLz7fxBBj9wGFUc2pHPyeYM6bQhrEw==}
+  /@sentry/browser@7.80.1:
+    resolution: {integrity: sha512-1dPR6vPJ9vOTzgXff9HGheb178XeEv5hyjBNhCO1f6rjCgnVj99XGNZIgO1Ee1ALJbqlfPWaeV+uSWbbcmgJMA==}
     engines: {node: '>=8'}
     dependencies:
-      '@sentry-internal/tracing': 7.80.0
-      '@sentry/core': 7.80.0
-      '@sentry/replay': 7.80.0
-      '@sentry/types': 7.80.0
-      '@sentry/utils': 7.80.0
+      '@sentry-internal/tracing': 7.80.1
+      '@sentry/core': 7.80.1
+      '@sentry/replay': 7.80.1
+      '@sentry/types': 7.80.1
+      '@sentry/utils': 7.80.1
     dev: false
 
-  /@sentry/core@7.80.0:
-    resolution: {integrity: sha512-nJiiymdTSEyI035/rdD3VOq6FlOZ2wWLR5bit9LK8a3rzHU3UXkwScvEo6zYgs0Xp1sC0yu1S9+0BEiYkmi29A==}
+  /@sentry/core@7.80.1:
+    resolution: {integrity: sha512-3Yh+O9Q86MxwIuJFYtuSSoUCpdx99P1xDAqL0FIPTJ+ekaVMiUJq9NmyaNh9uN2myPSmxvEXW6q3z37zta9ZHg==}
     engines: {node: '>=8'}
     dependencies:
-      '@sentry/types': 7.80.0
-      '@sentry/utils': 7.80.0
+      '@sentry/types': 7.80.1
+      '@sentry/utils': 7.80.1
     dev: false
 
-  /@sentry/react@7.80.0(react@18.2.0):
-    resolution: {integrity: sha512-xoX7fqgY0NZR9Fud/IJ4a3b8Z/HsdwU5SLILi46lV+CWaXS6eFM1E81jG2Vd2EeYIpkH+bMA//XHMEod8LAJcQ==}
+  /@sentry/react@7.80.1(react@18.2.0):
+    resolution: {integrity: sha512-AZjROgfJsYmI/Htb+giRQuVTCNofsLKGz6nYmJS2cYDZYKP4KU1l1SapF5F8r5Pu7c/6ZvULNj7MeHOXq2SEYA==}
     engines: {node: '>=8'}
     peerDependencies:
       react: 15.x || 16.x || 17.x || 18.x
     dependencies:
-      '@sentry/browser': 7.80.0
-      '@sentry/types': 7.80.0
-      '@sentry/utils': 7.80.0
+      '@sentry/browser': 7.80.1
+      '@sentry/types': 7.80.1
+      '@sentry/utils': 7.80.1
       hoist-non-react-statics: 3.3.2
       react: 18.2.0
     dev: false
 
-  /@sentry/replay@7.80.0:
-    resolution: {integrity: sha512-wWnpuJq3OaDLp1LutE4oxWXnau04fvwuzBjuaFvOXOV+pB/kn+pDPuVOC5+FH/RMRZ5ftwX5+dF6fojfcLVGCg==}
+  /@sentry/replay@7.80.1:
+    resolution: {integrity: sha512-yjpftIyybQeWD2i0Nd7C96tZwjNbSMRW515EL9jwlNxYbQtGtMs0HavP9Y7uQvQrzwSHY0Wp+ooe9PMuvzqbHw==}
     engines: {node: '>=12'}
     dependencies:
-      '@sentry-internal/tracing': 7.80.0
-      '@sentry/core': 7.80.0
-      '@sentry/types': 7.80.0
-      '@sentry/utils': 7.80.0
+      '@sentry-internal/tracing': 7.80.1
+      '@sentry/core': 7.80.1
+      '@sentry/types': 7.80.1
+      '@sentry/utils': 7.80.1
     dev: false
 
-  /@sentry/tracing@7.80.0:
-    resolution: {integrity: sha512-y9zBVMpCgY5Y6dBZrnKKHf6K9YWjGo3S35tPwDV1mQLml64bi6bNr6Fc6OBzXyrl9OTJAO71A1Z7DlAu6BQY9w==}
+  /@sentry/tracing@7.80.1:
+    resolution: {integrity: sha512-sFkcxCBtLNVa3EyeCafZqhJHZ714f2+ryPWTBckAmxAsON4yjh/YLs2X1FJ2n6Rnv16TP6gWGt4SnhFT03WStA==}
     engines: {node: '>=8'}
     dependencies:
-      '@sentry-internal/tracing': 7.80.0
+      '@sentry-internal/tracing': 7.80.1
     dev: false
 
-  /@sentry/types@7.80.0:
-    resolution: {integrity: sha512-4bpMO+2jWiWLDa8zbTASWWNLWe6yhjfPsa7/6VH5y9x1NGtL8oRbqUsTgsvjF3nmeHEMkHQsC8NHPaQ/ibFmZQ==}
+  /@sentry/types@7.80.1:
+    resolution: {integrity: sha512-CVu4uPVTOI3U9kYiOdA085R7jX5H1oVODbs9y+A8opJ0dtJTMueCXgZyE8oXQ0NjGVs6HEeaLkOuiV0mj8X3yw==}
     engines: {node: '>=8'}
     dev: false
 
-  /@sentry/utils@7.80.0:
-    resolution: {integrity: sha512-XbBCEl6uLvE50ftKwrEo6XWdDaZXHXu+kkHXTPWQEcnbvfZKLuG9V0Hxtxxq3xQgyWmuF05OH1GcqYqiO+v5Yg==}
+  /@sentry/utils@7.80.1:
+    resolution: {integrity: sha512-bfFm2e/nEn+b9++QwjNEYCbS7EqmteT8uf0XUs7PljusSimIqqxDtK1pfD9zjynPgC8kW/fVBKv0pe2LufomeA==}
     engines: {node: '>=8'}
     dependencies:
-      '@sentry/types': 7.80.0
+      '@sentry/types': 7.80.1
     dev: false
 
   /@sinclair/typebox@0.27.8:
@@ -1291,6 +1294,12 @@ packages:
       undici-types: 5.26.5
     dev: true
 
+  /@types/node@20.9.1:
+    resolution: {integrity: sha512-HhmzZh5LSJNS5O8jQKpJ/3ZcrrlG6L70hpGqMIAoM9YVD0YBRNWYsfwcXq8VnSjlNpCpgLzMXdiPo+dxcvSmiA==}
+    dependencies:
+      undici-types: 5.26.5
+    dev: true
+
   /@types/parse-json@4.0.2:
     resolution: {integrity: sha512-dISoDXWWQwUquiKsyZ4Ng+HX2KsPL7LyHKHQwgGFEA3IaKac4Obd+h2a/a6waisAoepJlBcx9paWqjA8/HVjCw==}
     dev: false
@@ -1351,7 +1360,7 @@ packages:
   /@types/set-cookie-parser@2.4.6:
     resolution: {integrity: sha512-tjIRMxGztGfIbW2/d20MdJmAPZbabtdW051cKfU+nvZXUnKKifHbY2CyL/C0EGabUB8ahIRjanYzTqJUQR8TAQ==}
     dependencies:
-      '@types/node': 20.9.0
+      '@types/node': 20.9.1
     dev: true
 
   /@types/sinonjs__fake-timers@8.1.1:
@@ -1362,8 +1371,8 @@ packages:
     resolution: {integrity: sha512-m04Om5Gz6kbjUwAQ7XJJQ30OdEFsSmAVsvn4NYwcTRyMVpKKa1aPuESw1n2CxS5fYkOQv3nHgDKeNa8e76fUkw==}
     dev: true
 
-  /@types/yauzl@2.10.3:
-    resolution: {integrity: sha512-oJoftv0LSuaDZE3Le4DbKX+KS9G36NzOeSap90UIK0yMA/NhKJhqlSGtNDORNRaIbQfzjXDrQa0ytJ6mNRGz/Q==}
+  /@types/yauzl@2.9.2:
+    resolution: {integrity: sha512-8uALY5LTvSuHgloDVUvWP3pIauILm+8/0pDMokuDYIoNsOkSwd5AiHBTSEJjKTDcZr5z8UpgOWZkxBF4iJftoA==, tarball: https://npm.pkg.github.com/download/@types/yauzl/2.9.2/c48e5d56aff1444409e39fa164b0b4d4552a7b7a}
     requiresBuild: true
     dependencies:
       '@types/node': 18.18.9
@@ -1505,11 +1514,11 @@ packages:
     resolution: {integrity: sha512-zuVdFrMJiuCDQUMCzQaD6KL28MjnqqN8XnAqiEq9PNm/hCPTSGfrXCOfwj1ow4LFb/tNymJPwsNbVePc1xFqrQ==}
     dev: true
 
-  /@vitejs/plugin-react@4.1.1(vite@4.5.0):
-    resolution: {integrity: sha512-Jie2HERK+uh27e+ORXXwEP5h0Y2lS9T2PRGbfebiHGlwzDO0dEnd2aNtOR/qjBlPb1YgxwAONeblL1xqLikLag==}
+  /@vitejs/plugin-react@4.2.0(vite@4.5.0):
+    resolution: {integrity: sha512-+MHTH/e6H12kRp5HUkzOGqPMksezRMmW+TNzlh/QXfI8rRf6l2Z2yH/v12no1UvTwhZgEDMuQ7g7rrfMseU6FQ==}
     engines: {node: ^14.18.0 || >=16.0.0}
     peerDependencies:
-      vite: ^4.2.0
+      vite: ^4.2.0 || ^5.0.0
     dependencies:
       '@babel/core': 7.23.3
       '@babel/plugin-transform-react-jsx-self': 7.23.3(@babel/core@7.23.3)
@@ -1855,8 +1864,8 @@ packages:
     engines: {node: '>=4'}
     dev: true
 
-  /axios@1.6.1:
-    resolution: {integrity: sha512-vfBmhDpKafglh0EldBEbVuoe7DyAavGSLWhuSm5ZSEKQnHhBf0xAAwybbNH1IkrJNGnS/VG4I5yxig1pCEXE4g==}
+  /axios@1.6.2:
+    resolution: {integrity: sha512-7i24Ri4pmDRfJTR7LDBhsOTtcm+9kjX5WiY1X3wIisx6G9So3pfMkEiU7emUBe46oceVImccTEM3k6C5dbVW8A==}
     dependencies:
       follow-redirects: 1.15.3
       form-data: 4.0.0
@@ -2280,7 +2289,7 @@ packages:
     resolution: {integrity: sha512-I7K1Uu0MBPzaFKg4nI5Q7Vs2t+3gWWW648spaF+Rg7pI9ds18Ugn+lvg4SHczUdKlHI5LWBXyqfS8+DufyBsgQ==}
     dev: false
 
-  /cypress-axe@1.5.0(axe-core@4.8.2)(cypress@13.5.0):
+  /cypress-axe@1.5.0(axe-core@4.8.2)(cypress@13.5.1):
     resolution: {integrity: sha512-Hy/owCjfj+25KMsecvDgo4fC/781ccL+e8p+UUYoadGVM2ogZF9XIKbiM6KI8Y3cEaSreymdD6ZzccbI2bY0lQ==}
     engines: {node: '>=10'}
     peerDependencies:
@@ -2288,11 +2297,11 @@ packages:
       cypress: ^10 || ^11 || ^12 || ^13
     dependencies:
       axe-core: 4.8.2
-      cypress: 13.5.0
+      cypress: 13.5.1
     dev: true
 
-  /cypress@13.5.0:
-    resolution: {integrity: sha512-oh6U7h9w8wwHfzNDJQ6wVcAeXu31DlIYlNOBvfd6U4CcB8oe4akawQmH+QJVOMZlM42eBoCne015+svVqdwdRQ==}
+  /cypress@13.5.1:
+    resolution: {integrity: sha512-yqLViT0D/lPI8Kkm7ciF/x/DCK/H/DnogdGyiTnQgX4OVR2aM30PtK+kvklTOD1u3TuItiD9wUQAF8EYWtyZug==}
     engines: {node: ^16.0.0 || ^18.0.0 || >=20.0.0}
     hasBin: true
     requiresBuild: true
@@ -2925,7 +2934,7 @@ packages:
       get-stream: 5.2.0
       yauzl: 2.10.0
     optionalDependencies:
-      '@types/yauzl': 2.10.3
+      '@types/yauzl': 2.9.2
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -4595,26 +4604,26 @@ packages:
     engines: {node: '>=0.10.0'}
     dev: true
 
-  /react-router-dom@6.18.0(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-Ubrue4+Ercc/BoDkFQfc6og5zRQ4A8YxSO3Knsne+eRbZ+IepAsK249XBH/XaFuOYOYr3L3r13CXTLvYt5JDjw==}
+  /react-router-dom@6.19.0(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-N6dWlcgL2w0U5HZUUqU2wlmOrSb3ighJmtQ438SWbhB1yuLTXQ8yyTBMK3BSvVjp7gBtKurT554nCtMOgxCZmQ==}
     engines: {node: '>=14.0.0'}
     peerDependencies:
       react: '>=16.8'
       react-dom: '>=16.8'
     dependencies:
-      '@remix-run/router': 1.11.0
+      '@remix-run/router': 1.12.0
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
-      react-router: 6.18.0(react@18.2.0)
+      react-router: 6.19.0(react@18.2.0)
     dev: false
 
-  /react-router@6.18.0(react@18.2.0):
-    resolution: {integrity: sha512-vk2y7Dsy8wI02eRRaRmOs9g2o+aE72YCx5q9VasT1N9v+lrdB79tIqrjMfByHiY5+6aYkH2rUa5X839nwWGPDg==}
+  /react-router@6.19.0(react@18.2.0):
+    resolution: {integrity: sha512-0W63PKCZ7+OuQd7Tm+RbkI8kCLmn4GPjDbX61tWljPxWgqTKlEpeQUwPkT1DRjYhF8KSihK0hQpmhU4uxVMcdw==}
     engines: {node: '>=14.0.0'}
     peerDependencies:
       react: '>=16.8'
     dependencies:
-      '@remix-run/router': 1.11.0
+      '@remix-run/router': 1.12.0
       react: 18.2.0
     dev: false
 
