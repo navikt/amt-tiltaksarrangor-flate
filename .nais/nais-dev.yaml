@@ -43,11 +43,7 @@ spec:
   accessPolicy:
     outbound:
       rules:
-        - application: amt-tiltak
         - application: amt-tiltaksarrangor-bff
-        - application: poao-unleash
-          namespace: poao
-          cluster: dev-gcp
   env:
     - name: JSON_CONFIG
       value: >
@@ -61,10 +57,6 @@ spec:
             "loginProvider": "ID_PORTEN"
           },
           "proxies": [
-            {
-              "fromPath": "/amt-tiltak", "toUrl": "http://amt-tiltak",
-              "toApp": { "name": "amt-tiltak", "namespace": "amt", "cluster": "dev-gcp" }
-            },
             {
               "fromPath": "/amt-tiltaksarrangor-bff", "toUrl": "http://amt-tiltaksarrangor-bff",
               "toApp": { "name": "amt-tiltaksarrangor-bff", "namespace": "amt", "cluster": "dev-gcp" }
