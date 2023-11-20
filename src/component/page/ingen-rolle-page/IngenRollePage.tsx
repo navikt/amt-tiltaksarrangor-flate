@@ -38,7 +38,7 @@ export const IngenRollePage = (): React.ReactElement => {
 					<Link
 						target="_blank"
 						rel="noopener noreferrer"
-						href="https://www.altinn.no/hjelp/profil/roller-og-rettigheter"
+						href="https://www.altinn.no/hjelp/profil/roller-og-rettigheter/"
 						className={styles.eksternLenke}
 					>
 						Altinn.no <ExternalLinkIcon />
