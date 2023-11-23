@@ -12,8 +12,8 @@ dependencies:
     specifier: ^5.10.4
     version: 5.10.4
   '@navikt/ds-css':
-    specifier: ^5.10.4
-    version: 5.10.4
+    specifier: ^5.11.0
+    version: 5.11.0
   '@navikt/ds-react':
     specifier: ^5.10.4
     version: 5.10.4(@types/react@18.2.37)(react-dom@18.2.0)(react@18.2.0)
@@ -864,8 +864,8 @@ packages:
     resolution: {integrity: sha512-F/QteO1hQ5vncdg80/wB5j0t+uUrPbzGtn9DmBQg5g1zBvqfGsZ20YbKOsCUJWXJ8w995M6ZP+TMKatSg0j+LA==, tarball: https://npm.pkg.github.com/download/@navikt/aksel-icons/5.10.4/d8843356f6ab6acddd194f4aebfda47455ab904c}
     dev: false
 
-  /@navikt/ds-css@5.10.4:
-    resolution: {integrity: sha512-LuhZwAXgwxmlww+lvufkdG2fKLsYYjmFAaKpGDSzobTGhnQQ/nz5J+R5iGq4s/GK1lZcSXHGNaAPotG0T5yd+A==, tarball: https://npm.pkg.github.com/download/@navikt/ds-css/5.10.4/4d5063bde80a8eba8c09f66b7f9905341a382412}
+  /@navikt/ds-css@5.11.0:
+    resolution: {integrity: sha512-wgmkmH9PLkQ/63W8sWhJoDXXZ3qhKRI4N/j7KVY2TNicDhOMYt2qmXh6RGJ1/Gvr9sPUy5kvi4Rl1c8o6ja+7w==, tarball: https://npm.pkg.github.com/download/@navikt/ds-css/5.11.0/edcf6b7627d25a0b829173d766be0570ccc9684a}
     dev: false
 
   /@navikt/ds-react@5.10.4(@types/react@18.2.37)(react-dom@18.2.0)(react@18.2.0):
