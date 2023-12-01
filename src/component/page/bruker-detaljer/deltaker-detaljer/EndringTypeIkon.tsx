@@ -8,8 +8,8 @@ import {
 	ChevronRightCircleFillIcon,
 	PlusCircleFillIcon,
 	PieChartFillIcon,
+	ChevronRightLastCircleFillIcon
 } from '@navikt/aksel-icons'
-import { ChevronRightLastFillIcon } from '../../../../ikoner/ChevronRightLastFillIcon'
 
 interface EndringTypeIkonProps {
 	type: EndringType
@@ -30,7 +30,7 @@ export const EndringTypeIkon = (props: EndringTypeIkonProps) => {
 		case EndringType.DELTAKER_IKKE_AKTUELL:
 			return <PlusCircleFillIcon className={styles.ikkeAktuellIkon} aria-hidden />
 		case EndringType.ENDRE_SLUTTAARSAK:
-			return <ChevronRightLastFillIcon ariaHidden />
+			return <ChevronRightLastCircleFillIcon className={ styles.endreSluttArsak } aria-hidden />
 	}
 }
 

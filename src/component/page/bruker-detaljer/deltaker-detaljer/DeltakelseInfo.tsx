@@ -92,6 +92,7 @@ export const DeltakelseInfo = ({
 						Deltakeren fjernes fra listen {formatDate(deltaker.fjernesDato)}
 						<Button
 							variant="tertiary"
+							size="small"
 							className={styles.fjernDeltakerKnapp}
 							onClick={() => setVisFjernDeltakerModal(true)}
 						>
