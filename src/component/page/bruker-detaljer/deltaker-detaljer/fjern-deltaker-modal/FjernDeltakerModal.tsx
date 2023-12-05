@@ -25,8 +25,8 @@ export const FjernDeltakerModal = (props: FjernDeltakerModalProps) => {
 			</BodyLong>
 
 			<div className={styles.knappeRad}>
-				<Button variant="secondary" onClick={props.onClose}>Nei, ikke fjern</Button>
-				<Button variant="primary" onClick={props.onConfirm}>Ja, fjern deltaker</Button>
+				<Button variant="secondary" onClick={props.onClose} size="small">Nei, ikke fjern</Button>
+				<Button variant="primary" onClick={ props.onConfirm } size="small">Ja, fjern deltaker</Button>
 			</div>
 		</BaseModal>
 	)
