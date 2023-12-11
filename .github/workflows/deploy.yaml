@@ -58,7 +58,7 @@ jobs:
           workload_identity_provider: projects/696882554390/locations/global/workloadIdentityPools/github/providers/github-action
           service_account: amt-tiltaksarrangor-flate-gcs@amt-dev-d98f.iam.gserviceaccount.com
       - name: Set up Cloud SDK
-        uses: google-github-actions/setup-gcloud@v1
+        uses: google-github-actions/setup-gcloud@v2
       - name: Upload files to GCS
         run: gsutil -m rsync -r build gs://amt-tiltaksarrangor-flate-dev
       - name: Create release
@@ -88,7 +88,7 @@ jobs:
           workload_identity_provider: projects/337368476147/locations/global/workloadIdentityPools/github/providers/github-action
           service_account: amt-tiltaksarrangor-flate-gcs@amt-prod-d4dd.iam.gserviceaccount.com
       - name: Set up Cloud SDK
-        uses: google-github-actions/setup-gcloud@v1
+        uses: google-github-actions/setup-gcloud@v2
       - name: Upload files to GCS
         run: gsutil -m rsync -r build gs://amt-tiltaksarrangor-flate-prod
       - name: Create release
