@@ -70,7 +70,7 @@
     "sass": "^1.69.6",
     "table": "^6.8.1",
     "vite": "^5.0.10",
-    "vitest": "^0.34.6"
+    "vitest": "^1.1.0"
   },
   "msw": {
     "workerDirectory": "public"
