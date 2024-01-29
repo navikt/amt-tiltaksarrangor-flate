@@ -1,5 +1,6 @@
 name: Deploy poao-frontend to dev
 on:
+  workflow_dispatch: # This workflow can be triggered manually from: https://github.com/navikt/amt-tiltaksarrangor-flate/actions/workflows/deploy-poao-frontend-dev.yaml
   push:
     paths:
       - ".nais/nais-dev.yaml"
