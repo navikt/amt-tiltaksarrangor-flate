@@ -29,8 +29,6 @@ spec:
       memory: 256Mi
   idporten:
     enabled: true
-    postLogoutRedirectURIs:
-      - https://www.nav.no/deltakeroversikt
     sidecar:
       enabled: true
       autoLogin: true
