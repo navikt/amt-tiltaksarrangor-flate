@@ -7,7 +7,7 @@
     "@navikt/aksel-icons": "^5.18.3",
     "@navikt/ds-css": "^5.18.3",
     "@navikt/ds-react": "^5.18.3",
-    "@navikt/ds-tokens": "^5.18.3",
+    "@navikt/ds-tokens": "^6.0.0",
     "@navikt/nav-dekoratoren-moduler": "^2.1.5",
     "@sentry/react": "^7.101.1",
     "@sentry/tracing": "^7.101.1",
