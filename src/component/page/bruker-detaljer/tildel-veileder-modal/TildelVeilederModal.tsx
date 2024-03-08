@@ -1,4 +1,4 @@
-import { Alert, Button, Detail } from '@navikt/ds-react'
+import { Alert, Button, Detail, ReadMore } from '@navikt/ds-react'
 import React, { useEffect, useState } from 'react'
 import { TilgjengeligVeileder, Veileder } from '../../../../api/data/veileder'
 import { MultiValue, SingleValue } from 'react-select'
@@ -124,10 +124,19 @@ export const TildelVeilederModal = (props: Props): React.ReactElement => {
 					isError={medveiledere.length > maksMedveiledere}
 					feilmelding="Deltaker kan ha maks 3 medveiledere"
 				/>
-				<Alert variant="info" className={styles.alert}>
-					Finner du ikke veilederen du leter etter? Veilederen må først få riktig rettighet i Altinn, og
-					deretter logge inn i deltakeroversikten.
-				</Alert>
+				<ReadMore header="Finner du ikke riktig veileder?">
+					<p>
+						Veilederen må først få riktig rettighet i Altinn, og deretter logge inn i Deltakeroversikten. Først da kan koordinatoren finne veilederen.
+					</p>
+					<p>
+						Enkeltrettigheten i Altinn heter: <br/>
+						<span className={styles.bold}>“Tiltaksarrangør veileder - NAV Deltakeroversikt”.</span>
+					</p>
+					<p>
+						Enkeltrettigheten må registreres på org.nr. til <span className={styles.bold}>bedriftens underenhet</span> - det samme org.nr. som avtalen om tiltaket er koblet til.
+					</p>
+				</ReadMore>
+
 				{tildelingFeiletError && (
 					<Alert variant="error" size="small">
 						Kunne ikke tildele veiledere. Prøv igjen eller kontakt brukerstøtte{' '}
