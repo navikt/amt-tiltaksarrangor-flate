@@ -89,7 +89,7 @@ spec:
   observability:
       autoInstrumentation:
         enabled: true
-        runtime: node
+        runtime: nodejs
       logging:
         destinations:
           - id: elastic
