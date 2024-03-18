@@ -85,3 +85,11 @@ spec:
             }
         }
 
+  observability:
+      autoInstrumentation:
+        enabled: true
+        runtime: node
+      logging:
+        destinations:
+          - id: elastic
+          - id: loki
