@@ -6,7 +6,7 @@ metadata:
   labels:
     team: amt
 spec:
-  image: europe-north1-docker.pkg.dev/nais-management-233d/poao/poao-frontend:2024.02.26_09.22-a08b941e2c0d 
+  image: europe-north1-docker.pkg.dev/nais-management-233d/poao/poao-frontend:2024.02.26_09.22-a08b941e2c0d
   port: 8080
   ingresses:
     - https://www.nav.no/deltakeroversikt
@@ -62,7 +62,7 @@ spec:
           "header": {
               "csp": {
                 "connectSrc":[
-                  "'self'", 
+                  "'self'",
                   "*.nav.no",
                   "*.boost.ai",
                   "*.psplugin.com",
