@@ -9,17 +9,17 @@ dependencies:
     specifier: ^7.24.6
     version: 7.24.6
   '@navikt/aksel-icons':
-    specifier: ^6.8.0
-    version: 6.8.0
+    specifier: ^6.10.0
+    version: 6.10.0
   '@navikt/ds-css':
-    specifier: ^6.8.0
-    version: 6.8.0
+    specifier: ^6.10.0
+    version: 6.10.0
   '@navikt/ds-react':
-    specifier: ^6.8.0
-    version: 6.8.0(@types/react@18.2.58)(react-dom@18.3.1)(react@18.3.1)
+    specifier: ^6.10.0
+    version: 6.10.0(@types/react@18.2.58)(react-dom@18.3.1)(react@18.3.1)
   '@navikt/ds-tokens':
-    specifier: ^6.8.0
-    version: 6.8.0
+    specifier: ^6.10.0
+    version: 6.10.0
   '@navikt/nav-dekoratoren-moduler':
     specifier: ^2.1.6
     version: 2.1.6(jsdom@24.1.0)(react@18.3.1)
@@ -131,17 +131,17 @@ devDependencies:
     specifier: ^1.3.2
     version: 1.3.2(typescript@5.4.5)
   sass:
-    specifier: ^1.77.2
-    version: 1.77.2
+    specifier: ^1.77.4
+    version: 1.77.4
   table:
     specifier: ^6.8.2
     version: 6.8.2
   vite:
     specifier: ^5.2.12
-    version: 5.2.12(sass@1.77.2)
+    version: 5.2.12(sass@1.77.4)
   vitest:
     specifier: ^1.6.0
-    version: 1.6.0(jsdom@24.1.0)(sass@1.77.2)
+    version: 1.6.0(jsdom@24.1.0)(sass@1.77.4)
 
 packages:
 
@@ -885,16 +885,16 @@ packages:
       - supports-color
     dev: true
 
-  /@navikt/aksel-icons@6.8.0:
-    resolution: {integrity: sha512-XiEr0Xb0BDaStrpGCuEPvNgvHalbL4dPh6HAA7jGV7cHnW6Zsb54Hsaq6dLMXIDYEpPQv2T27j25UvoRxVuk8g==, tarball: https://npm.pkg.github.com/download/@navikt/aksel-icons/6.8.0/2644182b35d898d068d9978cf1620a0405770a70}
+  /@navikt/aksel-icons@6.10.0:
+    resolution: {integrity: sha512-MNjjpNc+wahqQBD4oSj/iIKJQCKZn5rGVh3RmKi95tX/Ta/MRskb807LTVZvq4S1+sOKK4VPgFONf8OertJz9g==, tarball: https://npm.pkg.github.com/download/@navikt/aksel-icons/6.10.0/d832911d79939b408fddfa1b4da7bac3527f6fe4}
     dev: false
 
-  /@navikt/ds-css@6.8.0:
-    resolution: {integrity: sha512-qHXpJL2TZTv3MELLTY+o16X+iqPsrKzZhVwI2obnDJUIYTMvZfwR7BQCofL7nj9pDm5Y/jvUeTxdvIxzDHnUtg==, tarball: https://npm.pkg.github.com/download/@navikt/ds-css/6.8.0/017d4c13ef3140df2509b0c4a6b1e25ad40ee20d}
+  /@navikt/ds-css@6.10.0:
+    resolution: {integrity: sha512-hpuoPzOVT23oDjZlq1NH9f8K9R/n/j3RhTJwiuT5lkpx8xkB/enZ7uc4A3eeyZszontxktZRTQN2KXNN0vhvBg==, tarball: https://npm.pkg.github.com/download/@navikt/ds-css/6.10.0/cd03b719d06e7993980699c2f6cb31795fa91535}
     dev: false
 
-  /@navikt/ds-react@6.8.0(@types/react@18.2.58)(react-dom@18.3.1)(react@18.3.1):
-    resolution: {integrity: sha512-FW2NndVzdVUTBselUzRa1vrkqpJDmHF6cG5A9bg5Y3Y4Aq2uQ07KvDUBzLP+rZz0i4bJ/gkrtoFF74nQRtmKkg==, tarball: https://npm.pkg.github.com/download/@navikt/ds-react/6.8.0/86f903a76ac9f7ee9c3e2aa0c339932fc6dbb063}
+  /@navikt/ds-react@6.10.0(@types/react@18.2.58)(react-dom@18.3.1)(react@18.3.1):
+    resolution: {integrity: sha512-o+/MqUQMX++tp3mXe5Vlnu97CmDd+mdxcr8sT8jeLm9Jf3ms52O1hSdKK6NlJFYVBkOtZMH0Rr306n5n7X+VGA==, tarball: https://npm.pkg.github.com/download/@navikt/ds-react/6.10.0/43abd526e58f1641effd0aa76a255a064068b5dd}
     peerDependencies:
       '@types/react': ^17.0.30 || ^18.0.0
       react: ^17.0.0 || ^18.0.0
@@ -904,8 +904,8 @@ packages:
     dependencies:
       '@floating-ui/react': 0.25.4(react-dom@18.3.1)(react@18.3.1)
       '@floating-ui/react-dom': 2.1.0(react-dom@18.3.1)(react@18.3.1)
-      '@navikt/aksel-icons': 6.8.0
-      '@navikt/ds-tokens': 6.8.0
+      '@navikt/aksel-icons': 6.10.0
+      '@navikt/ds-tokens': 6.10.0
       '@types/react': 18.2.58
       clsx: 2.1.1
       date-fns: 3.6.0
@@ -915,8 +915,8 @@ packages:
       - react-dom
     dev: false
 
-  /@navikt/ds-tokens@6.8.0:
-    resolution: {integrity: sha512-KK2RMX5yCnw8NdwmX5ZSA5LoFX0hQlkpba9CopUGOPxHdC0vOz0CfYwNqJgUhP/HPy2E2GHN37HOWkonqv7BCw==, tarball: https://npm.pkg.github.com/download/@navikt/ds-tokens/6.8.0/01e24b0e8ed89349aeb5d4482dec14b5fb1a5df9}
+  /@navikt/ds-tokens@6.10.0:
+    resolution: {integrity: sha512-wnTS4mirTcTFoptobIp6PfmO8eEHDmt3FNxWAB+AORLOuwVF7Qrfb/zDnAEKBwN381ySSPuFZuQTudJU7hIcfQ==, tarball: https://npm.pkg.github.com/download/@navikt/ds-tokens/6.10.0/56ae8412d9973f5a844b7a15d95c2ac3e008b171}
     dev: false
 
   /@navikt/nav-dekoratoren-moduler@2.1.6(jsdom@24.1.0)(react@18.3.1):
@@ -1516,7 +1516,7 @@ packages:
       '@babel/plugin-transform-react-jsx-source': 7.24.6(@babel/core@7.24.6)
       '@types/babel__core': 7.20.5
       react-refresh: 0.14.2
-      vite: 5.2.12(sass@1.77.2)
+      vite: 5.2.12(sass@1.77.4)
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -1594,7 +1594,7 @@ packages:
     resolution: {integrity: sha512-H0TSyFNDMomMNJQBn8wFV5YC/2eJ+VXECwOadZJT554xP6cODZHPX3H9QMQECxvrgiSOP1pHjy1sMWQVYJOUOA==}
     engines: {node: '>= 14'}
     dependencies:
-      debug: 4.3.4(supports-color@8.1.1)
+      debug: 4.3.5
     transitivePeerDependencies:
       - supports-color
 
@@ -2462,6 +2462,17 @@ packages:
     dependencies:
       ms: 2.1.2
       supports-color: 8.1.1
+
+  /debug@4.3.5:
+    resolution: {integrity: sha512-pt0bNEmneDIvdL1Xsd9oDQ/wrQRkXDT4AUWlNZNPKvW5x/jyO9VFXkJUP07vQ2upmw5PlaITaPKc31jK13V+jg==}
+    engines: {node: '>=6.0'}
+    peerDependencies:
+      supports-color: '*'
+    peerDependenciesMeta:
+      supports-color:
+        optional: true
+    dependencies:
+      ms: 2.1.2
 
   /decimal.js@10.4.3:
     resolution: {integrity: sha512-VBBaLc1MgL5XpzgIP7ny5Z6Nx3UrRkIViUkPUdtl9aya5amy3De1gsUUSB1g3+3sExYNjCAsAznmukyxCb1GRA==}
@@ -3474,7 +3485,7 @@ packages:
     engines: {node: '>= 14'}
     dependencies:
       agent-base: 7.1.1
-      debug: 4.3.4(supports-color@8.1.1)
+      debug: 4.3.5
     transitivePeerDependencies:
       - supports-color
 
@@ -3492,7 +3503,7 @@ packages:
     engines: {node: '>= 14'}
     dependencies:
       agent-base: 7.1.1
-      debug: 4.3.4(supports-color@8.1.1)
+      debug: 4.3.5
     transitivePeerDependencies:
       - supports-color
 
@@ -5059,8 +5070,8 @@ packages:
   /safer-buffer@2.1.2:
     resolution: {integrity: sha512-YZo3K82SD7Riyi0E1EQPojLz7kpepnSQI9IyPbHHg1XXXevb5dJI7tpyN2ADxGcQbHG7vcyRHk0cbwqcQriUtg==}
 
-  /sass@1.77.2:
-    resolution: {integrity: sha512-eb4GZt1C3avsX3heBNlrc7I09nyT00IUuo4eFhAbeXWU2fvA7oXI53SxODVAA+zgZCk9aunAZgO+losjR3fAwA==}
+  /sass@1.77.4:
+    resolution: {integrity: sha512-vcF3Ckow6g939GMA4PeU7b2K/9FALXk2KF9J87txdHzXbUF9XRQRwSxcAs/fGaTnJeBFd7UoV22j3lzMLdM0Pw==}
     engines: {node: '>=14.0.0'}
     hasBin: true
     dependencies:
@@ -5672,7 +5683,7 @@ packages:
       extsprintf: 1.3.0
     dev: true
 
-  /vite-node@1.6.0(sass@1.77.2):
+  /vite-node@1.6.0(sass@1.77.4):
     resolution: {integrity: sha512-de6HJgzC+TFzOu0NTC4RAIsyf/DY/ibWDYQUcuEA84EMHhcefTUGkjFHKKEJhQN4A+6I0u++kr3l36ZF2d7XRw==}
     engines: {node: ^18.0.0 || >=20.0.0}
     hasBin: true
@@ -5681,7 +5692,7 @@ packages:
       debug: 4.3.4(supports-color@8.1.1)
       pathe: 1.1.2
       picocolors: 1.0.0
-      vite: 5.2.12(sass@1.77.2)
+      vite: 5.2.12(sass@1.77.4)
     transitivePeerDependencies:
       - '@types/node'
       - less
@@ -5693,7 +5704,7 @@ packages:
       - terser
     dev: true
 
-  /vite@5.2.12(sass@1.77.2):
+  /vite@5.2.12(sass@1.77.4):
     resolution: {integrity: sha512-/gC8GxzxMK5ntBwb48pR32GGhENnjtY30G4A0jemunsBkiEZFw60s8InGpN8gkhHEkjnRK1aSAxeQgwvFhUHAA==}
     engines: {node: ^18.0.0 || >=20.0.0}
     hasBin: true
@@ -5724,12 +5735,12 @@ packages:
       esbuild: 0.20.2
       postcss: 8.4.38
       rollup: 4.18.0
-      sass: 1.77.2
+      sass: 1.77.4
     optionalDependencies:
       fsevents: 2.3.3
     dev: true
 
-  /vitest@1.6.0(jsdom@24.1.0)(sass@1.77.2):
+  /vitest@1.6.0(jsdom@24.1.0)(sass@1.77.4):
     resolution: {integrity: sha512-H5r/dN06swuFnzNFhq/dnz37bPXnq8xB2xB5JOVk8K09rUtoeNN+LHWkoQ0A/i3hvbUKKcCei9KpbxqHMLhLLA==}
     engines: {node: ^18.0.0 || >=20.0.0}
     hasBin: true
@@ -5772,8 +5783,8 @@ packages:
       strip-literal: 2.1.0
       tinybench: 2.8.0
       tinypool: 0.8.4
-      vite: 5.2.12(sass@1.77.2)
-      vite-node: 1.6.0(sass@1.77.2)
+      vite: 5.2.12(sass@1.77.4)
+      vite-node: 1.6.0(sass@1.77.4)
       why-is-node-running: 2.2.2
     transitivePeerDependencies:
       - less
