@@ -54,4 +54,4 @@ jobs:
         uses: thollander/actions-comment-pull-request@v2
         with:
           message: |
-            URL for testing: https://amt.intern.dev.nav.no/deltakeroversikt/pr-${{ github.event.number }}/index.html
+            URL for testing: https://amt.intern.dev.nav.no/deltakeroversikt/pr-${{ github.event.number }}/index.html and https://amt.ansatt.dev.nav.no/deltakeroversikt/pr-${{ github.event.number }}/index.html
