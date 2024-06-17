@@ -264,6 +264,9 @@ export const mapToDeltakerListView = (deltaker: MockTiltakDeltaker): TiltakDelta
 }
 
 const mapToDeltakerDetaljerView = (deltaker: MockTiltakDeltaker): Deltaker => {
+	const fodselsnummer = deltaker.adressebeskyttet
+		? ''
+		: deltaker.fodselsnummer
 	return {
 		id: deltaker.id,
 		deltakerliste: {
@@ -275,7 +278,7 @@ const mapToDeltakerDetaljerView = (deltaker: MockTiltakDeltaker): Deltaker => {
 		fornavn: deltaker.fornavn,
 		mellomnavn: deltaker.mellomnavn,
 		etternavn: deltaker.etternavn,
-		fodselsnummer: deltaker.fodselsnummer,
+		fodselsnummer: fodselsnummer,
 		telefonnummer: deltaker.telefonnummer,
 		epost: deltaker.epost,
 		status: deltaker.status,

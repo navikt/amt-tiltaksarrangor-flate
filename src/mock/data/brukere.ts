@@ -224,7 +224,7 @@ const lagMockTiltakDeltagerForGjennomforing = ( gjennomforing: Gjennomforing ): 
 		adresse: lagAdresse(),
 		gjeldendeVurderingFraArrangor,
 		historiskeVurderingerFraArrangor: gjeldendeVurderingFraArrangor ? lagHistoriskeVurderinger() : null,
-		adressebeskyttet: randBetween( 0, 10 ) < 9 ? false : true
+		adressebeskyttet: randBetween( 0, 15 ) < 9 ? false : true
 	}
 }
 
