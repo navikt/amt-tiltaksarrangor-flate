@@ -22,7 +22,7 @@ export const DeltakerDetaljerAdresseBeskyttet = ( { deltaker, visTildeling }: Pr
 
 
 	return (
-		<div>
+		<div data-testid="bruker-detaljer-page">
 			<Heading level="2" size="small" className={ styles.deltaker_heading }>Adressebeskyttet</Heading>
 			<div className={ styles.detaljer }>
 				<section className={ styles.section }>
