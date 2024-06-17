@@ -6,15 +6,16 @@ import { Deltaker } from '../../../api/data/deltaker'
 import { fetchDeltaker } from '../../../api/tiltak-api'
 import globalStyles from '../../../globals.module.scss'
 import { useTabTitle } from '../../../hooks/use-tab-title'
+import { useKoordinatorsDeltakerlisterStore } from '../../../store/koordinators-deltakerlister-store'
+import { isKoordinatorForDeltakerliste } from '../../../utils/rolle-utils'
 import { isNotStartedOrPending, isRejected, usePromise } from '../../../utils/use-promise'
 import { useStyle } from '../../../utils/use-style'
 import { AlertPage } from '../../felles/alert-page/AlertPage'
 import { SpinnerPage } from '../../felles/spinner-page/SpinnerPage'
-import { DeltakerlisteStoreProvider } from './deltaker-detaljer/deltakerliste-store'
 import { DeltakerDetaljer } from './DeltakerDetaljer'
+import { DeltakerDetaljerAdresseBeskyttet } from './DeltakerDetaljerAdresseBeskyttet'
 import { DeltakerDetaljerHeader } from './DeltakerDetaljerHeader'
-import { isKoordinatorForDeltakerliste } from '../../../utils/rolle-utils'
-import { useKoordinatorsDeltakerlisterStore } from '../../../store/koordinators-deltakerlister-store'
+import { DeltakerlisteStoreProvider } from './deltaker-detaljer/deltakerliste-store'
 
 export const DeltakerDetaljerPage = (): React.ReactElement => {
 	const params = useParams<{ brukerId: string }>()
@@ -38,6 +39,11 @@ export const DeltakerDetaljerPage = (): React.ReactElement => {
 	}
 
 	const deltaker = fetchDeltakerPromise.result.data
+	const visTildeling = isKoordinatorForDeltakerliste( deltaker.deltakerliste.id, koordinatorsDeltakerlister )
+
+	if ( deltaker.adressebeskyttet && deltaker.fodselsnummer === '' ) {
+		return <DeltakerDetaljerAdresseBeskyttet deltaker={ deltaker } visTildeling={ visTildeling } />
+	}
 
 	return (
 		<div data-testid="bruker-detaljer-page">
@@ -55,7 +61,7 @@ export const DeltakerDetaljerPage = (): React.ReactElement => {
 			<DeltakerlisteStoreProvider deltakerliste={deltaker.deltakerliste}>
 				<DeltakerDetaljer
 					deltaker={deltaker}
-					visTildeling={isKoordinatorForDeltakerliste(deltaker.deltakerliste.id, koordinatorsDeltakerlister)}
+					visTildeling={ visTildeling }
 				/>
 			</DeltakerlisteStoreProvider>
 		</div>

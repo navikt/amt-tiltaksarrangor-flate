@@ -66,7 +66,8 @@ export const Rad = (props: RadProps): React.ReactElement<RadProps> => {
 		status,
 		aktiveEndringsmeldinger,
 		veiledere,
-		gjeldendeVurderingFraArrangor
+		gjeldendeVurderingFraArrangor,
+		adressebeskyttet
 	} = props.deltaker
 
 	const veileder = veiledere.filter(v => v.veiledertype === Veiledertype.VEILEDER)[0]
@@ -82,10 +83,12 @@ export const Rad = (props: RadProps): React.ReactElement<RadProps> => {
 		<Table.Row key={id}>
 			<Table.DataCell className={ styles.smallText }>
 				<Link className={styles.brukersNavn} to={brukerDetaljerPageUrl(id, 'koordinator')} onClick={() => loggKlikk(klikkDeltakerRadOversikt)}>
-					{deltakerNavn}
+					{ adressebeskyttet ? 'Adressebeskyttet' : deltakerNavn }
 				</Link>
 			</Table.DataCell>
-			<Table.DataCell className={ styles.smallText }><Fnr fnr={fodselsnummer} /></Table.DataCell>
+			<Table.DataCell className={ styles.smallText }>
+				{ adressebeskyttet ? '' : <Fnr fnr={ fodselsnummer } /> }
+			</Table.DataCell>
 			<Table.DataCell className={ styles.smallText }>{formatDate(soktInnDato)}</Table.DataCell>
 			<Table.DataCell className={ styles.smallText }>{utledStartdato(startDato, aktiveEndringsmeldinger)}</Table.DataCell>
 			<Table.DataCell className={ styles.smallText }>{utledSluttdato(sluttDato, aktiveEndringsmeldinger)}</Table.DataCell>

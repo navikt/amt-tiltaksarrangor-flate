@@ -52,6 +52,7 @@ export interface MockTiltakDeltaker {
 	adresse: MockAdresse | null
 	gjeldendeVurderingFraArrangor: MockVurdering | null
 	historiskeVurderingerFraArrangor: MockVurdering[] | null
+	adressebeskyttet: boolean
 }
 
 const navEnheter: MockNavEnhet[] = [
@@ -222,7 +223,8 @@ const lagMockTiltakDeltagerForGjennomforing = ( gjennomforing: Gjennomforing ): 
 		veiledere: lagMockVeiledereForDeltaker( id ),
 		adresse: lagAdresse(),
 		gjeldendeVurderingFraArrangor,
-		historiskeVurderingerFraArrangor: gjeldendeVurderingFraArrangor ? lagHistoriskeVurderinger() : null
+		historiskeVurderingerFraArrangor: gjeldendeVurderingFraArrangor ? lagHistoriskeVurderinger() : null,
+		adressebeskyttet: randBetween( 0, 10 ) < 9 ? false : true
 	}
 }
 

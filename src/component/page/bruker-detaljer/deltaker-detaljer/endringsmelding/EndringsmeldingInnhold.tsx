@@ -9,8 +9,8 @@ import {
 } from '../../../../../api/data/endringsmelding'
 import { formatDate } from '../../../../../utils/date-utils'
 import { aarsakTekstMapper } from '../tekst-mappers'
-import { getDagerPerUkeTekst } from '../DeltakelseInfo'
 import styles from './Endringsmeldinger.module.scss'
+import { getDagerPerUkeTekst } from '../../../../../utils/deltaker-utils'
 
 export interface EndringsmeldingInnholdProps {
 	endringsmelding: Endringsmelding

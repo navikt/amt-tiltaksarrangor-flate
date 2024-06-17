@@ -72,7 +72,8 @@ export const tiltakDeltakerSchema = z.object({
 	aktiveEndringsmeldinger: z.array(endringsmeldingSchema),
 	veiledere: z.array(veilederMedTypeSchema),
 	navKontor: z.string().nullable(),
-	gjeldendeVurderingFraArrangor: vurderingSchema.nullable()
+	gjeldendeVurderingFraArrangor: vurderingSchema.nullable(),
+	adressebeskyttet: z.boolean()
 })
 
 export const deltakersDeltakerlisteSchema = z.object({
@@ -115,7 +116,8 @@ export const deltakerSchema = z.object({
 	historiskeEndringsmeldinger: z.array( endringsmeldingSchema ).nullable(),
 	adresse: adresseSchema.nullable(),
 	gjeldendeVurderingFraArrangor: vurderingSchema.nullable(),
-	historiskeVurderingerFraArrangor: z.array(vurderingSchema).nullable()
+	historiskeVurderingerFraArrangor: z.array( vurderingSchema ).nullable(),
+	adressebeskyttet: z.boolean()
 })
 
 export const veilederForSchema = z.object({

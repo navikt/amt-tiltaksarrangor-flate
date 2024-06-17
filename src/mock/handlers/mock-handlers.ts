@@ -258,7 +258,8 @@ export const mapToDeltakerListView = (deltaker: MockTiltakDeltaker): TiltakDelta
 		aktiveEndringsmeldinger: deltaker.aktiveEndringsmeldinger,
 		veiledere: deltaker.veiledere,
 		navKontor: deltaker.navEnhet ? deltaker.navEnhet.navn : null,
-		gjeldendeVurderingFraArrangor: deltaker.gjeldendeVurderingFraArrangor
+		gjeldendeVurderingFraArrangor: deltaker.gjeldendeVurderingFraArrangor,
+		adressebeskyttet: deltaker.adressebeskyttet
 	}
 }
 
@@ -308,7 +309,8 @@ const mapToDeltakerDetaljerView = (deltaker: MockTiltakDeltaker): Deltaker => {
 			}
 			: null,
 		gjeldendeVurderingFraArrangor: deltaker.gjeldendeVurderingFraArrangor,
-		historiskeVurderingerFraArrangor: deltaker.historiskeVurderingerFraArrangor
+		historiskeVurderingerFraArrangor: deltaker.historiskeVurderingerFraArrangor,
+		adressebeskyttet: deltaker.adressebeskyttet
 	}
 }
 
