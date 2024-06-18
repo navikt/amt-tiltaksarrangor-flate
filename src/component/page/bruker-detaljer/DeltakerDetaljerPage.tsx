@@ -56,6 +56,7 @@ export const DeltakerDetaljerPage = (): React.ReactElement => {
 				epost={deltaker.epost}
 				adresse={deltaker.adresse}
 				tiltakskode={deltaker.tiltakskode}
+				adressebeskyttet={deltaker.adressebeskyttet}
 			/>
 			<DeltakerlisteStoreProvider deltakerliste={deltaker.deltakerliste}>
 				<DeltakerDetaljer

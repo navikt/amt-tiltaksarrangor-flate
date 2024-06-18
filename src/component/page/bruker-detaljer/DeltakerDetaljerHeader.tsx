@@ -28,6 +28,7 @@ interface BrukerPaaTiltakHeaderProps {
 	epost: string | null
 	adresse?: Adresse | null
 	tiltakskode: Tiltakskode
+	adressebeskyttet: boolean
 }
 
 export const DeltakerDetaljerHeader = (props: BrukerPaaTiltakHeaderProps): React.ReactElement => {
@@ -36,7 +37,7 @@ export const DeltakerDetaljerHeader = (props: BrukerPaaTiltakHeaderProps): React
 	const { roller } = useInnloggetBrukerStore()
 	const query = useQuery()
 	const [ visAdresse, setVisAdresse ] = useState(false)
-	const visAdresseForTiltak = skalTiltakViseAdresse(tiltakskode)
+	const visAdresseForTiltak = !props.adressebeskyttet && skalTiltakViseAdresse(tiltakskode)
 
 	const toggleVisAdresse = () => {
 		setVisAdresse(!visAdresse)

@@ -160,7 +160,8 @@ export const veiledersDeltakerSchema = z.object({
 	status: deltakerStatusSchema,
 	deltakerliste: deltakerlisteSchema,
 	veiledertype: veiledertypeSchema,
-	aktiveEndringsmeldinger: z.array(endringsmeldingSchema)
+	aktiveEndringsmeldinger: z.array(endringsmeldingSchema),
+	adressebeskyttet: z.boolean()
 })
 
 export const deltakerlisteVeilederSchema = z.array(veiledersDeltakerSchema)

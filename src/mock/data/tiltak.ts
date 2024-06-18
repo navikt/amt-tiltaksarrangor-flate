@@ -195,7 +195,8 @@ const lagMockVeiledersDeltaker = (deltaker: MockTiltakDeltaker): VeiledersDeltak
 			navn: deltaker.gjennomforing.navn
 		},
 		veiledertype: getVeiledertype(),
-		aktiveEndringsmeldinger: getEndringsmeldinger()
+		aktiveEndringsmeldinger: getEndringsmeldinger(),
+		adressebeskyttet: deltaker.adressebeskyttet
 	}
 }
 
