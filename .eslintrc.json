@@ -39,6 +39,10 @@
     "no-control-regex": "off",
     "no-div-regex": "off",
     "no-regex-spaces": "off",
+    "space-in-parens": [
+      "error",
+      "never"
+    ],
     "react-hooks/rules-of-hooks": "warn",
     "react-hooks/exhaustive-deps": "warn",
     "space-before-function-paren": [2, "never"],

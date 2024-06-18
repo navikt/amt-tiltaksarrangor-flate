@@ -89,7 +89,7 @@ export const VeilederPanel = ({ deltaker, visTildeling }: Props): React.ReactEle
 					veileder={veileder}
 					medveiledere={medveiledere}
 					open={openModal}
-					onClose={ () => setOpenModal( false ) }
+					onClose={ () => setOpenModal(false) }
 					onSubmit={handleSubmit}
 				/>
 			</Show>

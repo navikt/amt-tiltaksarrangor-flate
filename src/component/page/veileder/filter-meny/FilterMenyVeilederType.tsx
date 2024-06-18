@@ -63,7 +63,7 @@ export const FilterMenyVeilederType = (props: Props): React.ReactElement => {
 			className={globalStyles.blokkXs}
 			filter={veiledertypeFilter}
 			open={filterOpen}
-			onToggle={() => {setFilterOpen( !filterOpen )}}
+			onToggle={() => {setFilterOpen(!filterOpen)}}
 			updateFilter={updateVeilederTypeFilter}
 		/>
 	)

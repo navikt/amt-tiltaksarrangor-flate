@@ -39,7 +39,7 @@ export const deltakerStatusAarsakSchema = z.object({
 export const endringsmeldingBaseSchema = z.object({
 	id: z.string().uuid(),
 	sendt: dateSchema,
-	status: z.nativeEnum( EndringsmeldingStatus ),
+	status: z.nativeEnum(EndringsmeldingStatus),
 })
 
 export const leggTilOppstartsdatoEndringsmeldingSchema = z.intersection(endringsmeldingBaseSchema, z.object({
@@ -93,10 +93,10 @@ export const endringsmeldingSchema = z.union([
 	endreSluttaarsakEndringmeldingSchema,
 ])
 
-export const alleEndringsmeldingerSchema = z.object( {
+export const alleEndringsmeldingerSchema = z.object({
 	aktiveEndringsmeldinger: z.array(endringsmeldingSchema),
 	historiskeEndringsmeldinger: z.array(endringsmeldingSchema)
-} )
+})
 
 export const endringsmeldingerSchema = z.array(endringsmeldingSchema)
 

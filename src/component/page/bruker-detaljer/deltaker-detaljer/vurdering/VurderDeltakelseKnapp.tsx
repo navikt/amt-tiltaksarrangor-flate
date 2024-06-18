@@ -13,7 +13,7 @@ interface EndreDeltakelseKnappProps {
 	updateVurdering: (vurdering: Vurdering | null) => void
 }
 
-const vurderingDropDownItem = (vurderingstype: Vurderingstype, onClick: React.MouseEventHandler<HTMLElement> ) => {
+const vurderingDropDownItem = (vurderingstype: Vurderingstype, onClick: React.MouseEventHandler<HTMLElement>) => {
 	const icon = vurderingstype === Vurderingstype.OPPFYLLER_IKKE_KRAVENE
 		? <PlusCircleFillIcon className={ styles.oppfyllerIkkeKraveneIkon } aria-hidden />
 		: <CheckmarkCircleFillIcon className={ styles.oppfyllerKraveneIkon } aria-hidden />

@@ -102,8 +102,8 @@ export const fetchDeltaker = (deltakerId: string): AxiosPromise<Deltaker> => {
 		.catch(err => logAndThrowError(err, url))
 }
 
-export const hentAlleEndringsmeldinger = ( deltakerId: string ): AxiosPromise<AlleEndringsmeldinger> => {
-	const url = appUrl( `/amt-tiltaksarrangor-bff/tiltaksarrangor/deltaker/${deltakerId}/alle-endringsmeldinger`)
+export const hentAlleEndringsmeldinger = (deltakerId: string): AxiosPromise<AlleEndringsmeldinger> => {
+	const url = appUrl(`/amt-tiltaksarrangor-bff/tiltaksarrangor/deltaker/${deltakerId}/alle-endringsmeldinger`)
 	return axiosInstance
 		.get(url)
 		.then(parse(alleEndringsmeldingerSchema))

@@ -37,7 +37,7 @@ export const FilterMenyStatus = (props: Props): React.ReactElement => {
 		Object.keys(statuser).forEach(status => {
 			const tekst = mapTiltakDeltakerStatusTilTekst(status)
 
-			if ( props.tiltakType !== Tiltakskode.GRUPPEAMO && status === KursDeltakerStatuser.VURDERES ) {
+			if (props.tiltakType !== Tiltakskode.GRUPPEAMO && status === KursDeltakerStatuser.VURDERES) {
 				return
 			}
 
@@ -74,7 +74,7 @@ export const FilterMenyStatus = (props: Props): React.ReactElement => {
 			className={globalStyles.blokkXs}
 			filter={statusFilter}
 			open={filterOpen}
-			onToggle={() => {setFilterOpen( !filterOpen )}}
+			onToggle={() => {setFilterOpen(!filterOpen)}}
 			updateFilter={updateStatusFilter}
 		/>
 	)

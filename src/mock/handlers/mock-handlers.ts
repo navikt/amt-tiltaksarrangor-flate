@@ -95,7 +95,7 @@ export const mockHandlers: RequestHandler[] = [
 				deltaker.aktiveEndringsmeldinger.push({
 					id: randomUuid(),
 					type: EndringsmeldingType.ENDRE_OPPSTARTSDATO,
-					innhold: { oppstartsdato: dayjs( body.innhold.oppstartsdato ).toDate() },
+					innhold: { oppstartsdato: dayjs(body.innhold.oppstartsdato).toDate() },
 					sendt: new Date(),
 					status: EndringsmeldingStatus.AKTIV
 				})
@@ -105,7 +105,7 @@ export const mockHandlers: RequestHandler[] = [
 				deltaker.aktiveEndringsmeldinger.push({
 					id: randomUuid(),
 					type: EndringsmeldingType.ENDRE_DELTAKELSE_PROSENT,
-					innhold: { deltakelseProsent: body.innhold.deltakelseProsent, dagerPerUke: body.innhold.dagerPerUke, gyldigFraDato: dayjs( body.innhold.gyldigFraDato ).toDate() },
+					innhold: { deltakelseProsent: body.innhold.deltakelseProsent, dagerPerUke: body.innhold.dagerPerUke, gyldigFraDato: dayjs(body.innhold.gyldigFraDato).toDate() },
 					sendt: new Date(),
 					status: EndringsmeldingStatus.AKTIV
 				})
@@ -115,7 +115,7 @@ export const mockHandlers: RequestHandler[] = [
 				deltaker.aktiveEndringsmeldinger.push({
 					id: randomUuid(),
 					type: EndringsmeldingType.FORLENG_DELTAKELSE,
-					innhold: { sluttdato: dayjs( body.innhold.sluttdato ).toDate() },
+					innhold: { sluttdato: dayjs(body.innhold.sluttdato).toDate() },
 					sendt: new Date(),
 					status: EndringsmeldingStatus.AKTIV
 				})
@@ -125,7 +125,7 @@ export const mockHandlers: RequestHandler[] = [
 				deltaker.aktiveEndringsmeldinger.push({
 					id: randomUuid(),
 					type: EndringsmeldingType.AVSLUTT_DELTAKELSE,
-					innhold: { sluttdato: dayjs( body.innhold.sluttdato ).toDate(), aarsak: body.innhold.aarsak },
+					innhold: { sluttdato: dayjs(body.innhold.sluttdato).toDate(), aarsak: body.innhold.aarsak },
 					sendt: new Date(),
 					status: EndringsmeldingStatus.AKTIV
 				})
@@ -146,7 +146,7 @@ export const mockHandlers: RequestHandler[] = [
 				deltaker.aktiveEndringsmeldinger.push({
 					id: randomUuid(),
 					type: EndringsmeldingType.ENDRE_SLUTTDATO,
-					innhold: { sluttdato: dayjs( body.innhold.sluttdato ).toDate() },
+					innhold: { sluttdato: dayjs(body.innhold.sluttdato).toDate() },
 					sendt: new Date(),
 					status: EndringsmeldingStatus.AKTIV
 				})
@@ -202,7 +202,7 @@ export const mockHandlers: RequestHandler[] = [
 	}),
 	rest.get(appUrl('/amt-tiltaksarrangor-bff/tiltaksarrangor/deltaker/:deltakerId/alle-endringsmeldinger'), (req, res, ctx) => {
 		const deltakerId = req.params.deltakerId as string
-		const deltaker = mockTiltakDeltakere.find( d => d.id == deltakerId )
+		const deltaker = mockTiltakDeltakere.find(d => d.id == deltakerId)
 		const aktiveEndringsmeldinger = deltaker?.aktiveEndringsmeldinger ?? []
 		const historiskeEndringsmeldinger = deltaker?.historiskeEndringsmeldinger ?? []
 

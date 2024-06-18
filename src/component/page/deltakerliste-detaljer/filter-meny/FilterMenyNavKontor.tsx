@@ -69,7 +69,7 @@ export const FilterMenyNavKontor = (props: Props): React.ReactElement => {
 			className={globalStyles.blokkXs}
 			filter={navKontorFilter}
 			open={filterOpen}
-			onToggle={() => {setFilterOpen( !filterOpen )}}
+			onToggle={() => {setFilterOpen(!filterOpen)}}
 			updateFilter={updateNavKontorFilter}
 		/>
 	)

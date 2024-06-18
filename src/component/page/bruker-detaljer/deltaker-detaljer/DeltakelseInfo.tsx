@@ -41,7 +41,7 @@ export const DeltakelseInfo = ({
 		skjulDeltakerPromise.setPromise(skjulDeltaker(deltaker.id))
 	}
 
-	const viseDeltakelsesmengde = skalViseDeltakelsesmengde( deltaker.tiltakskode )
+	const viseDeltakelsesmengde = skalViseDeltakelsesmengde(deltaker.tiltakskode)
 
 	const kanFjerneDeltaker = [ TiltakDeltakerStatus.IKKE_AKTUELL, TiltakDeltakerStatus.HAR_SLUTTET, TiltakDeltakerStatus.AVBRUTT, TiltakDeltakerStatus.FULLFORT ]
 		.includes(deltaker.status.type)

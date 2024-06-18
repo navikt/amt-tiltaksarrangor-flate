@@ -92,8 +92,8 @@ export const Rad = (props: RadProps): React.ReactElement<RadProps> => {
 			<Table.DataCell className={ styles.smallText }>{formatDate(soktInnDato)}</Table.DataCell>
 			<Table.DataCell className={ styles.smallText }>{utledStartdato(startDato, aktiveEndringsmeldinger)}</Table.DataCell>
 			<Table.DataCell className={ styles.smallText }>{utledSluttdato(sluttDato, aktiveEndringsmeldinger)}</Table.DataCell>
-			<Table.DataCell className={ cls( styles.smallText ) }>
-				<div className={ cls( styles.statusCelle ) }>
+			<Table.DataCell className={ cls(styles.smallText) }>
+				<div className={ cls(styles.statusCelle) }>
 					<StatusMerkelapp status={ status } erDeltakerlisteVisning />
 					{ status.type === KursDeltakerStatuser.VURDERES && gjeldendeVurderingFraArrangor && vurderingIkon }
 				</div>

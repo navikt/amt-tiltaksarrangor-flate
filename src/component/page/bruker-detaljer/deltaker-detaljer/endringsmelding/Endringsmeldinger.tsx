@@ -21,7 +21,7 @@ export const Endringsmeldinger = ({
 	reloadEndringsmeldinger
 }: EndringsmeldingerProps) => {
 	const [ endringsmeldinger, setEndringsmeldinger ] = useState<Endringsmelding[]>(deltaker.aktiveEndringsmeldinger)
-	const [ historiskeEndringsmeldinger, setHistoriskeEndringsmeldinger ] = useState<Endringsmelding[]>( deltaker.historiskeEndringsmeldinger || [] )
+	const [ historiskeEndringsmeldinger, setHistoriskeEndringsmeldinger ] = useState<Endringsmelding[]>(deltaker.historiskeEndringsmeldinger || [])
 	const [ visfeilmelding, setVisFeilmelding ] = useState(false)
 
 	useEffect(() => {
@@ -29,8 +29,8 @@ export const Endringsmeldinger = ({
 
 		hentAlleEndringsmeldinger(deltaker.id)
 			.then((res) => {
-				setEndringsmeldinger( res.data.aktiveEndringsmeldinger )
-				setHistoriskeEndringsmeldinger( res.data.historiskeEndringsmeldinger )
+				setEndringsmeldinger(res.data.aktiveEndringsmeldinger)
+				setHistoriskeEndringsmeldinger(res.data.historiskeEndringsmeldinger)
 			})
 			.catch(() => setVisFeilmelding(true))
 			.finally(() => setReloadEndringsmeldinger(false))
@@ -39,18 +39,18 @@ export const Endringsmeldinger = ({
 	return (
 		<div className={ styles.endringsmeldinger }>
 			{visfeilmelding && <Alert variant="error">Kunne ikke hente endringsmeldinger</Alert>}
-			{ (endringsmeldinger.length > 0 || historiskeEndringsmeldinger.length > 0 ) &&
+			{ (endringsmeldinger.length > 0 || historiskeEndringsmeldinger.length > 0) &&
 				<BodyShort size="small" className={ styles.endringsmeldingerTitle }>Sendt til NAV:</BodyShort> }
 			{ endringsmeldinger.length > 0 &&
 				<div className={ styles.panelWrapper }>
-					{ endringsmeldinger?.map( melding =>
+					{ endringsmeldinger?.map(melding =>
 						<EndringsmeldingPanel
 							endringsmelding={ melding }
-							onEndringsmeldingTilbakekalt={ () => setReloadEndringsmeldinger( true ) }
+							onEndringsmeldingTilbakekalt={ () => setReloadEndringsmeldinger(true) }
 							key={ melding.id }
 						>
 							<EndringsmeldingInnhold endringsmelding={ melding } />
-						</EndringsmeldingPanel> ) }
+						</EndringsmeldingPanel>) }
 				</div>
 			}
 			{ historiskeEndringsmeldinger.length > 0 && <HistoriskeEndringsmeldinger historiskeEndringsmeldinger={ historiskeEndringsmeldinger } />}

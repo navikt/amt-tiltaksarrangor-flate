@@ -52,12 +52,12 @@ export const navInformasjonSchema = z.object({
 	navVeileder: navVeilederSchema.nullable()
 })
 
-export const vurderingSchema = z.object( {
-	vurderingstype: z.nativeEnum( Vurderingstype ),
+export const vurderingSchema = z.object({
+	vurderingstype: z.nativeEnum(Vurderingstype),
 	begrunnelse: z.string().nullable(),
 	gyldigFra: nullableDateSchema,
 	gyldigTil: nullableDateSchema.nullable()
-} )
+})
 
 export const tiltakDeltakerSchema = z.object({
 	id: z.string().uuid(),
@@ -112,11 +112,11 @@ export const deltakerSchema = z.object({
 	fjernesDato: nullableDateSchema,
 	navInformasjon: navInformasjonSchema,
 	veiledere: z.array(veilederMedTypeSchema),
-	aktiveEndringsmeldinger: z.array( endringsmeldingSchema ),
-	historiskeEndringsmeldinger: z.array( endringsmeldingSchema ).nullable(),
+	aktiveEndringsmeldinger: z.array(endringsmeldingSchema),
+	historiskeEndringsmeldinger: z.array(endringsmeldingSchema).nullable(),
 	adresse: adresseSchema.nullable(),
 	gjeldendeVurderingFraArrangor: vurderingSchema.nullable(),
-	historiskeVurderingerFraArrangor: z.array( vurderingSchema ).nullable(),
+	historiskeVurderingerFraArrangor: z.array(vurderingSchema).nullable(),
 	adressebeskyttet: z.boolean()
 })
 

@@ -8,7 +8,7 @@ interface Props {
 	children: React.ReactElement | string
 }
 
-export const LabelValue = ( { textColor, title, children }: Props ): React.ReactElement => (
+export const LabelValue = ({ textColor, title, children }: Props): React.ReactElement => (
 	<BodyShort size="small" className={ styles.wrapper }>
 		<Label className={ styles.label } textColor={ textColor ?? 'default' } size="small">{ title }:</Label>
 		{ children }

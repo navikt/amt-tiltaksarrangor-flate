@@ -89,7 +89,7 @@ export const FilterMenyVeiledere = (props: Props): React.ReactElement => {
 			className={globalStyles.blokkXs}
 			filter={veilederFilter}
 			open={filterOpen}
-			onToggle={() => {setFilterOpen( !filterOpen )}}
+			onToggle={() => {setFilterOpen(!filterOpen)}}
 			updateFilter={updateVeilederFilter}
 		/>
 	)

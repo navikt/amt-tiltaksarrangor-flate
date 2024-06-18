@@ -22,7 +22,6 @@ export const DeltakerDetaljerPage = (): React.ReactElement => {
 	const { koordinatorsDeltakerlister } = useKoordinatorsDeltakerlisterStore()
 
 	const brukerId = params.brukerId || ''
-
 	const fetchDeltakerPromise = usePromise<AxiosResponse<Deltaker>>(
 		() => fetchDeltaker(brukerId), [ brukerId ]
 	)
@@ -39,9 +38,9 @@ export const DeltakerDetaljerPage = (): React.ReactElement => {
 	}
 
 	const deltaker = fetchDeltakerPromise.result.data
-	const visTildeling = isKoordinatorForDeltakerliste( deltaker.deltakerliste.id, koordinatorsDeltakerlister )
+	const visTildeling = isKoordinatorForDeltakerliste(deltaker.deltakerliste.id, koordinatorsDeltakerlister)
 
-	if ( deltaker.adressebeskyttet && deltaker.fodselsnummer === '' ) {
+	if (deltaker.adressebeskyttet && deltaker.fodselsnummer === '') {
 		return <DeltakerDetaljerAdresseBeskyttet deltaker={ deltaker } visTildeling={ visTildeling } />
 	}
 
