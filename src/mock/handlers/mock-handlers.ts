@@ -1,25 +1,24 @@
 import dayjs from 'dayjs'
-import { rest } from 'msw'
-import { RequestHandler } from 'msw'
+import { RequestHandler, rest } from 'msw'
 
-import { TiltakDeltaker, Deltaker, Vurderingstype } from '../../api/data/deltaker'
+import { Deltaker, TiltakDeltaker, Vurderingstype } from '../../api/data/deltaker'
 import { DeltakerStatusAarsak, EndringsmeldingStatus, EndringsmeldingType } from '../../api/data/endringsmelding'
 import { VIS_DRIFTSMELDING_TOGGLE_NAVN } from '../../api/data/feature-toggle'
+import { AdminDeltakerliste } from '../../api/data/tiltak'
 import { Veileder, VeilederMedType, Veiledertype } from '../../api/data/veileder'
 import { appUrl } from '../../utils/url-utils'
 import {
 	mockDeltakerlisteVeileder,
-	mockMineDeltakerlister,
 	mockGjennomforinger,
-	mockTiltakDeltakere,
-	mockKoordinatorsDeltakerliste
+	mockKoordinatorsDeltakerliste,
+	mockMineDeltakerlister,
+	mockTiltakDeltakere
 } from '../data'
 import { mockMineRoller } from '../data/ansatt'
 import { MockTiltakDeltaker } from '../data/brukere'
+import { MockGjennomforing, deltakerlisteErKurs } from '../data/tiltak'
 import { mockTilgjengeligeVeiledere } from '../data/veileder'
 import { randomUuid } from '../utils/faker'
-import { deltakerlisteErKurs, MockGjennomforing } from '../data/tiltak'
-import { AdminDeltakerliste } from '../../api/data/tiltak'
 
 export const mockHandlers: RequestHandler[] = [
 	rest.get(appUrl('/amt-tiltaksarrangor-bff/tiltaksarrangor/meg/roller'), (_req, res, ctx) => {
@@ -44,7 +43,11 @@ export const mockHandlers: RequestHandler[] = [
 	rest.get(appUrl('/amt-tiltaksarrangor-bff/tiltaksarrangor/deltaker/:deltakerId'), (req, res, ctx) => {
 		const deltakerId = req.params['deltakerId']
 		const deltaker = mockTiltakDeltakere.find((d) => d.id === deltakerId)! // eslint-disable-line @typescript-eslint/no-non-null-assertion
-		const deltakerMedGjennomforing = mapToDeltakerDetaljerView(deltaker)
+
+		const referrer = req.referrer
+		const ref = referrer.substring(referrer.indexOf('?ref=') + 5, referrer.length)
+
+		const deltakerMedGjennomforing = mapToDeltakerDetaljerView(deltaker, ref === 'veileder')
 
 		return res(ctx.delay(500), ctx.json(deltakerMedGjennomforing))
 	}),
@@ -263,10 +266,10 @@ export const mapToDeltakerListView = (deltaker: MockTiltakDeltaker): TiltakDelta
 	}
 }
 
-const mapToDeltakerDetaljerView = (deltaker: MockTiltakDeltaker): Deltaker => {
-	const fodselsnummer = deltaker.adressebeskyttet
-		? ''
-		: deltaker.fodselsnummer
+const mapToDeltakerDetaljerView = (deltaker: MockTiltakDeltaker, isVeileder: boolean): Deltaker => {
+	const fodselsnummer = isVeileder
+		? deltaker.fodselsnummer
+		: ''
 	return {
 		id: deltaker.id,
 		deltakerliste: {
