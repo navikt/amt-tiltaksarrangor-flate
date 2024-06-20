@@ -45,11 +45,13 @@ export const RadVeileder = (props: RadProps): React.ReactElement<RadProps> => {
 	return (
 		<Table.Row key={id}>
 			<Table.DataCell>
-				<Link className={styles.brukersNavn} to={adressebeskyttet ? '' : deltakerDetaljerPageUrl} onClick={() => {
+				<Link className={styles.brukersNavn} to={deltakerDetaljerPageUrl} onClick={(e) => {
 					if (adressebeskyttet) {
+						e.preventDefault()
 						setModalOpen(true)
+					} else {
+						loggKlikk(klikkDeltakerRadOversikt)
 					}
-					loggKlikk(klikkDeltakerRadOversikt)
 				}}>
 					{brukernaavn}
 				</Link>

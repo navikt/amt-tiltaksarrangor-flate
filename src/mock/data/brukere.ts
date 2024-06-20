@@ -52,7 +52,8 @@ export interface MockTiltakDeltaker {
 	adresse: MockAdresse | null
 	gjeldendeVurderingFraArrangor: MockVurdering | null
 	historiskeVurderingerFraArrangor: MockVurdering[] | null
-	adressebeskyttet: boolean
+	adressebeskyttet: boolean,
+	erVeilederForDeltaker: boolean
 }
 
 const navEnheter: MockNavEnhet[] = [

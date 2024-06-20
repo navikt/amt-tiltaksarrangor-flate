@@ -73,8 +73,10 @@ export const tiltakDeltakerSchema = z.object({
 	veiledere: z.array(veilederMedTypeSchema),
 	navKontor: z.string().nullable(),
 	gjeldendeVurderingFraArrangor: vurderingSchema.nullable(),
-	adressebeskyttet: z.boolean()
+	adressebeskyttet: z.boolean(),
+	erVeilederForDeltaker: z.boolean()
 })
+
 
 export const deltakersDeltakerlisteSchema = z.object({
 	id: z.string().uuid(),
@@ -179,7 +181,7 @@ export const koordinatorsDeltakerlisteSchema = z.object({
 	koordinatorer: koordinatorListSchema,
 	deltakere: tiltakDeltakereSchema,
 	erKurs: z.boolean(),
-	tiltakType: tiltakstypeSchema
+	tiltakType: tiltakstypeSchema,
 })
 
 export type NavVeileder = z.infer<typeof navVeilederSchema>

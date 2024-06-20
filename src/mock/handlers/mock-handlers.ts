@@ -262,7 +262,8 @@ export const mapToDeltakerListView = (deltaker: MockTiltakDeltaker): TiltakDelta
 		veiledere: deltaker.veiledere,
 		navKontor: deltaker.navEnhet ? deltaker.navEnhet.navn : null,
 		gjeldendeVurderingFraArrangor: deltaker.gjeldendeVurderingFraArrangor,
-		adressebeskyttet: deltaker.adressebeskyttet
+		adressebeskyttet: deltaker.adressebeskyttet,
+		erVeilederForDeltaker: true
 	}
 }
 
