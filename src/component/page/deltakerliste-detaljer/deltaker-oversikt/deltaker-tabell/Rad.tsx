@@ -119,7 +119,7 @@ export const Rad = (props: RadProps): React.ReactElement<RadProps> => {
 			<Table.DataCell className={ styles.smallText }>
 				{veiledernavn}
 			</Table.DataCell>
-			<AdressebeskyttetModal open={modalOpen} handleCloseModal={() => setModalOpen(false)} handleConfrimed={handleConfrimed} />
+			{adressebeskyttet && <AdressebeskyttetModal open={modalOpen} handleCloseModal={() => setModalOpen(false)} handleConfrimed={handleConfrimed} />}
 		</Table.Row >
 	)
 }

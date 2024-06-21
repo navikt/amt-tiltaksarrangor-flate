@@ -64,7 +64,7 @@ export const RadVeileder = (props: RadProps): React.ReactElement<RadProps> => {
 			<Table.DataCell>
 				<StatusMerkelapp status={status} />
 			</Table.DataCell>
-			<AdressebeskyttetModal open={modalOpen} handleCloseModal={() => setModalOpen(false)} handleConfrimed={handleConfrimed} />
+			{adressebeskyttet && <AdressebeskyttetModal open={modalOpen} handleCloseModal={() => setModalOpen(false)} handleConfrimed={handleConfrimed} />}
 		</Table.Row>
 	)
 }
