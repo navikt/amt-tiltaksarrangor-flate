@@ -1,4 +1,4 @@
-import { Table, Link as LinkDs } from '@navikt/ds-react'
+import { Table } from '@navikt/ds-react'
 import React, { useState } from 'react'
 import cls from 'classnames'
 import { Link, useNavigate } from 'react-router-dom'
@@ -93,14 +93,16 @@ export const Rad = (props: RadProps): React.ReactElement<RadProps> => {
 	return (
 		<Table.Row key={id}>
 			<Table.DataCell className={ styles.smallText }>
-				<Link className={styles.brukersNavn} to={deltakerDetaljerPageUrl} onClick={(e) => {
-					if (adressebeskyttet && erVeilederForDeltaker) {
-						e.preventDefault()
-						setModalOpen(true)
-					} else {
-						loggKlikk(klikkDeltakerRadOversikt)
-					}
-				}}>
+				<Link className={styles.brukersNavn} to={deltakerDetaljerPageUrl}
+					data-testId={adressebeskyttet ? 'rad_adressebeskyttet' : ''}
+					onClick={(e) => {
+						if (adressebeskyttet && erVeilederForDeltaker) {
+							e.preventDefault()
+							setModalOpen(true)
+						} else {
+							loggKlikk(klikkDeltakerRadOversikt)
+						}
+					}}>
 					{ adressebeskyttet ? 'Adressebeskyttet' : deltakerNavn }
 				</Link>
 			</Table.DataCell>

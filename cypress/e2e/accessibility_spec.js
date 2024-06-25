@@ -28,6 +28,7 @@ function gaTilTiltakGjennomforingOversikt() {
 function navigerTilTiltakGjennomforingDetaljer() {
 	cy.get('[data-testid=gjennomforing-oversikt-page]').within(() => {
 		cy.get('a')
+			.not('[data-testid=rad_adressebeskyttet]')
 			.eq(2)
 			.should('have.class', 'navds-link-panel')
 			.first()
