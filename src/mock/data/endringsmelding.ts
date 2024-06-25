@@ -8,7 +8,7 @@ import { endringsmeldingId } from './id'
 export const lagMockEndringsmeldingForDeltaker = (deltakerStatus: typeof TiltakDeltakerStatus): Endringsmelding[] => {
 	const n = randBetween(0, 10)
 
-	if ( ( n >= 1 && n <= 2 ) && typeof deltakerStatus === typeof TiltakDeltakerStatus.VENTER_PA_OPPSTART) {
+	if ((n >= 1 && n <= 2) && typeof deltakerStatus === typeof TiltakDeltakerStatus.VENTER_PA_OPPSTART) {
 		return [
 			{
 				id: endringsmeldingId(),
@@ -20,7 +20,7 @@ export const lagMockEndringsmeldingForDeltaker = (deltakerStatus: typeof TiltakD
 		]
 	}
 
-	if ( n == 3 && typeof deltakerStatus === typeof TiltakDeltakerStatus.DELTAR) {
+	if (n == 3 && typeof deltakerStatus === typeof TiltakDeltakerStatus.DELTAR) {
 		return [
 			{
 				id: endringsmeldingId(),
@@ -32,7 +32,7 @@ export const lagMockEndringsmeldingForDeltaker = (deltakerStatus: typeof TiltakD
 		]
 	}
 
-	if ( n == 4 && typeof deltakerStatus === typeof TiltakDeltakerStatus.DELTAR) {
+	if (n == 4 && typeof deltakerStatus === typeof TiltakDeltakerStatus.DELTAR) {
 		return [
 			{
 				id: endringsmeldingId(),
@@ -44,7 +44,7 @@ export const lagMockEndringsmeldingForDeltaker = (deltakerStatus: typeof TiltakD
 		]
 	}
 
-	if ( n == 5 && typeof deltakerStatus === typeof TiltakDeltakerStatus.DELTAR) {
+	if (n == 5 && typeof deltakerStatus === typeof TiltakDeltakerStatus.DELTAR) {
 		return [
 			{
 				id: endringsmeldingId(),
@@ -61,7 +61,7 @@ export const lagMockEndringsmeldingForDeltaker = (deltakerStatus: typeof TiltakD
 		]
 	}
 
-	if ( n < 3 && typeof deltakerStatus === typeof TiltakDeltakerStatus.HAR_SLUTTET) {
+	if (n < 3 && typeof deltakerStatus === typeof TiltakDeltakerStatus.HAR_SLUTTET) {
 		return [
 			{
 				id: endringsmeldingId(),
@@ -81,10 +81,10 @@ export const lagMockEndringsmeldingForDeltaker = (deltakerStatus: typeof TiltakD
 	return []
 }
 
-export const lagMockHistoriskeEndringsmeldingForDeltaker = ( deltakerStatus: typeof TiltakDeltakerStatus, startDato: Date | null, sluttDato: Date | null ): Endringsmelding[] => {
-	const n = randBetween( 0, 10 )
+export const lagMockHistoriskeEndringsmeldingForDeltaker = (deltakerStatus: typeof TiltakDeltakerStatus, startDato: Date | null, sluttDato: Date | null): Endringsmelding[] => {
+	const n = randBetween(0, 10)
 
-	if ( n < 3 && typeof deltakerStatus === typeof TiltakDeltakerStatus.VENTER_PA_OPPSTART ) {
+	if (n < 3 && typeof deltakerStatus === typeof TiltakDeltakerStatus.VENTER_PA_OPPSTART) {
 		return [
 			{
 				id: endringsmeldingId(),
@@ -96,14 +96,14 @@ export const lagMockHistoriskeEndringsmeldingForDeltaker = ( deltakerStatus: typ
 		]
 	}
 
-	if ( n >= 3 && n < 5 && typeof deltakerStatus === typeof TiltakDeltakerStatus.DELTAR ) {
+	if (n >= 3 && n < 5 && typeof deltakerStatus === typeof TiltakDeltakerStatus.DELTAR) {
 		const oppstartsdato = faker.date.soon()
 		return [
 			{
 				id: endringsmeldingId(),
 				type: EndringsmeldingType.ENDRE_OPPSTARTSDATO,
 				innhold: { oppstartsdato },
-				sendt: faker.date.between( startDato || faker.date.recent(), oppstartsdato ),
+				sendt: faker.date.between(startDato || faker.date.recent(), oppstartsdato),
 				status: EndringsmeldingStatus.UTFORT
 			},
 			{
@@ -116,12 +116,12 @@ export const lagMockHistoriskeEndringsmeldingForDeltaker = ( deltakerStatus: typ
 		]
 	}
 
-	if ( n >= 5 && n < 7 && typeof deltakerStatus === typeof TiltakDeltakerStatus.HAR_SLUTTET ) {
+	if (n >= 5 && n < 7 && typeof deltakerStatus === typeof TiltakDeltakerStatus.HAR_SLUTTET) {
 		const pastDate = faker.date.past()
 		const day2 = new Date()
-		day2.setDate( pastDate.getDate() - 3 )
+		day2.setDate(pastDate.getDate() - 3)
 		const day3 = new Date()
-		day2.setDate( pastDate.getDate() - 6 )
+		day2.setDate(pastDate.getDate() - 6)
 		return [
 			{
 				id: endringsmeldingId(),
@@ -155,7 +155,7 @@ export const lagMockHistoriskeEndringsmeldingForDeltaker = ( deltakerStatus: typ
 		]
 	}
 
-	if ( n < 4 && typeof deltakerStatus === typeof TiltakDeltakerStatus.IKKE_AKTUELL ) {
+	if (n < 4 && typeof deltakerStatus === typeof TiltakDeltakerStatus.IKKE_AKTUELL) {
 		return [
 			{
 				id: endringsmeldingId(),
@@ -166,13 +166,13 @@ export const lagMockHistoriskeEndringsmeldingForDeltaker = ( deltakerStatus: typ
 						beskrivelse: 'Har flyttet til annen kommune'
 					}
 				},
-				sendt: faker.date.between( startDato || faker.date.past(), new Date() ),
+				sendt: faker.date.between(startDato || faker.date.past(), new Date()),
 				status: EndringsmeldingStatus.UTFORT
 			}
 		]
 	}
 
-	if ( n < 3 && typeof deltakerStatus === typeof TiltakDeltakerStatus.AVBRUTT ) {
+	if (n < 3 && typeof deltakerStatus === typeof TiltakDeltakerStatus.AVBRUTT) {
 		return [
 			{
 				id: endringsmeldingId(),
@@ -187,7 +187,7 @@ export const lagMockHistoriskeEndringsmeldingForDeltaker = ( deltakerStatus: typ
 			}
 		]
 	}
-	if ( n > 7 && typeof deltakerStatus === typeof TiltakDeltakerStatus.FULLFORT ) {
+	if (n > 7 && typeof deltakerStatus === typeof TiltakDeltakerStatus.FULLFORT) {
 		return [
 			{
 				id: endringsmeldingId(),

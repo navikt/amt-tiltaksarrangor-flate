@@ -5,6 +5,7 @@ import React, { useState } from 'react'
 import { Deltaker, TiltakDeltakerStatus } from '../../../../api/data/deltaker'
 import { skjulDeltaker } from '../../../../api/tiltak-api'
 import { formatDate } from '../../../../utils/date-utils'
+import { getDeltakelsesmengdetekst, skalViseDeltakelsesmengde } from '../../../../utils/deltaker-utils'
 import {
 	isNotStarted,
 	isPending,
@@ -18,8 +19,6 @@ import { ElementPanel } from './ElementPanel'
 import { EndreDeltakelseKnapp } from './EndreDeltakelseKnapp'
 import { Endringsmeldinger } from './endringsmelding/Endringsmeldinger'
 import { FjernDeltakerModal } from './fjern-deltaker-modal/FjernDeltakerModal'
-import { Tiltakskode } from '../../../../api/data/tiltak'
-import { Nullable } from '../../../../utils/types/or-nothing'
 
 interface DeltakelseInfoProps {
 	deltaker: Deltaker
@@ -42,23 +41,11 @@ export const DeltakelseInfo = ({
 		skjulDeltakerPromise.setPromise(skjulDeltaker(deltaker.id))
 	}
 
-	const skalViseDeltakelsesmengde = [ Tiltakskode.ARBFORB, Tiltakskode.VASV ]
-		.includes(deltaker.tiltakskode)
+	const viseDeltakelsesmengde = skalViseDeltakelsesmengde(deltaker.tiltakskode)
 
 	const kanFjerneDeltaker = [ TiltakDeltakerStatus.IKKE_AKTUELL, TiltakDeltakerStatus.HAR_SLUTTET, TiltakDeltakerStatus.AVBRUTT, TiltakDeltakerStatus.FULLFORT ]
 		.includes(deltaker.status.type)
 
-	const getDeltakelsesmengdetekst = (deltakelseProsent: Nullable<number>, dagerPerUke: Nullable<number>): string => {
-		if ((deltakelseProsent === null || deltakelseProsent === undefined) && (!dagerPerUke || dagerPerUke < 1 || dagerPerUke > 5)){
-			return 'Ikke satt'
-		} else if (deltakelseProsent === 100 || !dagerPerUke || dagerPerUke < 1 || dagerPerUke > 5) {
-			return `${deltaker.deltakelseProsent}%`
-		} else if (deltakelseProsent !== null) {
-			return `${deltakelseProsent}% ${getDagerPerUkeTekst(dagerPerUke)}`
-		} else {
-			return `${getDagerPerUkeTekst(dagerPerUke)}`
-		}
-	}
 
 	return (
 		<div className={styles.section}>
@@ -71,7 +58,7 @@ export const DeltakelseInfo = ({
 					<ElementPanel tittel="Dato:">
 						<span>{formatDate(deltaker.startDato)} - {formatDate(deltaker.sluttDato)}</span>
 					</ElementPanel>
-					{skalViseDeltakelsesmengde && (
+					{ viseDeltakelsesmengde && (
 						<ElementPanel tittel="Deltakelsesmengde:">
 							<span>{getDeltakelsesmengdetekst(deltaker.deltakelseProsent, deltaker.dagerPerUke)}
 							</span>
@@ -119,10 +106,4 @@ export const DeltakelseInfo = ({
 	)
 }
 
-export const getDagerPerUkeTekst = (dagerPerUke: number): string => {
-	if (dagerPerUke === 1) {
-		return `${dagerPerUke} dag i uka`
-	} else {
-		return `${dagerPerUke} dager i uka`
-	}
-}
+

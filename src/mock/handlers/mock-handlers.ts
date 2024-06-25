@@ -1,25 +1,24 @@
 import dayjs from 'dayjs'
-import { rest } from 'msw'
-import { RequestHandler } from 'msw'
+import { RequestHandler, rest } from 'msw'
 
-import { TiltakDeltaker, Deltaker, Vurderingstype } from '../../api/data/deltaker'
+import { Deltaker, TiltakDeltaker, Vurderingstype } from '../../api/data/deltaker'
 import { DeltakerStatusAarsak, EndringsmeldingStatus, EndringsmeldingType } from '../../api/data/endringsmelding'
 import { VIS_DRIFTSMELDING_TOGGLE_NAVN } from '../../api/data/feature-toggle'
+import { AdminDeltakerliste } from '../../api/data/tiltak'
 import { Veileder, VeilederMedType, Veiledertype } from '../../api/data/veileder'
 import { appUrl } from '../../utils/url-utils'
 import {
 	mockDeltakerlisteVeileder,
-	mockMineDeltakerlister,
 	mockGjennomforinger,
-	mockTiltakDeltakere,
-	mockKoordinatorsDeltakerliste
+	mockKoordinatorsDeltakerliste,
+	mockMineDeltakerlister,
+	mockTiltakDeltakere
 } from '../data'
 import { mockMineRoller } from '../data/ansatt'
 import { MockTiltakDeltaker } from '../data/brukere'
+import { MockGjennomforing, deltakerlisteErKurs } from '../data/tiltak'
 import { mockTilgjengeligeVeiledere } from '../data/veileder'
 import { randomUuid } from '../utils/faker'
-import { deltakerlisteErKurs, MockGjennomforing } from '../data/tiltak'
-import { AdminDeltakerliste } from '../../api/data/tiltak'
 
 export const mockHandlers: RequestHandler[] = [
 	rest.get(appUrl('/amt-tiltaksarrangor-bff/tiltaksarrangor/meg/roller'), (_req, res, ctx) => {
@@ -44,7 +43,11 @@ export const mockHandlers: RequestHandler[] = [
 	rest.get(appUrl('/amt-tiltaksarrangor-bff/tiltaksarrangor/deltaker/:deltakerId'), (req, res, ctx) => {
 		const deltakerId = req.params['deltakerId']
 		const deltaker = mockTiltakDeltakere.find((d) => d.id === deltakerId)! // eslint-disable-line @typescript-eslint/no-non-null-assertion
-		const deltakerMedGjennomforing = mapToDeltakerDetaljerView(deltaker)
+
+		const referrer = req.referrer
+		const ref = referrer.substring(referrer.indexOf('?ref=') + 5, referrer.length)
+
+		const deltakerMedGjennomforing = mapToDeltakerDetaljerView(deltaker, ref === 'veileder')
 
 		return res(ctx.delay(500), ctx.json(deltakerMedGjennomforing))
 	}),
@@ -95,7 +98,7 @@ export const mockHandlers: RequestHandler[] = [
 				deltaker.aktiveEndringsmeldinger.push({
 					id: randomUuid(),
 					type: EndringsmeldingType.ENDRE_OPPSTARTSDATO,
-					innhold: { oppstartsdato: dayjs( body.innhold.oppstartsdato ).toDate() },
+					innhold: { oppstartsdato: dayjs(body.innhold.oppstartsdato).toDate() },
 					sendt: new Date(),
 					status: EndringsmeldingStatus.AKTIV
 				})
@@ -105,7 +108,7 @@ export const mockHandlers: RequestHandler[] = [
 				deltaker.aktiveEndringsmeldinger.push({
 					id: randomUuid(),
 					type: EndringsmeldingType.ENDRE_DELTAKELSE_PROSENT,
-					innhold: { deltakelseProsent: body.innhold.deltakelseProsent, dagerPerUke: body.innhold.dagerPerUke, gyldigFraDato: dayjs( body.innhold.gyldigFraDato ).toDate() },
+					innhold: { deltakelseProsent: body.innhold.deltakelseProsent, dagerPerUke: body.innhold.dagerPerUke, gyldigFraDato: dayjs(body.innhold.gyldigFraDato).toDate() },
 					sendt: new Date(),
 					status: EndringsmeldingStatus.AKTIV
 				})
@@ -115,7 +118,7 @@ export const mockHandlers: RequestHandler[] = [
 				deltaker.aktiveEndringsmeldinger.push({
 					id: randomUuid(),
 					type: EndringsmeldingType.FORLENG_DELTAKELSE,
-					innhold: { sluttdato: dayjs( body.innhold.sluttdato ).toDate() },
+					innhold: { sluttdato: dayjs(body.innhold.sluttdato).toDate() },
 					sendt: new Date(),
 					status: EndringsmeldingStatus.AKTIV
 				})
@@ -125,7 +128,7 @@ export const mockHandlers: RequestHandler[] = [
 				deltaker.aktiveEndringsmeldinger.push({
 					id: randomUuid(),
 					type: EndringsmeldingType.AVSLUTT_DELTAKELSE,
-					innhold: { sluttdato: dayjs( body.innhold.sluttdato ).toDate(), aarsak: body.innhold.aarsak },
+					innhold: { sluttdato: dayjs(body.innhold.sluttdato).toDate(), aarsak: body.innhold.aarsak },
 					sendt: new Date(),
 					status: EndringsmeldingStatus.AKTIV
 				})
@@ -146,7 +149,7 @@ export const mockHandlers: RequestHandler[] = [
 				deltaker.aktiveEndringsmeldinger.push({
 					id: randomUuid(),
 					type: EndringsmeldingType.ENDRE_SLUTTDATO,
-					innhold: { sluttdato: dayjs( body.innhold.sluttdato ).toDate() },
+					innhold: { sluttdato: dayjs(body.innhold.sluttdato).toDate() },
 					sendt: new Date(),
 					status: EndringsmeldingStatus.AKTIV
 				})
@@ -202,7 +205,7 @@ export const mockHandlers: RequestHandler[] = [
 	}),
 	rest.get(appUrl('/amt-tiltaksarrangor-bff/tiltaksarrangor/deltaker/:deltakerId/alle-endringsmeldinger'), (req, res, ctx) => {
 		const deltakerId = req.params.deltakerId as string
-		const deltaker = mockTiltakDeltakere.find( d => d.id == deltakerId )
+		const deltaker = mockTiltakDeltakere.find(d => d.id == deltakerId)
 		const aktiveEndringsmeldinger = deltaker?.aktiveEndringsmeldinger ?? []
 		const historiskeEndringsmeldinger = deltaker?.historiskeEndringsmeldinger ?? []
 
@@ -258,11 +261,16 @@ export const mapToDeltakerListView = (deltaker: MockTiltakDeltaker): TiltakDelta
 		aktiveEndringsmeldinger: deltaker.aktiveEndringsmeldinger,
 		veiledere: deltaker.veiledere,
 		navKontor: deltaker.navEnhet ? deltaker.navEnhet.navn : null,
-		gjeldendeVurderingFraArrangor: deltaker.gjeldendeVurderingFraArrangor
+		gjeldendeVurderingFraArrangor: deltaker.gjeldendeVurderingFraArrangor,
+		adressebeskyttet: deltaker.adressebeskyttet,
+		erVeilederForDeltaker: deltaker.erVeilederForDeltaker
 	}
 }
 
-const mapToDeltakerDetaljerView = (deltaker: MockTiltakDeltaker): Deltaker => {
+const mapToDeltakerDetaljerView = (deltaker: MockTiltakDeltaker, isVeileder: boolean): Deltaker => {
+	const fodselsnummer = isVeileder
+		? deltaker.fodselsnummer
+		: ''
 	return {
 		id: deltaker.id,
 		deltakerliste: {
@@ -274,7 +282,7 @@ const mapToDeltakerDetaljerView = (deltaker: MockTiltakDeltaker): Deltaker => {
 		fornavn: deltaker.fornavn,
 		mellomnavn: deltaker.mellomnavn,
 		etternavn: deltaker.etternavn,
-		fodselsnummer: deltaker.fodselsnummer,
+		fodselsnummer: fodselsnummer,
 		telefonnummer: deltaker.telefonnummer,
 		epost: deltaker.epost,
 		status: deltaker.status,
@@ -308,7 +316,8 @@ const mapToDeltakerDetaljerView = (deltaker: MockTiltakDeltaker): Deltaker => {
 			}
 			: null,
 		gjeldendeVurderingFraArrangor: deltaker.gjeldendeVurderingFraArrangor,
-		historiskeVurderingerFraArrangor: deltaker.historiskeVurderingerFraArrangor
+		historiskeVurderingerFraArrangor: deltaker.historiskeVurderingerFraArrangor,
+		adressebeskyttet: deltaker.adressebeskyttet
 	}
 }
 

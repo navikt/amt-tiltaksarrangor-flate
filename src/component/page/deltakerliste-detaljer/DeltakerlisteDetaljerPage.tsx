@@ -28,18 +28,18 @@ export const DeltakerlisteDetaljerPage = (): React.ReactElement => {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [])
 
-	useTabTitle( 'Deltakerliste' )
+	useTabTitle('Deltakerliste')
 
 	const fetchKoordinatorsDeltakerlistePromise = usePromise<AxiosResponse<KoordinatorsDeltakerliste>>(
-		() => fetchKoordinatorsDeltakerliste( deltakerlisteId ), [ deltakerlisteId ]
+		() => fetchKoordinatorsDeltakerliste(deltakerlisteId), [ deltakerlisteId ]
 	)
 
-	if ( isNotStartedOrPending( fetchKoordinatorsDeltakerlistePromise ) ) {
+	if (isNotStartedOrPending(fetchKoordinatorsDeltakerlistePromise)) {
 		return <SpinnerPage />
 	}
 
-	if ( isRejected( fetchKoordinatorsDeltakerlistePromise ) ) {
-		if ( isNotFound( fetchKoordinatorsDeltakerlistePromise ) ) {
+	if (isRejected(fetchKoordinatorsDeltakerlistePromise)) {
+		if (isNotFound(fetchKoordinatorsDeltakerlistePromise)) {
 			return <Navigate replace to={MINE_DELTAKERLISTER_PAGE_ROUTE} />
 		}
 

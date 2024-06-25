@@ -75,3 +75,32 @@
         }
     }
 }
+
+.innsokt_adresseBeskyttet {
+	display: flex;
+	flex-direction: column;
+
+	> :not(:last-child) {
+		margin-bottom: 1rem;
+	}
+
+	@media (min-width: 600px) {
+		flex-direction: row;
+
+		> :not(:last-child) {
+			margin-right: 2rem;
+			margin-bottom: 0;
+		}
+	}
+}
+
+.deltaker_heading {
+	margin: auto;
+	max-width: $max-bredde;
+	padding: 1rem;
+	border-bottom: 1px solid #c9c9c9;
+
+	@media(min-width: 800px) {
+		padding: 1rem 2rem;
+	}
+}

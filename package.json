@@ -33,7 +33,7 @@
     "build:gh-pages": "NODE_ENV=development vite build --base=/amt-tiltaksarrangor-flate/ && cpy --cwd=build --rename=404.html index.html .",
     "test": "vitest",
     "lint": "eslint --max-warnings=0 'src/**/*.{ts,tsx}'",
-    "lint:fix": "eslint --fix 'src/**/*.{ts,tsx}'",
+    "lint:fix": "eslint --fix 'src/**/*.{ts,tsx,js}' 'cypress/e2e/**/*.js'",
     "cy:run": "cypress run",
     "cy:open": "cypress open",
     "cy:clear": "cypress cache clear"

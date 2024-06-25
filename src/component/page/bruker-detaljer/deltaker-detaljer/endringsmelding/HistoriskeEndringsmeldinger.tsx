@@ -14,19 +14,19 @@ interface HistoriskeEndringsmeldingerProps {
 
 const getHistoriskEnrdingsmeldingPanel = (historiskEndringsmelding: Endringsmelding) => {
 	let  statusInfo = null
-	if ( historiskEndringsmelding.status === EndringsmeldingStatus.TILBAKEKALT){
+	if (historiskEndringsmelding.status === EndringsmeldingStatus.TILBAKEKALT){
 		statusInfo = 'Arrangør tilbakekalte meldingen.'
-	} else if ( historiskEndringsmelding.status === EndringsmeldingStatus.UTDATERT ) {
+	} else if (historiskEndringsmelding.status === EndringsmeldingStatus.UTDATERT) {
 		statusInfo = 'Det ble sendt en ny melding av samme type.'
 	}
 
 	return <div className={styles.panel}>
-		<EndringTypeIkon type={ mapTilEndringType( historiskEndringsmelding.type ) } />
+		<EndringTypeIkon type={ mapTilEndringType(historiskEndringsmelding.type) } />
 		<div>
 			<EndringsmeldingInnhold endringsmelding={ historiskEndringsmelding } />
 			<div className={ styles.meldingMeta }>
 				<Detail textColor="subtle">
-					Sendt: { formatDate( historiskEndringsmelding.sendt ) }
+					Sendt: { formatDate(historiskEndringsmelding.sendt) }
 				</Detail>
 				{ statusInfo && <Detail textColor="subtle">{ statusInfo }</Detail> }
 			</div>
@@ -34,23 +34,23 @@ const getHistoriskEnrdingsmeldingPanel = (historiskEndringsmelding: Endringsmeld
 	</div>
 }
 
-export const HistoriskeEndringsmeldinger = ( {
+export const HistoriskeEndringsmeldinger = ({
 	historiskeEndringsmeldinger
-}: HistoriskeEndringsmeldingerProps ) => {
+}: HistoriskeEndringsmeldingerProps) => {
 	const [ isOopen, setIsOpen ] = useState(false)
 
 	return (
 		<ReadMore
 			header={ isOopen ? 'Skjul historikk' : 'Vis historikk' }
 			open={ isOopen }
-			onClick={ () => setIsOpen( !isOopen )}
+			onClick={ () => setIsOpen(!isOopen)}
 			size="small"
 			className={ styles.meldinger }
 		>
 			<ul className={ styles.list }>
-				{ historiskeEndringsmeldinger.map( e =>
+				{ historiskeEndringsmeldinger.map(e =>
 					<li key={e.id}>
-						{ getHistoriskEnrdingsmeldingPanel( e ) }
+						{ getHistoriskEnrdingsmeldingPanel(e) }
 					</li>
 				) }
 			</ul>

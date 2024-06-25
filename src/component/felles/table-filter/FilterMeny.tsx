@@ -10,7 +10,7 @@ interface Props {
 	filter: string[]
 	open: boolean
 	onToggle: (f: boolean) => void
-	updateFilter: ( f: string[] ) => void
+	updateFilter: (f: string[]) => void
 }
 
 const FilterCheckbox = (entry: FiltermenyDataEntry) => {
@@ -46,11 +46,11 @@ export const FilterMeny = (props: Props) => {
 					className={styles.checkboxGroup}
 					aria-label={`Filtrer deltakere på ${props.navn}`}
 					value={props.filter}
-					onChange={( newFilter: string[] ) => props.updateFilter( newFilter )}
+					onChange={(newFilter: string[]) => props.updateFilter(newFilter)}
 				>
-					{props.data.map( ( e: FiltermenyDataEntry ) => (
+					{props.data.map((e: FiltermenyDataEntry) => (
 						<FilterCheckbox key={e.id} id={e.id} displayName={e.displayName} antallDeltakere={e.antallDeltakere} />
-					) )}
+					))}
 				</CheckboxGroup>
 			</ExpansionCard.Content>
 		</ExpansionCard>

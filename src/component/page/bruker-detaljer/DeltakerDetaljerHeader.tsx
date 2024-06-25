@@ -28,6 +28,7 @@ interface BrukerPaaTiltakHeaderProps {
 	epost: string | null
 	adresse?: Adresse | null
 	tiltakskode: Tiltakskode
+	adressebeskyttet: boolean
 }
 
 export const DeltakerDetaljerHeader = (props: BrukerPaaTiltakHeaderProps): React.ReactElement => {
@@ -35,11 +36,11 @@ export const DeltakerDetaljerHeader = (props: BrukerPaaTiltakHeaderProps): React
 	const { setTilbakeTilUrl } = useTilbakelenkeStore()
 	const { roller } = useInnloggetBrukerStore()
 	const query = useQuery()
-	const [ visAdresse, setVisAdresse ] = useState( false )
-	const visAdresseForTiltak = skalTiltakViseAdresse(tiltakskode)
+	const [ visAdresse, setVisAdresse ] = useState(false)
+	const visAdresseForTiltak = !props.adressebeskyttet && skalTiltakViseAdresse(tiltakskode)
 
 	const toggleVisAdresse = () => {
-		setVisAdresse( !visAdresse )
+		setVisAdresse(!visAdresse)
 	}
 
 	useEffect(() => {
@@ -62,19 +63,19 @@ export const DeltakerDetaljerHeader = (props: BrukerPaaTiltakHeaderProps): React
 		<div className={styles.header}>
 			<div className={styles.headerContent}>
 				<div className={styles.headerInfoWrapper}>
-					<div className={ cls( styles.headerTitleWrapper ) }>
+					<div className={ cls(styles.headerTitleWrapper) }>
 						<Heading size="small" level="2" className={ styles.headerTitle }>
-							{ lagBrukerNavn( fornavn, mellomnavn, etternavn ) }
+							{ lagBrukerNavn(fornavn, mellomnavn, etternavn) }
 						</Heading>
 						{ fodselsnummer && (
-							<KopierKnapp kopierTekst={ fodselsnummer } ariaLabel={ `Kopier fødselsnummer ${fodselsnummer.split( '' ).join( ' ' )}` }>
+							<KopierKnapp kopierTekst={ fodselsnummer } ariaLabel={ `Kopier fødselsnummer ${fodselsnummer.split('').join(' ')}` }>
 								{ fodselsnummer }
 							</KopierKnapp>
 						) }
 					</div>
 
 					<div className={ styles.headerInfo }>
-						<IconLabel labelValue={ formaterTelefonnummer( telefonnummer ) } icon={ <PhoneIcon title="Deltaker telefonnummer" /> } />
+						<IconLabel labelValue={ formaterTelefonnummer(telefonnummer) } icon={ <PhoneIcon title="Deltaker telefonnummer" /> } />
 						<IconLabel labelValue={ epost } icon={ <EnvelopeClosedIcon title="Deltaker e-post" /> } />
 					</div>
 				</div>

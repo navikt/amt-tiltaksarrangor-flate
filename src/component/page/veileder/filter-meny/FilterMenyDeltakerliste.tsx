@@ -63,7 +63,7 @@ export const FilterMenyDeltakerliste = (props: Props): ReactElement => {
 			className={globalStyles.blokkXs}
 			filter={deltakerlisteFilter}
 			open={filterOpen}
-			onToggle={() => {setFilterOpen( !filterOpen )}}
+			onToggle={() => {setFilterOpen(!filterOpen)}}
 			updateFilter={updateDeltakerlisteFilter}
 		/>
 	)

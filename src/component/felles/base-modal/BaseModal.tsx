@@ -18,7 +18,7 @@ export const BaseModal = (props: BaseModalProps) => {
 	const isOpen = open ?? true
 
 	return (
-		<Modal open={ isOpen } onClose={ onClose } className={ classNames( styles.container, props.className ) } aria-label={ tittel }>
+		<Modal open={ isOpen } onClose={ onClose } className={ classNames(styles.container, props.className) } aria-label={ tittel }>
 			<Modal.Header>
 				<Heading level="1" size="medium" className={styles.modalHeader}>
 					{ tittel }

@@ -52,12 +52,12 @@ export const navInformasjonSchema = z.object({
 	navVeileder: navVeilederSchema.nullable()
 })
 
-export const vurderingSchema = z.object( {
-	vurderingstype: z.nativeEnum( Vurderingstype ),
+export const vurderingSchema = z.object({
+	vurderingstype: z.nativeEnum(Vurderingstype),
 	begrunnelse: z.string().nullable(),
 	gyldigFra: nullableDateSchema,
 	gyldigTil: nullableDateSchema.nullable()
-} )
+})
 
 export const tiltakDeltakerSchema = z.object({
 	id: z.string().uuid(),
@@ -72,8 +72,11 @@ export const tiltakDeltakerSchema = z.object({
 	aktiveEndringsmeldinger: z.array(endringsmeldingSchema),
 	veiledere: z.array(veilederMedTypeSchema),
 	navKontor: z.string().nullable(),
-	gjeldendeVurderingFraArrangor: vurderingSchema.nullable()
+	gjeldendeVurderingFraArrangor: vurderingSchema.nullable(),
+	adressebeskyttet: z.boolean(),
+	erVeilederForDeltaker: z.boolean()
 })
+
 
 export const deltakersDeltakerlisteSchema = z.object({
 	id: z.string().uuid(),
@@ -111,11 +114,12 @@ export const deltakerSchema = z.object({
 	fjernesDato: nullableDateSchema,
 	navInformasjon: navInformasjonSchema,
 	veiledere: z.array(veilederMedTypeSchema),
-	aktiveEndringsmeldinger: z.array( endringsmeldingSchema ),
-	historiskeEndringsmeldinger: z.array( endringsmeldingSchema ).nullable(),
+	aktiveEndringsmeldinger: z.array(endringsmeldingSchema),
+	historiskeEndringsmeldinger: z.array(endringsmeldingSchema).nullable(),
 	adresse: adresseSchema.nullable(),
 	gjeldendeVurderingFraArrangor: vurderingSchema.nullable(),
-	historiskeVurderingerFraArrangor: z.array(vurderingSchema).nullable()
+	historiskeVurderingerFraArrangor: z.array(vurderingSchema).nullable(),
+	adressebeskyttet: z.boolean()
 })
 
 export const veilederForSchema = z.object({
@@ -158,7 +162,8 @@ export const veiledersDeltakerSchema = z.object({
 	status: deltakerStatusSchema,
 	deltakerliste: deltakerlisteSchema,
 	veiledertype: veiledertypeSchema,
-	aktiveEndringsmeldinger: z.array(endringsmeldingSchema)
+	aktiveEndringsmeldinger: z.array(endringsmeldingSchema),
+	adressebeskyttet: z.boolean()
 })
 
 export const deltakerlisteVeilederSchema = z.array(veiledersDeltakerSchema)
@@ -176,7 +181,7 @@ export const koordinatorsDeltakerlisteSchema = z.object({
 	koordinatorer: koordinatorListSchema,
 	deltakere: tiltakDeltakereSchema,
 	erKurs: z.boolean(),
-	tiltakType: tiltakstypeSchema
+	tiltakType: tiltakstypeSchema,
 })
 
 export type NavVeileder = z.infer<typeof navVeilederSchema>

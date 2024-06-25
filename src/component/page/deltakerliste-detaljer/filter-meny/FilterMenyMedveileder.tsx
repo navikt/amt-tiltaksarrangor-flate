@@ -88,7 +88,7 @@ export const FilterMenyMedveileder = (props: Props): React.ReactElement => {
 			className={globalStyles.blokkXs}
 			filter={medveilederFilter}
 			open={filterOpen}
-			onToggle={() => {setFilterOpen( !filterOpen )}}
+			onToggle={() => {setFilterOpen(!filterOpen)}}
 			updateFilter={updateMedveilederFilter}
 		/>
 	)

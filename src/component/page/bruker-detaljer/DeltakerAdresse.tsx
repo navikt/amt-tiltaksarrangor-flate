@@ -11,7 +11,7 @@ interface DeltakerAdresseProps {
 	adresse?: Adresse | null
 }
 
-export const DeltakerAdresse = ( { adresse }: DeltakerAdresseProps ): React.ReactElement => {
+export const DeltakerAdresse = ({ adresse }: DeltakerAdresseProps): React.ReactElement => {
 	const adresseId = useId()
 
 	return (

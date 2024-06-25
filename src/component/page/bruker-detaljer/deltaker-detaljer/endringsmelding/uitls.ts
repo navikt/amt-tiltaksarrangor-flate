@@ -1,8 +1,8 @@
 import { EndringsmeldingType } from '../../../../../api/data/endringsmelding'
 import { EndringType } from '../types'
 
-export const mapTilEndringType = ( endringsmeldingType: EndringsmeldingType ) => {
-	switch ( endringsmeldingType ) {
+export const mapTilEndringType = (endringsmeldingType: EndringsmeldingType) => {
+	switch (endringsmeldingType) {
 		case EndringsmeldingType.LEGG_TIL_OPPSTARTSDATO:
 			return EndringType.LEGG_TIL_OPPSTARTSDATO
 		case EndringsmeldingType.ENDRE_OPPSTARTSDATO:
@@ -20,6 +20,6 @@ export const mapTilEndringType = ( endringsmeldingType: EndringsmeldingType ) =>
 		case EndringsmeldingType.ENDRE_SLUTTAARSAK:
 			return EndringType.ENDRE_SLUTTAARSAK
 		default:
-			throw Error( `Kan ikke finne endringsmeldingtype: ${endringsmeldingType}` )
+			throw Error(`Kan ikke finne endringsmeldingtype: ${endringsmeldingType}`)
 	}
 }
