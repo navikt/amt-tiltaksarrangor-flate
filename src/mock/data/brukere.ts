@@ -4,11 +4,12 @@ import { Adresse, Adressetype, Vurdering, Vurderingstype, TiltakDeltakerStatus }
 import { Endringsmelding } from '../../api/data/endringsmelding'
 import { Gjennomforing, Tiltakskode } from '../../api/data/tiltak'
 import { VeilederMedType } from '../../api/data/veileder'
-import { randBetween, randomBoolean, randomFnr } from '../utils/faker'
+import { randBetween, randomBoolean, randomFnr, randomUuid } from '../utils/faker'
 import { lagMockEndringsmeldingForDeltaker, lagMockHistoriskeEndringsmeldingForDeltaker } from './endringsmelding'
 import { deltakerId } from './id'
 import { deltakerlisteErKurs, MockGjennomforing } from './tiltak'
 import { lagMockVeiledereForDeltaker } from './veileder'
+import { AktivtForslag, ForslagEndringType, ForslagStatusType } from '../../api/data/forslag'
 
 export type MockVurdering = Vurdering
 
@@ -46,6 +47,7 @@ export interface MockTiltakDeltaker {
 	gjennomforing: MockGjennomforing,
 	fjernesDato: Date | null,
 	innsokBegrunnelse: string | null,
+	aktiveForslag: AktivtForslag[]
 	aktiveEndringsmeldinger: Endringsmelding[]
 	historiskeEndringsmeldinger: Endringsmelding[]
 	veiledere: VeilederMedType[]
@@ -219,6 +221,20 @@ const lagMockTiltakDeltagerForGjennomforing = (gjennomforing: Gjennomforing): Mo
 		gjennomforing: gjennomforing,
 		registrertDato: faker.date.past(),
 		innsokBegrunnelse: genererBegrunnelse(brukerFornavn),
+		aktiveForslag: [
+			{
+				id: randomUuid(),
+				opprettet: faker.date.recent(),
+				begrunnelse: 'Vi har kommet i gang, men ser at det er hensiktsmessig å fortsette tett oppfølging nå når han er i gang med å kontakte de riktige arbeidsgiverne.',
+				endring: {
+					type: ForslagEndringType.ForlengDeltakelse,
+					sluttdato: faker.date.future(),
+				},
+				status: {
+					type: ForslagStatusType.VenterPaSvar,
+				}
+			}
+		],
 		aktiveEndringsmeldinger: lagMockEndringsmeldingForDeltaker(status),
 		historiskeEndringsmeldinger: lagMockHistoriskeEndringsmeldingForDeltaker(status, startDato, sluttDato),
 		veiledere: lagMockVeiledereForDeltaker(id),

@@ -19,6 +19,7 @@ import { ElementPanel } from './ElementPanel'
 import { EndreDeltakelseKnapp } from './EndreDeltakelseKnapp'
 import { Endringsmeldinger } from './endringsmelding/Endringsmeldinger'
 import { FjernDeltakerModal } from './fjern-deltaker-modal/FjernDeltakerModal'
+import { AktiveForslag } from './forslag/AktiveForslag'
 
 interface DeltakelseInfoProps {
 	deltaker: Deltaker
@@ -29,6 +30,7 @@ export const DeltakelseInfo = ({
 }: DeltakelseInfoProps): React.ReactElement => {
 	const [ reloadEndringsmeldinger, setReloadEndringsmeldinger ] = useState(false)
 	const [ visFjernDeltakerModal, setVisFjernDeltakerModal ] = useState(false)
+	const [ forslag, setForslag ] = useState(deltaker.aktiveForslag)
 
 	const skjulDeltakerPromise = usePromise<AxiosResponse>()
 
@@ -69,6 +71,7 @@ export const DeltakelseInfo = ({
 			</div>
 
 			<div className={styles.body}>
+				<AktiveForslag forslag={forslag} />
 				<Endringsmeldinger
 					deltaker={deltaker}
 					setReloadEndringsmeldinger={setReloadEndringsmeldinger}

@@ -1,0 +1,46 @@
+.panel {
+  display: flex;
+  grid-column-start: 1;
+  grid-column-end: 1;
+  padding: 0;
+  max-width: 506px;
+}
+
+.alert {
+  grid-column-start: 1;
+  grid-column-end: 1;
+}
+
+@media (min-width: 600px) {
+  .alert {
+      grid-column-end: 3;
+  }
+}
+
+.innholdWrapper {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.5rem 1rem
+}
+
+.innhold > *:not(:last-child) {
+  margin-bottom: 0.125rem;
+}
+
+.closeButton {
+  height: fit-content;
+  margin-left: auto;
+  justify-content: center;
+  padding-bottom: 0;
+  padding-right: 0.33rem;
+  padding-left: 0.33rem;
+}
+
+.tooltip {
+  background-color: rgba(38, 38, 38, 1); // Default fargen var(--a-surface-inverted) fungerer ikke som forventet
+  color: rgba(255, 255, 255, 1);
+  padding: 0.33rem 0.66rem;
+  font-size: 14px;
+  border-radius: 0.2rem;
+}

@@ -3,7 +3,7 @@ import { RequestHandler, rest } from 'msw'
 
 import { Deltaker, TiltakDeltaker, Vurderingstype } from '../../api/data/deltaker'
 import { DeltakerStatusAarsak, EndringsmeldingStatus, EndringsmeldingType } from '../../api/data/endringsmelding'
-import { VIS_DRIFTSMELDING_TOGGLE_NAVN } from '../../api/data/feature-toggle'
+import { KOMET_DELTAKERE_TOGGLE_NAVN, VIS_DRIFTSMELDING_TOGGLE_NAVN } from '../../api/data/feature-toggle'
 import { AdminDeltakerliste } from '../../api/data/tiltak'
 import { Veileder, VeilederMedType, Veiledertype } from '../../api/data/veileder'
 import { appUrl } from '../../utils/url-utils'
@@ -241,7 +241,10 @@ export const mockHandlers: RequestHandler[] = [
 	}),
 
 	rest.get(appUrl('/amt-tiltaksarrangor-bff/unleash/api/feature'), (req, res, ctx) => {
-		const toggles = { [VIS_DRIFTSMELDING_TOGGLE_NAVN]: false }
+		const toggles = { 
+			[VIS_DRIFTSMELDING_TOGGLE_NAVN]: false,
+			[KOMET_DELTAKERE_TOGGLE_NAVN]: true,
+		}
 
 		return res(ctx.delay(500), ctx.json(toggles))
 	})
@@ -304,6 +307,7 @@ const mapToDeltakerDetaljerView = (deltaker: MockTiltakDeltaker, isVeileder: boo
 			} : null
 		},
 		veiledere: deltaker.veiledere,
+		aktiveForslag: deltaker.aktiveForslag,
 		aktiveEndringsmeldinger: deltaker.aktiveEndringsmeldinger,
 		historiskeEndringsmeldinger: deltaker.historiskeEndringsmeldinger,
 		adresse: deltaker.adresse
