@@ -40,7 +40,7 @@ export const DeltakelseInfo = ({
 	const erForslagEnabled = erForslagEnabledForTiltak(deltaker.deltakerliste.tiltakstype)
 
 	const handleForslagSendt = (forslag: AktivtForslag) => {
-		setForslag(prev => [ ...prev, forslag ])
+		setForslag(prev => [ forslag, ...prev ])
 	}
 
 	const triggerReloadEndringsmeldinger = () => {
