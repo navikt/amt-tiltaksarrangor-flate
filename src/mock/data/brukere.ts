@@ -10,6 +10,7 @@ import { deltakerId } from './id'
 import { deltakerlisteErKurs, MockGjennomforing } from './tiltak'
 import { lagMockVeiledereForDeltaker } from './veileder'
 import { AktivtForslag, ForslagEndringType, ForslagStatusType } from '../../api/data/forslag'
+import { lagMockAktiveForslag } from './mock-forslag'
 
 export type MockVurdering = Vurdering
 
@@ -221,20 +222,7 @@ const lagMockTiltakDeltagerForGjennomforing = (gjennomforing: Gjennomforing): Mo
 		gjennomforing: gjennomforing,
 		registrertDato: faker.date.past(),
 		innsokBegrunnelse: genererBegrunnelse(brukerFornavn),
-		aktiveForslag: [
-			{
-				id: randomUuid(),
-				opprettet: faker.date.recent(),
-				begrunnelse: 'Vi har kommet i gang, men ser at det er hensiktsmessig å fortsette tett oppfølging nå når han er i gang med å kontakte de riktige arbeidsgiverne.',
-				endring: {
-					type: ForslagEndringType.ForlengDeltakelse,
-					sluttdato: faker.date.future(),
-				},
-				status: {
-					type: ForslagStatusType.VenterPaSvar,
-				}
-			}
-		],
+		aktiveForslag: lagMockAktiveForslag(status),
 		aktiveEndringsmeldinger: lagMockEndringsmeldingForDeltaker(status),
 		historiskeEndringsmeldinger: lagMockHistoriskeEndringsmeldingForDeltaker(status, startDato, sluttDato),
 		veiledere: lagMockVeiledereForDeltaker(id),
