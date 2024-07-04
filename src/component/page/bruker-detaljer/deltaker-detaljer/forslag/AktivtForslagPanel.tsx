@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react'
+import React from 'react'
 import { AktivtForslag, ForslagEndringType } from '../../../../../api/data/forslag'
 
 import styles from './AktivtForslagPanel.module.scss'
@@ -11,9 +11,8 @@ import { assertNever } from '../../../../../utils/assert-never'
 import { ForslagEndringsdetaljer } from './ForslagEndringsdetaljer'
 
 export interface Props {
-	forslag: AktivtForslag,
-	onTilbakekalt: () => void
-	children?: ReactElement
+	readonly forslag: AktivtForslag,
+	readonly onTilbakekalt: () => void
 }
 
 export const AktivtForslagPanel = ({

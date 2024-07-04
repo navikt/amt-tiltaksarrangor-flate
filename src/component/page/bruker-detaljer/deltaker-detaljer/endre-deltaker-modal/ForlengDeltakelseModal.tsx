@@ -15,18 +15,18 @@ import { forlengDeltakelseForslag } from '../../../../../api/forslag-api'
 import { Endringsmodal } from './endringsmodal/Endringsmodal'
 
 export interface ForlengDeltakelseModalProps {
-	onClose: () => void
+	readonly onClose: () => void
 }
 
 export interface ForlengDeltakelseModalDataProps {
-	deltakerId: string
-	startDato: Nullable<Date>
-	sluttDato: Nullable<Date>
-	tiltakskode: Tiltakskode
-	visGodkjennVilkaarPanel: boolean
-	onEndringUtfort: () => void
-	onForslagSendt: (forslag: AktivtForslag) => void
-	erForslagEnabled: boolean
+	readonly deltakerId: string
+	readonly startDato: Nullable<Date>
+	readonly sluttDato: Nullable<Date>
+	readonly tiltakskode: Tiltakskode
+	readonly visGodkjennVilkaarPanel: boolean
+	readonly onEndringUtfort: () => void
+	readonly onForslagSendt: (forslag: AktivtForslag) => void
+	readonly erForslagEnabled: boolean
 }
 
 export const ForlengDeltakelseModal = (props: ForlengDeltakelseModalProps & ForlengDeltakelseModalDataProps) => {

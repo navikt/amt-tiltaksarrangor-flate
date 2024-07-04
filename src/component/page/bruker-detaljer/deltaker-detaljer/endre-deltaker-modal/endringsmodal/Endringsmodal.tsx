@@ -8,18 +8,18 @@ import { BegrunnelseInput } from './BegrunnelseInput'
 import styles from './Endringsmodal.module.scss'
 
 interface EndringsmodalProps {
-	tittel: string
-	erForslag?: boolean
-	visGodkjennVilkaarPanel: boolean
-	erSendKnappDisabled?: boolean
-	onClose: () => void
-	onBegrunnelse?: (begrunnelse: string) => void
-	onSend: () => Promise<void>
-	children?: ReactNode
+	readonly tittel: string
+	readonly erForslag?: boolean
+	readonly visGodkjennVilkaarPanel: boolean
+	readonly erSendKnappDisabled?: boolean
+	readonly onClose: () => void
+	readonly onBegrunnelse?: (begrunnelse: string) => void
+	readonly onSend: () => Promise<void>
+	readonly children?: ReactNode
 }
 
 export function Endringsmodal(props: EndringsmodalProps) {
-	const [ vilkaarGodkjent, settVilkaarGodkjent ] = useState(false)
+	const [ vilkaarGodkjent, setVilkaarGodkjent ] = useState(false)
 
 	const krevVilkaarGodkjent = props.erForslag !== true && props.visGodkjennVilkaarPanel
 	const prefix = props.erForslag ? 'Foreslå: ' : ''
@@ -32,7 +32,7 @@ export function Endringsmodal(props: EndringsmodalProps) {
 
 			{props.erForslag && props.onBegrunnelse && <BegrunnelseInput onChange={props.onBegrunnelse} />}
 
-			{krevVilkaarGodkjent && <VeilederConfirmationPanel vilkaarGodkjent={vilkaarGodkjent} setVilkaarGodkjent={settVilkaarGodkjent} />}
+			{krevVilkaarGodkjent && <VeilederConfirmationPanel vilkaarGodkjent={vilkaarGodkjent} setVilkaarGodkjent={setVilkaarGodkjent} />}
 
 			<SendTilNavKnapp
 				onEndringSendt={props.onClose}

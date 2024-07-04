@@ -27,7 +27,7 @@ export const useFeatureToggle = () => {
 	}, [])
 
 	const erForslagEnabledForTiltak = (tiltakstype: Tiltakskode) => {
-		if (toggles && toggles[KOMET_DELTAKERE_TOGGLE_NAVN] && tiltakstyperMedForslag.includes(tiltakstype)) return true
+		if (toggles?.[KOMET_DELTAKERE_TOGGLE_NAVN] && tiltakstyperMedForslag.includes(tiltakstype)) return true
 		return false
 	}
 

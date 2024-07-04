@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import { BEGRUNNELSE_MAKS_TEGN } from '../../../../../../utils/endre-deltaker-utils'
 
 interface BegrunnelseInputProps {
-	onChange: (begrunnelse: string) => void
+	readonly onChange: (begrunnelse: string) => void
 }
 
 export function BegrunnelseInput(props: BegrunnelseInputProps) {

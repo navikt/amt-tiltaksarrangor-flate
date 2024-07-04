@@ -6,9 +6,9 @@ import { formatDate } from '../../../../../utils/date-utils'
 import styles from './Forslag.module.scss'
 
 interface Props {
-	endring: ForslagEndring
-	begrunnelse: string | null
-	sendt: Date
+	readonly endring: ForslagEndring
+	readonly begrunnelse: string | null
+	readonly sendt: Date
 }
 
 export function ForslagEndringsdetaljer({ endring, begrunnelse, sendt }: Props) {
