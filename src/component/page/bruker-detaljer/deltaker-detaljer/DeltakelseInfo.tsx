@@ -20,6 +20,8 @@ import { EndreDeltakelseKnapp } from './EndreDeltakelseKnapp'
 import { Endringsmeldinger } from './endringsmelding/Endringsmeldinger'
 import { FjernDeltakerModal } from './fjern-deltaker-modal/FjernDeltakerModal'
 import { AktiveForslag } from './forslag/AktiveForslag'
+import { AktivtForslag } from '../../../../api/data/forslag'
+import { useFeatureToggle } from '../../../../hooks/useFeatureToggle'
 
 interface DeltakelseInfoProps {
 	deltaker: Deltaker
@@ -33,6 +35,13 @@ export const DeltakelseInfo = ({
 	const [ forslag, setForslag ] = useState(deltaker.aktiveForslag)
 
 	const skjulDeltakerPromise = usePromise<AxiosResponse>()
+
+	const { erForslagEnabledForTiltak } = useFeatureToggle()
+	const erForslagEnabled = erForslagEnabledForTiltak(deltaker.deltakerliste.tiltakstype)
+
+	const handleForslagSendt = (forslag: AktivtForslag) => {
+		setForslag(prev => [ ...prev, forslag ])
+	}
 
 	const triggerReloadEndringsmeldinger = () => {
 		setReloadEndringsmeldinger(true)
@@ -60,18 +69,23 @@ export const DeltakelseInfo = ({
 					<ElementPanel tittel="Dato:">
 						<span>{formatDate(deltaker.startDato)} - {formatDate(deltaker.sluttDato)}</span>
 					</ElementPanel>
-					{ viseDeltakelsesmengde && (
+					{viseDeltakelsesmengde && (
 						<ElementPanel tittel="Deltakelsesmengde:">
 							<span>{getDeltakelsesmengdetekst(deltaker.deltakelseProsent, deltaker.dagerPerUke)}
 							</span>
 						</ElementPanel>
 					)}
 				</div>
-				<EndreDeltakelseKnapp deltaker={deltaker} onEndringUtfort={triggerReloadEndringsmeldinger} />
+				<EndreDeltakelseKnapp
+					deltaker={deltaker}
+					onEndringUtfort={triggerReloadEndringsmeldinger}
+					erForslagEnabled={erForslagEnabled}
+					onForslagSendt={handleForslagSendt}
+				/>
 			</div>
 
 			<div className={styles.body}>
-				<AktiveForslag forslag={forslag} />
+				{erForslagEnabled && <AktiveForslag forslag={forslag} />}
 				<Endringsmeldinger
 					deltaker={deltaker}
 					setReloadEndringsmeldinger={setReloadEndringsmeldinger}
@@ -108,5 +122,4 @@ export const DeltakelseInfo = ({
 		</div>
 	)
 }
-
 

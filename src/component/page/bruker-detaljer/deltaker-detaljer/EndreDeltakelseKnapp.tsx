@@ -9,10 +9,13 @@ import { useModalData } from './modal-store'
 import { ModalController } from './ModalController'
 import { EndringType } from './types'
 import { Tiltakskode } from '../../../../api/data/tiltak'
+import { AktivtForslag } from '../../../../api/data/forslag'
 
 interface EndreDeltakelseKnappProps {
 	deltaker: Deltaker
 	onEndringUtfort: () => void
+	erForslagEnabled: boolean
+	onForslagSendt: (forslag: AktivtForslag) => void
 }
 
 export const EndreDeltakelseKnapp = (props: EndreDeltakelseKnappProps) => {
@@ -99,7 +102,9 @@ export const EndreDeltakelseKnapp = (props: EndreDeltakelseKnappProps) => {
 										sluttDato: deltaker.sluttDato,
 										tiltakskode: deltaker.tiltakskode,
 										visGodkjennVilkaarPanel: visGodkjennVilkaarPanel,
-										onEndringUtfort: props.onEndringUtfort
+										onEndringUtfort: props.onEndringUtfort,
+										onForslagSendt: props.onForslagSendt,
+										erForslagEnabled: props.erForslagEnabled,
 									})
 								}
 							/>
