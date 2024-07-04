@@ -1,20 +1,18 @@
-import { BodyShort, Detail, Radio, RadioGroup, Textarea } from '@navikt/ds-react'
+import { BodyShort, Radio, RadioGroup } from '@navikt/ds-react'
 import dayjs from 'dayjs'
-import React, { ReactNode, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import { Tiltakskode } from '../../../../../api/data/tiltak'
 import { forlengDeltakelse } from '../../../../../api/tiltak-api'
 import { formatDate, maxDate } from '../../../../../utils/date-utils'
 import { Nullable } from '../../../../../utils/types/or-nothing'
-import { BaseModal } from '../../../../felles/base-modal/BaseModal'
 import { DateField } from '../../../../felles/DateField'
-import { SendTilNavKnapp } from './SendTilNavKnapp'
 import { Varighet, varigheter, VarighetValg, varighetValgForType } from './varighet'
-import { VeilederConfirmationPanel } from './VeilederConfirmationPanel'
 import { useDeltakerlisteStore } from '../deltakerliste-store'
 import { AktivtForslag } from '../../../../../api/data/forslag'
 import { BEGRUNNELSE_MAKS_TEGN } from '../../../../../utils/endre-deltaker-utils'
 import { forlengDeltakelseForslag } from '../../../../../api/forslag-api'
+import { Endringsmodal } from './endringsmodal/Endringsmodal'
 
 export interface ForlengDeltakelseModalProps {
 	onClose: () => void
@@ -112,64 +110,3 @@ export const ForlengDeltakelseModal = (props: ForlengDeltakelseModalProps & Forl
 	)
 }
 
-interface EndringsmodalProps {
-	tittel: string
-	erForslag?: boolean
-	visGodkjennVilkaarPanel: boolean
-	erSendKnappDisabled?: boolean
-	onClose: () => void
-	onBegrunnelse?: (begrunnelse: string) => void
-	onSend: () => Promise<void>
-	children?: ReactNode
-}
-
-function Endringsmodal(props: EndringsmodalProps) {
-	const [ vilkaarGodkjent, settVilkaarGodkjent ] = useState(false)
-
-	const krevVilkaarGodkjent = props.erForslag !== true && props.visGodkjennVilkaarPanel
-	const prefix = props.erForslag ? 'Foreslå: ' : ''
-
-	return (
-		<BaseModal tittel={`${prefix}${props.tittel}`} onClose={props.onClose}>
-			{props.erForslag && <Detail>Forslaget sendes til NAV-veilederen til deltaker. og deltaker.</Detail>}
-
-			{props.children}
-
-			{props.erForslag && props.onBegrunnelse && <BegrunnelseInput onChange={props.onBegrunnelse} />}
-
-			{krevVilkaarGodkjent && <VeilederConfirmationPanel vilkaarGodkjent={vilkaarGodkjent} setVilkaarGodkjent={settVilkaarGodkjent} />}
-
-			<SendTilNavKnapp
-				onEndringSendt={props.onClose}
-				sendEndring={props.onSend}
-				disabled={(props.erSendKnappDisabled || (!vilkaarGodkjent && krevVilkaarGodkjent))}
-				forslag={props.erForslag}
-			/>
-		</BaseModal>
-	)
-}
-
-interface BegrunnelseInputProps {
-	onChange: (begrunnelse: string) => void
-}
-
-function BegrunnelseInput(props: BegrunnelseInputProps) {
-	const [ begrunnelse, setBegrunnelse ] = useState<string>('')
-
-	const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-		setBegrunnelse(e.target.value)
-		props.onChange(e.target.value)
-	}
-
-	return (
-		<Textarea
-			onChange={handleChange}
-			value={begrunnelse}
-			minRows={1}
-			rows={1}
-			size="small"
-			label={null}
-			maxLength={BEGRUNNELSE_MAKS_TEGN}
-		/>
-	)
-}

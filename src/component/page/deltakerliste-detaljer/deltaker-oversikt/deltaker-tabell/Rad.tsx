@@ -94,7 +94,7 @@ export const Rad = (props: RadProps): React.ReactElement<RadProps> => {
 		<Table.Row key={id}>
 			<Table.DataCell className={ styles.smallText }>
 				<Link className={styles.brukersNavn} to={deltakerDetaljerPageUrl}
-					data-testId={adressebeskyttet ? 'rad_adressebeskyttet' : ''}
+					data-testid={adressebeskyttet ? 'rad_adressebeskyttet' : ''}
 					onClick={(e) => {
 						if (adressebeskyttet && erVeilederForDeltaker) {
 							e.preventDefault()
