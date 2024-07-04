@@ -5,6 +5,8 @@ import { VeilederConfirmationPanel } from '../VeilederConfirmationPanel'
 import { SendTilNavKnapp } from '../SendTilNavKnapp'
 import { BegrunnelseInput } from './BegrunnelseInput'
 
+import styles from './Endringsmodal.module.scss'
+
 interface EndringsmodalProps {
 	tittel: string
 	erForslag?: boolean
@@ -23,8 +25,8 @@ export function Endringsmodal(props: EndringsmodalProps) {
 	const prefix = props.erForslag ? 'Foreslå: ' : ''
 
 	return (
-		<BaseModal tittel={`${prefix}${props.tittel}`} onClose={props.onClose}>
-			{props.erForslag && <Detail>Forslaget sendes til NAV-veilederen til deltaker. og deltaker.</Detail>}
+		<BaseModal tittel={`${prefix}${props.tittel}`} onClose={props.onClose} className={styles.modal}>
+			{props.erForslag && <Detail>Forslaget sendes til NAV-veileder og deltaker.</Detail>}
 
 			{props.children}
 

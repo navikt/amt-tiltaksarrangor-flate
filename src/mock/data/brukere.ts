@@ -4,12 +4,12 @@ import { Adresse, Adressetype, Vurdering, Vurderingstype, TiltakDeltakerStatus }
 import { Endringsmelding } from '../../api/data/endringsmelding'
 import { Gjennomforing, Tiltakskode } from '../../api/data/tiltak'
 import { VeilederMedType } from '../../api/data/veileder'
-import { randBetween, randomBoolean, randomFnr, randomUuid } from '../utils/faker'
+import { randBetween, randomBoolean, randomFnr } from '../utils/faker'
 import { lagMockEndringsmeldingForDeltaker, lagMockHistoriskeEndringsmeldingForDeltaker } from './endringsmelding'
 import { deltakerId } from './id'
 import { deltakerlisteErKurs, MockGjennomforing } from './tiltak'
 import { lagMockVeiledereForDeltaker } from './veileder'
-import { AktivtForslag, ForslagEndringType, ForslagStatusType } from '../../api/data/forslag'
+import { AktivtForslag } from '../../api/data/forslag'
 import { lagMockAktiveForslag } from './mock-forslag'
 
 export type MockVurdering = Vurdering

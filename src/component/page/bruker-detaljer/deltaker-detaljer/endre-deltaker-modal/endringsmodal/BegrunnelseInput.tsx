@@ -16,12 +16,13 @@ export function BegrunnelseInput(props: BegrunnelseInputProps) {
 
 	return (
 		<Textarea
+			label={'Begrunnelse'}
+			description={'Beskriv gjerne kort hvorfor. Vises til NAV-veileder og deltaker.'}
 			onChange={handleChange}
 			value={begrunnelse}
-			minRows={1}
-			rows={1}
+			minRows={3}
+			rows={3}
 			size="small"
-			label={null}
 			maxLength={BEGRUNNELSE_MAKS_TEGN}
 		/>
 	)
