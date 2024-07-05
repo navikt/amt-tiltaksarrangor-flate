@@ -3,7 +3,7 @@ import { RequestHandler, rest } from 'msw'
 
 import { Deltaker, TiltakDeltaker, Vurderingstype } from '../../api/data/deltaker'
 import { DeltakerStatusAarsak, EndringsmeldingStatus, EndringsmeldingType } from '../../api/data/endringsmelding'
-import { VIS_DRIFTSMELDING_TOGGLE_NAVN } from '../../api/data/feature-toggle'
+import { KOMET_DELTAKERE_TOGGLE_NAVN, VIS_DRIFTSMELDING_TOGGLE_NAVN } from '../../api/data/feature-toggle'
 import { AdminDeltakerliste } from '../../api/data/tiltak'
 import { Veileder, VeilederMedType, Veiledertype } from '../../api/data/veileder'
 import { appUrl } from '../../utils/url-utils'
@@ -19,6 +19,7 @@ import { MockTiltakDeltaker } from '../data/brukere'
 import { MockGjennomforing, deltakerlisteErKurs } from '../data/tiltak'
 import { mockTilgjengeligeVeiledere } from '../data/veileder'
 import { randomUuid } from '../utils/faker'
+import { AktivtForslag, ForslagEndringType, ForslagStatusType } from '../../api/data/forslag'
 
 export const mockHandlers: RequestHandler[] = [
 	rest.get(appUrl('/amt-tiltaksarrangor-bff/tiltaksarrangor/meg/roller'), (_req, res, ctx) => {
@@ -104,7 +105,7 @@ export const mockHandlers: RequestHandler[] = [
 				})
 			}
 			if (bodyType.innhold.type === EndringsmeldingType.ENDRE_DELTAKELSE_PROSENT) {
-				const body = req.body as { innhold: { type: string, deltakelseProsent: number, dagerPerUke: number|null, gyldigFraDato: string } }
+				const body = req.body as { innhold: { type: string, deltakelseProsent: number, dagerPerUke: number | null, gyldigFraDato: string } }
 				deltaker.aktiveEndringsmeldinger.push({
 					id: randomUuid(),
 					type: EndringsmeldingType.ENDRE_DELTAKELSE_PROSENT,
@@ -239,9 +240,28 @@ export const mockHandlers: RequestHandler[] = [
 
 		return res(ctx.delay(500), ctx.status(200))
 	}),
+	rest.post(appUrl('/amt-tiltaksarrangor-bff/tiltaksarrangor/deltaker/:deltakerId/forslag/forleng'), (req, res, ctx) => {
+		const body = req.body as { sluttdato: string, begrunnelse: string }
 
+		const forslag: AktivtForslag = {
+			id: randomUuid(),
+			status: {
+				type: ForslagStatusType.VenterPaSvar,
+			},
+			begrunnelse: body.begrunnelse,
+			endring: {
+				type: ForslagEndringType.ForlengDeltakelse,
+				sluttdato: dayjs(body.sluttdato).toDate(),
+			},
+			opprettet: new Date()
+		}
+		return res(ctx.delay(500), ctx.status(200), ctx.json(forslag))
+	}),
 	rest.get(appUrl('/amt-tiltaksarrangor-bff/unleash/api/feature'), (req, res, ctx) => {
-		const toggles = { [VIS_DRIFTSMELDING_TOGGLE_NAVN]: false }
+		const toggles = {
+			[VIS_DRIFTSMELDING_TOGGLE_NAVN]: false,
+			[KOMET_DELTAKERE_TOGGLE_NAVN]: true,
+		}
 
 		return res(ctx.delay(500), ctx.json(toggles))
 	})
@@ -277,7 +297,8 @@ const mapToDeltakerDetaljerView = (deltaker: MockTiltakDeltaker, isVeileder: boo
 			id: deltaker.gjennomforing.id,
 			startDato: deltaker.gjennomforing.startDato,
 			sluttDato: deltaker.gjennomforing.sluttDato,
-			erKurs: deltakerlisteErKurs(deltaker.gjennomforing.tiltak.tiltakskode)
+			erKurs: deltakerlisteErKurs(deltaker.gjennomforing.tiltak.tiltakskode),
+			tiltakstype: deltaker.gjennomforing.tiltak.tiltakskode,
 		},
 		fornavn: deltaker.fornavn,
 		mellomnavn: deltaker.mellomnavn,
@@ -304,6 +325,7 @@ const mapToDeltakerDetaljerView = (deltaker: MockTiltakDeltaker, isVeileder: boo
 			} : null
 		},
 		veiledere: deltaker.veiledere,
+		aktiveForslag: deltaker.aktiveForslag,
 		aktiveEndringsmeldinger: deltaker.aktiveEndringsmeldinger,
 		historiskeEndringsmeldinger: deltaker.historiskeEndringsmeldinger,
 		adresse: deltaker.adresse

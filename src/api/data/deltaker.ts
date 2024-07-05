@@ -2,8 +2,9 @@ import { z } from 'zod'
 
 import { dateSchema, nullableDateSchema } from '../utils'
 import { endringsmeldingSchema } from './endringsmelding'
-import { koordinatorListSchema, tiltakGjennomforingStatusSchema, tiltakstypeSchema } from './tiltak'
+import { Tiltakskode, koordinatorListSchema, tiltakGjennomforingStatusSchema, tiltakstypeSchema } from './tiltak'
 import { veilederMedTypeSchema, veiledertypeSchema } from './veileder'
+import { aktivtForslagSchema } from './forslag'
 
 export enum KursDeltakerStatuser {
 	VURDERES = 'VURDERES',
@@ -82,7 +83,8 @@ export const deltakersDeltakerlisteSchema = z.object({
 	id: z.string().uuid(),
 	startDato: nullableDateSchema,
 	sluttDato: nullableDateSchema,
-	erKurs: z.boolean()
+	erKurs: z.boolean(),
+	tiltakstype: z.nativeEnum(Tiltakskode),
 })
 
 export const adresseSchema = z.object({
@@ -114,6 +116,7 @@ export const deltakerSchema = z.object({
 	fjernesDato: nullableDateSchema,
 	navInformasjon: navInformasjonSchema,
 	veiledere: z.array(veilederMedTypeSchema),
+	aktiveForslag: z.array(aktivtForslagSchema),
 	aktiveEndringsmeldinger: z.array(endringsmeldingSchema),
 	historiskeEndringsmeldinger: z.array(endringsmeldingSchema).nullable(),
 	adresse: adresseSchema.nullable(),

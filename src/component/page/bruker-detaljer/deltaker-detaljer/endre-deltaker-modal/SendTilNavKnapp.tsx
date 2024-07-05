@@ -6,12 +6,15 @@ interface SendTilNavKnappProps {
 	onEndringSendt: () => void
 	sendEndring: () => Promise<void>
 	disabled?: boolean
+	forslag?: boolean
 }
 
-export const SendTilNavKnapp = ({ disabled, sendEndring, onEndringSendt }: SendTilNavKnappProps) => {
+export const SendTilNavKnapp = ({ disabled, sendEndring, onEndringSendt, forslag }: SendTilNavKnappProps) => {
 	const [ showError, setShowError ] = useState<boolean>()
 	const [ errorMessage, setErrorMessage ] = useState<string | null>()
 	const opprettEndringPromise = usePromise<void>()
+
+	const tekst = forslag ? 'Send forslag til NAV-veileder' : 'Send til NAV'
 
 	const onClick = () => {
 		opprettEndringPromise.setPromise(
@@ -37,7 +40,7 @@ export const SendTilNavKnapp = ({ disabled, sendEndring, onEndringSendt }: SendT
 				onClick={onClick}
 				disabled={disabled}
 			>
-				Send til NAV
+				{tekst}
 			</Button>
 			{showError && <Alert variant="error">{errorMessage || 'Noe gikk galt'}</Alert>}
 		</>

@@ -9,6 +9,8 @@ import { lagMockEndringsmeldingForDeltaker, lagMockHistoriskeEndringsmeldingForD
 import { deltakerId } from './id'
 import { deltakerlisteErKurs, MockGjennomforing } from './tiltak'
 import { lagMockVeiledereForDeltaker } from './veileder'
+import { AktivtForslag } from '../../api/data/forslag'
+import { lagMockAktiveForslag } from './mock-forslag'
 
 export type MockVurdering = Vurdering
 
@@ -46,6 +48,7 @@ export interface MockTiltakDeltaker {
 	gjennomforing: MockGjennomforing,
 	fjernesDato: Date | null,
 	innsokBegrunnelse: string | null,
+	aktiveForslag: AktivtForslag[]
 	aktiveEndringsmeldinger: Endringsmelding[]
 	historiskeEndringsmeldinger: Endringsmelding[]
 	veiledere: VeilederMedType[]
@@ -219,6 +222,7 @@ const lagMockTiltakDeltagerForGjennomforing = (gjennomforing: Gjennomforing): Mo
 		gjennomforing: gjennomforing,
 		registrertDato: faker.date.past(),
 		innsokBegrunnelse: genererBegrunnelse(brukerFornavn),
+		aktiveForslag: lagMockAktiveForslag(status),
 		aktiveEndringsmeldinger: lagMockEndringsmeldingForDeltaker(status),
 		historiskeEndringsmeldinger: lagMockHistoriskeEndringsmeldingForDeltaker(status, startDato, sluttDato),
 		veiledere: lagMockVeiledereForDeltaker(id),

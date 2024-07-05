@@ -1,0 +1,20 @@
+.aktiveForslag {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.aktiveForslagTitle {
+  font-weight: bold;
+}
+
+.endringTitle {
+  margin-bottom: 0.25rem;
+}
+
+.panelWrapper{
+  width: fit-content;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
