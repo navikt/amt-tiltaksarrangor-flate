@@ -15,3 +15,10 @@ export const forlengDeltakelseForslag = (deltakerId: string, sluttDato: Date, be
 		.then(parse(aktivtForslagSchema))
 		.catch(err => logAndThrowError(err, url))
 }
+
+export const tilbakekallForslag = (deltakerId: string, forslagId: string): AxiosPromise => {
+	const url = appUrl(`/amt-tiltaksarrangor-bff/tiltaksarrangor/deltaker/${deltakerId}/forslag/${forslagId}/tilbakekall`)
+	return axiosInstance
+		.post(url)
+		.catch(err => logAndThrowError(err, url))
+}

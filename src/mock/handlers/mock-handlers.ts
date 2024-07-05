@@ -240,8 +240,27 @@ export const mockHandlers: RequestHandler[] = [
 
 		return res(ctx.delay(500), ctx.status(200))
 	}),
+	rest.post(appUrl('/amt-tiltaksarrangor-bff/tiltaksarrangor/deltaker/:deltakerId/forslag/:forslagId/tilbakekall'), (req, res, ctx) => {
+		const deltakerId = req.params.deltakerId
+		const forslagId = req.params.forslagId
+
+		const deltaker = mockTiltakDeltakere.find(d => d.id == deltakerId)
+		if (!deltaker) {
+			return res(ctx.delay(500), ctx.status(500))
+		}
+		deltaker.aktiveForslag = deltaker.aktiveForslag.filter(it => it.id !== forslagId)
+		return res(ctx.delay(500), ctx.status(200))
+	}),
 	rest.post(appUrl('/amt-tiltaksarrangor-bff/tiltaksarrangor/deltaker/:deltakerId/forslag/forleng'), (req, res, ctx) => {
+		const deltakerId = req.params.deltakerId
+
 		const body = req.body as { sluttdato: string, begrunnelse: string }
+
+		const deltaker = mockTiltakDeltakere.find(d => d.id == deltakerId)
+
+		if (!deltaker) {
+			return res(ctx.delay(500), ctx.status(500))
+		}
 
 		const forslag: AktivtForslag = {
 			id: randomUuid(),
@@ -255,6 +274,9 @@ export const mockHandlers: RequestHandler[] = [
 			},
 			opprettet: new Date()
 		}
+		
+		deltaker.aktiveForslag = [ forslag, ...deltaker.aktiveForslag ]
+
 		return res(ctx.delay(500), ctx.status(200), ctx.json(forslag))
 	}),
 	rest.get(appUrl('/amt-tiltaksarrangor-bff/unleash/api/feature'), (req, res, ctx) => {

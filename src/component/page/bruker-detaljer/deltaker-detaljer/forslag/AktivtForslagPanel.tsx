@@ -9,20 +9,26 @@ import { isPending, isResolved, usePromise } from '../../../../../utils/use-prom
 import { EndringType } from '../types'
 import { assertNever } from '../../../../../utils/assert-never'
 import { ForslagEndringsdetaljer } from './ForslagEndringsdetaljer'
+import { tilbakekallForslag } from '../../../../../api/forslag-api'
 
 export interface Props {
 	readonly forslag: AktivtForslag,
-	readonly onTilbakekalt: () => void
+	readonly deltakerId: string,
+	readonly onTilbakekalt: (forslag: AktivtForslag) => void
 }
 
 export const AktivtForslagPanel = ({
 	forslag,
+	deltakerId,
 	onTilbakekalt,
 }: Props) => {
 	const tilbakekallPromise = usePromise<void>()
 
 	const handleClick = () => {
-		onTilbakekalt()
+		tilbakekallPromise.setPromise(
+			tilbakekallForslag(deltakerId, forslag.id)
+				.then(() => onTilbakekalt(forslag))
+		)
 	}
 
 
@@ -34,7 +40,7 @@ export const AktivtForslagPanel = ({
 					<ForslagEndringsdetaljer endring={forslag.endring} begrunnelse={forslag.begrunnelse} sendt={forslag.opprettet} />
 				</div>
 			</div>
-			<Tooltip content="Tilbakekall melding" className={styles.tooltip}>
+			<Tooltip content="Tilbakekall forslag" className={styles.tooltip}>
 				<Button
 					icon={<XMarkIcon aria-hidden />}
 					loading={
@@ -44,7 +50,7 @@ export const AktivtForslagPanel = ({
 					size="small"
 					onClick={handleClick}
 					className={styles.closeButton}
-					aria-label="Tilbakekall melding"
+					aria-label="Tilbakekall forslag"
 				/>
 			</Tooltip>
 		</Box>

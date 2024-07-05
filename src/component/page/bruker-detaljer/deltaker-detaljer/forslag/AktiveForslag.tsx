@@ -5,9 +5,11 @@ import { BodyShort } from '@navikt/ds-react'
 import { AktivtForslagPanel } from './AktivtForslagPanel'
 
 interface Props {
-	forslag: AktivtForslag[]
+	readonly forslag: AktivtForslag[]
+	readonly deltakerId: string
+	readonly onTilbakekalt: (forslag: AktivtForslag) => void
 }
-export const AktiveForslag = ({ forslag }: Props) => {
+export const AktiveForslag = ({ deltakerId, forslag, onTilbakekalt }: Props) => {
 
 	if (forslag.length === 0) {
 		return
@@ -20,7 +22,8 @@ export const AktiveForslag = ({ forslag }: Props) => {
 				{forslag.map(it => {
 					return <AktivtForslagPanel 
 						forslag={it}
-						onTilbakekalt={() => {}}
+						deltakerId={deltakerId}
+						onTilbakekalt={onTilbakekalt}
 						key={it.id}
 					/>
 				})}
