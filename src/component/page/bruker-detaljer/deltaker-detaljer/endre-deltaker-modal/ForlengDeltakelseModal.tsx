@@ -39,7 +39,7 @@ export const ForlengDeltakelseModal = (props: ForlengDeltakelseModalProps & Forl
 	const minDato = maxDate(startDato, deltakerliste.startDato)
 
 	const kanSendeMelding = erForslagEnabled ?
-		nySluttDato !== null && begrunnelse !== '' && begrunnelse.length <= BEGRUNNELSE_MAKS_TEGN - 1
+		nySluttDato !== null && begrunnelse !== '' && begrunnelse.length <= BEGRUNNELSE_MAKS_TEGN
 		:
 		nySluttDato !== null
 
