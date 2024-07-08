@@ -19,7 +19,7 @@ import { MockTiltakDeltaker } from '../data/brukere'
 import { MockGjennomforing, deltakerlisteErKurs } from '../data/tiltak'
 import { mockTilgjengeligeVeiledere } from '../data/veileder'
 import { randomUuid } from '../utils/faker'
-import { AktivtForslag, ForslagEndringType, ForslagStatusType } from '../../api/data/forslag'
+import { AktivtForslag, ForslagEndring, ForslagEndringType, ForslagStatusType } from '../../api/data/forslag'
 
 export const mockHandlers: RequestHandler[] = [
 	rest.get(appUrl('/amt-tiltaksarrangor-bff/tiltaksarrangor/meg/roller'), (_req, res, ctx) => {
@@ -240,21 +240,36 @@ export const mockHandlers: RequestHandler[] = [
 
 		return res(ctx.delay(500), ctx.status(200))
 	}),
+	rest.post(appUrl('/amt-tiltaksarrangor-bff/tiltaksarrangor/deltaker/:deltakerId/forslag/:forslagId/tilbakekall'), (req, res, ctx) => {
+		const deltakerId = req.params.deltakerId
+		const forslagId = req.params.forslagId
+
+		const deltaker = mockTiltakDeltakere.find(d => d.id == deltakerId)
+		if (!deltaker) {
+			return res(ctx.delay(500), ctx.status(500))
+		}
+		deltaker.aktiveForslag = deltaker.aktiveForslag.filter(it => it.id !== forslagId)
+		return res(ctx.delay(500), ctx.status(200))
+	}),
 	rest.post(appUrl('/amt-tiltaksarrangor-bff/tiltaksarrangor/deltaker/:deltakerId/forslag/forleng'), (req, res, ctx) => {
+		const deltakerId = req.params.deltakerId as string
 		const body = req.body as { sluttdato: string, begrunnelse: string }
 
-		const forslag: AktivtForslag = {
-			id: randomUuid(),
-			status: {
-				type: ForslagStatusType.VenterPaSvar,
-			},
-			begrunnelse: body.begrunnelse,
-			endring: {
-				type: ForslagEndringType.ForlengDeltakelse,
-				sluttdato: dayjs(body.sluttdato).toDate(),
-			},
-			opprettet: new Date()
+		const endring = {
+			type: ForslagEndringType.ForlengDeltakelse,
+			sluttdato: dayjs(body.sluttdato).toDate(),
 		}
+
+		const forslag = opprettAktivtForslag(
+			deltakerId,
+			endring,
+			body.begrunnelse,
+		)
+
+		if (!forslag) {
+			return res(ctx.delay(500), ctx.status(500))
+		}
+
 		return res(ctx.delay(500), ctx.status(200), ctx.json(forslag))
 	}),
 	rest.get(appUrl('/amt-tiltaksarrangor-bff/unleash/api/feature'), (req, res, ctx) => {
@@ -266,6 +281,29 @@ export const mockHandlers: RequestHandler[] = [
 		return res(ctx.delay(500), ctx.json(toggles))
 	})
 ]
+
+function opprettAktivtForslag(deltakerId: string, endring: ForslagEndring, begrunnelse: string | null): AktivtForslag | undefined {
+	const deltaker = mockTiltakDeltakere.find(d => d.id == deltakerId)
+
+	if (!deltaker) {
+		return undefined
+	}
+
+	const forslag: AktivtForslag = {
+		id: randomUuid(),
+		status: {
+			type: ForslagStatusType.VenterPaSvar,
+		},
+		begrunnelse: begrunnelse,
+		endring: endring,
+		opprettet: new Date()
+	}
+
+	deltaker.aktiveForslag = [ forslag, ...deltaker.aktiveForslag ]
+
+	return forslag
+}
+
 
 export const mapToDeltakerListView = (deltaker: MockTiltakDeltaker): TiltakDeltaker => {
 	return {

@@ -43,6 +43,10 @@ export const DeltakelseInfo = ({
 		setForslag(prev => [ forslag, ...prev ])
 	}
 
+	const handleForslagTilbakekalt = (forslag: AktivtForslag) => {
+		setForslag(prev => prev.filter(it => it.id !== forslag.id))
+	}
+
 	const triggerReloadEndringsmeldinger = () => {
 		setReloadEndringsmeldinger(true)
 	}
@@ -85,7 +89,7 @@ export const DeltakelseInfo = ({
 			</div>
 
 			<div className={styles.body}>
-				{erForslagEnabled && <AktiveForslag forslag={forslag} />}
+				{erForslagEnabled && <AktiveForslag forslag={forslag} deltakerId={deltaker.id} onTilbakekalt={handleForslagTilbakekalt} />}
 				<Endringsmeldinger
 					deltaker={deltaker}
 					setReloadEndringsmeldinger={setReloadEndringsmeldinger}
