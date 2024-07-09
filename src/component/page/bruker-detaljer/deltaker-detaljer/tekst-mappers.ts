@@ -21,7 +21,7 @@ export const endringAarsakTekstMapper = (aarsak: EndringAarsak) => {
 		case 'Syk': return 'Syk'
 		case 'FattJobb': return 'Fått jobb'
 		case 'TrengerAnnenStotte': return 'Trenger annen hjelp og støtte'
-		case 'FikkIkkePlass': 'Fikk ikke plass'
+		case 'FikkIkkePlass': return 'Fikk ikke plass'
 		case 'Utdanning': return 'Utdanning'
 		case 'IkkeMott': return 'Møter ikke opp'
 		case 'Annet': return 'Annet - fyll ut'
