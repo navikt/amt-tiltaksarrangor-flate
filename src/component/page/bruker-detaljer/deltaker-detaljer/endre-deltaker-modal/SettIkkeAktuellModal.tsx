@@ -16,7 +16,6 @@ interface SettIkkeAktuellModalProps {
 export interface SettIkkeAktuellModalDataProps {
 	readonly deltakerId: string
 	readonly visGodkjennVilkaarPanel: boolean
-	readonly erKurs: boolean
 	readonly onEndringUtfort: () => void
 	readonly onForslagSendt: (forslag: AktivtForslag) => void
 	readonly erForslagEnabled: boolean

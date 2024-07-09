@@ -117,7 +117,6 @@ export const EndreDeltakelseKnapp = (props: EndreDeltakelseKnappProps) => {
 									visSettDeltakerIkkeAktuellModal({
 										deltakerId: deltaker.id,
 										visGodkjennVilkaarPanel: visGodkjennVilkaarPanel,
-										erKurs: deltaker.deltakerliste.erKurs,
 										onEndringUtfort: props.onEndringUtfort,
 										onForslagSendt: props.onForslagSendt,
 										erForslagEnabled: props.erForslagEnabled,
