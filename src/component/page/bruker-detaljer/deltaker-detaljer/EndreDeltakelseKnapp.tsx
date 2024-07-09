@@ -59,7 +59,7 @@ export const EndreDeltakelseKnapp = (props: EndreDeltakelseKnappProps) => {
 					as={Dropdown.Toggle}
 					variant="secondary"
 					size="small"
-					icon={ <PencilIcon aria-hidden /> }
+					icon={<PencilIcon aria-hidden />}
 				>
 					Endre deltakelse
 				</Button>
@@ -117,8 +117,9 @@ export const EndreDeltakelseKnapp = (props: EndreDeltakelseKnappProps) => {
 									visSettDeltakerIkkeAktuellModal({
 										deltakerId: deltaker.id,
 										visGodkjennVilkaarPanel: visGodkjennVilkaarPanel,
-										erKurs: deltaker.deltakerliste.erKurs,
-										onEndringUtfort: props.onEndringUtfort
+										onEndringUtfort: props.onEndringUtfort,
+										onForslagSendt: props.onForslagSendt,
+										erForslagEnabled: props.erForslagEnabled,
 									})
 								}
 							/>

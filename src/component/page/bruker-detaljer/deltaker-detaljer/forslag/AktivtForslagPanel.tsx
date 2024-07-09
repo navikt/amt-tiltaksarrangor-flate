@@ -60,6 +60,7 @@ export const AktivtForslagPanel = ({
 function mapTilEndringType(type: ForslagEndringType): EndringType {
 	switch (type) {
 		case ForslagEndringType.ForlengDeltakelse: return EndringType.FORLENG_DELTAKELSE
+		case ForslagEndringType.IkkeAktuell: return EndringType.DELTAKER_IKKE_AKTUELL
 		default: assertNever(type)
 	}
 }

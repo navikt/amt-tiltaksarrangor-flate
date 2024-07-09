@@ -4,6 +4,7 @@ import { assertNever } from '../../../../../utils/assert-never'
 import { BodyLong, BodyShort, Detail } from '@navikt/ds-react'
 import { formatDate } from '../../../../../utils/date-utils'
 import styles from './Forslag.module.scss'
+import { endringAarsakTekstMapper } from '../tekst-mappers'
 
 interface Props {
 	readonly endring: ForslagEndring
@@ -27,7 +28,16 @@ function endringsDetaljer(endring: ForslagEndring) {
 				<BodyShort size="small">Ny sluttdato: {formatDate(endring.sluttdato)}</BodyShort>
 			</div>
 		)
-		default: assertNever(endring.type)
+		case ForslagEndringType.IkkeAktuell: {
+			return (
+				<>
+					<BodyShort size="small" weight="semibold" className={styles.endringTitle}>Personen er ikke aktuell</BodyShort>
+					<BodyShort size="small">Årsak: {endringAarsakTekstMapper(endring.aarsak)}</BodyShort>
+				</>
+			)
+		}
+		default:
+			assertNever(endring)
 	}
 
 }
