@@ -76,7 +76,6 @@ function toEndringAarsakType(aarsak: DeltakerStatusAarsakType, beskrivelse: stri
 		case DeltakerStatusAarsakType.SYK: return { type: 'Syk' }
 		case DeltakerStatusAarsakType.FATT_JOBB: return { type: 'FattJobb' }
 		case DeltakerStatusAarsakType.TRENGER_ANNEN_STOTTE: return { type: 'TrengerAnnenStotte' }
-		case DeltakerStatusAarsakType.FIKK_IKKE_PLASS: return { type: 'FikkIkkePlass' }
 		case DeltakerStatusAarsakType.UTDANNING: return { type: 'Utdanning' }
 		case DeltakerStatusAarsakType.IKKE_MOTT: return { type: 'IkkeMott' }
 		case DeltakerStatusAarsakType.ANNET: {

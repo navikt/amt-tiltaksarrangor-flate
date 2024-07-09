@@ -10,7 +10,7 @@ env:
 
 jobs:
   deploy-pull-request-branch:
-    if: github.event.pull_request.head.repo.fork != true
+    if: github.event.pull_request.head.repo.fork != true 
     name: Deploy Pull Request Branch
     runs-on: ubuntu-latest
     permissions:
@@ -43,7 +43,7 @@ jobs:
       - name: Upload files to GCS
         run: gsutil -m rsync -r build gs://amt-tiltaksarrangor-flate-dev/pr-${{ github.event.number }}
   create-link-to-app:
-    if: github.event.pull_request.head.repo.fork != true
+    if: github.event.pull_request.head.repo.fork != true && github.event_name == 'pull_request' && github.event.action == 'opened'
     needs: deploy-pull-request-branch
     permissions:
       pull-requests: "write"

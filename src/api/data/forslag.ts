@@ -14,7 +14,6 @@ export enum ForslagEndringType {
 const Syk = z.object({ type: z.literal('Syk') })
 const FattJobb = z.object({ type: z.literal('FattJobb') })
 const TrengerAnnenStotte = z.object({ type: z.literal('TrengerAnnenStotte') })
-const FikkIkkePlass = z.object({ type: z.literal('FikkIkkePlass') })
 const Utdanning = z.object({ type: z.literal('Utdanning') })
 const IkkeMott = z.object({ type: z.literal('IkkeMott') })
 const Annet = z.object({
@@ -26,7 +25,6 @@ const endringAarsakSchema = z.discriminatedUnion('type', [
 	Syk,
 	FattJobb,
 	TrengerAnnenStotte,
-	FikkIkkePlass,
 	Utdanning,
 	IkkeMott,
 	Annet
