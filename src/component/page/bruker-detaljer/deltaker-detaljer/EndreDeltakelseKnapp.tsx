@@ -132,7 +132,9 @@ export const EndreDeltakelseKnapp = (props: EndreDeltakelseKnappProps) => {
 										deltakerId: deltaker.id,
 										startDato: deltaker.startDato,
 										visGodkjennVilkaarPanel: visGodkjennVilkaarPanel,
-										onEndringUtfort: props.onEndringUtfort
+										onEndringUtfort: props.onEndringUtfort,
+										onForslagSendt: props.onForslagSendt,
+										erForslagEnabled: props.erForslagEnabled,
 									})
 								}
 							/>

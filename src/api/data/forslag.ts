@@ -9,6 +9,7 @@ export enum ForslagStatusType {
 export enum ForslagEndringType {
 	ForlengDeltakelse = 'ForlengDeltakelse',
 	IkkeAktuell = 'IkkeAktuell',
+	AvsluttDeltakelse = 'AvsluttDeltakelse',
 }
 
 const Syk = z.object({ type: z.literal('Syk') })
@@ -35,6 +36,12 @@ const forlengDeltakelseSchema = z.object({
 	sluttdato: dateSchema,
 })
 
+const avsluttDeltakelseSchema = z.object({
+	type: z.literal(ForslagEndringType.AvsluttDeltakelse),
+	sluttdato: dateSchema,
+	aarsak: endringAarsakSchema,
+})
+
 const ikkeAktuellSchema = z.object({
 	type: z.literal(ForslagEndringType.IkkeAktuell),
 	aarsak: endringAarsakSchema,
@@ -43,6 +50,7 @@ const ikkeAktuellSchema = z.object({
 const endringSchema = z.discriminatedUnion('type', [
 	forlengDeltakelseSchema,
 	ikkeAktuellSchema,
+	avsluttDeltakelseSchema,
 ])
 
 const venterPaSvarSchema = z.object({

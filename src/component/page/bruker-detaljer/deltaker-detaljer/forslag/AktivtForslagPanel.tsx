@@ -61,6 +61,7 @@ function mapTilEndringType(type: ForslagEndringType): EndringType {
 	switch (type) {
 		case ForslagEndringType.ForlengDeltakelse: return EndringType.FORLENG_DELTAKELSE
 		case ForslagEndringType.IkkeAktuell: return EndringType.DELTAKER_IKKE_AKTUELL
+		case ForslagEndringType.AvsluttDeltakelse: return EndringType.AVSLUTT_DELTAKELSE
 		default: assertNever(type)
 	}
 }

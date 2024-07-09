@@ -36,8 +36,16 @@ function endringsDetaljer(endring: ForslagEndring) {
 				</>
 			)
 		}
+		case ForslagEndringType.AvsluttDeltakelse: {
+			return (
+				<>
+					<BodyShort size="small" weight="semibold" className={styles.endringTitle}>Avslutt deltakelse</BodyShort>
+					<BodyShort size="small">Årsak: {endringAarsakTekstMapper(endring.aarsak)}</BodyShort>
+					<BodyShort size="small">Ny sluttdato: {formatDate(endring.sluttdato)}</BodyShort>
+				</>
+			)
+		}
 		default:
-			assertNever(endring)
+			assertNever(endring.type)
 	}
-
 }
