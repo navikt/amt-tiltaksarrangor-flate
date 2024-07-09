@@ -8,16 +8,43 @@ export enum ForslagStatusType {
 
 export enum ForslagEndringType {
 	ForlengDeltakelse = 'ForlengDeltakelse',
+	IkkeAktuell = 'IkkeAktuell',
 }
 
+const Syk = z.object({ type: z.literal('Syk') })
+const FattJobb = z.object({ type: z.literal('FattJobb') })
+const TrengerAnnenStotte = z.object({ type: z.literal('TrengerAnnenStotte') })
+const FikkIkkePlass = z.object({ type: z.literal('FikkIkkePlass') })
+const Utdanning = z.object({ type: z.literal('Utdanning') })
+const IkkeMott = z.object({ type: z.literal('IkkeMott') })
+const Annet = z.object({
+	type: z.literal('Annet'),
+	beskrivelse: z.string(),
+})
+
+const endringAarsakSchema = z.discriminatedUnion('type', [
+	Syk,
+	FattJobb,
+	TrengerAnnenStotte,
+	FikkIkkePlass,
+	Utdanning,
+	IkkeMott,
+	Annet
+])
 
 const forlengDeltakelseSchema = z.object({
 	type: z.literal(ForslagEndringType.ForlengDeltakelse),
 	sluttdato: dateSchema,
 })
 
+const ikkeAktuellSchema = z.object({
+	type: z.literal(ForslagEndringType.IkkeAktuell),
+	aarsak: endringAarsakSchema,
+})
+
 const endringSchema = z.discriminatedUnion('type', [
 	forlengDeltakelseSchema,
+	ikkeAktuellSchema,
 ])
 
 const venterPaSvarSchema = z.object({
@@ -38,4 +65,5 @@ export const aktivtForslagSchema = z.object({
 
 export type AktivtForslag = z.infer<typeof aktivtForslagSchema>
 export type ForslagEndring = z.infer<typeof endringSchema>
+export type EndringAarsak = z.infer<typeof endringAarsakSchema>
 

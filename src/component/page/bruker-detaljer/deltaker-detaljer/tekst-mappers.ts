@@ -1,5 +1,6 @@
 import { Vurderingstype } from '../../../../api/data/deltaker'
 import { DeltakerStatusAarsakType } from '../../../../api/data/endringsmelding'
+import { EndringAarsak } from '../../../../api/data/forslag'
 import { EndringType } from './types'
 
 export const aarsakTekstMapper = (aarsakType: DeltakerStatusAarsakType) => {
@@ -11,6 +12,19 @@ export const aarsakTekstMapper = (aarsakType: DeltakerStatusAarsakType) => {
 		case DeltakerStatusAarsakType.UTDANNING: return 'Utdanning'
 		case DeltakerStatusAarsakType.ANNET: return 'Annet - fyll ut'
 		default: return 'Ukjent'
+	}
+}
+
+
+export const endringAarsakTekstMapper = (aarsak: EndringAarsak) => {
+	switch (aarsak.type) {
+		case 'Syk': return 'Syk'
+		case 'FattJobb': return 'Fått jobb'
+		case 'TrengerAnnenStotte': return 'Trenger annen hjelp og støtte'
+		case 'FikkIkkePlass': 'Fikk ikke plass'
+		case 'Utdanning': return 'Utdanning'
+		case 'IkkeMott': return 'Møter ikke opp'
+		case 'Annet': return 'Annet - fyll ut'
 	}
 }
 

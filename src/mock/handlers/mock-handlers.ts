@@ -19,7 +19,7 @@ import { MockTiltakDeltaker } from '../data/brukere'
 import { MockGjennomforing, deltakerlisteErKurs } from '../data/tiltak'
 import { mockTilgjengeligeVeiledere } from '../data/veileder'
 import { randomUuid } from '../utils/faker'
-import { AktivtForslag, ForslagEndring, ForslagEndringType, ForslagStatusType } from '../../api/data/forslag'
+import { AktivtForslag, EndringAarsak, ForslagEndring, ForslagEndringType, ForslagStatusType } from '../../api/data/forslag'
 
 export const mockHandlers: RequestHandler[] = [
 	rest.get(appUrl('/amt-tiltaksarrangor-bff/tiltaksarrangor/meg/roller'), (_req, res, ctx) => {
@@ -255,9 +255,30 @@ export const mockHandlers: RequestHandler[] = [
 		const deltakerId = req.params.deltakerId as string
 		const body = req.body as { sluttdato: string, begrunnelse: string }
 
-		const endring = {
+		const endring: ForslagEndring = {
 			type: ForslagEndringType.ForlengDeltakelse,
 			sluttdato: dayjs(body.sluttdato).toDate(),
+		}
+
+		const forslag = opprettAktivtForslag(
+			deltakerId,
+			endring,
+			body.begrunnelse,
+		)
+
+		if (!forslag) {
+			return res(ctx.delay(500), ctx.status(500))
+		}
+
+		return res(ctx.delay(500), ctx.status(200), ctx.json(forslag))
+	}),
+	rest.post(appUrl('/amt-tiltaksarrangor-bff/tiltaksarrangor/deltaker/:deltakerId/forslag/ikke-aktuell'), (req, res, ctx) => {
+		const deltakerId = req.params.deltakerId as string
+		const body = req.body as { aarsak: EndringAarsak, begrunnelse: string | null }
+
+		const endring: ForslagEndring = {
+			type: ForslagEndringType.IkkeAktuell,
+			aarsak: body.aarsak,
 		}
 
 		const forslag = opprettAktivtForslag(
