@@ -51,7 +51,7 @@ export const AvsluttDeltakelseModal = (props: AvsluttDeltakelseModalProps & Avsl
 		if (!sluttDato) {
 			return Promise.reject('Sluttdato er påkrevd for å sende AvsluttDeltakelse forslag')
 		}
-		return validerAarsakForm(aarsak, beskrivelse)
+		return validerAarsakForm(aarsak, beskrivelse, begrunnelse)
 			.then(validertForm => avsluttDeltakelseForslag(deltakerId, sluttDato, validertForm.forslag.aarsak, validertForm.forslag.begrunnelse))
 			.then(res => onForslagSendt(res.data))
 	}
