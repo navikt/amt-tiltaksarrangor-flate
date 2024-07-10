@@ -14,13 +14,14 @@ interface Props {
 
 export function ForslagEndringsdetaljer({ endring, begrunnelse, sendt }: Props) {
 	return <>
-		{endringsDetaljer(endring)}
-		<BodyLong size="small">Begrunnelse: {begrunnelse}</BodyLong>
+		<EndringsDetaljer endring={endring} />
+		{begrunnelse && <BodyLong size="small">Begrunnelse: {begrunnelse}</BodyLong>}
 		<Detail>Sendt: {formatDate(sendt)}</Detail>
 	</>
 }
 
-function endringsDetaljer(endring: ForslagEndring) {
+
+function EndringsDetaljer({ endring }: { readonly endring: ForslagEndring }) {
 	switch (endring.type) {
 		case ForslagEndringType.ForlengDeltakelse: return (
 			<div>
@@ -36,8 +37,16 @@ function endringsDetaljer(endring: ForslagEndring) {
 				</>
 			)
 		}
+		case ForslagEndringType.AvsluttDeltakelse: {
+			return (
+				<>
+					<BodyShort size="small" weight="semibold" className={styles.endringTitle}>Avslutt deltakelse</BodyShort>
+					<BodyShort size="small">Årsak: {endringAarsakTekstMapper(endring.aarsak)}</BodyShort>
+					<BodyShort size="small">Ny sluttdato: {formatDate(endring.sluttdato)}</BodyShort>
+				</>
+			)
+		}
 		default:
 			assertNever(endring)
 	}
-
 }

@@ -6,25 +6,24 @@ import { EndringAarsak, aktivtForslagSchema } from './data/forslag'
 
 
 export const forlengDeltakelseForslag = (deltakerId: string, sluttDato: Date, begrunnelse: string): AxiosPromise => {
-	const url = appUrl(`/amt-tiltaksarrangor-bff/tiltaksarrangor/deltaker/${deltakerId}/forslag/forleng`)
-	return axiosInstance
-		.post(
-			url,
-			{ sluttdato: formatDateToDateInputStr(sluttDato), begrunnelse: begrunnelse },
-		)
-		.then(parse(aktivtForslagSchema))
-		.catch(err => logAndThrowError(err, url))
+	return postForslag(deltakerId, 'forleng', { sluttdato: formatDateToDateInputStr(sluttDato), begrunnelse: begrunnelse })
 }
 
 export const ikkeAktuellForslag = (deltakerId: string, aarsak: EndringAarsak, begrunnelse?: string): AxiosPromise => {
-	const url = appUrl(`/amt-tiltaksarrangor-bff/tiltaksarrangor/deltaker/${deltakerId}/forslag/ikke-aktuell`)
-	return axiosInstance
-		.post(
-			url,
-			{ aarsak: aarsak, begrunnelse: begrunnelse ?? null },
-		)
-		.then(parse(aktivtForslagSchema))
-		.catch(err => logAndThrowError(err, url))
+	return postForslag(deltakerId, 'ikke-aktuell', { aarsak: aarsak, begrunnelse: begrunnelse ?? null })
+}
+
+export const avsluttDeltakelseForslag = (
+	deltakerId: string,
+	sluttdato: Date,
+	aarsak: EndringAarsak,
+	begrunnelse?: string
+): AxiosPromise => {
+	return postForslag(
+		deltakerId,
+		'avslutt',
+		{ sluttdato: formatDateToDateInputStr(sluttdato), aarsak: aarsak, begrunnelse: begrunnelse ?? null }
+	)
 }
 
 export const tilbakekallForslag = (deltakerId: string, forslagId: string): AxiosPromise => {
@@ -33,3 +32,15 @@ export const tilbakekallForslag = (deltakerId: string, forslagId: string): Axios
 		.post(url)
 		.catch(err => logAndThrowError(err, url))
 }
+
+function postForslag<T>(deltakerId: string, endepunkt: string, body: T): AxiosPromise {
+	const url = appUrl(`/amt-tiltaksarrangor-bff/tiltaksarrangor/deltaker/${deltakerId}/forslag/${endepunkt}`)
+	return axiosInstance
+		.post(
+			url,
+			body,
+		)
+		.then(parse(aktivtForslagSchema))
+		.catch(err => logAndThrowError(err, url))
+}
+

@@ -4,57 +4,56 @@ import { DeltakerStatusAarsakType } from '../../../../../api/data/endringsmeldin
 import { avsluttDeltakelse } from '../../../../../api/tiltak-api'
 import { maxDate } from '../../../../../utils/date-utils'
 import { Nullable } from '../../../../../utils/types/or-nothing'
-import { BaseModal } from '../../../../felles/base-modal/BaseModal'
 import { DateField } from '../../../../felles/DateField'
 import { AarsakSelector } from './AarsakSelector'
 import styles from './EndreOppstartModal.module.scss'
-import { SendTilNavKnapp } from './SendTilNavKnapp'
-import { VeilederConfirmationPanel } from './VeilederConfirmationPanel'
 import { useDeltakerlisteStore } from '../deltakerliste-store'
-import { aarsakTekstMapper } from '../tekst-mappers'
-import { BESKRIVELSE_MAKS_TEGN } from '../../../../../utils/endre-deltaker-utils'
+import { AktivtForslag } from '../../../../../api/data/forslag'
+import { useAarsakValidering, validerAarsakForm } from './validering/aarsakValidering'
+import { Endringsmodal } from './endringsmodal/Endringsmodal'
+import { avsluttDeltakelseForslag } from '../../../../../api/forslag-api'
 
 interface AvsluttDeltakelseModalProps {
 	onClose: () => void
 }
 
 export interface AvsluttDeltakelseModalDataProps {
-	deltakerId: string
-	startDato: Nullable<Date>
-	visGodkjennVilkaarPanel: boolean
-	onEndringUtfort: () => void
+	readonly deltakerId: string
+	readonly startDato: Nullable<Date>
+	readonly visGodkjennVilkaarPanel: boolean
+	readonly onEndringUtfort: () => void
+	readonly onForslagSendt: (forslag: AktivtForslag) => void
+	readonly erForslagEnabled: boolean
 }
 
 export const AvsluttDeltakelseModal = (props: AvsluttDeltakelseModalProps & AvsluttDeltakelseModalDataProps) => {
-	const { onClose, deltakerId, startDato, visGodkjennVilkaarPanel, onEndringUtfort } = props
+	const { onClose, deltakerId, startDato, visGodkjennVilkaarPanel, onEndringUtfort, onForslagSendt, erForslagEnabled } = props
 	const [ sluttDato, settSluttDato ] = useState<Nullable<Date>>()
 	const [ aarsak, settAarsak ] = useState<DeltakerStatusAarsakType>()
 	const [ beskrivelse, settBeskrivelse ] = useState<Nullable<string>>()
-	const [ vilkaarGodkjent, settVilkaarGodkjent ] = useState(false)
+	const [ begrunnelse, setBegrunnelse ] = useState<string>()
+
 	const { deltakerliste } = useDeltakerlisteStore()
+	const { validering } = useAarsakValidering(aarsak, beskrivelse, begrunnelse)
 
 	const minDato = maxDate(startDato, deltakerliste.startDato)
-	const kanSendeEndringsmelding =
-		aarsak === DeltakerStatusAarsakType.ANNET
-			? aarsak &&
-				(vilkaarGodkjent || !visGodkjennVilkaarPanel) &&
-				sluttDato &&
-				beskrivelse &&
-				beskrivelse.length <= BESKRIVELSE_MAKS_TEGN
-			: aarsak && (vilkaarGodkjent || !visGodkjennVilkaarPanel) && sluttDato
 
-	const sendEndring = () => {
-		if (!aarsak || !sluttDato) {
-			return Promise.reject('Årsak og sluttdato er påkrevd for å sende AvsluttDeltakelse endringsmelding')
+	const sendEndringsmelding = () => {
+		if (!sluttDato) {
+			return Promise.reject('Sluttdato er påkrevd for å sende AvsluttDeltakelse endringsmelding')
 		}
-		if (aarsak === DeltakerStatusAarsakType.ANNET && !beskrivelse) {
-			return Promise.reject(`Beskrivelse er påkrevd med årsak '${aarsakTekstMapper(aarsak)}''`)
+		return validerAarsakForm(aarsak, beskrivelse)
+			.then(validertForm => avsluttDeltakelse(deltakerId, sluttDato, validertForm.endringsmelding.aarsak))
+			.then(onEndringUtfort)
+	}
+
+	const sendForslag = () => {
+		if (!sluttDato) {
+			return Promise.reject('Sluttdato er påkrevd for å sende AvsluttDeltakelse forslag')
 		}
-		if (aarsak === DeltakerStatusAarsakType.ANNET && beskrivelse && beskrivelse?.length > 40) {
-			return Promise.reject(`Beskrivelse kan ikke være mer enn 40 tegn med årsak '${aarsakTekstMapper(aarsak)}'`)
-		}
-		const nyAarsak = { beskrivelse: beskrivelse ?? null, type: aarsak }
-		return avsluttDeltakelse(deltakerId, sluttDato, nyAarsak).then(onEndringUtfort)
+		return validerAarsakForm(aarsak, beskrivelse, begrunnelse)
+			.then(validertForm => avsluttDeltakelseForslag(deltakerId, sluttDato, validertForm.forslag.aarsak, validertForm.forslag.begrunnelse))
+			.then(res => onForslagSendt(res.data))
 	}
 
 	const onAarsakSelected = (nyAarsak: DeltakerStatusAarsakType, nyBeskrivelse: Nullable<string>) => {
@@ -63,7 +62,15 @@ export const AvsluttDeltakelseModal = (props: AvsluttDeltakelseModalProps & Avsl
 	}
 
 	return (
-		<BaseModal tittel="Avslutt deltakelse" onClose={onClose}>
+		<Endringsmodal
+			tittel="Avslutt deltakelse"
+			visGodkjennVilkaarPanel={visGodkjennVilkaarPanel}
+			erForslag={erForslagEnabled}
+			erSendKnappDisabled={!validering.isSuccess || !sluttDato}
+			onClose={onClose}
+			onSend={erForslagEnabled ? sendForslag : sendEndringsmelding}
+			onBegrunnelse={begrunnelse => { setBegrunnelse(begrunnelse) }}
+		>
 			<AarsakSelector
 				tittel="Hva er årsaken til avslutning?"
 				onAarsakSelected={onAarsakSelected}
@@ -76,10 +83,6 @@ export const AvsluttDeltakelseModal = (props: AvsluttDeltakelseModalProps & Avsl
 				max={deltakerliste.sluttDato}
 				onDateChanged={(d) => settSluttDato(d)}
 			/>
-			{visGodkjennVilkaarPanel && (
-				<VeilederConfirmationPanel vilkaarGodkjent={vilkaarGodkjent} setVilkaarGodkjent={settVilkaarGodkjent} />
-			)}
-			<SendTilNavKnapp onEndringSendt={onClose} sendEndring={sendEndring} disabled={!kanSendeEndringsmelding} />
-		</BaseModal>
+		</Endringsmodal>
 	)
 }
