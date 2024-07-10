@@ -14,13 +14,14 @@ interface Props {
 
 export function ForslagEndringsdetaljer({ endring, begrunnelse, sendt }: Props) {
 	return <>
-		{endringsDetaljer(endring)}
-		<BodyLong size="small">Begrunnelse: {begrunnelse}</BodyLong>
+		<EndringsDetaljer endring={endring} />
+		{begrunnelse && <BodyLong size="small">Begrunnelse: {begrunnelse}</BodyLong>}
 		<Detail>Sendt: {formatDate(sendt)}</Detail>
 	</>
 }
 
-function endringsDetaljer(endring: ForslagEndring) {
+
+function EndringsDetaljer({ endring }: { endring: ForslagEndring }) {
 	switch (endring.type) {
 		case ForslagEndringType.ForlengDeltakelse: return (
 			<div>
