@@ -21,7 +21,7 @@ export function ForslagEndringsdetaljer({ endring, begrunnelse, sendt }: Props) 
 }
 
 
-function EndringsDetaljer({ endring }: { endring: ForslagEndring }) {
+function EndringsDetaljer({ endring }: { readonly endring: ForslagEndring }) {
 	switch (endring.type) {
 		case ForslagEndringType.ForlengDeltakelse: return (
 			<div>
@@ -47,6 +47,6 @@ function EndringsDetaljer({ endring }: { endring: ForslagEndring }) {
 			)
 		}
 		default:
-			assertNever(endring.type)
+			assertNever(endring)
 	}
 }
