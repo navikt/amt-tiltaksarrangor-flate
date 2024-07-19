@@ -27,7 +27,6 @@ export const MineDeltakerlisterPage = (): React.ReactElement => {
 
   useEffect(() => {
     setTilbakeTilUrl(null)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   if (isRejected(fetchMineDeltakerlisterPromise)) {

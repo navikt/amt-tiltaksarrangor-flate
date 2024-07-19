@@ -567,9 +567,9 @@ const mapGjennomforingTilAdminDeltakerliste = (
   }
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function handlePostForslagRequest(
   endepunkt: string,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   getEndring: (body: any) => ForslagEndring
 ) {
   return rest.post(

@@ -49,9 +49,9 @@ type UsePromise<R = Error> = PromiseState<R> & {
   setPromise: Dispatch<SetStateAction<Promise<R> | undefined>>
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const usePromise = <R = Error>(
   func?: () => Promise<R>,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   dependencies?: any[]
 ): UsePromise<R> => {
   const isCanceledRef = useRef(false)

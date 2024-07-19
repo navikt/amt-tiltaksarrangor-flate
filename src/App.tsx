@@ -27,14 +27,12 @@ export const App = (): React.ReactElement => {
       setRoller(fetchMineRollerPromise.result.data)
       setIsLoggedIn(true)
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [fetchMineRollerPromise.result])
 
   useEffect(() => {
     if (roller && roller.find((x) => x == Rolle.KOORDINATOR)) {
       fetchDeltakerlister()
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [roller])
 
   return (

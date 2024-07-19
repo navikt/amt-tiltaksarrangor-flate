@@ -51,7 +51,6 @@ export const TildelVeilederModal = (props: Props): React.ReactElement => {
     if (isResolved(tilgjengeligeVeilederePromise)) {
       setTilgjengeligeVeiledere(tilgjengeligeVeilederePromise.result.data)
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [tilgjengeligeVeilederePromise.result])
 
   useEffect(() => {

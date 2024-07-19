@@ -48,7 +48,6 @@ export const DeltakerDetaljerAdresseBeskyttet = ({
         setTilbakeTilUrl(deltakerlisteDetaljerPageUrl(deltakerliste.id))
       }
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [deltakerliste.id, roller])
 
   return (

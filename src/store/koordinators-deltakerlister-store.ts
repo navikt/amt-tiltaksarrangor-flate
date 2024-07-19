@@ -21,7 +21,6 @@ export const [
     if (isResolved(fetchMineDeltakerlisterPromise)) {
       setKoordinatorsDeltakerlister(fetchMineDeltakerlisterPromise.result.data)
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [fetchMineDeltakerlisterPromise.result])
 
   return {

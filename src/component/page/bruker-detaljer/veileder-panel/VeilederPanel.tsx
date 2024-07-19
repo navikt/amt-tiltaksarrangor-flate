@@ -36,7 +36,6 @@ export const VeilederPanel = ({
     )
     setVeileder(deltakersVeiledere.find((v) => !v.erMedveileder))
     setMedveiledere(deltakersVeiledere.filter((v) => v.erMedveileder))
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [deltaker.veiledere])
 
   const handleSubmit = (veiledere: Veileder[]) => {

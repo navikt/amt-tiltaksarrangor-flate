@@ -30,7 +30,6 @@ export const DeltakerlisteDetaljerPage = (): React.ReactElement => {
 
   useEffect(() => {
     setTilbakeTilUrl(MINE_DELTAKERLISTER_PAGE_ROUTE)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   useTabTitle('Deltakerliste')

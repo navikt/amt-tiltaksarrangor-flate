@@ -49,7 +49,6 @@ export const AdministrerDeltakerlisterPage = () => {
 
   useEffect(() => {
     setTilbakeTilUrl(MINE_DELTAKERLISTER_PAGE_ROUTE)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   useEffect(() => {

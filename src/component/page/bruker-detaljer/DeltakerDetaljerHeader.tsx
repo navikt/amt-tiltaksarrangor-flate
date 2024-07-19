@@ -80,7 +80,6 @@ export const DeltakerDetaljerHeader = (
         setTilbakeTilUrl(deltakerlisteDetaljerPageUrl(deltakerlisteId))
       }
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [deltakerlisteId, roller])
 
   return (

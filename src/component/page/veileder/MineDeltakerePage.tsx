@@ -38,7 +38,6 @@ export const MineDeltakerePage = (): React.ReactElement => {
     } else {
       setTilbakeTilUrl(null)
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [roller])
 
   const fetchMineDeltakerePromise = usePromise<
