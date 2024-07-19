@@ -18,52 +18,58 @@ import { isNotStartedOrPending, isRejected } from '../../../utils/use-promise'
 import { SpinnerPage } from '../../felles/spinner-page/SpinnerPage'
 
 export const MineDeltakerlisterPage = (): React.ReactElement => {
-	const { setTilbakeTilUrl } = useTilbakelenkeStore()
-	const { roller } = useInnloggetBrukerStore()
-	const { koordinatorsDeltakerlister, fetchMineDeltakerlisterPromise } = useKoordinatorsDeltakerlisterStore()
+  const { setTilbakeTilUrl } = useTilbakelenkeStore()
+  const { roller } = useInnloggetBrukerStore()
+  const { koordinatorsDeltakerlister, fetchMineDeltakerlisterPromise } =
+    useKoordinatorsDeltakerlisterStore()
 
-	useTabTitle('Deltakeroversikt')
+  useTabTitle('Deltakeroversikt')
 
-	useEffect(() => {
-		setTilbakeTilUrl(null)
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [])
+  useEffect(() => {
+    setTilbakeTilUrl(null)
+  }, [])
 
-	if (isRejected(fetchMineDeltakerlisterPromise)) {
-		return <AlertPage variant="error" tekst="Noe gikk galt" />
-	}
-	if (isNotStartedOrPending(fetchMineDeltakerlisterPromise)) {
-		return <SpinnerPage />
-	}
+  if (isRejected(fetchMineDeltakerlisterPromise)) {
+    return <AlertPage variant="error" tekst="Noe gikk galt" />
+  }
+  if (isNotStartedOrPending(fetchMineDeltakerlisterPromise)) {
+    return <SpinnerPage />
+  }
 
-	if (koordinatorsDeltakerlister && koordinatorsDeltakerlister.koordinatorFor) {
-		return (
-			<div className={styles.page} data-testid="gjennomforing-oversikt-page">
-				{isVeileder(roller) && koordinatorsDeltakerlister.veilederFor && (
-					<MineDeltakerePanel veileder={koordinatorsDeltakerlister.veilederFor} />
-				)}
-				<DeltakerListe deltakerliste={koordinatorsDeltakerlister.koordinatorFor.deltakerlister} />
+  if (koordinatorsDeltakerlister && koordinatorsDeltakerlister.koordinatorFor) {
+    return (
+      <div className={styles.page} data-testid="gjennomforing-oversikt-page">
+        {isVeileder(roller) && koordinatorsDeltakerlister.veilederFor && (
+          <MineDeltakerePanel
+            veileder={koordinatorsDeltakerlister.veilederFor}
+          />
+        )}
+        <DeltakerListe
+          deltakerliste={
+            koordinatorsDeltakerlister.koordinatorFor.deltakerlister
+          }
+        />
 
-				<IkonLenke
-					to={LEGG_TIL_DELTAKERLISTE_PAGE_ROUTE}
-					className={styles.leggTilDeltakerlisteWrapper}
-					ikon={<PlusIcon />}
-					text="Legg til deltakerliste"
-				/>
+        <IkonLenke
+          to={LEGG_TIL_DELTAKERLISTE_PAGE_ROUTE}
+          className={styles.leggTilDeltakerlisteWrapper}
+          ikon={<PlusIcon />}
+          text="Legg til deltakerliste"
+        />
 
-				<Link
-					href="https://www.nav.no/samarbeidspartner/deltakeroversikt"
-					className={styles.informasjonLenkeWrapper}
-				>
-					<BodyShort>Info om deltakeroversikten</BodyShort>
-				</Link>
-			</div>
-		)
-	} else {
-		return (
-			<Alert variant="info" className={globalStyles.blokkM}>
-				For å se deltakere må du legge til en deltakerliste.
-			</Alert>
-		)
-	}
+        <Link
+          href="https://www.nav.no/samarbeidspartner/deltakeroversikt"
+          className={styles.informasjonLenkeWrapper}
+        >
+          <BodyShort>Info om deltakeroversikten</BodyShort>
+        </Link>
+      </div>
+    )
+  } else {
+    return (
+      <Alert variant="info" className={globalStyles.blokkM}>
+        For å se deltakere må du legge til en deltakerliste.
+      </Alert>
+    )
+  }
 }

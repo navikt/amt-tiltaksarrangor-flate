@@ -5,16 +5,16 @@ import { DeltakerStatusAarsakType } from '../../../../../api/data/endringsmeldin
 import { aarsakTekstMapper } from '../tekst-mappers'
 
 interface AarsakRadioProps {
-	aarsakType: DeltakerStatusAarsakType
-	children?: ReactElement
+  aarsakType: DeltakerStatusAarsakType
+  children?: ReactElement
 }
 
 export const AarsakRadio = ({ aarsakType, children }: AarsakRadioProps) => {
-	const tekst = aarsakTekstMapper(aarsakType)
-	return (
-		<Radio value={aarsakType}>
-			{tekst}
-			{children}
-		</Radio>
-	)
+  const tekst = aarsakTekstMapper(aarsakType)
+  return (
+    <Radio value={aarsakType}>
+      {tekst}
+      {children}
+    </Radio>
+  )
 }

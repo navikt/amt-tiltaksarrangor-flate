@@ -4,16 +4,17 @@ import { hentFodselsdato, hentPersonnummer } from '../../../utils/bruker-utils'
 import styles from './Fnr.module.scss'
 
 interface FnrProps {
-	fnr: string
+  fnr: string
 }
 
 export const Fnr = (props: FnrProps): React.ReactElement => {
-	const fodselsdato = hentFodselsdato(props.fnr)
-	const personnummer = hentPersonnummer(props.fnr)
+  const fodselsdato = hentFodselsdato(props.fnr)
+  const personnummer = hentPersonnummer(props.fnr)
 
-	return (
-		<>
-			<span className={styles.fodselsdato}>{fodselsdato}</span><span>{personnummer}</span>
-		</>
-	)
+  return (
+    <>
+      <span className={styles.fodselsdato}>{fodselsdato}</span>
+      <span>{personnummer}</span>
+    </>
+  )
 }

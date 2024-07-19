@@ -9,24 +9,32 @@ import { forwardRequest } from '../utils/request-utils'
 import { joinUrlAndPath } from '../utils/url-utils'
 
 export const localAppHandlers: RequestHandler[] = [
-	rest.all(appUrl('/amt-tiltaksarrangor-bff/*'), async(req, res, ctx) => {
-		return handleReq(localAmtTiltakUrl(), req, res, ctx)
-	})
+  rest.all(appUrl('/amt-tiltaksarrangor-bff/*'), async (req, res, ctx) => {
+    return handleReq(localAmtTiltakUrl(), req, res, ctx)
+  })
 ]
 
 const stripContextPath = (path: string, contextPath: string): string => {
-	if (path.startsWith(contextPath)) {
-		return path.substring(contextPath.length, path.length)
-	}
+  if (path.startsWith(contextPath)) {
+    return path.substring(contextPath.length, path.length)
+  }
 
-	return path
+  return path
 }
 
-const handleReq = async(proxyUrl: string, req: RestRequest, res: ResponseComposition, ctx: RestContext): Promise<MockedResponse> => {
-	const reqPath = stripContextPath(req.url.pathname, `${environment.baseUrl}amt-tiltaksarrangor-bff`)
-	const proxiedUrl = `${joinUrlAndPath(proxyUrl, reqPath)}${req.url.search}`
+const handleReq = async (
+  proxyUrl: string,
+  req: RestRequest,
+  res: ResponseComposition,
+  ctx: RestContext
+): Promise<MockedResponse> => {
+  const reqPath = stripContextPath(
+    req.url.pathname,
+    `${environment.baseUrl}amt-tiltaksarrangor-bff`
+  )
+  const proxiedUrl = `${joinUrlAndPath(proxyUrl, reqPath)}${req.url.search}`
 
-	req.headers.append('Authorization', getRequestAuthHeader())
+  req.headers.append('Authorization', getRequestAuthHeader())
 
-	return forwardRequest(proxiedUrl, req, res, ctx)
+  return forwardRequest(proxiedUrl, req, res, ctx)
 }

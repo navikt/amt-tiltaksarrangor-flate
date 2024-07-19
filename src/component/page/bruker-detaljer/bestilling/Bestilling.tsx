@@ -8,47 +8,47 @@ import { Show } from '../../../felles/Show'
 import styles from './Bestilling.module.scss'
 
 interface BestillingProps {
-	tekst: Nullable<string>
+  tekst: Nullable<string>
 }
 
 const MAX_LENGTH = 350
 
 export const Bestilling = (props: BestillingProps) => {
-	const [ showAll, setShowAll ] = useState(false)
+  const [showAll, setShowAll] = useState(false)
 
-	const erBestillingOverMax = (props.tekst?.length || 0) > MAX_LENGTH
-	let bestillingTekst = props.tekst || EMDASH
+  const erBestillingOverMax = (props.tekst?.length || 0) > MAX_LENGTH
+  let bestillingTekst = props.tekst || EMDASH
 
-	if (!showAll && erBestillingOverMax) {
-		bestillingTekst = bestillingTekst.substring(0, MAX_LENGTH) + '...'
-	}
+  if (!showAll && erBestillingOverMax) {
+    bestillingTekst = bestillingTekst.substring(0, MAX_LENGTH) + '...'
+  }
 
-	const toggleShowAll = () => {
-		setShowAll((prevShowAll) => !prevShowAll)
-	}
+  const toggleShowAll = () => {
+    setShowAll((prevShowAll) => !prevShowAll)
+  }
 
-	return (
-		<div className={styles.wrapper}>
-			<Label size="small" as="p">
-				Bestilling
-			</Label>
+  return (
+    <div className={styles.wrapper}>
+      <Label size="small" as="p">
+        Bestilling
+      </Label>
 
-			<BodyLong size="small" className={styles.tekst}>
-				{bestillingTekst}
-			</BodyLong>
+      <BodyLong size="small" className={styles.tekst}>
+        {bestillingTekst}
+      </BodyLong>
 
-			<Show if={erBestillingOverMax}>
-				{showAll && (
-					<button className={styles.toggleKnapp} onClick={toggleShowAll}>
-						Skjul <ChevronUpIcon />
-					</button>
-				)}
-				{!showAll && (
-					<button className={styles.toggleKnapp} onClick={toggleShowAll}>
-						Les mer <ChevronDownIcon />
-					</button>
-				)}
-			</Show>
-		</div>
-	)
+      <Show if={erBestillingOverMax}>
+        {showAll && (
+          <button className={styles.toggleKnapp} onClick={toggleShowAll}>
+            Skjul <ChevronUpIcon />
+          </button>
+        )}
+        {!showAll && (
+          <button className={styles.toggleKnapp} onClick={toggleShowAll}>
+            Les mer <ChevronDownIcon />
+          </button>
+        )}
+      </Show>
+    </div>
+  )
 }

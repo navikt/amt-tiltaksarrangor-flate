@@ -3,65 +3,66 @@ import { z } from 'zod'
 import { nullableDateSchema } from '../utils'
 
 export enum Tiltakskode {
-	ARBFORB = 'ARBFORB',
-	ARBRRHDAG = 'ARBRRHDAG',
-	AVKLARAG = 'AVKLARAG',
-	INDOPPFAG = 'INDOPPFAG',
-	DIGIOPPARB = 'DIGIOPPARB',
-	GRUFAGYRKE = 'GRUFAGYRKE',
-	GRUPPEAMO = 'GRUPPEAMO',
-	JOBBK = 'JOBBK',
-	VASV = 'VASV',
+  ARBFORB = 'ARBFORB',
+  ARBRRHDAG = 'ARBRRHDAG',
+  AVKLARAG = 'AVKLARAG',
+  INDOPPFAG = 'INDOPPFAG',
+  DIGIOPPARB = 'DIGIOPPARB',
+  GRUFAGYRKE = 'GRUFAGYRKE',
+  GRUPPEAMO = 'GRUPPEAMO',
+  JOBBK = 'JOBBK',
+  VASV = 'VASV'
 }
-
 
 export enum TiltakGjennomforingStatus {
-	PLANLAGT = 'PLANLAGT',
-	GJENNOMFORES = 'GJENNOMFORES',
-	AVSLUTTET = 'AVSLUTTET'
+  PLANLAGT = 'PLANLAGT',
+  GJENNOMFORES = 'GJENNOMFORES',
+  AVSLUTTET = 'AVSLUTTET'
 }
 
-export const tiltakGjennomforingStatusSchema = z.nativeEnum(TiltakGjennomforingStatus)
+export const tiltakGjennomforingStatusSchema = z.nativeEnum(
+  TiltakGjennomforingStatus
+)
 
 export const tiltakstypeSchema = z.nativeEnum(Tiltakskode)
 
 export const tiltakSchema = z.object({
-	tiltakskode: tiltakstypeSchema,
-	tiltaksnavn: z.string(),
+  tiltakskode: tiltakstypeSchema,
+  tiltaksnavn: z.string()
 })
 
 export const arrangorSchema = z.object({
-	virksomhetNavn: z.string(),
-	virksomhetOrgnr: z.string(),
-	organisasjonNavn: z.string().nullable()
+  virksomhetNavn: z.string(),
+  virksomhetOrgnr: z.string(),
+  organisasjonNavn: z.string().nullable()
 })
 
 export const gjennomforingSchema = z.object({
-	id: z.string(),
-	navn: z.string(),
-	startDato: nullableDateSchema,
-	sluttDato: nullableDateSchema,
-	status: tiltakGjennomforingStatusSchema,
-	tiltak: tiltakSchema,
-	arrangor: arrangorSchema
+  id: z.string(),
+  navn: z.string(),
+  startDato: nullableDateSchema,
+  sluttDato: nullableDateSchema,
+  status: tiltakGjennomforingStatusSchema,
+  tiltak: tiltakSchema,
+  arrangor: arrangorSchema
 })
 
 export const adminDeltakerlisteSchema = z.object({
-	id: z.string(),
-	navn: z.string(),
-	tiltaksnavn: z.string(),
-	arrangorNavn: z.string(),
-	arrangorOrgnummer: z.string(),
-	arrangorParentNavn: z.string(),
-	startDato: nullableDateSchema,
-	sluttDato: nullableDateSchema,
-	lagtTil: z.boolean()
+  id: z.string(),
+  navn: z.string(),
+  tiltaksnavn: z.string(),
+  arrangorNavn: z.string(),
+  arrangorOrgnummer: z.string(),
+  arrangorParentNavn: z.string(),
+  startDato: nullableDateSchema,
+  sluttDato: nullableDateSchema,
+  lagtTil: z.boolean()
 })
 
 export const koordinatorSchema = z.object({
-	fornavn: z.string(),
-	mellomnavn: z.string().nullable(),
-	etternavn: z.string()
+  fornavn: z.string(),
+  mellomnavn: z.string().nullable(),
+  etternavn: z.string()
 })
 
 export const koordinatorListSchema = z.array(koordinatorSchema)

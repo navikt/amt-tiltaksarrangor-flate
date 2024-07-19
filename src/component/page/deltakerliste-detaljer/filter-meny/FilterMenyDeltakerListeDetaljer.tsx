@@ -10,28 +10,33 @@ import { FilterMenyChips } from './FilterMenyChips'
 import { useKoordinatorFilterMenyStore } from '../store/koordinator-filter-meny-store-provider'
 
 interface Props {
-	deltakerliste: KoordinatorsDeltakerliste
+  deltakerliste: KoordinatorsDeltakerliste
 }
 
-export const FilterMenyDeltakerListeDetaljer: React.FC<Props> = ({ deltakerliste }) => {
-	const { fjernUgyldigeFilter } = useKoordinatorFilterMenyStore()
+export const FilterMenyDeltakerListeDetaljer: React.FC<Props> = ({
+  deltakerliste
+}) => {
+  const { fjernUgyldigeFilter } = useKoordinatorFilterMenyStore()
 
-	useLayoutEffect(() => {
-		fjernUgyldigeFilter(deltakerliste.deltakere)
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [ deltakerliste.deltakere ])
+  useLayoutEffect(() => {
+    fjernUgyldigeFilter(deltakerliste.deltakere)
+  }, [deltakerliste.deltakere])
 
-	return (
-		<div>
-			<Heading size="small" level="3" className={globalStyles.screenReaderOnly}>
-				Filtrer deltakerliste
-			</Heading>
-			<FilterMenyChips deltakere={deltakerliste.deltakere} />
+  return (
+    <div>
+      <Heading size="small" level="3" className={globalStyles.screenReaderOnly}>
+        Filtrer deltakerliste
+      </Heading>
+      <FilterMenyChips deltakere={deltakerliste.deltakere} />
 
-			<FilterMenyStatus erKurs={ deltakerliste.erKurs } tiltakType={ deltakerliste.tiltakType } deltakere={deltakerliste.deltakere} />
-			<FilterMenyVeiledere deltakere={deltakerliste.deltakere} />
-			<FilterMenyMedveileder deltakere={deltakerliste.deltakere} />
-			<FilterMenyNavKontor deltakere={deltakerliste.deltakere} />
-		</div>
-	)
+      <FilterMenyStatus
+        erKurs={deltakerliste.erKurs}
+        tiltakType={deltakerliste.tiltakType}
+        deltakere={deltakerliste.deltakere}
+      />
+      <FilterMenyVeiledere deltakere={deltakerliste.deltakere} />
+      <FilterMenyMedveileder deltakere={deltakerliste.deltakere} />
+      <FilterMenyNavKontor deltakere={deltakerliste.deltakere} />
+    </div>
+  )
 }
