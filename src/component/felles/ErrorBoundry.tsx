@@ -1,42 +1,44 @@
 import React from 'react'
 
 interface ErrorBoundryProps {
-	children: React.ReactNode;
-	renderOnError: React.ReactNode | ((error: Error) => React.ReactNode);
+  children: React.ReactNode
+  renderOnError: React.ReactNode | ((error: Error) => React.ReactNode)
 }
 
-type ErrorBoundryState = WithErrorState | WithoutErrorState;
+type ErrorBoundryState = WithErrorState | WithoutErrorState
 
 interface WithErrorState {
-	error: Error;
-	hasError: true;
+  error: Error
+  hasError: true
 }
 
 interface WithoutErrorState {
-	error: undefined;
-	hasError: false;
+  error: undefined
+  hasError: false
 }
 
-export class ErrorBoundary extends React.Component<ErrorBoundryProps, ErrorBoundryState> {
+export class ErrorBoundary extends React.Component<
+  ErrorBoundryProps,
+  ErrorBoundryState
+> {
+  constructor(props: ErrorBoundryProps) {
+    super(props)
+    this.state = { error: undefined, hasError: false }
+  }
 
-	constructor(props: ErrorBoundryProps) {
-		super(props)
-		this.state = { error: undefined, hasError: false }
-	}
+  static getDerivedStateFromError(error: Error): ErrorBoundryState {
+    return { error, hasError: true }
+  }
 
-	static getDerivedStateFromError(error: Error): ErrorBoundryState {
-		return { error, hasError: true }
-	}
+  render(): React.ReactNode {
+    if (this.state.hasError) {
+      if (typeof this.props.renderOnError === 'function') {
+        return this.props.renderOnError(this.state.error)
+      } else {
+        return this.props.renderOnError
+      }
+    }
 
-	render(): React.ReactNode {
-		if (this.state.hasError) {
-			if (typeof this.props.renderOnError === 'function') {
-				return this.props.renderOnError(this.state.error)
-			} else {
-				return this.props.renderOnError
-			}
-		}
-
-		return this.props.children
-	}
+    return this.props.children
+  }
 }

@@ -11,38 +11,59 @@ import { IngenDeltakereAlertstripe } from './IngenDeltakereAlertstripe'
 import { useKoordinatorFilterMenyStore } from '../store/koordinator-filter-meny-store-provider'
 
 interface DeltakerOversiktTabellProps {
-	deltakere: TiltakDeltaker[]
+  deltakere: TiltakDeltaker[]
 }
 
-export const DeltakerOversiktTabell = (props: DeltakerOversiktTabellProps): React.ReactElement<DeltakerOversiktTabellProps> => {
-	const { deltakere } = props
-	const { filtrerDeltakere, veilederFilter, medveilederFilter, statusFilter } = useKoordinatorFilterMenyStore()
-	const { deltakerSortering, setDeltakerSortering } = useTiltaksoversiktSokStore()
-	const [ deltakereBearbeidet, setDeltakereBearbeidet ] = useState<TiltakDeltaker[]>(sorterDeltakere(deltakere, deltakerSortering))
+export const DeltakerOversiktTabell = (
+  props: DeltakerOversiktTabellProps
+): React.ReactElement<DeltakerOversiktTabellProps> => {
+  const { deltakere } = props
+  const { filtrerDeltakere, veilederFilter, medveilederFilter, statusFilter } =
+    useKoordinatorFilterMenyStore()
+  const { deltakerSortering, setDeltakerSortering } =
+    useTiltaksoversiktSokStore()
+  const [deltakereBearbeidet, setDeltakereBearbeidet] = useState<
+    TiltakDeltaker[]
+  >(sorterDeltakere(deltakere, deltakerSortering))
 
-	useEffect(() => {
-		if (!deltakere) return
-		const filtrerteDeltakere = filtrerDeltakere(deltakere)
-		const sortert = sorterDeltakere(filtrerteDeltakere, deltakerSortering)
-		setDeltakereBearbeidet(sortert)
-	}, [ deltakere, filtrerDeltakere, deltakerSortering, veilederFilter, medveilederFilter, statusFilter ])
+  useEffect(() => {
+    if (!deltakere) return
+    const filtrerteDeltakere = filtrerDeltakere(deltakere)
+    const sortert = sorterDeltakere(filtrerteDeltakere, deltakerSortering)
+    setDeltakereBearbeidet(sortert)
+  }, [
+    deltakere,
+    filtrerDeltakere,
+    deltakerSortering,
+    veilederFilter,
+    medveilederFilter,
+    statusFilter
+  ])
 
-	const handleOnSortChange = (sortKey: string | undefined) => {
-		setDeltakerSortering(prevSort => finnNesteSortering(sortKey, prevSort))
-	}
+  const handleOnSortChange = (sortKey: string | undefined) => {
+    setDeltakerSortering((prevSort) => finnNesteSortering(sortKey, prevSort))
+  }
 
-	return (
-		<div className={styles.tableWrapper}>
-			{deltakere.length === 0
-				? <IngenDeltakereAlertstripe/>
-				: (
-					<>
-						<DeltakerTabell deltakere={deltakereBearbeidet} sortering={deltakerSortering} onSortChange={handleOnSortChange} />
-						<div aria-live="polite" aria-atomic="true" className={globalStyles.screenReaderOnly}>
-						Viser {deltakereBearbeidet.length} av {deltakere.length} deltakere.
-						</div>
-					</>
-				)}
-		</div>
-	)
+  return (
+    <div className={styles.tableWrapper}>
+      {deltakere.length === 0 ? (
+        <IngenDeltakereAlertstripe />
+      ) : (
+        <>
+          <DeltakerTabell
+            deltakere={deltakereBearbeidet}
+            sortering={deltakerSortering}
+            onSortChange={handleOnSortChange}
+          />
+          <div
+            aria-live="polite"
+            aria-atomic="true"
+            className={globalStyles.screenReaderOnly}
+          >
+            Viser {deltakereBearbeidet.length} av {deltakere.length} deltakere.
+          </div>
+        </>
+      )}
+    </div>
+  )
 }

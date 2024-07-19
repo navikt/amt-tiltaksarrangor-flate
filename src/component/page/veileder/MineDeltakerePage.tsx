@@ -1,7 +1,11 @@
 import React, { useEffect } from 'react'
 import { useTabTitle } from '../../../hooks/use-tab-title'
 import { fetchMineDeltakere } from '../../../api/tiltak-api'
-import { isNotStartedOrPending, isRejected, usePromise } from '../../../utils/use-promise'
+import {
+  isNotStartedOrPending,
+  isRejected,
+  usePromise
+} from '../../../utils/use-promise'
 import { AxiosResponse } from 'axios'
 import { VeiledersDeltaker } from '../../../api/data/deltaker'
 import { SpinnerPage } from '../../felles/spinner-page/SpinnerPage'
@@ -21,56 +25,70 @@ import { FilterMenyDeltakerliste } from './filter-meny/FilterMenyDeltakerliste'
 import { FilterMenyChips } from './filter-meny/FilterMenyChips'
 
 export const MineDeltakerePage = (): React.ReactElement => {
-	const { setTilbakeTilUrl } = useTilbakelenkeStore()
-	const { roller } = useInnloggetBrukerStore()
+  const { setTilbakeTilUrl } = useTilbakelenkeStore()
+  const { roller } = useInnloggetBrukerStore()
 
-	useTabTitle('Mine deltakere')
+  useTabTitle('Mine deltakere')
 
-	useStyle(globalStyles.whiteBackground, 'html')
+  useStyle(globalStyles.whiteBackground, 'html')
 
-	useEffect(() => {
-		if (isKoordinatorAndVeileder(roller)) {
-			setTilbakeTilUrl(MINE_DELTAKERLISTER_PAGE_ROUTE)
-		} else {
-			setTilbakeTilUrl(null)
-		}
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [ roller ])
+  useEffect(() => {
+    if (isKoordinatorAndVeileder(roller)) {
+      setTilbakeTilUrl(MINE_DELTAKERLISTER_PAGE_ROUTE)
+    } else {
+      setTilbakeTilUrl(null)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [roller])
 
-	const fetchMineDeltakerePromise = usePromise<AxiosResponse<VeiledersDeltaker[]>>(
-		() => fetchMineDeltakere()
-	)
+  const fetchMineDeltakerePromise = usePromise<
+    AxiosResponse<VeiledersDeltaker[]>
+  >(() => fetchMineDeltakere())
 
-	if (isNotStartedOrPending(fetchMineDeltakerePromise)) {
-		return <SpinnerPage/>
-	}
+  if (isNotStartedOrPending(fetchMineDeltakerePromise)) {
+    return <SpinnerPage />
+  }
 
-	if (isRejected(fetchMineDeltakerePromise)) {
-		return <AlertPage variant="error" tekst="Noe gikk galt"/>
-	}
+  if (isRejected(fetchMineDeltakerePromise)) {
+    return <AlertPage variant="error" tekst="Noe gikk galt" />
+  }
 
-	const mineDeltakere = fetchMineDeltakerePromise.result.data
+  const mineDeltakere = fetchMineDeltakerePromise.result.data
 
-	const showDeltakerlisteFilter = mineDeltakere
-		.map((deltaker) => deltaker.deltakerliste.id)
-		.filter((item, i, ar) => ar.indexOf(item) === i)
-		.length > 1
+  const showDeltakerlisteFilter =
+    mineDeltakere
+      .map((deltaker) => deltaker.deltakerliste.id)
+      .filter((item, i, ar) => ar.indexOf(item) === i).length > 1
 
-	return (
-		<div className={styles.deltakerlisteVeileder} data-testid="deltakerliste-veileder-page">
-			<section className={styles.infoSection}>
-				<Detail><b>Veileder:</b></Detail>
-				<Heading size="medium" level="2" className={globalStyles.blokkXs}>Mine deltakere</Heading>
+  return (
+    <div
+      className={styles.deltakerlisteVeileder}
+      data-testid="deltakerliste-veileder-page"
+    >
+      <section className={styles.infoSection}>
+        <Detail>
+          <b>Veileder:</b>
+        </Detail>
+        <Heading size="medium" level="2" className={globalStyles.blokkXs}>
+          Mine deltakere
+        </Heading>
 
-				<Heading size="small" level="3" className={globalStyles.screenReaderOnly}>Filtrer mine deltakere liste</Heading>
-				<FilterMenyChips />
+        <Heading
+          size="small"
+          level="3"
+          className={globalStyles.screenReaderOnly}
+        >
+          Filtrer mine deltakere liste
+        </Heading>
+        <FilterMenyChips />
 
-				<FilterMenyStatus deltakere={mineDeltakere}/>
-				{showDeltakerlisteFilter &&
-					<FilterMenyDeltakerliste deltakere={mineDeltakere}/>}
-				<FilterMenyVeilederType deltakere={mineDeltakere}/>
-			</section>
-			<MineDeltakereTabell mineDeltakere={mineDeltakere}/>
-		</div>
-	)
+        <FilterMenyStatus deltakere={mineDeltakere} />
+        {showDeltakerlisteFilter && (
+          <FilterMenyDeltakerliste deltakere={mineDeltakere} />
+        )}
+        <FilterMenyVeilederType deltakere={mineDeltakere} />
+      </section>
+      <MineDeltakereTabell mineDeltakere={mineDeltakere} />
+    </div>
+  )
 }

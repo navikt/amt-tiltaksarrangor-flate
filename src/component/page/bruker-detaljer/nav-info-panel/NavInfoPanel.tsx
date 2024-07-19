@@ -9,20 +9,27 @@ import { IconLabel } from '../icon-label/IconLabel'
 import styles from './NavInfoPanel.module.scss'
 import { NavInfoVeileder } from './NavInfoVeileder'
 
-export function NavInfoPanel(props: { navkontor: string | null; navVeileder: NavVeileder | null }): React.ReactElement {
-	const { navkontor, navVeileder } = props
+export function NavInfoPanel(props: {
+  navkontor: string | null
+  navVeileder: NavVeileder | null
+}): React.ReactElement {
+  const { navkontor, navVeileder } = props
 
-	return (
-		<Panel border className={styles.infoPanel}>
-			<Heading size="xsmall" level="3" className={globalStyles.blokkXs}>
-				NAV-kontor
-			</Heading>
+  return (
+    <Panel border className={styles.infoPanel}>
+      <Heading size="xsmall" level="3" className={globalStyles.blokkXs}>
+        NAV-kontor
+      </Heading>
 
-			<div className={cls(styles.contentBlock, globalStyles.blokkM)}>
-				<IconLabel labelValue={navkontor} icon={<Buldings3Icon title="Nav-kontor" />} iconWrapperClassName={styles.iconWrapper} />
-			</div>
+      <div className={cls(styles.contentBlock, globalStyles.blokkM)}>
+        <IconLabel
+          labelValue={navkontor}
+          icon={<Buldings3Icon title="Nav-kontor" />}
+          iconWrapperClassName={styles.iconWrapper}
+        />
+      </div>
 
-			<NavInfoVeileder veileder={navVeileder} />
-		</Panel>
-	)
+      <NavInfoVeileder veileder={navVeileder} />
+    </Panel>
+  )
 }

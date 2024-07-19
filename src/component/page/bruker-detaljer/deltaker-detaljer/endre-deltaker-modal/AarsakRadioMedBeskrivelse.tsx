@@ -8,50 +8,50 @@ import { Nullable } from '../../../../../utils/types/or-nothing'
 import { BESKRIVELSE_MAKS_TEGN } from '../../../../../utils/endre-deltaker-utils'
 
 interface AarsakRadioMedBeskrivelseProps {
-	aarsakType: DeltakerStatusAarsakType
-	valgtAarsak: DeltakerStatusAarsakType | undefined
-	onBeskrivelse: (beskrivelse: Nullable<string>) => void
+  aarsakType: DeltakerStatusAarsakType
+  valgtAarsak: DeltakerStatusAarsakType | undefined
+  onBeskrivelse: (beskrivelse: Nullable<string>) => void
 }
 
 export const AarsakRadioMedBeskrivelse = ({
-	aarsakType,
-	valgtAarsak,
-	onBeskrivelse
+  aarsakType,
+  valgtAarsak,
+  onBeskrivelse
 }: AarsakRadioMedBeskrivelseProps) => {
-	const [ beskrivelse, settBeskrivelse ] = useState<Nullable<string>>()
-	const detailId = useId()
-	const visBeskrivelse = valgtAarsak === aarsakType
+  const [beskrivelse, settBeskrivelse] = useState<Nullable<string>>()
+  const detailId = useId()
+  const visBeskrivelse = valgtAarsak === aarsakType
 
-	const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-		const nyBeskrivelse = e.target.value
-		settBeskrivelse(nyBeskrivelse)
-		onBeskrivelse(nyBeskrivelse)
-	}
+  const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const nyBeskrivelse = e.target.value
+    settBeskrivelse(nyBeskrivelse)
+    onBeskrivelse(nyBeskrivelse)
+  }
 
-	useEffect(() => {
-		if (valgtAarsak === aarsakType) {
-			onBeskrivelse(beskrivelse)
-		}
-	}, [ aarsakType, beskrivelse, onBeskrivelse, valgtAarsak ])
+  useEffect(() => {
+    if (valgtAarsak === aarsakType) {
+      onBeskrivelse(beskrivelse)
+    }
+  }, [aarsakType, beskrivelse, onBeskrivelse, valgtAarsak])
 
-	return (
-		<AarsakRadio aarsakType={aarsakType}>
-			{visBeskrivelse ? (
-				<Textarea
-					onChange={handleChange}
-					value={beskrivelse ?? ''}
-					minRows={1}
-					rows={1}
-					size="small"
-					label={null}
-					maxLength={BESKRIVELSE_MAKS_TEGN}
-					className={styles.tekstboks}
-					aria-label={aarsakTekstMapper(aarsakType)}
-					aria-describedby={detailId}
-				/>
-			) : (
-				<></>
-			)}
-		</AarsakRadio>
-	)
+  return (
+    <AarsakRadio aarsakType={aarsakType}>
+      {visBeskrivelse ? (
+        <Textarea
+          onChange={handleChange}
+          value={beskrivelse ?? ''}
+          minRows={1}
+          rows={1}
+          size="small"
+          label={null}
+          maxLength={BESKRIVELSE_MAKS_TEGN}
+          className={styles.tekstboks}
+          aria-label={aarsakTekstMapper(aarsakType)}
+          aria-describedby={detailId}
+        />
+      ) : (
+        <></>
+      )}
+    </AarsakRadio>
+  )
 }

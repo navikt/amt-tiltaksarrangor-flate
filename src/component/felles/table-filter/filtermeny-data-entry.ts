@@ -1,5 +1,5 @@
 export interface FiltermenyDataEntry {
-    id: string,
-    displayName: string,
-    antallDeltakere: number
+  id: string
+  displayName: string
+  antallDeltakere: number
 }

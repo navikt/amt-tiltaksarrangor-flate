@@ -2,10 +2,18 @@ import { Alert, BodyShort, Heading } from '@navikt/ds-react'
 import globalStyles from '../../../globals.module.scss'
 import styles from './AdministrerDeltakerlisterPage.module.scss'
 import React, { useEffect, useState } from 'react'
-import { isNotStartedOrPending, isRejected, usePromise } from '../../../utils/use-promise'
+import {
+  isNotStartedOrPending,
+  isRejected,
+  usePromise
+} from '../../../utils/use-promise'
 import { AxiosResponse } from 'axios'
 import { AdminDeltakerliste } from '../../../api/data/tiltak'
-import { fetchAlleDeltakerlister, fjernDeltakerliste, leggTilDeltakerliste } from '../../../api/tiltak-api'
+import {
+  fetchAlleDeltakerlister,
+  fjernDeltakerliste,
+  leggTilDeltakerliste
+} from '../../../api/tiltak-api'
 import { ArrangorOverenhet } from './deltakerliste.viewobjects'
 import { DeltakerlisterForArrangorWrapper } from './underenheter-pa-overenhet/DeltakerlisterForArrangorWrapper'
 import { Show } from '../../felles/Show'
@@ -19,157 +27,201 @@ import { useTabTitle } from '../../../hooks/use-tab-title'
 import { useKoordinatorsDeltakerlisterStore } from '../../../store/koordinators-deltakerlister-store'
 
 export const AdministrerDeltakerlisterPage = () => {
-	const { setTilbakeTilUrl } = useTilbakelenkeStore()
-	const { koordinatorsDeltakerlister, setKoordinatorsDeltakerlister } = useKoordinatorsDeltakerlisterStore()
+  const { setTilbakeTilUrl } = useTilbakelenkeStore()
+  const { koordinatorsDeltakerlister, setKoordinatorsDeltakerlister } =
+    useKoordinatorsDeltakerlisterStore()
 
-	const [ arrangorer, setArrangorer ] = useState<ArrangorOverenhet[]>([])
-	const [ deltakerlisteIderLagtTil, setDeltakerlisteIderLagtTil ] = useState<string[]>([])
+  const [arrangorer, setArrangorer] = useState<ArrangorOverenhet[]>([])
+  const [deltakerlisteIderLagtTil, setDeltakerlisteIderLagtTil] = useState<
+    string[]
+  >([])
 
-	const [ deltakerlisteIdUpdating, setDeltakerlisteIdUpdating ] = useState<string | undefined>(undefined)
-	const [ showLeggTilModal, setShowLeggTilModal ] = useState(false)
+  const [deltakerlisteIdUpdating, setDeltakerlisteIdUpdating] = useState<
+    string | undefined
+  >(undefined)
+  const [showLeggTilModal, setShowLeggTilModal] = useState(false)
 
-	const fetchAlleDeltakerlisterPromise = usePromise<AxiosResponse<AdminDeltakerliste[]>>(fetchAlleDeltakerlister)
+  const fetchAlleDeltakerlisterPromise = usePromise<
+    AxiosResponse<AdminDeltakerliste[]>
+  >(fetchAlleDeltakerlister)
 
-	useTabTitle('Legg til og fjern deltakerlister')
+  useTabTitle('Legg til og fjern deltakerlister')
 
-	useEffect(() => {
-		setTilbakeTilUrl(MINE_DELTAKERLISTER_PAGE_ROUTE)
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [])
+  useEffect(() => {
+    setTilbakeTilUrl(MINE_DELTAKERLISTER_PAGE_ROUTE)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
-	useEffect(() => {
-		const alleDeltakerlister: AdminDeltakerliste[] = fetchAlleDeltakerlisterPromise.result?.data || []
-		const deltakerlisteIderAlleredeLagtTil =
-			fetchAlleDeltakerlisterPromise.result?.data.filter((dl) => dl.lagtTil).map((d) => d.id) || []
-		const data = deltakerlisteMapper(alleDeltakerlister).sort((a, b) => a.navn.localeCompare(b.navn))
+  useEffect(() => {
+    const alleDeltakerlister: AdminDeltakerliste[] =
+      fetchAlleDeltakerlisterPromise.result?.data || []
+    const deltakerlisteIderAlleredeLagtTil =
+      fetchAlleDeltakerlisterPromise.result?.data
+        .filter((dl) => dl.lagtTil)
+        .map((d) => d.id) || []
+    const data = deltakerlisteMapper(alleDeltakerlister).sort((a, b) =>
+      a.navn.localeCompare(b.navn)
+    )
 
-		setDeltakerlisteIderLagtTil(deltakerlisteIderAlleredeLagtTil)
-		setArrangorer(data)
-	}, [ fetchAlleDeltakerlisterPromise.result ])
+    setDeltakerlisteIderLagtTil(deltakerlisteIderAlleredeLagtTil)
+    setArrangorer(data)
+  }, [fetchAlleDeltakerlisterPromise.result])
 
-	const onLeggTil = (deltakerlisteId: string) => {
-		setDeltakerlisteIdUpdating(deltakerlisteId)
-		setShowLeggTilModal(true)
-	}
+  const onLeggTil = (deltakerlisteId: string) => {
+    setDeltakerlisteIdUpdating(deltakerlisteId)
+    setShowLeggTilModal(true)
+  }
 
-	const onFjern = (deltakerlisteId: string) => {
-		setDeltakerlisteIdUpdating(deltakerlisteId)
+  const onFjern = (deltakerlisteId: string) => {
+    setDeltakerlisteIdUpdating(deltakerlisteId)
 
-		fjernDeltakerliste(deltakerlisteId).then(() => {
-			setDeltakerlisteIderLagtTil([ ...deltakerlisteIderLagtTil.filter((i) => i !== deltakerlisteId) ])
-			setDeltakerlisteIdUpdating(undefined)
-			if (koordinatorsDeltakerlister && koordinatorsDeltakerlister.koordinatorFor != null) {
-				const nyDeltakerliste = koordinatorsDeltakerlister.koordinatorFor.deltakerlister.filter(
-					(l) => l.id != deltakerlisteId
-				)
-				const nyKoordinatorsDeltakerlister = {
-					...koordinatorsDeltakerlister,
-					koordinatorFor: { ...koordinatorsDeltakerlister.koordinatorFor, deltakerlister: nyDeltakerliste }
-				}
-				setKoordinatorsDeltakerlister(nyKoordinatorsDeltakerlister)
-			}
-		})
-	}
+    fjernDeltakerliste(deltakerlisteId).then(() => {
+      setDeltakerlisteIderLagtTil([
+        ...deltakerlisteIderLagtTil.filter((i) => i !== deltakerlisteId)
+      ])
+      setDeltakerlisteIdUpdating(undefined)
+      if (
+        koordinatorsDeltakerlister &&
+        koordinatorsDeltakerlister.koordinatorFor != null
+      ) {
+        const nyDeltakerliste =
+          koordinatorsDeltakerlister.koordinatorFor.deltakerlister.filter(
+            (l) => l.id != deltakerlisteId
+          )
+        const nyKoordinatorsDeltakerlister = {
+          ...koordinatorsDeltakerlister,
+          koordinatorFor: {
+            ...koordinatorsDeltakerlister.koordinatorFor,
+            deltakerlister: nyDeltakerliste
+          }
+        }
+        setKoordinatorsDeltakerlister(nyKoordinatorsDeltakerlister)
+      }
+    })
+  }
 
-	const leggTilConfirmed = (id: string, navn: string, type: string) => {
-		leggTilDeltakerliste(id).then(() => {
-			setDeltakerlisteIderLagtTil([ ...deltakerlisteIderLagtTil, id ])
-			setDeltakerlisteIdUpdating(undefined)
-			if (koordinatorsDeltakerlister && koordinatorsDeltakerlister.koordinatorFor != null) {
-				const nyDeltakerliste = [ ...koordinatorsDeltakerlister.koordinatorFor.deltakerlister ]
-				nyDeltakerliste.push({
-					id: id,
-					type: type,
-					navn: navn,
-					startdato: null,
-					sluttdato: null,
-					erKurs: false
-				})
-				const nyKoordinatorsDeltakerlister = {
-					...koordinatorsDeltakerlister,
-					koordinatorFor: { ...koordinatorsDeltakerlister.koordinatorFor, deltakerlister: nyDeltakerliste }
-				}
-				setKoordinatorsDeltakerlister(nyKoordinatorsDeltakerlister)
-			}
-		})
+  const leggTilConfirmed = (id: string, navn: string, type: string) => {
+    leggTilDeltakerliste(id).then(() => {
+      setDeltakerlisteIderLagtTil([...deltakerlisteIderLagtTil, id])
+      setDeltakerlisteIdUpdating(undefined)
+      if (
+        koordinatorsDeltakerlister &&
+        koordinatorsDeltakerlister.koordinatorFor != null
+      ) {
+        const nyDeltakerliste = [
+          ...koordinatorsDeltakerlister.koordinatorFor.deltakerlister
+        ]
+        nyDeltakerliste.push({
+          id: id,
+          type: type,
+          navn: navn,
+          startdato: null,
+          sluttdato: null,
+          erKurs: false
+        })
+        const nyKoordinatorsDeltakerlister = {
+          ...koordinatorsDeltakerlister,
+          koordinatorFor: {
+            ...koordinatorsDeltakerlister.koordinatorFor,
+            deltakerlister: nyDeltakerliste
+          }
+        }
+        setKoordinatorsDeltakerlister(nyKoordinatorsDeltakerlister)
+      }
+    })
 
-		setShowLeggTilModal(false)
-	}
+    setShowLeggTilModal(false)
+  }
 
-	const onLeggTilModalClosed = () => {
-		setShowLeggTilModal(false)
-		setDeltakerlisteIdUpdating(undefined)
-	}
+  const onLeggTilModalClosed = () => {
+    setShowLeggTilModal(false)
+    setDeltakerlisteIdUpdating(undefined)
+  }
 
-	const getNavnPaDeltakerliste = (deltakerlisteId: string | undefined): string => {
-		if (deltakerlisteId === undefined) return ''
+  const getNavnPaDeltakerliste = (
+    deltakerlisteId: string | undefined
+  ): string => {
+    if (deltakerlisteId === undefined) return ''
 
-		const deltakerliste = fetchAlleDeltakerlisterPromise.result?.data.find((g) => g.id === deltakerlisteId)
+    const deltakerliste = fetchAlleDeltakerlisterPromise.result?.data.find(
+      (g) => g.id === deltakerlisteId
+    )
 
-		return deltakerliste != undefined ? deltakerliste.navn : ''
-	}
+    return deltakerliste != undefined ? deltakerliste.navn : ''
+  }
 
-	const getTiltaksnavnForDeltakerliste = (deltakerlisteId: string | undefined): string => {
-		if (deltakerlisteId === undefined) return ''
+  const getTiltaksnavnForDeltakerliste = (
+    deltakerlisteId: string | undefined
+  ): string => {
+    if (deltakerlisteId === undefined) return ''
 
-		const deltakerliste = fetchAlleDeltakerlisterPromise.result?.data.find((g) => g.id === deltakerlisteId)
+    const deltakerliste = fetchAlleDeltakerlisterPromise.result?.data.find(
+      (g) => g.id === deltakerlisteId
+    )
 
-		return deltakerliste != undefined ? deltakerliste.tiltaksnavn : ''
-	}
+    return deltakerliste != undefined ? deltakerliste.tiltaksnavn : ''
+  }
 
-	if (isNotStartedOrPending(fetchAlleDeltakerlisterPromise)) {
-		return <SpinnerPage />
-	}
+  if (isNotStartedOrPending(fetchAlleDeltakerlisterPromise)) {
+    return <SpinnerPage />
+  }
 
-	if (isRejected(fetchAlleDeltakerlisterPromise)) {
-		return <AlertPage variant="error" tekst="Noe gikk galt" />
-	}
+  if (isRejected(fetchAlleDeltakerlisterPromise)) {
+    return <AlertPage variant="error" tekst="Noe gikk galt" />
+  }
 
-	return (
-		<div className={styles.page} data-testid="administrer-deltakerlister-page">
-			<Heading size="large" level="2" className={globalStyles.blokkM}>
-				Legg til og fjern deltakerlister
-			</Heading>
+  return (
+    <div className={styles.page} data-testid="administrer-deltakerlister-page">
+      <Heading size="large" level="2" className={globalStyles.blokkM}>
+        Legg til og fjern deltakerlister
+      </Heading>
 
-			<BodyShort className={globalStyles.blokkM}>
-				Hvilke deltakerlister koordinerer du? Det er viktig at du kun legger til deltakerlister som du er koordinator for.
-			</BodyShort>
+      <BodyShort className={globalStyles.blokkM}>
+        Hvilke deltakerlister koordinerer du? Det er viktig at du kun legger til
+        deltakerlister som du er koordinator for.
+      </BodyShort>
 
-			<Alert variant="info" size={'small'} className={styles.infomelding}>
-				Endring juni 2024: Nå blir nye deltakerlister automatisk tilgjengelig to uker før start. Dersom det er nødvendig å
-				få tilgang til deltakerlister i god tid før oppstart må du kontakte den som er ansvarlig for tiltaket i NAV.
-			</Alert>
+      <Alert variant="info" size={'small'} className={styles.infomelding}>
+        Endring juni 2024: Nå blir nye deltakerlister automatisk tilgjengelig to
+        uker før start. Dersom det er nødvendig å få tilgang til deltakerlister
+        i god tid før oppstart må du kontakte den som er ansvarlig for tiltaket
+        i NAV.
+      </Alert>
 
-			<Show if={arrangorer.length === 0}>
-				<Alert variant="info">
-					På organisasjonsnummeret du har tilgang til finnes det ingen aktive deltakerlister.
-					<br />
-					<br />
-					Mangler det en deltakerliste? Den kan være registrert på et annet org.nr. i NAVs datasystem. Ta kontakt med den i NAV som er ansvarlig for
-					avtalen.
-				</Alert>
-			</Show>
+      <Show if={arrangorer.length === 0}>
+        <Alert variant="info">
+          På organisasjonsnummeret du har tilgang til finnes det ingen aktive
+          deltakerlister.
+          <br />
+          <br />
+          Mangler det en deltakerliste? Den kan være registrert på et annet
+          org.nr. i NAVs datasystem. Ta kontakt med den i NAV som er ansvarlig
+          for avtalen.
+        </Alert>
+      </Show>
 
-			{arrangorer.map((o) => (
-				<DeltakerlisterForArrangorWrapper
-					key={o.navn}
-					overskrift={o.navn}
-					arrangorer={o.arrangorer}
-					deltakerlisterLagtTil={deltakerlisteIderLagtTil}
-					deltakerlisteIdLoading={deltakerlisteIdUpdating}
-					onLeggTil={onLeggTil}
-					onFjern={onFjern}
-				/>
-			))}
+      {arrangorer.map((o) => (
+        <DeltakerlisterForArrangorWrapper
+          key={o.navn}
+          overskrift={o.navn}
+          arrangorer={o.arrangorer}
+          deltakerlisterLagtTil={deltakerlisteIderLagtTil}
+          deltakerlisteIdLoading={deltakerlisteIdUpdating}
+          onLeggTil={onLeggTil}
+          onFjern={onFjern}
+        />
+      ))}
 
-			<LeggTilDeltakerlisteModal
-				open={showLeggTilModal}
-				deltakerlisteNavn={getNavnPaDeltakerliste(deltakerlisteIdUpdating)}
-				deltakerlisteTiltaksnavn={getTiltaksnavnForDeltakerliste(deltakerlisteIdUpdating)}
-				deltakerlisteId={deltakerlisteIdUpdating as string}
-				onConfirm={leggTilConfirmed}
-				onClose={onLeggTilModalClosed}
-			/>
-		</div>
-	)
+      <LeggTilDeltakerlisteModal
+        open={showLeggTilModal}
+        deltakerlisteNavn={getNavnPaDeltakerliste(deltakerlisteIdUpdating)}
+        deltakerlisteTiltaksnavn={getTiltaksnavnForDeltakerliste(
+          deltakerlisteIdUpdating
+        )}
+        deltakerlisteId={deltakerlisteIdUpdating as string}
+        onConfirm={leggTilConfirmed}
+        onClose={onLeggTilModalClosed}
+      />
+    </div>
+  )
 }

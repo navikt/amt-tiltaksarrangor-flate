@@ -8,23 +8,25 @@ import { lagAdresseTekst } from '../../../utils/deltaker-utils'
 import { EMDASH } from '../../../utils/constants'
 
 interface DeltakerAdresseProps {
-	adresse?: Adresse | null
+  adresse?: Adresse | null
 }
 
-export const DeltakerAdresse = ({ adresse }: DeltakerAdresseProps): React.ReactElement => {
-	const adresseId = useId()
+export const DeltakerAdresse = ({
+  adresse
+}: DeltakerAdresseProps): React.ReactElement => {
+  const adresseId = useId()
 
-	return (
-		<div className={styles.adresse}>
-			<HouseIcon aria-hidden />
-			<div>
-				<Label htmlFor={adresseId} as="span" size="small">
-					{adresse ? mapAdresseTypeTilTekst(adresse?.adressetype) : 'Adresse'}
-				</Label>{' '}
-				<BodyShort id={adresseId} size="small">
-					{adresse ? lagAdresseTekst(adresse) : EMDASH}
-				</BodyShort>
-			</div>
-		</div>
-	)
+  return (
+    <div className={styles.adresse}>
+      <HouseIcon aria-hidden />
+      <div>
+        <Label htmlFor={adresseId} as="span" size="small">
+          {adresse ? mapAdresseTypeTilTekst(adresse?.adressetype) : 'Adresse'}
+        </Label>{' '}
+        <BodyShort id={adresseId} size="small">
+          {adresse ? lagAdresseTekst(adresse) : EMDASH}
+        </BodyShort>
+      </div>
+    </div>
+  )
 }

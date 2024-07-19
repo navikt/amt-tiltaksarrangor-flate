@@ -2,11 +2,12 @@ import constate from 'constate'
 import { useState } from 'react'
 import { Sortering } from '../utils/sortering-utils'
 
-export const [ TiltaksoversiktSokStoreProvider, useTiltaksoversiktSokStore ] = constate(() => {
-	const [ deltakerSortering, setDeltakerSortering ] = useState<Sortering>()
+export const [TiltaksoversiktSokStoreProvider, useTiltaksoversiktSokStore] =
+  constate(() => {
+    const [deltakerSortering, setDeltakerSortering] = useState<Sortering>()
 
-	return {
-		deltakerSortering,
-		setDeltakerSortering
-	}
-})
+    return {
+      deltakerSortering,
+      setDeltakerSortering
+    }
+  })
