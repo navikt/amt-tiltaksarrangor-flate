@@ -1,11 +1,16 @@
 import React from 'react'
-import {
-  AktivtForslag,
-  ForslagEndringType
-} from '../../../../../api/data/forslag'
+import { AktivtForslag } from '../../../../../api/data/forslag'
 
 import styles from './AktivtForslagPanel.module.scss'
-import { Box, Button, Tooltip } from '@navikt/ds-react'
+import {
+  Box,
+  Button,
+  HGrid,
+  HStack,
+  Heading,
+  Tooltip,
+  VStack
+} from '@navikt/ds-react'
 import { EndringTypeIkon } from '../EndringTypeIkon'
 import { XMarkIcon } from '@navikt/aksel-icons'
 import {
@@ -13,10 +18,10 @@ import {
   isResolved,
   usePromise
 } from '../../../../../utils/use-promise'
-import { EndringType } from '../types'
-import { assertNever } from '../../../../../utils/assert-never'
 import { ForslagEndringsdetaljer } from './ForslagEndringsdetaljer'
 import { tilbakekallForslag } from '../../../../../api/forslag-api'
+import { ForslagStatusTag } from './ForslagStatusTag'
+import { forslagTitle, mapTilEndringType } from './forslagUtils'
 
 export interface Props {
   readonly forslag: AktivtForslag
@@ -41,46 +46,50 @@ export const AktivtForslagPanel = ({
 
   return (
     <Box
+      background="surface-default"
+      borderColor="border-default"
       borderWidth="1"
+      borderRadius="medium"
       className={styles.panel}
-      aria-label="Forslag sendt til nav"
     >
-      <div className={styles.innholdWrapper}>
-        <EndringTypeIkon type={mapTilEndringType(forslag.endring.type)} />
-        <div className={styles.innhold}>
+      <HGrid columns="2rem auto" className={styles.grid}>
+        <VStack>
+          <EndringTypeIkon
+            size="large"
+            type={mapTilEndringType(forslag.endring.type)}
+          />
+        </VStack>
+        <VStack>
+          <HStack gap="4">
+            <Heading level="4" size="small">
+              {forslagTitle(forslag.endring.type)}
+            </Heading>
+            <ForslagStatusTag
+              type={forslag.status.type}
+              className={styles.status}
+            />
+            <Tooltip content="Tilbakekall forslag" className={styles.tooltip}>
+              <Button
+                icon={<XMarkIcon aria-hidden />}
+                loading={
+                  isPending(tilbakekallPromise) ||
+                  isResolved(tilbakekallPromise)
+                }
+                variant="tertiary"
+                size="small"
+                onClick={handleClick}
+                className={styles.closeButton}
+                aria-label="Tilbakekall forslag"
+              />
+            </Tooltip>
+          </HStack>
           <ForslagEndringsdetaljer
             endring={forslag.endring}
             begrunnelse={forslag.begrunnelse}
             sendt={forslag.opprettet}
           />
-        </div>
-      </div>
-      <Tooltip content="Tilbakekall forslag" className={styles.tooltip}>
-        <Button
-          icon={<XMarkIcon aria-hidden />}
-          loading={
-            isPending(tilbakekallPromise) || isResolved(tilbakekallPromise)
-          }
-          variant="tertiary"
-          size="small"
-          onClick={handleClick}
-          className={styles.closeButton}
-          aria-label="Tilbakekall forslag"
-        />
-      </Tooltip>
+        </VStack>
+      </HGrid>
     </Box>
   )
-}
-
-function mapTilEndringType(type: ForslagEndringType): EndringType {
-  switch (type) {
-    case ForslagEndringType.ForlengDeltakelse:
-      return EndringType.FORLENG_DELTAKELSE
-    case ForslagEndringType.IkkeAktuell:
-      return EndringType.DELTAKER_IKKE_AKTUELL
-    case ForslagEndringType.AvsluttDeltakelse:
-      return EndringType.AVSLUTT_DELTAKELSE
-    default:
-      assertNever(type)
-  }
 }

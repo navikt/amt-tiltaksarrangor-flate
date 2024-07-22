@@ -1,7 +1,7 @@
 import React from 'react'
 import { AktivtForslag } from '../../../../../api/data/forslag'
 import styles from './Forslag.module.scss'
-import { BodyShort } from '@navikt/ds-react'
+import { Box, Heading } from '@navikt/ds-react'
 import { AktivtForslagPanel } from './AktivtForslagPanel'
 
 interface Props {
@@ -19,22 +19,24 @@ export const AktiveForslag = ({
   }
 
   return (
-    <div className={styles.aktiveForslag}>
-      <BodyShort size="small" className={styles.aktiveForslagTitle}>
+    <Box
+      background="bg-subtle"
+      padding={{ xs: '2', md: '4' }}
+      borderRadius="medium"
+    >
+      <Heading level="3" size="small" className={styles.aktiveForslagTitle}>
         Forslag sendt til NAV:
-      </BodyShort>
-      <div className={styles.panelWrapper}>
-        {forslag.map((it) => {
-          return (
-            <AktivtForslagPanel
-              forslag={it}
-              deltakerId={deltakerId}
-              onTilbakekalt={onTilbakekalt}
-              key={it.id}
-            />
-          )
-        })}
-      </div>
-    </div>
+      </Heading>
+      {forslag.map((it) => {
+        return (
+          <AktivtForslagPanel
+            forslag={it}
+            deltakerId={deltakerId}
+            onTilbakekalt={onTilbakekalt}
+            key={it.id}
+          />
+        )
+      })}
+    </Box>
   )
 }
