@@ -100,6 +100,7 @@ export const AvsluttDeltakelseModal = (
       visGodkjennVilkaarPanel={visGodkjennVilkaarPanel}
       erForslag={erForslagEnabled}
       erSendKnappDisabled={!validering.isSuccess || !sluttDato}
+      begrunnelseType="valgfri"
       onClose={onClose}
       onSend={erForslagEnabled ? sendForslag : sendEndringsmelding}
       onBegrunnelse={(begrunnelse) => {

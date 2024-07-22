@@ -1,18 +1,12 @@
-.aktiveForslag {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-
 .aktiveForslagTitle {
-  font-weight: bold;
+  font-size: 1rem;
 }
 
 .endringTitle {
   margin-bottom: 0.25rem;
 }
 
-.panelWrapper{
+.panelWrapper {
   width: fit-content;
   display: flex;
   flex-direction: column;

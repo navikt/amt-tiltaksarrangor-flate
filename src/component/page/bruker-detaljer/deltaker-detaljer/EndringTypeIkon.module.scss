@@ -4,14 +4,29 @@
   flex-shrink: 0;
 }
 
+.ikonLarge {
+  height: 26px;
+  width: 26px;
+}
+
 .endreIkon {
   color: var(--a-deepblue-300);
   @extend .ikon;
 }
 
+.endreIkonLarge {
+  @extend .ikon;
+  @extend .ikonLarge;
+}
+
 .forlengIkon {
   color: var(--a-icon-success);
   @extend .ikon;
+}
+
+.forlengIkonLarge {
+  @extend .forlengIkon;
+  @extend .ikonLarge;
 }
 
 .ikkeAktuellIkon {
@@ -20,9 +35,19 @@
   @extend .ikon;
 }
 
+.ikkeAktuellIkonLarge {
+  @extend .ikkeAktuellIkon;
+  @extend .ikonLarge;
+}
+
 .endreProsentDeltakelseIkon {
   color: var(--a-purple-400);
   @extend .ikon;
+}
+
+.endreProsentDeltakelseIkonLarge {
+  @extend .endreProsentDeltakelseIkon;
+  @extend .ikonLarge;
 }
 
 .avsluttIkon {
@@ -30,10 +55,19 @@
   @extend .ikon;
 }
 
+.avsluttIkonLarge {
+  @extend .avsluttIkon;
+  @extend .ikonLarge;
+}
 
 .erAktuellIkon {
   color: var(--a-green-500);
   @extend .ikon;
+}
+
+.erAktuellIkonLarge {
+  @extend .erAktuellIkon;
+  @extend .ikonLarge;
 }
 
 .settPaaVentelisteIkon {
@@ -41,7 +75,17 @@
   @extend .ikon;
 }
 
+.settPaaVentelisteIkonLarge {
+  @extend .settPaaVentelisteIkon;
+  @extend .ikonLarge;
+}
+
 .endreSluttArsak {
   color: var(--a-gray-600);
   @extend .ikon;
+}
+
+.endreSluttArsakLarge {
+  @extend .endreSluttArsak;
+  @extend .ikonLarge;
 }

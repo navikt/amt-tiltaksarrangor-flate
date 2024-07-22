@@ -75,6 +75,7 @@ export const SettIkkeAktuellModal = (
       visGodkjennVilkaarPanel={visGodkjennVilkaarPanel}
       erForslag={erForslagEnabled}
       erSendKnappDisabled={!validering.isSuccess}
+      begrunnelseType="valgfri"
       onClose={onClose}
       onSend={erForslagEnabled ? sendForslag : sendEndringsmelding}
       onBegrunnelse={(begrunnelse) => {

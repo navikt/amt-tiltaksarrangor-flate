@@ -105,6 +105,7 @@ export const ForlengDeltakelseModal = (
       visGodkjennVilkaarPanel={visGodkjennVilkaarPanel}
       erForslag={erForslagEnabled}
       erSendKnappDisabled={!kanSendeMelding}
+      begrunnelseType="obligatorisk"
       onClose={onClose}
       onSend={erForslagEnabled ? sendForslag : sendEndringsmelding}
       onBegrunnelse={(begrunnelse) => {
