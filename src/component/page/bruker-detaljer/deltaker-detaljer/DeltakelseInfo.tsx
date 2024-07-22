@@ -45,7 +45,10 @@ export const DeltakelseInfo = ({
   )
 
   const handleForslagSendt = (forslag: AktivtForslag) => {
-    setForslag((prev) => [forslag, ...prev])
+    setForslag((prev) => [
+      forslag,
+      ...prev.filter((it) => it.endring.type !== forslag.endring.type)
+    ])
   }
 
   const handleForslagTilbakekalt = (forslag: AktivtForslag) => {
