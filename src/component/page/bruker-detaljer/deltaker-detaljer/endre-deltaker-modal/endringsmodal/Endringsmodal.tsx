@@ -33,7 +33,9 @@ export function Endringsmodal(props: EndringsmodalProps) {
       className={styles.modal}
     >
       {props.erForslag && (
-        <Detail>Forslaget sendes til NAV-veileder og deltaker.</Detail>
+        <Detail>
+          Forslaget sendes til NAV-veileder. Deltaker kan se infoen på nav.no.
+        </Detail>
       )}
 
       {props.children}
