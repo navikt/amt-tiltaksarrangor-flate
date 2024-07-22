@@ -3,7 +3,7 @@ import { BaseModal } from '../../../../../felles/base-modal/BaseModal'
 import { Detail } from '@navikt/ds-react'
 import { VeilederConfirmationPanel } from '../VeilederConfirmationPanel'
 import { SendTilNavKnapp } from '../SendTilNavKnapp'
-import { BegrunnelseInput } from './BegrunnelseInput'
+import { BegrunnelseInput, BegrunnelseType } from './BegrunnelseInput'
 
 import styles from './Endringsmodal.module.scss'
 
@@ -12,6 +12,7 @@ interface EndringsmodalProps {
   readonly erForslag?: boolean
   readonly visGodkjennVilkaarPanel: boolean
   readonly erSendKnappDisabled?: boolean
+  readonly begrunnelseType?: BegrunnelseType
   readonly onClose: () => void
   readonly onBegrunnelse?: (begrunnelse: string) => void
   readonly onSend: () => Promise<void>
@@ -37,8 +38,11 @@ export function Endringsmodal(props: EndringsmodalProps) {
 
       {props.children}
 
-      {props.erForslag && props.onBegrunnelse && (
-        <BegrunnelseInput onChange={props.onBegrunnelse} />
+      {props.erForslag && props.onBegrunnelse && props.begrunnelseType && (
+        <BegrunnelseInput
+          type={props.begrunnelseType}
+          onChange={props.onBegrunnelse}
+        />
       )}
 
       {krevVilkaarGodkjent && (
