@@ -461,7 +461,10 @@ function opprettAktivtForslag(
     opprettet: new Date()
   }
 
-  deltaker.aktiveForslag = [forslag, ...deltaker.aktiveForslag]
+  deltaker.aktiveForslag = [
+    forslag,
+    ...deltaker.aktiveForslag.filter((it) => it.endring.type !== endring.type)
+  ]
 
   return forslag
 }
