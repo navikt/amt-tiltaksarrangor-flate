@@ -15,7 +15,6 @@ import {
 } from './varighet'
 import { useDeltakerlisteStore } from '../deltakerliste-store'
 import { AktivtForslag } from '../../../../../api/data/forslag'
-import { BEGRUNNELSE_MAKS_TEGN } from '../../../../../utils/endre-deltaker-utils'
 import { forlengDeltakelseForslag } from '../../../../../api/forslag-api'
 import { Endringsmodal } from './endringsmodal/Endringsmodal'
 import {
