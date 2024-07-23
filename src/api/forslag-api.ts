@@ -39,6 +39,19 @@ export const avsluttDeltakelseForslag = (
   })
 }
 
+export const deltakelsesmengdeForslag = (
+  deltakerId: string,
+  deltakelsesprosent: number,
+  dagerPerUke: number | undefined,
+  begrunnelse: string
+): AxiosPromise => {
+  return postForslag(deltakerId, 'deltakelsesmengde', {
+    deltakelsesprosent: deltakelsesprosent,
+    dagerPerUke: dagerPerUke ?? null,
+    begrunnelse: begrunnelse
+  })
+}
+
 export const tilbakekallForslag = (
   deltakerId: string,
   forslagId: string

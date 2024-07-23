@@ -10,6 +10,8 @@ export function forslagTitle(type: ForslagEndringType) {
       return 'Personen er ikke aktuell'
     case ForslagEndringType.AvsluttDeltakelse:
       return 'Avslutt deltakelse'
+    case ForslagEndringType.Deltakelsesmengde:
+      return 'Endre deltakelsesmengde'
   }
 }
 
@@ -21,6 +23,8 @@ export function mapTilEndringType(type: ForslagEndringType): EndringType {
       return EndringType.DELTAKER_IKKE_AKTUELL
     case ForslagEndringType.AvsluttDeltakelse:
       return EndringType.AVSLUTT_DELTAKELSE
+    case ForslagEndringType.Deltakelsesmengde:
+      return EndringType.ENDRE_DELTAKELSE_PROSENT
     default:
       assertNever(type)
   }

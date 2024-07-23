@@ -18,6 +18,10 @@ import { AktivtForslag } from '../../../../../api/data/forslag'
 import { BEGRUNNELSE_MAKS_TEGN } from '../../../../../utils/endre-deltaker-utils'
 import { forlengDeltakelseForslag } from '../../../../../api/forslag-api'
 import { Endringsmodal } from './endringsmodal/Endringsmodal'
+import {
+  gyldigObligatoriskBegrunnelse,
+  validerObligatoriskBegrunnelse
+} from './validering/begrunnelseValidering'
 
 export interface ForlengDeltakelseModalProps {
   readonly onClose: () => void
@@ -54,9 +58,7 @@ export const ForlengDeltakelseModal = (
   const minDato = maxDate(startDato, deltakerliste.startDato)
 
   const kanSendeMelding = erForslagEnabled
-    ? nySluttDato !== null &&
-      begrunnelse !== '' &&
-      begrunnelse.length <= BEGRUNNELSE_MAKS_TEGN
+    ? nySluttDato !== null && gyldigObligatoriskBegrunnelse(begrunnelse)
     : nySluttDato !== null
 
   const kalkulerSluttDato = (
@@ -81,15 +83,11 @@ export const ForlengDeltakelseModal = (
         'Kan ikke sende ForlengDeltakelse forslag uten sluttdato'
       )
     }
-    if (begrunnelse === '') {
-      return Promise.reject('Begrunnelse mangler')
-    }
-    if (begrunnelse.length > BEGRUNNELSE_MAKS_TEGN) {
-      return Promise.reject('Begrunnelsen kan ikke være over 200 tegn')
-    }
-    return forlengDeltakelseForslag(deltakerId, nySluttDato, begrunnelse).then(
-      (res) => props.onForslagSendt(res.data)
-    )
+    return validerObligatoriskBegrunnelse(begrunnelse)
+      .then(() =>
+        forlengDeltakelseForslag(deltakerId, nySluttDato, begrunnelse)
+      )
+      .then((res) => props.onForslagSendt(res.data))
   }
 
   useEffect(() => {
