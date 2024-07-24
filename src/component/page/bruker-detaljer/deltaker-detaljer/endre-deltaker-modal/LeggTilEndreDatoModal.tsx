@@ -76,7 +76,9 @@ export const LeggTilEndreDatoModal = (
 	Skal maksimum være 2 måneder tilbake i tid.
 	Hvis deltakerlisteStartDato er satt så må datoen være etter.
 */
-const kalkulerMinDato = (deltakerlisteStartDato: Nullable<Date>): Date => {
+export const kalkulerMinDato = (
+  deltakerlisteStartDato: Nullable<Date>
+): Date => {
   const twoMonthsAgo = dayjs().subtract(2, 'month')
 
   if (deltakerlisteStartDato && twoMonthsAgo.isBefore(deltakerlisteStartDato)) {
@@ -90,7 +92,9 @@ const kalkulerMinDato = (deltakerlisteStartDato: Nullable<Date>): Date => {
 Skal maksimum være 2 måneder forover i tid.
 	Hvis deltakerlisteSluttDato er satt så må datoen være før.
 */
-const kalkulerMaxDato = (deltakerlisteSluttDato: Nullable<Date>): Date => {
+export const kalkulerMaxDato = (
+  deltakerlisteSluttDato: Nullable<Date>
+): Date => {
   const twoMonthsInTheFuture = dayjs().add(2, 'month')
 
   if (
