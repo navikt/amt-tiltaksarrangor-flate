@@ -1,96 +1,73 @@
 import { TextField } from '@navikt/ds-react'
 import dayjs from 'dayjs'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import React from 'react'
 
 import { endreDeltakelsesprosent } from '../../../../../api/tiltak-api'
 import { Nullable } from '../../../../../utils/types/or-nothing'
 import { DateField } from '../../../../felles/DateField'
 import styles from './EndreProsentDeltakelseModal.module.scss'
-import { SendTilNavKnapp } from './SendTilNavKnapp'
-import { VeilederConfirmationPanel } from './VeilederConfirmationPanel'
-import { BaseModal } from '../../../../felles/base-modal/BaseModal'
 import { useDeltakerlisteStore } from '../deltakerliste-store'
+import { Endringsmodal } from './endringsmodal/Endringsmodal'
+import { AktivtForslag } from '../../../../../api/data/forslag'
+import {
+  gyldigObligatoriskBegrunnelse,
+  validerObligatoriskBegrunnelse
+} from './validering/begrunnelseValidering'
+import { deltakelsesmengdeForslag } from '../../../../../api/forslag-api'
+import { useDeltakelsesmengdeValidering } from './validering/deltakelsesmengdeValidering'
 
 interface EndreProsentDeltakelseModalProps {
   onClose: () => void
 }
 
 export interface EndreProsentDeltakelseModalDataProps {
-  deltakerId: string
-  gammelProsentDeltakelse: number | null
-  visGodkjennVilkaarPanel: boolean
-  onEndringUtfort: () => void
+  readonly deltakerId: string
+  readonly gammelProsentDeltakelse: number | null
+  readonly visGodkjennVilkaarPanel: boolean
+  readonly onEndringUtfort: () => void
+  readonly onForslagSendt: (forslag: AktivtForslag) => void
+  readonly erForslagEnabled: boolean
 }
 
-export const EndreProsentDeltakelseModal = (
-  props: EndreProsentDeltakelseModalProps & EndreProsentDeltakelseModalDataProps
-) => {
-  const {
-    deltakerId,
-    gammelProsentDeltakelse,
-    visGodkjennVilkaarPanel,
-    onEndringUtfort
-  } = props
+export const EndreProsentDeltakelseModal = ({
+  deltakerId,
+  gammelProsentDeltakelse,
+  visGodkjennVilkaarPanel,
+  erForslagEnabled,
+  onEndringUtfort,
+  onForslagSendt,
+  onClose
+}: EndreProsentDeltakelseModalProps & EndreProsentDeltakelseModalDataProps) => {
   const today = dayjs().toDate()
   const { deltakerliste } = useDeltakerlisteStore()
   const [prosentDeltakelseFelt, settProsentDeltakelseFelt] =
     useState<string>('')
   const [dagerPerUkeFelt, settDagerPerUkeFelt] = useState<string>('')
   const [gyldigFraDato, setGyldigFraDato] = useState<Nullable<Date>>(today)
-  const [errorMessage, settErrorMessage] = useState<string>()
-  const [dagerPerUkeErrorMessage, settDagerPerUkeErrorMessage] =
-    useState<string>()
-  const [vilkaarGodkjent, settVilkaarGodkjent] = useState(false)
+  const [begrunnelse, setBegrunnelse] = useState('')
 
   const visDagerPerUke =
     prosentDeltakelseFelt !== '100' && prosentDeltakelseFelt !== ''
 
-  const sendTilNavDisabled =
-    (!vilkaarGodkjent && visGodkjennVilkaarPanel) ||
-    prosentDeltakelseFelt === '' ||
-    errorMessage !== undefined
+  const validering = useDeltakelsesmengdeValidering(
+    prosentDeltakelseFelt,
+    dagerPerUkeFelt,
+    gammelProsentDeltakelse
+  )
 
-  useEffect(() => {
-    if (prosentDeltakelseFelt === '') {
-      settErrorMessage(undefined)
-      return
-    }
-
-    const newValue = parseInt(prosentDeltakelseFelt)
-
-    const isInvalid =
-      isNaN(newValue) ||
-      !prosentDeltakelseFelt.match(/^\d*$/) ||
-      newValue <= 0 ||
-      newValue > 100
-
-    if (isInvalid) settErrorMessage('Tallet må være et helt tall fra 1 til 100')
-    else if (newValue === gammelProsentDeltakelse)
-      settErrorMessage('Kan ikke være lik prosenten som er registrert')
-    else settErrorMessage(undefined)
-
-    const dagerPerUkeValue = parseInt(dagerPerUkeFelt)
-    const dagerPerUkeIsInvalid =
-      dagerPerUkeValue !== null &&
-      (!dagerPerUkeFelt.match(/^\d*$/) ||
-        dagerPerUkeValue < 1 ||
-        dagerPerUkeValue > 5)
-
-    if (dagerPerUkeIsInvalid)
-      settDagerPerUkeErrorMessage(
-        'Dager per uke må være et helt tall fra 1 til 5'
-      )
-    else settDagerPerUkeErrorMessage(undefined)
-  }, [prosentDeltakelseFelt, gammelProsentDeltakelse, dagerPerUkeFelt])
+  const kanSendeMelding = erForslagEnabled
+    ? validering.isValid && gyldigObligatoriskBegrunnelse(begrunnelse)
+    : validering.isValid
 
   const sendEndringsmelding = () => {
     const prosentDeltakelse = parseInt(prosentDeltakelseFelt)
     const dagerPerUke =
       prosentDeltakelse === 100 ? null : parseInt(dagerPerUkeFelt)
 
-    if (isNaN(prosentDeltakelse))
-      return Promise.reject('Kan ikke sende Prosent Deltakelse endringsmelding')
+    if (!gyldigFraDato) {
+      return Promise.reject('Ugyldig fra dato')
+    }
 
     return endreDeltakelsesprosent(
       deltakerId,
@@ -100,16 +77,42 @@ export const EndreProsentDeltakelseModal = (
     ).then(onEndringUtfort)
   }
 
+  const sendForslag = () => {
+    const prosentDeltakelse = parseInt(prosentDeltakelseFelt)
+    const dagerPerUke =
+      prosentDeltakelse === 100 ? undefined : parseInt(dagerPerUkeFelt)
+
+    return validerObligatoriskBegrunnelse(begrunnelse)
+      .then(() =>
+        deltakelsesmengdeForslag(
+          deltakerId,
+          prosentDeltakelse,
+          dagerPerUke,
+          begrunnelse
+        )
+      )
+      .then((res) => onForslagSendt(res.data))
+  }
+
   return (
-    <BaseModal tittel="Endre deltakelsesmengde" onClose={props.onClose}>
+    <Endringsmodal
+      tittel="Endre deltakelsesmengde"
+      visGodkjennVilkaarPanel={visGodkjennVilkaarPanel}
+      erForslag={erForslagEnabled}
+      erSendKnappDisabled={!kanSendeMelding}
+      begrunnelseType="obligatorisk"
+      onClose={onClose}
+      onSend={erForslagEnabled ? sendForslag : sendEndringsmelding}
+      onBegrunnelse={(begrunnelse) => {
+        setBegrunnelse(begrunnelse)
+      }}
+    >
       <TextField
         className={styles.prosentDeltakselseTextField}
         label="Hva er ny deltakelsesprosent?"
-        type="number"
+        type="text"
         value={prosentDeltakelseFelt}
-        min={0}
-        max={100}
-        error={errorMessage}
+        error={validering.deltakelsesprosentError}
         onChange={(e) => settProsentDeltakelseFelt(e.target.value)}
       />
 
@@ -117,36 +120,23 @@ export const EndreProsentDeltakelseModal = (
         <TextField
           className={styles.prosentDeltakselseTextField}
           label="Hvor mange dager i uka? (valgfritt)"
-          type="number"
+          type="text"
           value={dagerPerUkeFelt}
-          min={1}
-          max={5}
-          error={dagerPerUkeErrorMessage}
+          error={validering.dagerPerUkeError}
           onChange={(e) => settDagerPerUkeFelt(e.target.value)}
         />
       )}
 
-      <DateField
-        className={styles.datofelt}
-        label="Fra når gjelder ny deltakelsesmengde?"
-        date={gyldigFraDato}
-        onDateChanged={(d) => setGyldigFraDato(d)}
-        min={deltakerliste.startDato}
-        max={deltakerliste.sluttDato}
-      />
-
-      {visGodkjennVilkaarPanel && (
-        <VeilederConfirmationPanel
-          vilkaarGodkjent={vilkaarGodkjent}
-          setVilkaarGodkjent={settVilkaarGodkjent}
+      {!erForslagEnabled && (
+        <DateField
+          className={styles.datofelt}
+          label="Fra når gjelder ny deltakelsesmengde?"
+          date={gyldigFraDato}
+          onDateChanged={(d) => setGyldigFraDato(d)}
+          min={deltakerliste.startDato}
+          max={deltakerliste.sluttDato}
         />
       )}
-
-      <SendTilNavKnapp
-        onEndringSendt={props.onClose}
-        sendEndring={sendEndringsmelding}
-        disabled={sendTilNavDisabled}
-      />
-    </BaseModal>
+    </Endringsmodal>
   )
 }

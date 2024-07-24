@@ -7,6 +7,7 @@ import { assertNever } from '../../../../../utils/assert-never'
 import { BodyLong, BodyShort, Detail } from '@navikt/ds-react'
 import { formatDate } from '../../../../../utils/date-utils'
 import { endringAarsakTekstMapper } from '../tekst-mappers'
+import { getDagerPerUkeTekst } from '../../../../../utils/deltaker-utils'
 
 interface Props {
   readonly endring: ForslagEndring
@@ -59,6 +60,16 @@ function EndringsDetaljer({ endring }: { readonly endring: ForslagEndring }) {
             Ny sluttdato: {formatDate(endring.sluttdato)}
           </BodyShort>
         </>
+      )
+    }
+    case ForslagEndringType.Deltakelsesmengde: {
+      return (
+        <BodyShort size="small">
+          Ny deltakelsesmengde: {endring.deltakelsesprosent} %
+          {endring.dagerPerUke && (
+            <> fordelt på {getDagerPerUkeTekst(endring.dagerPerUke)}</>
+          )}
+        </BodyShort>
       )
     }
     default:
