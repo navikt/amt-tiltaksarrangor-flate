@@ -52,6 +52,17 @@ export const deltakelsesmengdeForslag = (
   })
 }
 
+export const endreSluttdatoForslag = (
+  deltakerId: string,
+  sluttdato: Date,
+  begrunnelse: string
+): AxiosPromise => {
+  return postForslag(deltakerId, 'sluttdato', {
+    sluttdato: formatDateToDateInputStr(sluttdato),
+    begrunnelse: begrunnelse
+  })
+}
+
 export const tilbakekallForslag = (
   deltakerId: string,
   forslagId: string

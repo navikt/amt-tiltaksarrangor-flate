@@ -179,7 +179,9 @@ export const EndreDeltakelseKnapp = (props: EndreDeltakelseKnappProps) => {
                   visEndreSluttdatoModal({
                     deltakerId: deltaker.id,
                     visGodkjennVilkaarPanel: visGodkjennVilkaarPanel,
-                    onEndringUtfort: props.onEndringUtfort
+                    onEndringUtfort: props.onEndringUtfort,
+                    onForslagSendt: props.onForslagSendt,
+                    erForslagEnabled: props.erForslagEnabled
                   })
                 }
               />

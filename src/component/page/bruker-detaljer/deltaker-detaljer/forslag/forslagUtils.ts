@@ -12,6 +12,10 @@ export function forslagTitle(type: ForslagEndringType) {
       return 'Avslutt deltakelse'
     case ForslagEndringType.Deltakelsesmengde:
       return 'Endre deltakelsesmengde'
+    case ForslagEndringType.Sluttdato:
+      return 'Endre sluttdato'
+    default:
+      assertNever(type)
   }
 }
 
@@ -25,6 +29,8 @@ export function mapTilEndringType(type: ForslagEndringType): EndringType {
       return EndringType.AVSLUTT_DELTAKELSE
     case ForslagEndringType.Deltakelsesmengde:
       return EndringType.ENDRE_DELTAKELSE_PROSENT
+    case ForslagEndringType.Sluttdato:
+      return EndringType.ENDRE_SLUTTDATO
     default:
       assertNever(type)
   }
