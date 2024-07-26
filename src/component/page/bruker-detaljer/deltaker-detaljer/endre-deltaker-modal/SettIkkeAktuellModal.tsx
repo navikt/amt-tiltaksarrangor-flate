@@ -24,17 +24,14 @@ export interface SettIkkeAktuellModalDataProps {
   readonly erForslagEnabled: boolean
 }
 
-export const SettIkkeAktuellModal = (
-  props: SettIkkeAktuellModalProps & SettIkkeAktuellModalDataProps
-) => {
-  const {
-    deltakerId,
-    onClose,
-    visGodkjennVilkaarPanel,
-    onEndringUtfort,
-    onForslagSendt,
-    erForslagEnabled
-  } = props
+export const SettIkkeAktuellModal = ({
+  deltakerId,
+  onClose,
+  visGodkjennVilkaarPanel,
+  onEndringUtfort,
+  onForslagSendt,
+  erForslagEnabled
+}: SettIkkeAktuellModalProps & SettIkkeAktuellModalDataProps) => {
   const [aarsak, settAarsak] = useState<DeltakerStatusAarsakType>()
   const [beskrivelse, settBeskrivelse] = useState<Nullable<string>>()
   const [begrunnelse, setBegrunnelse] = useState<string>()

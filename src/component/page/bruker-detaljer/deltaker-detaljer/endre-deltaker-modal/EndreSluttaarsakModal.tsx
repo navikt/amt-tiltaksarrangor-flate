@@ -3,61 +3,63 @@ import React, { useState } from 'react'
 import { DeltakerStatusAarsakType } from '../../../../../api/data/endringsmelding'
 import { endreSluttaarsak } from '../../../../../api/tiltak-api'
 import { Nullable } from '../../../../../utils/types/or-nothing'
-import { BaseModal } from '../../../../felles/base-modal/BaseModal'
 import { AarsakSelector } from './AarsakSelector'
-import { SendTilNavKnapp } from './SendTilNavKnapp'
-import { VeilederConfirmationPanel } from './VeilederConfirmationPanel'
-import { aarsakTekstMapper } from '../tekst-mappers'
-import { BESKRIVELSE_MAKS_TEGN } from '../../../../../utils/endre-deltaker-utils'
+import { Endringsmodal } from './endringsmodal/Endringsmodal'
+import {
+  useAarsakValidering,
+  validerAarsakForm
+} from './validering/aarsakValidering'
+import { endreSluttarsakForslag } from '../../../../../api/forslag-api'
+import { AktivtForslag } from '../../../../../api/data/forslag'
+import { IndividuellDeltakerStatus } from '../../../../../api/data/deltaker'
 
 interface EndreSluttaarsakModalProps {
   onClose: () => void
 }
 
 export interface EndreSluttaarsakModalDataProps {
-  deltakerId: string
-  visGodkjennVilkaarPanel: boolean
-  onEndringUtfort: () => void
+  readonly deltakerId: string
+  readonly deltakerStatus:
+    | IndividuellDeltakerStatus.IKKE_AKTUELL
+    | IndividuellDeltakerStatus.HAR_SLUTTET
+  readonly visGodkjennVilkaarPanel: boolean
+  readonly onEndringUtfort: () => void
+  readonly onForslagSendt: (forslag: AktivtForslag) => void
+  readonly erForslagEnabled: boolean
 }
 
-export const EndreSluttaarsakModal = (
-  props: EndreSluttaarsakModalProps & EndreSluttaarsakModalDataProps
-) => {
-  const { deltakerId, onClose, visGodkjennVilkaarPanel, onEndringUtfort } =
-    props
+export const EndreSluttaarsakModal = ({
+  deltakerId,
+  deltakerStatus,
+  visGodkjennVilkaarPanel,
+  onClose,
+  onEndringUtfort,
+  onForslagSendt,
+  erForslagEnabled
+}: EndreSluttaarsakModalProps & EndreSluttaarsakModalDataProps) => {
   const [aarsak, settAarsak] = useState<DeltakerStatusAarsakType>()
   const [beskrivelse, settBeskrivelse] = useState<Nullable<string>>()
-  const [vilkaarGodkjent, settVilkaarGodkjent] = useState(false)
-  const kanSendeEndringsmelding =
-    aarsak === DeltakerStatusAarsakType.ANNET
-      ? aarsak &&
-        (vilkaarGodkjent || !visGodkjennVilkaarPanel) &&
-        beskrivelse &&
-        beskrivelse.length <= BESKRIVELSE_MAKS_TEGN
-      : aarsak && (vilkaarGodkjent || !visGodkjennVilkaarPanel)
+  const [begrunnelse, setBegrunnelse] = useState<string>()
+  const { validering } = useAarsakValidering(aarsak, beskrivelse, begrunnelse)
 
   const sendEndringsmelding = () => {
-    if (!aarsak) {
-      return Promise.reject()
-    }
-    if (aarsak === DeltakerStatusAarsakType.ANNET && !beskrivelse) {
-      return Promise.reject(
-        `Beskrivelse er påkrevd med årsak '${aarsakTekstMapper(aarsak)}'`
+    return validerAarsakForm(aarsak, beskrivelse)
+      .then((validertForm) =>
+        endreSluttaarsak(deltakerId, validertForm.endringsmelding.aarsak)
       )
-    }
-    if (
-      aarsak === DeltakerStatusAarsakType.ANNET &&
-      beskrivelse &&
-      beskrivelse?.length > 40
-    ) {
-      return Promise.reject(
-        `Beskrivelse kan ikke være mer enn 40 tegn med årsak '${aarsakTekstMapper(aarsak)}'`
+      .then(onEndringUtfort)
+  }
+
+  const sendForslag = () => {
+    return validerAarsakForm(aarsak, beskrivelse, begrunnelse)
+      .then((validertForm) =>
+        endreSluttarsakForslag(
+          deltakerId,
+          validertForm.forslag.aarsak,
+          validertForm.forslag.begrunnelse
+        )
       )
-    }
-    return endreSluttaarsak(deltakerId, {
-      type: aarsak,
-      beskrivelse: beskrivelse ?? null
-    }).then(onEndringUtfort)
+      .then((res) => onForslagSendt(res.data))
   }
 
   const onAarsakSelected = (
@@ -69,22 +71,26 @@ export const EndreSluttaarsakModal = (
   }
 
   return (
-    <BaseModal tittel="Endre sluttårsak" onClose={onClose}>
+    <Endringsmodal
+      tittel="Endre sluttårsak"
+      visGodkjennVilkaarPanel={visGodkjennVilkaarPanel}
+      erForslag={erForslagEnabled}
+      erSendKnappDisabled={!validering.isSuccess}
+      begrunnelseType="valgfri"
+      onClose={onClose}
+      onSend={erForslagEnabled ? sendForslag : sendEndringsmelding}
+      onBegrunnelse={(begrunnelse) => {
+        setBegrunnelse(begrunnelse)
+      }}
+    >
       <AarsakSelector
-        tittel="Hva er årsaken til avslutning?"
+        tittel={
+          deltakerStatus === IndividuellDeltakerStatus.HAR_SLUTTET
+            ? 'Hva er årsaken til avslutning?'
+            : 'Hva er årsaken til at deltakeren ikke er aktuell?'
+        }
         onAarsakSelected={onAarsakSelected}
       />
-      {visGodkjennVilkaarPanel && (
-        <VeilederConfirmationPanel
-          vilkaarGodkjent={vilkaarGodkjent}
-          setVilkaarGodkjent={settVilkaarGodkjent}
-        />
-      )}
-      <SendTilNavKnapp
-        onEndringSendt={onClose}
-        sendEndring={sendEndringsmelding}
-        disabled={!kanSendeEndringsmelding}
-      />
-    </BaseModal>
+    </Endringsmodal>
   )
 }

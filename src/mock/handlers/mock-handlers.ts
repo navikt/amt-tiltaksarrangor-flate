@@ -436,6 +436,15 @@ export const mockHandlers: RequestHandler[] = [
     type: ForslagEndringType.Sluttdato,
     sluttdato: body.sluttdato
   })),
+  handlePostForslagRequest('startdato', (body) => ({
+    type: ForslagEndringType.Startdato,
+    startdato: body.startdato,
+    sluttdato: body.sluttdato
+  })),
+  handlePostForslagRequest('sluttarsak', (body) => ({
+    type: ForslagEndringType.Sluttarsak,
+    aarsak: body.aarsak
+  })),
   rest.get(
     appUrl('/amt-tiltaksarrangor-bff/unleash/api/feature'),
     (req, res, ctx) => {
