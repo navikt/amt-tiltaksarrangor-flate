@@ -13,13 +13,14 @@ import { Endringsmodal } from './endringsmodal/Endringsmodal'
 import { DateField } from '../../../../felles/DateField'
 import { kalkulerMaxDato, kalkulerMinDato } from './LeggTilEndreDatoModal'
 import styles from './EndreOppstartModal.module.scss'
+import { Deltaker } from '../../../../../api/data/deltaker'
 
 export interface EndreOppstartModalProps {
   onClose: () => void
 }
 
 export interface EndreOppstartModalDataProps {
-  readonly deltakerId: string
+  readonly deltaker: Deltaker
   readonly visGodkjennVilkaarPanel: boolean
   readonly onEndringUtfort: () => void
   readonly onForslagSendt: (forslag: AktivtForslag) => void
@@ -27,7 +28,7 @@ export interface EndreOppstartModalDataProps {
 }
 
 export const EndreOppstartModal = ({
-  deltakerId,
+  deltaker,
   visGodkjennVilkaarPanel,
   onEndringUtfort,
   onForslagSendt,
@@ -46,7 +47,7 @@ export const EndreOppstartModal = ({
     if (!valgtDato)
       return Promise.reject('Startdato må være valgt for å sende endring')
 
-    return endreOppstartsdato(deltakerId, valgtDato).then(onEndringUtfort)
+    return endreOppstartsdato(deltaker.id, valgtDato).then(onEndringUtfort)
   }
 
   const sendForslag = () => {
@@ -55,7 +56,12 @@ export const EndreOppstartModal = ({
     }
     return validerObligatoriskBegrunnelse(begrunnelse)
       .then(() =>
-        endreStartdatoForslag(deltakerId, valgtDato, undefined, begrunnelse)
+        endreStartdatoForslag(
+          deltaker.id,
+          valgtDato,
+          deltaker.sluttDato ?? undefined,
+          begrunnelse
+        )
       )
       .then((res) => onForslagSendt(res.data))
   }

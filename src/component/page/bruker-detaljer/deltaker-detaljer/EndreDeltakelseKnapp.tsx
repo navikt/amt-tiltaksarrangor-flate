@@ -87,7 +87,7 @@ export const EndreDeltakelseKnapp = (props: EndreDeltakelseKnappProps) => {
                 endringstype={EndringType.ENDRE_OPPSTARTSDATO}
                 onClick={() =>
                   visEndreOppstartModal({
-                    deltakerId: deltaker.id,
+                    deltaker: deltaker,
                     visGodkjennVilkaarPanel: visGodkjennVilkaarPanel,
                     onEndringUtfort: props.onEndringUtfort,
                     onForslagSendt: props.onForslagSendt,
