@@ -32,7 +32,7 @@ export const LeggTilEndreDatoModal = (
     sendEndring,
     kanNullstilleDato
   } = props
-  const [valgtDato, setNyDato] = useState<Nullable<Date>>()
+  const [valgtDato, setValgtDato] = useState<Nullable<Date>>()
   const [vilkaarGodkjent, setVilkaarGodkjent] = useState(false)
   const { deltakerliste } = useDeltakerlisteStore()
 
@@ -50,7 +50,7 @@ export const LeggTilEndreDatoModal = (
         className={styles.datofelt}
         label={datoLabel}
         date={valgtDato}
-        onDateChanged={(d) => setNyDato(d)}
+        onDateChanged={(d) => setValgtDato(d)}
         min={kalkulerMinDato(deltakerliste.startDato)}
         max={kalkulerMaxDato(deltakerliste.sluttDato)}
       />
