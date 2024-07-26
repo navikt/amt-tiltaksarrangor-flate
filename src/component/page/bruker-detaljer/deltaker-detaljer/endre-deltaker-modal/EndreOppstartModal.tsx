@@ -1,36 +1,92 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 import { endreOppstartsdato } from '../../../../../api/tiltak-api'
 import { Nullable } from '../../../../../utils/types/or-nothing'
-import { LeggTilEndreDatoModal } from './LeggTilEndreDatoModal'
+import { AktivtForslag } from '../../../../../api/data/forslag'
+import { useDeltakerlisteStore } from '../deltakerliste-store'
+import {
+  gyldigObligatoriskBegrunnelse,
+  validerObligatoriskBegrunnelse
+} from './validering/begrunnelseValidering'
+import { endreStartdatoForslag } from '../../../../../api/forslag-api'
+import { Endringsmodal } from './endringsmodal/Endringsmodal'
+import { DateField } from '../../../../felles/DateField'
+import { kalkulerMaxDato, kalkulerMinDato } from './LeggTilEndreDatoModal'
+import styles from './EndreOppstartModal.module.scss'
+import { Deltaker } from '../../../../../api/data/deltaker'
 
 export interface EndreOppstartModalProps {
   onClose: () => void
 }
 
 export interface EndreOppstartModalDataProps {
-  deltakerId: string
-  visGodkjennVilkaarPanel: boolean
-  onEndringUtfort: () => void
+  readonly deltaker: Deltaker
+  readonly visGodkjennVilkaarPanel: boolean
+  readonly onEndringUtfort: () => void
+  readonly onForslagSendt: (forslag: AktivtForslag) => void
+  readonly erForslagEnabled: boolean
 }
 
-export const EndreOppstartModal = (
-  props: EndreOppstartModalProps & EndreOppstartModalDataProps
-) => {
-  const { deltakerId, onClose, onEndringUtfort } = props
+export const EndreOppstartModal = ({
+  deltaker,
+  visGodkjennVilkaarPanel,
+  onEndringUtfort,
+  onForslagSendt,
+  onClose,
+  erForslagEnabled
+}: EndreOppstartModalProps & EndreOppstartModalDataProps) => {
+  const [valgtDato, setValgtDato] = useState<Nullable<Date>>()
+  const [begrunnelse, setBegrunnelse] = useState<string>('')
+  const { deltakerliste } = useDeltakerlisteStore()
 
-  const sendEndring = (valgtDato: Nullable<Date>) => {
-    return endreOppstartsdato(deltakerId, valgtDato).then(onEndringUtfort)
+  const kanSendeMelding = erForslagEnabled
+    ? valgtDato !== null && gyldigObligatoriskBegrunnelse(begrunnelse)
+    : valgtDato !== null
+
+  const sendEndringsmelding = () => {
+    if (!valgtDato)
+      return Promise.reject('Startdato må være valgt for å sende endring')
+
+    return endreOppstartsdato(deltaker.id, valgtDato).then(onEndringUtfort)
+  }
+
+  const sendForslag = () => {
+    if (!valgtDato) {
+      return Promise.reject('Startdato må være valgt for å sende endring')
+    }
+    return validerObligatoriskBegrunnelse(begrunnelse)
+      .then(() =>
+        endreStartdatoForslag(
+          deltaker.id,
+          valgtDato,
+          deltaker.sluttDato ?? undefined,
+          begrunnelse
+        )
+      )
+      .then((res) => onForslagSendt(res.data))
   }
 
   return (
-    <LeggTilEndreDatoModal
+    <Endringsmodal
       tittel="Endre oppstartsdato"
-      datoLabel="Ny oppstartsdato"
+      visGodkjennVilkaarPanel={visGodkjennVilkaarPanel}
+      erSendKnappDisabled={!kanSendeMelding}
+      erForslag={erForslagEnabled}
       onClose={onClose}
-      sendEndring={sendEndring}
-      visGodkjennVilkaarPanel={props.visGodkjennVilkaarPanel}
-      kanNullstilleDato
-    />
+      onSend={erForslagEnabled ? sendForslag : sendEndringsmelding}
+      begrunnelseType="obligatorisk"
+      onBegrunnelse={(begrunnelse) => {
+        setBegrunnelse(begrunnelse)
+      }}
+    >
+      <DateField
+        className={styles.datofelt}
+        label="Ny oppstartsdato"
+        date={valgtDato}
+        onDateChanged={(d) => setValgtDato(d)}
+        min={kalkulerMinDato(deltakerliste.startDato)}
+        max={kalkulerMaxDato(deltakerliste.sluttDato)}
+      />
+    </Endringsmodal>
   )
 }

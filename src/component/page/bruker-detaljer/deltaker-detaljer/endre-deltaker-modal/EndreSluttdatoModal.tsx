@@ -34,7 +34,7 @@ export const EndreSluttdatoModal = ({
   onClose,
   erForslagEnabled
 }: EndreSluttdatoModalProps & EndreSluttdatoModalDataProps) => {
-  const [valgtDato, setNyDato] = useState<Nullable<Date>>()
+  const [valgtDato, setValgtDato] = useState<Nullable<Date>>()
   const [begrunnelse, setBegrunnelse] = useState<string>('')
   const { deltakerliste } = useDeltakerlisteStore()
 
@@ -75,7 +75,7 @@ export const EndreSluttdatoModal = ({
         className={styles.datofelt}
         label="Ny sluttdato"
         date={valgtDato}
-        onDateChanged={(d) => setNyDato(d)}
+        onDateChanged={(d) => setValgtDato(d)}
         min={kalkulerMinDato(deltakerliste.startDato)}
         max={kalkulerMaxDato(deltakerliste.sluttDato)}
       />

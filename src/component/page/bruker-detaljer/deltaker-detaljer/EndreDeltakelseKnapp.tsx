@@ -2,7 +2,11 @@ import { PencilIcon } from '@navikt/aksel-icons'
 import { Button, Dropdown } from '@navikt/ds-react'
 import React, { useRef } from 'react'
 
-import { Deltaker, TiltakDeltakerStatus } from '../../../../api/data/deltaker'
+import {
+  Deltaker,
+  IndividuellDeltakerStatus,
+  TiltakDeltakerStatus
+} from '../../../../api/data/deltaker'
 import { DropDownButton } from './DropDownButton'
 import styles from './EndreDeltakelseKnapp.module.scss'
 import { useModalData } from './modal-store'
@@ -83,9 +87,11 @@ export const EndreDeltakelseKnapp = (props: EndreDeltakelseKnappProps) => {
                 endringstype={EndringType.ENDRE_OPPSTARTSDATO}
                 onClick={() =>
                   visEndreOppstartModal({
-                    deltakerId: deltaker.id,
+                    deltaker: deltaker,
+                    visGodkjennVilkaarPanel: visGodkjennVilkaarPanel,
                     onEndringUtfort: props.onEndringUtfort,
-                    visGodkjennVilkaarPanel: visGodkjennVilkaarPanel
+                    onForslagSendt: props.onForslagSendt,
+                    erForslagEnabled: props.erForslagEnabled
                   })
                 }
               />
@@ -164,8 +170,9 @@ export const EndreDeltakelseKnapp = (props: EndreDeltakelseKnappProps) => {
                   visSettDeltakerIkkeAktuellModal({
                     deltakerId: deltaker.id,
                     visGodkjennVilkaarPanel: visGodkjennVilkaarPanel,
-                    erKurs: deltaker.deltakerliste.erKurs,
-                    onEndringUtfort: props.onEndringUtfort
+                    onEndringUtfort: props.onEndringUtfort,
+                    onForslagSendt: props.onForslagSendt,
+                    erForslagEnabled: props.erForslagEnabled
                   })
                 }
               />
@@ -186,15 +193,23 @@ export const EndreDeltakelseKnapp = (props: EndreDeltakelseKnappProps) => {
                 }
               />
             )}
-            {deltaker.status.type === TiltakDeltakerStatus.HAR_SLUTTET &&
+            {(deltaker.status.type === IndividuellDeltakerStatus.HAR_SLUTTET ||
+              (props.erForslagEnabled &&
+                deltaker.status.type ===
+                  IndividuellDeltakerStatus.IKKE_AKTUELL)) &&
               !deltaker.deltakerliste.erKurs && (
                 <DropDownButton
                   endringstype={EndringType.ENDRE_SLUTTAARSAK}
                   onClick={() =>
                     visEndreSluttaarsakModal({
                       deltakerId: deltaker.id,
+                      deltakerStatus: deltaker.status.type as
+                        | IndividuellDeltakerStatus.HAR_SLUTTET
+                        | IndividuellDeltakerStatus.IKKE_AKTUELL,
                       visGodkjennVilkaarPanel: visGodkjennVilkaarPanel,
-                      onEndringUtfort: props.onEndringUtfort
+                      onEndringUtfort: props.onEndringUtfort,
+                      onForslagSendt: props.onForslagSendt,
+                      erForslagEnabled: props.erForslagEnabled
                     })
                   }
                 />

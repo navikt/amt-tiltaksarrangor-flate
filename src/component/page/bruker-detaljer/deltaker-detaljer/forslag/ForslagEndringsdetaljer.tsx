@@ -79,6 +79,23 @@ function EndringsDetaljer({ endring }: { readonly endring: ForslagEndring }) {
         </BodyShort>
       )
     }
+    case ForslagEndringType.Startdato:
+      return (
+        <>
+          <BodyShort size="small">
+            Ny oppstartsdato: {formatDate(endring.startdato)}
+          </BodyShort>
+          <BodyShort size="small">
+            Ny sluttdato: {formatDate(endring.sluttdato)}
+          </BodyShort>
+        </>
+      )
+    case ForslagEndringType.Sluttarsak:
+      return (
+        <BodyShort size="small">
+          Ny sluttårsak: {endringAarsakTekstMapper(endring.aarsak)}
+        </BodyShort>
+      )
     default:
       assertNever(endring)
   }
