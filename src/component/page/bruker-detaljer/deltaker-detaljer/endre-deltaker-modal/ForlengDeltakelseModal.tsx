@@ -21,6 +21,7 @@ import {
   gyldigObligatoriskBegrunnelse,
   validerObligatoriskBegrunnelse
 } from './validering/begrunnelseValidering'
+import { EndringType } from '../types'
 
 export interface ForlengDeltakelseModalProps {
   readonly onClose: () => void
@@ -99,6 +100,7 @@ export const ForlengDeltakelseModal = (
   return (
     <Endringsmodal
       tittel="Forleng deltakelse"
+      endringstype={EndringType.FORLENG_DELTAKELSE}
       visGodkjennVilkaarPanel={visGodkjennVilkaarPanel}
       erForslag={erForslagEnabled}
       erSendKnappDisabled={!kanSendeMelding}

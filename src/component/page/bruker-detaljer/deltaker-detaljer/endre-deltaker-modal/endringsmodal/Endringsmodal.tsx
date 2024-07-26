@@ -6,9 +6,11 @@ import { SendTilNavKnapp } from '../SendTilNavKnapp'
 import { BegrunnelseInput, BegrunnelseType } from './BegrunnelseInput'
 
 import styles from './Endringsmodal.module.scss'
+import { EndringType } from '../../types'
 
 interface EndringsmodalProps {
   readonly tittel: string
+  readonly endringstype: EndringType
   readonly erForslag?: boolean
   readonly visGodkjennVilkaarPanel: boolean
   readonly erSendKnappDisabled?: boolean
@@ -29,6 +31,7 @@ export function Endringsmodal(props: EndringsmodalProps) {
   return (
     <BaseModal
       tittel={`${prefix}${props.tittel}`}
+      endringstype={props.endringstype}
       onClose={props.onClose}
       className={styles.modal}
     >

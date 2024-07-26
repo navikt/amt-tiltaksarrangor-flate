@@ -1,6 +1,7 @@
 .datofelt {
   max-width: fit-content;
   margin-bottom: 1rem;
+
   label {
     font-size: var(--a-font-size-large);
     font-weight: var(--a-font-weight-bold);
@@ -8,6 +9,10 @@
   }
 }
 
-.content > * {
+.content>* {
   margin-bottom: 1rem;
+}
+
+.fit-content {
+  min-width: 300px;
 }

@@ -15,6 +15,7 @@ import {
 } from './validering/aarsakValidering'
 import { Endringsmodal } from './endringsmodal/Endringsmodal'
 import { avsluttDeltakelseForslag } from '../../../../../api/forslag-api'
+import { EndringType } from '../types'
 
 interface AvsluttDeltakelseModalProps {
   onClose: () => void
@@ -97,6 +98,7 @@ export const AvsluttDeltakelseModal = (
   return (
     <Endringsmodal
       tittel="Avslutt deltakelse"
+      endringstype={EndringType.AVSLUTT_DELTAKELSE}
       visGodkjennVilkaarPanel={visGodkjennVilkaarPanel}
       erForslag={erForslagEnabled}
       erSendKnappDisabled={!validering.isSuccess || !sluttDato}

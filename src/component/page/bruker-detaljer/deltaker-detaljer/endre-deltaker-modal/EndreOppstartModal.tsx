@@ -11,9 +11,10 @@ import {
 import { endreStartdatoForslag } from '../../../../../api/forslag-api'
 import { Endringsmodal } from './endringsmodal/Endringsmodal'
 import { DateField } from '../../../../felles/DateField'
-import { kalkulerMaxDato, kalkulerMinDato } from './LeggTilEndreDatoModal'
 import styles from './EndreOppstartModal.module.scss'
 import { Deltaker } from '../../../../../api/data/deltaker'
+import { EndringType } from '../types'
+import { kalkulerMaxDato, kalkulerMinDato } from './datoutils'
 
 export interface EndreOppstartModalProps {
   onClose: () => void
@@ -44,9 +45,6 @@ export const EndreOppstartModal = ({
     : valgtDato !== null
 
   const sendEndringsmelding = () => {
-    if (!valgtDato)
-      return Promise.reject('Startdato må være valgt for å sende endring')
-
     return endreOppstartsdato(deltaker.id, valgtDato).then(onEndringUtfort)
   }
 
@@ -69,6 +67,7 @@ export const EndreOppstartModal = ({
   return (
     <Endringsmodal
       tittel="Endre oppstartsdato"
+      endringstype={EndringType.ENDRE_OPPSTARTSDATO}
       visGodkjennVilkaarPanel={visGodkjennVilkaarPanel}
       erSendKnappDisabled={!kanSendeMelding}
       erForslag={erForslagEnabled}

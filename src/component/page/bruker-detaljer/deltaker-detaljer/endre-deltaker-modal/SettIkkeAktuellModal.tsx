@@ -11,6 +11,7 @@ import {
   useAarsakValidering,
   validerAarsakForm
 } from './validering/aarsakValidering'
+import { EndringType } from '../types'
 
 interface SettIkkeAktuellModalProps {
   onClose: () => void
@@ -69,6 +70,7 @@ export const SettIkkeAktuellModal = ({
   return (
     <Endringsmodal
       tittel="Er ikke aktuell"
+      endringstype={EndringType.DELTAKER_IKKE_AKTUELL}
       visGodkjennVilkaarPanel={visGodkjennVilkaarPanel}
       erForslag={erForslagEnabled}
       erSendKnappDisabled={!validering.isSuccess}

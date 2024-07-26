@@ -12,6 +12,7 @@ import {
 import { endreSluttarsakForslag } from '../../../../../api/forslag-api'
 import { AktivtForslag } from '../../../../../api/data/forslag'
 import { IndividuellDeltakerStatus } from '../../../../../api/data/deltaker'
+import { EndringType } from '../types'
 
 interface EndreSluttaarsakModalProps {
   onClose: () => void
@@ -73,6 +74,7 @@ export const EndreSluttaarsakModal = ({
   return (
     <Endringsmodal
       tittel="Endre sluttårsak"
+      endringstype={EndringType.ENDRE_SLUTTAARSAK}
       visGodkjennVilkaarPanel={visGodkjennVilkaarPanel}
       erForslag={erForslagEnabled}
       erSendKnappDisabled={!validering.isSuccess}

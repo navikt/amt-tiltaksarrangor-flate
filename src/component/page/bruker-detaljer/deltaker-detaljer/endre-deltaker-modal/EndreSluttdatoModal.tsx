@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 
 import { postEndreSluttdato } from '../../../../../api/tiltak-api'
 import { Nullable } from '../../../../../utils/types/or-nothing'
-import { kalkulerMaxDato, kalkulerMinDato } from './LeggTilEndreDatoModal'
 import { useDeltakerlisteStore } from '../deltakerliste-store'
 import { Endringsmodal } from './endringsmodal/Endringsmodal'
 import { DateField } from '../../../../felles/DateField'
@@ -13,6 +12,8 @@ import {
   gyldigObligatoriskBegrunnelse,
   validerObligatoriskBegrunnelse
 } from './validering/begrunnelseValidering'
+import { EndringType } from '../types'
+import { kalkulerMaxDato, kalkulerMinDato } from './datoutils'
 
 export interface EndreSluttdatoModalProps {
   onClose: () => void
@@ -61,6 +62,7 @@ export const EndreSluttdatoModal = ({
   return (
     <Endringsmodal
       tittel="Endre sluttdato"
+      endringstype={EndringType.ENDRE_SLUTTDATO}
       visGodkjennVilkaarPanel={visGodkjennVilkaarPanel}
       erSendKnappDisabled={!kanSendeMelding}
       erForslag={erForslagEnabled}
