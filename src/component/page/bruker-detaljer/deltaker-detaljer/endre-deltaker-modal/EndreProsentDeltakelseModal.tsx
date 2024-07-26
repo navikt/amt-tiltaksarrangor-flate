@@ -16,6 +16,7 @@ import {
 } from './validering/begrunnelseValidering'
 import { deltakelsesmengdeForslag } from '../../../../../api/forslag-api'
 import { useDeltakelsesmengdeValidering } from './validering/deltakelsesmengdeValidering'
+import { EndringType } from '../types'
 
 interface EndreProsentDeltakelseModalProps {
   onClose: () => void
@@ -97,6 +98,7 @@ export const EndreProsentDeltakelseModal = ({
   return (
     <Endringsmodal
       tittel="Endre deltakelsesmengde"
+      endringstype={EndringType.ENDRE_DELTAKELSE_PROSENT}
       visGodkjennVilkaarPanel={visGodkjennVilkaarPanel}
       erForslag={erForslagEnabled}
       erSendKnappDisabled={!kanSendeMelding}
