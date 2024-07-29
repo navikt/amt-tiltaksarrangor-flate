@@ -1,74 +1,61 @@
-import { TextField } from '@navikt/ds-react'
 import dayjs from 'dayjs'
 import React, { useState } from 'react'
 
-import {
-  formatDate,
-  formatNullableDateToDateInputStr
-} from '../../utils/date-utils'
+import { DateValidationT } from '@navikt/ds-react'
+import { formatDate } from '../../utils/date-utils'
 import { Nullable } from '../../utils/types/or-nothing'
+import { SimpleDatePicker } from './SimpleDatePicker'
 
-interface IProps {
+interface Props {
   label: Nullable<string>
-  date?: Nullable<Date>
+  defaultDate?: Nullable<Date>
   min?: Nullable<Date>
   max?: Nullable<Date>
-  className?: string
   onDateChanged: (date: Nullable<Date>) => void
 }
 
 export const DateField = ({
   label,
-  date,
+  defaultDate,
   min,
   max,
-  className,
   onDateChanged
-}: IProps): React.ReactElement => {
-  const [dateStr, setDateStr] = useState(
-    formatNullableDateToDateInputStr(date) || ''
-  )
+}: Props): React.ReactElement => {
   const [errorMsg, setErrorMsg] = useState<string>()
 
-  const onChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
-    const newDateStr = e.target.value
-    const newDate = dayjs(newDateStr)
-    const beforeMin = dayjs(min).subtract(1, 'day')
-
-    setDateStr(newDateStr)
-
-    if (!newDate.isValid()) {
+  const onChange = (dato: Date | undefined): void => {
+    if (!dato) {
       onDateChanged(null)
-      setErrorMsg(undefined)
       return
     }
+    onDateChanged(dato)
+  }
 
-    if (min && newDate.isBefore(beforeMin)) {
-      setErrorMsg(`Dato må være etter ${formatDate(beforeMin.toDate())}`)
-      onDateChanged(null)
-    } else if (max && newDate.isAfter(max)) {
+  const validate = (validation: DateValidationT) => {
+    if (validation.isInvalid) {
+      setErrorMsg('Ugyldig dato')
+    } else if (min && validation.isBefore) {
+      setErrorMsg(
+        `Dato må være etter ${formatDate(dayjs(min).subtract(1, 'day').toDate())}`
+      )
+    } else if (max && validation.isAfter) {
       setErrorMsg(
         `Dato må være før ${formatDate(dayjs(max).add(1, 'day').toDate())}`
       )
-      onDateChanged(null)
     } else {
-      if (errorMsg) {
-        setErrorMsg(undefined)
-      }
-      onDateChanged(newDate.toDate())
+      setErrorMsg(undefined)
     }
   }
 
   return (
-    <TextField
-      className={className}
-      label={label}
-      type={'date' as any} // eslint-disable-line
-      value={dateStr}
-      onChange={onChange}
+    <SimpleDatePicker
+      label={label ?? undefined}
       error={errorMsg}
-      min={formatNullableDateToDateInputStr(min)}
-      max={formatNullableDateToDateInputStr(max)}
+      defaultDate={defaultDate ?? undefined}
+      onChange={onChange}
+      onValidate={validate}
+      min={min ?? undefined}
+      max={max ?? undefined}
     />
   )
 }

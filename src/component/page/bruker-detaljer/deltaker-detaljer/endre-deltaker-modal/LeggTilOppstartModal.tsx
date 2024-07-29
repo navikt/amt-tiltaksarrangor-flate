@@ -46,9 +46,8 @@ export const LeggTilOppstartModal = ({
       className={styles.fitContent}
     >
       <DateField
-        className={styles.datofelt}
         label="Ny oppstartsdato"
-        date={valgtDato}
+        defaultDate={valgtDato}
         onDateChanged={(d) => setValgtDato(d)}
         min={kalkulerMinDato(deltakerliste.startDato)}
         max={kalkulerMaxDato(deltakerliste.sluttDato)}

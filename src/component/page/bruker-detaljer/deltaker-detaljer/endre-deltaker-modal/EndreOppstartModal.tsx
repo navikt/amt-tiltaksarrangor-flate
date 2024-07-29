@@ -11,7 +11,6 @@ import {
 import { endreStartdatoForslag } from '../../../../../api/forslag-api'
 import { Endringsmodal } from './endringsmodal/Endringsmodal'
 import { DateField } from '../../../../felles/DateField'
-import styles from './EndreOppstartModal.module.scss'
 import { Deltaker } from '../../../../../api/data/deltaker'
 import { EndringType } from '../types'
 import { kalkulerMaxDato, kalkulerMinDato } from './datoutils'
@@ -79,9 +78,8 @@ export const EndreOppstartModal = ({
       }}
     >
       <DateField
-        className={styles.datofelt}
         label="Ny oppstartsdato"
-        date={valgtDato}
+        defaultDate={valgtDato}
         onDateChanged={(d) => setValgtDato(d)}
         min={kalkulerMinDato(deltakerliste.startDato)}
         max={kalkulerMaxDato(deltakerliste.sluttDato)}

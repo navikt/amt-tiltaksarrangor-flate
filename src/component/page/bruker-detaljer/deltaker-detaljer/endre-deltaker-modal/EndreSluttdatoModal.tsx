@@ -5,7 +5,6 @@ import { Nullable } from '../../../../../utils/types/or-nothing'
 import { useDeltakerlisteStore } from '../deltakerliste-store'
 import { Endringsmodal } from './endringsmodal/Endringsmodal'
 import { DateField } from '../../../../felles/DateField'
-import styles from './EndreOppstartModal.module.scss'
 import { AktivtForslag } from '../../../../../api/data/forslag'
 import { endreSluttdatoForslag } from '../../../../../api/forslag-api'
 import {
@@ -74,9 +73,8 @@ export const EndreSluttdatoModal = ({
       }}
     >
       <DateField
-        className={styles.datofelt}
         label="Ny sluttdato"
-        date={valgtDato}
+        defaultDate={valgtDato}
         onDateChanged={(d) => setValgtDato(d)}
         min={kalkulerMinDato(deltakerliste.startDato)}
         max={kalkulerMaxDato(deltakerliste.sluttDato)}
