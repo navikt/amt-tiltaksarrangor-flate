@@ -1,8 +1,4 @@
 import { DateValidationT, useDatepicker, DatePicker } from '@navikt/ds-react'
-import dayjs from 'dayjs'
-import React, { useState } from 'react'
-import { useRef } from 'react'
-import { formatDate } from '../../utils/date-utils'
 
 interface Props {
   label?: string
@@ -25,27 +21,19 @@ export function SimpleDatePicker({
   onValidate,
   onChange
 }: Props) {
-  const ref = useRef<HTMLInputElement>(null)
   const { datepickerProps, inputProps } = useDatepicker({
     fromDate: min,
     toDate: max,
     defaultSelected: defaultDate,
     defaultMonth: defaultMonth,
-    onValidate: (dateValidation) => {
-      if (onValidate) {
-        onValidate(dateValidation, dayjs(ref?.current?.value).toDate())
-      }
-    },
-    onDateChange: (date) => {
-      onChange(date)
-    }
+    onValidate: onValidate,
+    onDateChange: onChange
   })
 
   return (
     <DatePicker {...datepickerProps}>
       <DatePicker.Input
         {...inputProps}
-        ref={ref}
         label={label}
         size="small"
         error={error}

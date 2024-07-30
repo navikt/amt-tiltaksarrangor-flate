@@ -77,8 +77,6 @@ export function useSluttdato({
 
   const hasError = error !== undefined || annet.error !== undefined
 
-  console.log(sluttdato, error)
-
   return {
     sluttdato: hasError || valgtVarighet === undefined ? undefined : sluttdato,
     error: error || annet.error,
@@ -132,10 +130,13 @@ function validerSluttdato(dato: Date | undefined, min?: Date, max?: Date) {
   if (!dato || !sluttdato.isValid()) {
     return 'Ugyldig dato'
   }
-  if (min && sluttdato.isBefore(min)) {
-    return `Dato må være etter ${formatDate(dayjs(min).subtract(1, 'day').toDate())}`
-  } else if (max && sluttdato.isAfter(max)) {
-    return `Dato må være før ${formatDate(dayjs(max).add(1, 'day').toDate())}`
+  const mindate = dayjs(min).subtract(1, 'day')
+  const maxdate = dayjs(max).add(1, 'day')
+
+  if (min && sluttdato.isBefore(mindate)) {
+    return `Dato må være etter ${formatDate(mindate.toDate())}`
+  } else if (max && sluttdato.isAfter(maxdate)) {
+    return `Dato må være før ${formatDate(maxdate.toDate())}`
   }
   return undefined
 }
