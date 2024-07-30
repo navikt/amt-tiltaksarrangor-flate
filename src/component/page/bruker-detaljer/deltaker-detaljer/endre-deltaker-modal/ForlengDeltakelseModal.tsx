@@ -32,7 +32,7 @@ export const ForlengDeltakelseModal = (
 ) => {
   const {
     deltakerId,
-    sluttDato,
+    sluttDato: opprinneligSluttdato,
     onClose,
     onEndringUtfort,
     visGodkjennVilkaarPanel,
@@ -40,7 +40,7 @@ export const ForlengDeltakelseModal = (
   } = props
   const [begrunnelse, setBegrunnelse] = useState('')
   const { deltakerliste } = useDeltakerlisteStore()
-  const minDato = maxDate(sluttDato, deltakerliste.startDato)
+  const minDato = maxDate(opprinneligSluttdato, deltakerliste.startDato)
 
   const sluttdato = useRef<SluttdatoRef>(null)
 
@@ -96,6 +96,7 @@ export const ForlengDeltakelseModal = (
         legend="Hvor lenge skal deltakelsen forlenges?"
         min={minDato ?? undefined}
         max={deltakerliste.sluttDato ?? undefined}
+        defaultMaaned={opprinneligSluttdato ?? undefined}
       />
     </Endringsmodal>
   )
