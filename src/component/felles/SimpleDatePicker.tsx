@@ -1,14 +1,14 @@
 import { DateValidationT, useDatepicker, DatePicker } from '@navikt/ds-react'
 
 interface Props {
-  label?: string
-  error?: string
-  min?: Date
-  max?: Date
-  defaultDate?: Date
-  defaultMonth?: Date
-  onValidate?: (validation: DateValidationT, date?: Date) => void
-  onChange: (date: Date | undefined) => void
+  readonly label?: string
+  readonly error?: string
+  readonly min?: Date
+  readonly max?: Date
+  readonly defaultDate?: Date
+  readonly defaultMonth?: Date
+  readonly onValidate?: (validation: DateValidationT, date?: Date) => void
+  readonly onChange: (date: Date | undefined) => void
 }
 
 export function SimpleDatePicker({

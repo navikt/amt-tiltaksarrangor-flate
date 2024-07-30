@@ -1,6 +1,5 @@
 import React, { useRef, useState } from 'react'
 
-import { Tiltakskode } from '../../../../../api/data/tiltak'
 import { forlengDeltakelse } from '../../../../../api/tiltak-api'
 import { maxDate } from '../../../../../utils/date-utils'
 import { Nullable } from '../../../../../utils/types/or-nothing'
@@ -21,9 +20,7 @@ export interface ForlengDeltakelseModalProps {
 
 export interface ForlengDeltakelseModalDataProps {
   readonly deltakerId: string
-  readonly startDato: Nullable<Date>
   readonly sluttDato: Nullable<Date>
-  readonly tiltakskode: Tiltakskode
   readonly visGodkjennVilkaarPanel: boolean
   readonly onEndringUtfort: () => void
   readonly onForslagSendt: (forslag: AktivtForslag) => void
@@ -64,7 +61,7 @@ export const ForlengDeltakelseModal = (
   }
 
   const sendForslag = () => {
-    if (!sluttdato.current || !sluttdato.current?.sluttdato) {
+    if (!sluttdato.current?.sluttdato) {
       return Promise.reject(
         'Kan ikke sende ForlengDeltakelse forslag uten sluttdato'
       )

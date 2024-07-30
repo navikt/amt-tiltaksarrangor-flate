@@ -112,8 +112,7 @@ export const SluttdatoVelger = forwardRef<SluttdatoRef, SluttdatoVelgerProps>(
         </Radio>
         {valgtVarighet !== VarighetValg.ANNET && valgtVarighet && (
           <BodyShort size="small" className={styles.nySluttdato}>
-            {detailLabel ? detailLabel : 'Ny sluttdato'}:{' '}
-            {formatDate(sluttdato.sluttdato)}
+            {detailLabel || 'Ny sluttdato'}: {formatDate(sluttdato.sluttdato)}
           </BodyShort>
         )}
       </RadioGroup>
