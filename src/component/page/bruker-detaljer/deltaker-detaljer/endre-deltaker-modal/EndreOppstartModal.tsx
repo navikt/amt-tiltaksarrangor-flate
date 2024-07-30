@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 
 import { endreOppstartsdato } from '../../../../../api/tiltak-api'
 import { Nullable } from '../../../../../utils/types/or-nothing'
@@ -14,7 +14,7 @@ import { DateField } from '../../../../felles/DateField'
 import { Deltaker } from '../../../../../api/data/deltaker'
 import { EndringType } from '../types'
 import { kalkulerMaxDato, kalkulerMinDato } from './datoutils'
-import { SluttdatoVelger } from './SluttdatoVelger'
+import { SluttdatoVelger, ValidateRef } from './SluttdatoVelger'
 import { VarighetValg } from './varighet'
 
 export interface EndreOppstartModalProps {
@@ -40,7 +40,11 @@ export const EndreOppstartModal = ({
   const [valgtDato, setValgtDato] = useState<Nullable<Date>>(deltaker.startDato)
   const [begrunnelse, setBegrunnelse] = useState<string>('')
   const { deltakerliste } = useDeltakerlisteStore()
-  const [sluttdato, setSluttdato] = useState<Nullable<Date>>(deltaker.sluttDato)
+  const [sluttdato, setSluttdato] = useState<Date | undefined>(
+    deltaker.sluttDato ?? undefined
+  )
+
+  const sluttdatoRef = useRef<ValidateRef>(null)
 
   const kanSendeMelding = erForslagEnabled
     ? valgtDato !== null && gyldigObligatoriskBegrunnelse(begrunnelse)
@@ -54,6 +58,10 @@ export const EndreOppstartModal = ({
     if (!valgtDato) {
       return Promise.reject('Startdato må være valgt for å sende endring')
     }
+    if (sluttdatoRef.current && !sluttdatoRef.current.validate()) {
+      return Promise.reject(sluttdatoRef.current.error)
+    }
+
     return validerObligatoriskBegrunnelse(begrunnelse)
       .then(() =>
         endreStartdatoForslag(
@@ -89,6 +97,7 @@ export const EndreOppstartModal = ({
       />
       {erForslagEnabled && (
         <SluttdatoVelger
+          ref={sluttdatoRef}
           tiltakskode={deltakerliste.tiltakstype}
           legend="Hva er forventet varighet?"
           min={valgtDato ?? undefined}

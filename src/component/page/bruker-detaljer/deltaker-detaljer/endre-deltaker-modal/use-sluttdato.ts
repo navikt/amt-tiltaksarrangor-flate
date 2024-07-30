@@ -17,6 +17,8 @@ export function useSluttdato({
   defaultAnnetDato
 }: UseSluttdatoOpts): {
   sluttdato: Date | undefined
+  min?: Date
+  max?: Date
   error: string | undefined
   valider: () => boolean
   handleChange: (date: Date | undefined) => void
@@ -66,7 +68,7 @@ export function useSluttdato({
       setError('Du må velge en sluttdato')
       return false
     }
-    return error === null && annet.error === null
+    return error === undefined && annet.error === undefined
   }
 
   const handleChange = (date: Date | undefined) => {
@@ -81,7 +83,9 @@ export function useSluttdato({
     sluttdato: hasError || valgtVarighet === undefined ? undefined : sluttdato,
     error: error || annet.error,
     valider,
-    handleChange
+    handleChange,
+    min,
+    max
   }
 }
 
