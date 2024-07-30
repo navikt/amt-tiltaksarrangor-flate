@@ -134,11 +134,8 @@ function validerSluttdato(dato: Date | undefined, min?: Date, max?: Date) {
   if (!dato || !sluttdato.isValid()) {
     return 'Ugyldig dato'
   }
-  const mindate = dayjs(min).utc().subtract(1, 'day').startOf('day')
-  const maxdate = dayjs(max).utc().add(1, 'day').startOf('day')
-
-  //eslint-disable-next-line
-  console.debug(`dato: ${dato} sluttdato:${sluttdato} mindato: ${mindate}`)
+  const mindate = dayjs(min).utc().startOf('day')
+  const maxdate = dayjs(max).utc().startOf('day')
 
   if (min && sluttdato.isBefore(mindate)) {
     return `Dato må være etter ${formatDate(mindate.toDate())} `
