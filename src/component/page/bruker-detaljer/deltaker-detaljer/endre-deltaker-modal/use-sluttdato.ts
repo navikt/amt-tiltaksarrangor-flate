@@ -3,19 +3,20 @@ import { Deltaker } from '../../../../../api/data/deltaker'
 import { VarighetValg, varigheter } from './varighet'
 import { useEffect, useState } from 'react'
 import dayjs from 'dayjs'
+import { formatDate } from '../../../../../utils/date-utils'
 
 interface UseSluttdatoOpts {
-  deltaker: Deltaker
+  min?: Date
+  max?: Date
   valgtVarighet: VarighetValg | undefined
   defaultAnnetDato?: Date
-  startdato?: Date
 }
 
 export function useSluttdato({
-  deltaker,
+  min,
+  max,
   valgtVarighet,
-  defaultAnnetDato,
-  startdato
+  defaultAnnetDato
 }: UseSluttdatoOpts): {
   sluttdato: Date | undefined
   error: string | null
@@ -23,20 +24,18 @@ export function useSluttdato({
   validerDato: (dateValidation: DateValidationT, date?: Date) => void
   handleChange: (date: Date | undefined) => void
 } {
-  const opprinneligSluttdato = deltaker.sluttDato
-
-  const [sluttdato, setSluttdato] = useState<Date | undefined>(undefined)
-  const [error, setError] = useState<string | null>(null)
+  const [sluttdato, setSluttdato] = useState<Date>()
+  const [error, setError] = useState<string>()
 
   const onAnnetChange = (d: Date | undefined) => {
     setSluttdato(d)
   }
 
   const annet = useSluttdatoInput({
-    deltaker,
+    min,
+    max,
     onChange: onAnnetChange,
     defaultDato: defaultAnnetDato,
-    startdato,
     erSkjult: valgtVarighet !== VarighetValg.ANNET
   })
 
@@ -48,18 +47,16 @@ export function useSluttdato({
   useEffect(() => {
     if (valgtVarighet === VarighetValg.ANNET) {
       setSluttdato(annet.sluttdato)
-    } else if (valgtVarighet && startdato) {
-      setSluttdato(kalkulerSluttdatoFra(startdato, valgtVarighet))
-    } else if (valgtVarighet && opprinneligSluttdato) {
-      setSluttdato(kalkulerSluttdatoFra(opprinneligSluttdato, valgtVarighet))
+    } else if (valgtVarighet && min) {
+      setSluttdato(kalkulerSluttdatoFra(min, valgtVarighet))
     }
-  }, [startdato, valgtVarighet])
+  }, [min, valgtVarighet])
 
   useEffect(() => {
     if (sluttdato && valgtVarighet !== VarighetValg.ANNET) {
-      setError(validerSluttdato(deltaker, sluttdato, startdato))
-    } else if (valgtVarighet === VarighetValg.ANNET || !startdato) {
-      setError(null)
+      setError(validerSluttdato(sluttdato, min, max))
+    } else if (valgtVarighet === VarighetValg.ANNET || !min) {
+      setError(undefined)
     }
   }, [valgtVarighet, sluttdato])
 
@@ -85,7 +82,7 @@ export function useSluttdato({
     }
   }
 
-  const hasError = error !== null || annet.error !== null
+  const hasError = error !== undefined || annet.error !== undefined
 
   return {
     sluttdato: hasError || valgtVarighet === undefined ? undefined : sluttdato,
@@ -97,59 +94,66 @@ export function useSluttdato({
 }
 
 interface SluttdatoInputOpts {
-  deltaker: Deltaker
+  min?: Date
+  max?: Date
   onChange?: (date: Date | undefined) => void
   defaultDato: Date | undefined
-  startdato?: Date
   erSkjult?: boolean
 }
 export function useSluttdatoInput({
-  deltaker,
+  min,
+  max,
   onChange,
   defaultDato,
-  startdato,
   erSkjult
 }: SluttdatoInputOpts) {
   const [sluttdato, setSluttdato] = useState<Date | undefined>(defaultDato)
-  const [error, setError] = useState<string | null>(null)
+  const [error, setError] = useState<string>()
 
   useEffect(() => {
     if (sluttdato) {
-      setError(validerSluttdato(deltaker, sluttdato, startdato))
+      setError(validerSluttdato(sluttdato, min, max))
     } else {
-      setError(null)
+      setError(undefined)
     }
-  }, [startdato])
+  }, [min])
 
   const validate = (dateValidation: DateValidationT, date?: Date) => {
     if (dateValidation.isInvalid) {
       setError('Ugyldig dato')
     } else if (dateValidation.isBefore) {
-      startdato
-        ? setError(`Dato må være etter ${startdato}`)
-        : setError(`Dato må være etter ${deltaker.sluttDato}`)
+      setError(`Dato må være etter ${min}`)
     } else if (date) {
-      setError(validerSluttdato(deltaker, date, startdato))
+      setError(validerSluttdato(date, min, max))
     } else {
-      setError(null)
+      setError(undefined)
     }
   }
 
   const handleChange = (date: Date | undefined) => {
     if (date) {
       setSluttdato(date)
-      setError(validerSluttdato(deltaker, date, startdato))
+      setError(validerSluttdato(date, min, max))
     }
     if (onChange) {
       onChange(date)
     }
   }
 
-  const errorMsg = erSkjult ? null : error
+  const errorMsg = erSkjult ? undefined : error
 
   return { sluttdato, error: errorMsg, validate, onChange: handleChange }
 }
 
-function validerSluttdato(deltaker: Deltaker, min: Date, max?: Date) {
-  return ''
+function validerSluttdato(dato: Date | undefined, min?: Date, max?: Date) {
+  const sluttdato = dayjs(dato)
+  if (!dato || !sluttdato.isValid()) {
+    return 'Ugyldig dato'
+  }
+  if (min && sluttdato.isBefore(min)) {
+    return `Dato må være etter ${formatDate(dayjs(min).subtract(1, 'day').toDate())}`
+  } else if (max && sluttdato.isAfter(max)) {
+    return `Dato må være før ${formatDate(dayjs(max).add(1, 'day').toDate())}`
+  }
+  return undefined
 }

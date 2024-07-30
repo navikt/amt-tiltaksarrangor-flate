@@ -14,6 +14,7 @@ import {
 } from './validering/begrunnelseValidering'
 import { EndringType } from '../types'
 import { SluttdatoVelger } from './SluttdatoVelger'
+import { useSluttdato } from './use-sluttdato'
 
 export interface ForlengDeltakelseModalProps {
   readonly onClose: () => void
