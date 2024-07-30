@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useRef, useState } from 'react'
 
 import { Tiltakskode } from '../../../../../api/data/tiltak'
 import { forlengDeltakelse } from '../../../../../api/tiltak-api'
@@ -14,7 +14,6 @@ import {
 } from './validering/begrunnelseValidering'
 import { EndringType } from '../types'
 import { SluttdatoRef, SluttdatoVelger } from './SluttdatoVelger'
-import { useSluttdato } from './use-sluttdato'
 
 export interface ForlengDeltakelseModalProps {
   readonly onClose: () => void
