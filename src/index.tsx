@@ -5,6 +5,8 @@ import nb from 'dayjs/locale/nb'
 import customParseFormat from 'dayjs/plugin/customParseFormat'
 import isSameOrAfter from 'dayjs/plugin/isSameOrAfter'
 import isSameOrBefore from 'dayjs/plugin/isSameOrBefore'
+import utc from 'dayjs/plugin/utc'
+import timezone from 'dayjs/plugin/timezone'
 
 import React from 'react'
 import { createRoot } from 'react-dom/client'
@@ -21,9 +23,12 @@ import { setupNavDekorator } from './utils/nav-dekorator'
 import { initSentry } from './utils/sentry-utils'
 
 dayjs.locale(nb)
+dayjs.extend(utc)
+dayjs.extend(timezone)
 dayjs.extend(isSameOrAfter)
 dayjs.extend(isSameOrBefore)
 dayjs.extend(customParseFormat)
+dayjs.tz.setDefault('Europe/Oslo')
 
 if (env.isPreprod || env.isProd) {
   initSentry()
