@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 
 import { Tiltakskode } from '../../../../../api/data/tiltak'
 import { forlengDeltakelse } from '../../../../../api/tiltak-api'
@@ -13,7 +13,7 @@ import {
   validerObligatoriskBegrunnelse
 } from './validering/begrunnelseValidering'
 import { EndringType } from '../types'
-import { SluttdatoVelger } from './SluttdatoVelger'
+import { SluttdatoRef, SluttdatoVelger } from './SluttdatoVelger'
 import { useSluttdato } from './use-sluttdato'
 
 export interface ForlengDeltakelseModalProps {
@@ -42,34 +42,41 @@ export const ForlengDeltakelseModal = (
     visGodkjennVilkaarPanel,
     erForslagEnabled
   } = props
-  const [nySluttDato, settNySluttDato] = useState<Nullable<Date>>()
   const [begrunnelse, setBegrunnelse] = useState('')
   const { deltakerliste } = useDeltakerlisteStore()
   const minDato = maxDate(sluttDato, deltakerliste.startDato)
 
+  const sluttdato = useRef<SluttdatoRef>(null)
+
   const kanSendeMelding = erForslagEnabled
-    ? nySluttDato !== null && gyldigObligatoriskBegrunnelse(begrunnelse)
-    : nySluttDato !== null
+    ? !sluttdato.current?.sluttdato &&
+      gyldigObligatoriskBegrunnelse(begrunnelse)
+    : !sluttdato.current?.sluttdato
 
   const sendEndringsmelding = () => {
-    if (!nySluttDato) {
+    if (!sluttdato.current?.validate() || !sluttdato.current.sluttdato) {
       return Promise.reject(
         'Kan ikke sende ForlengDeltakelse endringsmelding uten sluttdato'
       )
     }
-    return forlengDeltakelse(deltakerId, nySluttDato).then(onEndringUtfort)
+    return forlengDeltakelse(deltakerId, sluttdato.current.sluttdato).then(
+      onEndringUtfort
+    )
   }
 
   const sendForslag = () => {
-    if (!nySluttDato) {
+    if (!sluttdato.current || !sluttdato.current?.sluttdato) {
       return Promise.reject(
         'Kan ikke sende ForlengDeltakelse forslag uten sluttdato'
       )
     }
+    if (sluttdato.current && !sluttdato.current.validate()) {
+      return Promise.reject(sluttdato.current.error)
+    }
+
+    const dato = sluttdato.current.sluttdato
     return validerObligatoriskBegrunnelse(begrunnelse)
-      .then(() =>
-        forlengDeltakelseForslag(deltakerId, nySluttDato, begrunnelse)
-      )
+      .then(() => forlengDeltakelseForslag(deltakerId, dato, begrunnelse))
       .then((res) => props.onForslagSendt(res.data))
   }
 
@@ -88,11 +95,11 @@ export const ForlengDeltakelseModal = (
       }}
     >
       <SluttdatoVelger
+        ref={sluttdato}
         tiltakskode={deltakerliste.tiltakstype}
         legend="Hvor lenge skal deltakelsen forlenges?"
         min={minDato ?? undefined}
         max={deltakerliste.sluttDato ?? undefined}
-        onChange={(d) => settNySluttDato(d)}
       />
     </Endringsmodal>
   )

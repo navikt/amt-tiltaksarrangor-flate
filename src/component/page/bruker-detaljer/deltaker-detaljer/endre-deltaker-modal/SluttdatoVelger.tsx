@@ -20,15 +20,15 @@ interface SluttdatoVelgerProps {
   max?: Date
   defaultSluttdato?: Date
   defaultVarighet?: VarighetValg
-  onChange: (date: Date | undefined) => void
 }
 
-export interface ValidateRef {
+export interface SluttdatoRef {
+  sluttdato: Date | undefined
   validate: () => boolean
   error?: string
 }
 
-export const SluttdatoVelger = forwardRef<ValidateRef, SluttdatoVelgerProps>(
+export const SluttdatoVelger = forwardRef<SluttdatoRef, SluttdatoVelgerProps>(
   function SluttdatoVelger(
     {
       tiltakskode,
@@ -36,8 +36,7 @@ export const SluttdatoVelger = forwardRef<ValidateRef, SluttdatoVelgerProps>(
       min,
       max,
       defaultSluttdato,
-      defaultVarighet,
-      onChange
+      defaultVarighet
     }: SluttdatoVelgerProps,
     ref
   ) {
@@ -53,10 +52,6 @@ export const SluttdatoVelger = forwardRef<ValidateRef, SluttdatoVelgerProps>(
       defaultAnnetDato: defaultSluttdato
     })
 
-    useEffect(() => {
-      onChange(sluttdato.sluttdato)
-    }, [sluttdato.sluttdato])
-
     const { datepickerProps } = useDatepicker({
       fromDate: min,
       toDate: max,
@@ -71,6 +66,7 @@ export const SluttdatoVelger = forwardRef<ValidateRef, SluttdatoVelgerProps>(
     })
 
     useImperativeHandle(ref, () => ({
+      sluttdato: sluttdato.sluttdato,
       validate: sluttdato.valider,
       error: sluttdato.error
     }))

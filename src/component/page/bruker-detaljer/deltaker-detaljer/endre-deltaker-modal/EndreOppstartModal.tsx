@@ -14,7 +14,7 @@ import { DateField } from '../../../../felles/DateField'
 import { Deltaker } from '../../../../../api/data/deltaker'
 import { EndringType } from '../types'
 import { kalkulerMaxDato, kalkulerMinDato } from './datoutils'
-import { SluttdatoVelger, ValidateRef } from './SluttdatoVelger'
+import { SluttdatoVelger, SluttdatoRef } from './SluttdatoVelger'
 import { VarighetValg } from './varighet'
 
 export interface EndreOppstartModalProps {
@@ -40,11 +40,8 @@ export const EndreOppstartModal = ({
   const [valgtDato, setValgtDato] = useState<Nullable<Date>>(deltaker.startDato)
   const [begrunnelse, setBegrunnelse] = useState<string>('')
   const { deltakerliste } = useDeltakerlisteStore()
-  const [sluttdato, setSluttdato] = useState<Date | undefined>(
-    deltaker.sluttDato ?? undefined
-  )
 
-  const sluttdatoRef = useRef<ValidateRef>(null)
+  const sluttdato = useRef<SluttdatoRef>(null)
 
   const kanSendeMelding = erForslagEnabled
     ? valgtDato !== null && gyldigObligatoriskBegrunnelse(begrunnelse)
@@ -58,8 +55,8 @@ export const EndreOppstartModal = ({
     if (!valgtDato) {
       return Promise.reject('Startdato må være valgt for å sende endring')
     }
-    if (sluttdatoRef.current && !sluttdatoRef.current.validate()) {
-      return Promise.reject(sluttdatoRef.current.error)
+    if (sluttdato.current && !sluttdato.current.validate()) {
+      return Promise.reject(sluttdato.current.error)
     }
 
     return validerObligatoriskBegrunnelse(begrunnelse)
@@ -67,7 +64,7 @@ export const EndreOppstartModal = ({
         endreStartdatoForslag(
           deltaker.id,
           valgtDato,
-          sluttdato ?? undefined,
+          sluttdato.current?.sluttdato,
           begrunnelse
         )
       )
@@ -97,14 +94,13 @@ export const EndreOppstartModal = ({
       />
       {erForslagEnabled && (
         <SluttdatoVelger
-          ref={sluttdatoRef}
+          ref={sluttdato}
           tiltakskode={deltakerliste.tiltakstype}
           legend="Hva er forventet varighet?"
           min={valgtDato ?? undefined}
           max={deltakerliste.sluttDato ?? undefined}
           defaultSluttdato={deltaker.sluttDato ?? undefined}
           defaultVarighet={VarighetValg.ANNET}
-          onChange={(d) => setSluttdato(d)}
         />
       )}
     </Endringsmodal>
