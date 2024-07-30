@@ -37,22 +37,22 @@ export const EndreOppstartModal = ({
   onClose,
   erForslagEnabled
 }: EndreOppstartModalProps & EndreOppstartModalDataProps) => {
-  const [valgtDato, setValgtDato] = useState<Nullable<Date>>(deltaker.startDato)
+  const [startdato, setStartdato] = useState<Nullable<Date>>(deltaker.startDato)
   const [begrunnelse, setBegrunnelse] = useState<string>('')
   const { deltakerliste } = useDeltakerlisteStore()
 
   const sluttdato = useRef<SluttdatoRef>(null)
 
   const kanSendeMelding = erForslagEnabled
-    ? valgtDato !== null && gyldigObligatoriskBegrunnelse(begrunnelse)
-    : valgtDato !== null
+    ? startdato !== null && gyldigObligatoriskBegrunnelse(begrunnelse)
+    : startdato !== null
 
   const sendEndringsmelding = () => {
-    return endreOppstartsdato(deltaker.id, valgtDato).then(onEndringUtfort)
+    return endreOppstartsdato(deltaker.id, startdato).then(onEndringUtfort)
   }
 
   const sendForslag = () => {
-    if (!valgtDato) {
+    if (!startdato) {
       return Promise.reject('Startdato må være valgt for å sende endring')
     }
     if (sluttdato.current && !sluttdato.current.validate()) {
@@ -63,7 +63,7 @@ export const EndreOppstartModal = ({
       .then(() =>
         endreStartdatoForslag(
           deltaker.id,
-          valgtDato,
+          startdato,
           sluttdato.current?.sluttdato,
           begrunnelse
         )
@@ -87,8 +87,8 @@ export const EndreOppstartModal = ({
     >
       <DateField
         label="Ny oppstartsdato"
-        defaultDate={valgtDato}
-        onDateChanged={(d) => setValgtDato(d)}
+        defaultDate={startdato}
+        onDateChanged={(d) => setStartdato(d)}
         min={kalkulerMinDato(deltakerliste.startDato)}
         max={kalkulerMaxDato(deltakerliste.sluttDato)}
       />
@@ -98,7 +98,7 @@ export const EndreOppstartModal = ({
           tiltakskode={deltakerliste.tiltakstype}
           legend="Hva er forventet varighet?"
           detailLabel="Forventet sluttdato"
-          min={valgtDato ?? undefined}
+          min={startdato ?? undefined}
           max={deltakerliste.sluttDato ?? undefined}
           defaultSluttdato={deltaker.sluttDato ?? undefined}
           defaultVarighet={VarighetValg.ANNET}
