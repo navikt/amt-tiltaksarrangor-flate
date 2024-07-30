@@ -1,5 +1,5 @@
 import dayjs from 'dayjs'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import { DateValidationT } from '@navikt/ds-react'
 import { formatDate } from '../../utils/date-utils'
@@ -11,6 +11,8 @@ interface Props {
   defaultDate?: Nullable<Date>
   min?: Nullable<Date>
   max?: Nullable<Date>
+  error?: string
+  onValidate?: (validation: DateValidationT) => void
   onDateChanged: (date: Nullable<Date>) => void
 }
 
@@ -19,9 +21,18 @@ export const DateField = ({
   defaultDate,
   min,
   max,
-  onDateChanged
+  error,
+  onDateChanged,
+  onValidate
 }: Props): React.ReactElement => {
-  const [errorMsg, setErrorMsg] = useState<string>()
+  const [errorMsg, setErrorMsg] = useState<string | undefined>()
+
+  useEffect(() => {
+    if (error) {
+      onDateChanged(null)
+    }
+    setErrorMsg(error)
+  }, [error])
 
   const onChange = (dato: Date | undefined): void => {
     if (!dato) {
@@ -32,18 +43,10 @@ export const DateField = ({
   }
 
   const validate = (validation: DateValidationT) => {
-    if (validation.isInvalid) {
-      setErrorMsg('Ugyldig dato')
-    } else if (min && validation.isBefore) {
-      setErrorMsg(
-        `Dato må være etter ${formatDate(dayjs(min).subtract(1, 'day').toDate())}`
-      )
-    } else if (max && validation.isAfter) {
-      setErrorMsg(
-        `Dato må være før ${formatDate(dayjs(max).add(1, 'day').toDate())}`
-      )
+    if (onValidate) {
+      onValidate(validation)
     } else {
-      setErrorMsg(undefined)
+      setErrorMsg(validateRange(validation, min, max))
     }
   }
 
@@ -58,4 +61,20 @@ export const DateField = ({
       max={max ?? undefined}
     />
   )
+}
+
+export function validateRange(
+  validation: DateValidationT,
+  min: Nullable<Date>,
+  max: Nullable<Date>
+) {
+  if (validation.isInvalid) {
+    return 'Ugyldig dato'
+  } else if (min && validation.isBefore) {
+    return `Dato må være etter ${formatDate(dayjs(min).subtract(1, 'day').toDate())}`
+  } else if (max && validation.isAfter) {
+    return `Dato må være før ${formatDate(dayjs(max).add(1, 'day').toDate())}`
+  } else {
+    return undefined
+  }
 }

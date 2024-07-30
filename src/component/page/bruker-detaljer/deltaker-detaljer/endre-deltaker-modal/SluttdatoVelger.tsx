@@ -4,7 +4,7 @@ import { Nullable } from '../../../../../utils/types/or-nothing'
 import { VarighetValg, varigheter, varighetValgForType } from './varighet'
 import dayjs from 'dayjs'
 import { BodyShort, Radio, RadioGroup } from '@navikt/ds-react'
-import { DateField } from '../../../../felles/DateField'
+import { DateField, validateRange } from '../../../../felles/DateField'
 import { formatDate } from '../../../../../utils/date-utils'
 import styles from './SluttdatoVelger.module.scss'
 
@@ -28,17 +28,40 @@ export function SluttdatoVelger({
   onChange
 }: SluttdatoVelgerProps) {
   const [varighet, setVarighet] = useState(defaultVarighet)
+  const [sluttdato, setSluttdato] = useState<Nullable<Date>>(defaultSluttdato)
   const [annet, setAnnet] = useState<Nullable<Date>>(defaultSluttdato)
+  const [error, setError] = useState<string>()
 
   useEffect(() => {
     if (varighet) {
       if (varighet !== VarighetValg.ANNET) {
         onChange(kalkulerSluttDato(varighet))
+        setSluttdato(kalkulerSluttDato(varighet))
       } else {
         handleAnnet(annet)
       }
     }
   }, [varighet])
+
+  useEffect(() => {
+    if (!sluttdato) {
+      return
+    }
+
+    const dato = dayjs(sluttdato)
+    const min = dayjs(mindato)
+    const max = dayjs(maxdato)
+
+    if (dato.isBefore(min)) {
+      setError(
+        `Dato må være etter ${formatDate(min.subtract(1, 'day').toDate())}`
+      )
+    } else if (dato.isAfter(maxdato)) {
+      setError(`Dato må være før ${formatDate(max.add(1, 'day').toDate())}`)
+    } else {
+      setError(undefined)
+    }
+  }, [mindato])
 
   const kalkulerSluttDato = (valgtVarighet: VarighetValg): Date => {
     const v = varigheter[valgtVarighet]
@@ -48,6 +71,7 @@ export function SluttdatoVelger({
   const handleAnnet = (date: Nullable<Date>) => {
     setAnnet(date)
     onChange(date)
+    setSluttdato(date)
   }
 
   const handleVarighet = (valgtVarighet: VarighetValg) => {
@@ -55,7 +79,12 @@ export function SluttdatoVelger({
   }
 
   return (
-    <RadioGroup size="small" legend={legend} onChange={handleVarighet}>
+    <RadioGroup
+      value={varighet ?? ''}
+      size="small"
+      legend={legend}
+      onChange={handleVarighet}
+    >
       {varighetValgForType(tiltakskode).map((v) => (
         <Radio value={v} key={v}>
           {varigheter[v].navn}
@@ -69,6 +98,8 @@ export function SluttdatoVelger({
             min={mindato}
             max={maxdato}
             label={null}
+            error={error}
+            onValidate={(v) => setError(validateRange(v, mindato, maxdato))}
             onDateChanged={handleAnnet}
             aria-label="Annet - velg dato"
           />

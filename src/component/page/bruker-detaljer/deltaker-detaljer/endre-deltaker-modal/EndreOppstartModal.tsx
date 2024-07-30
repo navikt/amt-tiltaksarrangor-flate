@@ -14,6 +14,8 @@ import { DateField } from '../../../../felles/DateField'
 import { Deltaker } from '../../../../../api/data/deltaker'
 import { EndringType } from '../types'
 import { kalkulerMaxDato, kalkulerMinDato } from './datoutils'
+import { SluttdatoVelger } from './SluttdatoVelger'
+import { VarighetValg } from './varighet'
 
 export interface EndreOppstartModalProps {
   onClose: () => void
@@ -35,9 +37,10 @@ export const EndreOppstartModal = ({
   onClose,
   erForslagEnabled
 }: EndreOppstartModalProps & EndreOppstartModalDataProps) => {
-  const [valgtDato, setValgtDato] = useState<Nullable<Date>>()
+  const [valgtDato, setValgtDato] = useState<Nullable<Date>>(deltaker.startDato)
   const [begrunnelse, setBegrunnelse] = useState<string>('')
   const { deltakerliste } = useDeltakerlisteStore()
+  const [sluttdato, setSluttdato] = useState<Nullable<Date>>(deltaker.sluttDato)
 
   const kanSendeMelding = erForslagEnabled
     ? valgtDato !== null && gyldigObligatoriskBegrunnelse(begrunnelse)
@@ -56,7 +59,7 @@ export const EndreOppstartModal = ({
         endreStartdatoForslag(
           deltaker.id,
           valgtDato,
-          deltaker.sluttDato ?? undefined,
+          sluttdato ?? undefined,
           begrunnelse
         )
       )
@@ -84,6 +87,17 @@ export const EndreOppstartModal = ({
         min={kalkulerMinDato(deltakerliste.startDato)}
         max={kalkulerMaxDato(deltakerliste.sluttDato)}
       />
+      {erForslagEnabled && (
+        <SluttdatoVelger
+          tiltakskode={deltakerliste.tiltakstype}
+          legend="Hva er forventet varighet?"
+          mindato={valgtDato}
+          maxdato={deltakerliste.sluttDato}
+          defaultSluttdato={deltaker.sluttDato}
+          defaultVarighet={VarighetValg.ANNET}
+          onChange={(d) => setSluttdato(d)}
+        />
+      )}
     </Endringsmodal>
   )
 }
