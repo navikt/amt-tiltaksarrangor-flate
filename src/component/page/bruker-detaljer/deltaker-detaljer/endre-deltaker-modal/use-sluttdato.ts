@@ -1,5 +1,3 @@
-import { DateValidationT } from '@navikt/ds-react'
-import { Deltaker } from '../../../../../api/data/deltaker'
 import { VarighetValg, varigheter } from './varighet'
 import { useEffect, useState } from 'react'
 import dayjs from 'dayjs'
@@ -19,9 +17,8 @@ export function useSluttdato({
   defaultAnnetDato
 }: UseSluttdatoOpts): {
   sluttdato: Date | undefined
-  error: string | null
+  error: string | undefined
   valider: () => boolean
-  validerDato: (dateValidation: DateValidationT, date?: Date) => void
   handleChange: (date: Date | undefined) => void
 } {
   const [sluttdato, setSluttdato] = useState<Date>()
@@ -72,10 +69,6 @@ export function useSluttdato({
     return error === null && annet.error === null
   }
 
-  const validerDato = (dateValidation: DateValidationT, date?: Date) => {
-    annet.validate(dateValidation, date)
-  }
-
   const handleChange = (date: Date | undefined) => {
     if (valgtVarighet === VarighetValg.ANNET) {
       annet.onChange(date)
@@ -84,11 +77,12 @@ export function useSluttdato({
 
   const hasError = error !== undefined || annet.error !== undefined
 
+  console.log(sluttdato, error)
+
   return {
     sluttdato: hasError || valgtVarighet === undefined ? undefined : sluttdato,
     error: error || annet.error,
     valider,
-    validerDato,
     handleChange
   }
 }
@@ -118,31 +112,19 @@ export function useSluttdatoInput({
     }
   }, [min])
 
-  const validate = (dateValidation: DateValidationT, date?: Date) => {
-    if (dateValidation.isInvalid) {
-      setError('Ugyldig dato')
-    } else if (dateValidation.isBefore) {
-      setError(`Dato må være etter ${min}`)
-    } else if (date) {
-      setError(validerSluttdato(date, min, max))
-    } else {
-      setError(undefined)
-    }
-  }
-
   const handleChange = (date: Date | undefined) => {
     if (date) {
       setSluttdato(date)
-      setError(validerSluttdato(date, min, max))
     }
     if (onChange) {
       onChange(date)
     }
+    setError(validerSluttdato(date, min, max))
   }
 
   const errorMsg = erSkjult ? undefined : error
 
-  return { sluttdato, error: errorMsg, validate, onChange: handleChange }
+  return { sluttdato, error: errorMsg, onChange: handleChange }
 }
 
 function validerSluttdato(dato: Date | undefined, min?: Date, max?: Date) {

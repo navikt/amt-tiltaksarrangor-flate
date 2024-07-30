@@ -91,9 +91,9 @@ export const EndreOppstartModal = ({
         <SluttdatoVelger
           tiltakskode={deltakerliste.tiltakstype}
           legend="Hva er forventet varighet?"
-          mindato={valgtDato}
-          maxdato={deltakerliste.sluttDato}
-          defaultSluttdato={deltaker.sluttDato}
+          min={valgtDato ?? undefined}
+          max={deltakerliste.sluttDato ?? undefined}
+          defaultSluttdato={deltaker.sluttDato ?? undefined}
           defaultVarighet={VarighetValg.ANNET}
           onChange={(d) => setSluttdato(d)}
         />

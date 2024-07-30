@@ -1,7 +1,11 @@
-import 'dayjs/locale/nb'
 import './index.scss'
 
 import dayjs from 'dayjs'
+import nb from 'dayjs/locale/nb'
+import customParseFormat from 'dayjs/plugin/customParseFormat'
+import isSameOrAfter from 'dayjs/plugin/isSameOrAfter'
+import isSameOrBefore from 'dayjs/plugin/isSameOrBefore'
+
 import React from 'react'
 import { createRoot } from 'react-dom/client'
 import { BrowserRouter } from 'react-router-dom'
@@ -16,7 +20,10 @@ import env from './utils/environment'
 import { setupNavDekorator } from './utils/nav-dekorator'
 import { initSentry } from './utils/sentry-utils'
 
-dayjs.locale('nb')
+dayjs.locale(nb)
+dayjs.extend(isSameOrAfter)
+dayjs.extend(isSameOrBefore)
+dayjs.extend(customParseFormat)
 
 if (env.isPreprod || env.isProd) {
   initSentry()

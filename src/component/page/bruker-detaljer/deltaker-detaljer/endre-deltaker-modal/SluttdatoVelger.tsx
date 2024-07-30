@@ -1,19 +1,26 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Tiltakskode } from '../../../../../api/data/tiltak'
 import { Nullable } from '../../../../../utils/types/or-nothing'
 import { VarighetValg, varigheter, varighetValgForType } from './varighet'
-import dayjs from 'dayjs'
-import { BodyShort, Radio, RadioGroup } from '@navikt/ds-react'
-import { DateField, validateRange } from '../../../../felles/DateField'
-import { formatDate } from '../../../../../utils/date-utils'
+import {
+  BodyShort,
+  DatePicker,
+  Radio,
+  RadioGroup,
+  useDatepicker
+} from '@navikt/ds-react'
+import { formatDate, formatDateStr } from '../../../../../utils/date-utils'
 import styles from './SluttdatoVelger.module.scss'
+import { useSluttdato } from './use-sluttdato'
+import { SimpleDatePicker } from '../../../../felles/SimpleDatePicker'
+import dayjs from 'dayjs'
 
 interface SluttdatoVelgerProps {
   tiltakskode: Tiltakskode
   legend: string
-  mindato: Nullable<Date>
-  maxdato: Nullable<Date>
-  defaultSluttdato?: Nullable<Date>
+  min?: Date
+  max?: Date
+  defaultSluttdato?: Date
   defaultVarighet?: VarighetValg
   onChange: (date: Nullable<Date>) => void
 }
@@ -21,69 +28,55 @@ interface SluttdatoVelgerProps {
 export function SluttdatoVelger({
   tiltakskode,
   legend,
-  mindato,
-  maxdato,
+  min,
+  max,
   defaultSluttdato,
   defaultVarighet,
   onChange
 }: SluttdatoVelgerProps) {
-  const [varighet, setVarighet] = useState(defaultVarighet)
-  const [sluttdato, setSluttdato] = useState<Nullable<Date>>(defaultSluttdato)
-  const [annet, setAnnet] = useState<Nullable<Date>>(defaultSluttdato)
-  const [error, setError] = useState<string>()
+  const [valgtVarighet, setValgtVarighet] = useState(defaultVarighet)
+  const [dateInput, setDateInput] = useState<string>(
+    defaultSluttdato ? formatDate(defaultSluttdato) : ''
+  )
 
-  useEffect(() => {
-    if (varighet) {
-      if (varighet !== VarighetValg.ANNET) {
-        onChange(kalkulerSluttDato(varighet))
-        setSluttdato(kalkulerSluttDato(varighet))
-      } else {
-        handleAnnet(annet)
+  const sluttdato = useSluttdato({
+    min,
+    max,
+    valgtVarighet,
+    defaultAnnetDato: defaultSluttdato
+  })
+
+  const ref = useRef<HTMLInputElement>(null)
+  const { datepickerProps } = useDatepicker({
+    fromDate: min,
+    toDate: max,
+    defaultMonth: defaultSluttdato,
+    defaultSelected: defaultSluttdato,
+    onDateChange: (date) => {
+      if (date) {
+        setDateInput(formatDate(date))
       }
+      sluttdato.handleChange(date)
     }
-  }, [varighet])
-
-  useEffect(() => {
-    if (!sluttdato) {
-      return
-    }
-
-    const dato = dayjs(sluttdato)
-    const min = dayjs(mindato)
-    const max = dayjs(maxdato)
-
-    if (dato.isBefore(min)) {
-      setError(
-        `Dato må være etter ${formatDate(min.subtract(1, 'day').toDate())}`
-      )
-    } else if (dato.isAfter(maxdato)) {
-      setError(`Dato må være før ${formatDate(max.add(1, 'day').toDate())}`)
-    } else {
-      setError(undefined)
-    }
-  }, [mindato])
-
-  const kalkulerSluttDato = (valgtVarighet: VarighetValg): Date => {
-    const v = varigheter[valgtVarighet]
-    return dayjs(mindato).add(v.antall, v.tidsenhet).toDate()
-  }
-
-  const handleAnnet = (date: Nullable<Date>) => {
-    setAnnet(date)
-    onChange(date)
-    setSluttdato(date)
-  }
+  })
 
   const handleVarighet = (valgtVarighet: VarighetValg) => {
-    setVarighet(valgtVarighet)
+    setValgtVarighet(valgtVarighet)
+  }
+
+  const handleDateInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setDateInput(e.target.value)
+    const date = dayjs(e.target.value, 'DD.MM.YYYY', true)
+    sluttdato.handleChange(date.toDate())
   }
 
   return (
     <RadioGroup
-      value={varighet ?? ''}
+      value={valgtVarighet ?? ''}
       size="small"
       legend={legend}
       onChange={handleVarighet}
+      error={sluttdato.error}
     >
       {varighetValgForType(tiltakskode).map((v) => (
         <Radio value={v} key={v}>
@@ -92,22 +85,22 @@ export function SluttdatoVelger({
       ))}
       <Radio value={VarighetValg.ANNET}>
         Annet - velg dato
-        {varighet === VarighetValg.ANNET && (
-          <DateField
-            defaultDate={annet}
-            min={mindato}
-            max={maxdato}
-            label={null}
-            error={error}
-            onValidate={(v) => setError(validateRange(v, mindato, maxdato))}
-            onDateChanged={handleAnnet}
-            aria-label="Annet - velg dato"
-          />
+        {valgtVarighet === VarighetValg.ANNET && (
+          <DatePicker {...datepickerProps}>
+            <DatePicker.Input
+              value={dateInput}
+              ref={ref}
+              label="Annet - velg dato"
+              size="small"
+              hideLabel={true}
+              onChange={handleDateInputChange}
+            />
+          </DatePicker>
         )}
       </Radio>
-      {varighet !== VarighetValg.ANNET && varighet && (
+      {valgtVarighet !== VarighetValg.ANNET && valgtVarighet && (
         <BodyShort size="small" className={styles.nySluttdato}>
-          Ny sluttdato: {formatDate(kalkulerSluttDato(varighet))}
+          Ny sluttdato: {formatDate(sluttdato.sluttdato)}
         </BodyShort>
       )}
     </RadioGroup>

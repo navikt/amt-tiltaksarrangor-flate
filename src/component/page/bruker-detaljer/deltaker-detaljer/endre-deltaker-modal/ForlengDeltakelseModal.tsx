@@ -90,8 +90,8 @@ export const ForlengDeltakelseModal = (
       <SluttdatoVelger
         tiltakskode={deltakerliste.tiltakstype}
         legend="Hvor lenge skal deltakelsen forlenges?"
-        mindato={minDato}
-        maxdato={deltakerliste.sluttDato}
+        min={minDato ?? undefined}
+        max={deltakerliste.sluttDato ?? undefined}
         onChange={(d) => settNySluttDato(d)}
       />
     </Endringsmodal>
