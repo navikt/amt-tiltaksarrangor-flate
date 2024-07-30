@@ -97,6 +97,7 @@ export const EndreOppstartModal = ({
           ref={sluttdato}
           tiltakskode={deltakerliste.tiltakstype}
           legend="Hva er forventet varighet?"
+          detailLabel="Forventet sluttdato"
           min={valgtDato ?? undefined}
           max={deltakerliste.sluttDato ?? undefined}
           defaultSluttdato={deltaker.sluttDato ?? undefined}

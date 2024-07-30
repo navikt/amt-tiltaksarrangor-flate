@@ -16,6 +16,7 @@ import dayjs from 'dayjs'
 interface SluttdatoVelgerProps {
   tiltakskode: Tiltakskode
   legend: string
+  detailLabel?: string
   min?: Date
   max?: Date
   defaultSluttdato?: Date
@@ -33,6 +34,7 @@ export const SluttdatoVelger = forwardRef<SluttdatoRef, SluttdatoVelgerProps>(
     {
       tiltakskode,
       legend,
+      detailLabel,
       min,
       max,
       defaultSluttdato,
@@ -110,7 +112,8 @@ export const SluttdatoVelger = forwardRef<SluttdatoRef, SluttdatoVelgerProps>(
         </Radio>
         {valgtVarighet !== VarighetValg.ANNET && valgtVarighet && (
           <BodyShort size="small" className={styles.nySluttdato}>
-            Ny sluttdato: {formatDate(sluttdato.sluttdato)}
+            {detailLabel ? detailLabel : 'Ny sluttdato'}:{' '}
+            {formatDate(sluttdato.sluttdato)}
           </BodyShort>
         )}
       </RadioGroup>
