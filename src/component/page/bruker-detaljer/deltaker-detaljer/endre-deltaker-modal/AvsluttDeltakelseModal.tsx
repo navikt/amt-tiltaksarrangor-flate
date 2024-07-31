@@ -6,7 +6,6 @@ import { maxDate } from '../../../../../utils/date-utils'
 import { Nullable } from '../../../../../utils/types/or-nothing'
 import { DateField } from '../../../../felles/DateField'
 import { AarsakSelector } from './AarsakSelector'
-import styles from './EndreOppstartModal.module.scss'
 import { useDeltakerlisteStore } from '../deltakerliste-store'
 import { AktivtForslag } from '../../../../../api/data/forslag'
 import {
@@ -114,9 +113,8 @@ export const AvsluttDeltakelseModal = (
         onAarsakSelected={onAarsakSelected}
       />
       <DateField
-        className={styles.datofelt}
         label="Hva er ny sluttdato?"
-        date={sluttDato}
+        defaultDate={sluttDato}
         min={minDato}
         max={deltakerliste.sluttDato}
         onDateChanged={(d) => settSluttDato(d)}

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 
 import { endreOppstartsdato } from '../../../../../api/tiltak-api'
 import { Nullable } from '../../../../../utils/types/or-nothing'
@@ -11,10 +11,11 @@ import {
 import { endreStartdatoForslag } from '../../../../../api/forslag-api'
 import { Endringsmodal } from './endringsmodal/Endringsmodal'
 import { DateField } from '../../../../felles/DateField'
-import styles from './EndreOppstartModal.module.scss'
 import { Deltaker } from '../../../../../api/data/deltaker'
 import { EndringType } from '../types'
 import { kalkulerMaxDato, kalkulerMinDato } from './datoutils'
+import { SluttdatoVelger, SluttdatoRef } from './SluttdatoVelger'
+import { finnValgtVarighet } from './varighet'
 
 export interface EndreOppstartModalProps {
   onClose: () => void
@@ -36,28 +37,37 @@ export const EndreOppstartModal = ({
   onClose,
   erForslagEnabled
 }: EndreOppstartModalProps & EndreOppstartModalDataProps) => {
-  const [valgtDato, setValgtDato] = useState<Nullable<Date>>()
+  const [startdato, setStartdato] = useState<Nullable<Date>>(deltaker.startDato)
   const [begrunnelse, setBegrunnelse] = useState<string>('')
   const { deltakerliste } = useDeltakerlisteStore()
 
+  const sluttdato = useRef<SluttdatoRef>(null)
+
   const kanSendeMelding = erForslagEnabled
-    ? valgtDato !== null && gyldigObligatoriskBegrunnelse(begrunnelse)
-    : valgtDato !== null
+    ? startdato !== null && gyldigObligatoriskBegrunnelse(begrunnelse)
+    : startdato !== null
 
   const sendEndringsmelding = () => {
-    return endreOppstartsdato(deltaker.id, valgtDato).then(onEndringUtfort)
+    if (!startdato) {
+      return Promise.reject('Startdato må være valgt for å sende endring')
+    }
+    return endreOppstartsdato(deltaker.id, startdato).then(onEndringUtfort)
   }
 
   const sendForslag = () => {
-    if (!valgtDato) {
+    if (!startdato) {
       return Promise.reject('Startdato må være valgt for å sende endring')
     }
+    if (sluttdato.current && !sluttdato.current.validate()) {
+      return Promise.reject(sluttdato.current.error)
+    }
+
     return validerObligatoriskBegrunnelse(begrunnelse)
       .then(() =>
         endreStartdatoForslag(
           deltaker.id,
-          valgtDato,
-          deltaker.sluttDato ?? undefined,
+          startdato,
+          sluttdato.current?.sluttdato,
           begrunnelse
         )
       )
@@ -79,13 +89,32 @@ export const EndreOppstartModal = ({
       }}
     >
       <DateField
-        className={styles.datofelt}
         label="Ny oppstartsdato"
-        date={valgtDato}
-        onDateChanged={(d) => setValgtDato(d)}
+        defaultDate={startdato}
+        onDateChanged={(d) => setStartdato(d)}
         min={kalkulerMinDato(deltakerliste.startDato)}
         max={kalkulerMaxDato(deltakerliste.sluttDato)}
       />
+      {erForslagEnabled && (
+        <SluttdatoVelger
+          ref={sluttdato}
+          tiltakskode={deltakerliste.tiltakstype}
+          legend="Hva er forventet varighet?"
+          detailLabel="Forventet sluttdato"
+          min={startdato ?? undefined}
+          max={deltakerliste.sluttDato ?? undefined}
+          defaultSluttdato={deltaker.sluttDato ?? undefined}
+          defaultVarighet={
+            deltaker.sluttDato
+              ? finnValgtVarighet(
+                  deltaker.startDato,
+                  deltaker.sluttDato,
+                  deltakerliste.tiltakstype
+                )
+              : undefined
+          }
+        />
+      )}
     </Endringsmodal>
   )
 }

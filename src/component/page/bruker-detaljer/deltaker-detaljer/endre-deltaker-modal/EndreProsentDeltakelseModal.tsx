@@ -131,9 +131,8 @@ export const EndreProsentDeltakelseModal = ({
 
       {!erForslagEnabled && (
         <DateField
-          className={styles.datofelt}
           label="Fra når gjelder ny deltakelsesmengde?"
-          date={gyldigFraDato}
+          defaultDate={gyldigFraDato}
           onDateChanged={(d) => setGyldigFraDato(d)}
           min={deltakerliste.startDato}
           max={deltakerliste.sluttDato}
