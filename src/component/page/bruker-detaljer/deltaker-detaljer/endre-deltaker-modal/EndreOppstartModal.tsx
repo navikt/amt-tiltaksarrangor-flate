@@ -15,7 +15,7 @@ import { Deltaker } from '../../../../../api/data/deltaker'
 import { EndringType } from '../types'
 import { kalkulerMaxDato, kalkulerMinDato } from './datoutils'
 import { SluttdatoVelger, SluttdatoRef } from './SluttdatoVelger'
-import { VarighetValg } from './varighet'
+import { VarighetValg, finnValgtVarighet } from './varighet'
 
 export interface EndreOppstartModalProps {
   onClose: () => void
@@ -101,7 +101,15 @@ export const EndreOppstartModal = ({
           min={startdato ?? undefined}
           max={deltakerliste.sluttDato ?? undefined}
           defaultSluttdato={deltaker.sluttDato ?? undefined}
-          defaultVarighet={VarighetValg.ANNET}
+          defaultVarighet={
+            deltaker.sluttDato
+              ? finnValgtVarighet(
+                  deltaker.startDato,
+                  deltaker.sluttDato,
+                  deltakerliste.tiltakstype
+                )
+              : undefined
+          }
         />
       )}
     </Endringsmodal>

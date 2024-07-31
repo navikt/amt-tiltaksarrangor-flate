@@ -1,3 +1,4 @@
+import dayjs from 'dayjs'
 import { Tiltakskode } from '../../../../../api/data/tiltak'
 
 export enum VarighetValg {
@@ -77,5 +78,87 @@ export const varighetValgForType = (
         VarighetValg.TOLV_UKER,
         VarighetValg.TRE_MANEDER
       ]
+  }
+}
+
+export function finnValgtVarighet(
+  fraDato: Date | null | undefined,
+  tilDato: Date | null | undefined,
+  tiltakstype: Tiltakskode
+) {
+  return fraDato && tilDato
+    ? finnVarighetValgForTiltakstype(fraDato, tilDato, tiltakstype)
+    : undefined
+}
+
+function finnVarighetValgForTiltakstype(
+  fraDato: Date,
+  tilDato: Date,
+  tiltakstype: Tiltakskode
+) {
+  const varighet = finnVarighetValg(fraDato, tilDato)
+  const varigheter = varighetValgForType(tiltakstype)
+
+  if (varigheter.includes(varighet.uker)) {
+    return varighet.uker
+  } else if (varigheter.includes(varighet.maaneder)) {
+    return varighet.maaneder
+  } else {
+    return VarighetValg.ANNET
+  }
+}
+
+function finnVarighetValg(
+  fraDato: Date,
+  tilDato: Date
+): { uker: VarighetValg; maaneder: VarighetValg } {
+  const fra = dayjs(fraDato)
+  const til = dayjs(tilDato)
+
+  const uker = til.diff(fra, 'weeks')
+  const maaneder = til.diff(fra, 'months')
+
+  const erIkkeDelbarIVarigheter =
+    fra.add(uker, 'weeks').isBefore(til) &&
+    fra.add(maaneder, 'months').isBefore(til)
+
+  if (erIkkeDelbarIVarigheter) {
+    return {
+      uker: VarighetValg.ANNET,
+      maaneder: VarighetValg.ANNET
+    }
+  }
+
+  const ukeVarighet = () => {
+    switch (uker) {
+      case 4:
+        return VarighetValg.FIRE_UKER
+      case 6:
+        return VarighetValg.SEKS_UKER
+      case 8:
+        return VarighetValg.ATTE_UKER
+      case 12:
+        return VarighetValg.TOLV_UKER
+      default:
+        return VarighetValg.ANNET
+    }
+  }
+
+  const mndVarighet = () => {
+    switch (maaneder) {
+      case 3:
+        return VarighetValg.TRE_MANEDER
+      case 6:
+        return VarighetValg.SEKS_MANEDER
+      case 12:
+        return VarighetValg.TOLV_MANEDER
+      default:
+        return VarighetValg.ANNET
+    }
+  }
+
+  return {
+    uker: ukeVarighet(),
+    maaneder: mndVarighet()
   }
 }
