@@ -48,6 +48,9 @@ export const EndreOppstartModal = ({
     : startdato !== null
 
   const sendEndringsmelding = () => {
+    if (!startdato) {
+      return Promise.reject('Startdato må være valgt for å sende endring')
+    }
     return endreOppstartsdato(deltaker.id, startdato).then(onEndringUtfort)
   }
 
