@@ -64,6 +64,8 @@ export const SluttdatoVelger = forwardRef<SluttdatoRef, SluttdatoVelgerProps>(
       onDateChange: (date) => {
         if (date) {
           setDateInput(formatDate(date))
+        } else {
+          setDateInput('')
         }
         sluttdato.handleChange(date)
       }
