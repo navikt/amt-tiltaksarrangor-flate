@@ -15,7 +15,7 @@ import { Deltaker } from '../../../../../api/data/deltaker'
 import { EndringType } from '../types'
 import { kalkulerMaxDato, kalkulerMinDato } from './datoutils'
 import { SluttdatoVelger, SluttdatoRef } from './SluttdatoVelger'
-import { VarighetValg, finnValgtVarighet } from './varighet'
+import { finnValgtVarighet } from './varighet'
 
 export interface EndreOppstartModalProps {
   onClose: () => void
