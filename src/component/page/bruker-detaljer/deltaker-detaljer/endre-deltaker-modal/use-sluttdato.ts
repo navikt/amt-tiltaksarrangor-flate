@@ -130,17 +130,17 @@ export function useSluttdatoInput({
 }
 
 function validerSluttdato(dato: Date | undefined, min?: Date, max?: Date) {
-  const sluttdato = dayjs(dato).utc().startOf('day')
+  const sluttdato = dayjs(dato)
   if (!dato || !sluttdato.isValid()) {
     return 'Ugyldig dato'
   }
-  const mindate = dayjs(min).utc().startOf('day')
-  const maxdate = dayjs(max).utc().startOf('day')
+  const mindate = dayjs(min)
+  const maxdate = dayjs(max)
 
-  if (min && sluttdato.isBefore(mindate)) {
-    return `Dato må være etter ${formatDate(mindate.toDate())} `
-  } else if (max && sluttdato.isAfter(maxdate)) {
-    return `Dato må være før ${formatDate(maxdate.toDate())} `
+  if (min && sluttdato.isBefore(mindate, 'date')) {
+    return `Dato må være etter ${formatDate(mindate.subtract(1, 'day').toDate())} `
+  } else if (max && sluttdato.isAfter(maxdate, 'date')) {
+    return `Dato må være før ${formatDate(maxdate.add(1, 'day').toDate())} `
   }
   return undefined
 }
