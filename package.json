@@ -9,7 +9,7 @@
     "@navikt/ds-react": "^6.13.0",
     "@navikt/ds-tokens": "^6.13.0",
     "@navikt/nav-dekoratoren-moduler": "^2.1.6",
-    "@sentry/react": "^8.20.0",
+    "@sentry/react": "^8.22.0",
     "@sentry/tracing": "^7.114.0",
     "@types/react": "^18.3.3",
     "@types/react-collapse": "^5.0.4",
@@ -58,11 +58,11 @@
     "@vitejs/plugin-react": "^4.3.1",
     "axe-core": "^4.10.0",
     "cpy-cli": "^5.0.0",
-    "cypress": "^13.13.1",
+    "cypress": "^13.13.2",
     "cypress-axe": "^1.5.0",
     "eslint": "^8.57.0",
     "eslint-config-prettier": "^9.1.0",
-    "eslint-config-turbo": "^2.0.9",
+    "eslint-config-turbo": "^2.0.11",
     "eslint-plugin-cypress": "^3.4.0",
     "eslint-plugin-jsx-a11y": "^6.9.0",
     "eslint-plugin-only-warn": "^1.1.0",
@@ -78,7 +78,7 @@
     "table": "^6.8.2",
     "typescript": "^5.5.4",
     "vite": "^5.3.5",
-    "vitest": "^2.0.4"
+    "vitest": "^2.0.5"
   },
   "msw": {
     "workerDirectory": "public"
