@@ -13,7 +13,7 @@ import { Endringsmodal } from './endringsmodal/Endringsmodal'
 import { DateField } from '../../../../felles/DateField'
 import { Deltaker } from '../../../../../api/data/deltaker'
 import { EndringType } from '../types'
-import { kalkulerMaxDato, kalkulerMinDato } from './datoutils'
+import { kalkulerMaxDato, kalkulerMinDato, maxSluttdato } from './datoutils'
 import { SluttdatoVelger, SluttdatoRef } from './SluttdatoVelger'
 import { finnValgtVarighet } from './varighet'
 
@@ -39,7 +39,6 @@ export const EndreOppstartModal = ({
 }: EndreOppstartModalProps & EndreOppstartModalDataProps) => {
   const [startdato, setStartdato] = useState<Nullable<Date>>(deltaker.startDato)
   const [begrunnelse, setBegrunnelse] = useState<string>('')
-  const { deltakerliste } = useDeltakerlisteStore()
 
   const sluttdato = useRef<SluttdatoRef>(null)
 
@@ -92,24 +91,24 @@ export const EndreOppstartModal = ({
         label="Ny oppstartsdato"
         defaultDate={startdato}
         onDateChanged={(d) => setStartdato(d)}
-        min={kalkulerMinDato(deltakerliste.startDato)}
-        max={kalkulerMaxDato(deltakerliste.sluttDato)}
+        min={kalkulerMinDato(deltaker.deltakerliste.startDato)}
+        max={kalkulerMaxDato(deltaker.deltakerliste.sluttDato)}
       />
       {erForslagEnabled && (
         <SluttdatoVelger
           ref={sluttdato}
-          tiltakskode={deltakerliste.tiltakstype}
+          tiltakskode={deltaker.deltakerliste.tiltakstype}
           legend="Hva er forventet varighet?"
           detailLabel="Forventet sluttdato"
           min={startdato ?? undefined}
-          max={deltakerliste.sluttDato ?? undefined}
+          max={maxSluttdato(startdato, deltaker.deltakerliste)}
           defaultSluttdato={deltaker.sluttDato ?? undefined}
           defaultVarighet={
             deltaker.sluttDato
               ? finnValgtVarighet(
                   deltaker.startDato,
                   deltaker.sluttDato,
-                  deltakerliste.tiltakstype
+                  deltaker.deltakerliste.tiltakstype
                 )
               : undefined
           }
