@@ -50,8 +50,6 @@ export function maxSluttdato(
 
   if (!deltakerliste.sluttDato) return sluttdato
 
-  console.log(maxVarighetMs, startdato, sluttdato, deltakerliste.sluttDato)
-
   return sluttdato < deltakerliste.sluttDato
     ? sluttdato
     : deltakerliste.sluttDato

@@ -134,7 +134,7 @@ export const EndreDeltakelseKnapp = (props: EndreDeltakelseKnappProps) => {
                 endringstype={EndringType.AVSLUTT_DELTAKELSE}
                 onClick={() =>
                   visAvsluttDeltakerModal({
-                    deltakerId: deltaker.id,
+                    deltaker: deltaker,
                     startDato: deltaker.startDato,
                     visGodkjennVilkaarPanel: visGodkjennVilkaarPanel,
                     onEndringUtfort: props.onEndringUtfort,

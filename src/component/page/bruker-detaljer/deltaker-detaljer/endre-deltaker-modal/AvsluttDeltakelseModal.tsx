@@ -6,7 +6,6 @@ import { maxDate } from '../../../../../utils/date-utils'
 import { Nullable } from '../../../../../utils/types/or-nothing'
 import { DateField } from '../../../../felles/DateField'
 import { AarsakSelector } from './AarsakSelector'
-import { useDeltakerlisteStore } from '../deltakerliste-store'
 import { AktivtForslag } from '../../../../../api/data/forslag'
 import {
   useAarsakValidering,
@@ -15,13 +14,15 @@ import {
 import { Endringsmodal } from './endringsmodal/Endringsmodal'
 import { avsluttDeltakelseForslag } from '../../../../../api/forslag-api'
 import { EndringType } from '../types'
+import { Deltaker } from '../../../../../api/data/deltaker'
+import { maxSluttdato } from './datoutils'
 
 interface AvsluttDeltakelseModalProps {
   onClose: () => void
 }
 
 export interface AvsluttDeltakelseModalDataProps {
-  readonly deltakerId: string
+  readonly deltaker: Deltaker
   readonly startDato: Nullable<Date>
   readonly visGodkjennVilkaarPanel: boolean
   readonly onEndringUtfort: () => void
@@ -34,7 +35,7 @@ export const AvsluttDeltakelseModal = (
 ) => {
   const {
     onClose,
-    deltakerId,
+    deltaker,
     startDato,
     visGodkjennVilkaarPanel,
     onEndringUtfort,
@@ -46,10 +47,7 @@ export const AvsluttDeltakelseModal = (
   const [beskrivelse, settBeskrivelse] = useState<Nullable<string>>()
   const [begrunnelse, setBegrunnelse] = useState<string>()
 
-  const { deltakerliste } = useDeltakerlisteStore()
   const { validering } = useAarsakValidering(aarsak, beskrivelse, begrunnelse)
-
-  const minDato = maxDate(startDato, deltakerliste.startDato)
 
   const sendEndringsmelding = () => {
     if (!sluttDato) {
@@ -60,7 +58,7 @@ export const AvsluttDeltakelseModal = (
     return validerAarsakForm(aarsak, beskrivelse)
       .then((validertForm) =>
         avsluttDeltakelse(
-          deltakerId,
+          deltaker.id,
           sluttDato,
           validertForm.endringsmelding.aarsak
         )
@@ -77,7 +75,7 @@ export const AvsluttDeltakelseModal = (
     return validerAarsakForm(aarsak, beskrivelse, begrunnelse)
       .then((validertForm) =>
         avsluttDeltakelseForslag(
-          deltakerId,
+          deltaker.id,
           sluttDato,
           validertForm.forslag.aarsak,
           validertForm.forslag.begrunnelse
@@ -115,8 +113,8 @@ export const AvsluttDeltakelseModal = (
       <DateField
         label="Hva er ny sluttdato?"
         defaultDate={sluttDato}
-        min={minDato}
-        max={deltakerliste.sluttDato}
+        min={maxDate(startDato, deltaker.deltakerliste.startDato)}
+        max={maxSluttdato(deltaker.startDato, deltaker.deltakerliste)}
         onDateChanged={(d) => settSluttDato(d)}
       />
     </Endringsmodal>
