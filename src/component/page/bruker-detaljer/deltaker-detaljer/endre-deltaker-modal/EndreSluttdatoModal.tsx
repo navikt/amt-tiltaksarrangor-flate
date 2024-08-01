@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 
 import { postEndreSluttdato } from '../../../../../api/tiltak-api'
 import { Nullable } from '../../../../../utils/types/or-nothing'
-import { useDeltakerlisteStore } from '../deltakerliste-store'
 import { Endringsmodal } from './endringsmodal/Endringsmodal'
 import { DateField } from '../../../../felles/DateField'
 import { AktivtForslag } from '../../../../../api/data/forslag'
@@ -12,14 +11,15 @@ import {
   validerObligatoriskBegrunnelse
 } from './validering/begrunnelseValidering'
 import { EndringType } from '../types'
-import { kalkulerMaxDato, kalkulerMinDato } from './datoutils'
+import { kalkulerMinDato, maxSluttdato } from './datoutils'
+import { Deltaker } from '../../../../../api/data/deltaker'
 
 export interface EndreSluttdatoModalProps {
   onClose: () => void
 }
 
 export interface EndreSluttdatoModalDataProps {
-  readonly deltakerId: string
+  readonly deltaker: Deltaker
   readonly visGodkjennVilkaarPanel: boolean
   readonly onEndringUtfort: () => void
   readonly onForslagSendt: (forslag: AktivtForslag) => void
@@ -27,7 +27,7 @@ export interface EndreSluttdatoModalDataProps {
 }
 
 export const EndreSluttdatoModal = ({
-  deltakerId,
+  deltaker,
   visGodkjennVilkaarPanel,
   onEndringUtfort,
   onForslagSendt,
@@ -36,7 +36,6 @@ export const EndreSluttdatoModal = ({
 }: EndreSluttdatoModalProps & EndreSluttdatoModalDataProps) => {
   const [valgtDato, setValgtDato] = useState<Nullable<Date>>()
   const [begrunnelse, setBegrunnelse] = useState<string>('')
-  const { deltakerliste } = useDeltakerlisteStore()
 
   const kanSendeMelding = erForslagEnabled
     ? valgtDato !== null && gyldigObligatoriskBegrunnelse(begrunnelse)
@@ -46,7 +45,7 @@ export const EndreSluttdatoModal = ({
     if (!valgtDato)
       return Promise.reject('Sluttdato må være valgt for å sende endring')
 
-    return postEndreSluttdato(deltakerId, valgtDato).then(onEndringUtfort)
+    return postEndreSluttdato(deltaker.id, valgtDato).then(onEndringUtfort)
   }
 
   const sendForslag = () => {
@@ -54,7 +53,7 @@ export const EndreSluttdatoModal = ({
       return Promise.reject('Sluttdato må være valgt for å sende endring')
     }
     return validerObligatoriskBegrunnelse(begrunnelse)
-      .then(() => endreSluttdatoForslag(deltakerId, valgtDato, begrunnelse))
+      .then(() => endreSluttdatoForslag(deltaker.id, valgtDato, begrunnelse))
       .then((res) => onForslagSendt(res.data))
   }
 
@@ -76,8 +75,8 @@ export const EndreSluttdatoModal = ({
         label="Ny sluttdato"
         defaultDate={valgtDato}
         onDateChanged={(d) => setValgtDato(d)}
-        min={kalkulerMinDato(deltakerliste.startDato)}
-        max={kalkulerMaxDato(deltakerliste.sluttDato)}
+        min={kalkulerMinDato(deltaker.deltakerliste.startDato)}
+        max={maxSluttdato(deltaker.startDato, deltaker.deltakerliste)}
       />
     </Endringsmodal>
   )
