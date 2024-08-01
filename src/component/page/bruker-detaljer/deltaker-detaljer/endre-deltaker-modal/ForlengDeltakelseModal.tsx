@@ -45,9 +45,8 @@ export const ForlengDeltakelseModal = (
   const sluttdato = useRef<SluttdatoRef>(null)
 
   const kanSendeMelding = erForslagEnabled
-    ? !sluttdato.current?.sluttdato &&
-      gyldigObligatoriskBegrunnelse(begrunnelse)
-    : !sluttdato.current?.sluttdato
+    ? sluttdato !== null && gyldigObligatoriskBegrunnelse(begrunnelse)
+    : sluttdato !== null
 
   const sendEndringsmelding = () => {
     if (!sluttdato.current?.validate() || !sluttdato.current.sluttdato) {
