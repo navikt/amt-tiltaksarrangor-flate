@@ -1,4 +1,4 @@
-import faker from 'faker'
+import { faker } from '@faker-js/faker/locale/nb_NO'
 
 import {
   Adresse,
@@ -100,12 +100,12 @@ export const lagMockTiltakDeltagereForGjennomforing = (
 }
 
 const lagTelefonnummer = (): string => {
-  return faker.phone.phoneNumber().replaceAll(' ', '')
+  return faker.phone.number().replaceAll(' ', '')
 }
 
 const lagAdresse = (): MockAdresse => {
   return {
-    adressetype: faker.random.arrayElement([
+    adressetype: faker.helpers.arrayElement([
       Adressetype.BOSTEDSADRESSE,
       Adressetype.KONTAKTADRESSE,
       Adressetype.OPPHOLDSADRESSE
@@ -155,8 +155,8 @@ const finnStartdato = (
   } else {
     return skalHaDatoer
       ? deltakerstatus === TiltakDeltakerStatus.VENTER_PA_OPPSTART
-        ? faker.date.future()
-        : faker.date.past()
+        ? faker.date.soon()
+        : faker.date.recent({ days: 60 })
       : null
   }
 }
@@ -174,24 +174,24 @@ const finnSluttdato = (
 
   if (erKurs && erAvbrutt) {
     return startDato && gjennomforing.sluttDato
-      ? faker.date.between(startDato, gjennomforing.sluttDato)
+      ? faker.date.between({ from: startDato, to: gjennomforing.sluttDato })
       : gjennomforing.sluttDato
   } else if (erKurs) {
     return gjennomforing.sluttDato
   } else {
     return startDato != null
       ? deltakerstatus === TiltakDeltakerStatus.HAR_SLUTTET
-        ? faker.date.between(startDato, Date())
-        : faker.date.between(
-            startDato,
-            gjennomforing.sluttDato ? gjennomforing.sluttDato : Date()
-          )
+        ? faker.date.between({ from: startDato, to: new Date() })
+        : faker.date.between({
+            from: startDato,
+            to: gjennomforing.sluttDato ?? new Date()
+          })
       : null
   }
 }
 
 const lagVurdering = (erHistorisk: boolean): MockVurdering => {
-  const vurderingstype = faker.random.arrayElement([
+  const vurderingstype = faker.helpers.arrayElement([
     Vurderingstype.OPPFYLLER_KRAVENE,
     Vurderingstype.OPPFYLLER_IKKE_KRAVENE
   ])
@@ -208,7 +208,7 @@ const lagVurdering = (erHistorisk: boolean): MockVurdering => {
     gyldigFra,
     gyldigTil: erHistorisk
       ? historiskGyldigTilDato
-      : faker.random.arrayElement([faker.date.future(), null])
+      : faker.helpers.arrayElement([faker.date.future(), null])
   }
 }
 
@@ -221,14 +221,14 @@ const lagMockTiltakDeltagerForGjennomforing = (
 ): MockTiltakDeltaker => {
   const erKurs = deltakerlisteErKurs(gjennomforing.tiltak.tiltakskode)
   const status = getStatus(erKurs, gjennomforing.tiltak.tiltakskode)
-  const gender = randBetween(0, 1)
-  const brukerFornavn = faker.name.firstName(gender)
+  const gender = faker.person.sexType()
+  const brukerFornavn = faker.person.firstName(gender)
   const brukerMellomnavn = randomBoolean(50)
-    ? faker.name.firstName(gender)
+    ? faker.person.firstName(gender)
     : null
-  const brukerEtternavn = faker.name.lastName()
+  const brukerEtternavn = faker.person.lastName()
 
-  const veilederNavn = faker.name.firstName() + ' ' + faker.name.lastName()
+  const veilederNavn = faker.person.firstName() + ' ' + faker.person.lastName()
 
   // 80% av deltakere med status VENTER_PA_OPPSTART, IKKE_AKTUELL skal ikke ha datoer
   const skalHaDatoer = [
@@ -275,7 +275,7 @@ const lagMockTiltakDeltagerForGjennomforing = (
       endretDato: faker.date.recent()
     },
     navEnhet:
-      randBetween(0, 10) < 9 ? faker.random.arrayElement(navEnheter) : null,
+      randBetween(0, 10) < 9 ? faker.helpers.arrayElement(navEnheter) : null,
     navVeileder: veileder,
     fjernesDato: fjernesDato,
     gjennomforing: gjennomforing,

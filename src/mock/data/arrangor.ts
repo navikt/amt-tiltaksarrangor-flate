@@ -1,4 +1,4 @@
-import faker from 'faker'
+import { faker } from '@faker-js/faker/locale/nb_NO'
 
 import { Arrangor } from '../../api/data/tiltak'
 import { randBetween } from '../utils/faker'
@@ -13,7 +13,7 @@ const overordnetEneheter: string[] = new Array(
   Math.floor(ANTALL_ARRANGORER / 6)
 )
   .fill(null)
-  .map(() => faker.company.companyName())
+  .map(() => faker.company.name())
 
 const overordnetEnhet = (): string | null => {
   if (randBetween(0, ANTALL_ARRANGORER) <= ANTALL_ARRANGORER / 10) {
@@ -28,8 +28,8 @@ const arrangorer: Arrangor[] = new Array(ANTALL_ARRANGORER)
     const organisasjonNavn = overordnetEnhet()
 
     const virksomhetNavn = organisasjonNavn
-      ? `${organisasjonNavn} Avd. ${faker.address.city()}`
-      : faker.company.companyName()
+      ? `${organisasjonNavn} Avd. ${faker.location.city()}`
+      : faker.company.name()
     return {
       virksomhetNavn: virksomhetNavn,
       virksomhetOrgnr: orgNr(),
