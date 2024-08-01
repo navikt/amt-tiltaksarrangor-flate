@@ -104,8 +104,7 @@ export const EndreDeltakelseKnapp = (props: EndreDeltakelseKnappProps) => {
                 endringstype={EndringType.FORLENG_DELTAKELSE}
                 onClick={() =>
                   visForlengDeltakelseModal({
-                    deltakerId: deltaker.id,
-                    sluttDato: deltaker.sluttDato,
+                    deltaker: deltaker,
                     visGodkjennVilkaarPanel: visGodkjennVilkaarPanel,
                     onEndringUtfort: props.onEndringUtfort,
                     onForslagSendt: props.onForslagSendt,

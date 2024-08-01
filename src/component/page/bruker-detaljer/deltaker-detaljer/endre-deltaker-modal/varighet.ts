@@ -162,3 +162,41 @@ function finnVarighetValg(
     maaneder: mndVarighet()
   }
 }
+
+/*
+ * Finner maksimal varighet for en tiltakstype.
+ * Denne sjekken er enklere enn i nav-veiledersflate,
+ * fordi vi ønsker at tiltaksarrangør ikke skal behøve
+ * å ta høyde for forskjellige innsatsgrupper.
+ *
+ * Vi bruker en mindre presis beregning av varigheten av en
+ * periode enn det vi kunne har gjort hvis vi brukte år og måned enhetene i dayjs.
+ * Dette for å få den mer lik varigheten som blir beregnet i nav-veiledersflate i dag.
+ * Hvis dette ikke gjøres vil maks varighet ofte være noe lengre hos tiltaksarrangør enn nav.
+ */
+export function maxVarighetMillisFor(
+  tiltakstype: Tiltakskode
+): number | undefined {
+  const dagMs = 24 * 60 * 60 * 1000
+  const ukerMs = (n: number) => n * 7 * dagMs
+  const maanederMs = (n: number) => n * 30 * dagMs
+  const aarMs = (n: number) => n * 365 * dagMs
+
+  switch (tiltakstype) {
+    case Tiltakskode.GRUPPEAMO:
+    case Tiltakskode.ARBFORB:
+      return aarMs(3)
+    case Tiltakskode.ARBRRHDAG:
+    case Tiltakskode.AVKLARAG:
+      return ukerMs(12)
+    case Tiltakskode.DIGIOPPARB:
+      return ukerMs(8)
+    case Tiltakskode.GRUFAGYRKE:
+      return aarMs(4)
+    case Tiltakskode.INDOPPFAG:
+      return aarMs(3) + maanederMs(6)
+    case Tiltakskode.JOBBK:
+    case Tiltakskode.VASV:
+      return undefined
+  }
+}
