@@ -3,7 +3,6 @@ import React, { useRef, useState } from 'react'
 import { endreOppstartsdato } from '../../../../../api/tiltak-api'
 import { Nullable } from '../../../../../utils/types/or-nothing'
 import { AktivtForslag } from '../../../../../api/data/forslag'
-import { useDeltakerlisteStore } from '../deltakerliste-store'
 import {
   gyldigObligatoriskBegrunnelse,
   validerObligatoriskBegrunnelse
