@@ -1,4 +1,4 @@
-import faker from 'faker'
+import { faker } from '@faker-js/faker/locale/nb_NO'
 
 import { TiltakDeltakerStatus } from '../../api/data/deltaker'
 import {

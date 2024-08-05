@@ -1,10 +1,9 @@
-import faker from 'faker'
+import { faker } from '@faker-js/faker/locale/nb_NO'
 
-faker.locale = 'nb_NO'
 faker.seed(486756783)
 
 export const randBetween = (min: number, max: number): number => {
-  return faker.datatype.number({ min, max })
+  return faker.number.int({ min, max })
 }
 
 // Returns a random boolean, percentTrue = 0 - 100
@@ -13,7 +12,7 @@ export const randomBoolean = (percentTrue: number): boolean => {
 }
 
 export const randomUuid = (): string => {
-  return faker.datatype.uuid()
+  return faker.string.uuid()
 }
 
 export const randomFnr = (): string => {

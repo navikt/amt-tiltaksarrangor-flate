@@ -1,4 +1,4 @@
-import * as faker from 'faker'
+import { faker } from '@faker-js/faker/locale/nb_NO'
 
 import { TiltakDeltakerStatus } from '../../api/data/deltaker'
 import {
@@ -126,16 +126,16 @@ export const lagMockHistoriskeEndringsmeldingForDeltaker = (
     n < 5 &&
     typeof deltakerStatus === typeof TiltakDeltakerStatus.DELTAR
   ) {
-    const oppstartsdato = faker.date.soon()
+    const oppstartsdato = faker.date.soon({ refDate: startDato ?? undefined })
     return [
       {
         id: endringsmeldingId(),
         type: EndringsmeldingType.ENDRE_OPPSTARTSDATO,
         innhold: { oppstartsdato },
-        sendt: faker.date.between(
-          startDato || faker.date.recent(),
-          oppstartsdato
-        ),
+        sendt: faker.date.between({
+          from: startDato || faker.date.recent(),
+          to: oppstartsdato
+        }),
         status: EndringsmeldingStatus.UTFORT
       },
       {
@@ -209,7 +209,10 @@ export const lagMockHistoriskeEndringsmeldingForDeltaker = (
             beskrivelse: 'Har flyttet til annen kommune'
           }
         },
-        sendt: faker.date.between(startDato || faker.date.past(), new Date()),
+        sendt: faker.date.between({
+          from: faker.date.past(),
+          to: new Date()
+        }),
         status: EndringsmeldingStatus.UTFORT
       }
     ]

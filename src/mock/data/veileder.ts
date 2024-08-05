@@ -1,4 +1,4 @@
-import faker from 'faker'
+import { faker } from '@faker-js/faker/locale/nb_NO'
 import {
   TilgjengeligVeileder,
   VeilederMedType,
@@ -11,28 +11,28 @@ const lagMockTilgjengeligeVeiledere = (n: number): TilgjengeligVeileder[] => {
   return new Array(n).fill(null).map(() => {
     return {
       ansattId: ansattId(),
-      fornavn: faker.name.firstName(),
+      fornavn: faker.person.firstName(),
       mellomnavn: mellomNavnEllerNull(),
-      etternavn: faker.name.lastName()
+      etternavn: faker.person.lastName()
     }
   })
 }
 
 const mellomNavnEllerNull = (): string | null => {
   if (randBetween(0, 10) < 3) {
-    return faker.name.middleName()
+    return faker.person.middleName()
   }
   return null
 }
 
-export const mockTilgjengeligeVeiledere = lagMockTilgjengeligeVeiledere(50)
+export const mockTilgjengeligeVeiledere = lagMockTilgjengeligeVeiledere(15)
 
 export const lagMockVeiledereForDeltaker = (
   deltakerId: string
 ): VeilederMedType[] => {
   const tilgjengelige = [...mockTilgjengeligeVeiledere]
 
-  faker.helpers.shuffle(tilgjengelige)
+  faker.helpers.shuffle(tilgjengelige, { inplace: true })
 
   const veiledere: VeilederMedType[] = []
   if (randBetween(0, 10) < 1) {

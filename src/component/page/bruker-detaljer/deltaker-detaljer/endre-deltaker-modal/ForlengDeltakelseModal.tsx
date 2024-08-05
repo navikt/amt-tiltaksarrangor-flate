@@ -2,8 +2,6 @@ import React, { useRef, useState } from 'react'
 
 import { forlengDeltakelse } from '../../../../../api/tiltak-api'
 import { maxDate } from '../../../../../utils/date-utils'
-import { Nullable } from '../../../../../utils/types/or-nothing'
-import { useDeltakerlisteStore } from '../deltakerliste-store'
 import { AktivtForslag } from '../../../../../api/data/forslag'
 import { forlengDeltakelseForslag } from '../../../../../api/forslag-api'
 import { Endringsmodal } from './endringsmodal/Endringsmodal'
@@ -13,14 +11,15 @@ import {
 } from './validering/begrunnelseValidering'
 import { EndringType } from '../types'
 import { SluttdatoRef, SluttdatoVelger } from './SluttdatoVelger'
+import { Deltaker } from '../../../../../api/data/deltaker'
+import { maxSluttdato } from './datoutils'
 
 export interface ForlengDeltakelseModalProps {
   readonly onClose: () => void
 }
 
 export interface ForlengDeltakelseModalDataProps {
-  readonly deltakerId: string
-  readonly sluttDato: Nullable<Date>
+  readonly deltaker: Deltaker
   readonly visGodkjennVilkaarPanel: boolean
   readonly onEndringUtfort: () => void
   readonly onForslagSendt: (forslag: AktivtForslag) => void
@@ -31,17 +30,16 @@ export const ForlengDeltakelseModal = (
   props: ForlengDeltakelseModalProps & ForlengDeltakelseModalDataProps
 ) => {
   const {
-    deltakerId,
-    sluttDato: opprinneligSluttdato,
+    deltaker,
     onClose,
     onEndringUtfort,
     visGodkjennVilkaarPanel,
     erForslagEnabled
   } = props
-  const [begrunnelse, setBegrunnelse] = useState('')
-  const { deltakerliste } = useDeltakerlisteStore()
-  const minDato = maxDate(opprinneligSluttdato, deltakerliste.startDato)
+  const deltakerliste = deltaker.deltakerliste
+  const minDato = maxDate(deltaker.sluttDato, deltakerliste.startDato)
 
+  const [begrunnelse, setBegrunnelse] = useState('')
   const sluttdato = useRef<SluttdatoRef>(null)
 
   const kanSendeMelding = erForslagEnabled
@@ -51,10 +49,10 @@ export const ForlengDeltakelseModal = (
   const sendEndringsmelding = () => {
     if (!sluttdato.current?.validate() || !sluttdato.current.sluttdato) {
       return Promise.reject(
-        'Kan ikke sende ForlengDeltakelse endringsmelding uten sluttdato'
+        'Endringsmeldingen kan ikke sendes fordi datoen er ikke gyldig.'
       )
     }
-    return forlengDeltakelse(deltakerId, sluttdato.current.sluttdato).then(
+    return forlengDeltakelse(deltaker.id, sluttdato.current.sluttdato).then(
       onEndringUtfort
     )
   }
@@ -62,7 +60,7 @@ export const ForlengDeltakelseModal = (
   const sendForslag = () => {
     if (!sluttdato.current?.sluttdato) {
       return Promise.reject(
-        'Kan ikke sende ForlengDeltakelse forslag uten sluttdato'
+        'Forslaget kan ikke sendes fordi datoen er ikke gyldig.'
       )
     }
     if (sluttdato.current && !sluttdato.current.validate()) {
@@ -71,7 +69,7 @@ export const ForlengDeltakelseModal = (
 
     const dato = sluttdato.current.sluttdato
     return validerObligatoriskBegrunnelse(begrunnelse)
-      .then(() => forlengDeltakelseForslag(deltakerId, dato, begrunnelse))
+      .then(() => forlengDeltakelseForslag(deltaker.id, dato, begrunnelse))
       .then((res) => props.onForslagSendt(res.data))
   }
 
@@ -94,8 +92,8 @@ export const ForlengDeltakelseModal = (
         tiltakskode={deltakerliste.tiltakstype}
         legend="Hvor lenge skal deltakelsen forlenges?"
         min={minDato ?? undefined}
-        max={deltakerliste.sluttDato ?? undefined}
-        defaultMaaned={opprinneligSluttdato ?? undefined}
+        max={maxSluttdato(deltaker.startDato, deltakerliste)}
+        defaultMaaned={deltaker.sluttDato ?? undefined}
       />
     </Endringsmodal>
   )

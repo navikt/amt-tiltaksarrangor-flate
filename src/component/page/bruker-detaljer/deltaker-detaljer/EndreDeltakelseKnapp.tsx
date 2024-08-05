@@ -104,8 +104,7 @@ export const EndreDeltakelseKnapp = (props: EndreDeltakelseKnappProps) => {
                 endringstype={EndringType.FORLENG_DELTAKELSE}
                 onClick={() =>
                   visForlengDeltakelseModal({
-                    deltakerId: deltaker.id,
-                    sluttDato: deltaker.sluttDato,
+                    deltaker: deltaker,
                     visGodkjennVilkaarPanel: visGodkjennVilkaarPanel,
                     onEndringUtfort: props.onEndringUtfort,
                     onForslagSendt: props.onForslagSendt,
@@ -135,7 +134,7 @@ export const EndreDeltakelseKnapp = (props: EndreDeltakelseKnappProps) => {
                 endringstype={EndringType.AVSLUTT_DELTAKELSE}
                 onClick={() =>
                   visAvsluttDeltakerModal({
-                    deltakerId: deltaker.id,
+                    deltaker: deltaker,
                     startDato: deltaker.startDato,
                     visGodkjennVilkaarPanel: visGodkjennVilkaarPanel,
                     onEndringUtfort: props.onEndringUtfort,
@@ -182,7 +181,7 @@ export const EndreDeltakelseKnapp = (props: EndreDeltakelseKnappProps) => {
                 endringstype={EndringType.ENDRE_SLUTTDATO}
                 onClick={() =>
                   visEndreSluttdatoModal({
-                    deltakerId: deltaker.id,
+                    deltaker: deltaker,
                     visGodkjennVilkaarPanel: visGodkjennVilkaarPanel,
                     onEndringUtfort: props.onEndringUtfort,
                     onForslagSendt: props.onForslagSendt,
