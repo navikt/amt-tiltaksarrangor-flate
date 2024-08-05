@@ -113,6 +113,7 @@ export const EndreProsentDeltakelseModal = ({
         className={styles.prosentDeltakselseTextField}
         label="Hva er ny deltakelsesprosent?"
         type="text"
+        size="small"
         value={prosentDeltakelseFelt}
         error={validering.deltakelsesprosentError}
         onChange={(e) => settProsentDeltakelseFelt(e.target.value)}
@@ -123,6 +124,7 @@ export const EndreProsentDeltakelseModal = ({
           className={styles.prosentDeltakselseTextField}
           label="Hvor mange dager i uka? (valgfritt)"
           type="text"
+          size="small"
           value={dagerPerUkeFelt}
           error={validering.dagerPerUkeError}
           onChange={(e) => settDagerPerUkeFelt(e.target.value)}

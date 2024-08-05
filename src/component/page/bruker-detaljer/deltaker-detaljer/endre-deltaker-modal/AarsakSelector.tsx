@@ -33,7 +33,7 @@ export const AarsakSelector = ({
   }, [beskrivelse, aarsak, onAarsakSelected, tittel])
 
   return (
-    <RadioGroup legend={tittel} onChange={(a) => settAarsak(a)}>
+    <RadioGroup size="small" legend={tittel} onChange={(a) => settAarsak(a)}>
       <AarsakRadio aarsakType={DeltakerStatusAarsakType.FATT_JOBB} />
       <AarsakRadio aarsakType={DeltakerStatusAarsakType.SYK} />
       <AarsakRadio aarsakType={DeltakerStatusAarsakType.TRENGER_ANNEN_STOTTE} />
