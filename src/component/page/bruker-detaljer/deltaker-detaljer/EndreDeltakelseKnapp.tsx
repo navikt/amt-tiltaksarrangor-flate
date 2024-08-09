@@ -68,7 +68,7 @@ export const EndreDeltakelseKnapp = (props: EndreDeltakelseKnappProps) => {
           Endre deltakelse
         </Button>
         <Dropdown.Menu className={styles.dropdownMenu}>
-          <Dropdown.Menu.List className={styles.dropdown}>
+          <Dropdown.Menu.List>
             {kanEndreStartDato && !deltaker.startDato && (
               <DropDownButton
                 endringstype={EndringType.LEGG_TIL_OPPSTARTSDATO}
