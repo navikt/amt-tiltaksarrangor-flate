@@ -86,7 +86,7 @@ function EndringsDetaljer({ endring }: { readonly endring: ForslagEndring }) {
             Ny oppstartsdato: {formatDate(endring.startdato)}
           </BodyShort>
           <BodyShort size="small">
-            Ny sluttdato: {formatDate(endring.sluttdato)}
+            Forventet sluttdato: {formatDate(endring.sluttdato)}
           </BodyShort>
         </>
       )
