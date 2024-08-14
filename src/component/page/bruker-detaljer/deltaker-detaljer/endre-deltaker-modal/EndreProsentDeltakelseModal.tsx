@@ -7,7 +7,6 @@ import { endreDeltakelsesprosent } from '../../../../../api/tiltak-api'
 import { Nullable } from '../../../../../utils/types/or-nothing'
 import { DateField } from '../../../../felles/DateField'
 import styles from './EndreProsentDeltakelseModal.module.scss'
-import { useDeltakerlisteStore } from '../deltakerliste-store'
 import { Endringsmodal } from './endringsmodal/Endringsmodal'
 import { AktivtForslag } from '../../../../../api/data/forslag'
 import {
@@ -17,6 +16,7 @@ import {
 import { deltakelsesmengdeForslag } from '../../../../../api/forslag-api'
 import { useDeltakelsesmengdeValidering } from './validering/deltakelsesmengdeValidering'
 import { EndringType } from '../types'
+import { useDeltakerStore } from '../deltaker-store'
 
 interface EndreProsentDeltakelseModalProps {
   onClose: () => void
@@ -41,7 +41,7 @@ export const EndreProsentDeltakelseModal = ({
   onClose
 }: EndreProsentDeltakelseModalProps & EndreProsentDeltakelseModalDataProps) => {
   const today = dayjs().toDate()
-  const { deltakerliste } = useDeltakerlisteStore()
+  const { deltaker } = useDeltakerStore()
   const [prosentDeltakelseFelt, settProsentDeltakelseFelt] =
     useState<string>('')
   const [dagerPerUkeFelt, settDagerPerUkeFelt] = useState<string>('')
@@ -136,8 +136,8 @@ export const EndreProsentDeltakelseModal = ({
           label="Fra når gjelder ny deltakelsesmengde?"
           defaultDate={gyldigFraDato}
           onDateChanged={(d) => setGyldigFraDato(d)}
-          min={deltakerliste.startDato}
-          max={deltakerliste.sluttDato}
+          min={deltaker.deltakerliste.startDato}
+          max={deltaker.deltakerliste.sluttDato}
         />
       )}
     </Endringsmodal>
