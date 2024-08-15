@@ -20,6 +20,7 @@ interface EndreDeltakelseKnappProps {
   onEndringUtfort: () => void
   erForslagEnabled: boolean
   onForslagSendt: (forslag: AktivtForslag) => void
+  onEndringSendt: (oppdatertDeltaker: Deltaker) => void
 }
 
 export const EndreDeltakelseKnapp = (props: EndreDeltakelseKnappProps) => {
@@ -74,9 +75,11 @@ export const EndreDeltakelseKnapp = (props: EndreDeltakelseKnappProps) => {
                 endringstype={EndringType.LEGG_TIL_OPPSTARTSDATO}
                 onClick={() =>
                   visLeggTilOppstartModal({
-                    deltakerId: deltaker.id,
+                    deltaker: deltaker,
                     visGodkjennVilkaarPanel: false,
-                    onEndringUtfort: props.onEndringUtfort
+                    onEndringUtfort: props.onEndringUtfort,
+                    onEndringSendt: props.onEndringSendt,
+                    erForslagEnabled: props.erForslagEnabled
                   })
                 }
               />

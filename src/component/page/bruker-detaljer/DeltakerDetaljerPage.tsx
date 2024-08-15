@@ -19,7 +19,7 @@ import { SpinnerPage } from '../../felles/spinner-page/SpinnerPage'
 import { DeltakerDetaljer } from './DeltakerDetaljer'
 import { DeltakerDetaljerAdresseBeskyttet } from './DeltakerDetaljerAdresseBeskyttet'
 import { DeltakerDetaljerHeader } from './DeltakerDetaljerHeader'
-import { DeltakerlisteStoreProvider } from './deltaker-detaljer/deltakerliste-store'
+import { DeltakerStoreProvider } from './deltaker-detaljer/deltaker-store'
 
 export const DeltakerDetaljerPage = (): React.ReactElement => {
   const params = useParams<{ brukerId: string }>()
@@ -71,9 +71,9 @@ export const DeltakerDetaljerPage = (): React.ReactElement => {
         tiltakskode={deltaker.tiltakskode}
         adressebeskyttet={deltaker.adressebeskyttet}
       />
-      <DeltakerlisteStoreProvider deltakerliste={deltaker.deltakerliste}>
-        <DeltakerDetaljer deltaker={deltaker} visTildeling={visTildeling} />
-      </DeltakerlisteStoreProvider>
+      <DeltakerStoreProvider deltaker={deltaker}>
+        <DeltakerDetaljer visTildeling={visTildeling} />
+      </DeltakerStoreProvider>
     </div>
   )
 }

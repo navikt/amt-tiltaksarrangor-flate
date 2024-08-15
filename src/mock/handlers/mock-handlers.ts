@@ -40,6 +40,10 @@ import {
   ForslagEndringType,
   ForslagStatusType
 } from '../../api/data/forslag'
+import {
+  EndringFraArrangor,
+  EndringFraArrangorType
+} from '../../api/data/endring'
 
 export const mockHandlers: RequestHandler[] = [
   rest.get(
@@ -445,6 +449,11 @@ export const mockHandlers: RequestHandler[] = [
     type: ForslagEndringType.Sluttarsak,
     aarsak: body.aarsak
   })),
+  handlePostEndringRequest('legg-til-oppstartsdato', (body) => ({
+    type: EndringFraArrangorType.LeggTilOppstartsdato,
+    startdato: body.startdato,
+    sluttdato: body.sluttdato
+  })),
   rest.get(
     appUrl('/amt-tiltaksarrangor-bff/unleash/api/feature'),
     (req, res, ctx) => {
@@ -614,6 +623,48 @@ function handlePostForslagRequest(
       }
 
       return res(ctx.delay(500), ctx.status(200), ctx.json(forslag))
+    }
+  )
+}
+
+function handlePostEndringRequest(
+  endepunkt: string,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  getEndringFraArrangor: (body: any) => EndringFraArrangor
+) {
+  return rest.post(
+    appUrl(
+      `/amt-tiltaksarrangor-bff/tiltaksarrangor/deltaker/:deltakerId/endring/${endepunkt}`
+    ),
+    async (req, res, ctx) => {
+      const deltakerId = req.params.deltakerId as string
+      const body = await req.json()
+
+      const endring = getEndringFraArrangor(body)
+
+      const deltaker = mockTiltakDeltakere.find((d) => d.id == deltakerId)
+
+      if (!deltaker) {
+        return res(ctx.delay(500), ctx.status(500))
+      }
+
+      if (endring.type === EndringFraArrangorType.LeggTilOppstartsdato) {
+        deltaker.startDato = endring.startdato
+        deltaker.sluttDato = endring.sluttdato
+      }
+
+      const referrer = req.referrer
+      const ref = referrer.substring(
+        referrer.indexOf('?ref=') + 5,
+        referrer.length
+      )
+
+      const deltakerMedGjennomforing = mapToDeltakerDetaljerView(
+        deltaker,
+        ref === 'veileder'
+      )
+
+      return res(ctx.delay(500), ctx.status(200), ctx.json(deltakerMedGjennomforing))
     }
   )
 }

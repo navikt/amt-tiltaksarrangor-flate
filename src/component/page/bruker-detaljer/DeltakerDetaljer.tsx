@@ -1,7 +1,6 @@
 import { BodyShort, Label } from '@navikt/ds-react'
 import React from 'react'
 
-import { Deltaker } from '../../../api/data/deltaker'
 import { Tiltakskode } from '../../../api/data/tiltak'
 import { formatDate } from '../../../utils/date-utils'
 import { Show } from '../../felles/Show'
@@ -11,26 +10,26 @@ import styles from './DeltakerDetaljer.module.scss'
 import { NavInfoPanel } from './nav-info-panel/NavInfoPanel'
 import { VeilederPanel } from './veileder-panel/VeilederPanel'
 import { DeltakerVurdering } from './deltaker-detaljer/vurdering/DeltakerVurdering'
+import { useDeltakerStore } from './deltaker-detaljer/deltaker-store'
 
 export const DeltakerDetaljer = (props: {
-  deltaker: Deltaker
   visTildeling: boolean
 }): React.ReactElement => {
+  const { deltaker } = useDeltakerStore()
   const {
     navInformasjon,
     soktInnPa,
     soktInnDato,
     bestillingTekst,
     tiltakskode
-  } = props.deltaker
-
+  } = deltaker
   return (
     <div className={styles.detaljer}>
       <section className={styles.section}>
-        <DeltakelseInfo deltaker={props.deltaker} />
+        <DeltakelseInfo deltaker={deltaker} />
 
-        {props.deltaker.tiltakskode === Tiltakskode.GRUPPEAMO && (
-          <DeltakerVurdering deltaker={props.deltaker} />
+        {deltaker.tiltakskode === Tiltakskode.GRUPPEAMO && (
+          <DeltakerVurdering deltaker={deltaker} />
         )}
 
         <div className={styles.innsokt}>
@@ -59,7 +58,7 @@ export const DeltakerDetaljer = (props: {
           navVeileder={navInformasjon.navVeileder}
         />
         <VeilederPanel
-          deltaker={props.deltaker}
+          deltaker={deltaker}
           visTildeling={props.visTildeling}
         />
       </section>

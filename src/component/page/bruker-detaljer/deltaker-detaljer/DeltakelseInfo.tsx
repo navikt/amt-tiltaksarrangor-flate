@@ -25,6 +25,7 @@ import { FjernDeltakerModal } from './fjern-deltaker-modal/FjernDeltakerModal'
 import { AktiveForslag } from './forslag/AktiveForslag'
 import { AktivtForslag } from '../../../../api/data/forslag'
 import { useFeatureToggle } from '../../../../hooks/useFeatureToggle'
+import { useDeltakerStore } from './deltaker-store'
 
 interface DeltakelseInfoProps {
   deltaker: Deltaker
@@ -36,6 +37,8 @@ export const DeltakelseInfo = ({
   const [reloadEndringsmeldinger, setReloadEndringsmeldinger] = useState(false)
   const [visFjernDeltakerModal, setVisFjernDeltakerModal] = useState(false)
   const [forslag, setForslag] = useState(deltaker.aktiveForslag)
+
+  const { setDeltaker } = useDeltakerStore()
 
   const skjulDeltakerPromise = usePromise<AxiosResponse>()
 
@@ -62,6 +65,10 @@ export const DeltakelseInfo = ({
   const handleSkjulDeltaker = () => {
     setVisFjernDeltakerModal(false)
     skjulDeltakerPromise.setPromise(skjulDeltaker(deltaker.id))
+  }
+
+  const oppdaterDeltaker = (deltaker: Deltaker) => {
+    setDeltaker(deltaker)
   }
 
   const viseDeltakelsesmengde = skalViseDeltakelsesmengde(deltaker.tiltakskode)
@@ -102,6 +109,7 @@ export const DeltakelseInfo = ({
           onEndringUtfort={triggerReloadEndringsmeldinger}
           erForslagEnabled={erForslagEnabled}
           onForslagSendt={handleForslagSendt}
+          onEndringSendt={oppdaterDeltaker}
         />
       </div>
 
