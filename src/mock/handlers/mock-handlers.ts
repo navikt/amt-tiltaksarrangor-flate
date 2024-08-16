@@ -44,6 +44,7 @@ import {
   EndringFraArrangor,
   EndringFraArrangorType
 } from '../../api/data/endring'
+import { mockDeltakerHistorikk } from '../data/historikk'
 
 export const mockHandlers: RequestHandler[] = [
   rest.get(
@@ -366,6 +367,14 @@ export const mockHandlers: RequestHandler[] = [
     ),
     (req, res, ctx) => {
       return res(ctx.delay(500), ctx.json(mockTilgjengeligeVeiledere))
+    }
+  ),
+  rest.get(
+    appUrl(
+      '/amt-tiltaksarrangor-bff/tiltaksarrangor/deltaker/:deltakerId/historikk'
+    ),
+    (req, res, ctx) => {
+      return res(ctx.delay(500), ctx.json(mockDeltakerHistorikk))
     }
   ),
   rest.post(

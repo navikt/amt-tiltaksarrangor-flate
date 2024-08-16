@@ -3,7 +3,11 @@ import { z } from 'zod'
 import { dateSchema } from '../utils'
 
 export enum ForslagStatusType {
-  VenterPaSvar = 'VenterPaSvar'
+  VenterPaSvar = 'VenterPaSvar',
+  Avvist = 'Avvist',
+  Tilbakekalt = 'Tilbakekalt',
+  Erstattet = 'Erstattet',
+  Godkjent = 'Godkjent'
 }
 
 export enum ForslagEndringType {
@@ -14,6 +18,13 @@ export enum ForslagEndringType {
   Sluttdato = 'Sluttdato',
   Startdato = 'Startdato',
   Sluttarsak = 'Sluttarsak'
+}
+
+export enum HistorikkType {
+  Vedtak = 'Vedtak',
+  Endring = 'Endring',
+  Forslag = 'Forslag',
+  EndringFraArrangor = 'EndringFraArrangor'
 }
 
 const Syk = z.object({ type: z.literal('Syk') })
@@ -95,6 +106,16 @@ export const aktivtForslagSchema = z.object({
   begrunnelse: z.string().nullable(),
   endring: endringSchema,
   status: statusSchema.default({ type: ForslagStatusType.VenterPaSvar })
+})
+
+export const historikkForslagSchema = z.object({
+  id: z.string().uuid(),
+  type: z.literal(HistorikkType.Forslag),
+  opprettet: dateSchema,
+  begrunnelse: z.string().nullable(),
+  arrangorNavn: z.string(),
+  endring: endringSchema,
+  status: statusSchema
 })
 
 export type AktivtForslag = z.infer<typeof aktivtForslagSchema>
