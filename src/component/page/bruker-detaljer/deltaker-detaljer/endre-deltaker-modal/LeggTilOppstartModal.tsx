@@ -1,11 +1,8 @@
 import React, { useRef, useState } from 'react'
 
 import { leggTilOppstartsdato } from '../../../../../api/tiltak-api'
-import { BaseModal } from '../../../../felles/base-modal/BaseModal'
 import { DateField } from '../../../../felles/DateField'
-import styles from './EndreOppstartModal.module.scss'
 import { VeilederConfirmationPanel } from './VeilederConfirmationPanel'
-import { SendTilNavKnapp } from './SendTilNavKnapp'
 import { Nullable } from '../../../../../utils/types/or-nothing'
 import { EndringType } from '../types'
 import { kalkulerMaxDato, kalkulerMinDato, maxSluttdato } from './datoutils'
@@ -14,6 +11,7 @@ import { leggTilOppstartsdatoFraArrangor } from '../../../../../api/endring-api'
 import { SluttdatoRef, SluttdatoVelger } from './SluttdatoVelger'
 import { finnValgtVarighet } from './varighet'
 import { Detail } from '@navikt/ds-react'
+import { Endringsmodal } from './endringsmodal/Endringsmodal'
 
 export interface LeggTilOppstartModalProps {
   onClose: () => void
@@ -35,10 +33,15 @@ export const LeggTilOppstartModal = ({
   onEndringSendt,
   erForslagEnabled
 }: LeggTilOppstartModalProps & LeggTilOppstartModalDataProps) => {
+  const erEndringFraArrangorEnabled = erForslagEnabled
   const [startdato, setStartdato] = useState<Nullable<Date>>(null)
   const sluttdato = useRef<SluttdatoRef>(null)
 
   const [vilkaarGodkjent, setVilkaarGodkjent] = useState(false)
+
+  const kanSendeMelding = erEndringFraArrangorEnabled
+    ? startdato !== null && sluttdato !== null
+    : startdato !== null
 
   const sendEndringsmelding = () => {
     if (!startdato) {
@@ -47,12 +50,12 @@ export const LeggTilOppstartModal = ({
     return leggTilOppstartsdato(deltaker.id, startdato).then(onEndringUtfort)
   }
 
-  const sendEndring = () => {
+  const lagreEndring = () => {
     if (!startdato) {
-      return Promise.reject('Startdato må være valgt for å sende endring')
+      return Promise.reject('Du må velge en oppstartsdato')
     }
     if (sluttdato.current && !sluttdato.current.validate()) {
-      return Promise.reject(sluttdato.current.error)
+      return Promise.reject('Du må velge en gyldig sluttdato')
     }
 
     return leggTilOppstartsdatoFraArrangor(
@@ -63,13 +66,17 @@ export const LeggTilOppstartModal = ({
   }
   
   return (
-    <BaseModal
-      tittel="Legg til oppstartsdato"
+    <Endringsmodal
+      tittel="Legg til  oppstartsdato"
       endringstype={EndringType.LEGG_TIL_OPPSTARTSDATO}
+      visGodkjennVilkaarPanel={visGodkjennVilkaarPanel}
+      erSendKnappDisabled={!kanSendeMelding}
+      erForslag={false}
+      erEndringFraArrangor={erEndringFraArrangorEnabled}
       onClose={onClose}
-      className={styles.modal}
+      onSend={erEndringFraArrangorEnabled ? lagreEndring : sendEndringsmelding}
     >
-      {erForslagEnabled && (
+      {erEndringFraArrangorEnabled && (
         <Detail>
           Oppstartsdato avtales med deltaker direkte. Når du lagrer så kan
           NAV-veileder se datoene i arbeidsverktøyet sitt og deltaker kan se
@@ -83,7 +90,7 @@ export const LeggTilOppstartModal = ({
         min={kalkulerMinDato(deltaker.deltakerliste.startDato)}
         max={kalkulerMaxDato(deltaker.deltakerliste.sluttDato)}
       />
-      {erForslagEnabled && (
+      {erEndringFraArrangorEnabled && (
         <SluttdatoVelger
           ref={sluttdato}
           tiltakskode={deltaker.deltakerliste.tiltakstype}
@@ -109,11 +116,6 @@ export const LeggTilOppstartModal = ({
           setVilkaarGodkjent={setVilkaarGodkjent}
         />
       )}
-      <SendTilNavKnapp
-        onEndringSendt={onClose}
-        sendEndring={erForslagEnabled ? sendEndring : sendEndringsmelding}
-        disabled={!startdato || (visGodkjennVilkaarPanel && !vilkaarGodkjent)}
-      />
-    </BaseModal>
+    </Endringsmodal>
   )
 }

@@ -7,19 +7,31 @@ interface SendTilNavKnappProps {
   sendEndring: () => Promise<void>
   disabled?: boolean
   forslag?: boolean
+  endringFraArrangor?: boolean
+}
+
+const getTekst = (endringFraArrangor?: boolean, forslag?: boolean) => {
+  if (endringFraArrangor) {
+    return 'Lagre'
+  } else if (forslag) {
+    return 'Send forslag til NAV-veileder'
+  } else {
+    return 'Send til NAV'
+  }
 }
 
 export const SendTilNavKnapp = ({
   disabled,
   sendEndring,
   onEndringSendt,
-  forslag
+  forslag,
+  endringFraArrangor
 }: SendTilNavKnappProps) => {
   const [showError, setShowError] = useState<boolean>()
   const [errorMessage, setErrorMessage] = useState<string | null>()
   const opprettEndringPromise = usePromise<void>()
 
-  const tekst = forslag ? 'Send forslag til NAV-veileder' : 'Send til NAV'
+  const tekst = getTekst(endringFraArrangor, forslag)
 
   const onClick = () => {
     opprettEndringPromise.setPromise(
