@@ -12,6 +12,7 @@ interface EndringsmodalProps {
   readonly tittel: string
   readonly endringstype: EndringType
   readonly erForslag?: boolean
+  readonly erEndringFraArrangor?: boolean
   readonly visGodkjennVilkaarPanel: boolean
   readonly erSendKnappDisabled?: boolean
   readonly begrunnelseType?: BegrunnelseType
@@ -64,6 +65,7 @@ export function Endringsmodal(props: EndringsmodalProps) {
           props.erSendKnappDisabled || (!vilkaarGodkjent && krevVilkaarGodkjent)
         }
         forslag={props.erForslag}
+        endringFraArrangor={props.erEndringFraArrangor}
       />
     </BaseModal>
   )
