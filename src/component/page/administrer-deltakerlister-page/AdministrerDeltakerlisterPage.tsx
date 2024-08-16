@@ -180,13 +180,6 @@ export const AdministrerDeltakerlisterPage = () => {
         deltakerlister som du er koordinator for.
       </BodyShort>
 
-      <Alert variant="info" size={'small'} className={styles.infomelding}>
-        Endring juni 2024: Nå blir nye deltakerlister automatisk tilgjengelig to
-        uker før start. Dersom det er nødvendig å få tilgang til deltakerlister
-        i god tid før oppstart må du kontakte den som er ansvarlig for tiltaket
-        i NAV.
-      </Alert>
-
       <Show if={arrangorer.length === 0}>
         <Alert variant="info">
           På organisasjonsnummeret du har tilgang til finnes det ingen aktive
