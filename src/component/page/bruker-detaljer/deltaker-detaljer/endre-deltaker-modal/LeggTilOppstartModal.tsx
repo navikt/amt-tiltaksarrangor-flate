@@ -113,6 +113,7 @@ export const LeggTilOppstartModal = ({
         onEndringSendt={onClose}
         sendEndring={erForslagEnabled ? sendEndring : sendEndringsmelding}
         disabled={!startdato || (visGodkjennVilkaarPanel && !vilkaarGodkjent)}
+        endringFraArrangor={erForslagEnabled}
       />
     </BaseModal>
   )
