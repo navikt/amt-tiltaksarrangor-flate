@@ -57,7 +57,7 @@ export const EndreOppstartModal = ({
       return Promise.reject('Startdato må være valgt for å sende endring')
     }
     if (sluttdato.current && !sluttdato.current.validate()) {
-      return Promise.reject(sluttdato.current.error)
+      return Promise.reject('Du må velge en gyldig sluttdato')
     }
 
     return validerObligatoriskBegrunnelse(begrunnelse)

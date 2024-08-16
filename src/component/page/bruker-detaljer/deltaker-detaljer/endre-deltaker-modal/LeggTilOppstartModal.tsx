@@ -40,7 +40,7 @@ export const LeggTilOppstartModal = ({
   const [vilkaarGodkjent, setVilkaarGodkjent] = useState(false)
 
   const kanSendeMelding = erEndringFraArrangorEnabled
-    ? startdato !== null && sluttdato
+    ? startdato !== null && sluttdato !== null
     : startdato !== null
 
   const sendEndringsmelding = () => {
@@ -52,10 +52,10 @@ export const LeggTilOppstartModal = ({
 
   const lagreEndring = () => {
     if (!startdato) {
-      return Promise.reject('Startdato må være valgt for å sende endring')
+      return Promise.reject('Du må velge en oppstartsdato')
     }
     if (sluttdato.current && !sluttdato.current.validate()) {
-      return Promise.reject(sluttdato.current.error)
+      return Promise.reject('Du må velge en gyldig sluttdato')
     }
 
     return leggTilOppstartsdatoFraArrangor(
