@@ -1,12 +1,50 @@
 import { DeltakerHistorikkListe, EndringType } from '../../api/data/historikk'
+import { ForslagEndringType, ForslagStatusType, HistorikkType } from '../../api/data/forslag'
+import dayjs from 'dayjs'
+import { randomUuid } from '../utils/faker'
+import { DeltakerStatusAarsakType } from '../../api/data/endringsmelding'
 
-
-export const mockDeltakerHistorikk = lagMockDeltakerhistorikkListe(5)
-
-function lagMockDeltakerhistorikkListe(n: number): DeltakerHistorikkListe[] {
-	return []
-	/*return new Array(n).fill(null).map(() => {
-		return {
+const lagMockDeltakerhistorikkListe = (): DeltakerHistorikkListe => {
+	return [
+		{
+			type: HistorikkType.Vedtak,
+			fattet: dayjs().subtract(10, 'days').toDate(),
+			bakgrunnsinformasjon: 'Bakgrunnsinformasjon',
+			fattetAvNav: true,
+			deltakelsesinnhold: {
+				ledetekst:
+					'Du får tett oppfølging og støtte av en veileder. Sammen kartlegger dere hvordan din kompetanse, interesser og ferdigheter påvirker muligheten din til å jobbe.',
+				innhold: [{
+					tekst: 'Støtte til jobbsøking',
+					innholdskode: 'type1',
+					valgt: true,
+					beskrivelse: null
+				}]
+			},
+			opprettetAv: 'Navn Navnesen',
+			opprettetAvEnhet: 'NAV Fredrikstad',
+			opprettet: dayjs().subtract(3, 'day').toDate()
+		},
+		{
+			type: HistorikkType.Vedtak,
+			fattet: dayjs().subtract(15, 'days').toDate(),
+			bakgrunnsinformasjon: 'Dette er bakgrunnsinformasjon',
+			fattetAvNav: true,
+			deltakelsesinnhold: {
+				ledetekst:
+					'Du får tett oppfølging og støtte av en veileder. Sammen kartlegger dere hvordan din kompetanse, interesser og ferdigheter påvirker muligheten din til å jobbe.',
+				innhold: [{
+					tekst: 'her er det innhold',
+					innholdskode: 'type2',
+					valgt: true,
+					beskrivelse: null
+				}]
+			},
+			opprettetAv: 'Navn Navnesen',
+			opprettetAvEnhet: 'NAV Fredrikstad',
+			opprettet: dayjs().subtract(5, 'day').toDate()
+		},
+		{
 			type: HistorikkType.Endring,
 			endring: {
 				type: EndringType.EndreSluttarsak,
@@ -25,15 +63,15 @@ function lagMockDeltakerhistorikkListe(n: number): DeltakerHistorikkListe[] {
 				endring: {
 					type: ForslagEndringType.Sluttarsak,
 					aarsak: {
-						type: DeltakerStatusAarsakType.IKKE_MOTT
+						type: 'IkkeMott' // burde lage EndringAarsakType som enum?
 					}
 				},
 				status: {
-					type: ForslagStatusType.Godkjent,
-					godkjent: dayjs().toDate()
+					type: ForslagStatusType.VenterPaSvar
 				}
 			}
 		}
-	})*/
+	]
 }
 
+export const mockDeltakerHistorikk = lagMockDeltakerhistorikkListe()

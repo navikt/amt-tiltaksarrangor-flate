@@ -37,7 +37,6 @@ export const SeEndringer = ({
 				Se endringer
 			</Button>
 
-			// lag cssfil
 			{error && (
 				<Alert variant="error" className="mt-4" size="small">
 					Beklager, vi kunne ikke hente historiske endringer på tiltaket.

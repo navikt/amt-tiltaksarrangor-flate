@@ -1,5 +1,6 @@
 import { Heading, ReadMore } from '@navikt/ds-react'
 import React from 'react'
+import { CaretRightCircleFillIcon } from '@navikt/aksel-icons'
 
 interface Props {
 	tittel: string

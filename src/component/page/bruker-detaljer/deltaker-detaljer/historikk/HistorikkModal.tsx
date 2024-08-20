@@ -1,8 +1,9 @@
 import { Alert, Modal } from '@navikt/ds-react'
-import { useEffect, useState } from 'react'
 import { HistorikkVedtak } from './HistorikkVedtak'
 import { DeltakerHistorikk, DeltakerHistorikkListe } from '../../../../../api/data/historikk'
 import { HistorikkType } from '../../../../../api/data/forslag'
+import styles from './HistorikkModal.module.scss'
+
 
 interface Props {
 	historikk: DeltakerHistorikkListe | null
@@ -21,11 +22,16 @@ const getHistorikkItem = (historikk: DeltakerHistorikk) => {
 
 export const HistorikkModal = ({ open, historikk, onClose }: Props) => {
 	return (
-		<Modal open={open} header={{ heading: 'Endringer' }} onClose={onClose}>
+		<Modal open={open}
+					 header={{ heading: 'Endringer' }}
+					 onClose={onClose}
+					 aria-label={'Endringer'}
+
+		>
 			<Modal.Body>
 				{historikk &&
 					historikk.map((i, index) => (
-						<div key={`${i.type}${index}`} className="mb-6 last:mb-0">
+						<div key={`${i.type}${index}`} className={styles.content}>
 							{getHistorikkItem(i)}
 						</div>
 					))}
