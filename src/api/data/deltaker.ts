@@ -102,6 +102,17 @@ export const adresseSchema = z.object({
   adressenavn: z.string().nullable()
 })
 
+export const innholdSchema = z.object({
+  tekst: z.string(),
+  innholdskode: z.string(),
+  beskrivelse: z.string().nullable()
+})
+
+export const deltakelsesinnholdSchema = z.object({
+  ledetekst: z.string(),
+  innhold: z.array(innholdSchema)
+})
+
 export const deltakerSchema = z.object({
   id: z.string().uuid(),
   deltakerliste: deltakersDeltakerlisteSchema,
@@ -120,6 +131,7 @@ export const deltakerSchema = z.object({
   soktInnDato: dateSchema,
   tiltakskode: tiltakstypeSchema,
   bestillingTekst: z.string().nullable(),
+  innhold: deltakelsesinnholdSchema.nullable(),
   fjernesDato: nullableDateSchema,
   navInformasjon: navInformasjonSchema,
   veiledere: z.array(veilederMedTypeSchema),
@@ -225,3 +237,5 @@ export type KoordinatorsDeltakerliste = z.infer<
 >
 
 export type Vurdering = z.infer<typeof vurderingSchema>
+
+export type Deltakelsesinnhold = z.infer<typeof deltakelsesinnholdSchema>

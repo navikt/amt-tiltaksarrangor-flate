@@ -547,6 +547,7 @@ const mapToDeltakerDetaljerView = (
     soktInnDato: deltaker.registrertDato,
     tiltakskode: deltaker.gjennomforing.tiltak.tiltakskode,
     bestillingTekst: deltaker.innsokBegrunnelse,
+    innhold: deltaker.innhold,
     fjernesDato: deltaker.fjernesDato,
     navInformasjon: {
       navkontor: deltaker.navEnhet?.navn ?? '',
@@ -664,7 +665,11 @@ function handlePostEndringRequest(
         ref === 'veileder'
       )
 
-      return res(ctx.delay(500), ctx.status(200), ctx.json(deltakerMedGjennomforing))
+      return res(
+        ctx.delay(500),
+        ctx.status(200),
+        ctx.json(deltakerMedGjennomforing)
+      )
     }
   )
 }

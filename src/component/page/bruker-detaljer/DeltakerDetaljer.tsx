@@ -11,6 +11,7 @@ import { NavInfoPanel } from './nav-info-panel/NavInfoPanel'
 import { VeilederPanel } from './veileder-panel/VeilederPanel'
 import { DeltakerVurdering } from './deltaker-detaljer/vurdering/DeltakerVurdering'
 import { useDeltakerStore } from './deltaker-detaljer/deltaker-store'
+import { DeltakelsesinnholdDetaljer } from './deltakelsesinnhold/DeltakelsesinnholdDetaljer'
 
 export const DeltakerDetaljer = (props: {
   visTildeling: boolean
@@ -21,7 +22,8 @@ export const DeltakerDetaljer = (props: {
     soktInnPa,
     soktInnDato,
     bestillingTekst,
-    tiltakskode
+    tiltakskode,
+    innhold
   } = deltaker
   return (
     <div className={styles.detaljer}>
@@ -47,8 +49,13 @@ export const DeltakerDetaljer = (props: {
           </BodyShort>
         </div>
 
+        {innhold && <DeltakelsesinnholdDetaljer innhold={innhold} />}
+
         <Show if={visBestilling(tiltakskode)}>
-          <Bestilling tekst={bestillingTekst} />
+          <Bestilling
+            tekst={bestillingTekst}
+            label={innhold ? 'Bakgrunnsinfo' : 'Bestilling'}
+          />
         </Show>
       </section>
 
@@ -57,10 +64,7 @@ export const DeltakerDetaljer = (props: {
           navkontor={navInformasjon.navkontor}
           navVeileder={navInformasjon.navVeileder}
         />
-        <VeilederPanel
-          deltaker={deltaker}
-          visTildeling={props.visTildeling}
-        />
+        <VeilederPanel deltaker={deltaker} visTildeling={props.visTildeling} />
       </section>
     </div>
   )

@@ -5,7 +5,8 @@ import {
   Adressetype,
   Vurdering,
   Vurderingstype,
-  TiltakDeltakerStatus
+  TiltakDeltakerStatus,
+  Deltakelsesinnhold
 } from '../../api/data/deltaker'
 import { Endringsmelding } from '../../api/data/endringsmelding'
 import { Gjennomforing, Tiltakskode } from '../../api/data/tiltak'
@@ -57,6 +58,7 @@ export interface MockTiltakDeltaker {
   gjennomforing: MockGjennomforing
   fjernesDato: Date | null
   innsokBegrunnelse: string | null
+  innhold: Deltakelsesinnhold | null
   aktiveForslag: AktivtForslag[]
   aktiveEndringsmeldinger: Endringsmelding[]
   historiskeEndringsmeldinger: Endringsmelding[]
@@ -281,6 +283,7 @@ const lagMockTiltakDeltagerForGjennomforing = (
     gjennomforing: gjennomforing,
     registrertDato: faker.date.past(),
     innsokBegrunnelse: genererBegrunnelse(brukerFornavn),
+    innhold: mockInnhold(gjennomforing.tiltak.tiltakskode),
     aktiveForslag: lagMockAktiveForslag(status),
     aktiveEndringsmeldinger: lagMockEndringsmeldingForDeltaker(status),
     historiskeEndringsmeldinger: lagMockHistoriskeEndringsmeldingForDeltaker(
@@ -296,6 +299,77 @@ const lagMockTiltakDeltagerForGjennomforing = (
       : null,
     erVeilederForDeltaker: false,
     adressebeskyttet: false
+  }
+}
+
+const innholdselementer = [
+  {
+    tekst: 'Støtte til jobbsøking',
+    innholdskode: 'type1',
+    beskrivelse: null
+  },
+  {
+    tekst: 'Karriereveiledning',
+    innholdskode: 'type2',
+    beskrivelse: null
+  },
+  {
+    tekst: 'Kartlegge hvordan helsen din påvirker muligheten din til å jobbe',
+    innholdskode: 'type3',
+    beskrivelse: null
+  },
+  {
+    tekst:
+      'Kartlegge hvilken støtte og tilpasning du trenger på arbeidsplassen',
+    innholdskode: 'type4',
+    beskrivelse: null
+  },
+  {
+    tekst: 'Kartlegge dine forventninger til å jobbe',
+    innholdskode: 'type5',
+    beskrivelse: null
+  },
+  {
+    tekst: 'Veiledning i sosial mestring',
+    innholdskode: 'type6',
+    beskrivelse: null
+  },
+  {
+    tekst: 'Hjelp til å tilpasse arbeidsoppgaver og arbeidsplassen',
+    innholdskode: 'type7',
+    beskrivelse: null
+  },
+  {
+    tekst: 'Veiledning til arbeidsgiver',
+    innholdskode: 'type8',
+    beskrivelse: null
+  },
+  {
+    tekst: 'Oppfølging på arbeidsplassen',
+    innholdskode: 'type9',
+    beskrivelse: null
+  },
+  {
+    tekst: 'Arbeidspraksis',
+    innholdskode: 'type10',
+    beskrivelse: null
+  },
+  {
+    tekst: 'Annet',
+    innholdskode: 'annet',
+    beskrivelse: 'Ønsker å kartlegge arbeidspraksis \nTeste ulike verktøy'
+  }
+]
+
+function mockInnhold(tiltakskode: Tiltakskode): Deltakelsesinnhold | null {
+  if (tiltakskode !== Tiltakskode.ARBFORB) {
+    return null
+  }
+
+  return {
+    ledetekst:
+      'Du får tett oppfølging og støtte av en veileder. Sammen Kartlegger dere hvordan din kompetanse, interesser og ferdigheter påvirker muligheten din til å jobbe.',
+    innhold: faker.helpers.arrayElements(innholdselementer)
   }
 }
 
