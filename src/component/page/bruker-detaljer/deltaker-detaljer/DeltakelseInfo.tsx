@@ -42,8 +42,8 @@ export const DeltakelseInfo = ({
 
   const skjulDeltakerPromise = usePromise<AxiosResponse>()
 
-  const { erForslagEnabledForTiltak } = useFeatureToggle()
-  const erForslagEnabled = erForslagEnabledForTiltak(
+  const { erKometMasterForTiltak } = useFeatureToggle()
+  const erForslagEnabled = erKometMasterForTiltak(
     deltaker.deltakerliste.tiltakstype
   )
 
