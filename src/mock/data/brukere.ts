@@ -320,7 +320,7 @@ const innholdselementer = [
   },
   {
     tekst:
-      'Kartlegge hvilken støtte og tilpasning du trenger på arbeidsplassen',
+      'Kartlegge grunnleggende ferdigheter som språk og hvordan du leser, skriver, regner og bruker datamaskin',
     innholdskode: 'type4',
     beskrivelse: null
   },

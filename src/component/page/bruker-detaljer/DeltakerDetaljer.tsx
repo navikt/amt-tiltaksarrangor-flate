@@ -12,6 +12,7 @@ import { VeilederPanel } from './veileder-panel/VeilederPanel'
 import { DeltakerVurdering } from './deltaker-detaljer/vurdering/DeltakerVurdering'
 import { useDeltakerStore } from './deltaker-detaljer/deltaker-store'
 import { DeltakelsesinnholdDetaljer } from './deltakelsesinnhold/DeltakelsesinnholdDetaljer'
+import { useFeatureToggle } from '../../../hooks/useFeatureToggle'
 
 export const DeltakerDetaljer = (props: {
   visTildeling: boolean
@@ -25,6 +26,12 @@ export const DeltakerDetaljer = (props: {
     tiltakskode,
     innhold
   } = deltaker
+  const { erKometMasterForTiltak } = useFeatureToggle()
+
+  const erInnholdOgInfoEnabled = erKometMasterForTiltak(
+    deltaker.deltakerliste.tiltakstype
+  )
+
   return (
     <div className={styles.detaljer}>
       <section className={styles.section}>
@@ -49,12 +56,14 @@ export const DeltakerDetaljer = (props: {
           </BodyShort>
         </div>
 
-        {innhold && <DeltakelsesinnholdDetaljer innhold={innhold} />}
+        {erInnholdOgInfoEnabled && innhold && (
+          <DeltakelsesinnholdDetaljer innhold={innhold} />
+        )}
 
         <Show if={visBestilling(tiltakskode)}>
           <Bestilling
             tekst={bestillingTekst}
-            label={innhold ? 'Bakgrunnsinfo' : 'Bestilling'}
+            label={erInnholdOgInfoEnabled ? 'Bakgrunnsinfo' : 'Bestilling'}
           />
         </Show>
       </section>
