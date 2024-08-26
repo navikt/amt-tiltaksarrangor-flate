@@ -118,6 +118,7 @@ export const historikkForslagSchema = z.object({
   status: statusSchema
 })
 
+export type HistorikkForslag = z.infer<typeof historikkForslagSchema>
 export type AktivtForslag = z.infer<typeof aktivtForslagSchema>
 export type ForslagEndring = z.infer<typeof endringSchema>
 export type EndringAarsak = z.infer<typeof endringAarsakSchema>

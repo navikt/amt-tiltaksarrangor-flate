@@ -1,6 +1,8 @@
-import { Heading, ReadMore } from '@navikt/ds-react'
+import { BodyLong, Detail, Heading, ReadMore } from '@navikt/ds-react'
 import React from 'react'
-import { CaretRightCircleFillIcon } from '@navikt/aksel-icons'
+import styles from './HistorikkElement.module.scss'
+import { formatDate } from '../../../../../utils/date-utils'
+import { ForslagEndringsdetaljer } from '../forslag/ForslagEndringsdetaljer'
 
 interface Props {
 	tittel: string
@@ -17,31 +19,36 @@ export const HistorikkElement = ({
 }: Props) => {
 	return (
 		<div
-			className="grid gap-2"
+			className={styles.historikkElement}
 			style={{
 				gridTemplateColumns: '1.25rem auto'
 			}}
 		>
-			<div className="mt-3 text-xl" aria-hidden>
+			<div className={styles.ikon} aria-hidden>
 				{icon}
 			</div>
 
-			<div className="pt-2">
-				<Heading level="2" size="small" className="mb-1">
-					{tittel}
-				</Heading>
-				{children}
-			</div>
+			<div className={styles.historikkBolk}>
+				<div className={styles.historikkTittel}>
+					<Heading level="2" size="small" className={styles.tittel}>
+						{tittel}
+					</Heading>
+				</div>
+					{children}
 
-			{forslag && (
-				<ReadMore
-					size="small"
-					header="Forslaget fra arrangør"
-					className="mt-1mb-1"
-				>
-					{forslag}
-				</ReadMore>
-			)}
-		</div>
-	)
-}
+					{forslag && (
+						<ReadMore size="small" header="Forslaget fra arrangør">
+							<BodyLong size="small" weight="semibold">
+								{getForslagTittel(forslag.endring.type)}
+							</BodyLong>
+							<ForslagEndringsdetaljer forslag={forslag} />
+							<Detail
+								className={styles.detail}
+								textColor="subtle"
+							>{`Sendt ${formatDate(forslag?.opprettet)} fra ${forslag.arrangorNavn}.`}</Detail>
+						</ReadMore>
+					)}
+				</div>
+			</div>
+			)
+			}

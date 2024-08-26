@@ -1,0 +1,43 @@
+.historikkElement {
+  display: grid;
+  gap: 0.5rem;
+}
+
+.ikon {
+  margin-top: 0.75rem;
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+}
+
+.historikkTekst {
+  padding-top: 1rem;
+}
+
+.historikkBolk {
+  padding-top: 0.5rem;
+}
+
+.historikkTittel {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 100%;
+
+  @media (min-width: 768px) {
+    flex-direction: row;
+  }
+}
+
+.tittel {
+  margin-bottom: 0.25rem;
+}
+
+.readMore {
+  margin-top: 0.25rem;
+  margin-bottom: 0.25rem;
+}
+
+
+.detail {
+  margin-top: 0.25rem;
+}
