@@ -59,12 +59,12 @@ export const LeggTilOppstartModal = ({
     }
 
     return leggTilOppstartsdatoFraArrangor(
-          deltaker.id,
-          startdato,
-          sluttdato.current?.sluttdato
-        ).then((res) => onEndringSendt(res.data))
+      deltaker.id,
+      startdato,
+      sluttdato.current?.sluttdato
+    ).then((res) => onEndringSendt(res.data))
   }
-  
+
   return (
     <Endringsmodal
       tittel="Legg til  oppstartsdato"
@@ -102,10 +102,10 @@ export const LeggTilOppstartModal = ({
           defaultVarighet={
             deltaker.sluttDato
               ? finnValgtVarighet(
-                deltaker.startDato,
-                deltaker.sluttDato,
-                deltaker.deltakerliste.tiltakstype
-              )
+                  deltaker.startDato,
+                  deltaker.sluttDato,
+                  deltaker.deltakerliste.tiltakstype
+                )
               : undefined
           }
         />

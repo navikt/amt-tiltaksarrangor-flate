@@ -9,6 +9,7 @@ import styles from './Bestilling.module.scss'
 
 interface BestillingProps {
   tekst: Nullable<string>
+  label: string
 }
 
 const MAX_LENGTH = 350
@@ -30,7 +31,7 @@ export const Bestilling = (props: BestillingProps) => {
   return (
     <div className={styles.wrapper}>
       <Label size="small" as="p">
-        Bestilling
+        {props.label}
       </Label>
 
       <BodyLong size="small" className={styles.tekst}>

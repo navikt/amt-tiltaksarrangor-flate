@@ -26,7 +26,7 @@ export const useFeatureToggle = () => {
     })
   }, [])
 
-  const erForslagEnabledForTiltak = (tiltakstype: Tiltakskode) => {
+  const erKometMasterForTiltak = (tiltakstype: Tiltakskode) => {
     if (
       toggles?.[KOMET_DELTAKERE_TOGGLE_NAVN] &&
       tiltakstyperMedForslag.includes(tiltakstype)
@@ -40,6 +40,6 @@ export const useFeatureToggle = () => {
     erKometDeltakereEnabled: toggles
       ? toggles[KOMET_DELTAKERE_TOGGLE_NAVN]
       : false,
-    erForslagEnabledForTiltak: erForslagEnabledForTiltak
+    erKometMasterForTiltak
   }
 }
