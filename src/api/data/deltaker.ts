@@ -10,7 +10,6 @@ import {
 } from './tiltak'
 import { veilederMedTypeSchema, veiledertypeSchema } from './veileder'
 import { aktivtForslagSchema } from './forslag'
-import { en_CA } from '@faker-js/faker'
 
 export enum KursDeltakerStatuser {
   VURDERES = 'VURDERES',
@@ -187,18 +186,6 @@ export const veiledersDeltakerSchema = z.object({
   veiledertype: veiledertypeSchema,
   aktiveEndringsmeldinger: z.array(endringsmeldingSchema),
   adressebeskyttet: z.boolean()
-})
-
-export const innholdSchema = z.object({
-  tekst: z.string(),
-  innholdskode: z.string(),
-  valgt: z.boolean(),
-  beskrivelse: z.string().nullable()
-})
-
-export const deltakelsesinnholdSchema = z.object({
-  ledetekst: z.string(),
-  innhold: z.array(innholdSchema)
 })
 
 export const deltakerlisteVeilederSchema = z.array(veiledersDeltakerSchema)
