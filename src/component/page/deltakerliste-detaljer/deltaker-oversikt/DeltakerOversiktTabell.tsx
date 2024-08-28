@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from 'react'
 
 import { TiltakDeltaker } from '../../../../api/data/deltaker'
+import globalStyles from '../../../../globals.module.scss'
 import { useTiltaksoversiktSokStore } from '../../../../store/tiltaksoversikt-sok-store'
 import { finnNesteSortering } from '../../../../utils/sortering-utils'
+import { AlertInfoMessage } from '../../../felles/alert-info-message/AlertInfoMessage'
+import { useKoordinatorFilterMenyStore } from '../store/koordinator-filter-meny-store-provider'
 import { DeltakerTabell } from './deltaker-tabell/DeltakerTabell'
 import { sorterDeltakere } from './deltaker-tabell/sortering'
 import styles from './DeltakerOversiktTabell.module.scss'
-import globalStyles from '../../../../globals.module.scss'
 import { IngenDeltakereAlertstripe } from './IngenDeltakereAlertstripe'
-import { useKoordinatorFilterMenyStore } from '../store/koordinator-filter-meny-store-provider'
 
 interface DeltakerOversiktTabellProps {
   deltakere: TiltakDeltaker[]
@@ -46,6 +47,8 @@ export const DeltakerOversiktTabell = (
 
   return (
     <div className={styles.tableWrapper}>
+      <AlertInfoMessage />
+
       {deltakere.length === 0 ? (
         <IngenDeltakereAlertstripe />
       ) : (
