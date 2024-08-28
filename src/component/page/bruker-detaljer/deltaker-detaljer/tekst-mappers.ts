@@ -17,6 +17,8 @@ export const aarsakTekstMapper = (aarsakType: DeltakerStatusAarsakType) => {
       return 'Utdanning'
     case DeltakerStatusAarsakType.ANNET:
       return 'Annet - fyll ut'
+    case DeltakerStatusAarsakType.SAMARBEIDET_MED_ARRANGOREN_ER_AVBRUTT:
+      return 'Samarbeidet med arrangøren er avbrutt'
     default:
       return 'Ukjent'
   }

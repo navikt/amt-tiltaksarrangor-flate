@@ -2,8 +2,19 @@ import { z } from 'zod'
 
 import { dateSchema } from '../utils'
 
+export enum HistorikkType {
+  Vedtak = 'Vedtak',
+  Endring = 'Endring',
+  Forslag = 'Forslag',
+  EndringFraArrangor = 'EndringFraArrangor'
+}
+
 export enum ForslagStatusType {
-  VenterPaSvar = 'VenterPaSvar'
+  VenterPaSvar = 'VenterPaSvar',
+  Avvist = 'Avvist',
+  Tilbakekalt = 'Tilbakekalt',
+  Erstattet = 'Erstattet',
+  Godkjent = 'Godkjent'
 }
 
 export enum ForslagEndringType {
@@ -16,13 +27,30 @@ export enum ForslagEndringType {
   Sluttarsak = 'Sluttarsak'
 }
 
-const Syk = z.object({ type: z.literal('Syk') })
-const FattJobb = z.object({ type: z.literal('FattJobb') })
-const TrengerAnnenStotte = z.object({ type: z.literal('TrengerAnnenStotte') })
-const Utdanning = z.object({ type: z.literal('Utdanning') })
-const IkkeMott = z.object({ type: z.literal('IkkeMott') })
+export enum ForslagEndringAarsakType {
+  Syk = 'Syk',
+  FattJobb = 'FattJobb',
+  TrengerAnnenStotte = 'TrengerAnnenStotte',
+  Utdanning = 'Utdanning',
+  IkkeMott = 'IkkeMott',
+  Annet = 'Annet'
+}
+
+const Syk = z.object({ type: z.literal(ForslagEndringAarsakType.Syk) })
+const FattJobb = z.object({
+  type: z.literal(ForslagEndringAarsakType.FattJobb)
+})
+const TrengerAnnenStotte = z.object({
+  type: z.literal(ForslagEndringAarsakType.TrengerAnnenStotte)
+})
+const Utdanning = z.object({
+  type: z.literal(ForslagEndringAarsakType.Utdanning)
+})
+const IkkeMott = z.object({
+  type: z.literal(ForslagEndringAarsakType.IkkeMott)
+})
 const Annet = z.object({
-  type: z.literal('Annet'),
+  type: z.literal(ForslagEndringAarsakType.Annet),
   beskrivelse: z.string()
 })
 
@@ -86,8 +114,33 @@ const endringSchema = z.discriminatedUnion('type', [
 const venterPaSvarSchema = z.object({
   type: z.literal(ForslagStatusType.VenterPaSvar)
 })
+const godkjentSchema = z.object({
+  type: z.literal(ForslagStatusType.Godkjent),
+  godkjent: dateSchema
+})
+const avvistSchema = z.object({
+  type: z.literal(ForslagStatusType.Avvist),
+  avvistAv: z.string(),
+  avvistAvEnhet: z.string(),
+  avvist: dateSchema,
+  begrunnelseFraNav: z.string()
+})
+const tilbakekaltSchema = z.object({
+  type: z.literal(ForslagStatusType.Tilbakekalt),
+  tilbakekalt: dateSchema
+})
+const erstattetSchema = z.object({
+  type: z.literal(ForslagStatusType.Erstattet),
+  erstattet: dateSchema
+})
 
-const statusSchema = z.discriminatedUnion('type', [venterPaSvarSchema])
+const statusSchema = z.discriminatedUnion('type', [
+  venterPaSvarSchema,
+  godkjentSchema,
+  avvistSchema,
+  tilbakekaltSchema,
+  erstattetSchema
+])
 
 export const aktivtForslagSchema = z.object({
   id: z.string().uuid(),
@@ -97,6 +150,17 @@ export const aktivtForslagSchema = z.object({
   status: statusSchema.default({ type: ForslagStatusType.VenterPaSvar })
 })
 
+export const historikkForslagSchema = z.object({
+  id: z.string().uuid(),
+  type: z.literal(HistorikkType.Forslag),
+  opprettet: dateSchema,
+  begrunnelse: z.string().nullable(),
+  arrangorNavn: z.string(),
+  endring: endringSchema,
+  status: statusSchema
+})
+
+export type HistorikkForslag = z.infer<typeof historikkForslagSchema>
 export type AktivtForslag = z.infer<typeof aktivtForslagSchema>
 export type ForslagEndring = z.infer<typeof endringSchema>
 export type EndringAarsak = z.infer<typeof endringAarsakSchema>
