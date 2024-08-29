@@ -1,9 +1,5 @@
-// @import '@navikt/ds-css/dist/index.css';
-@import 'tailwindcss/base';
 @import 'src/colors';
-@import '@navikt/ds-css';
-@import 'tailwindcss/components';
-@import 'tailwindcss/utilities';
+@import '@navikt/ds-css/dist/index.css';
 
 html {
 	background-color: $navLysGra;
