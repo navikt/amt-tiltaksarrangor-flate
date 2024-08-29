@@ -36,7 +36,7 @@ export const HistorikkModal = ({ open, historikk, onClose }: Props) => {
               {getHistorikkItem(i)}
             </div>
           ))}
-        {(!historikk || historikk.length < 0) && (
+        {(!historikk || historikk.length === 0) && (
           <Alert variant="info" size="small">
             Ingen historikk å vise.
           </Alert>
