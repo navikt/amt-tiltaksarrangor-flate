@@ -5,6 +5,7 @@ import { HistorikkVedtak } from './HistorikkVedtak'
 import { HistorikkArrangorEndring } from './HistorikkArrangorEndring'
 import { DeltakerHistorikk, DeltakerHistorikkListe } from '../../../../../api/data/historikk'
 import { HistorikkType } from '../../../../../api/data/forslag'
+import styles from './Historikk.module.scss'
 
 interface Props {
   historikk: DeltakerHistorikkListe | null
@@ -31,7 +32,7 @@ export const HistorikkModal = ({ open, historikk, onClose }: Props) => {
       <Modal.Body>
         {historikk &&
           historikk.map((i, index) => (
-            <div key={`${i.type}${index}`} className="mb-6 last:mb-0">
+            <div key={`${i.type}${index}`} className={styles.historikk_list_item}>
               {getHistorikkItem(i)}
             </div>
           ))}

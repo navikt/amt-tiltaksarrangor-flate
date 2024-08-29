@@ -3,6 +3,7 @@ import { HistorikkModal } from './HistorikkModal'
 import { useState } from 'react'
 import { fetchDeltakerHistorikk } from '../../../../../api/historikk-api'
 import { DeltakerHistorikkListe } from '../../../../../api/data/historikk'
+import styles from './Historikk.module.scss'
 
 interface Props {
   deltakerId: string
@@ -38,7 +39,7 @@ export const SeEndringer = ({
       </Button >
 
       {error && (
-        <Alert variant="error" className="mt-4" size="small">
+        <Alert variant="error" className={styles.alert_hent_historikk} size="small">
           Beklager, vi kunne ikke hente historiske endringer på tiltaket.
         </Alert>
       )

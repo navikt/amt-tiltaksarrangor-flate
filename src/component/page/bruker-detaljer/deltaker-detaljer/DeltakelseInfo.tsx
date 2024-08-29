@@ -125,7 +125,7 @@ export const DeltakelseInfo = ({
 
         {erForslagEnabled && (
           <SeEndringer
-            className="mt-8"
+            className={styles.seEndringerKnapp}
             deltakerId={deltaker.id}
           />
         )}

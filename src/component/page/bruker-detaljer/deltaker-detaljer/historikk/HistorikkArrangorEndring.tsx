@@ -1,8 +1,9 @@
 import { BodyLong, Detail } from '@navikt/ds-react'
-import { HistorikkElement } from './HistorikkElement'
 import { ArrangorEndring, ArrangorEndringsType, DeltakerEndringFraArrangor, EndringType } from '../../../../../api/data/historikk'
 import { dateStrWithMonthName, formatDate } from '../../../../../utils/date-utils'
-import { HistorikkEndringTypeIkon } from './HistorikkEndringTypeIkon'
+import { EndringTypeIkon } from '../EndringTypeIkon'
+import styles from './Historikk.module.scss'
+import { HistorikkElement } from './HistorikkElement'
 
 interface Props {
   deltakerEndringFraArrangor: DeltakerEndringFraArrangor
@@ -43,12 +44,12 @@ export const HistorikkArrangorEndring = ({
   return (
     <HistorikkElement
       tittel={getEndringsTittel(deltakerEndringFraArrangor.endring)}
-      icon={<HistorikkEndringTypeIkon type={endringsType} size={'small'} />}
+      icon={<EndringTypeIkon type={endringsType} size={'small'} />}
       forslag={null}
     >
       {getEndringsDetaljer(deltakerEndringFraArrangor.endring)}
       <Detail
-        className="mt-1"
+        className={styles.endring_detail}
         textColor="subtle"
       >{`Endret ${formatDate(deltakerEndringFraArrangor.opprettet)} av ${deltakerEndringFraArrangor.arrangorNavn}.`}</Detail>
     </HistorikkElement>

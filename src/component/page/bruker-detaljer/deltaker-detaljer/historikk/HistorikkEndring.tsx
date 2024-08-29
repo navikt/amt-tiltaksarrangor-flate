@@ -4,8 +4,9 @@ import { DeltakerEndring, Endring, EndringType } from '../../../../../api/data/h
 import { EMDASH } from '../../../../../utils/constants'
 import { DeltakelseInnholdListe } from '../DeltakelseInnholdListe'
 import { formatDate } from '../../../../../utils/date-utils'
-import { HistorikkEndringTypeIkon } from './HistorikkEndringTypeIkon'
 import { getDeltakerStatusAarsakText, getEndringsTittel } from '../../../../../utils/text-mappers'
+import styles from './Historikk.module.scss'
+import { EndringTypeIkon } from '../EndringTypeIkon'
 
 interface Props {
   deltakerEndring: DeltakerEndring
@@ -52,7 +53,7 @@ const getEndringsDetaljer = (endring: Endring) => {
       return (
         <DeltakelseInnholdListe
           deltakelsesinnhold={{ ledetekst: '', innhold: endring.innhold }}
-          className="-mt-3 -mb-2"
+          className={styles.innhold_liste}
         />
       )
     }
@@ -72,7 +73,7 @@ const getEndringsDetaljer = (endring: Endring) => {
           NAVs begrunnelse: {endring.begrunnelse}
         </BodyLong>
       ) : (
-        <div className="-mb-1" />
+          <div className={styles.tomDiv} />
       )
     }
     case EndringType.EndreStartdato: {
@@ -96,12 +97,12 @@ export const HistorikkEndring = ({ deltakerEndring }: Props) => {
   return (
     <HistorikkElement
       tittel={getEndringsTittel(deltakerEndring.endring)}
-      icon={<HistorikkEndringTypeIkon type={deltakerEndring.endring.type} size={'small'} />}
+      icon={<EndringTypeIkon type={deltakerEndring.endring.type} size={'small'} />}
       forslag={deltakerEndring.forslag}
     >
       {getEndringsDetaljer(deltakerEndring.endring)}
       <Detail
-        className="mt-1"
+        className={styles.endring_detail}
         textColor="subtle"
       >
         {`Endret ${formatDate(deltakerEndring.endret)} av ${deltakerEndring.endretAv} ${deltakerEndring.endretAvEnhet}.`}

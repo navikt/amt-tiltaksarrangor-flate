@@ -3,6 +3,7 @@ import { ForslagEndringType, ForslagStatusType, HistorikkForslag } from '../../.
 import { deltakerprosentText, getForslagEndringAarsakText, getForslagStatusTypeText, getForslagTittel } from '../../../../../utils/text-mappers'
 import { formatDate } from '../../../../../utils/date-utils'
 import { assertNever } from '../../../../../utils/assert-never'
+import styles from './Historikk.module.scss'
 
 interface Props {
   tittel: string
@@ -113,22 +114,22 @@ export const HistorikkElement = ({
 }: Props) => {
   return (
     <div
-      className="grid gap-2"
+      className={styles.historikk_item}
       style={{
         gridTemplateColumns: '1.25rem auto'
       }}
     >
-      <div className="mt-3 text-xl" aria-hidden>
+      <div className={styles.historikk_ikon} aria-hidden>
         {icon}
       </div>
 
-      <div className="pt-2">
-        <div className="flex md:flex-row flex-col justify-between w-full">
-          <Heading level="2" size="small" className="mb-1">
+      <div className={styles.historikk_content_wrapper}>
+        <div className={styles.historikk_heading_wrapper}>
+          <Heading level="2" size="small" className={styles.historikk_heading}>
             {tittel}
           </Heading>
           {forslag && (
-            <div className="w-fit md:mb-0 mb-1">
+            <div className={styles.historikk_status_tag}>
               {getForslagStatusTag(forslag.status.type)}
             </div>
           )}
@@ -136,14 +137,14 @@ export const HistorikkElement = ({
 
         {children}
         {forslag && (
-          <div className="mt-1 mb-1">
+          <div className={styles.historikk_forslag_detail_wrapper}>
             <ReadMore size="small" header="Forslaget fra arrangør">
               <BodyLong size="small" weight="semibold">
                 {getForslagTittel(forslag.endring.type)}
               </BodyLong>
               <ForslagtypeDetaljer forslag={forslag} />
               <Detail
-                className="mt-1"
+                className={styles.endring_detail}
                 textColor="subtle"
               >{`Sendt ${formatDate(forslag.opprettet)} fra ${forslag.arrangorNavn}.`}</Detail>
             </ReadMore>

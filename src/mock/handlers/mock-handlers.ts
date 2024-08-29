@@ -374,7 +374,7 @@ export const mockHandlers: RequestHandler[] = [
       '/amt-tiltaksarrangor-bff/tiltaksarrangor/deltaker/:deltakerId/historikk'
     ),
     (req, res, ctx) => {
-      return res(ctx.delay(500), ctx.json(mockDeltakerHistorikk))
+      return res(ctx.delay(500), ctx.json(mockDeltakerHistorikk()))
     }
   ),
   rest.post(
