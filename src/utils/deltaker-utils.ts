@@ -24,6 +24,14 @@ export const skalTiltakViseAdresse = (tiltakskode: Tiltakskode) => {
 export const skalViseDeltakelsesmengde = (tiltakskode: Tiltakskode) =>
   [Tiltakskode.ARBFORB, Tiltakskode.VASV].includes(tiltakskode)
 
+export const getDagerPerUkeTekst = (dagerPerUke: number): string => {
+  if (dagerPerUke === 1) {
+    return `${dagerPerUke} dag i uka`
+  } else {
+    return `${dagerPerUke} dager i uka`
+  }
+}
+
 export const getDeltakelsesmengdetekst = (
   deltakelsesprosent: number | null,
   dagerPerUke: number | null
