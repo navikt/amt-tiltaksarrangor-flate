@@ -1,6 +1,5 @@
 import { Adresse } from '../api/data/deltaker'
 import { Tiltakskode } from '../api/data/tiltak'
-import { Nullable } from './types/or-nothing'
 
 export const lagAdresseTekst = (adresse: Adresse) => {
   const tilleggsnavn = adresse.tilleggsnavn ? `${adresse.tilleggsnavn}, ` : ''
@@ -25,33 +24,13 @@ export const skalTiltakViseAdresse = (tiltakskode: Tiltakskode) => {
 export const skalViseDeltakelsesmengde = (tiltakskode: Tiltakskode) =>
   [Tiltakskode.ARBFORB, Tiltakskode.VASV].includes(tiltakskode)
 
-export const getDagerPerUkeTekst = (dagerPerUke: number): string => {
-  if (dagerPerUke === 1) {
-    return `${dagerPerUke} dag i uka`
-  } else {
-    return `${dagerPerUke} dager i uka`
-  }
+export const getDeltakelsesmengdetekst = (
+  deltakelsesprosent: number | null,
+  dagerPerUke: number | null
+) => {
+  const dagerIUkaText = dagerPerUke
+    ? `fordelt på ${dagerPerUke} ${dagerPerUke > 1 ? 'dager' : 'dag'} i uka`
+    : ''
+  return `${deltakelsesprosent ?? 100}\u00A0% ${dagerIUkaText}`
 }
 
-export const getDeltakelsesmengdetekst = (
-  deltakelseProsent: Nullable<number>,
-  dagerPerUke: Nullable<number>
-): string => {
-  if (
-    (deltakelseProsent === null || deltakelseProsent === undefined) &&
-    (!dagerPerUke || dagerPerUke < 1 || dagerPerUke > 5)
-  ) {
-    return 'Ikke satt'
-  } else if (
-    deltakelseProsent === 100 ||
-    !dagerPerUke ||
-    dagerPerUke < 1 ||
-    dagerPerUke > 5
-  ) {
-    return `${deltakelseProsent}%`
-  } else if (deltakelseProsent !== null) {
-    return `${deltakelseProsent}% ${getDagerPerUkeTekst(dagerPerUke)}`
-  } else {
-    return `${getDagerPerUkeTekst(dagerPerUke)}`
-  }
-}
