@@ -12,29 +12,29 @@ importers:
         specifier: ^7.25.2
         version: 7.25.2
       '@navikt/aksel-icons':
-        specifier: ^6.16.1
-        version: 6.16.1
+        specifier: ^6.16.2
+        version: 6.16.2
       '@navikt/ds-css':
-        specifier: ^6.16.1
-        version: 6.16.1
+        specifier: ^6.16.2
+        version: 6.16.2
       '@navikt/ds-react':
-        specifier: ^6.16.1
-        version: 6.16.1(@types/react@18.3.4)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        specifier: ^6.16.2
+        version: 6.16.2(@types/react@18.3.5)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@navikt/ds-tokens':
-        specifier: ^6.16.1
-        version: 6.16.1
+        specifier: ^6.16.2
+        version: 6.16.2
       '@navikt/nav-dekoratoren-moduler':
         specifier: ^2.1.6
         version: 2.1.6(jsdom@24.1.1)(react@18.3.1)
       '@sentry/react':
-        specifier: ^8.26.0
-        version: 8.26.0(react@18.3.1)
+        specifier: ^8.27.0
+        version: 8.27.0(react@18.3.1)
       '@sentry/tracing':
         specifier: ^7.114.0
         version: 7.114.0
       '@types/react':
-        specifier: ^18.3.4
-        version: 18.3.4
+        specifier: ^18.3.5
+        version: 18.3.5
       '@types/react-collapse':
         specifier: ^5.0.4
         version: 5.0.4
@@ -48,8 +48,8 @@ importers:
         specifier: ^8.21.9
         version: 8.21.9
       axios:
-        specifier: ^1.7.4
-        version: 1.7.4
+        specifier: ^1.7.5
+        version: 1.7.5
       classnames:
         specifier: ^2.5.1
         version: 2.5.1
@@ -70,7 +70,7 @@ importers:
         version: 6.26.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       react-select:
         specifier: ^5.8.0
-        version: 5.8.0(@types/react@18.3.4)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        version: 5.8.0(@types/react@18.3.5)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       typescript:
         specifier: ^5.5.4
         version: 5.5.4
@@ -92,7 +92,7 @@ importers:
         version: 7.18.0(eslint@8.57.0)(typescript@5.5.4)
       '@vitejs/plugin-react':
         specifier: ^4.3.1
-        version: 4.3.1(vite@5.4.2(@types/node@22.4.1)(sass@1.77.8))
+        version: 4.3.1(vite@5.4.2(@types/node@22.5.1)(sass@1.77.8))
       axe-core:
         specifier: ^4.10.0
         version: 4.10.0
@@ -100,11 +100,11 @@ importers:
         specifier: ^5.0.0
         version: 5.0.0
       cypress:
-        specifier: ^13.13.3
-        version: 13.13.3
+        specifier: ^13.14.1
+        version: 13.14.1
       cypress-axe:
         specifier: ^1.5.0
-        version: 1.5.0(axe-core@4.10.0)(cypress@13.13.3)
+        version: 1.5.0(axe-core@4.10.0)(cypress@13.14.1)
       eslint:
         specifier: ^8.57.0
         version: 8.57.0
@@ -112,8 +112,8 @@ importers:
         specifier: ^9.1.0
         version: 9.1.0(eslint@8.57.0)
       eslint-config-turbo:
-        specifier: ^2.0.14
-        version: 2.0.14(eslint@8.57.0)
+        specifier: ^2.1.0
+        version: 2.1.0(eslint@8.57.0)
       eslint-plugin-cypress:
         specifier: ^3.5.0
         version: 3.5.0(eslint@8.57.0)
@@ -152,10 +152,10 @@ importers:
         version: 6.8.2
       vite:
         specifier: ^5.4.2
-        version: 5.4.2(@types/node@22.4.1)(sass@1.77.8)
+        version: 5.4.2(@types/node@22.5.1)(sass@1.77.8)
       vitest:
         specifier: ^2.0.5
-        version: 2.0.5(@types/node@22.4.1)(jsdom@24.1.1)(sass@1.77.8)
+        version: 2.0.5(@types/node@22.5.1)(jsdom@24.1.1)(sass@1.77.8)
 
 packages:
 
@@ -552,20 +552,20 @@ packages:
     resolution: {integrity: sha512-N8x7eSLGcmUFNWZRxT1vsHvypzIRgQYdG0rJey/rZCy6zT/30qDt8Joj7FxzGNLSwXbeZqJOMqDurp7ra4hgbw==}
     engines: {node: '>=14'}
 
-  '@navikt/aksel-icons@6.16.1':
-    resolution: {integrity: sha512-+tThCr7SAJNyKZBRT1gjRlaGqjbsDRlYOhBCfrV79CIDu5fSBpTQMFzPjpooTz3QU8QKxlH7iDE8BwTlSSRMyg==, tarball: https://npm.pkg.github.com/download/@navikt/aksel-icons/6.16.1/26ab024bb75061bcde97373c7a76b2af0570603c}
+  '@navikt/aksel-icons@6.16.2':
+    resolution: {integrity: sha512-M2rJHEYbHeh9M8smGizRvV6QAj6CAfQMW4vF6zBiNUzV4LfcwgxmwTRM/F5A1lbZScPuFZqAHUey1N3htVl8Cw==, tarball: https://npm.pkg.github.com/download/@navikt/aksel-icons/6.16.2/9ee0592457a1e1bc8c1990d1aa3a3cf6c9cc4522}
 
-  '@navikt/ds-css@6.16.1':
-    resolution: {integrity: sha512-pxoucAuMESz76j0aGWdu0jP6bEdTH7dlMKq55OlOliAlAxEwxEjefAu/iww+NqRjSRU49ZHl1f8NsmLj1BC8Ww==, tarball: https://npm.pkg.github.com/download/@navikt/ds-css/6.16.1/7dc44ff8ca9ae5a9a2ff7523435579d58e9adcb3}
+  '@navikt/ds-css@6.16.2':
+    resolution: {integrity: sha512-fWJRierHeHKe718crx8+TmRsKfQ+BODm13oodvt3LIiQmINNNdF7rtAFSO6+yzF6ReVj2bAnqyr+6UqDH9RJyw==, tarball: https://npm.pkg.github.com/download/@navikt/ds-css/6.16.2/6504d11c7905723a585a2c9ba2555fb5a8a159e1}
 
-  '@navikt/ds-react@6.16.1':
-    resolution: {integrity: sha512-MwegoI8hs5MhaNVqC5P1W6nP7yGqcKbS3KbNGf62w3pIO3/yiWBMn0fiKGOPKEvoV04muzHl3AxeS8+NIICOXw==, tarball: https://npm.pkg.github.com/download/@navikt/ds-react/6.16.1/4a3ec99b67365ffba4af76fb2b41d6570d4a2d20}
+  '@navikt/ds-react@6.16.2':
+    resolution: {integrity: sha512-snJnxUXiDN8wmjb3uoELhTfpdsdpftXuZBaZeLsST/skMPJHdym9D8pVjbti4pKrnG2/9zYI2rX/bE2e26D7CQ==, tarball: https://npm.pkg.github.com/download/@navikt/ds-react/6.16.2/b16cba0f95df6b9e4035099c0dc5b239dcbd5392}
     peerDependencies:
       '@types/react': ^17.0.30 || ^18.0.0
       react: ^17.0.0 || ^18.0.0
 
-  '@navikt/ds-tokens@6.16.1':
-    resolution: {integrity: sha512-G/UfY1iq7CXsTnl4Wax5UkJHEWRe/+GRLQBbYODy6Ienpz/HXCm2NmFV0w2KZ4VpWSM/UZzrqSCgeBpEp8oepg==, tarball: https://npm.pkg.github.com/download/@navikt/ds-tokens/6.16.1/44f558da7cd89785ea6e496b5a378e2695a36fd9}
+  '@navikt/ds-tokens@6.16.2':
+    resolution: {integrity: sha512-2m1CNuP2Uz3mLBQt5Xb1fKziJTrrMw97E6HgICrUCkm2Vo5ZpzkD1tcS0KSlbz1XMg/q+CheERUIL6kPdj79eQ==, tarball: https://npm.pkg.github.com/download/@navikt/ds-tokens/6.16.2/e2f8b1ee8b5125a4497d1baca3b19ac4bd6716e4}
 
   '@navikt/nav-dekoratoren-moduler@2.1.6':
     resolution: {integrity: sha512-P9c+a8/HuIY6XScNr/DVS7lZ0UtndzYAMEaIVdAzCOrG4SudY4tXSp+44g1V58GKml1RjdzOfGVF4hxmFv3SiA==, tarball: https://npm.pkg.github.com/download/@navikt/nav-dekoratoren-moduler/2.1.6/049e1daeecff43519e41e387f21fd7e3634c2bd3}
@@ -673,40 +673,40 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@sentry-internal/browser-utils@8.26.0':
-    resolution: {integrity: sha512-O2Tj+WK33/ZVp5STnz6ZL0OO+/Idk2KqsH0ITQkQmyZ2z0kdzWOeqK7s7q3/My6rB1GfPcyqPcBBv4dVv92FYQ==}
+  '@sentry-internal/browser-utils@8.27.0':
+    resolution: {integrity: sha512-YTIwQ1GM1NTRXgN4DvpFSQ2x4pjlqQ0FQAyHW5x2ZYv4z7VmqG4Xkid1P/srQUipECk6nxkebfD4WR19nLsvnQ==}
     engines: {node: '>=14.18'}
 
-  '@sentry-internal/feedback@8.26.0':
-    resolution: {integrity: sha512-hQtw1gg8n6ERK1UH47F7ZI1zOsbhu0J2VX+TrnkpaQR2FgxDW1oe9Ja6oCV4CQKuR4w+1ZI/Kj4imSt0K33kEw==}
+  '@sentry-internal/feedback@8.27.0':
+    resolution: {integrity: sha512-b71PQc9aK1X9b/SO1DiJlrnAEx4n0MzPZQ/tKd9oRWDyGit6pJWZfQns9r2rvc96kJPMOTxFAa/upXRCkA723A==}
     engines: {node: '>=14.18'}
 
-  '@sentry-internal/replay-canvas@8.26.0':
-    resolution: {integrity: sha512-2CFQW6f9aJHIo/DqmqYa9PaYoLn1o36ywc0h8oyGrD4oPCbrnE5F++PmTdc71GBODu41HBn/yoCTLmxOD+UjpA==}
+  '@sentry-internal/replay-canvas@8.27.0':
+    resolution: {integrity: sha512-uuEfiWbjwugB9M4KxXxovHYiKRqg/R6U4EF8xM/Ub4laUuEcWsfRp7lQ3MxL3qYojbca8ncIFic2bIoKMPeejA==}
     engines: {node: '>=14.18'}
 
-  '@sentry-internal/replay@8.26.0':
-    resolution: {integrity: sha512-JDY7W2bswlp5c3483lKP4kcb75fHNwGNfwD8x8FsY9xMjv7nxeXjLpR5cCEk1XqPq2+n6w4j7mJOXhEXGiUIKg==}
+  '@sentry-internal/replay@8.27.0':
+    resolution: {integrity: sha512-Ofucncaon98dvlxte2L//hwuG9yILSxNrTz/PmO0k+HzB9q+oBic4667QF+azWR2qv4oKSWpc+vEovP3hVqveA==}
     engines: {node: '>=14.18'}
 
   '@sentry-internal/tracing@7.114.0':
     resolution: {integrity: sha512-dOuvfJN7G+3YqLlUY4HIjyWHaRP8vbOgF+OsE5w2l7ZEn1rMAaUbPntAR8AF9GBA6j2zWNoSo8e7GjbJxVofSg==}
     engines: {node: '>=8'}
 
-  '@sentry/browser@8.26.0':
-    resolution: {integrity: sha512-e5s6eKlwLZWzTwQcBwqyAGZMMuQROW9Z677VzwkSyREWAIkKjfH2VBxHATnNGc0IVkNHjD7iH3ixo3C0rLKM3w==}
+  '@sentry/browser@8.27.0':
+    resolution: {integrity: sha512-eL1eaHwoYUGkp4mpeYesH6WtCrm+0u9jYCW5Lm0MAeTmpx22BZKEmj0OljuUJXGnJwFbvPDlRjyz6QG11m8kZA==}
     engines: {node: '>=14.18'}
 
   '@sentry/core@7.114.0':
     resolution: {integrity: sha512-YnanVlmulkjgZiVZ9BfY9k6I082n+C+LbZo52MTvx3FY6RE5iyiPMpaOh67oXEZRWcYQEGm+bKruRxLVP6RlbA==}
     engines: {node: '>=8'}
 
-  '@sentry/core@8.26.0':
-    resolution: {integrity: sha512-g/tVmTZD4GNbLFf++hKJfBpcCAtduFEMLnbfa9iT/QEZjlmP+EzY+GsH9bafM5VsNe8DiOUp+kJKWtShzlVdBA==}
+  '@sentry/core@8.27.0':
+    resolution: {integrity: sha512-4frlXluHT3Du+Omw91K04jpvbfMtydvg4Bxj2+gt/DT19Swhm/fbEpzdUjgbAd3Jinj/n0qk/jFRXjr9JZKFjg==}
     engines: {node: '>=14.18'}
 
-  '@sentry/react@8.26.0':
-    resolution: {integrity: sha512-dYoC0xzcqq8zmNMFoTWidhA7mVd3RDz/nAUn6C8yK/hkKA7bUknYCkhpESGLZfHaGwSKzeXRXKd/o/cgUVM9eA==}
+  '@sentry/react@8.27.0':
+    resolution: {integrity: sha512-8pD+J9UVnSGmPnm5dHJup5OVsHTN/pL4Ozi01yyrpivLkQiMZNac3OXsc0C7zXnztfLQx0kmTyCOzbRROfbpnA==}
     engines: {node: '>=14.18'}
     peerDependencies:
       react: ^16.14.0 || 17.x || 18.x || 19.x
@@ -719,16 +719,16 @@ packages:
     resolution: {integrity: sha512-tsqkkyL3eJtptmPtT0m9W/bPLkU7ILY7nvwpi1hahA5jrM7ppoU0IMaQWAgTD+U3rzFH40IdXNBFb8Gnqcva4w==}
     engines: {node: '>=8'}
 
-  '@sentry/types@8.26.0':
-    resolution: {integrity: sha512-zKmh6SWsJh630rpt7a9vP4Cm4m1C2gDTUqUiH565CajCL/4cePpNWYrNwalSqsOSL7B9OrczA1+n6a6XvND+ng==}
+  '@sentry/types@8.27.0':
+    resolution: {integrity: sha512-B6lrP46+m2x0lfqWc9F4VcUbN893mVGnPEd7KIMRk95mPzkFJ3sNxggTQF5/ZfNO7lDQYQb22uysB5sj/BqFiw==}
     engines: {node: '>=14.18'}
 
   '@sentry/utils@7.114.0':
     resolution: {integrity: sha512-319N90McVpupQ6vws4+tfCy/03AdtsU0MurIE4+W5cubHME08HtiEWlfacvAxX+yuKFhvdsO4K4BB/dj54ideg==}
     engines: {node: '>=8'}
 
-  '@sentry/utils@8.26.0':
-    resolution: {integrity: sha512-xvlPU9Hd2BlyT+FhWHGNwnxWqdVRk2AHnDtVcW4Ma0Ri5EwS+uy4Jeik5UkSv8C5RVb9VlxFmS8LN3I1MPJsLw==}
+  '@sentry/utils@8.27.0':
+    resolution: {integrity: sha512-gyJM3SyLQe0A3mkQVVNdKYvk3ZoikkYgyA/D+5StFNLKdyUgEbJgXOGXrQSSYPF7BSX6Sc5b0KHCglPII0KuKw==}
     engines: {node: '>=14.18'}
 
   '@types/amplitude-js@8.16.5':
@@ -767,8 +767,8 @@ packages:
   '@types/node@22.0.0':
     resolution: {integrity: sha512-VT7KSYudcPOzP5Q0wfbowyNLaVR8QWUdw+088uFWwfvpY6uCWaXpqV6ieLAu9WBcnTa7H4Z5RLK8I5t2FuOcqw==}
 
-  '@types/node@22.4.1':
-    resolution: {integrity: sha512-1tbpb9325+gPnKK0dMm+/LMriX0vKxf6RnB0SZUqfyVkQ4fMgUSySqhxE/y8Jvs4NyF1yHzTfG9KlnkIODxPKg==}
+  '@types/node@22.5.1':
+    resolution: {integrity: sha512-KkHsxej0j9IW1KKOOAA/XBA0z08UFSrRQHErzEfA3Vgq57eXIMYboIlHJuYIfd+lwCQjtKqUu3UnmKbtUc9yRw==}
 
   '@types/parse-json@4.0.2':
     resolution: {integrity: sha512-dISoDXWWQwUquiKsyZ4Ng+HX2KsPL7LyHKHQwgGFEA3IaKac4Obd+h2a/a6waisAoepJlBcx9paWqjA8/HVjCw==}
@@ -791,8 +791,8 @@ packages:
   '@types/react-transition-group@4.4.10':
     resolution: {integrity: sha512-hT/+s0VQs2ojCX823m60m5f0sL5idt9SO6Tj6Dg+rdphGPIeJbJ6CxvBYkgkGKrYeDjvIpKTR38UzmtHJOGW3Q==}
 
-  '@types/react@18.3.4':
-    resolution: {integrity: sha512-J7W30FTdfCxDDjmfRM+/JqLHBIyl7xUIp9kwK637FGmY7+mkSFSe6L4jpZzhj5QMfLssSDP4/i75AKkrdC7/Jw==}
+  '@types/react@18.3.5':
+    resolution: {integrity: sha512-WeqMfGJLGuLCqHGYRGHxnKrXcTitc6L/nBUWfWPcTarG3t9PsquqUMuVeXZeca+mglY4Vo5GZjCi0A3Or2lnxA==}
 
   '@types/set-cookie-parser@2.4.10':
     resolution: {integrity: sha512-GGmQVGpQWUe5qglJozEjZV/5dyxbOOZ0LHe/lqyWssB88Y4svNfst0uqBVscdDeIKl5Jy5+aPSvy7mI9tYRguw==}
@@ -1045,15 +1045,15 @@ packages:
   aws-sign2@0.7.0:
     resolution: {integrity: sha512-08kcGqnYf/YmjoRhfxyu+CLxBjUtHLXLXX/vUfx9l2LYzG3c1m61nrpyFUZI6zeS+Li/wWMMidD9KgrqtGq3mA==}
 
-  aws4@1.13.1:
-    resolution: {integrity: sha512-u5w79Rd7SU4JaIlA/zFqG+gOiuq25q5VLyZ8E+ijJeILuTxVzZgp2CaGw/UTw6pXYN9XMO9yiqj/nEHmhTG5CA==}
+  aws4@1.13.2:
+    resolution: {integrity: sha512-lHe62zvbTB5eEABUVi/AwVh0ZKY9rMMDhmm+eeyuuUQbQ3+J+fONVQOZyj+DdrvD4BY33uYniyRJ4UJIaSKAfw==}
 
   axe-core@4.10.0:
     resolution: {integrity: sha512-Mr2ZakwQ7XUAjp7pAwQWRhhK8mQQ6JAaNWSjmjxil0R8BPioMtQsTLOolGYkji1rcL++3dCqZA3zWqpT+9Ew6g==}
     engines: {node: '>=4'}
 
-  axios@1.7.4:
-    resolution: {integrity: sha512-DukmaFRnY6AzAALSH4J2M3k6PkaC+MfaAGdEERRWcC9q3/TWQwLpHR8ZRLKTdQ3aBDL64EdluRDjJqKw+BPZEw==}
+  axios@1.7.5:
+    resolution: {integrity: sha512-fZu86yCo+svH3uqJ/yTdQ0QHpQu5oL+/QE+QPSv6BZSkDAoky9vytxp7u5qk83OJFS3kEBcesWni9WTZAv3tSw==}
 
   axobject-query@3.1.1:
     resolution: {integrity: sha512-goKlv8DZrK9hUh975fnHzhNIO4jUnFCfv/dszV5VwUGDFjI6vQ2VwoyjYjYNEbBE8AH87TduWP5uyDR1D+Iteg==}
@@ -1312,8 +1312,8 @@ packages:
       axe-core: ^3 || ^4
       cypress: ^10 || ^11 || ^12 || ^13
 
-  cypress@13.13.3:
-    resolution: {integrity: sha512-hUxPrdbJXhUOTzuML+y9Av7CKoYznbD83pt8g3klgpioEha0emfx4WNIuVRx0C76r0xV2MIwAW9WYiXfVJYFQw==}
+  cypress@13.14.1:
+    resolution: {integrity: sha512-Wo+byPmjps66hACEH5udhXINEiN3qS3jWNGRzJOjrRJF3D0+YrcP2LVB1T7oYaVQM/S+eanqEvBWYc8cf7Vcbg==}
     engines: {node: ^16.0.0 || ^18.0.0 || >=20.0.0}
     hasBin: true
 
@@ -1522,8 +1522,8 @@ packages:
     peerDependencies:
       eslint: '>=7.0.0'
 
-  eslint-config-turbo@2.0.14:
-    resolution: {integrity: sha512-VkzAH/AR1/fjMsqzuurfWkEgyGVTTzfZQB1umDB8dMWzFhqo8p/2KEWbvRQLEvSFxjVfeJl5ErQAJ7h7DYglxg==}
+  eslint-config-turbo@2.1.0:
+    resolution: {integrity: sha512-3SeE2OCWnkA/84adGJXABm++966LNGxRdXtXKBcplJdIe4PmERkov1z6Kzp2PrPKT13wGu/bwoLV5h1rm7v9ug==}
     peerDependencies:
       eslint: '>6.6.0'
 
@@ -1559,8 +1559,8 @@ packages:
     peerDependencies:
       eslint: ^3 || ^4 || ^5 || ^6 || ^7 || ^8 || ^9.7
 
-  eslint-plugin-turbo@2.0.14:
-    resolution: {integrity: sha512-E++MSAEeWZTU0FYARrfakMPq+7XeltqeY4JBDQTzbGEWG3kgYJPeYBMWsypcvBujVihQLlMu0S6ImnfV692mHg==}
+  eslint-plugin-turbo@2.1.0:
+    resolution: {integrity: sha512-+CWVY29y7Qa+gvrKSzP+TOYrHAlNLCh/97K5VtDdnpH54h/JFmnd3U0aSG6WANe0HgAK8NHQfeWFDdRzfDqbKA==}
     peerDependencies:
       eslint: '>6.6.0'
 
@@ -3017,6 +3017,9 @@ packages:
   tslib@2.6.3:
     resolution: {integrity: sha512-xNvxJEOUiWPGhUuUdQgAJPKOOJfGnIyKySOc09XkKsgdUV/3E2zvwZYdejjmRgPCgcym1juLH3226yA7sEFJKQ==}
 
+  tslib@2.7.0:
+    resolution: {integrity: sha512-gLXCKdN1/j47AiHiOkJN69hJmcbGTHI0ImLmbYLHykhgeN0jVGola9yVjFgzCUklsZQMW55o+dW7IXv3RCXDzA==}
+
   tunnel-agent@0.6.0:
     resolution: {integrity: sha512-McnNiV1l8RYeY8tBgEpuodCC1mLUdbSN+CYBL7kJsJNInOP8UjDDEwdk6Mw60vdLLrr5NHKZhMAOSrR2NZuQ+w==}
 
@@ -3458,7 +3461,7 @@ snapshots:
   '@cypress/request@3.0.1':
     dependencies:
       aws-sign2: 0.7.0
-      aws4: 1.13.1
+      aws4: 1.13.2
       caseless: 0.12.0
       combined-stream: 1.0.8
       extend: 3.0.2
@@ -3511,7 +3514,7 @@ snapshots:
 
   '@emotion/memoize@0.9.0': {}
 
-  '@emotion/react@11.13.0(@types/react@18.3.4)(react@18.3.1)':
+  '@emotion/react@11.13.0(@types/react@18.3.5)(react@18.3.1)':
     dependencies:
       '@babel/runtime': 7.25.0
       '@emotion/babel-plugin': 11.12.0
@@ -3523,7 +3526,7 @@ snapshots:
       hoist-non-react-statics: 3.3.2
       react: 18.3.1
     optionalDependencies:
-      '@types/react': 18.3.4
+      '@types/react': 18.3.5
     transitivePeerDependencies:
       - supports-color
 
@@ -3726,17 +3729,17 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@navikt/aksel-icons@6.16.1': {}
+  '@navikt/aksel-icons@6.16.2': {}
 
-  '@navikt/ds-css@6.16.1': {}
+  '@navikt/ds-css@6.16.2': {}
 
-  '@navikt/ds-react@6.16.1(@types/react@18.3.4)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+  '@navikt/ds-react@6.16.2(@types/react@18.3.5)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
     dependencies:
       '@floating-ui/react': 0.25.4(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@floating-ui/react-dom': 2.1.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@navikt/aksel-icons': 6.16.1
-      '@navikt/ds-tokens': 6.16.1
-      '@types/react': 18.3.4
+      '@navikt/aksel-icons': 6.16.2
+      '@navikt/ds-tokens': 6.16.2
+      '@types/react': 18.3.5
       clsx: 2.1.1
       date-fns: 3.6.0
       react: 18.3.1
@@ -3744,7 +3747,7 @@ snapshots:
     transitivePeerDependencies:
       - react-dom
 
-  '@navikt/ds-tokens@6.16.1': {}
+  '@navikt/ds-tokens@6.16.2': {}
 
   '@navikt/nav-dekoratoren-moduler@2.1.6(jsdom@24.1.1)(react@18.3.1)':
     dependencies:
@@ -3818,31 +3821,31 @@ snapshots:
   '@rollup/rollup-win32-x64-msvc@4.21.0':
     optional: true
 
-  '@sentry-internal/browser-utils@8.26.0':
+  '@sentry-internal/browser-utils@8.27.0':
     dependencies:
-      '@sentry/core': 8.26.0
-      '@sentry/types': 8.26.0
-      '@sentry/utils': 8.26.0
+      '@sentry/core': 8.27.0
+      '@sentry/types': 8.27.0
+      '@sentry/utils': 8.27.0
 
-  '@sentry-internal/feedback@8.26.0':
+  '@sentry-internal/feedback@8.27.0':
     dependencies:
-      '@sentry/core': 8.26.0
-      '@sentry/types': 8.26.0
-      '@sentry/utils': 8.26.0
+      '@sentry/core': 8.27.0
+      '@sentry/types': 8.27.0
+      '@sentry/utils': 8.27.0
 
-  '@sentry-internal/replay-canvas@8.26.0':
+  '@sentry-internal/replay-canvas@8.27.0':
     dependencies:
-      '@sentry-internal/replay': 8.26.0
-      '@sentry/core': 8.26.0
-      '@sentry/types': 8.26.0
-      '@sentry/utils': 8.26.0
+      '@sentry-internal/replay': 8.27.0
+      '@sentry/core': 8.27.0
+      '@sentry/types': 8.27.0
+      '@sentry/utils': 8.27.0
 
-  '@sentry-internal/replay@8.26.0':
+  '@sentry-internal/replay@8.27.0':
     dependencies:
-      '@sentry-internal/browser-utils': 8.26.0
-      '@sentry/core': 8.26.0
-      '@sentry/types': 8.26.0
-      '@sentry/utils': 8.26.0
+      '@sentry-internal/browser-utils': 8.27.0
+      '@sentry/core': 8.27.0
+      '@sentry/types': 8.27.0
+      '@sentry/utils': 8.27.0
 
   '@sentry-internal/tracing@7.114.0':
     dependencies:
@@ -3850,32 +3853,32 @@ snapshots:
       '@sentry/types': 7.114.0
       '@sentry/utils': 7.114.0
 
-  '@sentry/browser@8.26.0':
+  '@sentry/browser@8.27.0':
     dependencies:
-      '@sentry-internal/browser-utils': 8.26.0
-      '@sentry-internal/feedback': 8.26.0
-      '@sentry-internal/replay': 8.26.0
-      '@sentry-internal/replay-canvas': 8.26.0
-      '@sentry/core': 8.26.0
-      '@sentry/types': 8.26.0
-      '@sentry/utils': 8.26.0
+      '@sentry-internal/browser-utils': 8.27.0
+      '@sentry-internal/feedback': 8.27.0
+      '@sentry-internal/replay': 8.27.0
+      '@sentry-internal/replay-canvas': 8.27.0
+      '@sentry/core': 8.27.0
+      '@sentry/types': 8.27.0
+      '@sentry/utils': 8.27.0
 
   '@sentry/core@7.114.0':
     dependencies:
       '@sentry/types': 7.114.0
       '@sentry/utils': 7.114.0
 
-  '@sentry/core@8.26.0':
+  '@sentry/core@8.27.0':
     dependencies:
-      '@sentry/types': 8.26.0
-      '@sentry/utils': 8.26.0
+      '@sentry/types': 8.27.0
+      '@sentry/utils': 8.27.0
 
-  '@sentry/react@8.26.0(react@18.3.1)':
+  '@sentry/react@8.27.0(react@18.3.1)':
     dependencies:
-      '@sentry/browser': 8.26.0
-      '@sentry/core': 8.26.0
-      '@sentry/types': 8.26.0
-      '@sentry/utils': 8.26.0
+      '@sentry/browser': 8.27.0
+      '@sentry/core': 8.27.0
+      '@sentry/types': 8.27.0
+      '@sentry/utils': 8.27.0
       hoist-non-react-statics: 3.3.2
       react: 18.3.1
 
@@ -3885,15 +3888,15 @@ snapshots:
 
   '@sentry/types@7.114.0': {}
 
-  '@sentry/types@8.26.0': {}
+  '@sentry/types@8.27.0': {}
 
   '@sentry/utils@7.114.0':
     dependencies:
       '@sentry/types': 7.114.0
 
-  '@sentry/utils@8.26.0':
+  '@sentry/utils@8.27.0':
     dependencies:
-      '@sentry/types': 8.26.0
+      '@sentry/types': 8.27.0
 
   '@types/amplitude-js@8.16.5': {}
 
@@ -3936,7 +3939,7 @@ snapshots:
     dependencies:
       undici-types: 6.11.1
 
-  '@types/node@22.4.1':
+  '@types/node@22.5.1':
     dependencies:
       undici-types: 6.19.8
     optional: true
@@ -3947,28 +3950,28 @@ snapshots:
 
   '@types/react-collapse@5.0.4':
     dependencies:
-      '@types/react': 18.3.4
+      '@types/react': 18.3.5
 
   '@types/react-dom@18.3.0':
     dependencies:
-      '@types/react': 18.3.4
+      '@types/react': 18.3.5
 
   '@types/react-router-dom@5.3.3':
     dependencies:
       '@types/history': 4.7.11
-      '@types/react': 18.3.4
+      '@types/react': 18.3.5
       '@types/react-router': 5.1.20
 
   '@types/react-router@5.1.20':
     dependencies:
       '@types/history': 4.7.11
-      '@types/react': 18.3.4
+      '@types/react': 18.3.5
 
   '@types/react-transition-group@4.4.10':
     dependencies:
-      '@types/react': 18.3.4
+      '@types/react': 18.3.5
 
-  '@types/react@18.3.4':
+  '@types/react@18.3.5':
     dependencies:
       '@types/prop-types': 15.7.12
       csstype: 3.1.3
@@ -3983,7 +3986,7 @@ snapshots:
 
   '@types/yauzl@2.10.3':
     dependencies:
-      '@types/node': 22.4.1
+      '@types/node': 22.5.1
     optional: true
 
   '@typescript-eslint/eslint-plugin@7.18.0(@typescript-eslint/parser@7.18.0(eslint@8.57.0)(typescript@5.5.4))(eslint@8.57.0)(typescript@5.5.4)':
@@ -4069,14 +4072,14 @@ snapshots:
 
   '@ungap/structured-clone@1.2.0': {}
 
-  '@vitejs/plugin-react@4.3.1(vite@5.4.2(@types/node@22.4.1)(sass@1.77.8))':
+  '@vitejs/plugin-react@4.3.1(vite@5.4.2(@types/node@22.5.1)(sass@1.77.8))':
     dependencies:
       '@babel/core': 7.25.2
       '@babel/plugin-transform-react-jsx-self': 7.24.7(@babel/core@7.25.2)
       '@babel/plugin-transform-react-jsx-source': 7.24.7(@babel/core@7.25.2)
       '@types/babel__core': 7.20.5
       react-refresh: 0.14.2
-      vite: 5.4.2(@types/node@22.4.1)(sass@1.77.8)
+      vite: 5.4.2(@types/node@22.5.1)(sass@1.77.8)
     transitivePeerDependencies:
       - supports-color
 
@@ -4284,11 +4287,11 @@ snapshots:
 
   aws-sign2@0.7.0: {}
 
-  aws4@1.13.1: {}
+  aws4@1.13.2: {}
 
   axe-core@4.10.0: {}
 
-  axios@1.7.4:
+  axios@1.7.5:
     dependencies:
       follow-redirects: 1.15.6
       form-data: 4.0.0
@@ -4544,12 +4547,12 @@ snapshots:
 
   csstype@3.1.3: {}
 
-  cypress-axe@1.5.0(axe-core@4.10.0)(cypress@13.13.3):
+  cypress-axe@1.5.0(axe-core@4.10.0)(cypress@13.14.1):
     dependencies:
       axe-core: 4.10.0
-      cypress: 13.13.3
+      cypress: 13.14.1
 
-  cypress@13.13.3:
+  cypress@13.14.1:
     dependencies:
       '@cypress/request': 3.0.1
       '@cypress/xvfb': 1.2.4(supports-color@8.1.1)
@@ -4895,10 +4898,10 @@ snapshots:
     dependencies:
       eslint: 8.57.0
 
-  eslint-config-turbo@2.0.14(eslint@8.57.0):
+  eslint-config-turbo@2.1.0(eslint@8.57.0):
     dependencies:
       eslint: 8.57.0
-      eslint-plugin-turbo: 2.0.14(eslint@8.57.0)
+      eslint-plugin-turbo: 2.1.0(eslint@8.57.0)
 
   eslint-plugin-cypress@3.5.0(eslint@8.57.0):
     dependencies:
@@ -4957,7 +4960,7 @@ snapshots:
       string.prototype.matchall: 4.0.11
       string.prototype.repeat: 1.0.0
 
-  eslint-plugin-turbo@2.0.14(eslint@8.57.0):
+  eslint-plugin-turbo@2.1.0(eslint@8.57.0):
     dependencies:
       dotenv: 16.0.3
       eslint: 8.57.0
@@ -6076,11 +6079,11 @@ snapshots:
       '@remix-run/router': 1.19.1
       react: 18.3.1
 
-  react-select@5.8.0(@types/react@18.3.4)(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
+  react-select@5.8.0(@types/react@18.3.5)(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
     dependencies:
       '@babel/runtime': 7.25.0
       '@emotion/cache': 11.13.1
-      '@emotion/react': 11.13.0(@types/react@18.3.4)(react@18.3.1)
+      '@emotion/react': 11.13.0(@types/react@18.3.5)(react@18.3.1)
       '@floating-ui/dom': 1.6.8
       '@types/react-transition-group': 4.4.10
       memoize-one: 6.0.0
@@ -6088,7 +6091,7 @@ snapshots:
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
       react-transition-group: 4.4.5(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      use-isomorphic-layout-effect: 1.1.2(@types/react@18.3.4)(react@18.3.1)
+      use-isomorphic-layout-effect: 1.1.2(@types/react@18.3.5)(react@18.3.1)
     transitivePeerDependencies:
       - '@types/react'
       - supports-color
@@ -6211,7 +6214,7 @@ snapshots:
 
   rxjs@7.8.1:
     dependencies:
-      tslib: 2.6.3
+      tslib: 2.7.0
 
   safe-array-concat@1.1.2:
     dependencies:
@@ -6500,6 +6503,8 @@ snapshots:
 
   tslib@2.6.3: {}
 
+  tslib@2.7.0: {}
+
   tunnel-agent@0.6.0:
     dependencies:
       safe-buffer: 5.2.1
@@ -6583,11 +6588,11 @@ snapshots:
       querystringify: 2.2.0
       requires-port: 1.0.0
 
-  use-isomorphic-layout-effect@1.1.2(@types/react@18.3.4)(react@18.3.1):
+  use-isomorphic-layout-effect@1.1.2(@types/react@18.3.5)(react@18.3.1):
     dependencies:
       react: 18.3.1
     optionalDependencies:
-      '@types/react': 18.3.4
+      '@types/react': 18.3.5
 
   util-deprecate@1.0.2: {}
 
@@ -6607,13 +6612,13 @@ snapshots:
       core-util-is: 1.0.2
       extsprintf: 1.3.0
 
-  vite-node@2.0.5(@types/node@22.4.1)(sass@1.77.8):
+  vite-node@2.0.5(@types/node@22.5.1)(sass@1.77.8):
     dependencies:
       cac: 6.7.14
       debug: 4.3.6(supports-color@8.1.1)
       pathe: 1.1.2
       tinyrainbow: 1.2.0
-      vite: 5.4.2(@types/node@22.4.1)(sass@1.77.8)
+      vite: 5.4.2(@types/node@22.5.1)(sass@1.77.8)
     transitivePeerDependencies:
       - '@types/node'
       - less
@@ -6625,17 +6630,17 @@ snapshots:
       - supports-color
       - terser
 
-  vite@5.4.2(@types/node@22.4.1)(sass@1.77.8):
+  vite@5.4.2(@types/node@22.5.1)(sass@1.77.8):
     dependencies:
       esbuild: 0.21.5
       postcss: 8.4.41
       rollup: 4.21.0
     optionalDependencies:
-      '@types/node': 22.4.1
+      '@types/node': 22.5.1
       fsevents: 2.3.3
       sass: 1.77.8
 
-  vitest@2.0.5(@types/node@22.4.1)(jsdom@24.1.1)(sass@1.77.8):
+  vitest@2.0.5(@types/node@22.5.1)(jsdom@24.1.1)(sass@1.77.8):
     dependencies:
       '@ampproject/remapping': 2.3.0
       '@vitest/expect': 2.0.5
@@ -6653,11 +6658,11 @@ snapshots:
       tinybench: 2.9.0
       tinypool: 1.0.0
       tinyrainbow: 1.2.0
-      vite: 5.4.2(@types/node@22.4.1)(sass@1.77.8)
-      vite-node: 2.0.5(@types/node@22.4.1)(sass@1.77.8)
+      vite: 5.4.2(@types/node@22.5.1)(sass@1.77.8)
+      vite-node: 2.0.5(@types/node@22.5.1)(sass@1.77.8)
       why-is-node-running: 2.3.0
     optionalDependencies:
-      '@types/node': 22.4.1
+      '@types/node': 22.5.1
       jsdom: 24.1.1
     transitivePeerDependencies:
       - less
