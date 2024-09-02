@@ -7,7 +7,7 @@ export function forslagTitle(type: ForslagEndringType) {
     case ForslagEndringType.ForlengDeltakelse:
       return 'Forleng deltakelse'
     case ForslagEndringType.IkkeAktuell:
-      return 'Personen er ikke aktuell'
+      return 'Er ikke aktuell'
     case ForslagEndringType.AvsluttDeltakelse:
       return 'Avslutt deltakelse'
     case ForslagEndringType.Deltakelsesmengde:

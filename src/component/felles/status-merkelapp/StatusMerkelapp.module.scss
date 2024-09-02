@@ -1,24 +1,8 @@
 @import '/src/colors.scss';
 
-.statusTagBla {
-  background-color: var(--a-surface-info-subtle);
-  border-color: var(--a-border-info);
-}
-
-.statusTagOrange {
-  background-color: var(--a-surface-warning-subtle);
-  border-color: var(--a-border-warning);
-
-}
-
 .statusTagHvit {
   background-color: white;
   border-color: $navGra80;
-}
-
-.statusTagLilla {
-  background-color: var(--a-surface-alt-1-subtle);
-  border-color: var(--a-surface-alt-1);
 }
 
 .statusTagBlaSmall {
@@ -32,7 +16,7 @@
   }
 }
 
-.statusTagOrangeSmall {
+.statusTagmall {
   min-width: fit-content;
 
   @media (min-width: 800px) and (max-width: 1350px) {

@@ -4,10 +4,11 @@ import {
   ForslagEndringType
 } from '../../../../../api/data/forslag'
 import { assertNever } from '../../../../../utils/assert-never'
-import { BodyLong, BodyShort, Detail } from '@navikt/ds-react'
+import { BodyLong, Detail } from '@navikt/ds-react'
 import { formatDate } from '../../../../../utils/date-utils'
 import { endringAarsakTekstMapper } from '../tekst-mappers'
 import { getDagerPerUkeTekst } from '../../../../../utils/deltaker-utils'
+import styles from './Forslag.module.scss'
 
 interface Props {
   readonly endring: ForslagEndring
@@ -26,7 +27,7 @@ export function ForslagEndringsdetaljer({
       {begrunnelse && (
         <BodyLong size="small">Begrunnelse: {begrunnelse}</BodyLong>
       )}
-      <Detail>Forslag sendt fra arrangør: {formatDate(sendt)}</Detail>
+      <Detail className={styles.forslag_detail_sendt}>Forslag sendt fra arrangør: {formatDate(sendt)}</Detail>
     </>
   )
 }
@@ -36,65 +37,65 @@ function EndringsDetaljer({ endring }: { readonly endring: ForslagEndring }) {
     case ForslagEndringType.ForlengDeltakelse:
       return (
         <>
-          <BodyShort size="small">
+          <BodyLong size="small">
             Ny sluttdato: {formatDate(endring.sluttdato)}
-          </BodyShort>
+          </BodyLong>
         </>
       )
     case ForslagEndringType.IkkeAktuell: {
       return (
         <>
-          <BodyShort size="small">
+          <BodyLong size="small">
             Årsak: {endringAarsakTekstMapper(endring.aarsak)}
-          </BodyShort>
+          </BodyLong>
         </>
       )
     }
     case ForslagEndringType.AvsluttDeltakelse: {
       return (
         <>
-          <BodyShort size="small">
+          <BodyLong size="small">
             Årsak: {endringAarsakTekstMapper(endring.aarsak)}
-          </BodyShort>
-          <BodyShort size="small">
+          </BodyLong>
+          <BodyLong size="small">
             Ny sluttdato: {formatDate(endring.sluttdato)}
-          </BodyShort>
+          </BodyLong>
         </>
       )
     }
     case ForslagEndringType.Deltakelsesmengde: {
       return (
-        <BodyShort size="small">
+        <BodyLong size="small">
           Ny deltakelsesmengde: {endring.deltakelsesprosent} %
           {endring.dagerPerUke && (
             <> fordelt på {getDagerPerUkeTekst(endring.dagerPerUke)}</>
           )}
-        </BodyShort>
+        </BodyLong>
       )
     }
     case ForslagEndringType.Sluttdato: {
       return (
-        <BodyShort size="small">
+        <BodyLong size="small">
           Ny sluttdato: {formatDate(endring.sluttdato)}
-        </BodyShort>
+        </BodyLong>
       )
     }
     case ForslagEndringType.Startdato:
       return (
         <>
-          <BodyShort size="small">
+          <BodyLong size="small">
             Ny oppstartsdato: {formatDate(endring.startdato)}
-          </BodyShort>
-          <BodyShort size="small">
+          </BodyLong>
+          <BodyLong size="small">
             Forventet sluttdato: {formatDate(endring.sluttdato)}
-          </BodyShort>
+          </BodyLong>
         </>
       )
     case ForslagEndringType.Sluttarsak:
       return (
-        <BodyShort size="small">
+        <BodyLong size="small">
           Ny sluttårsak: {endringAarsakTekstMapper(endring.aarsak)}
-        </BodyShort>
+        </BodyLong>
       )
     default:
       assertNever(endring)
