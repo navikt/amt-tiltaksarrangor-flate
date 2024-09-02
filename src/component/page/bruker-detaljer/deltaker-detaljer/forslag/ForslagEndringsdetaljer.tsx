@@ -8,6 +8,7 @@ import { BodyLong, Detail } from '@navikt/ds-react'
 import { formatDate } from '../../../../../utils/date-utils'
 import { endringAarsakTekstMapper } from '../tekst-mappers'
 import { getDagerPerUkeTekst } from '../../../../../utils/deltaker-utils'
+import globalStyles from '../../../../../globals.module.scss'
 import styles from './Forslag.module.scss'
 
 interface Props {
@@ -25,7 +26,7 @@ export function ForslagEndringsdetaljer({
     <>
       <EndringsDetaljer endring={endring} />
       {begrunnelse && (
-        <BodyLong size="small">Begrunnelse: {begrunnelse}</BodyLong>
+        <BodyLong size="small" className={globalStyles.textPreWrap}>Begrunnelse: {begrunnelse}</BodyLong>
       )}
       <Detail className={styles.forslag_detail_sendt}>Forslag sendt fra arrangør: {formatDate(sendt)}</Detail>
     </>
