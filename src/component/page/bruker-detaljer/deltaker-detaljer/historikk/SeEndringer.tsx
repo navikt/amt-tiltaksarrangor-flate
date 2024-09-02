@@ -4,14 +4,17 @@ import { useState } from 'react'
 import { fetchDeltakerHistorikk } from '../../../../../api/historikk-api'
 import { DeltakerHistorikkListe } from '../../../../../api/data/historikk'
 import styles from './Historikk.module.scss'
+import { Tiltakskode } from '../../../../../api/data/tiltak'
 
 interface Props {
   deltakerId: string
+  tiltakstype: Tiltakskode
   className?: string
 }
 
 export const SeEndringer = ({
   deltakerId,
+  tiltakstype,
   className
 }: Props) => {
   const [ historikkModalOpen, setHistorikkModalOpen ] = useState(false)
@@ -47,6 +50,7 @@ export const SeEndringer = ({
 
       <HistorikkModal
         historikk={historikk}
+        tiltakstype={tiltakstype}
         open={historikkModalOpen}
         onClose={() => setHistorikkModalOpen(false)}
       />

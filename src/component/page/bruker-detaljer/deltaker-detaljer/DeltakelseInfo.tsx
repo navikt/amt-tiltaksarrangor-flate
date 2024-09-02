@@ -126,6 +126,7 @@ export const DeltakelseInfo = ({
         {erForslagEnabled && (
           <SeEndringer
             className={styles.seEndringerKnapp}
+            tiltakstype={deltaker.deltakerliste.tiltakstype}
             deltakerId={deltaker.id}
           />
         )}

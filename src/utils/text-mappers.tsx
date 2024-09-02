@@ -4,6 +4,7 @@ import { EndringAarsak, ForslagEndringAarsakType, ForslagEndringType, ForslagSta
 import { Endring, EndringType } from '../api/data/historikk'
 import { Veiledertype } from '../api/data/veileder'
 import { dateStrWithMonthName } from './date-utils'
+import { getDeltakelsesmengdetekst } from './deltaker-utils'
 
 export const mapTiltakDeltakerStatusTilTekst = (
   tiltakDeltakerStatus: typeof TiltakDeltakerStatus | string
@@ -68,16 +69,6 @@ export const getDeltakerStatusAarsakText = (aarsak: DeltakerStatusAarsak) => {
   }
 }
 
-export const deltakerprosentText = (
-  deltakelsesprosent: number | null,
-  dagerPerUke: number | null
-) => {
-  const dagerIUkaText = dagerPerUke
-    ? `fordelt på ${dagerPerUke} ${dagerPerUke > 1 ? 'dager' : 'dag'} i uka`
-    : ''
-  return `${deltakelsesprosent ?? 100}\u00A0% ${dagerIUkaText}`
-}
-
 export const getEndringsTittel = (endring: Endring) => {
   switch (endring.type) {
     case EndringType.IkkeAktuell:
@@ -90,7 +81,7 @@ export const getEndringsTittel = (endring: Endring) => {
     case EndringType.EndreBakgrunnsinformasjon:
       return 'Bakgrunnsinfo er endret'
     case EndringType.EndreDeltakelsesmengde:
-      return `Deltakelsen er endret til ${deltakerprosentText(endring.deltakelsesprosent, endring.dagerPerUke)}`
+      return `Deltakelsen er endret til ${getDeltakelsesmengdetekst(endring.deltakelsesprosent, endring.dagerPerUke)}`
     case EndringType.EndreInnhold:
       return 'Innholdet er endret'
     case EndringType.ReaktiverDeltakelse:

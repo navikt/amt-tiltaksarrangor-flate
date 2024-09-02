@@ -1,8 +1,9 @@
 import { BodyLong, BodyShort, Detail, Heading, ReadMore, Tag } from '@navikt/ds-react'
 import { ForslagEndringType, ForslagStatusType, HistorikkForslag } from '../../../../../api/data/forslag'
-import { deltakerprosentText, getForslagEndringAarsakText, getForslagStatusTypeText, getForslagTittel } from '../../../../../utils/text-mappers'
-import { formatDate } from '../../../../../utils/date-utils'
 import { assertNever } from '../../../../../utils/assert-never'
+import { formatDate } from '../../../../../utils/date-utils'
+import { getDeltakelsesmengdetekst } from '../../../../../utils/deltaker-utils'
+import { getForslagEndringAarsakText, getForslagStatusTypeText, getForslagTittel } from '../../../../../utils/text-mappers'
 import styles from './Historikk.module.scss'
 
 interface Props {
@@ -63,7 +64,7 @@ export const ForslagtypeDetaljer = ({ forslag }: { forslag: HistorikkForslag }) 
         return (
           <BodyShort size="small">
             Ny deltakelsesmengde:{' '}
-            {deltakerprosentText(
+            {getDeltakelsesmengdetekst(
               forslag.endring.deltakelsesprosent,
               forslag.endring.dagerPerUke
             )}

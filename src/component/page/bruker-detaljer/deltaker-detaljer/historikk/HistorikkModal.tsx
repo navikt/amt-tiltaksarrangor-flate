@@ -6,17 +6,19 @@ import { HistorikkArrangorEndring } from './HistorikkArrangorEndring'
 import { DeltakerHistorikk, DeltakerHistorikkListe } from '../../../../../api/data/historikk'
 import { HistorikkType } from '../../../../../api/data/forslag'
 import styles from './Historikk.module.scss'
+import { Tiltakskode } from '../../../../../api/data/tiltak'
 
 interface Props {
   historikk: DeltakerHistorikkListe | null
+  tiltakstype: Tiltakskode
   open: boolean
   onClose: () => void
 }
 
-const getHistorikkItem = (historikk: DeltakerHistorikk) => {
+const getHistorikkItem = (historikk: DeltakerHistorikk, tiltakstype: Tiltakskode) => {
   switch (historikk.type) {
     case HistorikkType.Vedtak:
-      return <HistorikkVedtak endringsVedtak={historikk} />
+      return <HistorikkVedtak endringsVedtak={historikk} tiltakstype={tiltakstype} />
     case HistorikkType.Endring:
       return <HistorikkEndring deltakerEndring={historikk} />
     case HistorikkType.Forslag:
@@ -26,14 +28,14 @@ const getHistorikkItem = (historikk: DeltakerHistorikk) => {
   }
 }
 
-export const HistorikkModal = ({ open, historikk, onClose }: Props) => {
+export const HistorikkModal = ({ open, historikk, tiltakstype, onClose }: Props) => {
   return (
     <Modal open={open} header={{ heading: 'Endringer' }} onClose={onClose}>
       <Modal.Body>
         {historikk &&
           historikk.map((i, index) => (
             <div key={`${i.type}${index}`} className={styles.historikk_list_item}>
-              {getHistorikkItem(i)}
+              {getHistorikkItem(i, tiltakstype)}
             </div>
           ))}
         {(!historikk || historikk.length === 0) && (
