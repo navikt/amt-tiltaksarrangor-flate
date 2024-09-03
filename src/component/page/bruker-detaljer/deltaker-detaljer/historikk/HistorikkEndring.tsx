@@ -7,6 +7,7 @@ import { formatDate } from '../../../../../utils/date-utils'
 import { getDeltakerStatusAarsakText, getEndringsTittel } from '../../../../../utils/text-mappers'
 import styles from './Historikk.module.scss'
 import { EndringTypeIkon } from '../EndringTypeIkon'
+import globalStyles from '../../../../../globals.module.scss'
 
 interface Props {
   deltakerEndring: DeltakerEndring
@@ -21,7 +22,7 @@ const getEndringsDetaljer = (endring: Endring) => {
             Årsak: {getDeltakerStatusAarsakText(endring.aarsak)}
           </BodyLong>
           {endring.begrunnelse && (
-            <BodyLong size="small">
+            <BodyLong size="small" className={globalStyles.textPreWrap}>
               NAVs begrunnelse: {endring.begrunnelse}
             </BodyLong>
           )}
@@ -35,7 +36,7 @@ const getEndringsDetaljer = (endring: Endring) => {
             Årsak: {getDeltakerStatusAarsakText(endring.aarsak)}
           </BodyLong>
           {endring.begrunnelse && (
-            <BodyLong size="small">
+            <BodyLong size="small" className={globalStyles.textPreWrap}>
               NAVs begrunnelse: {endring.begrunnelse}
             </BodyLong>
           )}
@@ -44,7 +45,7 @@ const getEndringsDetaljer = (endring: Endring) => {
     }
     case EndringType.EndreBakgrunnsinformasjon: {
       return (
-        <BodyLong size="small">
+        <BodyLong size="small" className={globalStyles.textPreWrap}>
           {endring.bakgrunnsinformasjon || EMDASH}
         </BodyLong>
       )
@@ -59,7 +60,7 @@ const getEndringsDetaljer = (endring: Endring) => {
     }
     case EndringType.ReaktiverDeltakelse: {
       return (
-        <BodyLong size="small">
+        <BodyLong size="small" className={globalStyles.textPreWrap}>
           NAVs begrunnelse: {endring.begrunnelse}
         </BodyLong>
       )
@@ -69,7 +70,7 @@ const getEndringsDetaljer = (endring: Endring) => {
     case EndringType.EndreDeltakelsesmengde:
     case EndringType.EndreSluttarsak: {
       return endring.begrunnelse ? (
-        <BodyLong size="small">
+        <BodyLong size="small" className={globalStyles.textPreWrap}>
           NAVs begrunnelse: {endring.begrunnelse}
         </BodyLong>
       ) : (
@@ -83,7 +84,7 @@ const getEndringsDetaljer = (endring: Endring) => {
             Forventet sluttdato: {formatDate(endring.sluttdato)}
           </BodyLong>
           {endring.begrunnelse && (
-            <BodyLong size="small">
+            <BodyLong size="small" className={globalStyles.textPreWrap}>
               NAVs begrunnelse: {endring.begrunnelse}
             </BodyLong>
           )}

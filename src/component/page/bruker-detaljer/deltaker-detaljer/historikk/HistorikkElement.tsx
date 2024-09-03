@@ -5,6 +5,7 @@ import { formatDate } from '../../../../../utils/date-utils'
 import { getDeltakelsesmengdetekst } from '../../../../../utils/deltaker-utils'
 import { getForslagEndringAarsakText, getForslagStatusTypeText, getForslagTittel } from '../../../../../utils/text-mappers'
 import styles from './Historikk.module.scss'
+import globalStyles from '../../../../../globals.module.scss'
 
 interface Props {
   tittel: string
@@ -101,7 +102,9 @@ export const ForslagtypeDetaljer = ({ forslag }: { forslag: HistorikkForslag }) 
     <>
       {detaljer(forslag)}
       {forslag.begrunnelse && (
-        <BodyLong size="small">Begrunnelse: {forslag.begrunnelse}</BodyLong>
+        <BodyLong size="small" className={globalStyles.textPreWrap}>
+          Begrunnelse: {forslag.begrunnelse}
+        </BodyLong>
       )}
     </>
   )

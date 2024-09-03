@@ -5,6 +5,7 @@ import { formatDate } from '../../../../../utils/date-utils'
 import { getHistorikkEndringsType } from '../../../../../mock/utils/historikk'
 import { getForslagTittel } from '../../../../../utils/text-mappers'
 import { EndringTypeIkon } from '../EndringTypeIkon'
+import globalStyles from '../../../../../globals.module.scss'
 
 interface Props {
   forslag: Forslag
@@ -34,7 +35,9 @@ export const HistorikkForslag = ({ forslag }: Props) => {
       forslag={forslag}
     >
       {forslag.status.type === ForslagStatusType.Avvist && (
-        <BodyLong size="small">{forslag.status.begrunnelseFraNav}</BodyLong>
+        <BodyLong size="small" className={globalStyles.textPreWrap}>
+          {forslag.status.begrunnelseFraNav}
+        </BodyLong>
       )}
 
       {forslagStatusTekst && (

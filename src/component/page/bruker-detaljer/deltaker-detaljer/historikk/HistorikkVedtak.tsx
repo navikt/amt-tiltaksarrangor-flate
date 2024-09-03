@@ -7,6 +7,7 @@ import { getDeltakelsesmengdetekst, skalViseDeltakelsesmengde } from '../../../.
 import { DeltakelseInnholdListe } from '../DeltakelseInnholdListe'
 import styles from './Historikk.module.scss'
 import { HistorikkElement } from './HistorikkElement'
+import globalStyles from '../../../../../globals.module.scss'
 
 interface Props {
   endringsVedtak: Vedtak
@@ -45,7 +46,7 @@ export const HistorikkVedtak = ({ endringsVedtak, tiltakstype }: Props) => {
           <BodyLong size="small" weight="semibold" className={styles.vedtak_info}>
             Bakgrunnsinfo
           </BodyLong>
-          <BodyLong size="small">{bakgrunnsinformasjon}</BodyLong>
+          <BodyLong size="small" className={globalStyles.textPreWrap}>{bakgrunnsinformasjon}</BodyLong>
         </>
       )}
 
