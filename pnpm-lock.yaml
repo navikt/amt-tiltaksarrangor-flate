@@ -92,7 +92,7 @@ importers:
         version: 7.18.0(eslint@8.57.0)(typescript@5.5.4)
       '@vitejs/plugin-react':
         specifier: ^4.3.1
-        version: 4.3.1(vite@5.4.3(@types/node@22.5.2)(sass@1.78.0))
+        version: 4.3.1(vite@5.4.3(@types/node@22.5.4)(sass@1.78.0))
       axe-core:
         specifier: ^4.10.0
         version: 4.10.0
@@ -100,11 +100,11 @@ importers:
         specifier: ^5.0.0
         version: 5.0.0
       cypress:
-        specifier: ^13.14.1
-        version: 13.14.1
+        specifier: ^13.14.2
+        version: 13.14.2
       cypress-axe:
         specifier: ^1.5.0
-        version: 1.5.0(axe-core@4.10.0)(cypress@13.14.1)
+        version: 1.5.0(axe-core@4.10.0)(cypress@13.14.2)
       eslint:
         specifier: ^8.57.0
         version: 8.57.0
@@ -152,10 +152,10 @@ importers:
         version: 6.8.2
       vite:
         specifier: ^5.4.3
-        version: 5.4.3(@types/node@22.5.2)(sass@1.78.0)
+        version: 5.4.3(@types/node@22.5.4)(sass@1.78.0)
       vitest:
         specifier: ^2.0.5
-        version: 2.0.5(@types/node@22.5.2)(jsdom@24.1.1)(sass@1.78.0)
+        version: 2.0.5(@types/node@22.5.4)(jsdom@24.1.1)(sass@1.78.0)
 
 packages:
 
@@ -272,8 +272,8 @@ packages:
     resolution: {integrity: sha512-ooWCrlZP11i8GImSjTHYHLkvFDP48nS4+204nGb1RiX/WXYHmJA2III9/e2DWVabCESdW7hBAEzHRqUn9OUVvQ==}
     engines: {node: '>=0.1.90'}
 
-  '@cypress/request@3.0.1':
-    resolution: {integrity: sha512-TWivJlJi8ZDx2wGOw1dbLuHJKUYX7bWySw377nlnGOW3hP9/MUKIsEdXT/YngWxVdgNCHRBmFlBipE+5/2ZZlQ==}
+  '@cypress/request@3.0.4':
+    resolution: {integrity: sha512-eqNHMsxEXuit0sRvvWoGG3/4+Q5qwqjKARWXKM/KoSsKvTNBwWt8pwspg5+TniP3POAZcPPx0O8CiEIQ4e6NWg==}
     engines: {node: '>= 6'}
 
   '@cypress/xvfb@1.2.4':
@@ -767,8 +767,8 @@ packages:
   '@types/node@22.0.0':
     resolution: {integrity: sha512-VT7KSYudcPOzP5Q0wfbowyNLaVR8QWUdw+088uFWwfvpY6uCWaXpqV6ieLAu9WBcnTa7H4Z5RLK8I5t2FuOcqw==}
 
-  '@types/node@22.5.2':
-    resolution: {integrity: sha512-acJsPTEqYqulZS/Yp/S3GgeE6GZ0qYODUR8aVr/DkhHQ8l9nd4j5x1/ZJy9/gHrRlFMqkO6i0I3E27Alu4jjPg==}
+  '@types/node@22.5.4':
+    resolution: {integrity: sha512-FDuKUJQm/ju9fT/SeX/6+gBzoPzlVCzfzmGkwKvRHQVxi4BntVbyIwf6a4Xn62mrvndLiml6z/UBXIdEVjQLXg==}
 
   '@types/parse-json@4.0.2':
     resolution: {integrity: sha512-dISoDXWWQwUquiKsyZ4Ng+HX2KsPL7LyHKHQwgGFEA3IaKac4Obd+h2a/a6waisAoepJlBcx9paWqjA8/HVjCw==}
@@ -1313,8 +1313,8 @@ packages:
       axe-core: ^3 || ^4
       cypress: ^10 || ^11 || ^12 || ^13
 
-  cypress@13.14.1:
-    resolution: {integrity: sha512-Wo+byPmjps66hACEH5udhXINEiN3qS3jWNGRzJOjrRJF3D0+YrcP2LVB1T7oYaVQM/S+eanqEvBWYc8cf7Vcbg==}
+  cypress@13.14.2:
+    resolution: {integrity: sha512-lsiQrN17vHMB2fnvxIrKLAjOr9bPwsNbPZNrWf99s4u+DVmCY6U+w7O3GGG9FvP4EUVYaDu+guWeNLiUzBrqvA==}
     engines: {node: ^16.0.0 || ^18.0.0 || >=20.0.0}
     hasBin: true
 
@@ -1357,6 +1357,15 @@ packages:
 
   debug@4.3.6:
     resolution: {integrity: sha512-O/09Bd4Z1fBrU4VzkhFqVgpPzaGbw6Sm9FEkBT1A/YBXQFGuuSxa1dN2nxgxS34JmKXqYx8CZAwEVoJFImUXIg==}
+    engines: {node: '>=6.0'}
+    peerDependencies:
+      supports-color: '*'
+    peerDependenciesMeta:
+      supports-color:
+        optional: true
+
+  debug@4.3.7:
+    resolution: {integrity: sha512-Er2nc/H7RrMXZBFCEim6TCmMk02Z8vLC2Rbi1KEBggpo0fS6l0S1nnapwmIi3yW/+GOJap1Krg4w0Hg80oCqgQ==}
     engines: {node: '>=6.0'}
     peerDependencies:
       supports-color: '*'
@@ -1706,8 +1715,8 @@ packages:
   forever-agent@0.6.1:
     resolution: {integrity: sha512-j0KLYPhm6zeac4lz3oJ3o65qvgQCcPubiyotZrXqEaG4hNagNYO8qdlUrX5vwqv9ohqeT/Z3j6+yW067yWWdUw==}
 
-  form-data@2.3.3:
-    resolution: {integrity: sha512-1lLKB2Mu3aGP1Q/2eCOx0fNbRMe7XdwktwOruhfqqd0rIJWwN4Dh+E3hrPSlDCXnSR7UtZ1N38rVXm+6+MEhJQ==}
+  form-data@2.5.1:
+    resolution: {integrity: sha512-m21N3WOmEEURgk6B9GLOE4RuWOFf28Lhh9qGYeNlGq4VDXUlJy2th2slBNU8Gp8EzloYZOibZJ7t5ecIrFSjVA==}
     engines: {node: '>= 0.12'}
 
   form-data@4.0.0:
@@ -1877,8 +1886,8 @@ packages:
     resolution: {integrity: sha512-T1gkAiYYDWYx3V5Bmyu7HcfcvL7mUrTWiM6yOfa3PIphViJ/gFPbvidQ+veqSOHci/PxBcDabeUNCzpOODJZig==}
     engines: {node: '>= 14'}
 
-  http-signature@1.3.6:
-    resolution: {integrity: sha512-3adrsD6zqo4GsTqtO7FyrejHNv+NgiIfAfv68+jVlFmSr9OGy7zrxONceFRLKvnnZA5jbxQBX1u9PpB6Wi32Gw==}
+  http-signature@1.4.0:
+    resolution: {integrity: sha512-G5akfn7eKbpDN+8nPS/cb57YeA1jLTVxjpCj7tmm3QKPdyDy7T+qSC40e9ptydSWvkwjSXw1VbkpyEm39ukeAg==}
     engines: {node: '>=0.10'}
 
   https-proxy-agent@7.0.5:
@@ -2595,8 +2604,8 @@ packages:
     resolution: {integrity: sha512-vYt7UD1U9Wg6138shLtLOvdAu+8DsC/ilFtEVHcH+wydcSpNE20AfSOduf6MkRFahL5FY7X1oU7nKVZFtfq8Fg==}
     engines: {node: '>=6'}
 
-  qs@6.10.4:
-    resolution: {integrity: sha512-OQiU+C+Ds5qiH91qh/mg0w+8nwQuLjM4F4M/PbmhDOoYehPh+Fb0bDjtR1sOvy7YKxvj28Y/M0PhP5uVX0kB+g==}
+  qs@6.13.0:
+    resolution: {integrity: sha512-+38qI9SOr8tfZ4QmJNplMUxqjbe7LKvvZgWdExBOmd+egZTtjLB67Gu0HRX3u/XOq7UU2Nx6nsjvS16Z9uwfpg==}
     engines: {node: '>=0.6'}
 
   query-string@8.1.0:
@@ -3351,7 +3360,7 @@ snapshots:
       '@babel/traverse': 7.25.2
       '@babel/types': 7.25.2
       convert-source-map: 2.0.0
-      debug: 4.3.6(supports-color@8.1.1)
+      debug: 4.3.6
       gensync: 1.0.0-beta.2
       json5: 2.2.3
       semver: 6.3.1
@@ -3448,7 +3457,7 @@ snapshots:
       '@babel/parser': 7.25.0
       '@babel/template': 7.25.0
       '@babel/types': 7.25.2
-      debug: 4.3.6(supports-color@8.1.1)
+      debug: 4.3.6
       globals: 11.12.0
     transitivePeerDependencies:
       - supports-color
@@ -3462,7 +3471,7 @@ snapshots:
   '@colors/colors@1.5.0':
     optional: true
 
-  '@cypress/request@3.0.1':
+  '@cypress/request@3.0.4':
     dependencies:
       aws-sign2: 0.7.0
       aws4: 1.13.2
@@ -3470,14 +3479,14 @@ snapshots:
       combined-stream: 1.0.8
       extend: 3.0.2
       forever-agent: 0.6.1
-      form-data: 2.3.3
-      http-signature: 1.3.6
+      form-data: 2.5.1
+      http-signature: 1.4.0
       is-typedarray: 1.0.0
       isstream: 0.1.2
       json-stringify-safe: 5.0.1
       mime-types: 2.1.35
       performance-now: 2.1.0
-      qs: 6.10.4
+      qs: 6.13.0
       safe-buffer: 5.2.1
       tough-cookie: 4.1.4
       tunnel-agent: 0.6.0
@@ -3633,7 +3642,7 @@ snapshots:
   '@eslint/eslintrc@2.1.4':
     dependencies:
       ajv: 6.12.6
-      debug: 4.3.6(supports-color@8.1.1)
+      debug: 4.3.6
       espree: 9.6.1
       globals: 13.24.0
       ignore: 5.3.1
@@ -3689,7 +3698,7 @@ snapshots:
   '@humanwhocodes/config-array@0.11.14':
     dependencies:
       '@humanwhocodes/object-schema': 2.0.3
-      debug: 4.3.6(supports-color@8.1.1)
+      debug: 4.3.6
       minimatch: 3.1.2
     transitivePeerDependencies:
       - supports-color
@@ -3725,7 +3734,7 @@ snapshots:
       '@open-draft/until': 1.0.3
       '@types/debug': 4.1.12
       '@xmldom/xmldom': 0.8.10
-      debug: 4.3.6(supports-color@8.1.1)
+      debug: 4.3.7(supports-color@8.1.1)
       headers-polyfill: 3.2.5
       outvariant: 1.4.3
       strict-event-emitter: 0.2.8
@@ -3943,7 +3952,7 @@ snapshots:
     dependencies:
       undici-types: 6.11.1
 
-  '@types/node@22.5.2':
+  '@types/node@22.5.4':
     dependencies:
       undici-types: 6.19.8
     optional: true
@@ -3990,7 +3999,7 @@ snapshots:
 
   '@types/yauzl@2.10.3':
     dependencies:
-      '@types/node': 22.5.2
+      '@types/node': 22.5.4
     optional: true
 
   '@typescript-eslint/eslint-plugin@7.18.0(@typescript-eslint/parser@7.18.0(eslint@8.57.0)(typescript@5.5.4))(eslint@8.57.0)(typescript@5.5.4)':
@@ -4017,7 +4026,7 @@ snapshots:
       '@typescript-eslint/types': 7.18.0
       '@typescript-eslint/typescript-estree': 7.18.0(typescript@5.5.4)
       '@typescript-eslint/visitor-keys': 7.18.0
-      debug: 4.3.6(supports-color@8.1.1)
+      debug: 4.3.6
       eslint: 8.57.0
     optionalDependencies:
       typescript: 5.5.4
@@ -4033,7 +4042,7 @@ snapshots:
     dependencies:
       '@typescript-eslint/typescript-estree': 7.18.0(typescript@5.5.4)
       '@typescript-eslint/utils': 7.18.0(eslint@8.57.0)(typescript@5.5.4)
-      debug: 4.3.6(supports-color@8.1.1)
+      debug: 4.3.7(supports-color@8.1.1)
       eslint: 8.57.0
       ts-api-utils: 1.3.0(typescript@5.5.4)
     optionalDependencies:
@@ -4047,7 +4056,7 @@ snapshots:
     dependencies:
       '@typescript-eslint/types': 7.18.0
       '@typescript-eslint/visitor-keys': 7.18.0
-      debug: 4.3.6(supports-color@8.1.1)
+      debug: 4.3.6
       globby: 11.1.0
       is-glob: 4.0.3
       minimatch: 9.0.5
@@ -4076,14 +4085,14 @@ snapshots:
 
   '@ungap/structured-clone@1.2.0': {}
 
-  '@vitejs/plugin-react@4.3.1(vite@5.4.3(@types/node@22.5.2)(sass@1.78.0))':
+  '@vitejs/plugin-react@4.3.1(vite@5.4.3(@types/node@22.5.4)(sass@1.78.0))':
     dependencies:
       '@babel/core': 7.25.2
       '@babel/plugin-transform-react-jsx-self': 7.24.7(@babel/core@7.25.2)
       '@babel/plugin-transform-react-jsx-source': 7.24.7(@babel/core@7.25.2)
       '@types/babel__core': 7.20.5
       react-refresh: 0.14.2
-      vite: 5.4.3(@types/node@22.5.2)(sass@1.78.0)
+      vite: 5.4.3(@types/node@22.5.4)(sass@1.78.0)
     transitivePeerDependencies:
       - supports-color
 
@@ -4133,7 +4142,7 @@ snapshots:
 
   agent-base@7.1.1:
     dependencies:
-      debug: 4.3.6(supports-color@8.1.1)
+      debug: 4.3.7(supports-color@8.1.1)
     transitivePeerDependencies:
       - supports-color
 
@@ -4549,14 +4558,14 @@ snapshots:
 
   csstype@3.1.3: {}
 
-  cypress-axe@1.5.0(axe-core@4.10.0)(cypress@13.14.1):
+  cypress-axe@1.5.0(axe-core@4.10.0)(cypress@13.14.2):
     dependencies:
       axe-core: 4.10.0
-      cypress: 13.14.1
+      cypress: 13.14.2
 
-  cypress@13.14.1:
+  cypress@13.14.2:
     dependencies:
-      '@cypress/request': 3.0.1
+      '@cypress/request': 3.0.4
       '@cypress/xvfb': 1.2.4(supports-color@8.1.1)
       '@types/sinonjs__fake-timers': 8.1.1
       '@types/sizzle': 2.3.8
@@ -4572,7 +4581,7 @@ snapshots:
       commander: 6.2.1
       common-tags: 1.8.2
       dayjs: 1.11.13
-      debug: 4.3.6(supports-color@8.1.1)
+      debug: 4.3.7(supports-color@8.1.1)
       enquirer: 2.4.1
       eventemitter2: 6.4.7
       execa: 4.1.0
@@ -4638,9 +4647,13 @@ snapshots:
     optionalDependencies:
       supports-color: 8.1.1
 
-  debug@4.3.6(supports-color@8.1.1):
+  debug@4.3.6:
     dependencies:
       ms: 2.1.2
+
+  debug@4.3.7(supports-color@8.1.1):
+    dependencies:
+      ms: 2.1.3
     optionalDependencies:
       supports-color: 8.1.1
 
@@ -4987,7 +5000,7 @@ snapshots:
       ajv: 6.12.6
       chalk: 4.1.2
       cross-spawn: 7.0.3
-      debug: 4.3.6(supports-color@8.1.1)
+      debug: 4.3.6
       doctrine: 3.0.0
       escape-string-regexp: 4.0.0
       eslint-scope: 7.2.2
@@ -5083,7 +5096,7 @@ snapshots:
 
   extract-zip@2.0.1(supports-color@8.1.1):
     dependencies:
-      debug: 4.3.6(supports-color@8.1.1)
+      debug: 4.3.7(supports-color@8.1.1)
       get-stream: 5.2.0
       yauzl: 2.10.0
     optionalDependencies:
@@ -5154,7 +5167,7 @@ snapshots:
 
   forever-agent@0.6.1: {}
 
-  form-data@2.3.3:
+  form-data@2.5.1:
     dependencies:
       asynckit: 0.4.0
       combined-stream: 1.0.8
@@ -5339,11 +5352,11 @@ snapshots:
   http-proxy-agent@7.0.2:
     dependencies:
       agent-base: 7.1.1
-      debug: 4.3.6(supports-color@8.1.1)
+      debug: 4.3.7(supports-color@8.1.1)
     transitivePeerDependencies:
       - supports-color
 
-  http-signature@1.3.6:
+  http-signature@1.4.0:
     dependencies:
       assert-plus: 1.0.0
       jsprim: 2.0.2
@@ -5352,7 +5365,7 @@ snapshots:
   https-proxy-agent@7.0.5:
     dependencies:
       agent-base: 7.1.1
-      debug: 4.3.6(supports-color@8.1.1)
+      debug: 4.3.7(supports-color@8.1.1)
     transitivePeerDependencies:
       - supports-color
 
@@ -5673,7 +5686,7 @@ snapshots:
     dependencies:
       chalk: 5.3.0
       commander: 12.1.0
-      debug: 4.3.6(supports-color@8.1.1)
+      debug: 4.3.6
       execa: 8.0.1
       lilconfig: 3.1.2
       listr2: 8.2.4
@@ -6040,7 +6053,7 @@ snapshots:
 
   punycode@2.3.1: {}
 
-  qs@6.10.4:
+  qs@6.13.0:
     dependencies:
       side-channel: 1.0.6
 
@@ -6616,13 +6629,13 @@ snapshots:
       core-util-is: 1.0.2
       extsprintf: 1.3.0
 
-  vite-node@2.0.5(@types/node@22.5.2)(sass@1.78.0):
+  vite-node@2.0.5(@types/node@22.5.4)(sass@1.78.0):
     dependencies:
       cac: 6.7.14
-      debug: 4.3.6(supports-color@8.1.1)
+      debug: 4.3.6
       pathe: 1.1.2
       tinyrainbow: 1.2.0
-      vite: 5.4.3(@types/node@22.5.2)(sass@1.78.0)
+      vite: 5.4.3(@types/node@22.5.4)(sass@1.78.0)
     transitivePeerDependencies:
       - '@types/node'
       - less
@@ -6634,17 +6647,17 @@ snapshots:
       - supports-color
       - terser
 
-  vite@5.4.3(@types/node@22.5.2)(sass@1.78.0):
+  vite@5.4.3(@types/node@22.5.4)(sass@1.78.0):
     dependencies:
       esbuild: 0.21.5
       postcss: 8.4.45
       rollup: 4.21.2
     optionalDependencies:
-      '@types/node': 22.5.2
+      '@types/node': 22.5.4
       fsevents: 2.3.3
       sass: 1.78.0
 
-  vitest@2.0.5(@types/node@22.5.2)(jsdom@24.1.1)(sass@1.78.0):
+  vitest@2.0.5(@types/node@22.5.4)(jsdom@24.1.1)(sass@1.78.0):
     dependencies:
       '@ampproject/remapping': 2.3.0
       '@vitest/expect': 2.0.5
@@ -6654,7 +6667,7 @@ snapshots:
       '@vitest/spy': 2.0.5
       '@vitest/utils': 2.0.5
       chai: 5.1.1
-      debug: 4.3.6(supports-color@8.1.1)
+      debug: 4.3.6
       execa: 8.0.1
       magic-string: 0.30.11
       pathe: 1.1.2
@@ -6662,11 +6675,11 @@ snapshots:
       tinybench: 2.9.0
       tinypool: 1.0.0
       tinyrainbow: 1.2.0
-      vite: 5.4.3(@types/node@22.5.2)(sass@1.78.0)
-      vite-node: 2.0.5(@types/node@22.5.2)(sass@1.78.0)
+      vite: 5.4.3(@types/node@22.5.4)(sass@1.78.0)
+      vite-node: 2.0.5(@types/node@22.5.4)(sass@1.78.0)
       why-is-node-running: 2.3.0
     optionalDependencies:
-      '@types/node': 22.5.2
+      '@types/node': 22.5.4
       jsdom: 24.1.1
     transitivePeerDependencies:
       - less
