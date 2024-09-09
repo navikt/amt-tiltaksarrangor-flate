@@ -3,7 +3,6 @@ import { HistorikkModal } from './HistorikkModal'
 import { useState } from 'react'
 import { fetchDeltakerHistorikk } from '../../../../../api/historikk-api'
 import { DeltakerHistorikkListe } from '../../../../../api/data/historikk'
-import styles from './Historikk.module.scss'
 import { Tiltakskode } from '../../../../../api/data/tiltak'
 
 interface Props {
