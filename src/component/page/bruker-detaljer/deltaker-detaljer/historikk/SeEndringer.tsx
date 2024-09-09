@@ -24,8 +24,7 @@ export const SeEndringer = ({
   const seEndringer = () => {
     fetchDeltakerHistorikk(deltakerId).then((res) => {
       setHistorikk(res.data)
-      setHistorikkModalOpen(true) // spør Linn om denne skal være på knappen eller i modalen
-    }).catch(() => {
+      setHistorikkModalOpen(true)
       setError(true)
     })
   }
