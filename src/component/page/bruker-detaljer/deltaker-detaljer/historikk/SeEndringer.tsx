@@ -25,6 +25,7 @@ export const SeEndringer = ({
     fetchDeltakerHistorikk(deltakerId).then((res) => {
       setHistorikk(res.data)
       setHistorikkModalOpen(true)
+    }).catch(() => {
       setError(true)
     })
   }
