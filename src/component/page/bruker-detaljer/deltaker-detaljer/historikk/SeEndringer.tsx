@@ -42,7 +42,7 @@ export const SeEndringer = ({
       </Button >
 
       {error && (
-        <Alert variant="error" className={styles.alert_hent_historikk} size="small">
+        <Alert variant="error" size="small">
           Beklager, vi kunne ikke hente historiske endringer på tiltaket.
         </Alert>
       )
