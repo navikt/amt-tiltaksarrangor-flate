@@ -17,8 +17,6 @@ interface Props {
 export const HistorikkVedtak = ({ endringsVedtak, tiltakstype }: Props) => {
   const {
     fattet,
-    fattetAvNav,
-    opprettet,
     opprettetAv,
     opprettetAvEnhet,
     deltakelsesinnhold,
@@ -62,9 +60,7 @@ export const HistorikkVedtak = ({ endringsVedtak, tiltakstype }: Props) => {
       )}
 
       <Detail className={styles.fattet_av} textColor="subtle">
-        {fattetAvNav
-          ? `Meldt på av ${opprettetAv} ${opprettetAvEnhet} ${formatDate(fattet)}.`
-          : `Utkast delt ${formatDate(opprettet)} av ${opprettetAv} ${opprettetAvEnhet}. Du godkjente utkastet ${formatDate(fattet)}.`}
+        Meldt på av {opprettetAv} {opprettetAvEnhet} {formatDate(fattet)}.
       </Detail>
     </HistorikkElement>
   )
