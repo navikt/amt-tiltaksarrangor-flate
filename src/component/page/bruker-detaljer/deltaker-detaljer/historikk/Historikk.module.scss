@@ -1,0 +1,76 @@
+.historikk_list_item {
+    margin-bottom: 1.5rem;
+}
+
+.historikk_list_item:last-child {
+    margin-bottom: 0;
+}
+
+.innhold_liste {
+    margin-top: -0.75rem;
+    margin-bottom: -0.25rem;
+li {
+        margin-block-end: 0;
+    }
+}
+
+.vedtak_info {
+    margin-top: 0.5rem;
+}
+
+.fattet_av {
+    margin-top: 0.25rem;
+}
+
+.tomDiv {
+    margin-bottom: -0.25rem;
+}
+
+.endring_detail {
+    margin-top: 0.25rem;
+}
+
+.historikk_item {
+    display: grid;
+    gap: 0.5rem;
+}
+
+.historikk_ikon {
+    margin-top: 0.75rem;
+    font-size: 1.25rem;
+    line-height: 1.75rem;
+}
+
+.historikk_content_wrapper {
+    padding-top: 0.5rem;
+}
+
+.historikk_heading_wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 100%;
+
+    @media (min-width: 768px) {
+        //600px?
+        flex-direction: row;
+    }
+}
+
+.historikk_heading {
+    margin-bottom: 0.25rem;
+}
+
+.historikk_status_tag {
+    width: fit-content;
+    margin-bottom: 0.25rem;
+
+    @media (min-width: 768px) {
+        margin-bottom: 0;
+    }
+}
+
+.historikk_forslag_detail_wrapper {
+    margin-top: 0.25rem;
+    margin-bottom: 0.25rem;
+}

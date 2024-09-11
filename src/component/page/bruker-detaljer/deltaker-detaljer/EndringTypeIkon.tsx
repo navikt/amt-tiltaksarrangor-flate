@@ -8,60 +8,104 @@ import {
   ChevronRightCircleFillIcon,
   PlusCircleFillIcon,
   PieChartFillIcon,
-  ChevronRightLastCircleFillIcon
+  ChevronRightLastCircleFillIcon,
+  CaretRightCircleFillIcon,
+  MenuElipsisHorizontalCircleFillIcon
 } from '@navikt/aksel-icons'
+import { EndringType as HistorikkEndringType } from '../../../../api/data/historikk'
 
 interface EndringTypeIkonProps {
-  type: EndringType
-  size?: 'medium' | 'large'
+  type: EndringType | HistorikkEndringType
+  size?: 'medium' | 'large' | 'small'
 }
 
-export const EndringTypeIkon = (props: EndringTypeIkonProps) => {
-  const s = props.size === 'large' ? 'Large' : ''
-  switch (props.type) {
+const sizeName = (size?: 'small' | 'medium' | 'large') => {
+  if (size === 'large') {
+    return styles.ikon_large
+  } else if (size === 'small') {
+    return styles.ikon_small
+  } else {
+    return styles.ikon_medium
+  }
+}
+
+export const EndringTypeIkon = ({ type, size }: EndringTypeIkonProps) => {
+
+  switch (type) {
+    case HistorikkEndringType.EndreStartdato:
     case EndringType.LEGG_TIL_OPPSTARTSDATO:
     case EndringType.ENDRE_OPPSTARTSDATO:
       return (
         <ChevronRightCircleFillIcon
-          className={styles[`endreIkon${s}`]}
+          className={sizeName(size)}
           aria-hidden
+          color="var(--a-deepblue-300)"
         />
       )
+    case HistorikkEndringType.ForlengDeltakelse:
     case EndringType.FORLENG_DELTAKELSE:
       return (
         <ChevronRightDoubleCircleFillIcon
-          className={styles[`forlengIkon${s}`]}
+          className={sizeName(size)}
           aria-hidden
+          color="var(--a-icon-success)"
         />
       )
+    case HistorikkEndringType.AvsluttDeltakelse:
+    case HistorikkEndringType.EndreSluttdato:
     case EndringType.AVSLUTT_DELTAKELSE:
     case EndringType.ENDRE_SLUTTDATO:
       return (
         <MinusCircleFillIcon
-          className={styles[`avsluttIkon${s}`]}
+          className={sizeName(size)}
           aria-hidden
+          color="var(--a-gray-600)"
         />
       )
-    case EndringType.ENDRE_DELTAKELSE_PROSENT:
-      return (
-        <PieChartFillIcon
-          className={styles[`endreProsentDeltakelseIkon${s}`]}
-          aria-hidden
-        />
-      )
+    case HistorikkEndringType.IkkeAktuell:
     case EndringType.DELTAKER_IKKE_AKTUELL:
       return (
         <PlusCircleFillIcon
-          className={styles[`ikkeAktuellIkon${s}`]}
+          className={`${sizeName(size)} ${styles.ikke_aktuell_ikon}`}
           aria-hidden
+          color="var(--a-orange-600)"
         />
       )
+    case HistorikkEndringType.EndreSluttarsak:
     case EndringType.ENDRE_SLUTTAARSAK:
       return (
         <ChevronRightLastCircleFillIcon
-          className={styles[`endreSluttArsak${s}`]}
+          className={sizeName(size)}
           aria-hidden
+          color="var(--a-gray-500)"
+        />
+      )
+    case HistorikkEndringType.EndreBakgrunnsinformasjon:
+    case HistorikkEndringType.EndreInnhold:
+      return (
+        <MenuElipsisHorizontalCircleFillIcon
+          className={sizeName(size)}
+          aria-hidden
+          color="var(--a-deepblue-400)"
+        />
+      )
+    case HistorikkEndringType.EndreDeltakelsesmengde:
+    case EndringType.ENDRE_DELTAKELSE_PROSENT:
+      return (
+        <PieChartFillIcon
+          className={sizeName(size)}
+          aria-hidden
+          color="var(--a-purple-500)"
+        />
+      )
+    case HistorikkEndringType.ReaktiverDeltakelse:
+      return (
+        <CaretRightCircleFillIcon
+          className={sizeName(size)}
+          aria-hidden
+          color="var(--a-icon-alt-2)"
         />
       )
   }
+
 }

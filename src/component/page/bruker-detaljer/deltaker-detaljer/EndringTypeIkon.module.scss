@@ -1,91 +1,21 @@
-.ikon {
+.ikon_medium {
   height: 22px;
   width: 22px;
   flex-shrink: 0;
 }
 
-.ikonLarge {
+.ikon_small {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+}
+
+.ikon_large {
   height: 26px;
   width: 26px;
+  flex-shrink: 0;
 }
 
-.endreIkon {
-  color: var(--a-deepblue-300);
-  @extend .ikon;
-}
-
-.endreIkonLarge {
-  @extend .endreIkon;
-  @extend .ikonLarge;
-}
-
-.forlengIkon {
-  color: var(--a-icon-success);
-  @extend .ikon;
-}
-
-.forlengIkonLarge {
-  @extend .forlengIkon;
-  @extend .ikonLarge;
-}
-
-.ikkeAktuellIkon {
-  color: var(--a-icon-warning);
+.ikke_aktuell_ikon {
   transform: rotate(45deg);
-  @extend .ikon;
-}
-
-.ikkeAktuellIkonLarge {
-  @extend .ikkeAktuellIkon;
-  @extend .ikonLarge;
-}
-
-.endreProsentDeltakelseIkon {
-  color: var(--a-purple-400);
-  @extend .ikon;
-}
-
-.endreProsentDeltakelseIkonLarge {
-  @extend .endreProsentDeltakelseIkon;
-  @extend .ikonLarge;
-}
-
-.avsluttIkon {
-  color: var(--a-gray-500);
-  @extend .ikon;
-}
-
-.avsluttIkonLarge {
-  @extend .avsluttIkon;
-  @extend .ikonLarge;
-}
-
-.erAktuellIkon {
-  color: var(--a-green-500);
-  @extend .ikon;
-}
-
-.erAktuellIkonLarge {
-  @extend .erAktuellIkon;
-  @extend .ikonLarge;
-}
-
-.settPaaVentelisteIkon {
-  color: var(--a-icon-info);
-  @extend .ikon;
-}
-
-.settPaaVentelisteIkonLarge {
-  @extend .settPaaVentelisteIkon;
-  @extend .ikonLarge;
-}
-
-.endreSluttArsak {
-  color: var(--a-gray-600);
-  @extend .ikon;
-}
-
-.endreSluttArsakLarge {
-  @extend .endreSluttArsak;
-  @extend .ikonLarge;
 }

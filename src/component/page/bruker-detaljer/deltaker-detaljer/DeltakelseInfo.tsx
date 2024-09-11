@@ -26,6 +26,7 @@ import { AktiveForslag } from './forslag/AktiveForslag'
 import { AktivtForslag } from '../../../../api/data/forslag'
 import { useFeatureToggle } from '../../../../hooks/useFeatureToggle'
 import { useDeltakerStore } from './deltaker-store'
+import { SeEndringer } from './historikk/SeEndringer'
 
 interface DeltakelseInfoProps {
   deltaker: Deltaker
@@ -121,11 +122,23 @@ export const DeltakelseInfo = ({
             onTilbakekalt={handleForslagTilbakekalt}
           />
         )}
-        <Endringsmeldinger
-          deltaker={deltaker}
-          setReloadEndringsmeldinger={setReloadEndringsmeldinger}
-          reloadEndringsmeldinger={reloadEndringsmeldinger}
-        />
+
+        {erForslagEnabled && (
+          <SeEndringer
+            className={styles.seEndringerKnapp}
+            tiltakstype={deltaker.deltakerliste.tiltakstype}
+            deltakerId={deltaker.id}
+          />
+        )}
+
+        {!erForslagEnabled && (
+          <Endringsmeldinger
+            deltaker={deltaker}
+            setReloadEndringsmeldinger={setReloadEndringsmeldinger}
+            reloadEndringsmeldinger={reloadEndringsmeldinger}
+          />
+        )}
+
         {kanFjerneDeltaker && isNotStarted(skjulDeltakerPromise) && (
           <Alert variant="warning" size="small" className={styles.statusAlert}>
             Deltakeren fjernes fra listen {formatDate(deltaker.fjernesDato)}
