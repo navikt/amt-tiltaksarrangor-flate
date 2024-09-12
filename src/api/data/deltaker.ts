@@ -1,7 +1,7 @@
 import { z } from 'zod'
 
 import { dateSchema, nullableDateSchema } from '../utils'
-import { endringsmeldingSchema } from './endringsmelding'
+import { deltakerStatusAarsakSchema, endringsmeldingSchema } from './endringsmelding'
 import {
   Tiltakskode,
   koordinatorListSchema,
@@ -47,7 +47,8 @@ const tiltakDeltakerStatusSchema = z.nativeEnum(TiltakDeltakerStatus)
 
 export const deltakerStatusSchema = z.object({
   type: tiltakDeltakerStatusSchema,
-  endretDato: dateSchema
+  endretDato: dateSchema,
+  aarsak: deltakerStatusAarsakSchema.nullable(),
 })
 
 export const navVeilederSchema = z.object({

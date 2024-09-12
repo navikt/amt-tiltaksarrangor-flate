@@ -3,7 +3,9 @@ import { AxiosResponse } from 'axios'
 import React, { useState } from 'react'
 
 import { Deltaker, TiltakDeltakerStatus } from '../../../../api/data/deltaker'
+import { AktivtForslag } from '../../../../api/data/forslag'
 import { skjulDeltaker } from '../../../../api/tiltak-api'
+import { useFeatureToggle } from '../../../../hooks/useFeatureToggle'
 import { formatDate } from '../../../../utils/date-utils'
 import {
   getDeltakelsesmengdetekst,
@@ -18,15 +20,14 @@ import {
 } from '../../../../utils/use-promise'
 import { StatusMerkelapp } from '../../../felles/status-merkelapp/StatusMerkelapp'
 import styles from './DeltakelseInfo.module.scss'
+import { useDeltakerStore } from './deltaker-store'
 import { ElementPanel } from './ElementPanel'
 import { EndreDeltakelseKnapp } from './EndreDeltakelseKnapp'
 import { Endringsmeldinger } from './endringsmelding/Endringsmeldinger'
 import { FjernDeltakerModal } from './fjern-deltaker-modal/FjernDeltakerModal'
 import { AktiveForslag } from './forslag/AktiveForslag'
-import { AktivtForslag } from '../../../../api/data/forslag'
-import { useFeatureToggle } from '../../../../hooks/useFeatureToggle'
-import { useDeltakerStore } from './deltaker-store'
 import { SeEndringer } from './historikk/SeEndringer'
+import { getDeltakerStatusAarsakText } from './tekst-mappers'
 
 interface DeltakelseInfoProps {
   deltaker: Deltaker
@@ -88,6 +89,13 @@ export const DeltakelseInfo = ({
           <ElementPanel tittel="Status:">
             <StatusMerkelapp status={deltaker.status} />
           </ElementPanel>
+          {erForslagEnabled && deltaker.status.aarsak && (
+            <ElementPanel tittel="Årsak:">
+              <span>
+                {getDeltakerStatusAarsakText(deltaker.status.aarsak)}
+              </span>
+            </ElementPanel>
+          )}
           <ElementPanel tittel="Dato:">
             <span>
               {formatDate(deltaker.startDato)} -{' '}

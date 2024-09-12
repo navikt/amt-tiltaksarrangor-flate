@@ -1,5 +1,5 @@
 import { Vurderingstype } from '../../../../api/data/deltaker'
-import { DeltakerStatusAarsakType } from '../../../../api/data/endringsmelding'
+import { DeltakerStatusAarsak, DeltakerStatusAarsakType } from '../../../../api/data/endringsmelding'
 import { EndringAarsak } from '../../../../api/data/forslag'
 import { EndringType } from './types'
 
@@ -21,6 +21,25 @@ export const aarsakTekstMapper = (aarsakType: DeltakerStatusAarsakType) => {
       return 'Samarbeidet med arrangøren er avbrutt'
     default:
       return 'Ukjent'
+  }
+}
+
+export const getDeltakerStatusAarsakText = (aarsak: DeltakerStatusAarsak) => {
+  switch (aarsak.type) {
+    case DeltakerStatusAarsakType.ANNET:
+      return `Annet - ${aarsak.beskrivelse}`
+    case DeltakerStatusAarsakType.FATT_JOBB:
+      return 'Fått jobb'
+    case DeltakerStatusAarsakType.IKKE_MOTT:
+      return 'Møter ikke opp'
+    case DeltakerStatusAarsakType.SYK:
+      return 'Syk'
+    case DeltakerStatusAarsakType.TRENGER_ANNEN_STOTTE:
+      return 'Trenger annen hjelp og støtte'
+    case DeltakerStatusAarsakType.UTDANNING:
+      return 'Utdanning'
+    case DeltakerStatusAarsakType.SAMARBEIDET_MED_ARRANGOREN_ER_AVBRUTT:
+      return 'Samarbeidet med arrangøren er avbrutt'
   }
 }
 

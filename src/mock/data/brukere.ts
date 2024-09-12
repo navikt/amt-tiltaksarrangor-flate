@@ -8,7 +8,7 @@ import {
   TiltakDeltakerStatus,
   Deltakelsesinnhold
 } from '../../api/data/deltaker'
-import { Endringsmelding } from '../../api/data/endringsmelding'
+import { DeltakerStatusAarsakType, Endringsmelding } from '../../api/data/endringsmelding'
 import { Gjennomforing, Tiltakskode } from '../../api/data/tiltak'
 import { VeilederMedType } from '../../api/data/veileder'
 import { randBetween, randomBoolean, randomFnr } from '../utils/faker'
@@ -48,7 +48,11 @@ export interface MockTiltakDeltaker {
   dagerPerUke: number | null
   status: {
     type: TiltakDeltakerStatus
-    endretDato: Date
+    endretDato: Date,
+    aarsak: {
+      type: DeltakerStatusAarsakType,
+      beskrivelse: string | null
+    } | null
   }
   registrertDato: Date
   epost: string | null
@@ -274,7 +278,13 @@ const lagMockTiltakDeltagerForGjennomforing = (
     dagerPerUke: randBetween(0, 10) > 5 ? randBetween(1, 5) : null,
     status: {
       type: status,
-      endretDato: faker.date.recent()
+      endretDato: faker.date.recent(),
+      aarsak: status === TiltakDeltakerStatus.IKKE_AKTUELL
+        || status === TiltakDeltakerStatus.AVBRUTT
+        || status === TiltakDeltakerStatus.HAR_SLUTTET ? {
+        type: DeltakerStatusAarsakType.FATT_JOBB,
+        beskrivelse: null
+      } : null
     },
     navEnhet:
       randBetween(0, 10) < 9 ? faker.helpers.arrayElement(navEnheter) : null,
