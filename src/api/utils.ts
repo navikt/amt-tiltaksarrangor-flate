@@ -1,4 +1,4 @@
-import axios, { AxiosResponse } from 'axios'
+import axios, { AxiosResponse, AxiosError } from 'axios'
 import dayjs from 'dayjs'
 import { z, ZodType } from 'zod'
 
@@ -28,6 +28,11 @@ export function parse<T>(
 export function logAndThrowError<E = Error>(err: E, url: string): E {
   // eslint-disable-next-line no-console
   console.error(`Request to ${url} failed: ${JSON.stringify(err)}`)
-  captureError(err)
+
+  // Ikke logg 401 feil til sentry
+  if ((err as AxiosError).response?.status !== 401) {
+    captureError(err)
+  }
+
   throw err
 }

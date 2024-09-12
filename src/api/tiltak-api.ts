@@ -35,10 +35,6 @@ import { axiosInstance, logAndThrowError, parse } from './utils'
 export const fetchMineRoller = (): AxiosPromise<Rolle[]> => {
   const url = appUrl('/amt-tiltaksarrangor-bff/tiltaksarrangor/meg/roller')
   return axiosInstance.get(url).catch((err) => {
-    // Ikke logg 401 feil til sentry
-    if ((err as AxiosError).response?.status === 401) {
-      throw err
-    }
 
     return logAndThrowError(err, url)
   })
