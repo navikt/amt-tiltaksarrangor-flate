@@ -21,8 +21,8 @@ importers:
         specifier: ^6.16.3
         version: 6.16.3(@types/react@18.3.5)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@navikt/ds-tokens':
-        specifier: ^6.16.3
-        version: 6.16.3
+        specifier: ^7.0.0
+        version: 7.0.0
       '@navikt/nav-dekoratoren-moduler':
         specifier: ^2.1.6
         version: 2.1.6(jsdom@24.1.1)(react@18.3.1)
@@ -566,6 +566,9 @@ packages:
 
   '@navikt/ds-tokens@6.16.3':
     resolution: {integrity: sha512-kVIYWf2gSdy4PB+sRbKn1HERep/c6WnCH31DUHLqrcgzGXHG+qcfnS5nEWl9wn10NE+dMlL4+A7B2rPc/3rIzQ==, tarball: https://npm.pkg.github.com/download/@navikt/ds-tokens/6.16.3/1ce1e16ad2c2386a756e6e6d8a05dcd9564cae9b}
+
+  '@navikt/ds-tokens@7.0.0':
+    resolution: {integrity: sha512-cwORx5aP3LNcH7NpkGrSzDmwmF8CieTxB8EPPp6e2hwSIINBgxG9f00OTKBWgncRO+6TAE/q2XFtSAGQhdqJSQ==, tarball: https://npm.pkg.github.com/download/@navikt/ds-tokens/7.0.0/5364615e29a7dc9b687713e89056737a6897f504}
 
   '@navikt/nav-dekoratoren-moduler@2.1.6':
     resolution: {integrity: sha512-P9c+a8/HuIY6XScNr/DVS7lZ0UtndzYAMEaIVdAzCOrG4SudY4tXSp+44g1V58GKml1RjdzOfGVF4hxmFv3SiA==, tarball: https://npm.pkg.github.com/download/@navikt/nav-dekoratoren-moduler/2.1.6/049e1daeecff43519e41e387f21fd7e3634c2bd3}
@@ -3773,6 +3776,8 @@ snapshots:
       - react-dom
 
   '@navikt/ds-tokens@6.16.3': {}
+
+  '@navikt/ds-tokens@7.0.0': {}
 
   '@navikt/nav-dekoratoren-moduler@2.1.6(jsdom@24.1.1)(react@18.3.1)':
     dependencies:
