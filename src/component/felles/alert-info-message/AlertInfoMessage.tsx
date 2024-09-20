@@ -22,7 +22,7 @@ export const AlertInfoMessage = () => {
   }
 
   return shouldShowAlertMessage ? <Alert variant="info" size="small" closeButton className={styles.alert} onClose={() => setHideAlertMessage(true)}>
-    <Heading size="xsmall" level="2">Ny påmeldingsløsning for NAV-veileder kommer 15. oktober for Arbeidsforberedende trening (AFT)</Heading>
+    <Heading size="xsmall" level="2">Ny løsning for NAV-veileder kommer 15. oktober for Arbeidsforberedende trening (AFT)</Heading>
     <BodyShort size="small" className={styles.text}>
       {alertMessage}
     </BodyShort>
