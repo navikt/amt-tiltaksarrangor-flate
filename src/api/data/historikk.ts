@@ -1,8 +1,8 @@
 import { z } from 'zod'
+import { dateSchema, nullableDateSchema } from '../utils'
+import { deltakelsesinnholdSchema, innholdSchema } from './deltaker'
 import { deltakerStatusAarsakSchema } from './endringsmelding'
 import { historikkForslagSchema, HistorikkType } from './forslag'
-import { deltakelsesinnholdSchema, innholdSchema } from './deltaker'
-import { dateSchema, nullableDateSchema } from '../utils'
 
 export enum EndringType {
     EndreStartdato = 'EndreStartdato',
@@ -19,6 +19,23 @@ export enum EndringType {
 
 export enum ArrangorEndringsType {
     LeggTilOppstartsdato = 'LeggTilOppstartsdato'
+}
+
+export enum DeltakerHistorikkStatus {
+    KLADD = 'KLADD',
+    UTKAST_TIL_PAMELDING = 'UTKAST_TIL_PAMELDING',
+    AVBRUTT_UTKAST = 'AVBRUTT_UTKAST',
+    VENTER_PA_OPPSTART = 'VENTER_PA_OPPSTART',
+    DELTAR = 'DELTAR',
+    HAR_SLUTTET = 'HAR_SLUTTET',
+    IKKE_AKTUELL = 'IKKE_AKTUELL',
+    FEILREGISTRERT = 'FEILREGISTRERT',
+    SOKT_INN = 'SOKT_INN',
+    VURDERES = 'VURDERES',
+    VENTELISTE = 'VENTELISTE',
+    AVBRUTT = 'AVBRUTT',
+    FULLFORT = 'FULLFORT',
+    PABEGYNT_REGISTRERING = 'PABEGYNT_REGISTRERING'
 }
 
 export const endreBakgrunnsinformasjonSchema = z.object({
@@ -135,11 +152,27 @@ export const endringFraArrangorSchema = z.object({
     endring: arrangorEndringSchema
 })
 
+export const deltakerHistorikkStatusSchema = z.object({
+    type: z.nativeEnum(DeltakerHistorikkStatus),
+    aarsak: deltakerStatusAarsakSchema.nullable()
+})
+
+export const importertFraArenaSchema = z.object({
+    type: z.literal(HistorikkType.ImportertFraArena),
+    importertDato: dateSchema,
+    startdato: nullableDateSchema,
+    sluttdato: nullableDateSchema,
+    deltakelsesprosent: z.number().nullable(),
+    dagerPerUke: z.number().nullable(),
+    status: deltakerHistorikkStatusSchema
+})
+
 export const deltakerHistorikkSchema = z.discriminatedUnion('type', [
     vedtakSchema,
     deltakerEndringSchema,
     historikkForslagSchema,
-    endringFraArrangorSchema
+    endringFraArrangorSchema,
+    importertFraArenaSchema
 ])
 
 export const deltakerHistorikkListeSchema = z.array(deltakerHistorikkSchema)
@@ -151,6 +184,7 @@ export type DeltakerEndringFraArrangor = z.infer<
     typeof endringFraArrangorSchema
 >
 export type Vedtak = z.infer<typeof vedtakSchema>
+export type importertFraArena = z.infer<typeof importertFraArenaSchema>
 export type DeltakerHistorikk = z.infer<typeof deltakerHistorikkSchema>
 export type DeltakerHistorikkListe = z.infer<
     typeof deltakerHistorikkListeSchema
