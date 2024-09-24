@@ -5,6 +5,7 @@ import nb from 'dayjs/locale/nb'
 import customParseFormat from 'dayjs/plugin/customParseFormat'
 import { randomUuid } from '../utils/faker'
 import { DeltakerStatusAarsakType } from '../../api/data/endringsmelding'
+import { TiltakDeltakerStatus } from '../../api/data/deltaker'
 
 dayjs.locale(nb)
 dayjs.extend(customParseFormat)
@@ -294,6 +295,19 @@ export const mockDeltakerHistorikk = (): DeltakerHistorikkListe => {
             opprettetAv: 'Navn Navnesen',
             opprettetAvEnhet: 'NAV Fredrikstad',
             opprettet: dayjs().subtract(3, 'day').toDate()
+        },
+        {
+            type: HistorikkType.ImportertFraArena,
+            importertDato: dayjs().subtract(10, 'days').toDate(),
+            dagerPerUke: null,
+            deltakelsesprosent: 100,
+            startdato: dayjs().subtract(3, 'day').toDate(),
+            sluttdato: dayjs().add(3, 'day').toDate(),
+            status: {
+                type: TiltakDeltakerStatus.DELTAR,
+                aarsak: null,
+                endretDato: dayjs().subtract(17, 'days').toDate()
+            }
         }
     ]
 }
