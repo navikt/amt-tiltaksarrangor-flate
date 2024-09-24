@@ -37,6 +37,10 @@ export const EndreDeltakelseKnapp = (props: EndreDeltakelseKnappProps) => {
     lukkModal
   } = useModalData()
   const { deltaker } = props
+
+  const kanIkkeLeggeTilOppstartDato = deltaker.status.type === TiltakDeltakerStatus.IKKE_AKTUELL
+    && props.erForslagEnabled
+
   const kanEndreStartDato =
     deltaker.status.type === TiltakDeltakerStatus.VENTER_PA_OPPSTART ||
     deltaker.status.type === TiltakDeltakerStatus.IKKE_AKTUELL ||
@@ -70,7 +74,7 @@ export const EndreDeltakelseKnapp = (props: EndreDeltakelseKnappProps) => {
         </Button>
         <Dropdown.Menu className={styles.dropdownMenu}>
           <Dropdown.Menu.List>
-            {kanEndreStartDato && !deltaker.startDato && (
+            {kanEndreStartDato && !kanIkkeLeggeTilOppstartDato && !deltaker.startDato && (
               <DropDownButton
                 endringstype={EndringType.LEGG_TIL_OPPSTARTSDATO}
                 onClick={() =>
