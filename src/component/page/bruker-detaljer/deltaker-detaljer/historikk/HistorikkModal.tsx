@@ -7,6 +7,7 @@ import { DeltakerHistorikk, DeltakerHistorikkListe } from '../../../../../api/da
 import { HistorikkType } from '../../../../../api/data/forslag'
 import styles from './Historikk.module.scss'
 import { Tiltakskode } from '../../../../../api/data/tiltak'
+import { HistorikkImportertFraArena } from './HistorikkImportertFraArena'
 
 interface Props {
   historikk: DeltakerHistorikkListe | null
@@ -25,6 +26,13 @@ const getHistorikkItem = (historikk: DeltakerHistorikk, tiltakstype: Tiltakskode
       return <HistorikkForslag forslag={historikk} />
     case HistorikkType.EndringFraArrangor:
       return <HistorikkArrangorEndring deltakerEndringFraArrangor={historikk} />
+    case HistorikkType.ImportertFraArena:
+      return (
+        <HistorikkImportertFraArena
+          deltakelseVedImport={historikk}
+          tiltakstype={tiltakstype}
+        />
+      )
   }
 }
 

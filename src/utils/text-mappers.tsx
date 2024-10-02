@@ -1,7 +1,7 @@
 import { Adressetype, TiltakDeltakerStatus } from '../api/data/deltaker'
 import { DeltakerStatusAarsak, DeltakerStatusAarsakType } from '../api/data/endringsmelding'
 import { EndringAarsak, ForslagEndringAarsakType, ForslagEndringType, ForslagStatusType } from '../api/data/forslag'
-import { Endring, EndringType } from '../api/data/historikk'
+import { DeltakerHistorikkStatus, Endring, EndringType } from '../api/data/historikk'
 import { Veiledertype } from '../api/data/veileder'
 import { dateStrWithMonthName } from './date-utils'
 import { getDeltakelsesmengdetekst } from './deltaker-utils'
@@ -141,5 +141,40 @@ export const getForslagEndringAarsakText = (aarsak: EndringAarsak) => {
       return 'Trenger annen hjelp og støtte'
     case ForslagEndringAarsakType.Utdanning:
       return 'Utdanning'
+  }
+}
+
+export const getDeltakerHistorikkStatusDisplayText = (
+  type: DeltakerHistorikkStatus
+): string => {
+  switch (type) {
+    case DeltakerHistorikkStatus.KLADD:
+      return 'Kladd'
+    case DeltakerHistorikkStatus.UTKAST_TIL_PAMELDING:
+      return 'Utkast til påmelding'
+    case DeltakerHistorikkStatus.VENTER_PA_OPPSTART:
+      return 'Venter på oppstart'
+    case DeltakerHistorikkStatus.DELTAR:
+      return 'Deltar'
+    case DeltakerHistorikkStatus.HAR_SLUTTET:
+      return 'Har sluttet'
+    case DeltakerHistorikkStatus.IKKE_AKTUELL:
+      return 'Ikke aktuell'
+    case DeltakerHistorikkStatus.FEILREGISTRERT:
+      return 'Feilregistrert'
+    case DeltakerHistorikkStatus.SOKT_INN:
+      return 'Søkt inn'
+    case DeltakerHistorikkStatus.VURDERES:
+      return 'Vurderes'
+    case DeltakerHistorikkStatus.VENTELISTE:
+      return 'Venteliste'
+    case DeltakerHistorikkStatus.AVBRUTT:
+      return 'Avbrutt'
+    case DeltakerHistorikkStatus.FULLFORT:
+      return 'Fullført'
+    case DeltakerHistorikkStatus.PABEGYNT_REGISTRERING:
+      return 'Påbegynt Registrering'
+    case DeltakerHistorikkStatus.AVBRUTT_UTKAST:
+      return 'Avbrutt utkast'
   }
 }
