@@ -1,4 +1,4 @@
-import { Buldings3Icon } from '@navikt/aksel-icons'
+import { Buildings3Icon } from '@navikt/aksel-icons'
 import { Heading, Panel } from '@navikt/ds-react'
 import cls from 'classnames'
 import React from 'react'
@@ -24,7 +24,7 @@ export function NavInfoPanel(props: {
       <div className={cls(styles.contentBlock, globalStyles.blokkM)}>
         <IconLabel
           labelValue={navkontor}
-          icon={<Buldings3Icon title="Nav-kontor" />}
+          icon={<Buildings3Icon title="Nav-kontor" />}
           iconWrapperClassName={styles.iconWrapper}
         />
       </div>
