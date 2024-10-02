@@ -14,12 +14,30 @@ updates:
       interval: "daily"
     open-pull-requests-limit: 10
     groups:
-      minor-and-patch:
+      nav-designsystem:
         patterns:
-          - "*"
+          - '@navikt/aksel-*'
+          - '@navikt/ds-*'
+      react:
+        patterns:
+          - 'react'
+          - 'react-dom'
+      patches:
         update-types:
-          - "minor"
-          - "patch"
+          - 'patch'
+        exclude-patterns:
+          - 'react'
+          - 'react-dom'
+          - '@navikt/aksel-*'
+          - '@navikt/ds-*'
+      minorversions:
+        update-types:
+          - 'minor'
+        exclude-patterns:
+          - 'react'
+          - 'react-dom'
+          - '@navikt/aksel-*'
+          - '@navikt/ds-*'
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
