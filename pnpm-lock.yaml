@@ -18,8 +18,8 @@ importers:
         specifier: ^6.16.3
         version: 6.16.3
       '@navikt/ds-react':
-        specifier: ^6.16.3
-        version: 6.16.3(@types/react@18.3.5)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        specifier: ^7.1.0
+        version: 7.1.0(@types/react@18.3.5)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@navikt/ds-tokens':
         specifier: ^7.1.0
         version: 7.1.0
@@ -552,23 +552,20 @@ packages:
     resolution: {integrity: sha512-N8x7eSLGcmUFNWZRxT1vsHvypzIRgQYdG0rJey/rZCy6zT/30qDt8Joj7FxzGNLSwXbeZqJOMqDurp7ra4hgbw==}
     engines: {node: '>=14'}
 
-  '@navikt/aksel-icons@6.16.3':
-    resolution: {integrity: sha512-EE5L1F/HGzX1XJ0hQBUJq/wpdoTIs2ii02MxrZ6Ubr50Au9k9gGAUEC+fE+qxTxB8e2aDWlEvOePj1PSP/nMww==, tarball: https://npm.pkg.github.com/download/@navikt/aksel-icons/6.16.3/e0a4e5abf2a0b9ae9b7be68d0f72080832fd8457}
-
   '@navikt/aksel-icons@7.0.0':
     resolution: {integrity: sha512-d47MNHMkXNTBvL/LACssmFHQBR9vl+DzkLAo1Rb+B2XPnZmTWFlsIOINVFWD7OzjJ/qj8Q0DFq+/N2ghl9c1jQ==, tarball: https://npm.pkg.github.com/download/@navikt/aksel-icons/7.0.0/b696ad78e601b1088d346cea4cd29940e8991bcb}
+
+  '@navikt/aksel-icons@7.1.0':
+    resolution: {integrity: sha512-1dwuT6KraLJyfeNQDVjzzZAPy/bBWlAP+ufHcrPGoTMuZHTWYj9db8wKgwqesZkHRwUCmqzOMDPk9lr+0Pczng==, tarball: https://npm.pkg.github.com/download/@navikt/aksel-icons/7.1.0/01f80ff249d8a5ea0158c737026860fd4b59c08b}
 
   '@navikt/ds-css@6.16.3':
     resolution: {integrity: sha512-wq4NHNceTmrXfl9B1GjPypKcpCDNcxhrX+ENfJ/6LJJlHyCKeWZRTtHSr7gprLFQ9hREglJR9Ie8m9xDr4nimA==, tarball: https://npm.pkg.github.com/download/@navikt/ds-css/6.16.3/eabc958ee4d9ae6c3510608b5bf21b53ad479e4f}
 
-  '@navikt/ds-react@6.16.3':
-    resolution: {integrity: sha512-88dyVXXqNp8NgDjtoBEmuDANaOOt8DCMNqAUMT3/FPdTeFFH42yLqbkYUiSqRC37e3S3vKLbhphZiPQla1SloQ==, tarball: https://npm.pkg.github.com/download/@navikt/ds-react/6.16.3/55d1ee7cebf5c9db3e7300cfb81bd60f60347e81}
+  '@navikt/ds-react@7.1.0':
+    resolution: {integrity: sha512-xhmVRIIaR+rs8PIdXqRHVT6WueC4yjuCx9V2qCDN8C1mDausWDRZMRjTEVO+CXNrwUN1pBMTrEPGkCgps5F0xQ==, tarball: https://npm.pkg.github.com/download/@navikt/ds-react/7.1.0/b1bb093a8a5fc78f57b4e1bc671bf40de85eae4c}
     peerDependencies:
       '@types/react': ^17.0.30 || ^18.0.0
       react: ^17.0.0 || ^18.0.0
-
-  '@navikt/ds-tokens@6.16.3':
-    resolution: {integrity: sha512-kVIYWf2gSdy4PB+sRbKn1HERep/c6WnCH31DUHLqrcgzGXHG+qcfnS5nEWl9wn10NE+dMlL4+A7B2rPc/3rIzQ==, tarball: https://npm.pkg.github.com/download/@navikt/ds-tokens/6.16.3/1ce1e16ad2c2386a756e6e6d8a05dcd9564cae9b}
 
   '@navikt/ds-tokens@7.1.0':
     resolution: {integrity: sha512-ThLWiis1lU7TxJutwsF33f6CxPKNFEnMHidV35Yoe/bF93ebLJEdSSwcdhtJ+CMJizpKZOXw1AMXh4ADVfj+dA==, tarball: https://npm.pkg.github.com/download/@navikt/ds-tokens/7.1.0/c03dd5e1c9656faf78474c65c9d2c9ee76143695}
@@ -3677,7 +3674,7 @@ snapshots:
 
   '@floating-ui/core@1.6.5':
     dependencies:
-      '@floating-ui/utils': 0.2.5
+      '@floating-ui/utils': 0.2.7
 
   '@floating-ui/core@1.6.7':
     dependencies:
@@ -3760,18 +3757,18 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@navikt/aksel-icons@6.16.3': {}
-
   '@navikt/aksel-icons@7.0.0': {}
+
+  '@navikt/aksel-icons@7.1.0': {}
 
   '@navikt/ds-css@6.16.3': {}
 
-  '@navikt/ds-react@6.16.3(@types/react@18.3.5)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+  '@navikt/ds-react@7.1.0(@types/react@18.3.5)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
     dependencies:
       '@floating-ui/react': 0.25.4(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@floating-ui/react-dom': 2.1.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@navikt/aksel-icons': 6.16.3
-      '@navikt/ds-tokens': 6.16.3
+      '@navikt/aksel-icons': 7.1.0
+      '@navikt/ds-tokens': 7.1.0
       '@types/react': 18.3.5
       clsx: 2.1.1
       date-fns: 3.6.0
@@ -3779,8 +3776,6 @@ snapshots:
       react-day-picker: 8.10.0(date-fns@3.6.0)(react@18.3.1)
     transitivePeerDependencies:
       - react-dom
-
-  '@navikt/ds-tokens@6.16.3': {}
 
   '@navikt/ds-tokens@7.1.0': {}
 
