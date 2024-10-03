@@ -22,16 +22,9 @@ updates:
         patterns:
           - 'react'
           - 'react-dom'
-      patches:
+      minor-and-patch:
         update-types:
           - 'patch'
-        exclude-patterns:
-          - 'react'
-          - 'react-dom'
-          - '@navikt/aksel-*'
-          - '@navikt/ds-*'
-      minorversions:
-        update-types:
           - 'minor'
         exclude-patterns:
           - 'react'
