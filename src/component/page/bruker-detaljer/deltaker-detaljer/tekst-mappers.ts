@@ -27,7 +27,8 @@ export const aarsakTekstMapper = (aarsakType: DeltakerStatusAarsakType) => {
 export const getDeltakerStatusAarsakText = (aarsak: DeltakerStatusAarsak) => {
   switch (aarsak.type) {
     case DeltakerStatusAarsakType.ANNET:
-      return `Annet - ${aarsak.beskrivelse}`
+      const beskrivelse = aarsak.beskrivelse ? ` - ${aarsak.beskrivelse}` : ''
+      return `Annet${beskrivelse}`
     case DeltakerStatusAarsakType.FATT_JOBB:
       return 'Fått jobb'
     case DeltakerStatusAarsakType.IKKE_MOTT:
