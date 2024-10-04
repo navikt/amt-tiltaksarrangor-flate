@@ -16,6 +16,8 @@ import { avsluttDeltakelseForslag } from '../../../../../api/forslag-api'
 import { EndringType } from '../types'
 import { Deltaker } from '../../../../../api/data/deltaker'
 import { maxSluttdato } from './datoutils'
+import { Radio, RadioGroup } from '@navikt/ds-react'
+import styles from './AvsluttDeltakelseModal.module.scss'
 
 interface AvsluttDeltakelseModalProps {
   onClose: () => void
@@ -46,8 +48,19 @@ export const AvsluttDeltakelseModal = (
   const [aarsak, settAarsak] = useState<DeltakerStatusAarsakType>()
   const [beskrivelse, settBeskrivelse] = useState<Nullable<string>>()
   const [begrunnelse, setBegrunnelse] = useState<string>()
+  const [harDeltatt, setHarDeltatt] = useState<boolean | null>(null)
 
   const { validering } = useAarsakValidering(aarsak, beskrivelse, begrunnelse)
+  const skalViseHarDeltatt = showHarDeltatt(deltaker)
+  const isSluttdatoValid = () => {
+    if (harDeltatt && !sluttDato) {
+      return false
+    }
+    if (skalViseHarDeltatt && harDeltatt === null) {
+      return false
+    }
+    return true
+  }
 
   const sendEndringsmelding = () => {
     if (!sluttDato) {
@@ -67,7 +80,7 @@ export const AvsluttDeltakelseModal = (
   }
 
   const sendForslag = () => {
-    if (!sluttDato) {
+    if (harDeltatt && !sluttDato) {
       return Promise.reject(
         'Sluttdato er påkrevd for å sende AvsluttDeltakelse forslag'
       )
@@ -76,8 +89,9 @@ export const AvsluttDeltakelseModal = (
       .then((validertForm) =>
         avsluttDeltakelseForslag(
           deltaker.id,
-          sluttDato,
           validertForm.forslag.aarsak,
+          harDeltatt,
+          harDeltatt ? null : sluttDato,
           validertForm.forslag.begrunnelse
         )
       )
@@ -98,7 +112,7 @@ export const AvsluttDeltakelseModal = (
       endringstype={EndringType.AVSLUTT_DELTAKELSE}
       visGodkjennVilkaarPanel={visGodkjennVilkaarPanel}
       erForslag={erForslagEnabled}
-      erSendKnappDisabled={!validering.isSuccess || !sluttDato}
+      erSendKnappDisabled={!validering.isSuccess || !isSluttdatoValid()}
       begrunnelseType="valgfri"
       onClose={onClose}
       onSend={erForslagEnabled ? sendForslag : sendEndringsmelding}
@@ -110,13 +124,37 @@ export const AvsluttDeltakelseModal = (
         tittel="Hva er årsaken til avslutning?"
         onAarsakSelected={onAarsakSelected}
       />
-      <DateField
-        label="Hva er ny sluttdato?"
-        defaultDate={sluttDato}
-        min={maxDate(startDato, deltaker.deltakerliste.startDato)}
-        max={maxSluttdato(deltaker.startDato, deltaker.deltakerliste)}
-        onDateChanged={(d) => settSluttDato(d)}
-      />
+      {skalViseHarDeltatt && (
+        <section className={styles.radiogruppe}>
+          <RadioGroup
+            legend="Har personen deltatt?"
+            size="small"
+            onChange={(value: boolean) => {
+              setHarDeltatt(value)
+            }}
+          >
+            <Radio value={true}>Ja</Radio>
+            <Radio value={false}>Nei</Radio>
+          </RadioGroup>
+        </section>
+      )}
+      {harDeltatt && (
+        <DateField
+          label="Hva er ny sluttdato?"
+          defaultDate={sluttDato}
+          min={maxDate(startDato, deltaker.deltakerliste.startDato)}
+          max={maxSluttdato(deltaker.startDato, deltaker.deltakerliste)}
+          onDateChanged={(d) => settSluttDato(d)}
+        />
+      )}
     </Endringsmodal>
   )
+}
+
+const showHarDeltatt = (deltaker: Deltaker) => {
+  const startDato = deltaker.startDato
+  if (startDato === null) throw Error('startdato er null')
+  const femtenDagerSiden = new Date()
+  femtenDagerSiden.setDate(femtenDagerSiden.getDate() - 15)
+  return startDato > femtenDagerSiden
 }
