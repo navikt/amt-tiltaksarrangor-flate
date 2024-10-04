@@ -6,6 +6,7 @@ import { getDeltakelsesmengdetekst } from '../../../../../utils/deltaker-utils'
 import { getForslagEndringAarsakText, getForslagStatusTypeText, getForslagTittel } from '../../../../../utils/text-mappers'
 import styles from './Historikk.module.scss'
 import globalStyles from '../../../../../globals.module.scss'
+import React from 'react'
 
 interface Props {
   tittel: string
@@ -47,9 +48,16 @@ export const ForslagtypeDetaljer = ({ forslag }: { forslag: HistorikkForslag }) 
       case ForslagEndringType.AvsluttDeltakelse:
         return (
           <>
-            <BodyLong size="small">
-              Ny sluttdato: {formatDate(forslag.endring.sluttdato)}
-            </BodyLong>
+            {forslag.endring.harDeltatt && (
+              <BodyLong size="small">
+                Har personen deltatt? {forslag.endring.harDeltatt ? 'Ja' : 'Nei'}
+              </BodyLong>
+            )}
+            {forslag.endring.sluttdato && (
+              <BodyLong size="small">
+                Ny sluttdato: {formatDate(forslag.endring.sluttdato)}
+              </BodyLong>
+            )}
             <BodyLong size="small">
               Årsak: {getForslagEndringAarsakText(forslag.endring.aarsak)}
             </BodyLong>

@@ -58,9 +58,16 @@ function EndringsDetaljer({ endring }: { readonly endring: ForslagEndring }) {
           <BodyLong size="small">
             Årsak: {endringAarsakTekstMapper(endring.aarsak)}
           </BodyLong>
+          {endring.harDeltatt && (
+            <BodyLong size="small">
+              Har personen deltatt? {endring.harDeltatt ? 'Ja' : 'Nei'}
+            </BodyLong>
+          )}
+          {endring.sluttdato && (
           <BodyLong size="small">
             Ny sluttdato: {formatDate(endring.sluttdato)}
           </BodyLong>
+          )}
         </>
       )
     }
