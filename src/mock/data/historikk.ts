@@ -135,7 +135,8 @@ export const mockDeltakerHistorikk = (): DeltakerHistorikkListe => {
                     sluttdato: dayjs().add(1, 'month').toDate(),
                     aarsak: {
                         type: ForslagEndringAarsakType.FattJobb
-                    }
+                    },
+                    harDeltatt: null
                 },
                 status: {
                     type: ForslagStatusType.Godkjent,

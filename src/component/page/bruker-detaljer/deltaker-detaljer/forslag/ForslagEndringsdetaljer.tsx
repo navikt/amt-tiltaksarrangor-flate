@@ -58,7 +58,7 @@ function EndringsDetaljer({ endring }: { readonly endring: ForslagEndring }) {
           <BodyLong size="small">
             Årsak: {endringAarsakTekstMapper(endring.aarsak)}
           </BodyLong>
-          {endring.harDeltatt && (
+          {endring.harDeltatt !== null && (
             <BodyLong size="small">
               Har personen deltatt? {endring.harDeltatt ? 'Ja' : 'Nei'}
             </BodyLong>
