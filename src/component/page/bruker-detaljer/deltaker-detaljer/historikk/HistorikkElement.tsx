@@ -1,9 +1,24 @@
-import { BodyLong, BodyShort, Detail, Heading, ReadMore, Tag } from '@navikt/ds-react'
-import { ForslagEndringType, ForslagStatusType, HistorikkForslag } from '../../../../../api/data/forslag'
+import {
+  BodyLong,
+  BodyShort,
+  Detail,
+  Heading,
+  ReadMore,
+  Tag
+} from '@navikt/ds-react'
+import {
+  ForslagEndringType,
+  ForslagStatusType,
+  HistorikkForslag
+} from '../../../../../api/data/forslag'
 import { assertNever } from '../../../../../utils/assert-never'
 import { formatDate } from '../../../../../utils/date-utils'
 import { getDeltakelsesmengdetekst } from '../../../../../utils/deltaker-utils'
-import { getForslagEndringAarsakText, getForslagStatusTypeText, getForslagTittel } from '../../../../../utils/text-mappers'
+import {
+  getForslagEndringAarsakText,
+  getForslagStatusTypeText,
+  getForslagTittel
+} from '../../../../../utils/text-mappers'
 import styles from './Historikk.module.scss'
 import globalStyles from '../../../../../globals.module.scss'
 import React from 'react'
@@ -36,7 +51,11 @@ export const getForslagStatusTag = (forslagStatusType: ForslagStatusType) => {
   }
 }
 
-export const ForslagtypeDetaljer = ({ forslag }: { forslag: HistorikkForslag }) => {
+export const ForslagtypeDetaljer = ({
+  forslag
+}: {
+  forslag: HistorikkForslag
+}) => {
   const detaljer = (forslag: HistorikkForslag) => {
     switch (forslag.endring.type) {
       case ForslagEndringType.IkkeAktuell:
@@ -48,9 +67,13 @@ export const ForslagtypeDetaljer = ({ forslag }: { forslag: HistorikkForslag }) 
       case ForslagEndringType.AvsluttDeltakelse:
         return (
           <>
-            {forslag.endring.harDeltatt && (
+            <BodyLong size="small">
+              Årsak: {getForslagEndringAarsakText(forslag.endring.aarsak)}
+            </BodyLong>
+            {forslag.endring.harDeltatt !== null && (
               <BodyLong size="small">
-                Har personen deltatt? {forslag.endring.harDeltatt ? 'Ja' : 'Nei'}
+                Har personen deltatt?{' '}
+                {forslag.endring.harDeltatt ? 'Ja' : 'Nei'}
               </BodyLong>
             )}
             {forslag.endring.sluttdato && (
@@ -58,9 +81,6 @@ export const ForslagtypeDetaljer = ({ forslag }: { forslag: HistorikkForslag }) 
                 Ny sluttdato: {formatDate(forslag.endring.sluttdato)}
               </BodyLong>
             )}
-            <BodyLong size="small">
-              Årsak: {getForslagEndringAarsakText(forslag.endring.aarsak)}
-            </BodyLong>
           </>
         )
       case ForslagEndringType.ForlengDeltakelse:
