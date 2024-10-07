@@ -8,9 +8,9 @@ export const Driftsmelding = () => {
   if (!visDriftsmelding) return <></>
 
   return (
-    <Alert variant="error" className={styles.alertstripe}>
-        På grunn av teknisk oppgradering vil det for øyeblikket ikke komme nye endringer på deltakere.
-        Når du ikke ser denne meldingen lenger vi Deltakeroversikten fungere som normalt igjen.
+    <Alert variant="warning" className={styles.alertstripe}>
+      Nylige endringer på deltakere vises ikke for øyeblikket. Dette skyldes
+      vedlikehold på siden. Vedlikeholdet forventes ferdig innen kl. 19:00.
     </Alert>
   )
 }
