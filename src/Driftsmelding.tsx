@@ -9,9 +9,8 @@ export const Driftsmelding = () => {
 
   return (
     <Alert variant="error" className={styles.alertstripe}>
-      Deltakeroversikten er noe ustabil nå. Hvis du opplever at noe ikke
-      fungerer kan du prøve å laste siden på nytt. Vi jobber med å fikse
-      problemet. Vi beklager ulempen.
+        På grunn av teknisk oppgradering vil det for øyeblikket ikke komme nye endringer på deltakere.
+        Når du ikke ser denne meldingen lenger vi Deltakeroversikten fungere som normalt igjen.
     </Alert>
   )
 }
