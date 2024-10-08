@@ -8,10 +8,9 @@ export const Driftsmelding = () => {
   if (!visDriftsmelding) return <></>
 
   return (
-    <Alert variant="error" className={styles.alertstripe}>
-      Deltakeroversikten er noe ustabil nå. Hvis du opplever at noe ikke
-      fungerer kan du prøve å laste siden på nytt. Vi jobber med å fikse
-      problemet. Vi beklager ulempen.
+    <Alert variant="warning" className={styles.alertstripe}>
+      Nylige endringer på deltakere vises ikke for øyeblikket. Dette skyldes
+      vedlikehold på siden. Vedlikeholdet forventes ferdig innen kl. 19:00.
     </Alert>
   )
 }
