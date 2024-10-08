@@ -51,7 +51,7 @@ export const AvsluttDeltakelseModal = (
   const [harDeltatt, setHarDeltatt] = useState<boolean | null>(null)
 
   const { validering } = useAarsakValidering(aarsak, beskrivelse, begrunnelse)
-  const skalViseHarDeltatt = showHarDeltatt(deltaker)
+  const skalViseHarDeltatt = erForslagEnabled && showHarDeltatt(deltaker)
   const isSluttdatoValid = () => {
     if (harDeltatt && !sluttDato) {
       return false
@@ -60,6 +60,13 @@ export const AvsluttDeltakelseModal = (
       return false
     }
     return true
+  }
+
+  const skalViseSluttdato = () => {
+    if (harDeltatt === null) {
+      return !skalViseHarDeltatt
+    }
+    return harDeltatt
   }
 
   const sendEndringsmelding = () => {
@@ -138,7 +145,7 @@ export const AvsluttDeltakelseModal = (
           </RadioGroup>
         </section>
       )}
-      {harDeltatt && (
+      {skalViseSluttdato() && (
         <DateField
           label="Hva er ny sluttdato?"
           defaultDate={sluttDato}
