@@ -75,7 +75,7 @@ export const EndreSluttdatoModal = ({
         label="Ny sluttdato"
         defaultDate={valgtDato}
         onDateChanged={(d) => setValgtDato(d)}
-        min={kalkulerMinDato(deltaker.deltakerliste.startDato)}
+        min={kalkulerMinDato(deltaker.startDato)}
         max={maxSluttdato(deltaker.startDato, deltaker.deltakerliste)}
       />
     </Endringsmodal>
