@@ -28,6 +28,7 @@ import { FjernDeltakerModal } from './fjern-deltaker-modal/FjernDeltakerModal'
 import { AktiveForslag } from './forslag/AktiveForslag'
 import { SeEndringer } from './historikk/SeEndringer'
 import { getDeltakerStatusAarsakText } from './tekst-mappers'
+import { Tiltakskode } from '../../../../api/data/tiltak'
 
 interface DeltakelseInfoProps {
   deltaker: Deltaker
@@ -82,6 +83,8 @@ export const DeltakelseInfo = ({
     TiltakDeltakerStatus.FULLFORT
   ].includes(deltaker.status.type)
 
+  const skruAvEndringer = deltaker.deltakerliste.tiltakstype === Tiltakskode.ARBFORB && !erForslagEnabled
+
   return (
     <div className={styles.section}>
       <div className={styles.deltakerInfoWrapper}>
@@ -113,13 +116,15 @@ export const DeltakelseInfo = ({
             </ElementPanel>
           )}
         </div>
-        <EndreDeltakelseKnapp
-          deltaker={deltaker}
-          onEndringUtfort={triggerReloadEndringsmeldinger}
-          erForslagEnabled={erForslagEnabled}
-          onForslagSendt={handleForslagSendt}
-          onEndringSendt={oppdaterDeltaker}
-        />
+        {
+          !skruAvEndringer && <EndreDeltakelseKnapp
+            deltaker={deltaker}
+            onEndringUtfort={triggerReloadEndringsmeldinger}
+            erForslagEnabled={erForslagEnabled}
+            onForslagSendt={handleForslagSendt}
+            onEndringSendt={oppdaterDeltaker}
+          />
+        }
       </div>
 
       <div className={styles.body}>
