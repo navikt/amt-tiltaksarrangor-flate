@@ -71,8 +71,9 @@ const forlengDeltakelseSchema = z.object({
 
 const avsluttDeltakelseSchema = z.object({
   type: z.literal(ForslagEndringType.AvsluttDeltakelse),
-  sluttdato: dateSchema,
-  aarsak: endringAarsakSchema
+  sluttdato: dateSchema.nullable(),
+  aarsak: endringAarsakSchema,
+  harDeltatt: z.boolean().nullable()
 })
 
 const ikkeAktuellSchema = z.object({

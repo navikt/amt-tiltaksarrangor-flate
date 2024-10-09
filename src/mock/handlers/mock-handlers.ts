@@ -438,7 +438,8 @@ export const mockHandlers: RequestHandler[] = [
   handlePostForslagRequest('avslutt', (body) => ({
     type: ForslagEndringType.AvsluttDeltakelse,
     sluttdato: body.sluttdato,
-    aarsak: body.aarsak
+    aarsak: body.aarsak,
+    harDeltatt: body.harDeltatt
   })),
   handlePostForslagRequest('deltakelsesmengde', (body) => ({
     type: ForslagEndringType.Deltakelsesmengde,
