@@ -1,6 +1,6 @@
 import React, { ReactNode, useState } from 'react'
 import { BaseModal } from '../../../../../felles/base-modal/BaseModal'
-import { Detail } from '@navikt/ds-react'
+import { Alert, Detail, Heading, Link } from '@navikt/ds-react'
 import { VeilederConfirmationPanel } from '../VeilederConfirmationPanel'
 import { SendTilNavKnapp } from '../SendTilNavKnapp'
 import { BegrunnelseInput, BegrunnelseType } from './BegrunnelseInput'
@@ -37,9 +37,20 @@ export function Endringsmodal(props: EndringsmodalProps) {
       className={styles.modal}
     >
       {props.erForslag && (
-        <Detail>
+        <Detail className={styles.endringsmodal_info}>
           Forslaget sendes til NAV-veileder. Deltaker kan se infoen på nav.no.
         </Detail>
+      )}
+
+      {props.erForslag && (
+        <Alert variant="info" size="small" className={styles.endringsmodal_info}>
+          <Heading spacing size="xsmall" level="3" className={styles.alert_heading}>
+            Nytt: Forslaget sendes nå direkte til NAV-veileder
+          </Heading>
+          15. oktober fikk NAV-veiledere ny løsning for arbeidsmarkedstiltak.
+          <Link href="https://www.nav.no/nytt-i-deltakeroversikten">
+            Les mer om endringene i deltakeroversikten på nav.no her.</Link>
+        </Alert>
       )}
 
       {props.children}

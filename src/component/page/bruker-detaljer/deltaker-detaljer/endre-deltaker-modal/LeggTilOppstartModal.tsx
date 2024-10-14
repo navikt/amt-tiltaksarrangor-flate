@@ -1,17 +1,18 @@
-import React, { useRef, useState } from 'react'
+import { useRef, useState } from 'react'
 
-import { leggTilOppstartsdato } from '../../../../../api/tiltak-api'
-import { DateField } from '../../../../felles/DateField'
-import { VeilederConfirmationPanel } from './VeilederConfirmationPanel'
-import { Nullable } from '../../../../../utils/types/or-nothing'
-import { EndringType } from '../types'
-import { kalkulerMaxDato, kalkulerMinDato, maxSluttdato } from './datoutils'
+import { Alert, Detail, Heading, Link } from '@navikt/ds-react'
 import { Deltaker } from '../../../../../api/data/deltaker'
 import { leggTilOppstartsdatoFraArrangor } from '../../../../../api/endring-api'
+import { leggTilOppstartsdato } from '../../../../../api/tiltak-api'
+import { Nullable } from '../../../../../utils/types/or-nothing'
+import { DateField } from '../../../../felles/DateField'
+import { EndringType } from '../types'
+import { kalkulerMaxDato, kalkulerMinDato, maxSluttdato } from './datoutils'
+import { Endringsmodal } from './endringsmodal/Endringsmodal'
+import styles from './LeggTilOppstartModal.module.scss'
 import { SluttdatoRef, SluttdatoVelger } from './SluttdatoVelger'
 import { finnValgtVarighet } from './varighet'
-import { Detail } from '@navikt/ds-react'
-import { Endringsmodal } from './endringsmodal/Endringsmodal'
+import { VeilederConfirmationPanel } from './VeilederConfirmationPanel'
 
 export interface LeggTilOppstartModalProps {
   onClose: () => void
@@ -34,10 +35,10 @@ export const LeggTilOppstartModal = ({
   erForslagEnabled
 }: LeggTilOppstartModalProps & LeggTilOppstartModalDataProps) => {
   const erEndringFraArrangorEnabled = erForslagEnabled
-  const [startdato, setStartdato] = useState<Nullable<Date>>(null)
+  const [ startdato, setStartdato ] = useState<Nullable<Date>>(null)
   const sluttdato = useRef<SluttdatoRef>(null)
 
-  const [vilkaarGodkjent, setVilkaarGodkjent] = useState(false)
+  const [ vilkaarGodkjent, setVilkaarGodkjent ] = useState(false)
 
   const kanSendeMelding = erEndringFraArrangorEnabled
     ? startdato !== null && sluttdato !== null
@@ -77,11 +78,21 @@ export const LeggTilOppstartModal = ({
       onSend={erEndringFraArrangorEnabled ? lagreEndring : sendEndringsmelding}
     >
       {erEndringFraArrangorEnabled && (
-        <Detail>
-          Oppstartsdato avtales med deltaker direkte. Når du lagrer så kan
-          NAV-veileder se datoene i arbeidsverktøyet sitt og deltaker kan se
-          datoene på nav.no.
-        </Detail>
+        <>
+          <Detail>
+            Oppstartsdato avtales med deltaker direkte. Når du lagrer så kan
+            NAV-veileder se datoene i arbeidsverktøyet sitt og deltaker kan se
+            datoene på nav.no.
+          </Detail>
+          <Alert variant="info" size="small" >
+            <Heading spacing size="xsmall" level="3" className={styles.alert_heading}>
+              Nytt: Oppstartsdato og varighet blir nå lagret med en gang
+            </Heading>
+            15. oktober fikk NAV-veiledere ny løsning for arbeidsmarkedstiltak.
+            <Link href="https://www.nav.no/nytt-i-deltakeroversikten">
+              Les mer om endringene i deltakeroversikten på nav.no her.</Link>
+          </Alert>
+        </>
       )}
       <DateField
         label="Oppstartsdato"
@@ -102,10 +113,10 @@ export const LeggTilOppstartModal = ({
           defaultVarighet={
             deltaker.sluttDato
               ? finnValgtVarighet(
-                  deltaker.startDato,
-                  deltaker.sluttDato,
-                  deltaker.deltakerliste.tiltakstype
-                )
+                deltaker.startDato,
+                deltaker.sluttDato,
+                deltaker.deltakerliste.tiltakstype
+              )
               : undefined
           }
         />
