@@ -53,7 +53,7 @@ export const AvsluttDeltakelseModal = (
   const { validering } = useAarsakValidering(aarsak, beskrivelse, begrunnelse)
   const skalViseHarDeltatt = erForslagEnabled && showHarDeltatt(deltaker)
   const isSluttdatoValid = () => {
-    if (harDeltatt && !sluttDato) {
+    if ((harDeltatt || harDeltatt === null) && !sluttDato) {
       return false
     }
     if (skalViseHarDeltatt && harDeltatt === null) {
@@ -87,7 +87,7 @@ export const AvsluttDeltakelseModal = (
   }
 
   const sendForslag = () => {
-    if (harDeltatt && !sluttDato) {
+    if ((harDeltatt || harDeltatt === null) && !sluttDato) {
       return Promise.reject(
         'Sluttdato er påkrevd for å sende AvsluttDeltakelse forslag'
       )
@@ -98,7 +98,7 @@ export const AvsluttDeltakelseModal = (
           deltaker.id,
           validertForm.forslag.aarsak,
           harDeltatt,
-          harDeltatt ? sluttDato : null,
+          harDeltatt === false ? null : sluttDato,
           validertForm.forslag.begrunnelse
         )
       )
