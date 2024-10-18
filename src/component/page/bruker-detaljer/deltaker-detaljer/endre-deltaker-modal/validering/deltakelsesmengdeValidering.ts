@@ -28,6 +28,12 @@ export function useDeltakelsesmengdeValidering(
         'Både deltakelsesprosent og dager i uken kan ikke være lik det som er registrert fra før.'
       )
       return false
+    } else if (deltakelsesprosent === opprinneligDeltakelsesprosent?.toString()
+      && opprinneligDeltakelsesprosent === 100) {
+      setDeltakelsesprosentError(
+        'Deltakelsesprosent kan ikke være lik det som er registrert fra før.'
+      )
+      return false
     } else {
       setDagerPerUkeError(undefined)
       setDeltakelsesprosentError(undefined)
