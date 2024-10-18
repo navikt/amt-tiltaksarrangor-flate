@@ -3,7 +3,6 @@ import { useEffect, useState } from 'react'
 export function useDeltakelsesmengdeValidering(
   deltakelsesprosent: string,
   dagerPerUke: string,
-  opprinneligDeltakelsesprosent: number | null
 ) {
   const [deltakelsesprosentError, setDeltakelsesprosentError] =
     useState<string>()
@@ -19,12 +18,6 @@ export function useDeltakelsesmengdeValidering(
 
     if (!isValid) {
       setDeltakelsesprosentError('Tallet må være et helt tall fra 1 til 100')
-      return false
-    }
-    if (deltakelsesprosent === opprinneligDeltakelsesprosent?.toString()) {
-      setDeltakelsesprosentError(
-        'Kan ikke være lik prosenten som er registrert'
-      )
       return false
     }
 
