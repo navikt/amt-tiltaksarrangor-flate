@@ -25,7 +25,7 @@ export function useDeltakelsesmengdeValidering(
     if (deltakelsesprosent === opprinneligDeltakelsesprosent?.toString()
       && dagerPerUke === opprinneligDagerPerUke?.toString()) {
       setDeltakelsesprosentError(
-        'Både deltakelsesprosent og dager i uken Kan ikke være lik det som er registrert fra før.'
+        'Både deltakelsesprosent og dager i uken kan ikke være lik det som er registrert fra før.'
       )
       return false
     } else {
