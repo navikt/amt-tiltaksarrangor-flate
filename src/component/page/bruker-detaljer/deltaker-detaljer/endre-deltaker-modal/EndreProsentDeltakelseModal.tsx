@@ -25,6 +25,7 @@ interface EndreProsentDeltakelseModalProps {
 export interface EndreProsentDeltakelseModalDataProps {
   readonly deltakerId: string
   readonly gammelProsentDeltakelse: number | null
+  readonly gammelDagerPerUke: number | null
   readonly visGodkjennVilkaarPanel: boolean
   readonly onEndringUtfort: () => void
   readonly onForslagSendt: (forslag: AktivtForslag) => void
@@ -34,6 +35,7 @@ export interface EndreProsentDeltakelseModalDataProps {
 export const EndreProsentDeltakelseModal = ({
   deltakerId,
   gammelProsentDeltakelse,
+  gammelDagerPerUke,
   visGodkjennVilkaarPanel,
   erForslagEnabled,
   onEndringUtfort,
@@ -54,6 +56,7 @@ export const EndreProsentDeltakelseModal = ({
   const validering = useDeltakelsesmengdeValidering(
     prosentDeltakelseFelt,
     dagerPerUkeFelt,
+    gammelDagerPerUke,
     gammelProsentDeltakelse
   )
 
