@@ -10,7 +10,10 @@ import { Tiltakskode } from '../api/data/tiltak'
 
 let cachedFeatureToggles: FeatureToggles | undefined = undefined
 
-const tiltakstyperMedForslag = [Tiltakskode.ARBFORB]
+const tiltakstyperKometAlltidErMasterFor
+  = [Tiltakskode.ARBFORB]
+
+const tiltakstyperKometKanskjeErMasterFor: Tiltakskode[] = []
 
 export const useFeatureToggle = () => {
   const [toggles, setToggles] = useState<FeatureToggles>()
@@ -28,8 +31,9 @@ export const useFeatureToggle = () => {
 
   const erKometMasterForTiltak = (tiltakstype: Tiltakskode) => {
     if (
-      toggles?.[KOMET_DELTAKERE_TOGGLE_NAVN] &&
-      tiltakstyperMedForslag.includes(tiltakstype)
+      tiltakstyperKometAlltidErMasterFor.includes(tiltakstype) ||
+      (toggles?.[KOMET_DELTAKERE_TOGGLE_NAVN] &&
+      tiltakstyperKometKanskjeErMasterFor.includes(tiltakstype))
     )
       return true
     return false
