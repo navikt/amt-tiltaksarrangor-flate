@@ -3,6 +3,8 @@ import { useEffect, useState } from 'react'
 export function useDeltakelsesmengdeValidering(
   deltakelsesprosent: string,
   dagerPerUke: string,
+  opprinneligDagerPerUke: number | null,
+  opprinneligDeltakelsesprosent: number | null
 ) {
   const [deltakelsesprosentError, setDeltakelsesprosentError] =
     useState<string>()
@@ -20,6 +22,16 @@ export function useDeltakelsesmengdeValidering(
       setDeltakelsesprosentError('Tallet må være et helt tall fra 1 til 100')
       return false
     }
+    if (deltakelsesprosent === opprinneligDeltakelsesprosent?.toString()
+      && dagerPerUke === opprinneligDagerPerUke?.toString()) {
+      setDeltakelsesprosentError(
+        'Både deltakelsesprosent og dager i uken Kan ikke være lik det som er registrert fra før.'
+      )
+      return false
+    } else {
+      setDagerPerUkeError(undefined)
+      setDeltakelsesprosentError(undefined)
+    }
 
     setDeltakelsesprosentError(undefined)
     return true
@@ -35,6 +47,17 @@ export function useDeltakelsesmengdeValidering(
     if (!isValid) {
       setDagerPerUkeError('Dager per uke må være et helt tall fra 1 til 5')
       return false
+    }
+
+    if (deltakelsesprosent === opprinneligDeltakelsesprosent?.toString()
+      && dagerPerUke === opprinneligDagerPerUke?.toString()) {
+      setDagerPerUkeError(
+        'Både deltakelsesprosent og dager i uken kan ikke være lik det som er registrert fra før.'
+      )
+      return false
+    } else {
+      setDagerPerUkeError(undefined)
+      setDeltakelsesprosentError(undefined)
     }
 
     setDagerPerUkeError(undefined)

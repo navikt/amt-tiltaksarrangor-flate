@@ -158,6 +158,8 @@ export const EndreDeltakelseKnapp = (props: EndreDeltakelseKnappProps) => {
                 onClick={() =>
                   visEndreProsentDeltakelseModal({
                     deltakerId: deltaker.id,
+                    gammelProsentDeltakelse: deltaker.deltakelseProsent,
+                    gammelDagerPerUke: deltaker.dagerPerUke,
                     visGodkjennVilkaarPanel: visGodkjennVilkaarPanel,
                     onEndringUtfort: props.onEndringUtfort,
                     onForslagSendt: props.onForslagSendt,
