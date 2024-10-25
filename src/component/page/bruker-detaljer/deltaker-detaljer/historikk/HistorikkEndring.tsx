@@ -51,12 +51,15 @@ const getEndringsDetaljer = (endring: Endring) => {
       )
     }
     case EndringType.EndreInnhold: {
-      return (
+      return (<>
+        {
+          endring.ledetekst && <BodyLong size="small">{endring.ledetekst}</BodyLong>
+        }
         <DeltakelseInnholdListe
-          deltakelsesinnhold={{ ledetekst: '', innhold: endring.innhold }}
+          deltakelsesinnhold={{ ledetekst: endring.ledetekst ?? '', innhold: endring.innhold }}
           className={styles.innhold_liste}
         />
-      )
+      </>)
     }
     case EndringType.ReaktiverDeltakelse: {
       return (
