@@ -45,6 +45,7 @@ export const endreBakgrunnsinformasjonSchema = z.object({
 
 export const endreInnholdSchema = z.object({
     type: z.literal(EndringType.EndreInnhold),
+    ledetekst: z.string().nullable(),
     innhold: z.array(innholdSchema)
 })
 

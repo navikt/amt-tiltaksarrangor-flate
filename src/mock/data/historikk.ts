@@ -1,11 +1,10 @@
-import { ArrangorEndringsType, DeltakerHistorikkListe, EndringType } from '../../api/data/historikk'
+import { ArrangorEndringsType, DeltakerHistorikkListe, DeltakerHistorikkStatus, EndringType } from '../../api/data/historikk'
 import { ForslagEndringAarsakType, ForslagEndringType, ForslagStatusType, HistorikkType } from '../../api/data/forslag'
 import dayjs from 'dayjs'
 import nb from 'dayjs/locale/nb'
 import customParseFormat from 'dayjs/plugin/customParseFormat'
 import { randomUuid } from '../utils/faker'
 import { DeltakerStatusAarsakType } from '../../api/data/endringsmelding'
-import { TiltakDeltakerStatus } from '../../api/data/deltaker'
 
 dayjs.locale(nb)
 dayjs.extend(customParseFormat)
@@ -257,6 +256,7 @@ export const mockDeltakerHistorikk = (): DeltakerHistorikkListe => {
             type: HistorikkType.Endring,
             endring: {
                 type: EndringType.EndreInnhold,
+                ledetekst: 'Arbeidsforberedende trening er et tilbud for deg som først ønsker å jobbe i et tilrettelagt arbeidsmiljø. Du får veiledning og støtte av en veileder. Sammen kartlegger dere hvordan din kompetanse, interesser og ferdigheter påvirker muligheten din til å jobbe.',
                 innhold: [
                     {
                         tekst: 'Støtte til jobbsøking',
@@ -305,9 +305,8 @@ export const mockDeltakerHistorikk = (): DeltakerHistorikkListe => {
             startdato: dayjs().subtract(3, 'day').toDate(),
             sluttdato: dayjs().add(3, 'day').toDate(),
             status: {
-                type: TiltakDeltakerStatus.DELTAR,
-                aarsak: null,
-                endretDato: dayjs().subtract(17, 'days').toDate()
+                type: DeltakerHistorikkStatus.DELTAR,
+                aarsak: null
             }
         }
     ]
