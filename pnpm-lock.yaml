@@ -12,17 +12,17 @@ importers:
         specifier: ^7.25.9
         version: 7.25.9
       '@navikt/aksel-icons':
-        specifier: ^7.4.0
-        version: 7.4.0
+        specifier: ^7.4.2
+        version: 7.4.2
       '@navikt/ds-css':
-        specifier: ^7.4.0
-        version: 7.4.0
+        specifier: ^7.4.2
+        version: 7.4.2
       '@navikt/ds-react':
-        specifier: ^7.4.0
-        version: 7.4.0(@types/react@18.3.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        specifier: ^7.4.2
+        version: 7.4.2(@types/react@18.3.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@navikt/ds-tokens':
-        specifier: ^7.4.0
-        version: 7.4.0
+        specifier: ^7.4.2
+        version: 7.4.2
       '@navikt/nav-dekoratoren-moduler':
         specifier: ^2.1.6
         version: 2.1.6(jsdom@24.1.1)(react@18.3.1)
@@ -490,6 +490,9 @@ packages:
   '@floating-ui/dom@1.6.11':
     resolution: {integrity: sha512-qkMCxSR24v2vGkhYDo/UzxfJN3D4syqSjyuTFz6C7XcpU1pASPRieNI0Kj5VP3/503mOfYiGY891ugBX1GlABQ==}
 
+  '@floating-ui/dom@1.6.12':
+    resolution: {integrity: sha512-NP83c0HjokcGVEMeoStg317VD9W7eDlGK7457dMBANbKA6GJZdc7rjujdgqzTaz93jkGgc5P/jeWbaCHnMNc+w==}
+
   '@floating-ui/react-dom@2.1.2':
     resolution: {integrity: sha512-06okr5cgPzMNBy+Ycse2A6udMi4bqwW/zgBF/rwjcNqWkyr82Mcg8b0vjX8OJpZFy/FKjJmw6wV7t44kK6kW7A==}
     peerDependencies:
@@ -547,20 +550,20 @@ packages:
     resolution: {integrity: sha512-N8x7eSLGcmUFNWZRxT1vsHvypzIRgQYdG0rJey/rZCy6zT/30qDt8Joj7FxzGNLSwXbeZqJOMqDurp7ra4hgbw==}
     engines: {node: '>=14'}
 
-  '@navikt/aksel-icons@7.4.0':
-    resolution: {integrity: sha512-iUwxnr3WeUH/95gHuO+51OtOkAjXwqu3qZMAngUakRPvq2WXjgDt6mXAx8G+kHe2jW38SqieSJrhXmaC+w2B4A==, tarball: https://npm.pkg.github.com/download/@navikt/aksel-icons/7.4.0/980a3663268cfaf8c3cc76b178337411f64ea25e}
+  '@navikt/aksel-icons@7.4.2':
+    resolution: {integrity: sha512-Oltbsmh7QUmqAtRaQp+EOP0J//DCZ1WZT+5N7Fgnu6xzbOcI+bSzc7xDm4kuBVcxQjBTCbSSR1Z9gWQJ+4Mmdg==, tarball: https://npm.pkg.github.com/download/@navikt/aksel-icons/7.4.2/673bfed77576d162260aaeb85383bbb4e821e203}
 
-  '@navikt/ds-css@7.4.0':
-    resolution: {integrity: sha512-7UfmcG8YSQW+NDSMUrRX9yDT72GFbl/bslQH5l+c6vdRckQsh7yvMP3kywGpW24YdoIUb3PCgSF2QBlEaXYMug==, tarball: https://npm.pkg.github.com/download/@navikt/ds-css/7.4.0/6deeedbd9c6e72968cfd94a9462a2f814a99684d}
+  '@navikt/ds-css@7.4.2':
+    resolution: {integrity: sha512-hh0JsB7rjSpDv/TmzI+XTpLzRn2cXcb2VjtYtX5lSFqBSqHMpeQ0wNigwZ+NbwwcoVLLtoCC85eGvNkkfsJ+RQ==, tarball: https://npm.pkg.github.com/download/@navikt/ds-css/7.4.2/0b11b9bb688719b2386036d2208a86dc09c1a49f}
 
-  '@navikt/ds-react@7.4.0':
-    resolution: {integrity: sha512-ooZlbI5kCLtDcApQYo7FlX/QDNDBV00havaYGt1yKpW3KJooABe0R3J0gWREwg6Y5WnOHYeauZlUYfR6Y4eB+w==, tarball: https://npm.pkg.github.com/download/@navikt/ds-react/7.4.0/001a7e59cb2bb331a0f571b020e43792a7f082b0}
+  '@navikt/ds-react@7.4.2':
+    resolution: {integrity: sha512-rjNtehkuu0uJrSti7lQ71cPs8PU9nA+LD8Bsmj0KGkh8TUtThE49SSzTRvj1GfIy+nN2jIpRkF8zcMZdcD2ogQ==, tarball: https://npm.pkg.github.com/download/@navikt/ds-react/7.4.2/58dcd85865a68ded842409b2b9aec6c378384f6c}
     peerDependencies:
       '@types/react': ^17.0.30 || ^18.0.0
       react: ^17.0.0 || ^18.0.0
 
-  '@navikt/ds-tokens@7.4.0':
-    resolution: {integrity: sha512-xR3vkCgP+T1WFGIzvQ12iIbTUCtbtlrPsX7g+In6QDCOnQKxnnr67EzfipDuL5P1ZTB5i2ystGyuwl/OTVlS1Q==, tarball: https://npm.pkg.github.com/download/@navikt/ds-tokens/7.4.0/485112bc65a76a2fc2b273c396fb0188439ad6bc}
+  '@navikt/ds-tokens@7.4.2':
+    resolution: {integrity: sha512-5W6dTtMGAzGa69EJWh6Y80OPLT7BbBSduM2btThduuDkH3o9ZzDg08kdebubodZgFC2W4p48Q+CwbYK1/Y80Jg==, tarball: https://npm.pkg.github.com/download/@navikt/ds-tokens/7.4.2/3698c0fe533b080dd2fd08f815465a5b2c12ef01}
 
   '@navikt/nav-dekoratoren-moduler@2.1.6':
     resolution: {integrity: sha512-P9c+a8/HuIY6XScNr/DVS7lZ0UtndzYAMEaIVdAzCOrG4SudY4tXSp+44g1V58GKml1RjdzOfGVF4hxmFv3SiA==, tarball: https://npm.pkg.github.com/download/@navikt/nav-dekoratoren-moduler/2.1.6/049e1daeecff43519e41e387f21fd7e3634c2bd3}
@@ -2587,8 +2590,8 @@ packages:
     resolution: {integrity: sha512-ayCKvm/phCGxOkYRSCM82iDwct8/EonSEgCSxWxD7ve6jHggsFl4fZVQBPRNgQoKiuV/odhFrGzQXZwbifC8Rg==}
     engines: {node: '>=8'}
 
-  parse5@7.2.0:
-    resolution: {integrity: sha512-ZkDsAOcxsUMZ4Lz5fVciOehNcJ+Gb8gTzcA4yl3wnc273BAybYWrQ+Ks/OjCjSEpjvQkDSeZbybK9qj2VHHdGA==}
+  parse5@7.2.1:
+    resolution: {integrity: sha512-BuBYQYlv1ckiPdQi/ohiivi9Sagc9JG+Ozs0r7b/0iK3sKmrb0b9FdWdBbOdx6hBCM/F9Ir82ofnBhtZOjCRPQ==}
 
   path-exists@4.0.0:
     resolution: {integrity: sha512-ak9Qy5Q7jYb2Wwcey5Fpvg2KoAc/ZIhLSLOSBmRmygPsGwkVVt0fZa0qrtMz+m6tJTAHfZQ8FnmB4MG4LWy7/w==}
@@ -3755,9 +3758,14 @@ snapshots:
       '@floating-ui/core': 1.6.8
       '@floating-ui/utils': 0.2.8
 
+  '@floating-ui/dom@1.6.12':
+    dependencies:
+      '@floating-ui/core': 1.6.8
+      '@floating-ui/utils': 0.2.8
+
   '@floating-ui/react-dom@2.1.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
     dependencies:
-      '@floating-ui/dom': 1.6.11
+      '@floating-ui/dom': 1.6.12
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
 
@@ -3820,16 +3828,16 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@navikt/aksel-icons@7.4.0': {}
+  '@navikt/aksel-icons@7.4.2': {}
 
-  '@navikt/ds-css@7.4.0': {}
+  '@navikt/ds-css@7.4.2': {}
 
-  '@navikt/ds-react@7.4.0(@types/react@18.3.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+  '@navikt/ds-react@7.4.2(@types/react@18.3.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
     dependencies:
       '@floating-ui/react': 0.25.4(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@floating-ui/react-dom': 2.1.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@navikt/aksel-icons': 7.4.0
-      '@navikt/ds-tokens': 7.4.0
+      '@navikt/aksel-icons': 7.4.2
+      '@navikt/ds-tokens': 7.4.2
       '@types/react': 18.3.12
       clsx: 2.1.1
       date-fns: 3.6.0
@@ -3838,7 +3846,7 @@ snapshots:
     transitivePeerDependencies:
       - react-dom
 
-  '@navikt/ds-tokens@7.4.0': {}
+  '@navikt/ds-tokens@7.4.2': {}
 
   '@navikt/nav-dekoratoren-moduler@2.1.6(jsdom@24.1.1)(react@18.3.1)':
     dependencies:
@@ -5718,7 +5726,7 @@ snapshots:
       https-proxy-agent: 7.0.5
       is-potential-custom-element-name: 1.0.1
       nwsapi: 2.2.13
-      parse5: 7.2.0
+      parse5: 7.2.1
       rrweb-cssom: 0.7.1
       saxes: 6.0.0
       symbol-tree: 3.2.4
@@ -6091,7 +6099,7 @@ snapshots:
       json-parse-even-better-errors: 2.3.1
       lines-and-columns: 1.2.4
 
-  parse5@7.2.0:
+  parse5@7.2.1:
     dependencies:
       entities: 4.5.0
 
