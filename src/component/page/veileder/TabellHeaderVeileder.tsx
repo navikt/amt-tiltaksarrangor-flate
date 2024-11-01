@@ -33,6 +33,14 @@ export const TabellHeaderVeileder = (): JSX.Element => {
         </Table.ColumnHeader>
 
         <Table.ColumnHeader
+          sortKey={DeltakerKolonne.SIST_ENDRET}
+          style={fixedWidth(140)}
+          sortable
+        >
+          Sist endret
+        </Table.ColumnHeader>
+
+        <Table.ColumnHeader
           sortKey={DeltakerKolonne.OPPSTART}
           style={fixedWidth(120)}
           sortable

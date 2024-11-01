@@ -4,6 +4,7 @@ import { VeiledersDeltaker } from '../../../api/data/deltaker'
 export enum DeltakerKolonne {
   NAVN = 'NAVN',
   FODSELSNUMMER = 'FODSELSNUMMER',
+  SIST_ENDRET = 'SIST_ENDRET',
   STATUS = 'STATUS',
   OPPSTART = 'OPPSTART',
   SLUTT = 'SLUTT'
@@ -29,6 +30,8 @@ export const sorterVeiledersDeltakere = (
       }
       case DeltakerKolonne.STATUS:
         return compareAsc(a.status.type, b.status.type)
+      case DeltakerKolonne.SIST_ENDRET:
+        return compareAsc(a.sistEndret, b.sistEndret)
       case DeltakerKolonne.OPPSTART:
         return compareAsc(a.startDato, b.startDato)
       case DeltakerKolonne.SLUTT:

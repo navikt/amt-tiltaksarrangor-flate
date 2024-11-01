@@ -43,6 +43,22 @@ export const TiltakDeltakerStatus = {
   ...IndividuellDeltakerStatus
 }
 
+export enum AktivEndringsType {
+  Forslag = 'Forslag',
+  Endringsmelding = 'Endringsmelding'
+}
+
+export enum AktivEndring {
+  LeggTilOppstartsDato = 'LeggTilOppstartsDato',
+  ForlengDeltakelse = 'ForlengDeltakelse',
+  IkkeAktuell = 'IkkeAktuell',
+  AvsluttDeltakelse = 'AvsluttDeltakelse',
+  Deltakelsesmengde = 'Deltakelsesmengde',
+  Sluttdato = 'Sluttdato',
+  Startdato = 'Startdato',
+  Sluttarsak = 'Sluttarsak'
+}
+
 const tiltakDeltakerStatusSchema = z.nativeEnum(TiltakDeltakerStatus)
 
 export const deltakerStatusSchema = z.object({
@@ -174,6 +190,12 @@ export const mineDeltakerlisterSchema = z.object({
   koordinatorFor: koordinatorForSchema.nullable()
 })
 
+export const aktivEndringSchema = z.object({
+  endingsType: z.nativeEnum(AktivEndring),
+  type: z.nativeEnum(AktivEndringsType),
+  sendt: dateSchema
+})
+
 export const veiledersDeltakerSchema = z.object({
   id: z.string().uuid(),
   fornavn: z.string(),
@@ -186,6 +208,8 @@ export const veiledersDeltakerSchema = z.object({
   deltakerliste: deltakerlisteSchema,
   veiledertype: veiledertypeSchema,
   aktiveEndringsmeldinger: z.array(endringsmeldingSchema),
+  aktivEndring: aktivEndringSchema.nullable(),
+  sistEndret: dateSchema,
   adressebeskyttet: z.boolean()
 })
 
@@ -236,6 +260,8 @@ export type VeiledersDeltaker = z.infer<typeof veiledersDeltakerSchema>
 export type KoordinatorsDeltakerliste = z.infer<
   typeof koordinatorsDeltakerlisteSchema
 >
+
+export type AktivEndringForDeltaker = z.infer<typeof aktivEndringSchema>
 
 export type Vurdering = z.infer<typeof vurderingSchema>
 
