@@ -84,6 +84,7 @@ export const RadVeileder = (props: RadProps): React.ReactElement<RadProps> => {
           {aktivEndring && (
             <Tooltip content={aktivEndringTekst} placement="right">
               <Button
+                aria-disabled
                 className={styles.aktivEndringIcon}
                 size="xsmall" variant="tertiary-neutral"
                 icon={<InformationSquareIcon fontSize="1.5rem" />}
