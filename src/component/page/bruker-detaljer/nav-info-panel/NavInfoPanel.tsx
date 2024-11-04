@@ -18,7 +18,7 @@ export function NavInfoPanel(props: {
   return (
     <Panel border className={styles.infoPanel}>
       <Heading size="xsmall" level="3" className={globalStyles.blokkXs}>
-        NAV-kontor
+        Nav-kontor
       </Heading>
 
       <div className={cls(styles.contentBlock, globalStyles.blokkM)}>

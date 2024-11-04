@@ -187,7 +187,7 @@ export const AdministrerDeltakerlisterPage = () => {
           <br />
           <br />
           Mangler det en deltakerliste? Den kan være registrert på et annet
-          org.nr. i NAVs datasystem. Ta kontakt med den i NAV som er ansvarlig
+          org.nr. i Navs datasystem. Ta kontakt med den i Nav som er ansvarlig
           for avtalen.
         </Alert>
       </Show>

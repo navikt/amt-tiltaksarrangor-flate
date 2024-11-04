@@ -19,7 +19,7 @@ export const mockDeltakerHistorikk = (): DeltakerHistorikkListe => {
                 begrunnelse: null
             },
             endretAv: 'Navn Navnesen',
-            endretAvEnhet: 'NAV Fredrikstad',
+            endretAvEnhet: 'Nav Fredrikstad',
             endret: dayjs().subtract(2, 'day').toDate(),
             forslag: {
                 id: randomUuid(),
@@ -64,7 +64,7 @@ export const mockDeltakerHistorikk = (): DeltakerHistorikkListe => {
                 begrunnelse: null
             },
             endretAv: 'Navn Navnesen',
-            endretAvEnhet: 'NAV Fredrikstad',
+            endretAvEnhet: 'Nav Fredrikstad',
             endret: dayjs().subtract(2, 'day').toDate(),
             forslag: null
         },
@@ -77,7 +77,7 @@ export const mockDeltakerHistorikk = (): DeltakerHistorikkListe => {
                 begrunnelse: null
             },
             endretAv: 'Navn Navnesen',
-            endretAvEnhet: 'NAV Fredrikstad',
+            endretAvEnhet: 'Nav Fredrikstad',
             endret: dayjs().subtract(2, 'day').toDate(),
             forslag: {
                 id: randomUuid(),
@@ -105,7 +105,7 @@ export const mockDeltakerHistorikk = (): DeltakerHistorikkListe => {
                     'Det var en feil at deltakelsen ble satt til ikke aktuell, dette er nå rettet.'
             },
             endretAv: 'Navn Navnesen',
-            endretAvEnhet: 'NAV Fredrikstad',
+            endretAvEnhet: 'Nav Fredrikstad',
             endret: dayjs().subtract(2, 'day').toDate(),
             forslag: null
         },
@@ -121,7 +121,7 @@ export const mockDeltakerHistorikk = (): DeltakerHistorikkListe => {
                 begrunnelse: null
             },
             endretAv: 'Navn Navnesen',
-            endretAvEnhet: 'NAV Fredrikstad',
+            endretAvEnhet: 'Nav Fredrikstad',
             endret: dayjs().subtract(2, 'day').toDate(),
             forslag: {
                 id: randomUuid(),
@@ -154,7 +154,7 @@ export const mockDeltakerHistorikk = (): DeltakerHistorikkListe => {
                 begrunnelse: null
             },
             endretAv: 'Navn Navnesen',
-            endretAvEnhet: 'NAV Fredrikstad',
+            endretAvEnhet: 'Nav Fredrikstad',
             endret: dayjs().subtract(2, 'day').toDate(),
             forslag: null
         },
@@ -166,7 +166,7 @@ export const mockDeltakerHistorikk = (): DeltakerHistorikkListe => {
                 begrunnelse: 'Forlenger fordi vi må'
             },
             endretAv: 'Navn Navnesen',
-            endretAvEnhet: 'NAV Fredrikstad',
+            endretAvEnhet: 'Nav Fredrikstad',
             endret: dayjs().subtract(2, 'day').toDate(),
             forslag: {
                 id: randomUuid(),
@@ -211,7 +211,7 @@ export const mockDeltakerHistorikk = (): DeltakerHistorikkListe => {
                 dagerPerUke: 4
             },
             endretAv: 'Navn Navnesen',
-            endretAvEnhet: 'NAV Fredrikstad',
+            endretAvEnhet: 'Nav Fredrikstad',
             endret: dayjs().subtract(2, 'day').toDate(),
             forslag: {
                 id: randomUuid(),
@@ -248,7 +248,7 @@ export const mockDeltakerHistorikk = (): DeltakerHistorikkListe => {
                 bakgrunnsinformasjon: ''
             },
             endretAv: 'Navn Navnesen',
-            endretAvEnhet: 'NAV Fredrikstad',
+            endretAvEnhet: 'Nav Fredrikstad',
             endret: dayjs().subtract(2, 'day').toDate(),
             forslag: null
         },
@@ -271,7 +271,7 @@ export const mockDeltakerHistorikk = (): DeltakerHistorikkListe => {
                 ]
             },
             endretAv: 'Navn Navnesen',
-            endretAvEnhet: 'NAV Fredrikstad',
+            endretAvEnhet: 'Nav Fredrikstad',
             endret: dayjs().subtract(2, 'day').toDate(),
             forslag: null
         },
@@ -294,7 +294,7 @@ export const mockDeltakerHistorikk = (): DeltakerHistorikkListe => {
                 ]
             },
             opprettetAv: 'Navn Navnesen',
-            opprettetAvEnhet: 'NAV Fredrikstad',
+            opprettetAvEnhet: 'Nav Fredrikstad',
             opprettet: dayjs().subtract(3, 'day').toDate()
         },
         {

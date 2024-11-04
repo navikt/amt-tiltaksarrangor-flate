@@ -23,7 +23,7 @@ const getEndringsDetaljer = (endring: Endring) => {
           </BodyLong>
           {endring.begrunnelse && (
             <BodyLong size="small" className={globalStyles.textPreWrap}>
-              NAVs begrunnelse: {endring.begrunnelse}
+              Navs begrunnelse: {endring.begrunnelse}
             </BodyLong>
           )}
         </>
@@ -37,7 +37,7 @@ const getEndringsDetaljer = (endring: Endring) => {
           </BodyLong>
           {endring.begrunnelse && (
             <BodyLong size="small" className={globalStyles.textPreWrap}>
-              NAVs begrunnelse: {endring.begrunnelse}
+              Navs begrunnelse: {endring.begrunnelse}
             </BodyLong>
           )}
         </>
@@ -64,7 +64,7 @@ const getEndringsDetaljer = (endring: Endring) => {
     case EndringType.ReaktiverDeltakelse: {
       return (
         <BodyLong size="small" className={globalStyles.textPreWrap}>
-          NAVs begrunnelse: {endring.begrunnelse}
+          Navs begrunnelse: {endring.begrunnelse}
         </BodyLong>
       )
     }
@@ -74,7 +74,7 @@ const getEndringsDetaljer = (endring: Endring) => {
     case EndringType.EndreSluttarsak: {
       return endring.begrunnelse ? (
         <BodyLong size="small" className={globalStyles.textPreWrap}>
-          NAVs begrunnelse: {endring.begrunnelse}
+          Navs begrunnelse: {endring.begrunnelse}
         </BodyLong>
       ) : (
           <div className={styles.tomDiv} />
@@ -88,7 +88,7 @@ const getEndringsDetaljer = (endring: Endring) => {
           </BodyLong>
           {endring.begrunnelse && (
             <BodyLong size="small" className={globalStyles.textPreWrap}>
-              NAVs begrunnelse: {endring.begrunnelse}
+              Navs begrunnelse: {endring.begrunnelse}
             </BodyLong>
           )}
         </>

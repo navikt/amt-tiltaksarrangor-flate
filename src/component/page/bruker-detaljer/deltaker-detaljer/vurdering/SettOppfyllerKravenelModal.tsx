@@ -40,7 +40,7 @@ export const SettOppfyllerKravenelModal = ({
           className={styles.modalKnapp}
           size="small"
         >
-          Send til NAV
+          Send til Nav
         </Button>
       </Modal.Body>
     </Modal>

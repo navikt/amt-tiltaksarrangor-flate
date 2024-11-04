@@ -74,7 +74,7 @@ export const SettOppfyllerIkkeKravenelModal = ({
           disabled={!kanSendeVurdering}
           size="small"
         >
-          Send til NAV
+          Send til Nav
         </Button>
       </Modal.Body>
     </Modal>

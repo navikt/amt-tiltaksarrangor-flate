@@ -23,7 +23,7 @@ export const IngenRollePage = (): React.ReactElement => {
         <p>
           Hvis du er usikker på hvilket organisasjonsnummer som er riktig for
           deltakerlisten du jobber med, så ta kontakt med den som er ansvarlig
-          for avtalen i egen virksomhet eller i NAV. Les mer om{' '}
+          for avtalen i egen virksomhet eller i Nav. Les mer om{' '}
           <Link
             target="_blank"
             rel="noopener noreferrer"
@@ -50,12 +50,12 @@ export const IngenRollePage = (): React.ReactElement => {
         <p>
           Ansatte som jobber med koordinerende arbeidsoppgaver får tilgang til
           tjenesten som koordinator. Enkeltrettigheten i Altinn heter
-          “Tiltaksarrangør koordinator - NAV Deltakeroversikt”.
+          “Tiltaksarrangør koordinator - Nav Deltakeroversikt”.
         </p>
         <header className={styles.bold}>Veileder</header>
         <p>
           Ansatte som jobber tett på deltakere får rollen som veileder.
-          Enkeltrettigheten i Altinn heter “Tiltaksarrangør veileder - NAV
+          Enkeltrettigheten i Altinn heter “Tiltaksarrangør veileder - Nav
           Deltakeroversikt”.
         </p>
         <p>

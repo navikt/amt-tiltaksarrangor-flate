@@ -25,7 +25,7 @@ export const AktiveForslag = ({
       borderRadius="medium"
     >
       <Heading level="3" size="small" className={styles.aktiveForslagTitle}>
-        Forslag sendt til NAV:
+        Forslag sendt til Nav:
       </Heading>
       {forslag.map((it) => {
         return (

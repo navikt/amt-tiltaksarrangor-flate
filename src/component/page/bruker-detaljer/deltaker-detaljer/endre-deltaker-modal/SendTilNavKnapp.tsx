@@ -14,9 +14,9 @@ const getTekst = (endringFraArrangor?: boolean, forslag?: boolean) => {
   if (endringFraArrangor) {
     return 'Lagre'
   } else if (forslag) {
-    return 'Send forslag til NAV-veileder'
+    return 'Send forslag til Nav-veileder'
   } else {
-    return 'Send til NAV'
+    return 'Send til Nav'
   }
 }
 

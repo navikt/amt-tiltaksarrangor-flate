@@ -117,7 +117,7 @@ export const getForslagTittel = (endringstype: ForslagEndringType) => {
 export const getForslagStatusTypeText = (type: ForslagStatusType) => {
   switch (type) {
     case ForslagStatusType.VenterPaSvar:
-      return 'Venter på svar fra NAV'
+      return 'Venter på svar fra Nav'
     case ForslagStatusType.Avvist:
       return 'Forslaget er avvist'
     case ForslagStatusType.Erstattet:

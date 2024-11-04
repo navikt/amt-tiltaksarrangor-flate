@@ -16,11 +16,11 @@ export const VeilederConfirmationPanel = ({
       size="small"
       className={styles.confirmation}
       checked={vilkaarGodkjent}
-      label="Ja, NAV-veileder har godkjent"
+      label="Ja, Nav-veileder har godkjent"
       onChange={() => setVilkaarGodkjent(!vilkaarGodkjent)}
     >
-      Endringer må først avtales med NAV-veileder. Er endringen godkjent av
-      NAV-veileder?
+      Endringer må først avtales med Nav-veileder. Er endringen godkjent av
+      Nav-veileder?
     </ConfirmationPanel>
   )
 }

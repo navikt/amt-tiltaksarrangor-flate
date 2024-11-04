@@ -12,7 +12,7 @@ export function ForslagStatusTag({
     case ForslagStatusType.VenterPaSvar: {
       return (
         <Tag variant="info" size="small" className={className ?? ''}>
-          Venter på svar fra NAV
+          Venter på svar fra Nav
         </Tag>
       )
     }
