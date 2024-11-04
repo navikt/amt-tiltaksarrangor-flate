@@ -13,6 +13,7 @@ import {
 import { EndringType } from '../types'
 import { kalkulerMinDato, maxSluttdato } from './datoutils'
 import { Deltaker } from '../../../../../api/data/deltaker'
+import dayjs from 'dayjs'
 
 export interface EndreSluttdatoModalProps {
   onClose: () => void
@@ -52,6 +53,11 @@ export const EndreSluttdatoModal = ({
     if (!valgtDato) {
       return Promise.reject('Sluttdato må være valgt for å sende endring')
     }
+
+    if (dayjs(valgtDato).isSame(deltaker.sluttDato, 'day')) {
+      return Promise.reject('Innholdet i skjemaet medfører ingen endringer i deltakelsen på tiltaket. \nFor å lagre må minst ett felt i skjemaet være ulikt nåværende deltakelse.')
+    }
+
     return validerObligatoriskBegrunnelse(begrunnelse)
       .then(() => endreSluttdatoForslag(deltaker.id, valgtDato, begrunnelse))
       .then((res) => onForslagSendt(res.data))

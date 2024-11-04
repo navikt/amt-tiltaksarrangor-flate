@@ -208,6 +208,7 @@ export const EndreDeltakelseKnapp = (props: EndreDeltakelseKnappProps) => {
                   onClick={() =>
                     visEndreSluttaarsakModal({
                       deltakerId: deltaker.id,
+                      deltaker: deltaker,
                       deltakerStatus: deltaker.status.type as
                         | IndividuellDeltakerStatus.HAR_SLUTTET
                         | IndividuellDeltakerStatus.IKKE_AKTUELL,

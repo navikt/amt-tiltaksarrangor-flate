@@ -18,6 +18,7 @@ import { Deltaker } from '../../../../../api/data/deltaker'
 import { maxSluttdato } from './datoutils'
 import { Radio, RadioGroup } from '@navikt/ds-react'
 import styles from './AvsluttDeltakelseModal.module.scss'
+import dayjs from 'dayjs'
 
 interface AvsluttDeltakelseModalProps {
   onClose: () => void
@@ -92,6 +93,15 @@ export const AvsluttDeltakelseModal = (
         'Sluttdato er påkrevd for å sende AvsluttDeltakelse forslag'
       )
     }
+
+    const harIngenEndring = sluttDato ?
+      dayjs(sluttDato).isSame(deltaker.sluttDato, 'day')
+      : false
+
+    if (harIngenEndring) {
+      return Promise.reject('Innholdet i skjemaet medfører ingen endringer i deltakelsen på tiltaket. \nFor å lagre må sluttdato være ulikt nåværende deltakelse.')
+    }
+
     return validerAarsakForm(aarsak, beskrivelse, begrunnelse)
       .then((validertForm) =>
         avsluttDeltakelseForslag(

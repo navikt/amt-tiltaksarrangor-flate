@@ -13,6 +13,7 @@ import { EndringType } from '../types'
 import { SluttdatoRef, SluttdatoVelger } from './SluttdatoVelger'
 import { Deltaker } from '../../../../../api/data/deltaker'
 import { maxSluttdato } from './datoutils'
+import dayjs from 'dayjs'
 
 export interface ForlengDeltakelseModalProps {
   readonly onClose: () => void
@@ -65,6 +66,13 @@ export const ForlengDeltakelseModal = (
     }
     if (sluttdato.current && !sluttdato.current.validate()) {
       return Promise.reject(sluttdato.current.error)
+    }
+
+    const harIngenEndring =
+      dayjs(sluttdato.current?.sluttdato).isSame(deltaker.sluttDato, 'day')
+
+    if (harIngenEndring) {
+      return Promise.reject('Innholdet i skjemaet medfører ingen endringer i deltakelsen på tiltaket. \nFor å lagre må minst ett felt i skjemaet være ulikt nåværende deltakelse.')
     }
 
     const dato = sluttdato.current.sluttdato
