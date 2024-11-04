@@ -38,7 +38,7 @@ export function Endringsmodal(props: EndringsmodalProps) {
     >
       {props.erForslag && (
         <Alert variant="info" size="small" className={styles.endringsmodal_info}>
-          Forslaget sendes til NAV-veileder. Deltaker kan se innholdet i begrunnelsen på nav.no.
+          Forslaget sendes til Nav-veileder. Deltaker kan se innholdet i begrunnelsen på nav.no.
         </Alert>
       )}
 

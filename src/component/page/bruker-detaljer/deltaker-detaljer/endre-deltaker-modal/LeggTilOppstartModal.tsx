@@ -78,8 +78,8 @@ export const LeggTilOppstartModal = ({
     >
       {erEndringFraArrangorEnabled && (
         <Alert variant="info" size="small" >
-            Oppstartsdato avtales med deltaker direkte. Når du lagrer så kan
-            NAV-veileder se datoene i arbeidsverktøyet sitt og deltaker kan se
+          Oppstartsdato avtales med deltaker direkte. Når du lagrer så kan
+          Nav-veileder se datoene i arbeidsverktøyet sitt og deltaker kan se
           datoene på nav.no.
         </Alert>
       )}

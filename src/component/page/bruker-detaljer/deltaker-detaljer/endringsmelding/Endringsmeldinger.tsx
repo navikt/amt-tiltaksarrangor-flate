@@ -47,7 +47,7 @@ export const Endringsmeldinger = ({
       {(endringsmeldinger.length > 0 ||
         historiskeEndringsmeldinger.length > 0) && (
         <BodyShort size="small" className={styles.endringsmeldingerTitle}>
-          Sendt til NAV:
+          Sendt til Nav:
         </BodyShort>
       )}
       {endringsmeldinger.length > 0 && (

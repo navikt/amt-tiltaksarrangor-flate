@@ -167,7 +167,7 @@ export const TildelVeilederModal = (props: Props): React.ReactElement => {
           <p>
             Enkeltrettigheten i Altinn heter: <br />
             <span className={styles.bold}>
-              “Tiltaksarrangør veileder - NAV Deltakeroversikt”.
+              “Tiltaksarrangør veileder - Nav Deltakeroversikt”.
             </span>
           </p>
           <p>

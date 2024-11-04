@@ -80,7 +80,7 @@ export const FilterMenyNavKontor = (props: Props): React.ReactElement => {
 
   return (
     <FilterMeny
-      navn="NAV-kontor"
+      navn="Nav-kontor"
       data={deltakerePerNavKontor}
       className={globalStyles.blokkXs}
       filter={navKontorFilter}

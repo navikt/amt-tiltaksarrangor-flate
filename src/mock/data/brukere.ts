@@ -75,10 +75,10 @@ export interface MockTiltakDeltaker {
 }
 
 const navEnheter: MockNavEnhet[] = [
-  { navn: 'NAV Bærum' },
-  { navn: 'NAV Åsnes' },
-  { navn: 'NAV Møre og Romsdal' },
-  { navn: 'NAV Moss' }
+  { navn: 'Nav Bærum' },
+  { navn: 'Nav Åsnes' },
+  { navn: 'Nav Møre og Romsdal' },
+  { navn: 'Nav Moss' }
 ]
 
 const lagMailFraNavn = (navn: string, mailDomain: string): string => {
@@ -394,5 +394,5 @@ ${fornavn} ønsker:
 
 ${fornavn} håper at hen raskt kommer i kontakt med mulige arbeidsgivere for å starte å jobbe. Hen tror selv at hen har behov for hjelp i inntil 4 måneder, inklusiv oppfølging på arbeidsplassen.
 
-NAV kan vurdere tilskudd for å kompensere for utgifter arbeidsgiver skulle ha med tilrettelegging.`
+Nav kan vurdere tilskudd for å kompensere for utgifter arbeidsgiver skulle ha med tilrettelegging.`
 }

@@ -20,8 +20,8 @@ export const FjernDeltakerModal = (props: FjernDeltakerModalProps) => {
     >
       <BodyLong className={styles.text}>
         Når du fjerner en deltaker fra listen, så blir den borte for alle
-        tiltaksarrangør-ansatte som bruker Deltakeroversikten. NAV vil ikke
-        merke noe endring. Deltaker blir ikke fjernet fra NAVs system.
+        tiltaksarrangør-ansatte som bruker Deltakeroversikten. Nav vil ikke
+        merke noe endring. Deltaker blir ikke fjernet fra Navs system.
       </BodyLong>
 
       <div className={styles.knappeRad}>

@@ -16,7 +16,7 @@ Nåværende versjon av pnpm er 8.6.2
 ## Start applikasjon lokalt
 `pnpm start`
 
-Husk å følge dokumentasjonen her https://github.com/navikt/nav-dekoratoren-moduler#readme for å sette opp NAV-dekoratøren.
+Husk å følge dokumentasjonen her https://github.com/navikt/nav-dekoratoren-moduler#readme for å sette opp Nav-dekoratøren.
 
 ## Kjør lokalt mot lokal backend
 Hvis man ønsker å teste med en backend som kjører lokalt på PCen/MACen

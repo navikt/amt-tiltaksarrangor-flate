@@ -37,7 +37,7 @@ export const TiltakInfo = ({ deltakerliste, className }: TiltakInfoProps) => {
           <br />
           <BodyLong>
             Tiltaket er avlyst eller så er avtalen utdatert. Er dette feil, ta
-            kontakt med den som er ansvarlig for tiltaket i NAV.
+            kontakt med den som er ansvarlig for tiltaket i Nav.
           </BodyLong>
         </Alert>
       </Show>
