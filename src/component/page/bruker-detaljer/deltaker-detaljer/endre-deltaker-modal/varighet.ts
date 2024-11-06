@@ -188,9 +188,9 @@ export function maxVarighetMillisFor(
       return aarMs(3)
     case Tiltakskode.ARBRRHDAG:
     case Tiltakskode.AVKLARAG:
-      return undefined // ukerMs(12) Midlertidig skrudd av for å ikke ødelegge for endringsmeldinger i prod
+      return ukerMs(16)
     case Tiltakskode.DIGIOPPARB:
-      return ukerMs(8)
+      return ukerMs(12)
     case Tiltakskode.GRUFAGYRKE:
       return aarMs(4)
     case Tiltakskode.INDOPPFAG:
