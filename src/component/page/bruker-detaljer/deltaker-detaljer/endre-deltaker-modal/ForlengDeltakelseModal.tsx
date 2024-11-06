@@ -50,7 +50,7 @@ export const ForlengDeltakelseModal = (
   const sendEndringsmelding = () => {
     if (!sluttdato.current?.validate() || !sluttdato.current.sluttdato) {
       return Promise.reject(
-        'Endringsmeldingen kan ikke sendes fordi datoen er ikke gyldig.'
+        'Endringsmeldingen kan ikke sendes fordi datoen ikke er gyldig.'
       )
     }
     return forlengDeltakelse(deltaker.id, sluttdato.current.sluttdato).then(
@@ -61,7 +61,7 @@ export const ForlengDeltakelseModal = (
   const sendForslag = () => {
     if (!sluttdato.current?.sluttdato) {
       return Promise.reject(
-        'Forslaget kan ikke sendes fordi datoen er ikke gyldig.'
+        'Forslaget kan ikke sendes fordi datoen ikke er gyldig.'
       )
     }
     if (sluttdato.current && !sluttdato.current.validate()) {
