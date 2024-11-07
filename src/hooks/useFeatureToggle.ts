@@ -1,10 +1,6 @@
 import { useEffect, useState } from 'react'
 
-import {
-  FeatureToggles,
-  KOMET_DELTAKERE_TOGGLE_NAVN,
-  VIS_DRIFTSMELDING_TOGGLE_NAVN
-} from '../api/data/feature-toggle'
+import { FeatureToggles, KOMET_DELTAKERE_TOGGLE_NAVN, VIS_DRIFTSMELDING_TOGGLE_NAVN } from '../api/data/feature-toggle'
 import { fetchToggles } from '../api/feature-toggle-api'
 import { Tiltakskode } from '../api/data/tiltak'
 
@@ -13,7 +9,7 @@ let cachedFeatureToggles: FeatureToggles | undefined = undefined
 const tiltakstyperKometAlltidErMasterFor
   = [Tiltakskode.ARBFORB]
 
-const tiltakstyperKometKanskjeErMasterFor: Tiltakskode[] = []
+const tiltakstyperKometKanskjeErMasterFor: Tiltakskode[] = [Tiltakskode.ARBRRHDAG, Tiltakskode.AVKLARAG, Tiltakskode.INDOPPFAG]
 
 export const useFeatureToggle = () => {
   const [toggles, setToggles] = useState<FeatureToggles>()
