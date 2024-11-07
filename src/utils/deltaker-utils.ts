@@ -1,4 +1,4 @@
-import { Adresse } from '../api/data/deltaker'
+import { Adresse, AktivEndring, AktivEndringForDeltaker, AktivEndringsType } from '../api/data/deltaker'
 import { Tiltakskode } from '../api/data/tiltak'
 
 export const INNHOLD_TYPE_ANNET = 'annet'
@@ -44,3 +44,29 @@ export const getDeltakelsesmengdetekst = (
   return `${deltakelsesprosent ?? 100}\u00A0% ${dagerIUkaText}`
 }
 
+const getAktivEndringTypeTekst = (aktivEndringType: AktivEndring) => {
+  switch (aktivEndringType) {
+    case AktivEndring.IkkeAktuell:
+      return 'Er ikke aktuell'
+    case AktivEndring.ForlengDeltakelse:
+      return 'Forleng deltakelse'
+    case AktivEndring.AvsluttDeltakelse:
+      return 'Avslutt deltakelse'
+    case AktivEndring.Deltakelsesmengde:
+      return 'Endre deltakelsesmengde'
+    case AktivEndring.Sluttarsak:
+      return 'Endre sluttårsak'
+    case AktivEndring.Startdato:
+      return 'Endre oppstartsdato'
+    case AktivEndring.Sluttdato:
+      return 'Endre sluttdato'
+    case AktivEndring.LeggTilOppstartsDato:
+      return 'Legg til oppstartsdato'
+  }
+}
+
+export const getAktivEndringTekst = (aktivEndring: AktivEndringForDeltaker) => {
+  const typeTekst = aktivEndring.type === AktivEndringsType.Endringsmelding ? 'Endringsmelding' : 'Forslag'
+  const typeEndringTekst = getAktivEndringTypeTekst(aktivEndring.endingsType)
+  return `${typeTekst} sendt til Nav: ${typeEndringTekst}`
+}

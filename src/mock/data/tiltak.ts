@@ -9,6 +9,9 @@ import {
 import { arrangorForGjennomforing } from './arrangor'
 import { gjennomforingId } from './id'
 import {
+  AktivEndring,
+  AktivEndringForDeltaker,
+  AktivEndringsType,
   KoordinatorForDeltakerliste,
   MineDeltakerlister,
   TiltakDeltakerStatus,
@@ -210,6 +213,32 @@ export const lagMockDeltakerlisteVeileder = (
   return deltakerlisteVeileder
 }
 
+export const lagMockAktivEndring = (): null | AktivEndringForDeltaker => {
+  const i = randBetween(0, 10)
+  if (i < 3) return null
+
+  let endingsType = AktivEndring.ForlengDeltakelse
+  let type = AktivEndringsType.Forslag
+
+  if (i < 5) {
+    endingsType = AktivEndring.ForlengDeltakelse
+  } else if (i < 7) {
+    endingsType = AktivEndring.AvsluttDeltakelse
+  } else if (i < 8) {
+    endingsType = AktivEndring.IkkeAktuell
+    type = AktivEndringsType.Endringsmelding
+  } else if (i < 10) {
+    endingsType = AktivEndring.ForlengDeltakelse
+    type = AktivEndringsType.Endringsmelding
+  }
+
+  return {
+    endingsType,
+    type,
+    sendt: faker.date.recent()
+  }
+}
+
 const lagMockVeiledersDeltaker = (
   deltaker: MockTiltakDeltaker
 ): VeiledersDeltaker => {
@@ -229,6 +258,8 @@ const lagMockVeiledersDeltaker = (
     },
     veiledertype: getVeiledertype(),
     aktiveEndringsmeldinger: getEndringsmeldinger(),
+    aktivEndring: lagMockAktivEndring(),
+    sistEndret: faker.date.recent(),
     adressebeskyttet: deltaker.adressebeskyttet
   }
 }

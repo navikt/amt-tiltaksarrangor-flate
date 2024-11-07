@@ -1,4 +1,4 @@
-import { Table } from '@navikt/ds-react'
+import { BodyShort, Button, Table, Tooltip } from '@navikt/ds-react'
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 
@@ -17,6 +17,9 @@ import {
   utledStartdato
 } from '../deltakerliste-detaljer/deltaker-oversikt/deltaker-tabell/Rad'
 import { AdressebeskyttetModal } from './AdressebeskyttetModal.tsx'
+import { formatDate } from '../../../utils/date-utils'
+import { InformationSquareIcon } from '@navikt/aksel-icons'
+import { getAktivEndringTekst } from '../../../utils/deltaker-utils'
 
 interface RadProps {
   idx: number
@@ -34,6 +37,8 @@ export const RadVeileder = (props: RadProps): React.ReactElement<RadProps> => {
     sluttDato,
     status,
     aktiveEndringsmeldinger,
+    aktivEndring,
+    sistEndret,
     adressebeskyttet
   } = props.deltaker
   const navigate = useNavigate()
@@ -49,6 +54,8 @@ export const RadVeileder = (props: RadProps): React.ReactElement<RadProps> => {
     loggKlikk(klikkDeltakerRadOversikt)
     navigate(deltakerDetaljerPageUrl)
   }
+
+  const aktivEndringTekst = aktivEndring ? getAktivEndringTekst(aktivEndring) : ''
 
   return (
     <Table.Row key={id}>
@@ -70,6 +77,21 @@ export const RadVeileder = (props: RadProps): React.ReactElement<RadProps> => {
       </Table.DataCell>
       <Table.DataCell>
         {adressebeskyttet ? '' : <Fnr fnr={fodselsnummer} />}
+      </Table.DataCell>
+      <Table.DataCell>
+        <BodyShort className={styles.sistEndret}>
+          {formatDate(aktivEndring ? aktivEndring.sendt : sistEndret)}
+          {aktivEndring && (
+            <Tooltip content={aktivEndringTekst} placement="right">
+              <Button
+                aria-disabled
+                className={styles.aktivEndringIcon}
+                size="xsmall" variant="tertiary-neutral"
+                icon={<InformationSquareIcon fontSize="1.5rem" />}
+              />
+            </Tooltip>
+          )}
+        </BodyShort>
       </Table.DataCell>
       <Table.DataCell>
         {utledStartdato(startDato, aktiveEndringsmeldinger)}
