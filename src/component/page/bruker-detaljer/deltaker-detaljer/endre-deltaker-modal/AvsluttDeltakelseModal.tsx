@@ -1,24 +1,23 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 
+import { Radio, RadioGroup } from '@navikt/ds-react'
+import { Deltaker } from '../../../../../api/data/deltaker'
 import { DeltakerStatusAarsakType } from '../../../../../api/data/endringsmelding'
+import { AktivtForslag } from '../../../../../api/data/forslag'
+import { avsluttDeltakelseForslag } from '../../../../../api/forslag-api'
 import { avsluttDeltakelse } from '../../../../../api/tiltak-api'
 import { maxDate } from '../../../../../utils/date-utils'
 import { Nullable } from '../../../../../utils/types/or-nothing'
 import { DateField } from '../../../../felles/DateField'
+import { EndringType } from '../types'
 import { AarsakSelector } from './AarsakSelector'
-import { AktivtForslag } from '../../../../../api/data/forslag'
+import styles from './AvsluttDeltakelseModal.module.scss'
+import { maxSluttdato } from './datoutils'
+import { Endringsmodal } from './endringsmodal/Endringsmodal'
 import {
   useAarsakValidering,
   validerAarsakForm
 } from './validering/aarsakValidering'
-import { Endringsmodal } from './endringsmodal/Endringsmodal'
-import { avsluttDeltakelseForslag } from '../../../../../api/forslag-api'
-import { EndringType } from '../types'
-import { Deltaker } from '../../../../../api/data/deltaker'
-import { maxSluttdato } from './datoutils'
-import { Radio, RadioGroup } from '@navikt/ds-react'
-import styles from './AvsluttDeltakelseModal.module.scss'
-import dayjs from 'dayjs'
 
 interface AvsluttDeltakelseModalProps {
   onClose: () => void
@@ -92,14 +91,6 @@ export const AvsluttDeltakelseModal = (
       return Promise.reject(
         'Sluttdato er påkrevd for å sende AvsluttDeltakelse forslag'
       )
-    }
-
-    const harIngenEndring = sluttDato ?
-      dayjs(sluttDato).isSame(deltaker.sluttDato, 'day')
-      : false
-
-    if (harIngenEndring) {
-      return Promise.reject('Innholdet i skjemaet medfører ingen endringer i deltakelsen på tiltaket. \nFor å lagre må sluttdato være ulikt nåværende deltakelse.')
     }
 
     return validerAarsakForm(aarsak, beskrivelse, begrunnelse)
