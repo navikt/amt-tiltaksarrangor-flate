@@ -38,7 +38,7 @@ export const ForlengDeltakelseModal = (
     erForslagEnabled
   } = props
   const deltakerliste = deltaker.deltakerliste
-  const minDato = maxDate(deltaker.sluttDato, deltakerliste.startDato)
+  const minDato = maxDate(dayjs(deltaker.sluttDato).add(1, 'day').toDate(), deltakerliste.startDato)
 
   const [begrunnelse, setBegrunnelse] = useState('')
   const sluttdato = useRef<SluttdatoRef>(null)
