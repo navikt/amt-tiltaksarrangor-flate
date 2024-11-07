@@ -13,6 +13,7 @@ import { EndringType } from '../types'
 import { SluttdatoRef, SluttdatoVelger } from './SluttdatoVelger'
 import { Deltaker } from '../../../../../api/data/deltaker'
 import { maxSluttdato } from './datoutils'
+import dayjs from 'dayjs'
 
 export interface ForlengDeltakelseModalProps {
   readonly onClose: () => void
@@ -37,7 +38,7 @@ export const ForlengDeltakelseModal = (
     erForslagEnabled
   } = props
   const deltakerliste = deltaker.deltakerliste
-  const minDato = maxDate(deltaker.sluttDato, deltakerliste.startDato)
+  const minDato = maxDate(dayjs(deltaker.sluttDato).add(1, 'day').toDate(), deltakerliste.startDato)
 
   const [begrunnelse, setBegrunnelse] = useState('')
   const sluttdato = useRef<SluttdatoRef>(null)
@@ -49,7 +50,7 @@ export const ForlengDeltakelseModal = (
   const sendEndringsmelding = () => {
     if (!sluttdato.current?.validate() || !sluttdato.current.sluttdato) {
       return Promise.reject(
-        'Endringsmeldingen kan ikke sendes fordi datoen er ikke gyldig.'
+        'Endringsmeldingen kan ikke sendes fordi datoen ikke er gyldig.'
       )
     }
     return forlengDeltakelse(deltaker.id, sluttdato.current.sluttdato).then(
@@ -60,11 +61,18 @@ export const ForlengDeltakelseModal = (
   const sendForslag = () => {
     if (!sluttdato.current?.sluttdato) {
       return Promise.reject(
-        'Forslaget kan ikke sendes fordi datoen er ikke gyldig.'
+        'Forslaget kan ikke sendes fordi datoen ikke er gyldig.'
       )
     }
     if (sluttdato.current && !sluttdato.current.validate()) {
       return Promise.reject(sluttdato.current.error)
+    }
+
+    const harIngenEndring =
+      dayjs(sluttdato.current?.sluttdato).isSame(deltaker.sluttDato, 'day')
+
+    if (harIngenEndring) {
+      return Promise.reject('Innholdet i skjemaet medfører ingen endringer i deltakelsen på tiltaket. \nFor å lagre må minst ett felt i skjemaet være ulikt nåværende deltakelse.')
     }
 
     const dato = sluttdato.current.sluttdato

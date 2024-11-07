@@ -15,6 +15,7 @@ import { EndringType } from '../types'
 import { kalkulerMaxDato, kalkulerMinDato, maxSluttdato } from './datoutils'
 import { SluttdatoVelger, SluttdatoRef } from './SluttdatoVelger'
 import { finnValgtVarighet } from './varighet'
+import dayjs from 'dayjs'
 
 export interface EndreOppstartModalProps {
   onClose: () => void
@@ -58,6 +59,14 @@ export const EndreOppstartModal = ({
     }
     if (sluttdato.current && !sluttdato.current.validate()) {
       return Promise.reject('Du må velge en gyldig sluttdato')
+    }
+
+    const harIngenEndring =
+      dayjs(startdato).isSame(deltaker.startDato, 'day') &&
+      dayjs(sluttdato.current?.sluttdato).isSame(deltaker.sluttDato, 'day')
+
+    if (harIngenEndring) {
+      return Promise.reject('Innholdet i skjemaet medfører ingen endringer i deltakelsen på tiltaket. \nFor å lagre må minst ett felt i skjemaet være ulikt nåværende deltakelse.')
     }
 
     return validerObligatoriskBegrunnelse(begrunnelse)

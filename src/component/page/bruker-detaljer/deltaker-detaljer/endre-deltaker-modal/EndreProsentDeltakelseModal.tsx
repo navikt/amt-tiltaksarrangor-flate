@@ -83,8 +83,16 @@ export const EndreProsentDeltakelseModal = ({
 
   const sendForslag = () => {
     const prosentDeltakelse = parseInt(prosentDeltakelseFelt)
-    const dagerPerUke =
-      prosentDeltakelse === 100 ? undefined : parseInt(dagerPerUkeFelt)
+    const dagerPerUke = prosentDeltakelse === 100
+      ? undefined
+      : (dagerPerUkeFelt.length > 0 ? parseInt(dagerPerUkeFelt) : undefined)
+
+    const harIngenEndring = prosentDeltakelse === gammelProsentDeltakelse &&
+      dagerPerUke == gammelDagerPerUke
+
+    if (harIngenEndring) {
+      return Promise.reject('Innholdet i skjemaet medfører ingen endringer i deltakelsen på tiltaket. \nFor å lagre må minst ett felt i skjemaet være ulikt nåværende deltakelse.')
+    }
 
     return validerObligatoriskBegrunnelse(begrunnelse)
       .then(() =>

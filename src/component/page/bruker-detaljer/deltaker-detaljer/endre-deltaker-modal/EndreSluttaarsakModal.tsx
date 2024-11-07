@@ -11,7 +11,7 @@ import {
 } from './validering/aarsakValidering'
 import { endreSluttarsakForslag } from '../../../../../api/forslag-api'
 import { AktivtForslag } from '../../../../../api/data/forslag'
-import { IndividuellDeltakerStatus } from '../../../../../api/data/deltaker'
+import { Deltaker, IndividuellDeltakerStatus } from '../../../../../api/data/deltaker'
 import { EndringType } from '../types'
 
 interface EndreSluttaarsakModalProps {
@@ -20,6 +20,7 @@ interface EndreSluttaarsakModalProps {
 
 export interface EndreSluttaarsakModalDataProps {
   readonly deltakerId: string
+  readonly deltaker: Deltaker
   readonly deltakerStatus:
     | IndividuellDeltakerStatus.IKKE_AKTUELL
     | IndividuellDeltakerStatus.HAR_SLUTTET
@@ -31,6 +32,7 @@ export interface EndreSluttaarsakModalDataProps {
 
 export const EndreSluttaarsakModal = ({
   deltakerId,
+  deltaker,
   deltakerStatus,
   visGodkjennVilkaarPanel,
   onClose,
@@ -52,6 +54,13 @@ export const EndreSluttaarsakModal = ({
   }
 
   const sendForslag = () => {
+    const harIngenEndring = aarsak === deltaker.status.aarsak?.type &&
+      beskrivelse === deltaker.status.aarsak?.beskrivelse
+
+    if (harIngenEndring) {
+      return Promise.reject('Innholdet i skjemaet medfører ingen endringer i deltakelsen på tiltaket. \nFor å lagre må minst ett felt i skjemaet være ulikt nåværende deltakelse.')
+    }
+
     return validerAarsakForm(aarsak, beskrivelse, begrunnelse)
       .then((validertForm) =>
         endreSluttarsakForslag(
