@@ -200,3 +200,29 @@ export function maxVarighetMillisFor(
       return undefined
   }
 }
+
+export function maxVarighetLeggTilOppstartsDatoMillisFor(
+  tiltakstype: Tiltakskode
+): number | undefined {
+  const dagMs = 24 * 60 * 60 * 1000
+  const ukerMs = (n: number) => n * 7 * dagMs
+  const aarMs = (n: number) => n * 365 * dagMs
+
+  switch (tiltakstype) {
+    case Tiltakskode.GRUPPEAMO:
+    case Tiltakskode.GRUFAGYRKE:
+      return aarMs(3)
+    case Tiltakskode.DIGIOPPARB:
+      return ukerMs(8)
+    case Tiltakskode.ARBFORB:
+      return aarMs(2)
+    case Tiltakskode.ARBRRHDAG:
+    case Tiltakskode.AVKLARAG:
+      return ukerMs(12)
+    case Tiltakskode.INDOPPFAG:
+      return aarMs(1)
+    case Tiltakskode.JOBBK:
+    case Tiltakskode.VASV:
+      return undefined
+  }
+}

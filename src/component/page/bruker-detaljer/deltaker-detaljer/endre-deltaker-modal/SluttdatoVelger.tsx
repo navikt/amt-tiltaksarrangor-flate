@@ -102,18 +102,19 @@ export const SluttdatoVelger = forwardRef<SluttdatoRef, SluttdatoVelgerProps>(
         ))}
         <Radio value={VarighetValg.ANNET}>
           Annet - velg dato
-          {valgtVarighet === VarighetValg.ANNET && (
-            <DatePicker {...datepickerProps}>
-              <DatePicker.Input
-                value={dateInput}
-                label="Annet - velg dato"
-                size="small"
-                hideLabel={true}
-                onChange={handleDateInputChange}
-              />
-            </DatePicker>
-          )}
         </Radio>
+        {valgtVarighet === VarighetValg.ANNET && (
+          <DatePicker {...datepickerProps} >
+            <DatePicker.Input
+              className={styles.velgSluttdatoField}
+              value={dateInput}
+              label="Annet - velg dato"
+              size="small"
+              hideLabel={true}
+              onChange={handleDateInputChange}
+            />
+          </DatePicker>
+        )}
         {valgtVarighet !== VarighetValg.ANNET && valgtVarighet && (
           <BodyShort size="small" className={styles.nySluttdato}>
             {detailLabel || 'Ny sluttdato'}: {formatDate(sluttdato.sluttdato)}

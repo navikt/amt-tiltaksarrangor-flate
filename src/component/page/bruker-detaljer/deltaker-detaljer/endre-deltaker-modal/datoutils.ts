@@ -2,7 +2,7 @@ import dayjs from 'dayjs'
 
 import { Nullable } from '../../../../../utils/types/or-nothing'
 import { DeltakersDeltakerliste } from '../../../../../api/data/deltaker'
-import { maxVarighetMillisFor } from './varighet'
+import { maxVarighetLeggTilOppstartsDatoMillisFor, maxVarighetMillisFor } from './varighet'
 
 /*
 	Skal maksimum være 2 måneder tilbake i tid.
@@ -41,9 +41,12 @@ export const kalkulerMaxDato = (
 
 export function maxSluttdato(
   startdato: Nullable<Date>,
-  deltakerliste: DeltakersDeltakerliste
+  deltakerliste: DeltakersDeltakerliste,
+  skalLeggeTilOppstartsDato?: boolean
 ): Date | undefined {
-  const maxVarighetMs = maxVarighetMillisFor(deltakerliste.tiltakstype)
+  const maxVarighetMs = skalLeggeTilOppstartsDato
+    ? maxVarighetLeggTilOppstartsDatoMillisFor(deltakerliste.tiltakstype)
+    : maxVarighetMillisFor(deltakerliste.tiltakstype)
   if (!startdato || !maxVarighetMs) return deltakerliste.sluttDato ?? undefined
 
   const sluttdato = dayjs(startdato).add(maxVarighetMs, 'milliseconds').toDate()

@@ -34,24 +34,24 @@ export const AarsakRadioMedBeskrivelse = ({
     }
   }, [aarsakType, beskrivelse, onBeskrivelse, valgtAarsak])
 
-  return (
-    <AarsakRadio aarsakType={aarsakType}>
-      {visBeskrivelse ? (
-        <Textarea
-          onChange={handleChange}
-          value={beskrivelse ?? ''}
-          minRows={1}
-          rows={1}
-          size="small"
-          label={null}
-          maxLength={BESKRIVELSE_MAKS_TEGN}
-          className={styles.tekstboks}
-          aria-label={aarsakTekstMapper(aarsakType)}
-          aria-describedby={detailId}
-        />
-      ) : (
-        <></>
-      )}
-    </AarsakRadio>
+  return (<>
+    <AarsakRadio aarsakType={aarsakType} />
+    {visBeskrivelse ? (
+      <Textarea
+        onChange={handleChange}
+        value={beskrivelse ?? ''}
+        minRows={1}
+        rows={1}
+        size="small"
+        label={null}
+        maxLength={BESKRIVELSE_MAKS_TEGN}
+        className={styles.tekstboks}
+        aria-label={aarsakTekstMapper(aarsakType)}
+        aria-describedby={detailId}
+      />
+    ) : (
+      <></>
+    )}
+  </>
   )
 }

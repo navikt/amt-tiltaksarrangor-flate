@@ -67,7 +67,7 @@ export const LeggTilOppstartModal = ({
 
   return (
     <Endringsmodal
-      tittel="Legg til  oppstartsdato"
+      tittel="Legg til oppstartsdato"
       endringstype={EndringType.LEGG_TIL_OPPSTARTSDATO}
       visGodkjennVilkaarPanel={visGodkjennVilkaarPanel}
       erSendKnappDisabled={!kanSendeMelding}
@@ -97,7 +97,7 @@ export const LeggTilOppstartModal = ({
           legend="Hva er forventet varighet?"
           detailLabel="Forventet sluttdato"
           min={startdato ?? undefined}
-          max={maxSluttdato(startdato, deltaker.deltakerliste)}
+          max={maxSluttdato(startdato, deltaker.deltakerliste, true)}
           defaultSluttdato={deltaker.sluttDato ?? undefined}
           defaultVarighet={
             deltaker.sluttDato
