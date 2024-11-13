@@ -12,6 +12,7 @@ import { Endringsmodal } from './endringsmodal/Endringsmodal'
 import { SluttdatoRef, SluttdatoVelger } from './SluttdatoVelger'
 import { finnValgtVarighet } from './varighet'
 import { VeilederConfirmationPanel } from './VeilederConfirmationPanel'
+import { Tiltakskode } from '../../../../../api/data/tiltak'
 
 export interface LeggTilOppstartModalProps {
   onClose: () => void
@@ -38,6 +39,9 @@ export const LeggTilOppstartModal = ({
   const sluttdato = useRef<SluttdatoRef>(null)
 
   const [ vilkaarGodkjent, setVilkaarGodkjent ] = useState(false)
+
+  const skalVelgeSluttdato = erEndringFraArrangorEnabled &&
+    deltaker.deltakerliste.tiltakstype !== Tiltakskode.VASV
 
   const kanSendeMelding = erEndringFraArrangorEnabled
     ? startdato !== null && sluttdato !== null
@@ -90,7 +94,7 @@ export const LeggTilOppstartModal = ({
         min={kalkulerMinDato(deltaker.deltakerliste.startDato)}
         max={kalkulerMaxDato(deltaker.deltakerliste.sluttDato)}
       />
-      {erEndringFraArrangorEnabled && (
+      {skalVelgeSluttdato && (
         <SluttdatoVelger
           ref={sluttdato}
           tiltakskode={deltaker.deltakerliste.tiltakstype}
