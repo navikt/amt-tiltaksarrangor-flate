@@ -135,8 +135,9 @@ export const AvsluttDeltakelseModal = (
       {skalViseHarDeltatt && (
         <section className={styles.radiogruppe}>
           <RadioGroup
-            legend="Har personen deltatt?"
+            legend="Har personen deltatt på tiltaket?"
             size="small"
+            description="Dersom personen ikke har deltatt på tiltaket, vil statusen på tiltaket endres til “Ikke aktuell”."
             onChange={(value: boolean) => {
               setHarDeltatt(value)
             }}
