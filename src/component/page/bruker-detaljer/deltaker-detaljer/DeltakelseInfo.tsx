@@ -83,7 +83,10 @@ export const DeltakelseInfo = ({
     TiltakDeltakerStatus.FULLFORT
   ].includes(deltaker.status.type)
 
-  const skruAvEndringer = deltaker.deltakerliste.tiltakstype === Tiltakskode.ARBFORB && !erForslagEnabled
+  const skruAvEndringer = (deltaker.deltakerliste.tiltakstype === Tiltakskode.ARBRRHDAG ||
+    deltaker.deltakerliste.tiltakstype === Tiltakskode.AVKLARAG ||
+    deltaker.deltakerliste.tiltakstype === Tiltakskode.INDOPPFAG
+  ) && !erForslagEnabled
 
   return (
     <div className={styles.section}>
