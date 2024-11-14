@@ -55,9 +55,9 @@ export const EndreDeltakelseKnapp = (props: EndreDeltakelseKnappProps) => {
 
   const visGodkjennVilkaarPanel = deltaker.tiltakskode !== Tiltakskode.VASV
   const kanHaSenereSluttdato =
-    !deltaker.sluttDato ||
     !deltaker.deltakerliste.sluttDato ||
-    deltaker.sluttDato < deltaker.deltakerliste.sluttDato
+      (deltaker.sluttDato && (deltaker.sluttDato < deltaker.deltakerliste.sluttDato))
+
   return (
     <>
       <ModalController modalData={modalData} onClose={handleCloseModal} />
