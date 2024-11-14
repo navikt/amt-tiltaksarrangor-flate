@@ -3,7 +3,7 @@ import useLocalStorage from '../../../hooks/useLocalStorage'
 import styles from './AlertInfoMessage.module.scss'
 
 export const AlertInfoMessage = () => {
-  const alertMessage = 'Den 19. november får Nav-veiledere ny løsning for påmelding til tiltakene avklaring, arbeidsrettet rehabilitering og oppfølging. Dette påvirker også deltakeroversikten. '
+  const alertMessage = 'Dette påvirker oppfølging-, avklaring- og ARR-tiltak i deltakeroversikten. I overgangen til ny løsning vil knappen “Endre deltakelse” ikke være tilgjengelig fra 14. - 18. nov. Fra 19. nov. vil du kunne sende forslag om endring direkte til NAV-veilederen. '
   const [ lastMessage, setLastMessage ] = useLocalStorage(
     'alert-message-last-message',
     alertMessage
@@ -23,12 +23,12 @@ export const AlertInfoMessage = () => {
 
   return shouldShowAlertMessage ?
     <Alert variant="info" size="small" closeButton className={styles.alert} onClose={() => setHideAlertMessage(true)}>
-      <Heading size="xsmall" level="2">19. november kan flere arrangører sende forslag om endringer direkte til Nav-veileder</Heading>
+      <Heading size="xsmall" level="2">Ny påmeldingsløsning for Nav-veileder kommer 19. november</Heading>
       <BodyShort as="span" size="small" className={styles.text}>
         {alertMessage}
       </BodyShort>
       <BodyShort as="span" size="small" className={styles.text}>
-        <Link href="https://www.nav.no/nytt-i-deltakeroversikten">Les mer på nav.no her.</Link>
+        <Link href="https://www.nav.no/nytt-i-deltakeroversikten">Les mer om endringene i deltakeroversikten på nav.no her.</Link>
       </BodyShort>
     </Alert>
     : <></>
