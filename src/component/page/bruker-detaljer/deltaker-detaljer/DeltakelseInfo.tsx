@@ -76,6 +76,9 @@ export const DeltakelseInfo = ({
 
   const viseDeltakelsesmengde = skalViseDeltakelsesmengde(deltaker.tiltakskode)
 
+  const nesteDeltakelsesmengde =
+    deltaker.deltakelsesmengder?.nesteDeltakelsesmengde
+
   const kanFjerneDeltaker = [
     TiltakDeltakerStatus.IKKE_AKTUELL,
     TiltakDeltakerStatus.HAR_SLUTTET,
@@ -83,10 +86,11 @@ export const DeltakelseInfo = ({
     TiltakDeltakerStatus.FULLFORT
   ].includes(deltaker.status.type)
 
-  const skruAvEndringer = (deltaker.deltakerliste.tiltakstype === Tiltakskode.ARBRRHDAG ||
-    deltaker.deltakerliste.tiltakstype === Tiltakskode.AVKLARAG ||
-    deltaker.deltakerliste.tiltakstype === Tiltakskode.INDOPPFAG
-  ) && !erForslagEnabled
+  const skruAvEndringer =
+    (deltaker.deltakerliste.tiltakstype === Tiltakskode.ARBRRHDAG ||
+      deltaker.deltakerliste.tiltakstype === Tiltakskode.AVKLARAG ||
+      deltaker.deltakerliste.tiltakstype === Tiltakskode.INDOPPFAG) &&
+    !erForslagEnabled
 
   return (
     <div className={styles.section}>
@@ -97,9 +101,7 @@ export const DeltakelseInfo = ({
           </ElementPanel>
           {erForslagEnabled && deltaker.status.aarsak && (
             <ElementPanel tittel="Årsak:">
-              <span>
-                {getDeltakerStatusAarsakText(deltaker.status.aarsak)}
-              </span>
+              <span>{getDeltakerStatusAarsakText(deltaker.status.aarsak)}</span>
             </ElementPanel>
           )}
           <ElementPanel tittel="Dato:">
@@ -110,24 +112,39 @@ export const DeltakelseInfo = ({
           </ElementPanel>
           {viseDeltakelsesmengde && (
             <ElementPanel tittel="Deltakelsesmengde:">
-              <span>
-                {getDeltakelsesmengdetekst(
-                  deltaker.deltakelseProsent,
-                  deltaker.dagerPerUke
-                )}
-              </span>
+              {nesteDeltakelsesmengde ? (
+                <span>
+                  {getDeltakelsesmengdetekst(
+                    deltaker.deltakelseProsent,
+                    deltaker.dagerPerUke
+                  )}{' '}
+                  (
+                  {getDeltakelsesmengdetekst(
+                    nesteDeltakelsesmengde.deltakelsesprosent,
+                    nesteDeltakelsesmengde.dagerPerUke
+                  )}{' '}
+                  fom. {formatDate(nesteDeltakelsesmengde.gyldigFra)})
+                </span>
+              ) : (
+                <span>
+                  {getDeltakelsesmengdetekst(
+                    deltaker.deltakelseProsent,
+                    deltaker.dagerPerUke
+                  )}
+                </span>
+              )}
             </ElementPanel>
           )}
         </div>
-        {
-          !skruAvEndringer && <EndreDeltakelseKnapp
+        {!skruAvEndringer && (
+          <EndreDeltakelseKnapp
             deltaker={deltaker}
             onEndringUtfort={triggerReloadEndringsmeldinger}
             erForslagEnabled={erForslagEnabled}
             onForslagSendt={handleForslagSendt}
             onEndringSendt={oppdaterDeltaker}
           />
-        }
+        )}
       </div>
 
       <div className={styles.body}>
