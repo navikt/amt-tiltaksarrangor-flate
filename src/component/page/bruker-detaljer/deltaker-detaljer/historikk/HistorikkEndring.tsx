@@ -8,12 +8,14 @@ import { getDeltakerStatusAarsakText, getEndringsTittel } from '../../../../../u
 import styles from './Historikk.module.scss'
 import { EndringTypeIkon } from '../EndringTypeIkon'
 import globalStyles from '../../../../../globals.module.scss'
+import { Tiltakskode } from '../../../../../api/data/tiltak'
 
 interface Props {
   deltakerEndring: DeltakerEndring
+  tiltakstype: Tiltakskode
 }
 
-const getEndringsDetaljer = (endring: Endring) => {
+const getEndringsDetaljer = (endring: Endring, tiltakstype: Tiltakskode) => {
   switch (endring.type) {
     case EndringType.IkkeAktuell: {
       return (
@@ -56,6 +58,7 @@ const getEndringsDetaljer = (endring: Endring) => {
           endring.ledetekst && <BodyLong size="small">{endring.ledetekst}</BodyLong>
         }
         <DeltakelseInnholdListe
+          tiltakstype={tiltakstype}
           deltakelsesinnhold={{ ledetekst: endring.ledetekst ?? '', innhold: endring.innhold }}
           className={styles.innhold_liste}
         />
@@ -97,14 +100,14 @@ const getEndringsDetaljer = (endring: Endring) => {
   }
 }
 
-export const HistorikkEndring = ({ deltakerEndring }: Props) => {
+export const HistorikkEndring = ({ deltakerEndring, tiltakstype }: Props) => {
   return (
     <HistorikkElement
       tittel={getEndringsTittel(deltakerEndring.endring)}
       icon={<EndringTypeIkon type={deltakerEndring.endring.type} size={'small'} />}
       forslag={deltakerEndring.forslag}
     >
-      {getEndringsDetaljer(deltakerEndring.endring)}
+      {getEndringsDetaljer(deltakerEndring.endring, tiltakstype)}
       <Detail
         className={styles.endring_detail}
         textColor="subtle"

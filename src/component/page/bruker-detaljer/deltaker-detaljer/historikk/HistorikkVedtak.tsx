@@ -35,6 +35,7 @@ export const HistorikkVedtak = ({ endringsVedtak, tiltakstype }: Props) => {
       </BodyLong>
       <BodyLong size="small">{deltakelsesinnhold.ledetekst}</BodyLong>
       <DeltakelseInnholdListe
+        tiltakstype={tiltakstype}
         deltakelsesinnhold={deltakelsesinnhold}
         className={styles.innhold_liste}
       />

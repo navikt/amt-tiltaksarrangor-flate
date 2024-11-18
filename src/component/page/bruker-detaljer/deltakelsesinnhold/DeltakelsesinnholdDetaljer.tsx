@@ -3,6 +3,7 @@ import { BodyLong, Label, List } from '@navikt/ds-react'
 import { Deltakelsesinnhold } from '../../../../api/data/deltaker'
 import styles from './DeltakelsesinnholdDetaljer.module.scss'
 import { Tiltakskode } from '../../../../api/data/tiltak'
+import { INNHOLD_TYPE_ANNET } from '../../../../utils/deltaker-utils'
 
 interface Props {
   innhold: Deltakelsesinnhold
@@ -21,7 +22,7 @@ export function DeltakelsesinnholdDetaljer({ innhold, tiltakskode }: Props) {
 
       {tiltakskode === Tiltakskode.VASV && innhold.innhold.length > 0
         && innhold.innhold.map((i) => {
-          if (i.innholdskode === 'annet') {
+          if (i.innholdskode === INNHOLD_TYPE_ANNET) {
             return <BodyLong
               className={styles.annetTekst}
               key={i.innholdskode}
@@ -37,7 +38,7 @@ export function DeltakelsesinnholdDetaljer({ innhold, tiltakskode }: Props) {
         <List as="ul" size="small">
           {innhold.innhold.map((i) => (
             <List.Item key={i.innholdskode} className={styles.list}>
-              {i.innholdskode === 'annet' ? i.beskrivelse : i.tekst}
+              {i.innholdskode === INNHOLD_TYPE_ANNET ? i.beskrivelse : i.tekst}
             </List.Item>
           ))}
         </List>
