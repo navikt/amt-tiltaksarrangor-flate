@@ -324,15 +324,15 @@ const lagMockTiltakDeltagerForGjennomforing = (
     deltakelsesmengder: {
       nesteDeltakelsesmengde: deltakelseProsent
         ? {
-            dagerPerUke: 1,
-            deltakelsesprosent: 69,
+            dagerPerUke: null,
+            deltakelsesprosent: 42,
             gyldigFra: dayjs().add(7, 'days').toDate()
           }
         : null,
       sisteDeltakelsesmengde: deltakelseProsent
         ? {
-            dagerPerUke: 1,
-            deltakelsesprosent: 69,
+            dagerPerUke: null,
+            deltakelsesprosent: 42,
             gyldigFra: dayjs().add(7, 'days').toDate()
           }
         : null

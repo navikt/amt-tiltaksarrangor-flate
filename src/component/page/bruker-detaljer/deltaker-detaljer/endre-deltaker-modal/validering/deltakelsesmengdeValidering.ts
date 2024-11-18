@@ -64,8 +64,12 @@ export function useDeltakelsesmengdeValidering(
   }
 
   const harEndring = () => {
-    const prosent = parseInt(deltakelsesprosent)
-    const dager = parseInt(dagerPerUke)
+    const prosent = isNaN(parseInt(deltakelsesprosent))
+      ? null
+      : parseInt(deltakelsesprosent)
+
+    const dager = isNaN(parseInt(dagerPerUke)) ? null : parseInt(dagerPerUke)
+
     if (!siste) {
       return true
     }
