@@ -57,7 +57,7 @@ export const DeltakerDetaljer = (props: {
         </div>
 
         {erInnholdOgInfoEnabled && innhold && (
-          <DeltakelsesinnholdDetaljer innhold={innhold} />
+          <DeltakelsesinnholdDetaljer innhold={innhold} tiltakskode={tiltakskode} />
         )}
 
         <Show if={visBestilling(tiltakskode)}>
