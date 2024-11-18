@@ -3,7 +3,7 @@ import useLocalStorage from '../../../hooks/useLocalStorage'
 import styles from './AlertInfoMessage.module.scss'
 
 export const AlertInfoMessage = () => {
-  const alertMessage = 'Dette påvirker oppfølging-, avklaring-, ARR- og AFT-tiltak i deltakeroversikten. Når du endrer deltakelse, sendes forslaget direkte til Nav-veilederen. '
+  const alertMessage = 'Dette påvirker oppfølging-, avklaring-, ARR-tiltak i deltakeroversikten. Når du endrer deltakelse, sendes forslaget direkte til Nav-veilederen. '
   const [ lastMessage, setLastMessage ] = useLocalStorage(
     'alert-message-last-message',
     alertMessage
