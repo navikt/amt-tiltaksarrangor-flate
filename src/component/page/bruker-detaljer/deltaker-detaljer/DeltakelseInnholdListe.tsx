@@ -33,7 +33,7 @@ export const DeltakelseInnholdListe = ({
     {tiltakstype !== Tiltakskode.VASV &&
       <List as="ul" size="small" className={className ?? ''}>
         {deltakelsesinnhold.innhold.map((i) => (
-          <List.Item key={i.innholdskode} className={styles.list}>
+          <List.Item key={i.innholdskode} className={styles.listItem}>
             {i.innholdskode === INNHOLD_TYPE_ANNET ? i.beskrivelse : i.tekst}
           </List.Item>
         ))}
