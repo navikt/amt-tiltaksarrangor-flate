@@ -47,11 +47,9 @@ export const mockGjennomforinger: MockGjennomforing[] = lagMockGjennomforinger(
 )
 
 export const lagMockTiltakDeltakere = (
-  antallGjennomforinger: number,
   antallDeltakere: number
 ): MockTiltakDeltaker[] => {
   const tilfeldigeDeltakere = mockGjennomforinger
-    .slice(0, 7)
     .map((gjennomforing) =>
       lagMockTiltakDeltagereForGjennomforing(gjennomforing, antallDeltakere)
     )
@@ -99,8 +97,7 @@ const deltakereTilVeileder = () => {
 }
 
 export const mockTiltakDeltakere: MockTiltakDeltaker[] = lagMockTiltakDeltakere(
-  11,
-  100
+  30
 )
 
 export const mockDeltakerlisteVeileder: VeiledersDeltaker[] =
