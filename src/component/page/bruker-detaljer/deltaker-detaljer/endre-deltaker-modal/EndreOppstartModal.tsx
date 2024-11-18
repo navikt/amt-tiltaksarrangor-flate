@@ -16,6 +16,7 @@ import { kalkulerMaxDato, kalkulerMinDato, maxSluttdato } from './datoutils'
 import { SluttdatoVelger, SluttdatoRef } from './SluttdatoVelger'
 import { finnValgtVarighet } from './varighet'
 import dayjs from 'dayjs'
+import { Tiltakskode } from '../../../../../api/data/tiltak'
 
 export interface EndreOppstartModalProps {
   onClose: () => void
@@ -39,7 +40,7 @@ export const EndreOppstartModal = ({
 }: EndreOppstartModalProps & EndreOppstartModalDataProps) => {
   const [startdato, setStartdato] = useState<Nullable<Date>>(deltaker.startDato)
   const [begrunnelse, setBegrunnelse] = useState<string>('')
-
+  const skalVelgeVarighet = erForslagEnabled && deltaker.deltakerliste.tiltakstype != Tiltakskode.VASV
   const sluttdato = useRef<SluttdatoRef>(null)
 
   const kanSendeMelding = erForslagEnabled
@@ -102,7 +103,7 @@ export const EndreOppstartModal = ({
         min={kalkulerMinDato(deltaker.deltakerliste.startDato)}
         max={kalkulerMaxDato(deltaker.deltakerliste.sluttDato)}
       />
-      {erForslagEnabled && (
+      {skalVelgeVarighet && (
         <SluttdatoVelger
           ref={sluttdato}
           tiltakskode={deltaker.deltakerliste.tiltakstype}

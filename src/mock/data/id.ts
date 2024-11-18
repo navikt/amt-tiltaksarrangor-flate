@@ -22,13 +22,11 @@ const getId = (ider: string[]): string => {
 
 const gjennomforingIder = genererIder(500)
 
-const deltakerIder = genererIder(1000)
+const deltakerIder = genererIder(2000)
 
 const endringsmeldingIder = genererIder(5000)
 
 const ansattIder = genererIder(500)
-
-const veilederIder = genererIder(4000)
 
 export const gjennomforingId = (): string => {
   return getId(gjennomforingIder)
@@ -44,8 +42,4 @@ export const endringsmeldingId = (): string => {
 
 export const ansattId = (): string => {
   return getId(ansattIder)
-}
-
-export const veilederId = (): string => {
-  return getId(veilederIder)
 }
