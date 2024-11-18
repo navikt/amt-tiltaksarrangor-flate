@@ -1,12 +1,15 @@
 import React from 'react'
-import { BodyLong, Label, List } from '@navikt/ds-react'
+import { BodyLong, Label } from '@navikt/ds-react'
 import { Deltakelsesinnhold } from '../../../../api/data/deltaker'
 import styles from './DeltakelsesinnholdDetaljer.module.scss'
+import { Tiltakskode } from '../../../../api/data/tiltak'
+import { DeltakelseInnholdListe } from '../deltaker-detaljer/DeltakelseInnholdListe'
 
 interface Props {
   innhold: Deltakelsesinnhold
+  tiltakskode: Tiltakskode
 }
-export function DeltakelsesinnholdDetaljer({ innhold }: Props) {
+export function DeltakelsesinnholdDetaljer({ innhold, tiltakskode }: Props) {
   return (
     <div className={styles.wrapper}>
       <Label size="small" as="p">
@@ -17,13 +20,10 @@ export function DeltakelsesinnholdDetaljer({ innhold }: Props) {
         {innhold.ledetekst}
       </BodyLong>
 
-      <List as="ul" size="small">
-        {innhold.innhold.map((i) => (
-          <List.Item key={i.innholdskode} className={styles.list}>
-            {i.innholdskode === 'annet' ? i.beskrivelse : i.tekst}
-          </List.Item>
-        ))}
-      </List>
+      <DeltakelseInnholdListe
+        tiltakstype={tiltakskode}
+        deltakelsesinnhold={innhold}
+      />
     </div>
   )
 }
