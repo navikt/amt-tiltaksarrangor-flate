@@ -12,7 +12,7 @@ export function useDeltakelsesmengdeValidering(
   const [deltakelsesprosentError, setDeltakelsesprosentError] =
     useState<string>()
   const [dagerPerUkeError, setDagerPerUkeError] = useState<string>()
-  const [gyldigFraError, setgyldigFraError] = useState<string>()
+  const [gyldigFraError, setGyldigFraError] = useState<string>()
 
   const isNumberBetween = (n: string, min: number, max: number) => {
     const value = parseInt(n)
@@ -49,17 +49,17 @@ export function useDeltakelsesmengdeValidering(
 
   const validerGyldigFra = (validation: DateValidationT) => {
     if (validation.isBefore) {
-      setgyldigFraError(
+      setGyldigFraError(
         'Datoen kan ikke velges fordi den er før deltakers startsdato'
       )
     } else if (validation.isAfter) {
-      setgyldigFraError(
+      setGyldigFraError(
         'Datoen kan ikke velges fordi den er etter deltakers sluttdato'
       )
     } else if (validation.isInvalid) {
-      setgyldigFraError('Ugyldig dato')
+      setGyldigFraError('Ugyldig dato')
     } else {
-      setgyldigFraError(undefined)
+      setGyldigFraError(undefined)
     }
   }
 
