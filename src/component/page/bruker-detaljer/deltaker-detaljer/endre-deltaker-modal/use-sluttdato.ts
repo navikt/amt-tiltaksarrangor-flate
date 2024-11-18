@@ -40,7 +40,7 @@ export function useSluttdato({
 
   const kalkulerSluttdatoFra = (date: Date, varighetValg: VarighetValg) => {
     const varighet = varigheter[varighetValg]
-    return dayjs(date).add(varighet.antall, varighet.tidsenhet).toDate()
+    return dayjs(date).subtract(1, 'day').add(varighet.antall, varighet.tidsenhet).toDate()
   }
 
   useEffect(() => {
