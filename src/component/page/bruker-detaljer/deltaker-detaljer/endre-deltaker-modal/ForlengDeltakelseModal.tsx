@@ -102,6 +102,7 @@ export const ForlengDeltakelseModal = (
         min={minDato ?? undefined}
         max={maxSluttdato(deltaker.startDato, deltakerliste)}
         defaultMaaned={deltaker.sluttDato ?? undefined}
+        erForlengDeltakelse
       />
     </Endringsmodal>
   )

@@ -8,13 +8,15 @@ interface UseSluttdatoOpts {
   max?: Date
   valgtVarighet: VarighetValg | undefined
   defaultAnnetDato?: Date
+  erForlengDeltakelse?: boolean
 }
 
 export function useSluttdato({
   min,
   max,
   valgtVarighet,
-  defaultAnnetDato
+  defaultAnnetDato,
+  erForlengDeltakelse
 }: UseSluttdatoOpts): {
   sluttdato: Date | undefined
   min?: Date
@@ -40,7 +42,9 @@ export function useSluttdato({
 
   const kalkulerSluttdatoFra = (date: Date, varighetValg: VarighetValg) => {
     const varighet = varigheter[varighetValg]
-    return dayjs(date).subtract(1, 'day').add(varighet.antall, varighet.tidsenhet).toDate()
+    return dayjs(date)
+      .subtract(erForlengDeltakelse ? 2 : 1, 'day')
+      .add(varighet.antall, varighet.tidsenhet).toDate()
   }
 
   useEffect(() => {
