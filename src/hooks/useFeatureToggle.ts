@@ -7,9 +7,9 @@ import { Tiltakskode } from '../api/data/tiltak'
 let cachedFeatureToggles: FeatureToggles | undefined = undefined
 
 const tiltakstyperKometAlltidErMasterFor
-  = [Tiltakskode.ARBFORB]
+  = [Tiltakskode.ARBFORB, Tiltakskode.ARBRRHDAG, Tiltakskode.AVKLARAG, Tiltakskode.INDOPPFAG]
 
-const tiltakstyperKometKanskjeErMasterFor: Tiltakskode[] = [Tiltakskode.ARBRRHDAG, Tiltakskode.AVKLARAG, Tiltakskode.INDOPPFAG]
+const tiltakstyperKometKanskjeErMasterFor: Tiltakskode[] = []
 
 export const useFeatureToggle = () => {
   const [toggles, setToggles] = useState<FeatureToggles>()
