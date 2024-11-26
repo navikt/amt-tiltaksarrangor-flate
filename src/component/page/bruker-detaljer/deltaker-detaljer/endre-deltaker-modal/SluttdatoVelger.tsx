@@ -22,7 +22,6 @@ interface SluttdatoVelgerProps {
   defaultSluttdato?: Date
   defaultMaaned?: Date
   defaultVarighet?: VarighetValg
-  erForlengDeltakelse?: boolean
 }
 
 export interface SluttdatoRef {
@@ -41,8 +40,7 @@ export const SluttdatoVelger = forwardRef<SluttdatoRef, SluttdatoVelgerProps>(
       max,
       defaultSluttdato,
       defaultMaaned,
-      defaultVarighet,
-      erForlengDeltakelse
+      defaultVarighet
     }: SluttdatoVelgerProps,
     ref
   ) {
@@ -55,8 +53,7 @@ export const SluttdatoVelger = forwardRef<SluttdatoRef, SluttdatoVelgerProps>(
       min,
       max,
       valgtVarighet,
-      defaultAnnetDato: defaultSluttdato,
-      erForlengDeltakelse
+      defaultAnnetDato: defaultSluttdato
     })
 
     const { datepickerProps } = useDatepicker({
