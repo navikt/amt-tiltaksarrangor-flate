@@ -12,10 +12,6 @@ import {
   EndringsmeldingType
 } from '../../../../../api/data/endringsmelding'
 import { brukerDetaljerPageUrl } from '../../../../../navigation'
-import {
-  klikkDeltakerRadOversikt,
-  loggKlikk
-} from '../../../../../utils/amplitude-utils'
 import { lagKommaSeparertBrukerNavn } from '../../../../../utils/bruker-utils'
 import { EMDASH } from '../../../../../utils/constants'
 import { formatDate } from '../../../../../utils/date-utils'
@@ -130,7 +126,6 @@ export const Rad = (props: RadProps): React.ReactElement<RadProps> => {
 
   const handleConfrimed = () => {
     setModalOpen(false)
-    loggKlikk(klikkDeltakerRadOversikt)
     navigate(deltakerDetaljerPageUrl)
   }
 
@@ -145,8 +140,6 @@ export const Rad = (props: RadProps): React.ReactElement<RadProps> => {
             if (adressebeskyttet && erVeilederForDeltaker) {
               e.preventDefault()
               setModalOpen(true)
-            } else {
-              loggKlikk(klikkDeltakerRadOversikt)
             }
           }}
         >
