@@ -3,10 +3,6 @@ import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 
 import { brukerDetaljerPageUrl } from '../../../navigation'
-import {
-  klikkDeltakerRadOversikt,
-  loggKlikk
-} from '../../../utils/amplitude-utils'
 import { lagKommaSeparertBrukerNavn } from '../../../utils/bruker-utils'
 import { Fnr } from '../../felles/fnr/Fnr'
 import { StatusMerkelapp } from '../../felles/status-merkelapp/StatusMerkelapp'
@@ -51,7 +47,6 @@ export const RadVeileder = (props: RadProps): React.ReactElement<RadProps> => {
 
   const handleConfrimed = () => {
     setModalOpen(false)
-    loggKlikk(klikkDeltakerRadOversikt)
     navigate(deltakerDetaljerPageUrl)
   }
 
@@ -67,8 +62,6 @@ export const RadVeileder = (props: RadProps): React.ReactElement<RadProps> => {
             if (adressebeskyttet) {
               e.preventDefault()
               setModalOpen(true)
-            } else {
-              loggKlikk(klikkDeltakerRadOversikt)
             }
           }}
         >

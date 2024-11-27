@@ -17,7 +17,6 @@ import { DemoBanner } from './component/felles/demo-banner/DemoBanner'
 import { ErrorBoundary } from './component/felles/ErrorBoundry'
 import { ErrorPage } from './component/page/error/ErrorPage'
 import StoreProvider from './store/store-provider'
-import { initAmplitude } from './utils/amplitude-utils'
 import env from './utils/environment'
 import { setupNavDekorator } from './utils/nav-dekorator'
 import { initSentry } from './utils/sentry-utils'
@@ -32,7 +31,6 @@ dayjs.tz.setDefault('Europe/Oslo')
 
 if (env.isPreprod || env.isProd) {
   initSentry()
-  initAmplitude()
 }
 
 ;(async () => {
