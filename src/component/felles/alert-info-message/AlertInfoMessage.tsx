@@ -3,7 +3,7 @@ import useLocalStorage from '../../../hooks/useLocalStorage'
 import styles from './AlertInfoMessage.module.scss'
 
 export const AlertInfoMessage = () => {
-  const alertMessage = 'Dette påvirker digitalt jobbsøkerkurs og VTA i deltakeroversikten. I overgangen til ny løsning vil knappen “Endre deltakelse” ikke være tilgjengelig fra 5. - 9. des. Fra 10. des. vil du kunne sende forslag om endring direkte til NAV-veilederen. '
+  const alertMessage = 'Dette påvirker digitalt jobbsøkerkurs og VTA i deltakeroversikten. I overgangen til ny løsning vil knappen “Endre deltakelse” ikke være tilgjengelig fra 5. - 9. des. Fra 10. des. vil du kunne sende forslag om endring direkte til Nav-veilederen. '
   const [ lastMessage, setLastMessage ] = useLocalStorage(
     'alert-message-last-message',
     alertMessage
