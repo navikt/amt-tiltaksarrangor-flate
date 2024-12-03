@@ -116,7 +116,7 @@ const endringSchema = z.discriminatedUnion('type', [
 const arrangorLeggTilOppstartSchema = z.object({
     type: z.literal(ArrangorEndringsType.LeggTilOppstartsdato),
     startdato: dateSchema,
-    sluttdato: dateSchema
+    sluttdato: nullableDateSchema
 })
 
 const arrangorEndringSchema = z.discriminatedUnion('type', [
