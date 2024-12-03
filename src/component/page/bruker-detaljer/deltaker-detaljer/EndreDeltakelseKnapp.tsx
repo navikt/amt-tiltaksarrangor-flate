@@ -38,8 +38,9 @@ export const EndreDeltakelseKnapp = (props: EndreDeltakelseKnappProps) => {
   } = useModalData()
   const { deltaker } = props
 
-  const kanIkkeLeggeTilOppstartDato = deltaker.status.type === TiltakDeltakerStatus.IKKE_AKTUELL
-    && props.erForslagEnabled
+  const kanIkkeLeggeTilOppstartDato =
+    deltaker.status.type === TiltakDeltakerStatus.IKKE_AKTUELL &&
+    props.erForslagEnabled
 
   const kanEndreStartDato =
     deltaker.status.type === TiltakDeltakerStatus.VENTER_PA_OPPSTART ||
@@ -74,20 +75,22 @@ export const EndreDeltakelseKnapp = (props: EndreDeltakelseKnappProps) => {
         </Button>
         <Dropdown.Menu className={styles.dropdownMenu}>
           <Dropdown.Menu.List>
-            {kanEndreStartDato && !kanIkkeLeggeTilOppstartDato && !deltaker.startDato && (
-              <DropDownButton
-                endringstype={EndringType.LEGG_TIL_OPPSTARTSDATO}
-                onClick={() =>
-                  visLeggTilOppstartModal({
-                    deltaker: deltaker,
-                    visGodkjennVilkaarPanel: false,
-                    onEndringUtfort: props.onEndringUtfort,
-                    onEndringSendt: props.onEndringSendt,
-                    erForslagEnabled: props.erForslagEnabled
-                  })
-                }
-              />
-            )}
+            {kanEndreStartDato &&
+              !kanIkkeLeggeTilOppstartDato &&
+              !deltaker.startDato && (
+                <DropDownButton
+                  endringstype={EndringType.LEGG_TIL_OPPSTARTSDATO}
+                  onClick={() =>
+                    visLeggTilOppstartModal({
+                      deltaker: deltaker,
+                      visGodkjennVilkaarPanel: false,
+                      onEndringUtfort: props.onEndringUtfort,
+                      onEndringSendt: props.onEndringSendt,
+                      erForslagEnabled: props.erForslagEnabled
+                    })
+                  }
+                />
+              )}
 
             {kanEndreStartDato && deltaker.startDato && (
               <DropDownButton
@@ -157,9 +160,7 @@ export const EndreDeltakelseKnapp = (props: EndreDeltakelseKnappProps) => {
                 endringstype={EndringType.ENDRE_DELTAKELSE_PROSENT}
                 onClick={() =>
                   visEndreProsentDeltakelseModal({
-                    deltakerId: deltaker.id,
-                    gammelProsentDeltakelse: deltaker.deltakelseProsent,
-                    gammelDagerPerUke: deltaker.dagerPerUke,
+                    deltaker: deltaker,
                     visGodkjennVilkaarPanel: visGodkjennVilkaarPanel,
                     onEndringUtfort: props.onEndringUtfort,
                     onForslagSendt: props.onForslagSendt,

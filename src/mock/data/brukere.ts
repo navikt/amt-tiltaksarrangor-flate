@@ -6,9 +6,13 @@ import {
   Vurdering,
   Vurderingstype,
   TiltakDeltakerStatus,
-  Deltakelsesinnhold
+  Deltakelsesinnhold,
+  Deltakelsesmengder
 } from '../../api/data/deltaker'
-import { DeltakerStatusAarsakType, Endringsmelding } from '../../api/data/endringsmelding'
+import {
+  DeltakerStatusAarsakType,
+  Endringsmelding
+} from '../../api/data/endringsmelding'
 import { Gjennomforing, Tiltakskode } from '../../api/data/tiltak'
 import { VeilederMedType } from '../../api/data/veileder'
 import { randBetween, randomBoolean, randomFnr } from '../utils/faker'
@@ -21,6 +25,7 @@ import { deltakerlisteErKurs, MockGjennomforing } from './tiltak'
 import { lagMockVeiledereForDeltaker } from './veileder'
 import { AktivtForslag } from '../../api/data/forslag'
 import { lagMockAktiveForslag } from './mock-forslag'
+import dayjs from 'dayjs'
 
 export type MockVurdering = Vurdering
 
@@ -48,9 +53,9 @@ export interface MockTiltakDeltaker {
   dagerPerUke: number | null
   status: {
     type: TiltakDeltakerStatus
-    endretDato: Date,
+    endretDato: Date
     aarsak: {
-      type: DeltakerStatusAarsakType,
+      type: DeltakerStatusAarsakType
       beskrivelse: string | null
     } | null
   }
@@ -72,6 +77,7 @@ export interface MockTiltakDeltaker {
   historiskeVurderingerFraArrangor: MockVurdering[] | null
   adressebeskyttet: boolean
   erVeilederForDeltaker: boolean
+  deltakelsesmengder: Deltakelsesmengder | null
 }
 
 const navEnheter: MockNavEnhet[] = [
@@ -263,6 +269,8 @@ const lagMockTiltakDeltagerForGjennomforing = (
     : null
 
   const gjeldendeVurderingFraArrangor = lagVurdering(false)
+  const deltakelseProsent = randBetween(0, 10) > 4 ? randBetween(0, 100) : null
+  const dagerPerUke = randBetween(0, 10) > 5 ? randBetween(1, 5) : null
 
   const id = deltakerId()
   return {
@@ -275,17 +283,20 @@ const lagMockTiltakDeltagerForGjennomforing = (
     telefonnummer: lagTelefonnummer(),
     startDato: startDato,
     sluttDato: sluttDato,
-    deltakelseProsent: randBetween(0, 10) > 4 ? randBetween(0, 100) : null,
-    dagerPerUke: randBetween(0, 10) > 5 ? randBetween(1, 5) : null,
+    deltakelseProsent: deltakelseProsent,
+    dagerPerUke: dagerPerUke,
     status: {
       type: status,
       endretDato: faker.date.recent(),
-      aarsak: status === TiltakDeltakerStatus.IKKE_AKTUELL
-        || status === TiltakDeltakerStatus.AVBRUTT
-        || status === TiltakDeltakerStatus.HAR_SLUTTET ? {
-        type: DeltakerStatusAarsakType.FATT_JOBB,
-        beskrivelse: null
-      } : null
+      aarsak:
+        status === TiltakDeltakerStatus.IKKE_AKTUELL ||
+        status === TiltakDeltakerStatus.AVBRUTT ||
+        status === TiltakDeltakerStatus.HAR_SLUTTET
+          ? {
+              type: DeltakerStatusAarsakType.FATT_JOBB,
+              beskrivelse: null
+            }
+          : null
     },
     navEnhet:
       randBetween(0, 10) < 9 ? faker.helpers.arrayElement(navEnheter) : null,
@@ -309,7 +320,23 @@ const lagMockTiltakDeltagerForGjennomforing = (
       ? lagHistoriskeVurderinger()
       : null,
     erVeilederForDeltaker: false,
-    adressebeskyttet: false
+    adressebeskyttet: false,
+    deltakelsesmengder: {
+      nesteDeltakelsesmengde: deltakelseProsent
+        ? {
+            dagerPerUke: null,
+            deltakelsesprosent: 42,
+            gyldigFra: dayjs().add(7, 'days').toDate()
+          }
+        : null,
+      sisteDeltakelsesmengde: deltakelseProsent
+        ? {
+            dagerPerUke: null,
+            deltakelsesprosent: 42,
+            gyldigFra: dayjs().add(7, 'days').toDate()
+          }
+        : null
+    }
   }
 }
 

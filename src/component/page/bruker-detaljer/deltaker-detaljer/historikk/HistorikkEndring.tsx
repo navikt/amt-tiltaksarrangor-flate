@@ -1,10 +1,17 @@
-import { BodyLong, Detail } from '@navikt/ds-react'
+import { BodyLong, BodyShort, Detail } from '@navikt/ds-react'
 import { HistorikkElement } from './HistorikkElement'
-import { DeltakerEndring, Endring, EndringType } from '../../../../../api/data/historikk'
+import {
+  DeltakerEndring,
+  Endring,
+  EndringType
+} from '../../../../../api/data/historikk'
 import { EMDASH } from '../../../../../utils/constants'
 import { DeltakelseInnholdListe } from '../DeltakelseInnholdListe'
 import { formatDate } from '../../../../../utils/date-utils'
-import { getDeltakerStatusAarsakText, getEndringsTittel } from '../../../../../utils/text-mappers'
+import {
+  getDeltakerStatusAarsakText,
+  getEndringsTittel
+} from '../../../../../utils/text-mappers'
 import styles from './Historikk.module.scss'
 import { EndringTypeIkon } from '../EndringTypeIkon'
 import globalStyles from '../../../../../globals.module.scss'
@@ -53,16 +60,21 @@ const getEndringsDetaljer = (endring: Endring, tiltakstype: Tiltakskode) => {
       )
     }
     case EndringType.EndreInnhold: {
-      return (<>
-        {
-          endring.ledetekst && <BodyLong size="small">{endring.ledetekst}</BodyLong>
-        }
-        <DeltakelseInnholdListe
-          tiltakstype={tiltakstype}
-          deltakelsesinnhold={{ ledetekst: endring.ledetekst ?? '', innhold: endring.innhold }}
-          className={styles.innhold_liste}
-        />
-      </>)
+      return (
+        <>
+          {endring.ledetekst && (
+            <BodyLong size="small">{endring.ledetekst}</BodyLong>
+          )}
+          <DeltakelseInnholdListe
+            tiltakstype={tiltakstype}
+            deltakelsesinnhold={{
+              ledetekst: endring.ledetekst ?? '',
+              innhold: endring.innhold
+            }}
+            className={styles.innhold_liste}
+          />
+        </>
+      )
     }
     case EndringType.ReaktiverDeltakelse: {
       return (
@@ -71,16 +83,31 @@ const getEndringsDetaljer = (endring: Endring, tiltakstype: Tiltakskode) => {
         </BodyLong>
       )
     }
+    case EndringType.EndreDeltakelsesmengde: {
+      return (
+        <>
+          {endring.gyldigFra && (
+            <BodyShort size="small">
+              Gjelder fra: {formatDate(endring.gyldigFra)}
+            </BodyShort>
+          )}
+          {endring.begrunnelse && (
+            <BodyLong size="small" className={globalStyles.textPreWrap}>
+              Navs begrunnelse: {endring.begrunnelse}
+            </BodyLong>
+          )}
+        </>
+      )
+    }
     case EndringType.ForlengDeltakelse:
     case EndringType.EndreSluttdato:
-    case EndringType.EndreDeltakelsesmengde:
     case EndringType.EndreSluttarsak: {
       return endring.begrunnelse ? (
         <BodyLong size="small" className={globalStyles.textPreWrap}>
           Navs begrunnelse: {endring.begrunnelse}
         </BodyLong>
       ) : (
-          <div className={styles.tomDiv} />
+        <div className={styles.tomDiv} />
       )
     }
     case EndringType.EndreStartdato: {
@@ -104,14 +131,13 @@ export const HistorikkEndring = ({ deltakerEndring, tiltakstype }: Props) => {
   return (
     <HistorikkElement
       tittel={getEndringsTittel(deltakerEndring.endring)}
-      icon={<EndringTypeIkon type={deltakerEndring.endring.type} size={'small'} />}
+      icon={
+        <EndringTypeIkon type={deltakerEndring.endring.type} size={'small'} />
+      }
       forslag={deltakerEndring.forslag}
     >
       {getEndringsDetaljer(deltakerEndring.endring, tiltakstype)}
-      <Detail
-        className={styles.endring_detail}
-        textColor="subtle"
-      >
+      <Detail className={styles.endring_detail} textColor="subtle">
         {`Endret ${formatDate(deltakerEndring.endret)} av ${deltakerEndring.endretAv} ${deltakerEndring.endretAvEnhet}.`}
       </Detail>
     </HistorikkElement>

@@ -1,14 +1,18 @@
 import { useEffect, useState } from 'react'
+import { Deltakelsesmengde } from '../../../../../../api/data/deltaker'
+import dayjs from 'dayjs'
+import { DateValidationT } from '@navikt/ds-react'
 
 export function useDeltakelsesmengdeValidering(
   deltakelsesprosent: string,
   dagerPerUke: string,
-  opprinneligDagerPerUke: number | null,
-  opprinneligDeltakelsesprosent: number | null
+  gyldigFra: Date | undefined,
+  siste: Deltakelsesmengde | null
 ) {
   const [deltakelsesprosentError, setDeltakelsesprosentError] =
     useState<string>()
   const [dagerPerUkeError, setDagerPerUkeError] = useState<string>()
+  const [gyldigFraError, setGyldigFraError] = useState<string>()
 
   const isNumberBetween = (n: string, min: number, max: number) => {
     const value = parseInt(n)
@@ -21,22 +25,6 @@ export function useDeltakelsesmengdeValidering(
     if (!isValid) {
       setDeltakelsesprosentError('Tallet må være et helt tall fra 1 til 100')
       return false
-    }
-    if (deltakelsesprosent === opprinneligDeltakelsesprosent?.toString()
-      && dagerPerUke === opprinneligDagerPerUke?.toString()) {
-      setDeltakelsesprosentError(
-        'Både deltakelsesprosent og dager i uken kan ikke være lik det som er registrert fra før.'
-      )
-      return false
-    } else if (deltakelsesprosent === opprinneligDeltakelsesprosent?.toString()
-      && opprinneligDeltakelsesprosent === 100) {
-      setDeltakelsesprosentError(
-        'Deltakelsesprosent kan ikke være lik det som er registrert fra før.'
-      )
-      return false
-    } else {
-      setDagerPerUkeError(undefined)
-      setDeltakelsesprosentError(undefined)
     }
 
     setDeltakelsesprosentError(undefined)
@@ -55,19 +43,43 @@ export function useDeltakelsesmengdeValidering(
       return false
     }
 
-    if (deltakelsesprosent === opprinneligDeltakelsesprosent?.toString()
-      && dagerPerUke === opprinneligDagerPerUke?.toString()) {
-      setDagerPerUkeError(
-        'Både deltakelsesprosent og dager i uken kan ikke være lik det som er registrert fra før.'
-      )
-      return false
-    } else {
-      setDagerPerUkeError(undefined)
-      setDeltakelsesprosentError(undefined)
-    }
-
     setDagerPerUkeError(undefined)
     return true
+  }
+
+  const validerGyldigFra = (validation: DateValidationT) => {
+    if (validation.isBefore) {
+      setGyldigFraError(
+        'Datoen kan ikke velges fordi den er før deltakers startsdato'
+      )
+    } else if (validation.isAfter) {
+      setGyldigFraError(
+        'Datoen kan ikke velges fordi den er etter deltakers sluttdato'
+      )
+    } else if (validation.isInvalid) {
+      setGyldigFraError('Ugyldig dato')
+    } else {
+      setGyldigFraError(undefined)
+    }
+  }
+
+  const harEndring = () => {
+    const prosent = isNaN(parseInt(deltakelsesprosent))
+      ? null
+      : parseInt(deltakelsesprosent)
+
+    const dager = isNaN(parseInt(dagerPerUke)) ? null : parseInt(dagerPerUke)
+
+    if (!siste) {
+      return true
+    }
+    if (prosent !== siste.deltakelsesprosent || dager !== siste.dagerPerUke) {
+      return true
+    } else {
+      return dayjs(gyldigFra)
+        .startOf('day')
+        .isBefore(dayjs(siste.gyldigFra).startOf('day'))
+    }
   }
 
   useEffect(() => {
@@ -83,11 +95,17 @@ export function useDeltakelsesmengdeValidering(
   }, [dagerPerUke])
 
   const isValid =
-    deltakelsesprosent !== '' && !deltakelsesprosentError && !dagerPerUkeError
+    deltakelsesprosent !== '' &&
+    !deltakelsesprosentError &&
+    !dagerPerUkeError &&
+    !gyldigFraError
 
   return {
     deltakelsesprosentError,
     dagerPerUkeError,
+    gyldigFraError,
+    validerGyldigFra,
+    harEndring,
     isValid
   }
 }

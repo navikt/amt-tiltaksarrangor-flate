@@ -4,7 +4,6 @@ import { useState } from 'react'
 import React from 'react'
 
 import { endreDeltakelsesprosent } from '../../../../../api/tiltak-api'
-import { Nullable } from '../../../../../utils/types/or-nothing'
 import { DateField } from '../../../../felles/DateField'
 import styles from './EndreProsentDeltakelseModal.module.scss'
 import { Endringsmodal } from './endringsmodal/Endringsmodal'
@@ -16,16 +15,15 @@ import {
 import { deltakelsesmengdeForslag } from '../../../../../api/forslag-api'
 import { useDeltakelsesmengdeValidering } from './validering/deltakelsesmengdeValidering'
 import { EndringType } from '../types'
-import { useDeltakerStore } from '../deltaker-store'
+import { SimpleDatePicker } from '../../../../felles/SimpleDatePicker'
+import { Deltaker } from '../../../../../api/data/deltaker'
 
 interface EndreProsentDeltakelseModalProps {
   onClose: () => void
 }
 
 export interface EndreProsentDeltakelseModalDataProps {
-  readonly deltakerId: string
-  readonly gammelProsentDeltakelse: number | null
-  readonly gammelDagerPerUke: number | null
+  readonly deltaker: Deltaker
   readonly visGodkjennVilkaarPanel: boolean
   readonly onEndringUtfort: () => void
   readonly onForslagSendt: (forslag: AktivtForslag) => void
@@ -33,21 +31,22 @@ export interface EndreProsentDeltakelseModalDataProps {
 }
 
 export const EndreProsentDeltakelseModal = ({
-  deltakerId,
-  gammelProsentDeltakelse,
-  gammelDagerPerUke,
+  deltaker,
   visGodkjennVilkaarPanel,
   erForslagEnabled,
   onEndringUtfort,
   onForslagSendt,
   onClose
 }: EndreProsentDeltakelseModalProps & EndreProsentDeltakelseModalDataProps) => {
-  const today = dayjs().toDate()
-  const { deltaker } = useDeltakerStore()
+  const today = dayjs()
   const [prosentDeltakelseFelt, settProsentDeltakelseFelt] =
     useState<string>('')
   const [dagerPerUkeFelt, settDagerPerUkeFelt] = useState<string>('')
-  const [gyldigFraDato, setGyldigFraDato] = useState<Nullable<Date>>(today)
+  const [gyldigFraDato, setGyldigFraDato] = useState<Date | undefined>(
+    deltaker.startDato && today.isBefore(deltaker.startDato)
+      ? deltaker.startDato
+      : today.toDate()
+  )
   const [begrunnelse, setBegrunnelse] = useState('')
 
   const visDagerPerUke =
@@ -56,8 +55,8 @@ export const EndreProsentDeltakelseModal = ({
   const validering = useDeltakelsesmengdeValidering(
     prosentDeltakelseFelt,
     dagerPerUkeFelt,
-    gammelDagerPerUke,
-    gammelProsentDeltakelse
+    gyldigFraDato,
+    deltaker.deltakelsesmengder?.sisteDeltakelsesmengde ?? null
   )
 
   const kanSendeMelding = erForslagEnabled
@@ -74,7 +73,7 @@ export const EndreProsentDeltakelseModal = ({
     }
 
     return endreDeltakelsesprosent(
-      deltakerId,
+      deltaker.id,
       prosentDeltakelse,
       dagerPerUke,
       gyldigFraDato
@@ -83,23 +82,26 @@ export const EndreProsentDeltakelseModal = ({
 
   const sendForslag = () => {
     const prosentDeltakelse = parseInt(prosentDeltakelseFelt)
-    const dagerPerUke = prosentDeltakelse === 100
-      ? undefined
-      : (dagerPerUkeFelt.length > 0 ? parseInt(dagerPerUkeFelt) : undefined)
+    const dagerPerUke =
+      prosentDeltakelse === 100
+        ? undefined
+        : dagerPerUkeFelt.length > 0
+          ? parseInt(dagerPerUkeFelt)
+          : undefined
 
-    const harIngenEndring = prosentDeltakelse === gammelProsentDeltakelse &&
-      dagerPerUke == gammelDagerPerUke
-
-    if (harIngenEndring) {
-      return Promise.reject('Innholdet i skjemaet medfører ingen endringer i deltakelsen på tiltaket. \nFor å lagre må minst ett felt i skjemaet være ulikt nåværende deltakelse.')
+    if (!validering.harEndring()) {
+      return Promise.reject(
+        'Innholdet i skjemaet medfører ingen endringer i deltakelsen på tiltaket. \nFor å lagre må minst ett felt i skjemaet være ulikt nåværende deltakelse.'
+      )
     }
 
     return validerObligatoriskBegrunnelse(begrunnelse)
       .then(() =>
         deltakelsesmengdeForslag(
-          deltakerId,
+          deltaker.id,
           prosentDeltakelse,
           dagerPerUke,
+          gyldigFraDato ?? new Date(),
           begrunnelse
         )
       )
@@ -141,12 +143,23 @@ export const EndreProsentDeltakelseModal = ({
           onChange={(e) => settDagerPerUkeFelt(e.target.value)}
         />
       )}
+      {erForslagEnabled && deltaker.startDato && (
+        <SimpleDatePicker
+          label="Fra når gjelder ny deltakelsesmengde?"
+          defaultDate={gyldigFraDato}
+          min={deltaker.startDato ?? undefined}
+          max={deltaker.sluttDato ?? undefined}
+          error={validering.gyldigFraError}
+          onValidate={validering.validerGyldigFra}
+          onChange={(date: Date | undefined) => setGyldigFraDato(date)}
+        />
+      )}
 
       {!erForslagEnabled && (
         <DateField
           label="Fra når gjelder ny deltakelsesmengde?"
           defaultDate={gyldigFraDato}
-          onDateChanged={(d) => setGyldigFraDato(d)}
+          onDateChanged={(d) => setGyldigFraDato(d ?? undefined)}
           min={deltaker.deltakerliste.startDato}
           max={deltaker.deltakerliste.sluttDato}
         />

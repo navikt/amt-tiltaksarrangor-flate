@@ -31,7 +31,7 @@ export const avsluttDeltakelseForslag = (
   aarsak: EndringAarsak,
   harDeltatt: boolean | null,
   sluttdato?: Date | null,
-  begrunnelse?: string,
+  begrunnelse?: string
 ): AxiosPromise => {
   return postForslag(deltakerId, 'avslutt', {
     sluttdato: sluttdato ? formatDateToDateInputStr(sluttdato) : null,
@@ -45,11 +45,13 @@ export const deltakelsesmengdeForslag = (
   deltakerId: string,
   deltakelsesprosent: number,
   dagerPerUke: number | undefined,
+  gyldigFra: Date,
   begrunnelse: string
 ): AxiosPromise => {
   return postForslag(deltakerId, 'deltakelsesmengde', {
     deltakelsesprosent: deltakelsesprosent,
     dagerPerUke: dagerPerUke ?? null,
+    gyldigFra: formatDateToDateInputStr(gyldigFra),
     begrunnelse: begrunnelse
   })
 }
