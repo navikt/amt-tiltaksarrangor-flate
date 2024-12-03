@@ -38,11 +38,15 @@ export const EndreProsentDeltakelseModal = ({
   onForslagSendt,
   onClose
 }: EndreProsentDeltakelseModalProps & EndreProsentDeltakelseModalDataProps) => {
-  const today = dayjs().toDate()
+  const today = dayjs()
   const [prosentDeltakelseFelt, settProsentDeltakelseFelt] =
     useState<string>('')
   const [dagerPerUkeFelt, settDagerPerUkeFelt] = useState<string>('')
-  const [gyldigFraDato, setGyldigFraDato] = useState<Date | undefined>(today)
+  const [gyldigFraDato, setGyldigFraDato] = useState<Date | undefined>(
+    deltaker.startDato && today.isBefore(deltaker.startDato)
+      ? deltaker.startDato
+      : today.toDate()
+  )
   const [begrunnelse, setBegrunnelse] = useState('')
 
   const visDagerPerUke =
