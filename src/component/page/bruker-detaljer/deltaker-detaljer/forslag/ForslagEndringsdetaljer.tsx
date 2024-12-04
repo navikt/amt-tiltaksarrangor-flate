@@ -4,7 +4,7 @@ import {
   ForslagEndringType
 } from '../../../../../api/data/forslag'
 import { assertNever } from '../../../../../utils/assert-never'
-import { BodyLong, Detail } from '@navikt/ds-react'
+import { BodyLong, BodyShort, Detail } from '@navikt/ds-react'
 import { formatDate } from '../../../../../utils/date-utils'
 import { endringAarsakTekstMapper } from '../tekst-mappers'
 import { getDagerPerUkeTekst } from '../../../../../utils/deltaker-utils'
@@ -26,9 +26,13 @@ export function ForslagEndringsdetaljer({
     <>
       <EndringsDetaljer endring={endring} />
       {begrunnelse && (
-        <BodyLong size="small" className={globalStyles.textPreWrap}>Begrunnelse: {begrunnelse}</BodyLong>
+        <BodyLong size="small" className={globalStyles.textPreWrap}>
+          Begrunnelse: {begrunnelse}
+        </BodyLong>
       )}
-      <Detail className={styles.forslag_detail_sendt}>Forslag sendt fra arrangør: {formatDate(sendt)}</Detail>
+      <Detail className={styles.forslag_detail_sendt}>
+        Forslag sendt fra arrangør: {formatDate(sendt)}
+      </Detail>
     </>
   )
 }
@@ -64,21 +68,28 @@ function EndringsDetaljer({ endring }: { readonly endring: ForslagEndring }) {
             </BodyLong>
           )}
           {endring.sluttdato && (
-          <BodyLong size="small">
-            Ny sluttdato: {formatDate(endring.sluttdato)}
-          </BodyLong>
+            <BodyLong size="small">
+              Ny sluttdato: {formatDate(endring.sluttdato)}
+            </BodyLong>
           )}
         </>
       )
     }
     case ForslagEndringType.Deltakelsesmengde: {
       return (
-        <BodyLong size="small">
-          Ny deltakelsesmengde: {endring.deltakelsesprosent} %
-          {endring.dagerPerUke && (
-            <> fordelt på {getDagerPerUkeTekst(endring.dagerPerUke)}</>
+        <>
+          <BodyLong size="small">
+            Ny deltakelsesmengde: {endring.deltakelsesprosent} %
+            {endring.dagerPerUke && (
+              <> fordelt på {getDagerPerUkeTekst(endring.dagerPerUke)}</>
+            )}
+          </BodyLong>
+          {endring.gyldigFra && (
+            <BodyShort size="small">
+              Gjelder fra: {formatDate(endring.gyldigFra)}
+            </BodyShort>
           )}
-        </BodyLong>
+        </>
       )
     }
     case ForslagEndringType.Sluttdato: {

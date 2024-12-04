@@ -444,7 +444,8 @@ export const mockHandlers: RequestHandler[] = [
   handlePostForslagRequest('deltakelsesmengde', (body) => ({
     type: ForslagEndringType.Deltakelsesmengde,
     deltakelsesprosent: body.deltakelsesprosent,
-    dagerPerUke: body.dagerPerUke
+    dagerPerUke: body.dagerPerUke,
+    gyldigFra: body.gyldigFra
   })),
   handlePostForslagRequest('sluttdato', (body) => ({
     type: ForslagEndringType.Sluttdato,
@@ -584,7 +585,8 @@ const mapToDeltakerDetaljerView = (
       : null,
     gjeldendeVurderingFraArrangor: deltaker.gjeldendeVurderingFraArrangor,
     historiskeVurderingerFraArrangor: deltaker.historiskeVurderingerFraArrangor,
-    adressebeskyttet: deltaker.adressebeskyttet
+    adressebeskyttet: deltaker.adressebeskyttet,
+    deltakelsesmengder: deltaker.deltakelsesmengder
   }
 }
 
