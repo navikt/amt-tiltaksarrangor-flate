@@ -55,9 +55,6 @@ export const EndreDeltakelseKnapp = (props: EndreDeltakelseKnappProps) => {
   }
 
   const visGodkjennVilkaarPanel = deltaker.tiltakskode !== Tiltakskode.VASV
-  const kanHaSenereSluttdato =
-    !deltaker.deltakerliste.sluttDato ||
-      (deltaker.sluttDato && (deltaker.sluttDato < deltaker.deltakerliste.sluttDato))
 
   return (
     <>
@@ -109,7 +106,7 @@ export const EndreDeltakelseKnapp = (props: EndreDeltakelseKnappProps) => {
 
             {(deltaker.status.type === TiltakDeltakerStatus.HAR_SLUTTET ||
               (deltaker.status.type === TiltakDeltakerStatus.DELTAR &&
-                kanHaSenereSluttdato)) && (
+                deltaker.sluttDato)) && (
               <DropDownButton
                 endringstype={EndringType.FORLENG_DELTAKELSE}
                 onClick={() =>
