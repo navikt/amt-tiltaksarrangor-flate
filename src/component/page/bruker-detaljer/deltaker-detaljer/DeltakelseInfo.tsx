@@ -87,9 +87,8 @@ export const DeltakelseInfo = ({
   ].includes(deltaker.status.type)
 
   const skruAvEndringer =
-    (deltaker.deltakerliste.tiltakstype === Tiltakskode.ARBRRHDAG ||
-      deltaker.deltakerliste.tiltakstype === Tiltakskode.AVKLARAG ||
-      deltaker.deltakerliste.tiltakstype === Tiltakskode.INDOPPFAG) &&
+    (deltaker.deltakerliste.tiltakstype === Tiltakskode.VASV ||
+      deltaker.deltakerliste.tiltakstype === Tiltakskode.DIGIOPPARB) &&
     !erForslagEnabled
 
   return (
