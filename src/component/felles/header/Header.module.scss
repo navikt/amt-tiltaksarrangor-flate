@@ -1,5 +1,5 @@
-@import '/src/colors.scss';
-@import '/src/globals.module.scss';
+@use '../../../colors.scss';
+@use '../../../globals.module.scss';
 
 .banner {
   display: grid;
@@ -9,18 +9,18 @@
   background-color: white;
   padding: 1rem 1.5rem;
 
-  border-bottom: 1px solid $navGra30;
+  border-bottom: 1px solid colors.$navGra30;
 }
 
 .header {
   background-color: white;
   padding: 1rem 0;
-  border-bottom: 1px solid $navGra30;
+  border-bottom: 1px solid colors.$navGra30;
 }
 
 .headerContent {
   display: grid;
-  max-width: $max-bredde;
+  max-width: globals.$max-bredde;
   margin: 0 auto;
   padding: 0 1rem;
 

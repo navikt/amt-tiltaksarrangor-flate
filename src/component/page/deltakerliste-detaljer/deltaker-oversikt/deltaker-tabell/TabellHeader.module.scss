@@ -1,7 +1,7 @@
-@import '/src/colors.scss';
+@use '../../../../../colors.scss';
 
 .sticky{
   position: sticky;
   top: 0;
-  background-color: $navLysGra;
+  background-color: colors.$navLysGra;
 }

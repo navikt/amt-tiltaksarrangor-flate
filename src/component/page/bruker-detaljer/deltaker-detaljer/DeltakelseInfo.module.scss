@@ -1,4 +1,4 @@
-@import '/src/colors.scss';
+@use '../../../../colors.scss';
 
 
 .elementWrapper {
@@ -26,7 +26,7 @@
 
 .section {
   width: 100%;
-  border-bottom: 1px solid $navGra30;
+  border-bottom: 1px solid colors.$navGra30;
   padding: 1rem 0;
 
   @media (min-width: 600px) {

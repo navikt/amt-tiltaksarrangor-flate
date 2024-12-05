@@ -1,10 +1,10 @@
-@import '/src/globals.module.scss';
+@use '../../../globals.module.scss';
 
 .deltakerlisteVeileder {
 	padding: 2rem;
 	display: flex;
 	gap: 2rem;
-	max-width: $max-bredde;
+	max-width: globals.$max-bredde;
 	margin: 0 auto;
 	flex-wrap: wrap;
 

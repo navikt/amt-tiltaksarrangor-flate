@@ -1,10 +1,10 @@
-@import '/src/globals.module.scss';
+@use '../../../globals.module.scss';
 
 .header {
   background-color: white;
   padding: 1rem 1rem;
   margin: auto;
-  max-width: $max-bredde;
+  max-width: globals.$max-bredde;
   border-bottom: 1px solid #c9c9c9
 }
 

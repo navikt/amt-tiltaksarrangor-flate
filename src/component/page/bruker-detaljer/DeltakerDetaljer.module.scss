@@ -1,4 +1,4 @@
-@import '/src/globals.module.scss';
+@use '../../../globals.module.scss';
 
 .gjennomforingTitle {
 	word-break: break-word;
@@ -23,7 +23,7 @@
 .detaljer {
 	display: grid;
 	padding: 1rem;
-	max-width: $max-bredde;
+	max-width: globals.$max-bredde;
 	margin: 0 auto;
 
 	grid-template-columns: 1fr;
@@ -96,7 +96,7 @@
 
 .deltaker_heading {
 	margin: auto;
-	max-width: $max-bredde;
+	max-width: globals.$max-bredde;
 	padding: 1rem;
 	border-bottom: 1px solid #c9c9c9;
 

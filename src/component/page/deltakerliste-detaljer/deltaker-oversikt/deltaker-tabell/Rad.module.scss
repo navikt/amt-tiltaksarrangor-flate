@@ -1,7 +1,7 @@
-@import '/src/colors.scss';
+@use '../../../../../colors.scss';
 
 .brukersNavn {
-  color: $navBla;
+  color: colors.$navBla;
   text-decoration: none;
 
   &:hover {

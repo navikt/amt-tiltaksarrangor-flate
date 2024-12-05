@@ -1,8 +1,8 @@
-@import 'src/colors';
+@use 'colors.scss';
 @import '@navikt/ds-css/dist/index.css';
 
 html {
-	background-color: $navLysGra;
+	background-color: colors.$navLysGra;
 }
 
 button {

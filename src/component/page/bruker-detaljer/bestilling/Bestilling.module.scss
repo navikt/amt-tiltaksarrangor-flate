@@ -1,4 +1,4 @@
-@import '/src/colors.scss';
+@use '../../../../colors.scss';
 
 .wrapper {
   margin-top: 1rem;
@@ -11,7 +11,7 @@
 
 .toggleKnapp {
   padding: 2px 0;
-  color: $interactionPrimary;
+  color: colors.$interactionPrimary;
   background-color: unset;
   border: none;
   margin-top: 0.5rem;

@@ -1,8 +1,8 @@
-@import '/src/colors.scss';
+@use '../../../colors.scss';
 
 .statusTagHvit {
   background-color: white;
-  border-color: $navGra80;
+  border-color: colors.$navGra80;
 }
 
 .statusTagBlaSmall {
