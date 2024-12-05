@@ -1,8 +1,8 @@
-@import '/src/colors.scss';
+@use '../../../colors.scss';
 
 .spaLenkepanel {
   background-color: white;
   padding: 1rem;
-  border: 1px solid $navGra60;
+  border: 1px solid colors.$navGra60;
   border-radius: 4px;
 }
