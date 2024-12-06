@@ -105,9 +105,11 @@ function EndringsDetaljer({ endring }: { readonly endring: ForslagEndring }) {
           <BodyLong size="small">
             Ny oppstartsdato: {formatDate(endring.startdato)}
           </BodyLong>
-          <BodyLong size="small">
-            Forventet sluttdato: {formatDate(endring.sluttdato)}
-          </BodyLong>
+          {endring.sluttdato && (
+            <BodyLong size="small">
+              Forventet sluttdato: {formatDate(endring.sluttdato)}
+            </BodyLong>
+          )}
         </>
       )
     case ForslagEndringType.Sluttarsak:

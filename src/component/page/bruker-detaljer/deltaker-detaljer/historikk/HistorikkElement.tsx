@@ -111,9 +111,11 @@ export const ForslagtypeDetaljer = ({
             <BodyLong size="small">
               Ny oppstartsdato: {formatDate(forslag.endring.startdato)}
             </BodyLong>
-            <BodyLong size="small">
-              Forventet sluttdato: {formatDate(forslag.endring.sluttdato)}
-            </BodyLong>
+            {forslag.endring.sluttdato && (
+              <BodyLong size="small">
+                Forventet sluttdato: {formatDate(forslag.endring.sluttdato)}
+              </BodyLong>
+            )}
           </>
         )
       case ForslagEndringType.Sluttarsak:
