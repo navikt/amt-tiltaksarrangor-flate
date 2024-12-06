@@ -26,10 +26,10 @@ const getEndringsTittel = (endring: ArrangorEndring) => {
 const getEndringsDetaljer = (endring: ArrangorEndring) => {
   switch (endring.type) {
     case ArrangorEndringsType.LeggTilOppstartsdato:
-      return (
-        <BodyLong size="small">
-          Forventet sluttdato: {formatDate(endring.sluttdato)}
-        </BodyLong>
+      return endring.sluttdato && (
+          <BodyLong size="small">
+            Forventet sluttdato: {formatDate(endring.sluttdato)}
+          </BodyLong>
       )
   }
 }
