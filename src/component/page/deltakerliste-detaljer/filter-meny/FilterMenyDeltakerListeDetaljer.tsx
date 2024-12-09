@@ -8,6 +8,7 @@ import { FilterMenyStatus } from './FilterMenyStatus'
 import { FilterMenyNavKontor } from './FilterMenyNavKontor'
 import { FilterMenyChips } from './FilterMenyChips'
 import { useKoordinatorFilterMenyStore } from '../store/koordinator-filter-meny-store-provider'
+import { FilterMenyHendelser } from './FilterMenyHendelser'
 
 interface Props {
   deltakerliste: KoordinatorsDeltakerliste
@@ -34,6 +35,7 @@ export const FilterMenyDeltakerListeDetaljer: React.FC<Props> = ({
         tiltakType={deltakerliste.tiltakType}
         deltakere={deltakerliste.deltakere}
       />
+      <FilterMenyHendelser deltakere={deltakerliste.deltakere} />
       <FilterMenyVeiledere deltakere={deltakerliste.deltakere} />
       <FilterMenyMedveileder deltakere={deltakerliste.deltakere} />
       <FilterMenyNavKontor deltakere={deltakerliste.deltakere} />

@@ -7,7 +7,10 @@ import {
   Vurderingstype,
   TiltakDeltakerStatus,
   Deltakelsesinnhold,
-  Deltakelsesmengder
+  Deltakelsesmengder,
+  AktivEndringForDeltaker,
+  AktivEndringsType,
+  AktivEndring
 } from '../../api/data/deltaker'
 import {
   DeltakerStatusAarsakType,
@@ -21,9 +24,9 @@ import {
   lagMockHistoriskeEndringsmeldingForDeltaker
 } from './endringsmelding'
 import { deltakerId } from './id'
-import { deltakerlisteErKurs, MockGjennomforing } from './tiltak'
+import { deltakerlisteErKurs, lagMockAktivEndring, MockGjennomforing } from './tiltak'
 import { lagMockVeiledereForDeltaker } from './veileder'
-import { AktivtForslag } from '../../api/data/forslag'
+import { AktivtForslag, ForslagEndringType } from '../../api/data/forslag'
 import { lagMockAktiveForslag } from './mock-forslag'
 import dayjs from 'dayjs'
 
@@ -78,6 +81,7 @@ export interface MockTiltakDeltaker {
   adressebeskyttet: boolean
   erVeilederForDeltaker: boolean
   deltakelsesmengder: Deltakelsesmengder | null
+  aktivEndring?: AktivEndringForDeltaker | null,
 }
 
 const navEnheter: MockNavEnhet[] = [
@@ -273,6 +277,29 @@ const lagMockTiltakDeltagerForGjennomforing = (
   const dagerPerUke = randBetween(0, 10) > 5 ? randBetween(1, 5) : null
 
   const id = deltakerId()
+
+  const erForslagEnabled = erKometMasterForTiltak(
+    gjennomforing.tiltak.tiltakskode
+  )
+  const aktiveForslag = erForslagEnabled ? lagMockAktiveForslag(status) : []
+  const aktiveEndringsmeldinger = erForslagEnabled ? [] : lagMockEndringsmeldingForDeltaker(status)
+  let aktivEndring: AktivEndringForDeltaker | null = null
+
+  if (aktiveForslag.length > 0) {
+    const forslag = aktiveForslag[ 0 ]
+    aktivEndring = {
+      type: AktivEndringsType.Forslag,
+      sendt: faker.date.recent(),
+      endingsType: mapForlsagTypeTilAktivEndring(forslag.endring.type)
+    }
+  } else if (aktiveEndringsmeldinger.length > 0) {
+    aktivEndring = {
+      type: AktivEndringsType.Endringsmelding,
+      sendt: faker.date.recent(),
+      endingsType: AktivEndring.LeggTilOppstartsDato
+    }
+  }
+
   return {
     id: id,
     fornavn: brukerFornavn,
@@ -306,8 +333,8 @@ const lagMockTiltakDeltagerForGjennomforing = (
     registrertDato: faker.date.past(),
     innsokBegrunnelse: genererBegrunnelse(brukerFornavn),
     innhold: mockInnhold(gjennomforing.tiltak.tiltakskode),
-    aktiveForslag: lagMockAktiveForslag(status),
-    aktiveEndringsmeldinger: lagMockEndringsmeldingForDeltaker(status),
+    aktiveForslag,
+    aktiveEndringsmeldinger,
     historiskeEndringsmeldinger: lagMockHistoriskeEndringsmeldingForDeltaker(
       status,
       startDato,
@@ -336,7 +363,8 @@ const lagMockTiltakDeltagerForGjennomforing = (
             gyldigFra: dayjs().add(7, 'days').toDate()
           }
         : null
-    }
+    },
+    aktivEndring
   }
 }
 
@@ -423,4 +451,36 @@ ${fornavn} ønsker:
 ${fornavn} håper at hen raskt kommer i kontakt med mulige arbeidsgivere for å starte å jobbe. Hen tror selv at hen har behov for hjelp i inntil 4 måneder, inklusiv oppfølging på arbeidsplassen.
 
 Nav kan vurdere tilskudd for å kompensere for utgifter arbeidsgiver skulle ha med tilrettelegging.`
+}
+
+const mapForlsagTypeTilAktivEndring = (endringsType: ForslagEndringType) => {
+  switch (endringsType) {
+    case ForslagEndringType.AvsluttDeltakelse:
+      return AktivEndring.AvsluttDeltakelse
+    case ForslagEndringType.Deltakelsesmengde:
+      return AktivEndring.Deltakelsesmengde
+    case ForslagEndringType.ForlengDeltakelse:
+      return AktivEndring.ForlengDeltakelse
+    case ForslagEndringType.IkkeAktuell:
+      return AktivEndring.IkkeAktuell
+    case ForslagEndringType.Sluttarsak:
+      return AktivEndring.Sluttarsak
+    case ForslagEndringType.Sluttdato:
+      return AktivEndring.Sluttdato
+    case ForslagEndringType.Startdato:
+      return AktivEndring.Startdato
+  }
+}
+
+const erKometMasterForTiltak = (tiltakstype: Tiltakskode) => {
+  const tiltakstyperKometErMasterFor = [
+    Tiltakskode.ARBFORB,
+    Tiltakskode.ARBRRHDAG,
+    Tiltakskode.AVKLARAG,
+    Tiltakskode.INDOPPFAG,
+    Tiltakskode.DIGIOPPARB,
+    Tiltakskode.VASV ]
+  if (tiltakstyperKometErMasterFor.includes(tiltakstype))
+    return true
+  return false
 }

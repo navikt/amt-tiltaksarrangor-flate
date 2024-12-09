@@ -26,6 +26,7 @@ export const FilterMenyDeltakerliste = (props: Props): ReactElement => {
     deltakerlisteFilter,
     updateDeltakerlisteFilter,
     statusFilter,
+    hendelseFilter,
     veiledertypeFilter,
     filtrerDeltakere,
     filtrerDeltakerePaaAltUtenom
@@ -70,6 +71,7 @@ export const FilterMenyDeltakerliste = (props: Props): ReactElement => {
   }, [
     props.deltakere,
     statusFilter,
+    hendelseFilter,
     veiledertypeFilter,
     filtrerDeltakere,
     filtrerDeltakerePaaAltUtenom

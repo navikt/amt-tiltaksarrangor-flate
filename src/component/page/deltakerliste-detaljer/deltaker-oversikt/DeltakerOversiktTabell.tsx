@@ -19,7 +19,7 @@ export const DeltakerOversiktTabell = (
   props: DeltakerOversiktTabellProps
 ): React.ReactElement<DeltakerOversiktTabellProps> => {
   const { deltakere } = props
-  const { filtrerDeltakere, veilederFilter, medveilederFilter, statusFilter } =
+  const { filtrerDeltakere, veilederFilter, medveilederFilter, statusFilter, hendelseFilter } =
     useKoordinatorFilterMenyStore()
   const { deltakerSortering, setDeltakerSortering } =
     useTiltaksoversiktSokStore()
@@ -38,7 +38,8 @@ export const DeltakerOversiktTabell = (
     deltakerSortering,
     veilederFilter,
     medveilederFilter,
-    statusFilter
+    statusFilter,
+    hendelseFilter
   ])
 
   const handleOnSortChange = (sortKey: string | undefined) => {

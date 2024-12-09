@@ -33,6 +33,7 @@ export const FilterMenyStatus = (props: Props): React.ReactElement => {
   const {
     statusFilter,
     updateStatusFilter,
+    hendelseFilter,
     medveilederFilter,
     veilederFilter,
     filtrerDeltakere,
@@ -86,6 +87,7 @@ export const FilterMenyStatus = (props: Props): React.ReactElement => {
     setDeltakerePerStatus([...statusMap.values()])
   }, [
     props.deltakere,
+    hendelseFilter,
     medveilederFilter,
     veilederFilter,
     filtrerDeltakere,

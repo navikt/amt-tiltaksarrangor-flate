@@ -29,6 +29,7 @@ export const FilterMenyVeilederType = (props: Props): React.ReactElement => {
     veiledertypeFilter,
     updateVeilederTypeFilter,
     statusFilter,
+    hendelseFilter,
     deltakerlisteFilter,
     filtrerDeltakere,
     filtrerDeltakerePaaAltUtenom
@@ -78,6 +79,7 @@ export const FilterMenyVeilederType = (props: Props): React.ReactElement => {
   }, [
     props.deltakere,
     statusFilter,
+    hendelseFilter,
     deltakerlisteFilter,
     filtrerDeltakere,
     filtrerDeltakerePaaAltUtenom

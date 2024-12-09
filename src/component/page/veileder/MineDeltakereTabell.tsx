@@ -26,6 +26,7 @@ export const MineDeltakereTabell = (
   const {
     filtrerDeltakere,
     statusFilter,
+    hendelseFilter,
     deltakerlisteFilter,
     veiledertypeFilter
   } = useVeilederFilterMenyStore()
@@ -48,6 +49,7 @@ export const MineDeltakereTabell = (
   }, [
     filtrerDeltakere,
     statusFilter,
+    hendelseFilter,
     mineDeltakere,
     deltakerSortering,
     deltakerlisteFilter,

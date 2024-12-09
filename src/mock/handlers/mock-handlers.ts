@@ -525,7 +525,8 @@ export const mapToDeltakerListView = (
     navKontor: deltaker.navEnhet ? deltaker.navEnhet.navn : null,
     gjeldendeVurderingFraArrangor: deltaker.gjeldendeVurderingFraArrangor,
     adressebeskyttet: deltaker.adressebeskyttet,
-    erVeilederForDeltaker: deltaker.erVeilederForDeltaker
+    erVeilederForDeltaker: deltaker.erVeilederForDeltaker,
+    aktivEndring: deltaker.aktivEndring ?? null
   }
 }
 

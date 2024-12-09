@@ -2,7 +2,7 @@ import { Chips } from '@navikt/ds-react'
 import React, { useMemo } from 'react'
 import globalStyles from '../../../../globals.module.scss'
 import { useKoordinatorFilterMenyStore } from '../store/koordinator-filter-meny-store-provider'
-import { mapTiltakDeltakerStatusTilTekst } from '../../../../utils/text-mappers'
+import { mapHendelseTypeTilTekst, mapTiltakDeltakerStatusTilTekst } from '../../../../utils/text-mappers'
 import { TiltakDeltaker } from '../../../../api/data/deltaker'
 import { veilederNavn } from '../../../../utils/veileder-utils'
 
@@ -18,6 +18,8 @@ export const FilterMenyChips: React.FC<Props> = ({ deltakere }) => {
   const {
     statusFilter,
     removeStatusFilter,
+    hendelseFilter,
+    removeHendelseFilter,
     veilederFilter,
     removeVeilederFilter,
     medveilederFilter,
@@ -42,6 +44,16 @@ export const FilterMenyChips: React.FC<Props> = ({ deltakere }) => {
           onDelete={() => removeStatusFilter(status)}
         >
           {mapTiltakDeltakerStatusTilTekst(status)}
+        </Chips.Removable>
+      ))}
+
+      {hendelseFilter.map((hendelse) => (
+        <Chips.Removable
+          key={hendelse}
+          variant="action"
+          onDelete={() => removeHendelseFilter(hendelse)}
+        >
+          {mapHendelseTypeTilTekst(hendelse)}
         </Chips.Removable>
       ))}
 
