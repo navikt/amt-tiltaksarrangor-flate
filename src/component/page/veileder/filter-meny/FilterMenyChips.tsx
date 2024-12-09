@@ -3,6 +3,7 @@ import React from 'react'
 import globalStyles from '../../../../globals.module.scss'
 import { useVeilederFilterMenyStore } from '../store/veileder-filter-meny-store-provider'
 import {
+  mapHendelseTypeTilTekst,
   mapTiltakDeltakerStatusTilTekst,
   mapVeilderTypeTilTekst
 } from '../../../../utils/text-mappers'
@@ -10,9 +11,11 @@ import {
 export const FilterMenyChips = (): React.ReactElement => {
   const {
     statusFilter,
+    hendelseFilter,
     veiledertypeFilter,
     deltakerlisteFilter,
     removeStatusFilter,
+    removeHendelseFilter,
     removeVeilederTypeFilter,
     removeDeltakerlisteFilter
   } = useVeilederFilterMenyStore()
@@ -26,6 +29,16 @@ export const FilterMenyChips = (): React.ReactElement => {
           onDelete={() => removeStatusFilter(status)}
         >
           {mapTiltakDeltakerStatusTilTekst(status)}
+        </Chips.Removable>
+      ))}
+
+      {hendelseFilter.map((hendelse) => (
+        <Chips.Removable
+          key={status}
+          variant="action"
+          onDelete={() => removeHendelseFilter(hendelse)}
+        >
+          {mapHendelseTypeTilTekst(hendelse)}
         </Chips.Removable>
       ))}
 

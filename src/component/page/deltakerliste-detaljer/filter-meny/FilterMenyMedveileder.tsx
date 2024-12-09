@@ -31,6 +31,7 @@ export const FilterMenyMedveileder = (props: Props): React.ReactElement => {
     medveilederFilter,
     updateMedveilederFilter,
     statusFilter,
+    hendelseFilter,
     veilederFilter,
     filtrerDeltakere,
     filtrerDeltakerePaaAltUtenom
@@ -105,6 +106,7 @@ export const FilterMenyMedveileder = (props: Props): React.ReactElement => {
   }, [
     props.deltakere,
     statusFilter,
+    hendelseFilter,
     veilederFilter,
     filtrerDeltakere,
     filtrerDeltakerePaaAltUtenom,

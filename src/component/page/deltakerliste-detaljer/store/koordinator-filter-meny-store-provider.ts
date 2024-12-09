@@ -1,6 +1,6 @@
 import constate from 'constate'
 import { useState } from 'react'
-import { TiltakDeltaker } from '../../../../api/data/deltaker'
+import { Hendelser, TiltakDeltaker } from '../../../../api/data/deltaker'
 import {
   getHovedveileder,
   getMedveiledere,
@@ -12,6 +12,7 @@ import { VeilederMedType } from '../../../../api/data/veileder'
 export enum FilterType {
   Ingen,
   Status,
+  Hendelse,
   Veileder,
   Medveileder,
   NavKontor
@@ -21,6 +22,7 @@ export const [
   useKoordinatorFilterMenyStore
 ] = constate(() => {
   const [veilederFilter, setVeilederFilter] = useState<string[]>([])
+  const [ hendelseFilter, setHendelseFilter ] = useState<string[]>([])
   const [medveilederFilter, setMedveilederFilter] = useState<string[]>([])
   const [statusFilter, setStatusFilter] = useState<string[]>([])
   const [navKontorFilter, setNavKontorFilter] = useState<string[]>([])
@@ -28,6 +30,11 @@ export const [
   const updateStatusFilter = (newFilter: string[]) => setStatusFilter(newFilter)
   const removeStatusFilter = (status: string) =>
     removeFilter(status, statusFilter, setStatusFilter)
+
+  const updateHendelseFilter = (newFilter: string[]) =>
+    setHendelseFilter(newFilter)
+  const removeHendelseFilter = (hendelse: string) =>
+    removeFilter(hendelse, hendelseFilter, setHendelseFilter)
 
   const updateVeilederFilter = (newFilter: string[]) =>
     setVeilederFilter(newFilter)
@@ -54,6 +61,12 @@ export const [
     if (statusFilter.length === 0) return true
     return statusFilter.includes(brukerStatus)
   }
+
+  const matcherHendelse = (hendelse: string) => {
+    if (hendelseFilter.length === 0) return true
+    return hendelseFilter.includes(hendelse)
+  }
+
   const matcherVeileder = (brukersVeileder: VeilederMedType) => {
     if (veilederFilter.length === 0) return true
     if (brukersVeileder === undefined)
@@ -91,6 +104,14 @@ export const [
     )
   }
 
+  const filtrerDeltakerePaHendelse = (
+    deltakere: TiltakDeltaker[]
+  ): TiltakDeltaker[] => {
+    return deltakere.filter((bruker) =>
+      matcherHendelse(bruker.aktivEndring ? Hendelser.VenterPaSvarFraNav : '')
+    )
+  }
+
   const filtrerDeltakereMedHovedveileder = (
     deltakere: TiltakDeltaker[]
   ): TiltakDeltaker[] => {
@@ -125,10 +146,14 @@ export const [
       filterType == FilterType.Status
         ? deltakere
         : filtrerDeltakerePaStatus(deltakere)
+    const filtrertPaHendelse =
+      filterType == FilterType.Hendelse
+        ? filtrertPaStatus
+        : filtrerDeltakerePaHendelse(filtrertPaStatus)
     const filtrertPaVeiledere =
       filterType === FilterType.Veileder
-        ? filtrertPaStatus
-        : filtrerDeltakereMedHovedveileder(filtrertPaStatus)
+        ? filtrertPaHendelse
+        : filtrerDeltakereMedHovedveileder(filtrertPaHendelse)
     const filtrertPaMedveileder =
       filterType == FilterType.Medveileder
         ? filtrertPaVeiledere
@@ -174,6 +199,14 @@ export const [
       deltakere.find((deltaker) => deltaker.status.type === status)
     )
     setStatusFilter(gyldigStatusFIlter)
+
+    const gyldigHendelseFilter = hendelseFilter.filter((hendelse) =>
+      deltakere.find((deltaker) => hendelse === Hendelser.VenterPaSvarFraNav
+        ? !!deltaker.aktivEndring
+        : false
+      )
+    )
+    setHendelseFilter(gyldigHendelseFilter)
   }
 
   return {
@@ -186,6 +219,9 @@ export const [
     statusFilter,
     updateStatusFilter,
     removeStatusFilter,
+    hendelseFilter,
+    updateHendelseFilter,
+    removeHendelseFilter,
     navKontorFilter,
     updateNavKontorFilter,
     removeNavKontorFilter,

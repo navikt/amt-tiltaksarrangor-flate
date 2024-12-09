@@ -1,18 +1,20 @@
 import constate from 'constate'
 import { useState } from 'react'
-import { VeiledersDeltaker } from '../../../../api/data/deltaker'
+import { Hendelser, VeiledersDeltaker } from '../../../../api/data/deltaker'
 import { tilVeiledertype } from '../../../../utils/deltakerliste-utils'
 import { Veiledertype } from '../../../../api/data/veileder'
 
 export enum FilterType {
   Ingen,
   Status,
+  Hendelse,
   VeilederType,
   Deltakerliste
 }
 export const [VeilederFilterMenyStoreProvider, useVeilederFilterMenyStore] =
   constate(() => {
     const [statusFilter, setStatusFilter] = useState<string[]>([])
+    const [ hendelseFilter, setHendelseFilter ] = useState<string[]>([])
     const [deltakerlisteFilter, setDeltakerlisteFilter] = useState<string[]>([])
     const [veiledertypeFilter, setVeiledertypeFilter] = useState<string[]>([
       Veiledertype.VEILEDER
@@ -22,6 +24,11 @@ export const [VeilederFilterMenyStoreProvider, useVeilederFilterMenyStore] =
       setStatusFilter(newFilter)
     const removeStatusFilter = (status: string) =>
       removeFilter(status, statusFilter, setStatusFilter)
+
+    const updateHendelseFilter = (newFilter: string[]) =>
+      setHendelseFilter(newFilter)
+    const removeHendelseFilter = (hendelse: string) =>
+      removeFilter(hendelse, hendelseFilter, setHendelseFilter)
 
     const updateVeilederTypeFilter = (newFilter: string[]) =>
       setVeiledertypeFilter(newFilter)
@@ -44,6 +51,11 @@ export const [VeilederFilterMenyStoreProvider, useVeilederFilterMenyStore] =
       return statusFilter.includes(brukerStatus)
     }
 
+    const matcherHendelse = (hendelse: string) => {
+      if (hendelseFilter.length === 0) return true
+      return hendelseFilter.includes(hendelse)
+    }
+
     const matcherVeiledertype = (veiledertype: Veiledertype) => {
       if (veiledertypeFilter.length === 0) return true
       return veiledertypeFilter.includes(veiledertype)
@@ -59,6 +71,14 @@ export const [VeilederFilterMenyStoreProvider, useVeilederFilterMenyStore] =
     ): VeiledersDeltaker[] => {
       return deltakere.filter((bruker) =>
         matcherStatus(statusFilter, bruker.status.type)
+      )
+    }
+
+    const filtrerDeltakerePaHendelse = (
+      deltakere: VeiledersDeltaker[]
+    ): VeiledersDeltaker[] => {
+      return deltakere.filter((bruker) =>
+        matcherHendelse(bruker.aktivEndring ? Hendelser.VenterPaSvarFraNav : '')
       )
     }
 
@@ -94,10 +114,14 @@ export const [VeilederFilterMenyStoreProvider, useVeilederFilterMenyStore] =
         filterType == FilterType.Status
           ? deltakere
           : filtrerDeltakerePaStatus(deltakere)
+      const filtrertPaHendelse =
+        filterType == FilterType.Hendelse
+          ? filtrertPaStatus
+          : filtrerDeltakerePaHendelse(filtrertPaStatus)
       const filtrertPaVeiledertype =
         filterType == FilterType.VeilederType
-          ? filtrertPaStatus
-          : filtrerDeltakerePaVeiledertype(filtrertPaStatus)
+          ? filtrertPaHendelse
+          : filtrerDeltakerePaVeiledertype(filtrertPaHendelse)
       return filterType == FilterType.Deltakerliste
         ? filtrertPaVeiledertype
         : filtrerDeltakerePaDeltakerliste(filtrertPaVeiledertype)
@@ -107,6 +131,9 @@ export const [VeilederFilterMenyStoreProvider, useVeilederFilterMenyStore] =
       statusFilter,
       updateStatusFilter,
       removeStatusFilter,
+      hendelseFilter,
+      updateHendelseFilter,
+      removeHendelseFilter,
       veiledertypeFilter,
       updateVeilederTypeFilter,
       removeVeilederTypeFilter,

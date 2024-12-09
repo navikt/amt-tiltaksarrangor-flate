@@ -32,6 +32,7 @@ export const FilterMenyVeiledere = (props: Props): React.ReactElement => {
     updateVeilederFilter,
     medveilederFilter,
     statusFilter,
+    hendelseFilter,
     filtrerDeltakere,
     filtrerDeltakerePaaAltUtenom
   } = useKoordinatorFilterMenyStore()
@@ -104,6 +105,7 @@ export const FilterMenyVeiledere = (props: Props): React.ReactElement => {
   }, [
     props.deltakere,
     statusFilter,
+    hendelseFilter,
     medveilederFilter,
     filtrerDeltakere,
     filtrerDeltakerePaaAltUtenom,

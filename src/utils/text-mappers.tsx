@@ -1,4 +1,4 @@
-import { Adressetype, TiltakDeltakerStatus } from '../api/data/deltaker'
+import { Adressetype, Hendelser, TiltakDeltakerStatus } from '../api/data/deltaker'
 import { DeltakerStatusAarsak, DeltakerStatusAarsakType } from '../api/data/endringsmelding'
 import { EndringAarsak, ForslagEndringAarsakType, ForslagEndringType, ForslagStatusType } from '../api/data/forslag'
 import { DeltakerHistorikkStatus, Endring, EndringType } from '../api/data/historikk'
@@ -26,6 +26,16 @@ export const mapTiltakDeltakerStatusTilTekst = (
       return 'Avbrutt'
     default:
       return tiltakDeltakerStatus.toString()
+  }
+}
+
+export const mapHendelseTypeTilTekst = (
+  hendelse: Hendelser | string
+): string => {
+  if (hendelse === Hendelser.VenterPaSvarFraNav) {
+    return 'Venter på svar fra Nav'
+  } else {
+    return ''
   }
 }
 

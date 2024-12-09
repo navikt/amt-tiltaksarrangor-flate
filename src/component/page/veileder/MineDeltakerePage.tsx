@@ -23,6 +23,7 @@ import { FilterMenyStatus } from './filter-meny/FilterMenyStatus'
 import { FilterMenyVeilederType } from './filter-meny/FilterMenyVeilederType'
 import { FilterMenyDeltakerliste } from './filter-meny/FilterMenyDeltakerliste'
 import { FilterMenyChips } from './filter-meny/FilterMenyChips'
+import { FilterMenyHendelser } from './filter-meny/FilterMenyHendelser'
 
 export const MineDeltakerePage = (): React.ReactElement => {
   const { setTilbakeTilUrl } = useTilbakelenkeStore()
@@ -82,6 +83,7 @@ export const MineDeltakerePage = (): React.ReactElement => {
         <FilterMenyChips />
 
         <FilterMenyStatus deltakere={mineDeltakere} />
+        <FilterMenyHendelser deltakere={mineDeltakere} />
         {showDeltakerlisteFilter && (
           <FilterMenyDeltakerliste deltakere={mineDeltakere} />
         )}

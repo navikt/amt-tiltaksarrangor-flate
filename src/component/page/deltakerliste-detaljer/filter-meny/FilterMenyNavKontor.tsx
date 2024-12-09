@@ -26,6 +26,7 @@ export const FilterMenyNavKontor = (props: Props): React.ReactElement => {
     veilederFilter,
     medveilederFilter,
     statusFilter,
+    hendelseFilter,
     navKontorFilter,
     updateNavKontorFilter,
     filtrerDeltakerePaaAltUtenom
@@ -73,6 +74,7 @@ export const FilterMenyNavKontor = (props: Props): React.ReactElement => {
   }, [
     props.deltakere,
     statusFilter,
+    hendelseFilter,
     medveilederFilter,
     veilederFilter,
     filtrerDeltakerePaaAltUtenom

@@ -14,6 +14,10 @@ import {
 import { veilederMedTypeSchema, veiledertypeSchema } from './veileder'
 import { aktivtForslagSchema } from './forslag'
 
+export enum Hendelser {
+  VenterPaSvarFraNav = 'VenterPaSvarFraNav'
+}
+
 export enum KursDeltakerStatuser {
   VURDERES = 'VURDERES',
   VENTER_PA_OPPSTART = 'VENTER_PA_OPPSTART',
@@ -88,6 +92,12 @@ export const vurderingSchema = z.object({
   gyldigTil: nullableDateSchema.nullable()
 })
 
+export const aktivEndringSchema = z.object({
+  endingsType: z.nativeEnum(AktivEndring),
+  type: z.nativeEnum(AktivEndringsType),
+  sendt: dateSchema
+})
+
 export const tiltakDeltakerSchema = z.object({
   id: z.string().uuid(),
   fornavn: z.string(),
@@ -103,7 +113,8 @@ export const tiltakDeltakerSchema = z.object({
   navKontor: z.string().nullable(),
   gjeldendeVurderingFraArrangor: vurderingSchema.nullable(),
   adressebeskyttet: z.boolean(),
-  erVeilederForDeltaker: z.boolean()
+  erVeilederForDeltaker: z.boolean(),
+  aktivEndring: aktivEndringSchema.nullable(),
 })
 
 export const deltakersDeltakerlisteSchema = z.object({
@@ -203,12 +214,6 @@ export const koordinatorForSchema = z.object({
 export const mineDeltakerlisterSchema = z.object({
   veilederFor: veilederForSchema.nullable(),
   koordinatorFor: koordinatorForSchema.nullable()
-})
-
-export const aktivEndringSchema = z.object({
-  endingsType: z.nativeEnum(AktivEndring),
-  type: z.nativeEnum(AktivEndringsType),
-  sendt: dateSchema
 })
 
 export const veiledersDeltakerSchema = z.object({
