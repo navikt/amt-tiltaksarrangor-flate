@@ -24,7 +24,7 @@ import {
   lagMockHistoriskeEndringsmeldingForDeltaker
 } from './endringsmelding'
 import { deltakerId } from './id'
-import { deltakerlisteErKurs, lagMockAktivEndring, MockGjennomforing } from './tiltak'
+import { deltakerlisteErKurs, MockGjennomforing } from './tiltak'
 import { lagMockVeiledereForDeltaker } from './veileder'
 import { AktivtForslag, ForslagEndringType } from '../../api/data/forslag'
 import { lagMockAktiveForslag } from './mock-forslag'
