@@ -10,13 +10,12 @@ const tiltakstyperKometAlltidErMasterFor = [
   Tiltakskode.ARBFORB,
   Tiltakskode.ARBRRHDAG,
   Tiltakskode.AVKLARAG,
-  Tiltakskode.INDOPPFAG
-]
-
-const tiltakstyperKometKanskjeErMasterFor: Tiltakskode[] = [
+  Tiltakskode.INDOPPFAG,
   Tiltakskode.DIGIOPPARB,
   Tiltakskode.VASV
 ]
+
+const tiltakstyperKometKanskjeErMasterFor: Tiltakskode[] = []
 
 export const useFeatureToggle = () => {
   const [toggles, setToggles] = useState<FeatureToggles>()
