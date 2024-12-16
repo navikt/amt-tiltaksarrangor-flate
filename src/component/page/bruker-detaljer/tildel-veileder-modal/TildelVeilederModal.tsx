@@ -1,7 +1,6 @@
-import { Alert, Button, Detail, ReadMore } from '@navikt/ds-react'
+import { Alert, Button, Detail, ReadMore, UNSAFE_Combobox } from '@navikt/ds-react'
 import React, { useEffect, useState } from 'react'
 import { TilgjengeligVeileder, Veileder } from '../../../../api/data/veileder'
-import { MultiValue, SingleValue } from 'react-select'
 import { lagBrukerNavn } from '../../../../utils/bruker-utils'
 
 import styles from './TildelVeilederModal.module.scss'
@@ -16,11 +15,12 @@ import {
   tildelVeilederForDeltaker
 } from '../../../../api/tiltak-api'
 import { Deltaker } from '../../../../api/data/deltaker'
-import {
-  SelectField,
-  SelectOption
-} from '../../../felles/select-field/SelectField'
 import { BaseModal } from '../../../felles/base-modal/BaseModal'
+
+export type SelectOption = {
+  value: string
+  label: string
+}
 
 interface Props {
   deltaker: Deltaker
@@ -37,6 +37,7 @@ export const TildelVeilederModal = (props: Props): React.ReactElement => {
   const [tilgjengeligeVeiledere, setTilgjengeligeVeiledere] = useState<
     TilgjengeligVeileder[]
   >([])
+
   const [muligeVeiledervalg, setMuligeVeiledervalg] = useState<SelectOption[]>()
   const [veileder, setVeileder] = useState<TilgjengeligVeileder | undefined>()
   const [medveiledere, setMedveiledere] = useState<TilgjengeligVeileder[]>([])
@@ -73,15 +74,17 @@ export const TildelVeilederModal = (props: Props): React.ReactElement => {
     setMuligeVeiledervalg(muligeValg.map(veilederToOption))
   }, [veileder, medveiledere, tilgjengeligeVeiledere])
 
-  const handleVeilederChange = (valg: SingleValue<SelectOption>) => {
-    setVeileder(tilgjengeligeVeiledere?.find((v) => v.ansattId === valg?.value))
+  const handleVeilederChange = (valgtAnsattId: string) => {
+    setVeileder(tilgjengeligeVeiledere?.find((v) => v.ansattId === valgtAnsattId))
   }
 
-  const handleMedveilederChange = (valg: MultiValue<SelectOption>) => {
-    const valgteMedveiledere = valg.map((v) =>
-      tilgjengeligeVeiledere?.find((tv) => tv.ansattId === v.value)
-    )
-    setMedveiledere(valgteMedveiledere as TilgjengeligVeileder[])
+  const handleMedveilederChange = (valgtAnsattId: string, isSelected: boolean) => {
+    const valgteMedveiledere = tilgjengeligeVeiledere?.find((tv) => tv.ansattId === valgtAnsattId)
+    if (isSelected && valgteMedveiledere) setMedveiledere([ ...medveiledere, valgteMedveiledere as TilgjengeligVeileder ])
+
+    if (!isSelected) {
+      setMedveiledere(medveiledere.filter(mv => mv.ansattId !== valgtAnsattId))
+    }
   }
 
   const handleClose = () => {
@@ -132,31 +135,20 @@ export const TildelVeilederModal = (props: Props): React.ReactElement => {
             props.deltaker.etternavn
           )}
         </Detail>
-        <SelectField
+        <UNSAFE_Combobox
           label="Veileder"
-          isClearable
-          value={veileder ? veilederToOption(veileder) : undefined}
-          options={muligeVeiledervalg}
-          onChange={
-            handleVeilederChange as (
-              valg: SingleValue<SelectOption> | MultiValue<SelectOption>
-            ) => void
-          }
           className={styles.select}
+          options={muligeVeiledervalg ?? []}
+          onToggleSelected={(option) => handleVeilederChange(option)}
         />
-        <SelectField
+        <UNSAFE_Combobox
           label="Medveiledere"
-          isMulti
-          value={medveiledere.map(veilederToOption)}
-          options={muligeVeiledervalg}
-          onChange={
-            handleMedveilederChange as (
-              valg: SingleValue<SelectOption> | MultiValue<SelectOption>
-            ) => void
-          }
           className={styles.select}
-          isError={medveiledere.length > maksMedveiledere}
-          feilmelding="Deltaker kan ha maks 3 medveiledere"
+          options={muligeVeiledervalg ?? []}
+          selectedOptions={medveiledere.map(m => veilederToOption(m))}
+          onToggleSelected={(option, isSelected) => handleMedveilederChange(option, isSelected)}
+          isMultiSelect
+          maxSelected={3}
         />
         <ReadMore header="Finner du ikke riktig veileder?">
           <p>
