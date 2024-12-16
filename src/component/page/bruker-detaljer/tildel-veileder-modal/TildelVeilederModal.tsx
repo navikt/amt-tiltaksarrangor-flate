@@ -137,12 +137,14 @@ export const TildelVeilederModal = (props: Props): React.ReactElement => {
         </Detail>
         <UNSAFE_Combobox
           label="Veileder"
+          size="small"
           className={styles.select}
           options={muligeVeiledervalg ?? []}
           onToggleSelected={(option) => handleVeilederChange(option)}
         />
         <UNSAFE_Combobox
           label="Medveiledere"
+          size="small"
           className={styles.select}
           options={muligeVeiledervalg ?? []}
           selectedOptions={medveiledere.map(m => veilederToOption(m))}
