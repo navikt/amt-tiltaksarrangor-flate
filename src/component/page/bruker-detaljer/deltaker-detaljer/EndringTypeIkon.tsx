@@ -1,7 +1,7 @@
 import React from 'react'
 
 import styles from './EndringTypeIkon.module.scss'
-import {EndringType} from './types'
+import { EndringType } from './types'
 import {
   CaretRightCircleFillIcon,
   ChevronRightCircleFillIcon,
@@ -12,7 +12,7 @@ import {
   PieChartFillIcon,
   PlusCircleFillIcon
 } from '@navikt/aksel-icons'
-import {EndringType as HistorikkEndringType} from '../../../../api/data/historikk'
+import { EndringType as HistorikkEndringType } from '../../../../api/data/historikk'
 
 interface EndringTypeIkonProps {
   type: EndringType | HistorikkEndringType
