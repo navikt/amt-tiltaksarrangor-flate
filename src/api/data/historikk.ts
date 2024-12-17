@@ -15,7 +15,7 @@ export enum EndringType {
   AvsluttDeltakelse = 'AvsluttDeltakelse',
   EndreSluttarsak = 'EndreSluttarsak',
   ReaktiverDeltakelse = 'ReaktiverDeltakelse',
-  FjernOppstartsdato = 'FjernOppstartdato'
+  FjernOppstartsdato = 'FjernOppstartsdato'
 }
 
 export enum ArrangorEndringsType {
