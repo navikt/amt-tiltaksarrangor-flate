@@ -118,6 +118,8 @@ function EndringsDetaljer({ endring }: { readonly endring: ForslagEndring }) {
           Ny sluttårsak: {endringAarsakTekstMapper(endring.aarsak)}
         </BodyLong>
       )
+    case ForslagEndringType.FjernOppstartsdato:
+      return null
     default:
       assertNever(endring)
   }

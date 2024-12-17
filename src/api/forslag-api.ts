@@ -91,6 +91,15 @@ export const endreSluttarsakForslag = (
   })
 }
 
+export const fjernOppstartsdatoForslag = (
+  deltakerId: string,
+  begrunnelse: string
+): AxiosPromise => {
+  return postForslag(deltakerId, 'fjern-oppstartsdato', {
+    begrunnelse: begrunnelse
+  })
+}
+
 export const tilbakekallForslag = (
   deltakerId: string,
   forslagId: string

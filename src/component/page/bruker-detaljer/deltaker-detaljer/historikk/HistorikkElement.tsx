@@ -124,6 +124,8 @@ export const ForslagtypeDetaljer = ({
             Ny sluttårsak: {getForslagEndringAarsakText(forslag.endring.aarsak)}
           </BodyLong>
         )
+      case ForslagEndringType.FjernOppstartsdato:
+        return null
       default:
         assertNever(forslag.endring)
     }

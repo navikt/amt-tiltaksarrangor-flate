@@ -9,6 +9,7 @@ import { SettIkkeAktuellModal } from './endre-deltaker-modal/SettIkkeAktuellModa
 import { ModalData, ModalType } from './modal-store'
 import { EndreSluttdatoModal } from './endre-deltaker-modal/EndreSluttdatoModal'
 import { EndreSluttaarsakModal } from './endre-deltaker-modal/EndreSluttaarsakModal'
+import { FjernOppstartsdatoModal } from './endre-deltaker-modal/FjernOppstartsdatoModal'
 
 export const ModalController = (props: {
   modalData: ModalData | undefined
@@ -35,6 +36,8 @@ export const ModalController = (props: {
       return <EndreSluttdatoModal onClose={onClose} {...modalData.props} />
     case ModalType.EndreSluttaarsak:
       return <EndreSluttaarsakModal onClose={onClose} {...modalData.props} />
+    case ModalType.FjernOppstartsdato:
+      return <FjernOppstartsdatoModal onClose={onClose} {...modalData.props} />
     default:
       return null
   }
