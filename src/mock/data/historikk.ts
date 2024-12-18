@@ -81,6 +81,30 @@ export const mockDeltakerHistorikk = (): DeltakerHistorikkListe => {
     {
       type: HistorikkType.Endring,
       endring: {
+        type: EndringType.FjernOppstartsdato,
+        begrunnelse: 'Fordi vi er enige om at det er for tidlig'
+      },
+      endretAv: 'Navn Navnesen',
+      endretAvEnhet: 'Nav Fredrikstad',
+      endret: dayjs().subtract(2, 'day').toDate(),
+      forslag: {
+        id: randomUuid(),
+        type: HistorikkType.Forslag,
+        opprettet: dayjs().toDate(),
+        begrunnelse: 'Trenger mer tid før oppstart',
+        arrangorNavn: 'Muligheter As',
+        endring: {
+          type: ForslagEndringType.FjernOppstartsdato
+        },
+        status: {
+          type: ForslagStatusType.Godkjent,
+          godkjent: dayjs().toDate()
+        }
+      }
+    },
+    {
+      type: HistorikkType.Endring,
+      endring: {
         type: EndringType.EndreStartdato,
         sluttdato: dayjs().toDate(),
         startdato: dayjs().toDate(),

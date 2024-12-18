@@ -8,6 +8,7 @@ import { LeggTilOppstartModalDataProps } from './endre-deltaker-modal/LeggTilOpp
 import { SettIkkeAktuellModalDataProps } from './endre-deltaker-modal/SettIkkeAktuellModal'
 import { EndreSluttdatoModalDataProps } from './endre-deltaker-modal/EndreSluttdatoModal'
 import { EndreSluttaarsakModalDataProps } from './endre-deltaker-modal/EndreSluttaarsakModal'
+import { FjernOppstartsdatoModalDataProps } from './endre-deltaker-modal/FjernOppstartsdatoModal'
 
 export enum ModalType {
   LeggTilOppstart,
@@ -17,7 +18,8 @@ export enum ModalType {
   AvsluttDeltaker,
   EndreProsentDeltakelse,
   EndreSluttdato,
-  EndreSluttaarsak
+  EndreSluttaarsak,
+  FjernOppstartsdato
 }
 
 interface BaseModalData<T extends ModalType, P> {
@@ -57,6 +59,10 @@ type EndreSluttaarsak = BaseModalData<
   ModalType.EndreSluttaarsak,
   EndreSluttaarsakModalDataProps
 >
+type FjernOppstartsdato = BaseModalData<
+  ModalType.FjernOppstartsdato,
+  FjernOppstartsdatoModalDataProps
+>
 
 export type ModalData =
   | LeggTilOppstartData
@@ -67,6 +73,7 @@ export type ModalData =
   | EndreProsentDeltakelse
   | EndreSluttdato
   | EndreSluttaarsak
+  | FjernOppstartsdato
 
 export const useModalData = () => {
   const [modalData, setModalData] = useState<ModalData>()
@@ -137,6 +144,13 @@ export const useModalData = () => {
     })
   }
 
+  const visFjernOppstartsdatoModal = (props: FjernOppstartsdatoModalDataProps) => {
+    setModalData({
+      type: ModalType.FjernOppstartsdato,
+      props: props
+    })
+  }
+
   return {
     modalData,
     lukkModal,
@@ -147,6 +161,7 @@ export const useModalData = () => {
     visAvsluttDeltakerModal,
     visEndreProsentDeltakelseModal,
     visEndreSluttdatoModal,
-    visEndreSluttaarsakModal
+    visEndreSluttaarsakModal,
+    visFjernOppstartsdatoModal
   }
 }

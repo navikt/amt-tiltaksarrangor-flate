@@ -460,6 +460,9 @@ export const mockHandlers: RequestHandler[] = [
     type: ForslagEndringType.Sluttarsak,
     aarsak: body.aarsak
   })),
+  handlePostForslagRequest('fjern-oppstartsdato', () => ({
+    type: ForslagEndringType.FjernOppstartsdato
+  })),
   handlePostEndringRequest('legg-til-oppstartsdato', (body) => ({
     type: EndringFraArrangorType.LeggTilOppstartsdato,
     startdato: body.startdato,

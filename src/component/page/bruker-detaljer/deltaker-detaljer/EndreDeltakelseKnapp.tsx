@@ -34,6 +34,7 @@ export const EndreDeltakelseKnapp = (props: EndreDeltakelseKnappProps) => {
     visEndreProsentDeltakelseModal,
     visEndreSluttdatoModal,
     visEndreSluttaarsakModal,
+    visFjernOppstartsdatoModal,
     lukkModal
   } = useModalData()
   const { deltaker } = props
@@ -47,6 +48,10 @@ export const EndreDeltakelseKnapp = (props: EndreDeltakelseKnappProps) => {
     deltaker.status.type === TiltakDeltakerStatus.IKKE_AKTUELL ||
     deltaker.status.type === TiltakDeltakerStatus.DELTAR ||
     deltaker.status.type === TiltakDeltakerStatus.VURDERES
+
+  const kanFjerneOppstartsdato =
+    deltaker.status.type === TiltakDeltakerStatus.VENTER_PA_OPPSTART &&
+    deltaker.startDato && props.erForslagEnabled
 
   const endreDeltakelseRef = useRef<HTMLButtonElement>(null)
   const handleCloseModal = () => {
@@ -212,6 +217,19 @@ export const EndreDeltakelseKnapp = (props: EndreDeltakelseKnappProps) => {
                         | IndividuellDeltakerStatus.IKKE_AKTUELL,
                       visGodkjennVilkaarPanel: visGodkjennVilkaarPanel,
                       onEndringUtfort: props.onEndringUtfort,
+                      onForslagSendt: props.onForslagSendt,
+                      erForslagEnabled: props.erForslagEnabled
+                    })
+                  }
+                />
+              )}
+            {kanFjerneOppstartsdato && (
+                <DropDownButton
+                  endringstype={EndringType.FJERN_OPPSTARTSDATO}
+                  onClick={() =>
+                    visFjernOppstartsdatoModal({
+                      deltaker: deltaker,
+                      visGodkjennVilkaarPanel: false,
                       onForslagSendt: props.onForslagSendt,
                       erForslagEnabled: props.erForslagEnabled
                     })

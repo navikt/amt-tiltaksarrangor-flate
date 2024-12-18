@@ -21,6 +21,8 @@ export const getEndreDeltakelsesType = (forslag: Forslag) => {
       return EndringType.ENDRE_OPPSTARTSDATO
     case ForslagEndringType.Sluttarsak:
       return EndringType.ENDRE_SLUTTAARSAK
+    case ForslagEndringType.FjernOppstartsdato:
+      return EndringType.FJERN_OPPSTARTSDATO
   }
 }
 
@@ -40,5 +42,7 @@ export const getHistorikkEndringsType = (forslag: Forslag) => {
       return HistorikkEndringType.EndreStartdato
     case ForslagEndringType.Sluttarsak:
       return HistorikkEndringType.EndreSluttarsak
+    case ForslagEndringType.FjernOppstartsdato:
+      return HistorikkEndringType.FjernOppstartsdato
   }
 }

@@ -18,6 +18,8 @@ export function forslagTitle(type: ForslagEndringType) {
       return 'Endre oppstartsdato'
     case ForslagEndringType.Sluttarsak:
       return 'Endre sluttårsak'
+    case ForslagEndringType.FjernOppstartsdato:
+      return 'Fjern oppstartsdato'
     default:
       assertNever(type)
   }
@@ -39,6 +41,8 @@ export function mapTilEndringType(type: ForslagEndringType): EndringType {
       return EndringType.ENDRE_OPPSTARTSDATO
     case ForslagEndringType.Sluttarsak:
       return EndringType.ENDRE_SLUTTAARSAK
+    case ForslagEndringType.FjernOppstartsdato:
+      return EndringType.FJERN_OPPSTARTSDATO
     default:
       assertNever(type)
   }

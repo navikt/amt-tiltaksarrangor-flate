@@ -3,14 +3,14 @@ import React from 'react'
 import styles from './EndringTypeIkon.module.scss'
 import { EndringType } from './types'
 import {
-  MinusCircleFillIcon,
-  ChevronRightDoubleCircleFillIcon,
-  ChevronRightCircleFillIcon,
-  PlusCircleFillIcon,
-  PieChartFillIcon,
-  ChevronRightLastCircleFillIcon,
   CaretRightCircleFillIcon,
-  MenuElipsisHorizontalCircleFillIcon
+  ChevronRightCircleFillIcon,
+  ChevronRightDoubleCircleFillIcon,
+  ChevronRightLastCircleFillIcon,
+  MenuElipsisHorizontalCircleFillIcon,
+  MinusCircleFillIcon,
+  PieChartFillIcon,
+  PlusCircleFillIcon
 } from '@navikt/aksel-icons'
 import { EndringType as HistorikkEndringType } from '../../../../api/data/historikk'
 
@@ -53,8 +53,10 @@ export const EndringTypeIkon = ({ type, size }: EndringTypeIkonProps) => {
       )
     case HistorikkEndringType.AvsluttDeltakelse:
     case HistorikkEndringType.EndreSluttdato:
+    case HistorikkEndringType.FjernOppstartsdato:
     case EndringType.AVSLUTT_DELTAKELSE:
     case EndringType.ENDRE_SLUTTDATO:
+    case EndringType.FJERN_OPPSTARTSDATO:
       return (
         <MinusCircleFillIcon
           className={sizeName(size)}

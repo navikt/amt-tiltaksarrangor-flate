@@ -100,6 +100,7 @@ const getEndringsDetaljer = (endring: Endring, tiltakstype: Tiltakskode) => {
       )
     }
     case EndringType.ForlengDeltakelse:
+    case EndringType.FjernOppstartsdato:
     case EndringType.EndreSluttdato:
     case EndringType.EndreSluttarsak: {
       return endring.begrunnelse ? (

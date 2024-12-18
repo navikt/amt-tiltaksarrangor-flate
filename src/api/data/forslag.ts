@@ -25,7 +25,8 @@ export enum ForslagEndringType {
   Deltakelsesmengde = 'Deltakelsesmengde',
   Sluttdato = 'Sluttdato',
   Startdato = 'Startdato',
-  Sluttarsak = 'Sluttarsak'
+  Sluttarsak = 'Sluttarsak',
+  FjernOppstartsdato = 'FjernOppstartsdato'
 }
 
 export enum ForslagEndringAarsakType {
@@ -104,6 +105,10 @@ const sluttarsakSchema = z.object({
   aarsak: endringAarsakSchema
 })
 
+const fjernOppstartsdatoSchema = z.object({
+  type: z.literal(ForslagEndringType.FjernOppstartsdato)
+})
+
 const endringSchema = z.discriminatedUnion('type', [
   forlengDeltakelseSchema,
   ikkeAktuellSchema,
@@ -111,7 +116,8 @@ const endringSchema = z.discriminatedUnion('type', [
   deltakelsesmengdeSchema,
   sluttdatoSchema,
   startdatoSchema,
-  sluttarsakSchema
+  sluttarsakSchema,
+  fjernOppstartsdatoSchema
 ])
 
 const venterPaSvarSchema = z.object({

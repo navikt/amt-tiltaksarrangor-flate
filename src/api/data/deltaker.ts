@@ -63,7 +63,8 @@ export enum AktivEndring {
   Deltakelsesmengde = 'Deltakelsesmengde',
   Sluttdato = 'Sluttdato',
   Startdato = 'Startdato',
-  Sluttarsak = 'Sluttarsak'
+  Sluttarsak = 'Sluttarsak',
+  FjernOppstartsdato = 'FjernOppstartsdato'
 }
 
 const tiltakDeltakerStatusSchema = z.nativeEnum(TiltakDeltakerStatus)
