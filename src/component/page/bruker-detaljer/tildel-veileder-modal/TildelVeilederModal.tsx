@@ -140,6 +140,8 @@ export const TildelVeilederModal = (props: Props): React.ReactElement => {
           <UNSAFE_Combobox
             label="Veileder"
             size="small"
+            isMultiSelect
+            maxSelected={1}
             className={styles.select}
             options={muligeVeiledervalg ?? []}
             selectedOptions={veileder ? [ veilederToOption(veileder) ] : []}
