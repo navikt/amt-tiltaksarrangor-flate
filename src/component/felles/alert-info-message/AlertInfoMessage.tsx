@@ -20,8 +20,8 @@ export const AlertInfoMessage = () => {
     setLastMessage(alertMessage)
     setHideAlertMessage(false)
   }
-
-  return shouldShowAlertMessage ?
+// eslint-disable-next-line
+  return false && shouldShowAlertMessage ?
     <Alert variant="success" size="small" closeButton className={styles.alert} onClose={() => setHideAlertMessage(true)}>
       <Heading size="xsmall" level="2">Nav-veileder har nå ny løsning for flere tiltak</Heading>
       <BodyShort as="span" size="small" className={styles.text}>
