@@ -588,7 +588,6 @@ const mapToDeltakerDetaljerView = (
         }
       : null,
     gjeldendeVurderingFraArrangor: deltaker.gjeldendeVurderingFraArrangor,
-    historiskeVurderingerFraArrangor: deltaker.historiskeVurderingerFraArrangor,
     adressebeskyttet: deltaker.adressebeskyttet,
     deltakelsesmengder: deltaker.deltakelsesmengder
   }

@@ -77,7 +77,6 @@ export interface MockTiltakDeltaker {
   veiledere: VeilederMedType[]
   adresse: MockAdresse | null
   gjeldendeVurderingFraArrangor: MockVurdering | null
-  historiskeVurderingerFraArrangor: MockVurdering[] | null
   adressebeskyttet: boolean
   erVeilederForDeltaker: boolean
   deltakelsesmengder: Deltakelsesmengder | null
@@ -229,10 +228,6 @@ const lagVurdering = (erHistorisk: boolean): MockVurdering => {
   }
 }
 
-const lagHistoriskeVurderinger = (): MockVurdering[] => {
-  return new Array(randBetween(0, 3)).fill(null).map(() => lagVurdering(true))
-}
-
 const lagMockTiltakDeltagerForGjennomforing = (
   gjennomforing: Gjennomforing
 ): MockTiltakDeltaker => {
@@ -343,9 +338,6 @@ const lagMockTiltakDeltagerForGjennomforing = (
     veiledere: lagMockVeiledereForDeltaker(id),
     adresse: lagAdresse(),
     gjeldendeVurderingFraArrangor,
-    historiskeVurderingerFraArrangor: gjeldendeVurderingFraArrangor
-      ? lagHistoriskeVurderinger()
-      : null,
     erVeilederForDeltaker: false,
     adressebeskyttet: false,
     deltakelsesmengder: {

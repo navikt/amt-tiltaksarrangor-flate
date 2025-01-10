@@ -183,7 +183,6 @@ export const deltakerSchema = z.object({
   historiskeEndringsmeldinger: z.array(endringsmeldingSchema).nullable(),
   adresse: adresseSchema.nullable(),
   gjeldendeVurderingFraArrangor: vurderingSchema.nullable(),
-  historiskeVurderingerFraArrangor: z.array(vurderingSchema).nullable(),
   adressebeskyttet: z.boolean(),
   deltakelsesmengder: deltakelsesmengderSchema.nullable()
 })
