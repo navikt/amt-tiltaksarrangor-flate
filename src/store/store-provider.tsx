@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { TilbakelenkeContextProvider } from './TilbakelenkeContextProvider'
-import { TiltaksoversiktSokContextProvider } from './TiltaksoversiktSokContextProvider'
+import { DeltakerSorteringContextProvider } from './DeltakerSorteringContextProvider'
 import { InnloggetBrukerContextProvider } from './InnloggetBrukerContextProvider'
 import { KoordinatorsDeltakerlisterContextProvider } from './KoordinatorsDeltakerlisterContextProvider'
 import { KoordinatorFilterContextProvider } from '../component/page/deltakerliste-detaljer/store/KoordinatorFilterContextProvider'
@@ -15,7 +15,7 @@ const StoreProvider = (
   props: StoreProviderProps
 ): React.ReactElement<StoreProviderProps> => {
   return (
-    <TiltaksoversiktSokContextProvider>
+    <DeltakerSorteringContextProvider>
       <KoordinatorsDeltakerlisterContextProvider>
         <KoordinatorFilterContextProvider>
           <VeilederFilterContextProvider>
@@ -27,7 +27,7 @@ const StoreProvider = (
           </VeilederFilterContextProvider>
         </KoordinatorFilterContextProvider>
       </KoordinatorsDeltakerlisterContextProvider>
-    </TiltaksoversiktSokContextProvider>
+    </DeltakerSorteringContextProvider>
   )
 }
 
