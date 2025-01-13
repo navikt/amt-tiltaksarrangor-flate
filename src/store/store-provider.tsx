@@ -2,7 +2,7 @@ import React from 'react'
 
 import { TilbakelenkeContextProvider } from './TilbakelenkeContextProvider'
 import { TiltaksoversiktSokProvider } from './TiltaksoversiktSokProvider'
-import { InnloggetBrukerStoreProvider } from './innlogget-bruker-store'
+import { InnloggetBrukerContextProvider } from './InnloggetBrukerContextProvider'
 import { KoordinatorsDeltakerlisterStoreProvider } from './koordinators-deltakerlister-store'
 import { KoordinatorFilterMenyStoreProvider } from '../component/page/deltakerliste-detaljer/store/koordinator-filter-meny-store-provider'
 import { VeilederFilterMenyStoreProvider } from '../component/page/veileder/store/veileder-filter-meny-store-provider'
@@ -19,11 +19,11 @@ const StoreProvider = (
       <KoordinatorsDeltakerlisterStoreProvider>
         <KoordinatorFilterMenyStoreProvider>
           <VeilederFilterMenyStoreProvider>
-            <InnloggetBrukerStoreProvider>
+            <InnloggetBrukerContextProvider>
               <TilbakelenkeContextProvider>
                 {props.children}
               </TilbakelenkeContextProvider>
-            </InnloggetBrukerStoreProvider>
+            </InnloggetBrukerContextProvider>
           </VeilederFilterMenyStoreProvider>
         </KoordinatorFilterMenyStoreProvider>
       </KoordinatorsDeltakerlisterStoreProvider>
