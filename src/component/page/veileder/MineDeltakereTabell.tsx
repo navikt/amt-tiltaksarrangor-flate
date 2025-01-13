@@ -1,7 +1,7 @@
 import { Table } from '@navikt/ds-react'
 import React, { useEffect, useState } from 'react'
 
-import { useTiltaksoversiktSokStore } from '../../../store/tiltaksoversikt-sok-store'
+import { useTiltaksoversiktSokContext } from '../../../store/tiltaksoversikt-sok-store'
 import { finnNesteSortering } from '../../../utils/sortering-utils'
 import globalStyles from '../../../globals.module.scss'
 import { sorterVeiledersDeltakere } from './sortering'
@@ -22,7 +22,7 @@ export const MineDeltakereTabell = (
 ): React.ReactElement<MineDeltakereTabellProps> => {
   const { mineDeltakere } = props
   const { deltakerSortering, setDeltakerSortering } =
-    useTiltaksoversiktSokStore()
+    useTiltaksoversiktSokContext()
   const {
     filtrerDeltakere,
     statusFilter,
