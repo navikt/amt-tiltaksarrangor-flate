@@ -1,7 +1,7 @@
 import { Chips } from '@navikt/ds-react'
 import React, { useMemo } from 'react'
 import globalStyles from '../../../../globals.module.scss'
-import { useKoordinatorFilterMenyStore } from '../store/koordinator-filter-meny-store-provider'
+import { useKoordinatorFilterContext } from '../store/KoordinatorFilterContextProvider'
 import { mapHendelseTypeTilTekst, mapTiltakDeltakerStatusTilTekst } from '../../../../utils/text-mappers'
 import { TiltakDeltaker } from '../../../../api/data/deltaker'
 import { veilederNavn } from '../../../../utils/veileder-utils'
@@ -26,7 +26,7 @@ export const FilterMenyChips: React.FC<Props> = ({ deltakere }) => {
     removeMedveilederFilter,
     navKontorFilter,
     removeNavKontorFilter
-  } = useKoordinatorFilterMenyStore()
+  } = useKoordinatorFilterContext()
 
   const mapAnsattIdTilNavn = (ansattId: string) => {
     const veileder = veiledere.find(
