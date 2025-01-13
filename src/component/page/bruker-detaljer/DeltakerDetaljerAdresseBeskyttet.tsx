@@ -10,7 +10,7 @@ import { LabelValue } from '../../felles/label-value/LabelValue'
 import { StatusMerkelapp } from '../../felles/status-merkelapp/StatusMerkelapp'
 import styles from './DeltakerDetaljer.module.scss'
 import { VeilederPanel } from './veileder-panel/VeilederPanel'
-import { useTilbakelenkeStore } from '../../../store/tilbakelenke-store'
+import { useTilbakelenkeContext } from '../../../store/TilbakelenkeContextProvider'
 import { useInnloggetBrukerStore } from '../../../store/innlogget-bruker-store'
 import { isOnlyKoordinator, isOnlyVeileder } from '../../../utils/rolle-utils'
 import {
@@ -29,7 +29,7 @@ export const DeltakerDetaljerAdresseBeskyttet = ({
   visTildeling
 }: Props): React.ReactElement => {
   const { soktInnPa, soktInnDato, tiltakskode, deltakerliste } = deltaker
-  const { setTilbakeTilUrl } = useTilbakelenkeStore()
+  const { setTilbakeTilUrl } = useTilbakelenkeContext()
   const { roller } = useInnloggetBrukerStore()
   const query = useQuery()
 

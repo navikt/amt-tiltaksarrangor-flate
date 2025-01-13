@@ -3,7 +3,7 @@ import React, { useEffect } from 'react'
 
 import { useTabTitle } from '../../../hooks/use-tab-title'
 import { LEGG_TIL_DELTAKERLISTE_PAGE_ROUTE } from '../../../navigation'
-import { useTilbakelenkeStore } from '../../../store/tilbakelenke-store'
+import { useTilbakelenkeContext } from '../../../store/TilbakelenkeContextProvider'
 import { AlertPage } from '../../felles/alert-page/AlertPage'
 import { IkonLenke } from '../../felles/ikon-lenke/IkonLenke'
 import styles from './MineDeltakerlisterPage.module.scss'
@@ -18,7 +18,7 @@ import { isNotStartedOrPending, isRejected } from '../../../utils/use-promise'
 import { SpinnerPage } from '../../felles/spinner-page/SpinnerPage'
 
 export const MineDeltakerlisterPage = (): React.ReactElement => {
-  const { setTilbakeTilUrl } = useTilbakelenkeStore()
+  const { setTilbakeTilUrl } = useTilbakelenkeContext()
   const { roller } = useInnloggetBrukerStore()
   const { koordinatorsDeltakerlister, fetchMineDeltakerlisterPromise } =
     useKoordinatorsDeltakerlisterStore()

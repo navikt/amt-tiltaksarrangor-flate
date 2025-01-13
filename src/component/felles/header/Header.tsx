@@ -1,6 +1,6 @@
 import { Heading } from '@navikt/ds-react'
 import React from 'react'
-import { useTilbakelenkeStore } from '../../../store/tilbakelenke-store'
+import { useTilbakelenkeContext } from '../../../store/TilbakelenkeContextProvider'
 import { Tilbakelenke } from '../tilbakelenke/Tilbakelenke'
 import styles from './Header.module.scss'
 
@@ -9,7 +9,7 @@ interface HeaderProps {
 }
 
 export const Header = (props: HeaderProps): React.ReactElement => {
-  const { tilbakeTilUrl } = useTilbakelenkeStore()
+  const { tilbakeTilUrl } = useTilbakelenkeContext()
 
   if (!props.isLoggedIn) return <></>
 

@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { TilbakelenkeStoreProvider } from './tilbakelenke-store'
+import { TilbakelenkeContextProvider } from './TilbakelenkeContextProvider'
 import { TiltaksoversiktSokProvider } from './TiltaksoversiktSokProvider'
 import { InnloggetBrukerStoreProvider } from './innlogget-bruker-store'
 import { KoordinatorsDeltakerlisterStoreProvider } from './koordinators-deltakerlister-store'
@@ -20,9 +20,9 @@ const StoreProvider = (
         <KoordinatorFilterMenyStoreProvider>
           <VeilederFilterMenyStoreProvider>
             <InnloggetBrukerStoreProvider>
-              <TilbakelenkeStoreProvider>
+              <TilbakelenkeContextProvider>
                 {props.children}
-              </TilbakelenkeStoreProvider>
+              </TilbakelenkeContextProvider>
             </InnloggetBrukerStoreProvider>
           </VeilederFilterMenyStoreProvider>
         </KoordinatorFilterMenyStoreProvider>
