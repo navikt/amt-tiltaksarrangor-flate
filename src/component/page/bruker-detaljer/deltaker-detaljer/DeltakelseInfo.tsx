@@ -20,7 +20,7 @@ import {
 } from '../../../../utils/use-promise'
 import { StatusMerkelapp } from '../../../felles/status-merkelapp/StatusMerkelapp'
 import styles from './DeltakelseInfo.module.scss'
-import { useDeltakerStore } from './deltaker-store'
+import { useDeltakerContext } from './DeltakerContext'
 import { ElementPanel } from './ElementPanel'
 import { EndreDeltakelseKnapp } from './EndreDeltakelseKnapp'
 import { Endringsmeldinger } from './endringsmelding/Endringsmeldinger'
@@ -41,7 +41,7 @@ export const DeltakelseInfo = ({
   const [visFjernDeltakerModal, setVisFjernDeltakerModal] = useState(false)
   const [forslag, setForslag] = useState(deltaker.aktiveForslag)
 
-  const { setDeltaker } = useDeltakerStore()
+  const { setDeltaker } = useDeltakerContext()
 
   const skjulDeltakerPromise = usePromise<AxiosResponse>()
 

@@ -10,14 +10,14 @@ import styles from './DeltakerDetaljer.module.scss'
 import { NavInfoPanel } from './nav-info-panel/NavInfoPanel'
 import { VeilederPanel } from './veileder-panel/VeilederPanel'
 import { DeltakerVurdering } from './deltaker-detaljer/vurdering/DeltakerVurdering'
-import { useDeltakerStore } from './deltaker-detaljer/deltaker-store'
+import { useDeltakerContext } from './deltaker-detaljer/DeltakerContext'
 import { DeltakelsesinnholdDetaljer } from './deltakelsesinnhold/DeltakelsesinnholdDetaljer'
 import { useFeatureToggle } from '../../../hooks/useFeatureToggle'
 
 export const DeltakerDetaljer = (props: {
   visTildeling: boolean
 }): React.ReactElement => {
-  const { deltaker } = useDeltakerStore()
+  const { deltaker } = useDeltakerContext()
   const {
     navInformasjon,
     soktInnPa,
