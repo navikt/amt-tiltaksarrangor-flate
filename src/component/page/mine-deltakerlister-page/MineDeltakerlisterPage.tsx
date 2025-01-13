@@ -11,7 +11,7 @@ import { Alert, BodyShort, Link } from '@navikt/ds-react'
 import { DeltakerListe } from './mine-deltakerlister/DeltakerListe'
 import { MineDeltakerePanel } from './mine-deltakere/MineDeltakerePanel'
 import globalStyles from '../../../globals.module.scss'
-import { useInnloggetBrukerStore } from '../../../store/innlogget-bruker-store'
+import { useInnloggetBrukerContext } from '../../../store/InnloggetBrukerContextProvider'
 import { isVeileder } from '../../../utils/rolle-utils'
 import { useKoordinatorsDeltakerlisterStore } from '../../../store/koordinators-deltakerlister-store'
 import { isNotStartedOrPending, isRejected } from '../../../utils/use-promise'
@@ -19,7 +19,7 @@ import { SpinnerPage } from '../../felles/spinner-page/SpinnerPage'
 
 export const MineDeltakerlisterPage = (): React.ReactElement => {
   const { setTilbakeTilUrl } = useTilbakelenkeContext()
-  const { roller } = useInnloggetBrukerStore()
+  const { roller } = useInnloggetBrukerContext()
   const { koordinatorsDeltakerlister, fetchMineDeltakerlisterPromise } =
     useKoordinatorsDeltakerlisterStore()
 

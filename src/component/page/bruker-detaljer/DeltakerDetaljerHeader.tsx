@@ -20,7 +20,7 @@ import {
 import styles from './DeltakerDetaljerHeader.module.scss'
 import { IconLabel } from './icon-label/IconLabel'
 import { KopierKnapp } from './kopier-knapp/KopierKnapp'
-import { useInnloggetBrukerStore } from '../../../store/innlogget-bruker-store'
+import { useInnloggetBrukerContext } from '../../../store/InnloggetBrukerContextProvider'
 import { isOnlyKoordinator, isOnlyVeileder } from '../../../utils/rolle-utils'
 import { useQuery } from '../../../utils/use-query'
 import { Adresse } from '../../../api/data/deltaker'
@@ -57,7 +57,7 @@ export const DeltakerDetaljerHeader = (
     tiltakskode
   } = props
   const { setTilbakeTilUrl } = useTilbakelenkeContext()
-  const { roller } = useInnloggetBrukerStore()
+  const { roller } = useInnloggetBrukerContext()
   const query = useQuery()
   const [visAdresse, setVisAdresse] = useState(false)
   const visAdresseForTiltak =

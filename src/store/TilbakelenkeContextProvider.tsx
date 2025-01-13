@@ -1,6 +1,4 @@
-import constate from 'constate'
 import { createContext, useContext, useState } from 'react'
-
 
 export interface TilbakelenkeContextProps {
   tilbakeTilUrl?: string | null
