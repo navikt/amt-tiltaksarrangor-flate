@@ -33,4 +33,15 @@ class Environment {
 
 const env = new Environment()
 
+export enum EndpointHandler {
+  MOCK = 'MOCK',
+  PROD = 'PROD'
+}
+
+export const getEndpointHandlerType = (): EndpointHandler => {
+  return env.isDemo || import.meta.env.DEV
+    ? EndpointHandler.MOCK
+    : EndpointHandler.PROD
+}
+
 export default env
