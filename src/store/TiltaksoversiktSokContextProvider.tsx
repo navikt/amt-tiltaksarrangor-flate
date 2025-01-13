@@ -12,13 +12,13 @@ const useTiltaksoversiktSokContext = () => {
   const context = useContext(TiltaksoversiktSokContext)
 
   if (!context) {
-    throw new Error('useTiltaksoversiktSokContext must be used within an TiltaksoversiktSokProvider')
+    throw new Error('useTiltaksoversiktSokContext must be used within an TiltaksoversiktSokContextProvider')
   }
 
   return context
 }
 
-const TiltaksoversiktSokProvider = ({
+const TiltaksoversiktSokContextProvider = ({
   children
 }: {
   children: React.ReactNode
@@ -31,4 +31,4 @@ const TiltaksoversiktSokProvider = ({
   )
 }
 
-export { TiltaksoversiktSokContext, useTiltaksoversiktSokContext, TiltaksoversiktSokProvider }
+export { TiltaksoversiktSokContext, useTiltaksoversiktSokContext, TiltaksoversiktSokContextProvider }

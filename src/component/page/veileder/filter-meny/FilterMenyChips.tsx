@@ -1,7 +1,7 @@
 import { Chips } from '@navikt/ds-react'
 import React from 'react'
 import globalStyles from '../../../../globals.module.scss'
-import { useVeilederFilterMenyStore } from '../store/veileder-filter-meny-store-provider'
+import { useVeilederFilterContext } from '../store/VeilederFilterContextProvider'
 import {
   mapHendelseTypeTilTekst,
   mapTiltakDeltakerStatusTilTekst,
@@ -18,7 +18,7 @@ export const FilterMenyChips = (): React.ReactElement => {
     removeHendelseFilter,
     removeVeilederTypeFilter,
     removeDeltakerlisteFilter
-  } = useVeilederFilterMenyStore()
+  } = useVeilederFilterContext()
 
   return (
     <Chips className={globalStyles.blokkXs} title="Fjern filter">
