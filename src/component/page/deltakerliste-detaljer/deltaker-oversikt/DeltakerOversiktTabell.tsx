@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 
 import { TiltakDeltaker } from '../../../../api/data/deltaker'
 import globalStyles from '../../../../globals.module.scss'
-import { useTiltaksoversiktSokContext } from '../../../../store/tiltaksoversikt-sok-store'
+import { useTiltaksoversiktSokContext } from '../../../../store/TiltaksoversiktSokProvider'
 import { finnNesteSortering } from '../../../../utils/sortering-utils'
 import { AlertInfoMessage } from '../../../felles/alert-info-message/AlertInfoMessage'
 import { useKoordinatorFilterMenyStore } from '../store/koordinator-filter-meny-store-provider'

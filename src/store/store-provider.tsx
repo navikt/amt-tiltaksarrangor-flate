@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { TilbakelenkeStoreProvider } from './tilbakelenke-store'
-import { TiltaksoversiktSokProvider } from './tiltaksoversikt-sok-store'
+import { TiltaksoversiktSokProvider } from './TiltaksoversiktSokProvider'
 import { InnloggetBrukerStoreProvider } from './innlogget-bruker-store'
 import { KoordinatorsDeltakerlisterStoreProvider } from './koordinators-deltakerlister-store'
 import { KoordinatorFilterMenyStoreProvider } from '../component/page/deltakerliste-detaljer/store/koordinator-filter-meny-store-provider'
