@@ -6,7 +6,7 @@ import { Deltaker } from '../../../api/data/deltaker'
 import { fetchDeltaker } from '../../../api/tiltak-api'
 import globalStyles from '../../../globals.module.scss'
 import { useTabTitle } from '../../../hooks/use-tab-title'
-import { useKoordinatorsDeltakerlisterStore } from '../../../store/koordinators-deltakerlister-store'
+import { useKoordinatorsDeltakerlisterContext } from '../../../store/KoordinatorsDeltakerlisterContextProvider'
 import { isKoordinatorForDeltakerliste } from '../../../utils/rolle-utils'
 import {
   isNotStartedOrPending,
@@ -23,7 +23,7 @@ import { DeltakerContextProvider } from './deltaker-detaljer/DeltakerContext'
 
 export const DeltakerDetaljerPage = (): React.ReactElement => {
   const params = useParams<{ brukerId: string }>()
-  const { koordinatorsDeltakerlister } = useKoordinatorsDeltakerlisterStore()
+  const { koordinatorsDeltakerlister } = useKoordinatorsDeltakerlisterContext()
 
   const brukerId = params.brukerId || ''
   const fetchDeltakerPromise = usePromise<AxiosResponse<Deltaker>>(

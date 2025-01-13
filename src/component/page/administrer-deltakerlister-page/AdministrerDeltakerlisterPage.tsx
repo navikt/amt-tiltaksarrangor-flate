@@ -24,12 +24,12 @@ import { LeggTilDeltakerlisteModal } from './legg-til-deltakerliste-modal/LeggTi
 import { useTilbakelenkeContext } from '../../../store/TilbakelenkeContextProvider'
 import { MINE_DELTAKERLISTER_PAGE_ROUTE } from '../../../navigation'
 import { useTabTitle } from '../../../hooks/use-tab-title'
-import { useKoordinatorsDeltakerlisterStore } from '../../../store/koordinators-deltakerlister-store'
+import { useKoordinatorsDeltakerlisterContext } from '../../../store/KoordinatorsDeltakerlisterContextProvider'
 
 export const AdministrerDeltakerlisterPage = () => {
   const { setTilbakeTilUrl } = useTilbakelenkeContext()
   const { koordinatorsDeltakerlister, setKoordinatorsDeltakerlister } =
-    useKoordinatorsDeltakerlisterStore()
+    useKoordinatorsDeltakerlisterContext()
 
   const [arrangorer, setArrangorer] = useState<ArrangorOverenhet[]>([])
   const [deltakerlisteIderLagtTil, setDeltakerlisteIderLagtTil] = useState<

@@ -11,7 +11,7 @@ import {
 } from './utils/use-promise'
 import { Rolle } from './api/data/ansatt'
 import { useInnloggetBrukerContext } from './store/InnloggetBrukerContextProvider'
-import { useKoordinatorsDeltakerlisterStore } from './store/koordinators-deltakerlister-store'
+import { useKoordinatorsDeltakerlisterContext } from './store/KoordinatorsDeltakerlisterContextProvider'
 import { SpinnerPage } from './component/felles/spinner-page/SpinnerPage'
 import { ErrorPage } from './component/page/error/ErrorPage'
 
@@ -19,7 +19,7 @@ export const App = (): React.ReactElement => {
   const fetchMineRollerPromise =
     usePromise<AxiosResponse<Rolle[]>>(fetchMineRoller)
   const { roller, setRoller } = useInnloggetBrukerContext()
-  const { fetchDeltakerlister } = useKoordinatorsDeltakerlisterStore()
+  const { fetchDeltakerlister } = useKoordinatorsDeltakerlisterContext()
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false)
 
   useEffect(() => {

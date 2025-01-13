@@ -13,7 +13,7 @@ import { MineDeltakerePanel } from './mine-deltakere/MineDeltakerePanel'
 import globalStyles from '../../../globals.module.scss'
 import { useInnloggetBrukerContext } from '../../../store/InnloggetBrukerContextProvider'
 import { isVeileder } from '../../../utils/rolle-utils'
-import { useKoordinatorsDeltakerlisterStore } from '../../../store/koordinators-deltakerlister-store'
+import { useKoordinatorsDeltakerlisterContext } from '../../../store/KoordinatorsDeltakerlisterContextProvider'
 import { isNotStartedOrPending, isRejected } from '../../../utils/use-promise'
 import { SpinnerPage } from '../../felles/spinner-page/SpinnerPage'
 
@@ -21,7 +21,7 @@ export const MineDeltakerlisterPage = (): React.ReactElement => {
   const { setTilbakeTilUrl } = useTilbakelenkeContext()
   const { roller } = useInnloggetBrukerContext()
   const { koordinatorsDeltakerlister, fetchMineDeltakerlisterPromise } =
-    useKoordinatorsDeltakerlisterStore()
+    useKoordinatorsDeltakerlisterContext()
 
   useTabTitle('Deltakeroversikt')
 
