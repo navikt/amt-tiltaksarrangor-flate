@@ -12,7 +12,7 @@ import {
   MINE_DELTAKERE_PAGE_ROUTE,
   deltakerlisteDetaljerPageUrl
 } from '../../../navigation'
-import { useTilbakelenkeStore } from '../../../store/tilbakelenke-store'
+import { useTilbakelenkeContext } from '../../../store/TilbakelenkeContextProvider'
 import {
   formaterTelefonnummer,
   lagBrukerNavn
@@ -56,7 +56,7 @@ export const DeltakerDetaljerHeader = (
     adresse,
     tiltakskode
   } = props
-  const { setTilbakeTilUrl } = useTilbakelenkeStore()
+  const { setTilbakeTilUrl } = useTilbakelenkeContext()
   const { roller } = useInnloggetBrukerStore()
   const query = useQuery()
   const [visAdresse, setVisAdresse] = useState(false)
