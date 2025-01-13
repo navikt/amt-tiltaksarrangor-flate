@@ -4,8 +4,8 @@ import { FilterMeny } from '../../../felles/table-filter/FilterMeny'
 import React, { useCallback, useEffect, useState } from 'react'
 import {
   FilterType,
-  useKoordinatorFilterMenyStore
-} from '../store/koordinator-filter-meny-store-provider'
+  useKoordinatorFilterContext
+} from '../store/KoordinatorFilterContextProvider'
 import {
   getHovedveileder,
   HAR_IKKE_VEILEDER_FILTER_TEKST,
@@ -35,7 +35,7 @@ export const FilterMenyVeiledere = (props: Props): React.ReactElement => {
     hendelseFilter,
     filtrerDeltakere,
     filtrerDeltakerePaaAltUtenom
-  } = useKoordinatorFilterMenyStore()
+  } = useKoordinatorFilterContext()
 
   const createInitialDataMap = useCallback((): Map<
     string,

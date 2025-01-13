@@ -5,7 +5,7 @@ import globalStyles from '../../../../globals.module.scss'
 import { useTiltaksoversiktSokContext } from '../../../../store/TiltaksoversiktSokProvider'
 import { finnNesteSortering } from '../../../../utils/sortering-utils'
 import { AlertInfoMessage } from '../../../felles/alert-info-message/AlertInfoMessage'
-import { useKoordinatorFilterMenyStore } from '../store/koordinator-filter-meny-store-provider'
+import { useKoordinatorFilterContext } from '../store/KoordinatorFilterContextProvider'
 import { DeltakerTabell } from './deltaker-tabell/DeltakerTabell'
 import { sorterDeltakere } from './deltaker-tabell/sortering'
 import styles from './DeltakerOversiktTabell.module.scss'
@@ -20,7 +20,7 @@ export const DeltakerOversiktTabell = (
 ): React.ReactElement<DeltakerOversiktTabellProps> => {
   const { deltakere } = props
   const { filtrerDeltakere, veilederFilter, medveilederFilter, statusFilter, hendelseFilter } =
-    useKoordinatorFilterMenyStore()
+    useKoordinatorFilterContext()
   const { deltakerSortering, setDeltakerSortering } =
     useTiltaksoversiktSokContext()
   const [deltakereBearbeidet, setDeltakereBearbeidet] = useState<

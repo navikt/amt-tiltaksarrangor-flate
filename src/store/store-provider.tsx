@@ -4,7 +4,7 @@ import { TilbakelenkeContextProvider } from './TilbakelenkeContextProvider'
 import { TiltaksoversiktSokProvider } from './TiltaksoversiktSokProvider'
 import { InnloggetBrukerContextProvider } from './InnloggetBrukerContextProvider'
 import { KoordinatorsDeltakerlisterContextProvider } from './KoordinatorsDeltakerlisterContextProvider'
-import { KoordinatorFilterMenyStoreProvider } from '../component/page/deltakerliste-detaljer/store/koordinator-filter-meny-store-provider'
+import { KoordinatorFilterContextProvider } from '../component/page/deltakerliste-detaljer/store/KoordinatorFilterContextProvider'
 import { VeilederFilterMenyStoreProvider } from '../component/page/veileder/store/veileder-filter-meny-store-provider'
 
 interface StoreProviderProps {
@@ -17,7 +17,7 @@ const StoreProvider = (
   return (
     <TiltaksoversiktSokProvider>
       <KoordinatorsDeltakerlisterContextProvider>
-        <KoordinatorFilterMenyStoreProvider>
+        <KoordinatorFilterContextProvider>
           <VeilederFilterMenyStoreProvider>
             <InnloggetBrukerContextProvider>
               <TilbakelenkeContextProvider>
@@ -25,7 +25,7 @@ const StoreProvider = (
               </TilbakelenkeContextProvider>
             </InnloggetBrukerContextProvider>
           </VeilederFilterMenyStoreProvider>
-        </KoordinatorFilterMenyStoreProvider>
+        </KoordinatorFilterContextProvider>
       </KoordinatorsDeltakerlisterContextProvider>
     </TiltaksoversiktSokProvider>
   )

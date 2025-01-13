@@ -1,5 +1,4 @@
-import constate from 'constate'
-import { useState } from 'react'
+import { createContext, useContext, useState } from 'react'
 import { Hendelser, TiltakDeltaker } from '../../../../api/data/deltaker'
 import {
   getHovedveileder,
@@ -17,15 +16,50 @@ export enum FilterType {
   Medveileder,
   NavKontor
 }
-export const [
-  KoordinatorFilterMenyStoreProvider,
-  useKoordinatorFilterMenyStore
-] = constate(() => {
-  const [veilederFilter, setVeilederFilter] = useState<string[]>([])
+
+export interface KoordinatorFilterContextProps {
+  veilederFilter: string[],
+  updateVeilederFilter: (newFilter: string[]) => void,
+  removeVeilederFilter: (status: string) => void,
+  medveilederFilter: string[],
+  updateMedveilederFilter: (newFilter: string[]) => void,
+  removeMedveilederFilter: (status: string) => void,
+  statusFilter: string[],
+  updateStatusFilter: (newFilter: string[]) => void,
+  removeStatusFilter: (status: string) => void,
+  hendelseFilter: string[]
+  updateHendelseFilter: (newFilter: string[]) => void,
+  removeHendelseFilter: (status: string) => void,
+  navKontorFilter: string[],
+  updateNavKontorFilter: (newFilter: string[]) => void,
+  removeNavKontorFilter: (status: string) => void,
+  filtrerDeltakere: (deltakere: TiltakDeltaker[]) => TiltakDeltaker[],
+  filtrerDeltakerePaaAltUtenom: (filterType: FilterType, deltakere: TiltakDeltaker[]) => TiltakDeltaker[],
+  fjernUgyldigeFilter: (deltakere: TiltakDeltaker[]) => void
+}
+
+const KoordinatorFilterContext = createContext<KoordinatorFilterContextProps | undefined>(undefined)
+
+const useKoordinatorFilterContext = () => {
+  const context = useContext(KoordinatorFilterContext)
+
+  if (!context) {
+    throw new Error('useKoordinatorFilterContext must be used within an  KoordinatorFilterContextProvider')
+  }
+
+  return context
+}
+
+const KoordinatorFilterContextProvider = ({
+  children
+}: {
+  children: React.ReactNode
+}) => {
+  const [ veilederFilter, setVeilederFilter ] = useState<string[]>([])
   const [ hendelseFilter, setHendelseFilter ] = useState<string[]>([])
-  const [medveilederFilter, setMedveilederFilter] = useState<string[]>([])
-  const [statusFilter, setStatusFilter] = useState<string[]>([])
-  const [navKontorFilter, setNavKontorFilter] = useState<string[]>([])
+  const [ medveilederFilter, setMedveilederFilter ] = useState<string[]>([])
+  const [ statusFilter, setStatusFilter ] = useState<string[]>([])
+  const [ navKontorFilter, setNavKontorFilter ] = useState<string[]>([])
 
   const updateStatusFilter = (newFilter: string[]) => setStatusFilter(newFilter)
   const removeStatusFilter = (status: string) =>
@@ -209,7 +243,7 @@ export const [
     setHendelseFilter(gyldigHendelseFilter)
   }
 
-  return {
+  const contextValue: KoordinatorFilterContextProps = {
     veilederFilter,
     updateVeilederFilter,
     removeVeilederFilter,
@@ -229,4 +263,10 @@ export const [
     filtrerDeltakerePaaAltUtenom,
     fjernUgyldigeFilter
   }
-})
+
+  return (
+    <KoordinatorFilterContext.Provider value={contextValue} > {children} </KoordinatorFilterContext.Provider>
+  )
+}
+
+export { KoordinatorFilterContext, useKoordinatorFilterContext, KoordinatorFilterContextProvider }

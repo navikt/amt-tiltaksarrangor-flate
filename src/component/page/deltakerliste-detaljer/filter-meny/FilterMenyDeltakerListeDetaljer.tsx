@@ -7,7 +7,7 @@ import { FilterMenyMedveileder } from './FilterMenyMedveileder'
 import { FilterMenyStatus } from './FilterMenyStatus'
 import { FilterMenyNavKontor } from './FilterMenyNavKontor'
 import { FilterMenyChips } from './FilterMenyChips'
-import { useKoordinatorFilterMenyStore } from '../store/koordinator-filter-meny-store-provider'
+import { useKoordinatorFilterContext } from '../store/KoordinatorFilterContextProvider'
 import { FilterMenyHendelser } from './FilterMenyHendelser'
 
 interface Props {
@@ -17,7 +17,7 @@ interface Props {
 export const FilterMenyDeltakerListeDetaljer: React.FC<Props> = ({
   deltakerliste
 }) => {
-  const { fjernUgyldigeFilter } = useKoordinatorFilterMenyStore()
+  const { fjernUgyldigeFilter } = useKoordinatorFilterContext()
 
   useLayoutEffect(() => {
     fjernUgyldigeFilter(deltakerliste.deltakere)
