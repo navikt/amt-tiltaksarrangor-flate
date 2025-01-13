@@ -3,8 +3,8 @@ import { VeiledersDeltaker } from '../../../../api/data/deltaker'
 import { FiltermenyDataEntry } from '../../../felles/table-filter/filtermeny-data-entry'
 import {
   FilterType,
-  useVeilederFilterMenyStore
-} from '../store/veileder-filter-meny-store-provider'
+  useVeilederFilterContext
+} from '../store/VeilederFilterContextProvider'
 import { FilterMeny } from '../../../felles/table-filter/FilterMeny'
 import globalStyles from '../../../../globals.module.scss'
 import useLocalStorage from '../../../../hooks/useLocalStorage'
@@ -30,7 +30,7 @@ export const FilterMenyDeltakerliste = (props: Props): ReactElement => {
     veiledertypeFilter,
     filtrerDeltakere,
     filtrerDeltakerePaaAltUtenom
-  } = useVeilederFilterMenyStore()
+  } = useVeilederFilterContext()
 
   const createInitialDataMap = (
     deltakere: VeiledersDeltaker[]
