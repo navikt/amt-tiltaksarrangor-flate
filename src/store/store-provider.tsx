@@ -1,11 +1,11 @@
 import React from 'react'
 
-import { TilbakelenkeStoreProvider } from './tilbakelenke-store'
-import { TiltaksoversiktSokStoreProvider } from './tiltaksoversikt-sok-store'
-import { InnloggetBrukerStoreProvider } from './innlogget-bruker-store'
-import { KoordinatorsDeltakerlisterStoreProvider } from './koordinators-deltakerlister-store'
-import { KoordinatorFilterMenyStoreProvider } from '../component/page/deltakerliste-detaljer/store/koordinator-filter-meny-store-provider'
-import { VeilederFilterMenyStoreProvider } from '../component/page/veileder/store/veileder-filter-meny-store-provider'
+import { TilbakelenkeContextProvider } from './TilbakelenkeContextProvider'
+import { DeltakerSorteringContextProvider } from './DeltakerSorteringContextProvider'
+import { InnloggetBrukerContextProvider } from './InnloggetBrukerContextProvider'
+import { KoordinatorsDeltakerlisterContextProvider } from './KoordinatorsDeltakerlisterContextProvider'
+import { KoordinatorFilterContextProvider } from '../component/page/deltakerliste-detaljer/store/KoordinatorFilterContextProvider'
+import { VeilederFilterContextProvider } from '../component/page/veileder/store/VeilederFilterContextProvider'
 
 interface StoreProviderProps {
   children: React.ReactNode
@@ -15,19 +15,19 @@ const StoreProvider = (
   props: StoreProviderProps
 ): React.ReactElement<StoreProviderProps> => {
   return (
-    <TiltaksoversiktSokStoreProvider>
-      <KoordinatorsDeltakerlisterStoreProvider>
-        <KoordinatorFilterMenyStoreProvider>
-          <VeilederFilterMenyStoreProvider>
-            <InnloggetBrukerStoreProvider>
-              <TilbakelenkeStoreProvider>
+    <DeltakerSorteringContextProvider>
+      <KoordinatorsDeltakerlisterContextProvider>
+        <KoordinatorFilterContextProvider>
+          <VeilederFilterContextProvider>
+            <InnloggetBrukerContextProvider>
+              <TilbakelenkeContextProvider>
                 {props.children}
-              </TilbakelenkeStoreProvider>
-            </InnloggetBrukerStoreProvider>
-          </VeilederFilterMenyStoreProvider>
-        </KoordinatorFilterMenyStoreProvider>
-      </KoordinatorsDeltakerlisterStoreProvider>
-    </TiltaksoversiktSokStoreProvider>
+              </TilbakelenkeContextProvider>
+            </InnloggetBrukerContextProvider>
+          </VeilederFilterContextProvider>
+        </KoordinatorFilterContextProvider>
+      </KoordinatorsDeltakerlisterContextProvider>
+    </DeltakerSorteringContextProvider>
   )
 }
 

@@ -10,8 +10,8 @@ import { LabelValue } from '../../felles/label-value/LabelValue'
 import { StatusMerkelapp } from '../../felles/status-merkelapp/StatusMerkelapp'
 import styles from './DeltakerDetaljer.module.scss'
 import { VeilederPanel } from './veileder-panel/VeilederPanel'
-import { useTilbakelenkeStore } from '../../../store/tilbakelenke-store'
-import { useInnloggetBrukerStore } from '../../../store/innlogget-bruker-store'
+import { useTilbakelenkeContext } from '../../../store/TilbakelenkeContextProvider'
+import { useInnloggetBrukerContext } from '../../../store/InnloggetBrukerContextProvider'
 import { isOnlyKoordinator, isOnlyVeileder } from '../../../utils/rolle-utils'
 import {
   MINE_DELTAKERE_PAGE_ROUTE,
@@ -29,8 +29,8 @@ export const DeltakerDetaljerAdresseBeskyttet = ({
   visTildeling
 }: Props): React.ReactElement => {
   const { soktInnPa, soktInnDato, tiltakskode, deltakerliste } = deltaker
-  const { setTilbakeTilUrl } = useTilbakelenkeStore()
-  const { roller } = useInnloggetBrukerStore()
+  const { setTilbakeTilUrl } = useTilbakelenkeContext()
+  const { roller } = useInnloggetBrukerContext()
   const query = useQuery()
 
   const viseDeltakelsesmengde = skalViseDeltakelsesmengde(tiltakskode)

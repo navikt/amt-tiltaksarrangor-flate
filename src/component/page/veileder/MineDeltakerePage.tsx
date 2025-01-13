@@ -15,9 +15,9 @@ import { MineDeltakereTabell } from './MineDeltakereTabell'
 import { Detail, Heading } from '@navikt/ds-react'
 import globalStyles from '../../../globals.module.scss'
 import { useStyle } from '../../../utils/use-style'
-import { useTilbakelenkeStore } from '../../../store/tilbakelenke-store'
+import { useTilbakelenkeContext } from '../../../store/TilbakelenkeContextProvider'
 import { MINE_DELTAKERLISTER_PAGE_ROUTE } from '../../../navigation'
-import { useInnloggetBrukerStore } from '../../../store/innlogget-bruker-store'
+import { useInnloggetBrukerContext } from '../../../store/InnloggetBrukerContextProvider'
 import { isKoordinatorAndVeileder } from '../../../utils/rolle-utils'
 import { FilterMenyStatus } from './filter-meny/FilterMenyStatus'
 import { FilterMenyVeilederType } from './filter-meny/FilterMenyVeilederType'
@@ -26,8 +26,8 @@ import { FilterMenyChips } from './filter-meny/FilterMenyChips'
 import { FilterMenyHendelser } from './filter-meny/FilterMenyHendelser'
 
 export const MineDeltakerePage = (): React.ReactElement => {
-  const { setTilbakeTilUrl } = useTilbakelenkeStore()
-  const { roller } = useInnloggetBrukerStore()
+  const { setTilbakeTilUrl } = useTilbakelenkeContext()
+  const { roller } = useInnloggetBrukerContext()
 
   useTabTitle('Mine deltakere')
 

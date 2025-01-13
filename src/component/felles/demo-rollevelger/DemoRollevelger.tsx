@@ -2,10 +2,10 @@ import React from 'react'
 import { Checkbox, CheckboxGroup } from '@navikt/ds-react'
 import { Rolle } from '../../../api/data/ansatt'
 import styles from './DemoRollevelger.module.scss'
-import { useInnloggetBrukerStore } from '../../../store/innlogget-bruker-store'
+import { useInnloggetBrukerContext } from '../../../store/InnloggetBrukerContextProvider'
 
 export const DemoRollevelger = (): React.ReactElement => {
-  const { setRoller } = useInnloggetBrukerStore()
+  const { setRoller } = useInnloggetBrukerContext()
 
   const handleChange = (roller: Rolle[]) => {
     setRoller(roller)

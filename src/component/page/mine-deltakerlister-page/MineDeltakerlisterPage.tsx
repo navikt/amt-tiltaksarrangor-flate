@@ -3,7 +3,7 @@ import React, { useEffect } from 'react'
 
 import { useTabTitle } from '../../../hooks/use-tab-title'
 import { LEGG_TIL_DELTAKERLISTE_PAGE_ROUTE } from '../../../navigation'
-import { useTilbakelenkeStore } from '../../../store/tilbakelenke-store'
+import { useTilbakelenkeContext } from '../../../store/TilbakelenkeContextProvider'
 import { AlertPage } from '../../felles/alert-page/AlertPage'
 import { IkonLenke } from '../../felles/ikon-lenke/IkonLenke'
 import styles from './MineDeltakerlisterPage.module.scss'
@@ -11,17 +11,17 @@ import { Alert, BodyShort, Link } from '@navikt/ds-react'
 import { DeltakerListe } from './mine-deltakerlister/DeltakerListe'
 import { MineDeltakerePanel } from './mine-deltakere/MineDeltakerePanel'
 import globalStyles from '../../../globals.module.scss'
-import { useInnloggetBrukerStore } from '../../../store/innlogget-bruker-store'
+import { useInnloggetBrukerContext } from '../../../store/InnloggetBrukerContextProvider'
 import { isVeileder } from '../../../utils/rolle-utils'
-import { useKoordinatorsDeltakerlisterStore } from '../../../store/koordinators-deltakerlister-store'
+import { useKoordinatorsDeltakerlisterContext } from '../../../store/KoordinatorsDeltakerlisterContextProvider'
 import { isNotStartedOrPending, isRejected } from '../../../utils/use-promise'
 import { SpinnerPage } from '../../felles/spinner-page/SpinnerPage'
 
 export const MineDeltakerlisterPage = (): React.ReactElement => {
-  const { setTilbakeTilUrl } = useTilbakelenkeStore()
-  const { roller } = useInnloggetBrukerStore()
+  const { setTilbakeTilUrl } = useTilbakelenkeContext()
+  const { roller } = useInnloggetBrukerContext()
   const { koordinatorsDeltakerlister, fetchMineDeltakerlisterPromise } =
-    useKoordinatorsDeltakerlisterStore()
+    useKoordinatorsDeltakerlisterContext()
 
   useTabTitle('Deltakeroversikt')
 

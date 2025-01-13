@@ -6,7 +6,7 @@ import { Deltaker } from '../../../api/data/deltaker'
 import { fetchDeltaker } from '../../../api/tiltak-api'
 import globalStyles from '../../../globals.module.scss'
 import { useTabTitle } from '../../../hooks/use-tab-title'
-import { useKoordinatorsDeltakerlisterStore } from '../../../store/koordinators-deltakerlister-store'
+import { useKoordinatorsDeltakerlisterContext } from '../../../store/KoordinatorsDeltakerlisterContextProvider'
 import { isKoordinatorForDeltakerliste } from '../../../utils/rolle-utils'
 import {
   isNotStartedOrPending,
@@ -19,11 +19,11 @@ import { SpinnerPage } from '../../felles/spinner-page/SpinnerPage'
 import { DeltakerDetaljer } from './DeltakerDetaljer'
 import { DeltakerDetaljerAdresseBeskyttet } from './DeltakerDetaljerAdresseBeskyttet'
 import { DeltakerDetaljerHeader } from './DeltakerDetaljerHeader'
-import { DeltakerStoreProvider } from './deltaker-detaljer/deltaker-store'
+import { DeltakerContextProvider } from './deltaker-detaljer/DeltakerContext'
 
 export const DeltakerDetaljerPage = (): React.ReactElement => {
   const params = useParams<{ brukerId: string }>()
-  const { koordinatorsDeltakerlister } = useKoordinatorsDeltakerlisterStore()
+  const { koordinatorsDeltakerlister } = useKoordinatorsDeltakerlisterContext()
 
   const brukerId = params.brukerId || ''
   const fetchDeltakerPromise = usePromise<AxiosResponse<Deltaker>>(
@@ -71,9 +71,9 @@ export const DeltakerDetaljerPage = (): React.ReactElement => {
         tiltakskode={deltaker.tiltakskode}
         adressebeskyttet={deltaker.adressebeskyttet}
       />
-      <DeltakerStoreProvider deltaker={deltaker}>
+      <DeltakerContextProvider initialDeltaker={deltaker}>
         <DeltakerDetaljer visTildeling={visTildeling} />
-      </DeltakerStoreProvider>
+      </DeltakerContextProvider>
     </div>
   )
 }
