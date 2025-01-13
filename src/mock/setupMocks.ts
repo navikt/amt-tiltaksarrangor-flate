@@ -1,6 +1,6 @@
 import { delay, http, HttpResponse } from 'msw'
 import { setupWorker } from 'msw/browser'
-import { EndpointHandler, getEndpointHandlerType } from '../utils/environment'
+import { useMock } from '../utils/environment'
 import { appUrl } from '../utils/url-utils'
 import { mockMineRoller } from './data/ansatt'
 import { deltakerlisteErKurs, MockGjennomforing } from './data/tiltak'
@@ -19,7 +19,7 @@ import { EndringFraArrangor, EndringFraArrangorType } from '../api/data/endring'
 import { KOMET_DELTAKERE_TOGGLE_NAVN, VIS_DRIFTSMELDING_TOGGLE_NAVN } from '../api/data/feature-toggle'
 
 export async function enableMocking() {
-	if (getEndpointHandlerType() === EndpointHandler.MOCK) {
+	if (useMock()) {
 		const url = appUrl('mockServiceWorker.js')
 
 		return worker.start({
