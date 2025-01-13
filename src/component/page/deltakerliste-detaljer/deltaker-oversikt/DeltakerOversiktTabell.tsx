@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 
 import { TiltakDeltaker } from '../../../../api/data/deltaker'
 import globalStyles from '../../../../globals.module.scss'
-import { useTiltaksoversiktSokContext } from '../../../../store/TiltaksoversiktSokContextProvider'
+import { useDeltakerSorteringContext } from '../../../../store/DeltakerSorteringContextProvider'
 import { finnNesteSortering } from '../../../../utils/sortering-utils'
 import { AlertInfoMessage } from '../../../felles/alert-info-message/AlertInfoMessage'
 import { useKoordinatorFilterContext } from '../store/KoordinatorFilterContextProvider'
@@ -22,7 +22,7 @@ export const DeltakerOversiktTabell = (
   const { filtrerDeltakere, veilederFilter, medveilederFilter, statusFilter, hendelseFilter } =
     useKoordinatorFilterContext()
   const { deltakerSortering, setDeltakerSortering } =
-    useTiltaksoversiktSokContext()
+    useDeltakerSorteringContext()
   const [deltakereBearbeidet, setDeltakereBearbeidet] = useState<
     TiltakDeltaker[]
   >(sorterDeltakere(deltakere, deltakerSortering))
