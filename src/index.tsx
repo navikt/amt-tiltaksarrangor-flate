@@ -20,6 +20,7 @@ import StoreProvider from './store/store-provider'
 import env from './utils/environment'
 import { setupNavDekorator } from './utils/nav-dekorator'
 import { initSentry } from './utils/sentry-utils'
+import { enableMocking } from './mock/setupMocks'
 
 dayjs.locale(nb)
 dayjs.extend(utc)
@@ -29,20 +30,14 @@ dayjs.extend(isSameOrBefore)
 dayjs.extend(customParseFormat)
 dayjs.tz.setDefault('Europe/Oslo')
 
+await setupNavDekorator()
+
 if (env.isPreprod || env.isProd) {
   initSentry()
 }
 
-;(async () => {
-  if (import.meta.env.DEV) {
-    await import('./mock')
-  }
-
-  await setupNavDekorator()
-
+const renderAsReactRoot = () => {
   const container = document.getElementById('root')
-
-  // eslint-disable-next-line  @typescript-eslint/no-non-null-assertion
   const root = createRoot(container!)
 
   root.render(
@@ -57,4 +52,8 @@ if (env.isPreprod || env.isProd) {
       </ErrorBoundary>
     </React.StrictMode>
   )
-})()
+}
+
+enableMocking().then(() => {
+  renderAsReactRoot()
+})

@@ -33,4 +33,8 @@ class Environment {
 
 const env = new Environment()
 
+export const useMock = () => {
+  return import.meta.env.DEV
+}
+
 export default env

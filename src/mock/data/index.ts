@@ -17,7 +17,7 @@ import {
   MineDeltakerlister,
   VeiledersDeltaker
 } from '../../api/data/deltaker'
-import { mapToDeltakerListView } from '../handlers/mock-handlers'
+import { mapToDeltakerListView } from '../setupMocks'
 
 export const mockKoordinatorer: Koordinator[] = lagMockKoordinatorer()
 
