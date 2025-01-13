@@ -1,7 +1,7 @@
 import { Table } from '@navikt/ds-react'
 import React, { useEffect, useState } from 'react'
 
-import { useTiltaksoversiktSokContext } from '../../../store/tiltaksoversikt-sok-store'
+import { useTiltaksoversiktSokContext } from '../../../store/TiltaksoversiktSokProvider'
 import { finnNesteSortering } from '../../../utils/sortering-utils'
 import globalStyles from '../../../globals.module.scss'
 import { sorterVeiledersDeltakere } from './sortering'
