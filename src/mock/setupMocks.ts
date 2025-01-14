@@ -21,6 +21,8 @@ import { KOMET_DELTAKERE_TOGGLE_NAVN, VIS_DRIFTSMELDING_TOGGLE_NAVN } from '../a
 export async function enableMocking() {
 	// eslint-disable-next-line no-console
 	console.log('useMock', useMock)
+	// eslint-disable-next-line no-console
+	console.log('import.meta.env.MODE', import.meta.env.MODE)
 	if (useMock) {
 		const url = appUrl('mockServiceWorker.js')
 
