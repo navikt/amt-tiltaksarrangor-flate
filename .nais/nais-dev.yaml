@@ -59,6 +59,15 @@ spec:
             {
               "fromPath": "/amt-tiltaksarrangor-bff", "toUrl": "http://amt-tiltaksarrangor-bff",
               "toApp": { "name": "amt-tiltaksarrangor-bff", "namespace": "amt", "cluster": "dev-gcp" }
+            },
+            {
+              "fromPath": "/pr-[0-9]+/amt-tiltaksarrangor-bff",
+              "toUrl": "http://amt-tiltaksarrangor-bff",
+              "toApp": {
+                "name": "amt-tiltaksarrangor-bff",
+                "namespace": "amt",
+                "cluster": "dev-gcp"
+              }
             }
           ],
           "header": {

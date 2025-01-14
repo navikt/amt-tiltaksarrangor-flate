@@ -19,7 +19,7 @@ import { EndringFraArrangor, EndringFraArrangorType } from '../api/data/endring'
 import { KOMET_DELTAKERE_TOGGLE_NAVN, VIS_DRIFTSMELDING_TOGGLE_NAVN } from '../api/data/feature-toggle'
 
 export async function enableMocking() {
-	if (useMock()) {
+	if (useMock) {
 		const url = appUrl('mockServiceWorker.js')
 
 		return worker.start({
