@@ -32,7 +32,7 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
       - name: Build Pull Request Application
-        run: pnpm build:pull-request
+        run: BASE=/deltakeroversikt/pr-${{ github.event.number }}/ pnpm build --mode pull-request
       - name: Authenticate to Google Cloud
         uses: google-github-actions/auth@v2
         with:
