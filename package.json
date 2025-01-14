@@ -6,6 +6,7 @@
     "start": "vite",
     "build": "vite build",
     "build:gh-pages": "NODE_ENV=development vite build --mode demo --base=/amt-tiltaksarrangor-flate/ && cpy --cwd=build --rename=404.html index.html .",
+    "build:pull-request": "BASE=/deltakeroversikt/pr-${{ github.event.number }}/ vite build --mode pull-request",
     "test": "vitest",
     "lint": "eslint --max-warnings=0 'src/**/*.{ts,tsx}'",
     "lint:fix": "eslint --fix 'src/**/*.{ts,tsx,js}'",
