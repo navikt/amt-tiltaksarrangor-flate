@@ -13,6 +13,9 @@ jobs:
     if: github.event.pull_request.head.repo.fork != true
     name: Deploy Pull Request Branch
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
     permissions:
       id-token: 'write' # Used to authenticate with Google Cloud
     steps:
@@ -29,7 +32,6 @@ jobs:
           registry-url: 'https://npm.pkg.github.com'
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
-        shell: bash
         env:
           NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
       - name: Build Pull Request Application
