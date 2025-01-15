@@ -2,6 +2,29 @@
   "name": "amt-tiltaksarrangor-flate",
   "version": "0.1.0",
   "private": true,
+  "scripts": {
+    "start": "vite",
+    "build": "vite build",
+    "build:gh-pages": "NODE_ENV=development vite build --mode demo --base=/amt-tiltaksarrangor-flate/ && cpy --cwd=build --rename=404.html index.html .",
+    "test": "vitest",
+    "lint": "eslint --max-warnings=0 'src/**/*.{ts,tsx}'",
+    "lint:fix": "eslint --fix 'src/**/*.{ts,tsx,js}'",
+    "format": "prettier --write 'src/**/*.{ts,tsx}'",
+    "cy:run": "cypress run",
+    "cy:open": "cypress open",
+    "cy:clear": "cypress cache clear"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "src/**/*.{ts,tsx}": [
+      "eslint --fix",
+      "prettier --write src/**/*"
+    ]
+  },
   "dependencies": {
     "@babel/core": "^7.26.0",
     "@navikt/aksel-icons": "^7.9.1",
@@ -25,29 +48,6 @@
     "typescript": "^5.7.3",
     "zod": "^3.24.1"
   },
-  "scripts": {
-    "start": "vite",
-    "build": "vite build",
-    "build:gh-pages": "NODE_ENV=development vite build --base=/amt-tiltaksarrangor-flate/ && cpy --cwd=build --rename=404.html index.html .",
-    "test": "vitest",
-    "lint": "eslint --max-warnings=0 'src/**/*.{ts,tsx}'",
-    "lint:fix": "eslint --fix 'src/**/*.{ts,tsx,js}'",
-    "format": "prettier --write 'src/**/*.{ts,tsx}'",
-    "cy:run": "cypress run",
-    "cy:open": "cypress open",
-    "cy:clear": "cypress cache clear"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
-  "lint-staged": {
-    "src/**/*.{ts,tsx}": [
-      "eslint --fix",
-      "prettier --write src/**/*"
-    ]
-  },
   "devDependencies": {
     "@faker-js/faker": "^9.3.0",
     "@typescript-eslint/eslint-plugin": "^7.18.0",
@@ -68,7 +68,7 @@
     "eslint-plugin-react-refresh": "^0.4.16",
     "husky": "^9.1.7",
     "lint-staged": "^15.3.0",
-    "msw": "^1.3.5",
+    "msw": "^2.7.0",
     "prettier": "^3.4.2",
     "sass": "^1.83.1",
     "table": "^6.9.0",
@@ -77,6 +77,8 @@
     "vitest": "^2.1.8"
   },
   "msw": {
-    "workerDirectory": "public"
+    "workerDirectory": [
+      "public"
+    ]
   }
 }

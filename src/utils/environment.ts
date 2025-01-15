@@ -33,4 +33,6 @@ class Environment {
 
 const env = new Environment()
 
+export const useMock = [ 'development', 'demo' ].includes(import.meta.env.MODE)
+
 export default env
