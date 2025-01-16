@@ -3,8 +3,8 @@ import React, { useEffect, useState } from 'react'
 import { FiltermenyDataEntry } from '../../../felles/table-filter/filtermeny-data-entry'
 import {
   FilterType,
-  useVeilederFilterMenyStore
-} from '../store/veileder-filter-meny-store-provider'
+  useVeilederFilterContext
+} from '../store/VeilederFilterContextProvider'
 import { tilVeiledertype } from '../../../../utils/deltakerliste-utils'
 import globalStyles from '../../../../globals.module.scss'
 import { FilterMeny } from '../../../felles/table-filter/FilterMeny'
@@ -33,7 +33,7 @@ export const FilterMenyVeilederType = (props: Props): React.ReactElement => {
     deltakerlisteFilter,
     filtrerDeltakere,
     filtrerDeltakerePaaAltUtenom
-  } = useVeilederFilterMenyStore()
+  } = useVeilederFilterContext()
 
   useEffect(() => {
     const createInitialDataMap = (

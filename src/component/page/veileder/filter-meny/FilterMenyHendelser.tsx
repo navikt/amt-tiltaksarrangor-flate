@@ -9,8 +9,8 @@ import { FilterMeny } from '../../../felles/table-filter/FilterMeny'
 import { FiltermenyDataEntry } from '../../../felles/table-filter/filtermeny-data-entry'
 import {
   FilterType,
-  useVeilederFilterMenyStore
-} from '../store/veileder-filter-meny-store-provider'
+  useVeilederFilterContext
+} from '../store/VeilederFilterContextProvider'
 import { mapHendelseTypeTilTekst } from '../../../../utils/text-mappers'
 
 interface Props {
@@ -33,7 +33,7 @@ export const FilterMenyHendelser = (props: Props): React.ReactElement => {
     deltakerlisteFilter,
     updateHendelseFilter,
     filtrerDeltakerePaaAltUtenom
-  } = useVeilederFilterMenyStore()
+  } = useVeilederFilterContext()
 
   useEffect(() => {
     const hendelser = { ...Hendelser }

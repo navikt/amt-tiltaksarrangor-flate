@@ -12,7 +12,7 @@ import {
   MINE_DELTAKERE_PAGE_ROUTE,
   deltakerlisteDetaljerPageUrl
 } from '../../../navigation'
-import { useTilbakelenkeStore } from '../../../store/tilbakelenke-store'
+import { useTilbakelenkeContext } from '../../../store/TilbakelenkeContextProvider'
 import {
   formaterTelefonnummer,
   lagBrukerNavn
@@ -20,7 +20,7 @@ import {
 import styles from './DeltakerDetaljerHeader.module.scss'
 import { IconLabel } from './icon-label/IconLabel'
 import { KopierKnapp } from './kopier-knapp/KopierKnapp'
-import { useInnloggetBrukerStore } from '../../../store/innlogget-bruker-store'
+import { useInnloggetBrukerContext } from '../../../store/InnloggetBrukerContextProvider'
 import { isOnlyKoordinator, isOnlyVeileder } from '../../../utils/rolle-utils'
 import { useQuery } from '../../../utils/use-query'
 import { Adresse } from '../../../api/data/deltaker'
@@ -56,8 +56,8 @@ export const DeltakerDetaljerHeader = (
     adresse,
     tiltakskode
   } = props
-  const { setTilbakeTilUrl } = useTilbakelenkeStore()
-  const { roller } = useInnloggetBrukerStore()
+  const { setTilbakeTilUrl } = useTilbakelenkeContext()
+  const { roller } = useInnloggetBrukerContext()
   const query = useQuery()
   const [visAdresse, setVisAdresse] = useState(false)
   const visAdresseForTiltak =

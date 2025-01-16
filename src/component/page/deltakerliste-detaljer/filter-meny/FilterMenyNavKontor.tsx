@@ -3,8 +3,8 @@ import React, { useEffect, useState } from 'react'
 import { FiltermenyDataEntry } from '../../../felles/table-filter/filtermeny-data-entry'
 import {
   FilterType,
-  useKoordinatorFilterMenyStore
-} from '../store/koordinator-filter-meny-store-provider'
+  useKoordinatorFilterContext
+} from '../store/KoordinatorFilterContextProvider'
 import { FilterMeny } from '../../../felles/table-filter/FilterMeny'
 import globalStyles from '../../../../globals.module.scss'
 import useLocalStorage from '../../../../hooks/useLocalStorage'
@@ -30,7 +30,7 @@ export const FilterMenyNavKontor = (props: Props): React.ReactElement => {
     navKontorFilter,
     updateNavKontorFilter,
     filtrerDeltakerePaaAltUtenom
-  } = useKoordinatorFilterMenyStore()
+  } = useKoordinatorFilterContext()
 
   const createInitialDataMap = (
     deltakere: TiltakDeltaker[]

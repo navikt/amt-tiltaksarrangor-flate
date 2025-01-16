@@ -7,7 +7,7 @@ import { fetchKoordinatorsDeltakerliste } from '../../../api/tiltak-api'
 import globalStyles from '../../../globals.module.scss'
 import { useTabTitle } from '../../../hooks/use-tab-title'
 import { MINE_DELTAKERLISTER_PAGE_ROUTE } from '../../../navigation'
-import { useTilbakelenkeStore } from '../../../store/tilbakelenke-store'
+import { useTilbakelenkeContext } from '../../../store/TilbakelenkeContextProvider'
 import {
   isNotFound,
   isNotStartedOrPending,
@@ -24,7 +24,7 @@ import { KoordinatorsDeltakerliste } from '../../../api/data/deltaker'
 import { FilterMenyDeltakerListeDetaljer } from './filter-meny/FilterMenyDeltakerListeDetaljer'
 
 export const DeltakerlisteDetaljerPage = (): React.ReactElement => {
-  const { setTilbakeTilUrl } = useTilbakelenkeStore()
+  const { setTilbakeTilUrl } = useTilbakelenkeContext()
   const params = useParams<{ deltakerlisteId: string }>()
   const deltakerlisteId = params.deltakerlisteId || ''
 

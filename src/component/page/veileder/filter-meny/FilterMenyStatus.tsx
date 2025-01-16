@@ -10,8 +10,8 @@ import { FilterMeny } from '../../../felles/table-filter/FilterMeny'
 import globalStyles from '../../../../globals.module.scss'
 import {
   FilterType,
-  useVeilederFilterMenyStore
-} from '../store/veileder-filter-meny-store-provider'
+  useVeilederFilterContext
+} from '../store/VeilederFilterContextProvider'
 import useLocalStorage from '../../../../hooks/useLocalStorage'
 
 interface Props {
@@ -34,7 +34,7 @@ export const FilterMenyStatus = (props: Props): React.ReactElement => {
     deltakerlisteFilter,
     updateStatusFilter,
     filtrerDeltakerePaaAltUtenom
-  } = useVeilederFilterMenyStore()
+  } = useVeilederFilterContext()
 
   useEffect(() => {
     const statuser = { ...KursDeltakerStatuser, ...IndividuellDeltakerStatus }

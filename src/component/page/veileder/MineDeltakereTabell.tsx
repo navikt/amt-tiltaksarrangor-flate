@@ -1,7 +1,7 @@
 import { Table } from '@navikt/ds-react'
 import React, { useEffect, useState } from 'react'
 
-import { useTiltaksoversiktSokStore } from '../../../store/tiltaksoversikt-sok-store'
+import { useDeltakerSorteringContext } from '../../../store/DeltakerSorteringContextProvider'
 import { finnNesteSortering } from '../../../utils/sortering-utils'
 import globalStyles from '../../../globals.module.scss'
 import { sorterVeiledersDeltakere } from './sortering'
@@ -10,7 +10,7 @@ import { IngenDeltakere } from './ingen-deltakere/IngenDeltakere'
 import { TabellHeaderVeileder } from './TabellHeaderVeileder'
 import { TabellBodyVeileder } from './TabellBodyVeileder'
 import { filtrerDeltakerliste } from '../../../utils/filtrering-utils'
-import { useVeilederFilterMenyStore } from './store/veileder-filter-meny-store-provider'
+import { useVeilederFilterContext } from './store/VeilederFilterContextProvider'
 import { AlertInfoMessage } from '../../felles/alert-info-message/AlertInfoMessage'
 
 interface MineDeltakereTabellProps {
@@ -22,14 +22,14 @@ export const MineDeltakereTabell = (
 ): React.ReactElement<MineDeltakereTabellProps> => {
   const { mineDeltakere } = props
   const { deltakerSortering, setDeltakerSortering } =
-    useTiltaksoversiktSokStore()
+    useDeltakerSorteringContext()
   const {
     filtrerDeltakere,
     statusFilter,
     hendelseFilter,
     deltakerlisteFilter,
     veiledertypeFilter
-  } = useVeilederFilterMenyStore()
+  } = useVeilederFilterContext()
   const [deltakereBearbeidet, setDeltakereBearbeidet] = useState<
     VeiledersDeltaker[]
   >(sorterVeiledersDeltakere(mineDeltakere, deltakerSortering))

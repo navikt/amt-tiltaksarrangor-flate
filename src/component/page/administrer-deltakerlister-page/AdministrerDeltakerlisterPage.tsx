@@ -21,15 +21,15 @@ import { deltakerlisteMapper } from './deltakerliste.mapper'
 import { SpinnerPage } from '../../felles/spinner-page/SpinnerPage'
 import { AlertPage } from '../../felles/alert-page/AlertPage'
 import { LeggTilDeltakerlisteModal } from './legg-til-deltakerliste-modal/LeggTilDeltakerlisteModal'
-import { useTilbakelenkeStore } from '../../../store/tilbakelenke-store'
+import { useTilbakelenkeContext } from '../../../store/TilbakelenkeContextProvider'
 import { MINE_DELTAKERLISTER_PAGE_ROUTE } from '../../../navigation'
 import { useTabTitle } from '../../../hooks/use-tab-title'
-import { useKoordinatorsDeltakerlisterStore } from '../../../store/koordinators-deltakerlister-store'
+import { useKoordinatorsDeltakerlisterContext } from '../../../store/KoordinatorsDeltakerlisterContextProvider'
 
 export const AdministrerDeltakerlisterPage = () => {
-  const { setTilbakeTilUrl } = useTilbakelenkeStore()
+  const { setTilbakeTilUrl } = useTilbakelenkeContext()
   const { koordinatorsDeltakerlister, setKoordinatorsDeltakerlister } =
-    useKoordinatorsDeltakerlisterStore()
+    useKoordinatorsDeltakerlisterContext()
 
   const [arrangorer, setArrangorer] = useState<ArrangorOverenhet[]>([])
   const [deltakerlisteIderLagtTil, setDeltakerlisteIderLagtTil] = useState<
