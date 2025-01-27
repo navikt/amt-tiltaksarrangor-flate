@@ -14,20 +14,15 @@ const utledEnv = () => {
   }
 }
 
-const utledEnforceLogin = (): boolean => {
-  return env.isProd || env.isPreprod
-}
-
 export const setupNavDekorator = (): Promise<void> => {
   return injectDecoratorClientSide({
     env: utledEnv(),
     params: {
       context: 'samarbeidspartner',
-      enforceLogin: utledEnforceLogin(),
       simpleFooter: true,
       shareScreen: false,
       level: 'Level4',
-      logoutWarning: utledEnforceLogin()
+      logoutWarning: env.isProd || env.isPreprod
     }
   })
 }
