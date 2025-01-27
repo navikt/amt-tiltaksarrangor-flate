@@ -77,7 +77,6 @@ export const usePromise = <R = Error>(
       })
       setPromise(func())
     }
-    // eslint-disable-next-line
   }, dependencies || [])
 
   useEffect(() => {
@@ -114,7 +113,6 @@ export const usePromise = <R = Error>(
         isCanceledRef.current = true
       }
     }
-    // eslint-disable-next-line
   }, [promise])
 
   return {

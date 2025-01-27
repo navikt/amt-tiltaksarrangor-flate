@@ -26,7 +26,6 @@ export function parse<T>(
 }
 
 export function logAndThrowError<E = Error>(err: E, url: string): E {
-  // eslint-disable-next-line no-console
   console.error(`Request to ${url} failed: ${JSON.stringify(err)}`)
 
   // Ikke logg 401 feil til sentry
