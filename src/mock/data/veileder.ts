@@ -41,7 +41,6 @@ export const lagMockVeiledereForDeltaker = (
 
   if (randBetween(0, 100) > 2) {
     veiledere.push({
-      // eslint-disable-next-line  @typescript-eslint/no-non-null-assertion
       ...tilgjengelige.pop()!,
       deltakerId: deltakerId,
       veiledertype: Veiledertype.VEILEDER
@@ -50,7 +49,6 @@ export const lagMockVeiledereForDeltaker = (
 
   for (let i = 0; i < randBetween(0, 3); i++) {
     veiledere.push({
-      // eslint-disable-next-line  @typescript-eslint/no-non-null-assertion
       ...tilgjengelige.pop()!,
       deltakerId: deltakerId,
       veiledertype: Veiledertype.MEDVEILEDER

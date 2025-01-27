@@ -11,7 +11,7 @@ const leggTilOppstartsdatoSchema = z.object({
   sluttdato: dateSchema.nullable()
 })
 
-const endringFraArrangorSchema = z.discriminatedUnion('type', [
+export const endringFraArrangorSchema = z.discriminatedUnion('type', [
   leggTilOppstartsdatoSchema
 ])
 

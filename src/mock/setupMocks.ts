@@ -354,7 +354,6 @@ export const worker = setupWorker(
 				return new HttpResponse(null, { status: 404 })
 			}
 			const nyeVeiledere: VeilederMedType[] = body.veiledere.map((v) => {
-				// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 				const veileder = mockTilgjengeligeVeiledere.find(
 					(tv) => tv.ansattId === v.ansattId
 				)!
