@@ -97,6 +97,7 @@ export const LeggTilOppstartModal = ({
       {skalVelgeSluttdato && (
         <SluttdatoVelger
           ref={sluttdato}
+          erForOppstartsdato={true}
           tiltakskode={deltaker.deltakerliste.tiltakstype}
           legend="Hva er forventet varighet?"
           detailLabel="Forventet sluttdato"
