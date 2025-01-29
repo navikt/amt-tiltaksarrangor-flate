@@ -22,6 +22,7 @@ interface SluttdatoVelgerProps {
   defaultSluttdato?: Date
   defaultMaaned?: Date
   defaultVarighet?: VarighetValg
+  erLeggTilOppstartsdato?: boolean
 }
 
 export interface SluttdatoRef {
@@ -40,7 +41,8 @@ export const SluttdatoVelger = forwardRef<SluttdatoRef, SluttdatoVelgerProps>(
       max,
       defaultSluttdato,
       defaultMaaned,
-      defaultVarighet
+      defaultVarighet,
+      erLeggTilOppstartsdato
     }: SluttdatoVelgerProps,
     ref
   ) {
@@ -95,7 +97,7 @@ export const SluttdatoVelger = forwardRef<SluttdatoRef, SluttdatoVelgerProps>(
         onChange={handleVarighet}
         error={sluttdato.error}
       >
-        {varighetValgForType(tiltakskode).map((v) => (
+        {varighetValgForType(tiltakskode, erLeggTilOppstartsdato).map((v) => (
           <Radio value={v} key={v}>
             {varigheter[v].navn}
           </Radio>

@@ -46,7 +46,8 @@ export const varigheter: Varigheter = {
 }
 
 export const varighetValgForType = (
-  tiltakstype: Tiltakskode
+  tiltakstype: Tiltakskode,
+  erLeggTilOppstartsdato?: boolean
 ): VarighetValg[] => {
   switch (tiltakstype) {
     case Tiltakskode.ARBFORB:
@@ -66,7 +67,10 @@ export const varighetValgForType = (
     case Tiltakskode.INDOPPFAG:
       return [VarighetValg.TRE_MANEDER, VarighetValg.SEKS_MANEDER]
     case Tiltakskode.DIGIOPPARB:
-      return [VarighetValg.FIRE_UKER]
+      if (erLeggTilOppstartsdato) {
+        return [ VarighetValg.FIRE_UKER, VarighetValg.ATTE_UKER ]
+      }
+      return [ VarighetValg.FIRE_UKER ]
     case Tiltakskode.VASV:
       return [VarighetValg.SEKS_MANEDER, VarighetValg.TOLV_MANEDER]
     case Tiltakskode.GRUFAGYRKE:
