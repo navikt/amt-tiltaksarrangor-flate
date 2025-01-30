@@ -21,11 +21,11 @@ importers:
         specifier: ^7.10.0
         version: 7.10.0
       '@navikt/nav-dekoratoren-moduler':
-        specifier: ^3.1.3
-        version: 3.1.3(csp-header@6.0.0)(html-react-parser@5.2.2(@types/react@19.0.8)(react@19.0.0))(jsdom@26.0.0)(react@19.0.0)
+        specifier: ^3.2.0
+        version: 3.2.0(csp-header@6.0.0)(html-react-parser@5.2.2(@types/react@19.0.8)(react@19.0.0))(jsdom@26.0.0)(react@19.0.0)
       '@sentry/react':
-        specifier: ^8.51.0
-        version: 8.51.0(react@19.0.0)
+        specifier: ^8.52.0
+        version: 8.52.0(react@19.0.0)
       '@sentry/tracing':
         specifier: ^7.120.3
         version: 7.120.3
@@ -79,8 +79,8 @@ importers:
         specifier: ^13.17.0
         version: 13.17.0
       cypress-axe:
-        specifier: ^1.5.0
-        version: 1.5.0(axe-core@4.10.2)(cypress@13.17.0)
+        specifier: ^1.6.0
+        version: 1.6.0(axe-core@4.10.2)(cypress@13.17.0)
       eslint:
         specifier: ^9.19.0
         version: 9.19.0
@@ -555,8 +555,8 @@ packages:
   '@navikt/ds-tokens@7.10.0':
     resolution: {integrity: sha512-yozkLGtD5VtK1p/0+cHR4qWvYl6B6YPOV5aY4E1naBppuS5ykKtWvYeu2lxVlM6sWd6hkV3znbanoloyGFmj+Q==, tarball: https://npm.pkg.github.com/download/@navikt/ds-tokens/7.10.0/04ceca43c67cd5bcb0a8524e45c94067fd2b278c}
 
-  '@navikt/nav-dekoratoren-moduler@3.1.3':
-    resolution: {integrity: sha512-gqXk5ovPBmu54voTJfJ2xlPvFMJGE+xm7aS5yGAtQHpDFD61M65C1iMyfW2SmxPPjItdl/Krht0fOXokDCmn/w==, tarball: https://npm.pkg.github.com/download/@navikt/nav-dekoratoren-moduler/3.1.3/5b4ff3c3727331eab2d8243ff96da8f8508dede0}
+  '@navikt/nav-dekoratoren-moduler@3.2.0':
+    resolution: {integrity: sha512-xhtvO74omt2cHw7ojvWAvQSQAizbDFRdfpsHCXs2Y5GXb/5ayLMVhSmZEYqE4bYql2OvMEMm6PEfyZj73os9VQ==, tarball: https://npm.pkg.github.com/download/@navikt/nav-dekoratoren-moduler/3.2.0/888682b989fc62c274916e2470d86c12b1558957}
     engines: {node: '>=18'}
     peerDependencies:
       csp-header: '>=5.x'
@@ -762,40 +762,40 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@sentry-internal/browser-utils@8.51.0':
-    resolution: {integrity: sha512-r94yfRK17zNJER0hgQE4qOSy5pWzsnFcGTJQSqhSEKUcC4KK37qSfoPrPejFxtIqXhqlkd/dTWKvrMwXWcn0MQ==}
+  '@sentry-internal/browser-utils@8.52.0':
+    resolution: {integrity: sha512-ojFldpRpGrgacIQMbbMZeqLYetNJJ61n+Pz29FpggaIRrbkq84ocoy4FCy+9BuLo6ywgxtUFrjOXD9pPRcZtUA==}
     engines: {node: '>=14.18'}
 
-  '@sentry-internal/feedback@8.51.0':
-    resolution: {integrity: sha512-VgfxSZWLYUPKDnkt2zG+Oe5ccv8U3WPM6Mo4kfABIJT3Ai4VbZB7+vb2a4pm6lUCF9DeOPXHb5o9Tg17SHDAHw==}
+  '@sentry-internal/feedback@8.52.0':
+    resolution: {integrity: sha512-r62Ufg4uGlvQsQ+nRSiq9y0ieVFRlZvUaoT/zMjmPuMg29O9rRAMdPJuiCpBH4++x8KJoJ9c2HBRizn6/3uc5Q==}
     engines: {node: '>=14.18'}
 
-  '@sentry-internal/replay-canvas@8.51.0':
-    resolution: {integrity: sha512-ERXIbwdULkdtIQnfkMLRVfpoGV2rClwySGRlTPepFKeLxlcXo9o09cPu+qbukiDnGK0cgEgRnrV961hMg21Bmw==}
+  '@sentry-internal/replay-canvas@8.52.0':
+    resolution: {integrity: sha512-4ES2uCUb9yEO1cbg15UBqiYU/syQYj5GviI+TvYvnPX3I8K2mK941ZRqfHh2HpFMhMxLgfX4jDqDGizNhXWdqg==}
     engines: {node: '>=14.18'}
 
-  '@sentry-internal/replay@8.51.0':
-    resolution: {integrity: sha512-lkm7id3a2n3yMZeF5socCVQUeEeShNOGr7Wtsmb5RORacEnld0z+NfbMTilo1mDwiWBzI5OYBjm62eglm1HFsQ==}
+  '@sentry-internal/replay@8.52.0':
+    resolution: {integrity: sha512-b4hQPni1G2tcV5XuAPSV4RTX3vqPXO9RfUXLuTBzOTNzBHDoj8nQv0yVvcysGy5tBAuVRo5ya5A+PG/iC6FA9A==}
     engines: {node: '>=14.18'}
 
   '@sentry-internal/tracing@7.120.3':
     resolution: {integrity: sha512-Ausx+Jw1pAMbIBHStoQ6ZqDZR60PsCByvHdw/jdH9AqPrNE9xlBSf9EwcycvmrzwyKspSLaB52grlje2cRIUMg==}
     engines: {node: '>=8'}
 
-  '@sentry/browser@8.51.0':
-    resolution: {integrity: sha512-1kbbyVfBBAx5Xyynp+lC5lLnAHo0qJ2r4mtmdT6koPjesvoOocEK0QQnouQBmdUbm3L0L/bPI1SgXjbeJyhzHQ==}
+  '@sentry/browser@8.52.0':
+    resolution: {integrity: sha512-7JpJ9zpInozBzy61eJf/6RPHoKUCFcoFuKd9rttkN1gyY9xkU1cQK+x1f0deiIHnF9ydftmDtXW+kGFI/+xqtw==}
     engines: {node: '>=14.18'}
 
   '@sentry/core@7.120.3':
     resolution: {integrity: sha512-vyy11fCGpkGK3qI5DSXOjgIboBZTriw0YDx/0KyX5CjIjDDNgp5AGgpgFkfZyiYiaU2Ww3iFuKo4wHmBusz1uA==}
     engines: {node: '>=8'}
 
-  '@sentry/core@8.51.0':
-    resolution: {integrity: sha512-Go0KxCYLw+OBIlLSv5YsYX+x9NW43fNVcyB6rhkSp2Q5Zme3tAE6KtZFvyu4SO7G/903wisW5Q6qV6UuK/ee4A==}
+  '@sentry/core@8.52.0':
+    resolution: {integrity: sha512-2j3B7IKmseTKFm6AyheJ+RSgXqIsx+3blFSuxpkdvsEt60Lbzva2uDkCENfBDOclioo1kvHgsyuXLfWW4A+wwA==}
     engines: {node: '>=14.18'}
 
-  '@sentry/react@8.51.0':
-    resolution: {integrity: sha512-Gqa6THfBJu3kagUr9B9kUWvOwzu7L2c1Wdvo7Wcy1yq6rcB2F2Ihxo9okNvb7cAez//UBtEYFebRJAaFKZqN0g==}
+  '@sentry/react@8.52.0':
+    resolution: {integrity: sha512-7tbRuTFOgKLM2fM5/TjrfDWbkqOOsxkb2QldnAUHTAcArIx77DpsurAgEx5L9lqn+UAhuw1X2IGbzk9fVV/ZDQ==}
     engines: {node: '>=14.18'}
     peerDependencies:
       react: ^16.14.0 || 17.x || 18.x || 19.x
@@ -1312,12 +1312,12 @@ packages:
   csstype@3.1.3:
     resolution: {integrity: sha512-M1uQkMl8rQK/szD0LNhtqxIPLpimGm8sOBwU7lLnCpSbTyY3yeU1Vc7l4KT5zT4s/yOxHH5O7tIuuLOCnLADRw==}
 
-  cypress-axe@1.5.0:
-    resolution: {integrity: sha512-Hy/owCjfj+25KMsecvDgo4fC/781ccL+e8p+UUYoadGVM2ogZF9XIKbiM6KI8Y3cEaSreymdD6ZzccbI2bY0lQ==}
+  cypress-axe@1.6.0:
+    resolution: {integrity: sha512-C/ij50G8eebBrl/WsGT7E+T/SFyIsRZ3Epx9cRTLrPL9Y1GcxlQGFoAVdtSFWRrHSCWXq9HC6iJQMaI89O9yvQ==}
     engines: {node: '>=10'}
     peerDependencies:
       axe-core: ^3 || ^4
-      cypress: ^10 || ^11 || ^12 || ^13
+      cypress: ^10 || ^11 || ^12 || ^13 || ^14
 
   cypress@13.17.0:
     resolution: {integrity: sha512-5xWkaPurwkIljojFidhw8lFScyxhtiFHl/i/3zov+1Z5CmY4t9tjIdvSXfu82Y3w7wt0uR9KkucbhkVvJZLQSA==}
@@ -2054,6 +2054,10 @@ packages:
   iterator.prototype@1.1.5:
     resolution: {integrity: sha512-H0dkQoCa3b2VEeKQBOxFph+JAbcrQdE7KC0UkqwpLmv2EC4P41QXP+rqo9wYodACiG5/WM5s9oDApTU8utwj9g==}
     engines: {node: '>= 0.4'}
+
+  js-cookie@3.0.5:
+    resolution: {integrity: sha512-cEiJEAEoIbWfCZYKWhVwFuvPX1gETRYPw6LlaTKoxD3s2AkXzkCjnp6h0V77ozyqj0jakteJ4YqDJT830+lVGw==}
+    engines: {node: '>=14'}
 
   js-tokens@4.0.0:
     resolution: {integrity: sha512-RdJUflcE3cUzKiMqQgsCu06FPu9UdIJO0beYbPhHN4k6apgJtifcoCtT9bcxOpYBtpD2kCM6Sbzg4CausW/PKQ==}
@@ -3577,10 +3581,11 @@ snapshots:
 
   '@navikt/ds-tokens@7.10.0': {}
 
-  '@navikt/nav-dekoratoren-moduler@3.1.3(csp-header@6.0.0)(html-react-parser@5.2.2(@types/react@19.0.8)(react@19.0.0))(jsdom@26.0.0)(react@19.0.0)':
+  '@navikt/nav-dekoratoren-moduler@3.2.0(csp-header@6.0.0)(html-react-parser@5.2.2(@types/react@19.0.8)(react@19.0.0))(jsdom@26.0.0)(react@19.0.0)':
     dependencies:
       csp-header: 6.0.0
       html-react-parser: 5.2.2(@types/react@19.0.8)(react@19.0.0)
+      js-cookie: 3.0.5
       jsdom: 26.0.0
       react: 19.0.0
 
@@ -3723,23 +3728,23 @@ snapshots:
   '@rollup/rollup-win32-x64-msvc@4.32.0':
     optional: true
 
-  '@sentry-internal/browser-utils@8.51.0':
+  '@sentry-internal/browser-utils@8.52.0':
     dependencies:
-      '@sentry/core': 8.51.0
+      '@sentry/core': 8.52.0
 
-  '@sentry-internal/feedback@8.51.0':
+  '@sentry-internal/feedback@8.52.0':
     dependencies:
-      '@sentry/core': 8.51.0
+      '@sentry/core': 8.52.0
 
-  '@sentry-internal/replay-canvas@8.51.0':
+  '@sentry-internal/replay-canvas@8.52.0':
     dependencies:
-      '@sentry-internal/replay': 8.51.0
-      '@sentry/core': 8.51.0
+      '@sentry-internal/replay': 8.52.0
+      '@sentry/core': 8.52.0
 
-  '@sentry-internal/replay@8.51.0':
+  '@sentry-internal/replay@8.52.0':
     dependencies:
-      '@sentry-internal/browser-utils': 8.51.0
-      '@sentry/core': 8.51.0
+      '@sentry-internal/browser-utils': 8.52.0
+      '@sentry/core': 8.52.0
 
   '@sentry-internal/tracing@7.120.3':
     dependencies:
@@ -3747,25 +3752,25 @@ snapshots:
       '@sentry/types': 7.120.3
       '@sentry/utils': 7.120.3
 
-  '@sentry/browser@8.51.0':
+  '@sentry/browser@8.52.0':
     dependencies:
-      '@sentry-internal/browser-utils': 8.51.0
-      '@sentry-internal/feedback': 8.51.0
-      '@sentry-internal/replay': 8.51.0
-      '@sentry-internal/replay-canvas': 8.51.0
-      '@sentry/core': 8.51.0
+      '@sentry-internal/browser-utils': 8.52.0
+      '@sentry-internal/feedback': 8.52.0
+      '@sentry-internal/replay': 8.52.0
+      '@sentry-internal/replay-canvas': 8.52.0
+      '@sentry/core': 8.52.0
 
   '@sentry/core@7.120.3':
     dependencies:
       '@sentry/types': 7.120.3
       '@sentry/utils': 7.120.3
 
-  '@sentry/core@8.51.0': {}
+  '@sentry/core@8.52.0': {}
 
-  '@sentry/react@8.51.0(react@19.0.0)':
+  '@sentry/react@8.52.0(react@19.0.0)':
     dependencies:
-      '@sentry/browser': 8.51.0
-      '@sentry/core': 8.51.0
+      '@sentry/browser': 8.52.0
+      '@sentry/core': 8.52.0
       hoist-non-react-statics: 3.3.2
       react: 19.0.0
 
@@ -4330,7 +4335,7 @@ snapshots:
 
   csstype@3.1.3: {}
 
-  cypress-axe@1.5.0(axe-core@4.10.2)(cypress@13.17.0):
+  cypress-axe@1.6.0(axe-core@4.10.2)(cypress@13.17.0):
     dependencies:
       axe-core: 4.10.2
       cypress: 13.17.0
@@ -5242,6 +5247,8 @@ snapshots:
       get-proto: 1.0.1
       has-symbols: 1.1.0
       set-function-name: 2.0.2
+
+  js-cookie@3.0.5: {}
 
   js-tokens@4.0.0: {}
 
