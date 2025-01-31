@@ -50,7 +50,7 @@
     "@faker-js/faker": "^9.4.0",
     "@vitejs/plugin-react": "^4.3.4",
     "cpy-cli": "^5.0.0",
-    "cypress": "^13.17.0",
+    "cypress": "^14.0.1",
     "cypress-axe": "^1.6.0",
     "eslint": "^9.19.0",
     "eslint-config-prettier": "^10.0.1",
