@@ -79,9 +79,9 @@ export const gjennomforingInfoListe: GjennomforingInfo[] = [
     status: TiltakGjennomforingStatus.GJENNOMFORES
   },
   {
-    gjennomforingNavn: 'Digitalt oppfølgingstiltak Region Nordsør',
+    gjennomforingNavn: 'Digitalt jobbsøkerkurs Region Nordsør',
     tiltakskode: Tiltakskode.DIGIOPPARB,
-    tiltaksnavn: 'Digitalt oppfølgingstiltak for arbeidsledige',
+    tiltaksnavn: 'Digitalt jobbsøkerkurs for arbeidsledige',
     status: TiltakGjennomforingStatus.GJENNOMFORES
   },
   {

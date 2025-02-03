@@ -216,7 +216,7 @@ export function maxVarighetLeggTilOppstartsDatoMillisFor(
     case Tiltakskode.GRUFAGYRKE:
       return aarMs(3)
     case Tiltakskode.DIGIOPPARB:
-      return ukerMs(8)
+      return ukerMs(8) + (dagMs * 6)
     case Tiltakskode.ARBFORB:
       return aarMs(2)
     case Tiltakskode.ARBRRHDAG:
