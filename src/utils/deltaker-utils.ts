@@ -10,7 +10,7 @@ export const lagAdresseTekst = (adresse: Adresse) => {
 }
 
 export const TILTAK_UTEN_DELTAKER_ADRESSE = [
-  Tiltakskode.DIGIOPPARB, // Digitalt oppfølgingstiltak
+  Tiltakskode.DIGIOPPARB, // Digitalt jobbsøkerkurs
   Tiltakskode.JOBBK, // jobbklubb
   Tiltakskode.GRUPPEAMO, // GruppeAMO
   Tiltakskode.GRUFAGYRKE // Gruppe Fag og yrkesopplæring
