@@ -26,10 +26,10 @@
     ]
   },
   "dependencies": {
-    "@navikt/aksel-icons": "^7.10.0",
-    "@navikt/ds-css": "^7.10.0",
-    "@navikt/ds-react": "^7.10.0",
-    "@navikt/ds-tokens": "^7.10.0",
+    "@navikt/aksel-icons": "^7.11.0",
+    "@navikt/ds-css": "^7.11.0",
+    "@navikt/ds-react": "^7.11.0",
+    "@navikt/ds-tokens": "^7.11.0",
     "@navikt/nav-dekoratoren-moduler": "^3.2.0",
     "@sentry/react": "^8.52.0",
     "@sentry/tracing": "^7.120.3",
