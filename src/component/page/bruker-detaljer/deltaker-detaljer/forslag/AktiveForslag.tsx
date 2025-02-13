@@ -7,12 +7,12 @@ import { AktivtForslagPanel } from './AktivtForslagPanel'
 interface Props {
   readonly forslag: AktivtForslag[]
   readonly deltakerId: string
-  readonly onTilbakekalt: (forslag: AktivtForslag) => void
+  readonly fjernBehandledeForslag: (forslag: AktivtForslag) => void
 }
 export const AktiveForslag = ({
   deltakerId,
   forslag,
-  onTilbakekalt
+  fjernBehandledeForslag
 }: Props) => {
   if (forslag.length === 0) {
     return
@@ -32,7 +32,7 @@ export const AktiveForslag = ({
           <AktivtForslagPanel
             forslag={it}
             deltakerId={deltakerId}
-            onTilbakekalt={onTilbakekalt}
+            fjernBehandledeForslag={fjernBehandledeForslag}
             key={it.id}
           />
         )

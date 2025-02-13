@@ -390,6 +390,22 @@ export const worker = setupWorker(
 			return new HttpResponse(null, { status: 200 })
 		}
 	),
+	http.post(appUrl('/amt-tiltaksarrangor-bff/tiltaksarrangor/deltaker/:deltakerId/forslag/:forslagId/marker-som-lest')
+		, async ({ params }) => {
+			await delay(500)
+			const deltakerId = params.deltakerId
+			const forslagId = params.forslagId
+
+			const deltaker = mockTiltakDeltakere.find((d) => d.id == deltakerId)
+			if (!deltaker) {
+				return new HttpResponse(null, { status: 500 })
+			}
+			deltaker.aktiveForslag = deltaker.aktiveForslag.filter(
+				(it) => it.id !== forslagId
+			)
+			return new HttpResponse(null, { status: 200 })
+		}
+	),
 	handlePostForslagRequest('forleng', (body) => ({
 		type: ForslagEndringType.ForlengDeltakelse,
 		sluttdato: dayjs(body.sluttdato).toDate()
@@ -463,7 +479,9 @@ export const mapToDeltakerListView = (
 		gjeldendeVurderingFraArrangor: deltaker.gjeldendeVurderingFraArrangor,
 		adressebeskyttet: deltaker.adressebeskyttet,
 		erVeilederForDeltaker: deltaker.erVeilederForDeltaker,
-		aktivEndring: deltaker.aktivEndring ?? null
+		aktivEndring: deltaker.aktivEndring ?? null,
+		svarFraNav: deltaker.svarFraNav,
+		oppdateringFraNav: deltaker.oppdateringFraNav
 	}
 }
 

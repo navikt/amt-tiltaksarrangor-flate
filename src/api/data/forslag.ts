@@ -13,9 +13,10 @@ export enum HistorikkType {
 export enum ForslagStatusType {
   VenterPaSvar = 'VenterPaSvar',
   Avvist = 'Avvist',
+  Godkjent = 'Godkjent',
+
   Tilbakekalt = 'Tilbakekalt',
-  Erstattet = 'Erstattet',
-  Godkjent = 'Godkjent'
+  Erstattet = 'Erstattet'
 }
 
 export enum ForslagEndringType {
@@ -156,7 +157,7 @@ export const aktivtForslagSchema = z.object({
   opprettet: dateSchema,
   begrunnelse: z.string().nullable(),
   endring: endringSchema,
-  status: statusSchema.default({ type: ForslagStatusType.VenterPaSvar })
+  status: statusSchema
 })
 
 export const historikkForslagSchema = z.object({

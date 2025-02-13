@@ -26,7 +26,7 @@ import {
 import { deltakerId } from './id'
 import { deltakerlisteErKurs, MockGjennomforing } from './tiltak'
 import { lagMockVeiledereForDeltaker } from './veileder'
-import { AktivtForslag, ForslagEndringType } from '../../api/data/forslag'
+import { AktivtForslag, ForslagEndringType, ForslagStatusType } from '../../api/data/forslag'
 import { lagMockAktiveForslag } from './mock-forslag'
 import dayjs from 'dayjs'
 
@@ -81,6 +81,8 @@ export interface MockTiltakDeltaker {
   erVeilederForDeltaker: boolean
   deltakelsesmengder: Deltakelsesmengder | null
   aktivEndring?: AktivEndringForDeltaker | null,
+  svarFraNav: boolean,
+  oppdateringFraNav: boolean
 }
 
 const navEnheter: MockNavEnhet[] = [
@@ -280,8 +282,9 @@ const lagMockTiltakDeltagerForGjennomforing = (
   const aktiveEndringsmeldinger = erForslagEnabled ? [] : lagMockEndringsmeldingForDeltaker(status)
   let aktivEndring: AktivEndringForDeltaker | null = null
 
-  if (aktiveForslag.length > 0) {
-    const forslag = aktiveForslag[ 0 ]
+  const forslagVenterPaSvar = aktiveForslag.filter(forslag => forslag.status.type === ForslagStatusType.VenterPaSvar)
+  if (forslagVenterPaSvar.length > 0) {
+    const forslag = forslagVenterPaSvar[ 0 ]
     aktivEndring = {
       type: AktivEndringsType.Forslag,
       sendt: faker.date.recent(),
@@ -356,7 +359,11 @@ const lagMockTiltakDeltagerForGjennomforing = (
           }
         : null
     },
-    aktivEndring
+    aktivEndring,
+    svarFraNav: aktiveForslag.find(forslag =>
+      forslag.status.type === ForslagStatusType.Avvist
+      || forslag.status.type === ForslagStatusType.Godkjent) ? true : false,
+    oppdateringFraNav: randBetween(0, 3) < 2 ? true : false, // TODO utled fra deltaker når vi har infoen.
   }
 }
 
