@@ -258,9 +258,11 @@ const lagMockVeiledersDeltaker = (
     },
     veiledertype: getVeiledertype(),
     aktiveEndringsmeldinger: getEndringsmeldinger(),
-    aktivEndring: lagMockAktivEndring(),
+    aktivEndring: deltaker.aktivEndring ?? null,
     sistEndret: faker.date.recent(),
-    adressebeskyttet: deltaker.adressebeskyttet
+    adressebeskyttet: deltaker.adressebeskyttet,
+    svarFraNav: deltaker.svarFraNav,
+    oppdateringFraNav: deltaker.oppdateringFraNav
   }
 }
 

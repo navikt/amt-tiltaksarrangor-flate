@@ -32,7 +32,9 @@ export const mapTiltakDeltakerStatusTilTekst = (
 export const mapHendelseTypeTilTekst = (
   hendelse: Hendelser | string
 ): string => {
-  if (hendelse === Hendelser.VenterPaSvarFraNav) {
+  if (hendelse === Hendelser.SvarFraNav) {
+    return 'Svar fra Nav'
+  } else if (hendelse === Hendelser.VenterPaSvarFraNav) {
     return 'Venter på svar fra Nav'
   } else {
     return ''

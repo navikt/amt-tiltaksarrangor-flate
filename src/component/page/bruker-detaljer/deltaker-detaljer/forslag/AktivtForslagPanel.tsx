@@ -1,13 +1,16 @@
 import React from 'react'
-import { AktivtForslag } from '../../../../../api/data/forslag'
+import { AktivtForslag, ForslagStatusType } from '../../../../../api/data/forslag'
 
 import styles from './AktivtForslagPanel.module.scss'
 import {
+  BodyLong,
   Box,
   Button,
+  Detail,
   HGrid,
   HStack,
   Heading,
+  ReadMore,
   Tooltip,
   VStack
 } from '@navikt/ds-react'
@@ -19,28 +22,37 @@ import {
   usePromise
 } from '../../../../../utils/use-promise'
 import { ForslagEndringsdetaljer } from './ForslagEndringsdetaljer'
-import { tilbakekallForslag } from '../../../../../api/forslag-api'
+import { settSvarFraNavSomLest, tilbakekallForslag } from '../../../../../api/forslag-api'
 import { ForslagStatusTag } from './ForslagStatusTag'
 import { forslagTitle, mapTilEndringType } from './forslagUtils'
+import { formatDate } from '../../../../../utils/date-utils'
 
 export interface Props {
   readonly forslag: AktivtForslag
   readonly deltakerId: string
-  readonly onTilbakekalt: (forslag: AktivtForslag) => void
+  readonly fjernBehandledeForslag: (forslag: AktivtForslag) => void
 }
 
 export const AktivtForslagPanel = ({
   forslag,
   deltakerId,
-  onTilbakekalt
+  fjernBehandledeForslag
 }: Props) => {
   const tilbakekallPromise = usePromise<void>()
+  const markerSomLestPromise = usePromise<void>()
 
   const handleClick = () => {
     tilbakekallPromise.setPromise(
       tilbakekallForslag(deltakerId, forslag.id).then(() =>
-        onTilbakekalt(forslag)
+        fjernBehandledeForslag(forslag)
       )
+    )
+  }
+
+  const handleLestForslag = () => {
+    markerSomLestPromise.setPromise(
+      settSvarFraNavSomLest(deltakerId, forslag.id)
+        .then(() => fjernBehandledeForslag(forslag))
     )
   }
 
@@ -68,28 +80,80 @@ export const AktivtForslagPanel = ({
               type={forslag.status.type}
               className={styles.status}
             />
-            <Tooltip content="Tilbakekall forslag" className={styles.tooltip}>
-              <Button
-                icon={<XMarkIcon aria-hidden />}
-                loading={
-                  isPending(tilbakekallPromise) ||
-                  isResolved(tilbakekallPromise)
-                }
-                variant="tertiary"
-                size="small"
-                onClick={handleClick}
-                className={styles.closeButton}
-                aria-label="Tilbakekall forslag"
-              />
-            </Tooltip>
+
+            {forslag.status.type === ForslagStatusType.VenterPaSvar &&
+              (<Tooltip content="Tilbakekall forslag" className={styles.tooltip}>
+                <Button
+                  icon={<XMarkIcon aria-hidden />}
+                  loading={
+                    isPending(tilbakekallPromise) ||
+                    isResolved(tilbakekallPromise)
+                  }
+                  variant="tertiary"
+                  size="small"
+                  onClick={handleClick}
+                  className={styles.closeButton}
+                  aria-label="Tilbakekall forslag"
+                />
+              </Tooltip>)}
+
           </HStack>
-          <ForslagEndringsdetaljer
-            endring={forslag.endring}
-            begrunnelse={forslag.begrunnelse}
-            sendt={forslag.opprettet}
-          />
+          {forslag.status.type === ForslagStatusType.VenterPaSvar && (
+            <ForslagEndringsdetaljer
+              endring={forslag.endring}
+              begrunnelse={forslag.begrunnelse}
+              sendt={forslag.opprettet}
+            />
+          )}
+
+          {forslag.status.type === ForslagStatusType.Godkjent && (
+            <>
+              <Detail className={styles.forslag_detail_sendt}>
+                Godkjent {formatDate(forslag.status.godkjent)} av Nav.
+              </Detail>
+              <ReadMore size="small" header="Forslaget fra arrangør" defaultOpen>
+                <ForslagEndringsdetaljer
+                  endring={forslag.endring}
+                  begrunnelse={forslag.begrunnelse}
+                  sendt={forslag.opprettet}
+                />
+              </ReadMore>
+            </>
+          )}
+
+          {forslag.status.type === ForslagStatusType.Avvist && (
+            <>
+              <BodyLong className={styles.forslag_detail_beskrivelse} size="small">
+                {forslag.status.begrunnelseFraNav}
+              </BodyLong>
+              <Detail className={styles.forslag_detail_sendt}>
+                Avvist {formatDate(forslag.status.avvist)} av Nav.
+              </Detail>
+              <ReadMore size="small" header="Forslaget fra arrangør" defaultOpen>
+                <ForslagEndringsdetaljer
+                  endring={forslag.endring}
+                  begrunnelse={forslag.begrunnelse}
+                  sendt={forslag.opprettet}
+                />
+              </ReadMore>
+            </>
+          )}
+
         </VStack>
       </HGrid>
+
+      {(forslag.status.type === ForslagStatusType.Godkjent
+        || forslag.status.type === ForslagStatusType.Avvist) && (
+          <Box
+            background="surface-action-subtle"
+            className={styles.markerSomLestBox}
+            borderRadius="0 0 medium medium"
+          >
+            <div className={styles.markerSomLestKnappWrapper}>
+              <Button size="small" onClick={handleLestForslag}>Marker som lest</Button>
+            </div>
+          </Box>
+        )}
     </Box>
   )
 }

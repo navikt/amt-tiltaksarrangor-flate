@@ -1,8 +1,8 @@
 .panel {
   display: flex;
+  flex-direction: column;
   grid-column-start: 1;
   grid-column-end: 1;
-  padding: 0.5rem;
   margin-bottom: 1rem;
 }
 
@@ -11,7 +11,7 @@
 }
 
 .grid {
-  padding: 0.5rem;
+  padding: 1rem;
   align-items: start;
   width: 100%;
 }
@@ -39,4 +39,22 @@
   padding: 0.33rem 0.66rem;
   font-size: 14px;
   border-radius: 0.2rem;
+}
+
+.markerSomLestBox {
+  padding: 0.5rem;
+}
+
+.markerSomLestKnappWrapper {
+  display: flex;
+  justify-content: right;
+}
+
+.forslag_detail_sendt {
+  margin-top: 0.25rem;
+  margin-bottom: 0.5rem;
+}
+
+.forslag_detail_beskrivelse {
+  margin-top: 0.25rem;
 }
