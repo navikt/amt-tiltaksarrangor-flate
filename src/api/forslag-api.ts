@@ -124,7 +124,7 @@ function postForslag<T>(
     .catch((err) => logAndThrowError(err, url))
 }
 
-export function settSvarFraNavSomLest<T>(
+export function settSvarFraNavSomLest(
   deltakerId: string,
   forslagId: string,
 ): AxiosPromise {
