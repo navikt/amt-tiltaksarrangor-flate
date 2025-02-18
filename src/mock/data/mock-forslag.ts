@@ -20,8 +20,7 @@ export function lagMockAktiveForslag(
 }
 
 function deltarForslag(): AktivtForslag[] {
-  const random = randBetween(1, 12)
-  if (random <= 4) {
+  if (randBetween(1, 10) <= 4) {
     return [
       {
         id: randomUuid(),
@@ -34,43 +33,6 @@ function deltarForslag(): AktivtForslag[] {
         },
         status: {
           type: ForslagStatusType.VenterPaSvar
-        }
-      }
-    ]
-  } else if (random <= 8) {
-    return [
-      {
-        id: randomUuid(),
-        opprettet: faker.date.recent(),
-        begrunnelse:
-          'Vi har kommet i gang, men ser at det er hensiktsmessig å fortsette tett oppfølging nå når han er i gang med å kontakte de riktige arbeidsgiverne.',
-        endring: {
-          type: ForslagEndringType.ForlengDeltakelse,
-          sluttdato: faker.date.future()
-        },
-        status: {
-          type: ForslagStatusType.Godkjent,
-          godkjent: faker.date.recent()
-        }
-      }
-    ]
-  } else if (random <= 10) {
-    return [
-      {
-        id: randomUuid(),
-        opprettet: faker.date.recent(),
-        begrunnelse:
-          'Vi har kommet i gang, men ser at det er hensiktsmessig å fortsette tett oppfølging nå når han er i gang med å kontakte de riktige arbeidsgiverne.',
-        endring: {
-          type: ForslagEndringType.ForlengDeltakelse,
-          sluttdato: faker.date.future()
-        },
-        status: {
-          type: ForslagStatusType.Avvist,
-          avvist: faker.date.recent(),
-          avvistAv: 'Veileder Veiledersson',
-          avvistAvEnhet: 'Nav Enhet',
-          begrunnelseFraNav: 'Kan ikke forlenge deltakelsen.'
         }
       }
     ]

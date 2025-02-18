@@ -157,7 +157,7 @@ export const aktivtForslagSchema = z.object({
   opprettet: dateSchema,
   begrunnelse: z.string().nullable(),
   endring: endringSchema,
-  status: statusSchema
+  status: statusSchema.default({ type: ForslagStatusType.VenterPaSvar })
 })
 
 export const historikkForslagSchema = z.object({

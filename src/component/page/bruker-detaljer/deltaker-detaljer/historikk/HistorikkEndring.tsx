@@ -1,4 +1,4 @@
-import { BodyLong, BodyShort, Detail } from '@navikt/ds-react'
+import { BodyLong, Detail } from '@navikt/ds-react'
 import { HistorikkElement } from './HistorikkElement'
 import {
   DeltakerEndring,
@@ -22,7 +22,7 @@ interface Props {
   tiltakstype: Tiltakskode
 }
 
-const getEndringsDetaljer = (endring: Endring, tiltakstype: Tiltakskode) => {
+export const getEndringsDetaljer = (endring: Endring, tiltakstype: Tiltakskode) => {
   switch (endring.type) {
     case EndringType.IkkeAktuell: {
       return (
@@ -87,9 +87,9 @@ const getEndringsDetaljer = (endring: Endring, tiltakstype: Tiltakskode) => {
       return (
         <>
           {endring.gyldigFra && (
-            <BodyShort size="small">
+            <BodyLong size="small">
               Gjelder fra: {formatDate(endring.gyldigFra)}
-            </BodyShort>
+            </BodyLong>
           )}
           {endring.begrunnelse && (
             <BodyLong size="small" className={globalStyles.textPreWrap}>

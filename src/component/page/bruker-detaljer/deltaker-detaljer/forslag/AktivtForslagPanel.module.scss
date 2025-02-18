@@ -41,11 +41,23 @@
   border-radius: 0.2rem;
 }
 
-.markerSomLestBox {
+.tittel {
+  display: flex;
+  flex-direction: row;
+  gap: 0.25rem;
+  flex-wrap: wrap;
+  margin-bottom: 0.25rem;
+}
+
+.tittel_hedaing {
+  margin-right: 0.75rem;
+}
+
+.marker_som_lest_box {
   padding: 0.5rem;
 }
 
-.markerSomLestKnappWrapper {
+.marker_som_lest_knapp_wrapper {
   display: flex;
   justify-content: right;
 }
@@ -55,6 +67,14 @@
   margin-bottom: 0.5rem;
 }
 
-.forslag_detail_beskrivelse {
+.forslag_detail_wrapper {
+  margin-top: 0.25rem;
+}
+
+.forslag_detail {
+  margin-top: 0.25rem;
+}
+
+.endring_detail {
   margin-top: 0.25rem;
 }

@@ -40,6 +40,7 @@ export const DeltakelseInfo = ({
   const [reloadEndringsmeldinger, setReloadEndringsmeldinger] = useState(false)
   const [visFjernDeltakerModal, setVisFjernDeltakerModal] = useState(false)
   const [forslag, setForslag] = useState(deltaker.aktiveForslag)
+  const [ ulesteEndringer, setUlesteEndringer ] = useState(deltaker.ulesteEndringer)
 
   const { setDeltaker } = useDeltakerContext()
 
@@ -57,8 +58,12 @@ export const DeltakelseInfo = ({
     ])
   }
 
-  const fjernBehandledeForslag = (forslag: AktivtForslag) => {
-    setForslag((prev) => prev.filter((it) => it.id !== forslag.id))
+  const fjernBehandledeForslag = (forslagId: string) => {
+    setForslag((prev) => prev.filter((it) => it.id !== forslagId))
+  }
+
+  const fjernLesteEndringer = (enringId: string) => {
+    setUlesteEndringer((prev) => prev.filter((it) => it.id !== enringId))
   }
 
   const triggerReloadEndringsmeldinger = () => {
@@ -151,7 +156,10 @@ export const DeltakelseInfo = ({
           <AktiveForslag
             forslag={forslag}
             deltakerId={deltaker.id}
-            fjernBehandledeForslag={fjernBehandledeForslag}
+            ulesteEndringer={ulesteEndringer}
+            onTilbakekalt={fjernBehandledeForslag}
+            onMarkertSomLest={fjernLesteEndringer}
+            tiltakstype={deltaker.deltakerliste.tiltakstype}
           />
         )}
 

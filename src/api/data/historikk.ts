@@ -1,8 +1,8 @@
 import { z } from 'zod'
 import { dateSchema, nullableDateSchema } from '../utils'
-import { deltakelsesinnholdSchema, innholdSchema } from './deltaker'
 import { deltakerStatusAarsakSchema } from './endringsmelding'
 import { historikkForslagSchema, HistorikkType } from './forslag'
+import { deltakelsesinnholdSchema, innholdSchema } from './innhold'
 
 export enum EndringType {
   EndreStartdato = 'EndreStartdato',

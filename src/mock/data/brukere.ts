@@ -1,34 +1,39 @@
 import { faker } from '@faker-js/faker/locale/nb_NO'
 
+import dayjs from 'dayjs'
 import {
   Adresse,
   Adressetype,
-  Vurdering,
-  Vurderingstype,
-  TiltakDeltakerStatus,
-  Deltakelsesinnhold,
-  Deltakelsesmengder,
+  AktivEndring,
   AktivEndringForDeltaker,
   AktivEndringsType,
-  AktivEndring
+  Deltakelsesinnhold,
+  Deltakelsesmengder,
+  TiltakDeltakerStatus,
+  UlestEndring,
+  UlestEndringType,
+  Vurdering,
+  Vurderingstype
 } from '../../api/data/deltaker'
 import {
   DeltakerStatusAarsakType,
   Endringsmelding
 } from '../../api/data/endringsmelding'
+import { AktivtForslag, ForslagEndringType, ForslagStatusType, HistorikkForslag, HistorikkType } from '../../api/data/forslag'
+import { DeltakerEndring } from '../../api/data/historikk'
 import { Gjennomforing, Tiltakskode } from '../../api/data/tiltak'
 import { VeilederMedType } from '../../api/data/veileder'
-import { randBetween, randomBoolean, randomFnr } from '../utils/faker'
+import { ulestEndringErOppdateringFraNav, ulestEndringErSvarFraNav } from '../../component/page/bruker-detaljer/deltaker-detaljer/forslag/forslagUtils'
+import { randBetween, randomBoolean, randomFnr, randomUuid } from '../utils/faker'
 import {
   lagMockEndringsmeldingForDeltaker,
   lagMockHistoriskeEndringsmeldingForDeltaker
 } from './endringsmelding'
+import { mockDeltakerHistorikk } from './historikk'
 import { deltakerId } from './id'
+import { lagMockAktiveForslag } from './mock-forslag'
 import { deltakerlisteErKurs, MockGjennomforing } from './tiltak'
 import { lagMockVeiledereForDeltaker } from './veileder'
-import { AktivtForslag, ForslagEndringType, ForslagStatusType } from '../../api/data/forslag'
-import { lagMockAktiveForslag } from './mock-forslag'
-import dayjs from 'dayjs'
 
 export type MockVurdering = Vurdering
 
@@ -72,6 +77,7 @@ export interface MockTiltakDeltaker {
   innsokBegrunnelse: string | null
   innhold: Deltakelsesinnhold | null
   aktiveForslag: AktivtForslag[]
+  ulesteEndringer: UlestEndring[]
   aktiveEndringsmeldinger: Endringsmelding[]
   historiskeEndringsmeldinger: Endringsmelding[]
   veiledere: VeilederMedType[]
@@ -282,9 +288,8 @@ const lagMockTiltakDeltagerForGjennomforing = (
   const aktiveEndringsmeldinger = erForslagEnabled ? [] : lagMockEndringsmeldingForDeltaker(status)
   let aktivEndring: AktivEndringForDeltaker | null = null
 
-  const forslagVenterPaSvar = aktiveForslag.filter(forslag => forslag.status.type === ForslagStatusType.VenterPaSvar)
-  if (forslagVenterPaSvar.length > 0) {
-    const forslag = forslagVenterPaSvar[ 0 ]
+  if (aktiveForslag.length > 0) {
+    const forslag = aktiveForslag[ 0 ]
     aktivEndring = {
       type: AktivEndringsType.Forslag,
       sendt: faker.date.recent(),
@@ -297,6 +302,30 @@ const lagMockTiltakDeltagerForGjennomforing = (
       endingsType: AktivEndring.LeggTilOppstartsDato
     }
   }
+
+  const historikk = mockDeltakerHistorikk()
+  const ulesteEndringer: UlestEndring[] = randomBoolean(30)
+    ? historikk.filter(h => h.type === HistorikkType.Endring ||
+      (h.type === HistorikkType.Forslag && h.status.type === ForslagStatusType.Avvist))
+      .map(h => {
+
+        return h.type === HistorikkType.Endring ? {
+          id: randomUuid(),
+          deltakerId: id,
+          oppdatering: {
+            type: UlestEndringType.DeltakelsesEndring,
+            endring: h as DeltakerEndring
+          },
+        } : {
+          id: randomUuid(),
+          deltakerId: id,
+          oppdatering: {
+            type: UlestEndringType.AvvistForslag,
+            forslag: h as HistorikkForslag
+          },
+        }
+      })
+    : []
 
   return {
     id: id,
@@ -360,10 +389,9 @@ const lagMockTiltakDeltagerForGjennomforing = (
         : null
     },
     aktivEndring,
-    svarFraNav: aktiveForslag.find(forslag =>
-      forslag.status.type === ForslagStatusType.Avvist
-      || forslag.status.type === ForslagStatusType.Godkjent) ? true : false,
-    oppdateringFraNav: randBetween(0, 3) < 2 ? true : false, // TODO utled fra deltaker når vi har infoen.
+    ulesteEndringer,
+    svarFraNav: ulesteEndringer.find(ulestEndringErSvarFraNav) ? true : false,
+    oppdateringFraNav: ulesteEndringer.find(ulestEndringErOppdateringFraNav) ? true : false
   }
 }
 

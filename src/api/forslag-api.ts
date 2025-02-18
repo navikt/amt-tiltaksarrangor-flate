@@ -123,15 +123,3 @@ function postForslag<T>(
     .then(parse(aktivtForslagSchema))
     .catch((err) => logAndThrowError(err, url))
 }
-
-export function settSvarFraNavSomLest(
-  deltakerId: string,
-  forslagId: string,
-): AxiosPromise {
-  const url = appUrl(
-    `/amt-tiltaksarrangor-bff/tiltaksarrangor/deltaker/${deltakerId}/forslag/${forslagId}/marker-som-lest`
-  )
-  return axiosInstance
-    .post(url)
-    .catch((err) => logAndThrowError(err, url))
-}
