@@ -29,7 +29,6 @@ function postEndring<T>(
     .catch((err) => logAndThrowError(err, url))
 }
 
-
 export function settSvarFraNavSomLest(
   deltakerId: string,
   ulestEndringId: string,

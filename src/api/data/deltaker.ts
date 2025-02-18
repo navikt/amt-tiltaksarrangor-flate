@@ -306,7 +306,6 @@ export type AktivEndringForDeltaker = z.infer<typeof aktivEndringSchema>
 
 export type Vurdering = z.infer<typeof vurderingSchema>
 
-
 export type Deltakelsesmengder = z.infer<typeof deltakelsesmengderSchema>
 export type Deltakelsesmengde = z.infer<typeof deltakelsesmengdeSchema>
 

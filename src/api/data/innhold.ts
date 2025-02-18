@@ -1,4 +1,4 @@
-import { z } from "zod"
+import { z } from 'zod'
 
 export const innholdSchema = z.object({
     tekst: z.string(),
@@ -10,6 +10,5 @@ export const deltakelsesinnholdSchema = z.object({
     ledetekst: z.string(),
     innhold: z.array(innholdSchema)
 })
-
 
 export type Deltakelsesinnhold = z.infer<typeof deltakelsesinnholdSchema>

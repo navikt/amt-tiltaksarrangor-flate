@@ -39,7 +39,7 @@ export const AvvistForslagDetaljer = ({
     <>
       {forslag.status.type === ForslagStatusType.Avvist && (
         <>
-          <BodyLong size='small'>{forslag.status.begrunnelseFraNav}</BodyLong>
+          <BodyLong size="small">{forslag.status.begrunnelseFraNav}</BodyLong>
           <Detail className={styles.endring_detail} textColor="subtle">
             {`Avvist ${formatDate(forslag.status.avvist)} av ${forslag.status.avvistAv} ${forslag.status.avvistAvEnhet}.`}
           </Detail>

@@ -22,7 +22,6 @@ export const FjernEndring = ({
 }: Props) => {
   const markerSomLestPromise = usePromise<void>()
 
-
   const handleLestForslag = () => {
     markerSomLestPromise.setPromise(
       settSvarFraNavSomLest(deltakerId, endringId)
