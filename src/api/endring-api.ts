@@ -34,7 +34,7 @@ export function settSvarFraNavSomLest(
   ulestEndringId: string,
 ): AxiosPromise {
   const url = appUrl(
-    `/amt-tiltaksarrangor-bff/tiltaksarrangor/deltaker/${deltakerId}/ulest-endring/${ulestEndringId}/marker-som-lest`
+    `/amt-tiltaksarrangor-bff/tiltaksarrangor/deltaker/${deltakerId}/endring/${ulestEndringId}/marker-som-lest`
   )
   return axiosInstance
     .post(url)

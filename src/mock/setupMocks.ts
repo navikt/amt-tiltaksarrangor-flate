@@ -391,7 +391,7 @@ export const worker = setupWorker(
 			return new HttpResponse(null, { status: 200 })
 		}
 	),
-	http.post(appUrl('/amt-tiltaksarrangor-bff/tiltaksarrangor/deltaker/:deltakerId/ulest-endring/:ulestEndringId/marker-som-lest')
+	http.post(appUrl('/amt-tiltaksarrangor-bff/tiltaksarrangor/deltaker/:deltakerId/endring/:ulestEndringId/marker-som-lest')
 		, async ({ params }) => {
 			await delay(500)
 			const deltakerId = params.deltakerId

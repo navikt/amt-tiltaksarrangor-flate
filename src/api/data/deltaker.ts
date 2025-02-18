@@ -160,7 +160,7 @@ const ulestEndrinDeltakelsesEndringSchema = z.object({
   endring: deltakerEndringSchema
 })
 
-const ulestEndrinForslagSchema = z.object({
+const ulestEndringForslagSchema = z.object({
   type: z.literal(UlestEndringType.AvvistForslag),
   forslag: historikkForslagSchema
 })
@@ -170,7 +170,7 @@ export const ulestEndringSchema = z.object({
   deltakerId: z.string().uuid(),
   oppdatering: z.discriminatedUnion('type', [
     ulestEndrinDeltakelsesEndringSchema,
-    ulestEndrinForslagSchema,
+    ulestEndringForslagSchema,
   ])
 })
 
