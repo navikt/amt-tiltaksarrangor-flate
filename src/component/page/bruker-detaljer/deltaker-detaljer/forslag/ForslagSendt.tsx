@@ -20,7 +20,7 @@ interface Props {
   onMarkertSomLest: (endringId: string) => void
 }
 
-export const AktiveForslag = ({
+export const ForslagSendt = ({
   deltakerId,
   forslag,
   ulesteEndringer,
