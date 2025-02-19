@@ -28,7 +28,8 @@ export const ForslagSendt = ({
   onTilbakekalt,
   onMarkertSomLest
 }: Props) => {
-  if (forslag.length === 0 && ulesteEndringer.length === 0) {
+  const ulesteSvarFraNav = ulesteEndringer.filter(ulestEndringErSvarFraNav)
+  if (forslag.length === 0 && ulesteSvarFraNav.length === 0) {
     return
   }
 
@@ -60,7 +61,7 @@ export const ForslagSendt = ({
           </EndringPanel>
         )
       })}
-      {ulesteEndringer.filter(ulestEndringErSvarFraNav).map((it, i) => {
+      {ulesteSvarFraNav.filter(ulestEndringErSvarFraNav).map((it, i) => {
         return (
           <EndringPanel
             key={`${it.id}${i}`}
