@@ -58,7 +58,7 @@ export const DeltakelseInfo = ({
     ])
   }
 
-  const fjernBehandledeForslag = (forslagId: string) => {
+  const handleForslagTilbakekalt = (forslagId: string) => {
     setForslag((prev) => prev.filter((it) => it.id !== forslagId))
   }
 
@@ -157,7 +157,7 @@ export const DeltakelseInfo = ({
             forslag={forslag}
             deltakerId={deltaker.id}
             ulesteEndringer={ulesteEndringer}
-            onTilbakekalt={fjernBehandledeForslag}
+            onTilbakekalt={handleForslagTilbakekalt}
             onMarkertSomLest={fjernLesteEndringer}
             tiltakstype={deltaker.deltakerliste.tiltakstype}
           />
