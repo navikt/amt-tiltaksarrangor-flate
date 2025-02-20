@@ -20,10 +20,6 @@
   align-items: start;
 }
 
-.status {
-  max-height: 28px;
-}
-
 .closeButton {
   height: fit-content;
   margin-left: auto;
@@ -47,6 +43,7 @@
   gap: 0.25rem;
   flex-wrap: wrap;
   margin-bottom: 0.25rem;
+  align-items: center;
 }
 
 .tittel_hedaing {

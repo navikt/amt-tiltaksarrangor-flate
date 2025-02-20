@@ -51,13 +51,8 @@ export const EndringPanel = ({
             <Heading level="4" size="small" className={styles.tittel_hedaing}>
               {tittel || endringsTittel(endringType)}
             </Heading>
-            {forslagStatusType && <ForslagStatusTag
-              type={forslagStatusType}
-              className={styles.status}
-            />}
-
+            {forslagStatusType && <ForslagStatusTag type={forslagStatusType} />}
             {erAktivtForslag && fjernEndringComponent}
-
           </div>
           {children}
         </VStack>
