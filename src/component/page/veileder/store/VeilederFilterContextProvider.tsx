@@ -87,6 +87,7 @@ const VeilederFilterContextProvider = ({
     if (hendelseFilter.length === 0) return true
     if (deltaker.aktivEndring && hendelseFilter.includes(Hendelser.VenterPaSvarFraNav)) return true
     if (deltaker.svarFraNav && hendelseFilter.includes(Hendelser.SvarFraNav)) return true
+    if (deltaker.oppdateringFraNav && hendelseFilter.includes(Hendelser.OppdateringFraNav)) return true
     return false
   }
 

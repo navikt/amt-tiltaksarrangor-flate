@@ -36,6 +36,8 @@ export const mapHendelseTypeTilTekst = (
     return 'Svar fra Nav'
   } else if (hendelse === Hendelser.VenterPaSvarFraNav) {
     return 'Venter på svar fra Nav'
+  } else if (hendelse === Hendelser.OppdateringFraNav) {
+    return 'Oppdatering fra Nav'
   } else {
     return ''
   }

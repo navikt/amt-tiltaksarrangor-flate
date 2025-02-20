@@ -78,6 +78,15 @@ export const FilterMenyHendelser = ({ deltakere }: Props): React.ReactElement =>
             antallDeltakere: entry ? entry.antallDeltakere + 1 : 1
           })
         }
+        if (deltaker.oppdateringFraNav) {
+          const entry = hendelseMap.get(Hendelser.OppdateringFraNav)
+
+          hendelseMap.set(Hendelser.OppdateringFraNav, {
+            id: Hendelser.OppdateringFraNav,
+            displayName: entry ? entry.displayName : '',
+            antallDeltakere: entry ? entry.antallDeltakere + 1 : 1
+          })
+        }
       }
     )
 
