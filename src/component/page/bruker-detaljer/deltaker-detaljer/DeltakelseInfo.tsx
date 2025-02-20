@@ -25,7 +25,7 @@ import { ElementPanel } from './ElementPanel'
 import { EndreDeltakelseKnapp } from './EndreDeltakelseKnapp'
 import { Endringsmeldinger } from './endringsmelding/Endringsmeldinger'
 import { FjernDeltakerModal } from './fjern-deltaker-modal/FjernDeltakerModal'
-import { AktiveForslag } from './forslag/AktiveForslag'
+import { ForslagSendt } from './forslag/ForslagSendt'
 import { SeEndringer } from './historikk/SeEndringer'
 import { getDeltakerStatusAarsakText } from './tekst-mappers'
 import { Tiltakskode } from '../../../../api/data/tiltak'
@@ -40,6 +40,7 @@ export const DeltakelseInfo = ({
   const [reloadEndringsmeldinger, setReloadEndringsmeldinger] = useState(false)
   const [visFjernDeltakerModal, setVisFjernDeltakerModal] = useState(false)
   const [forslag, setForslag] = useState(deltaker.aktiveForslag)
+  const [ ulesteEndringer, setUlesteEndringer ] = useState(deltaker.ulesteEndringer)
 
   const { setDeltaker } = useDeltakerContext()
 
@@ -57,8 +58,12 @@ export const DeltakelseInfo = ({
     ])
   }
 
-  const handleForslagTilbakekalt = (forslag: AktivtForslag) => {
-    setForslag((prev) => prev.filter((it) => it.id !== forslag.id))
+  const handleForslagTilbakekalt = (forslagId: string) => {
+    setForslag((prev) => prev.filter((it) => it.id !== forslagId))
+  }
+
+  const fjernLesteEndringer = (enringId: string) => {
+    setUlesteEndringer((prev) => prev.filter((it) => it.id !== enringId))
   }
 
   const triggerReloadEndringsmeldinger = () => {
@@ -148,10 +153,13 @@ export const DeltakelseInfo = ({
 
       <div className={styles.body}>
         {erForslagEnabled && (
-          <AktiveForslag
+          <ForslagSendt
             forslag={forslag}
             deltakerId={deltaker.id}
+            ulesteEndringer={ulesteEndringer}
             onTilbakekalt={handleForslagTilbakekalt}
+            onMarkertSomLest={fjernLesteEndringer}
+            tiltakstype={deltaker.deltakerliste.tiltakstype}
           />
         )}
 

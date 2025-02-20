@@ -1,49 +1,51 @@
+import { UlestEndring, UlestEndringType } from '../../../../../api/data/deltaker'
 import { ForslagEndringType } from '../../../../../api/data/forslag'
-import { assertNever } from '../../../../../utils/assert-never'
-import { EndringType } from '../types'
+import { EndringType } from '../../../../../api/data/historikk'
 
-export function forslagTitle(type: ForslagEndringType) {
+export function endringsTittel(type: ForslagEndringType | EndringType) {
   switch (type) {
     case ForslagEndringType.ForlengDeltakelse:
+    case EndringType.ForlengDeltakelse:
       return 'Forleng deltakelse'
     case ForslagEndringType.IkkeAktuell:
+    case EndringType.IkkeAktuell:
       return 'Er ikke aktuell'
     case ForslagEndringType.AvsluttDeltakelse:
+    case EndringType.AvsluttDeltakelse:
       return 'Avslutt deltakelse'
     case ForslagEndringType.Deltakelsesmengde:
+    case EndringType.EndreDeltakelsesmengde:
       return 'Endre deltakelsesmengde'
     case ForslagEndringType.Sluttdato:
+    case EndringType.EndreSluttdato:
       return 'Endre sluttdato'
     case ForslagEndringType.Startdato:
+    case EndringType.EndreStartdato:
       return 'Endre oppstartsdato'
     case ForslagEndringType.Sluttarsak:
+    case EndringType.EndreSluttarsak:
       return 'Endre sluttårsak'
     case ForslagEndringType.FjernOppstartsdato:
+    case EndringType.FjernOppstartsdato:
       return 'Fjern oppstartsdato'
-    default:
-      assertNever(type)
+    case EndringType.EndreInnhold:
+      return 'Endre innhold'
+    case EndringType.EndreBakgrunnsinformasjon:
+      return 'Endre bakgrunnsinformasjon'
+    case EndringType.ReaktiverDeltakelse:
+      return 'Deltakelsen er endret til å være aktiv'
   }
 }
 
-export function mapTilEndringType(type: ForslagEndringType): EndringType {
-  switch (type) {
-    case ForslagEndringType.ForlengDeltakelse:
-      return EndringType.FORLENG_DELTAKELSE
-    case ForslagEndringType.IkkeAktuell:
-      return EndringType.DELTAKER_IKKE_AKTUELL
-    case ForslagEndringType.AvsluttDeltakelse:
-      return EndringType.AVSLUTT_DELTAKELSE
-    case ForslagEndringType.Deltakelsesmengde:
-      return EndringType.ENDRE_DELTAKELSE_PROSENT
-    case ForslagEndringType.Sluttdato:
-      return EndringType.ENDRE_SLUTTDATO
-    case ForslagEndringType.Startdato:
-      return EndringType.ENDRE_OPPSTARTSDATO
-    case ForslagEndringType.Sluttarsak:
-      return EndringType.ENDRE_SLUTTAARSAK
-    case ForslagEndringType.FjernOppstartsdato:
-      return EndringType.FJERN_OPPSTARTSDATO
-    default:
-      assertNever(type)
+export const ulestEndringErSvarFraNav = (ulestEndring: UlestEndring) => {
+  if (ulestEndring.oppdatering.type === UlestEndringType.DeltakelsesEndring) {
+    return !!ulestEndring.oppdatering.endring.forslag
   }
+  if (ulestEndring.oppdatering.type === UlestEndringType.AvvistForslag) {
+    return true
+  }
+  return false
 }
+
+export const ulestEndringErOppdateringFraNav = (ulestEndring: UlestEndring) =>
+  !ulestEndringErSvarFraNav(ulestEndring)

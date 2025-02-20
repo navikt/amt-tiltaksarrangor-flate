@@ -1,14 +1,13 @@
-import React from 'react'
+import { BodyLong, Detail } from '@navikt/ds-react'
 import {
   ForslagEndring,
   ForslagEndringType
 } from '../../../../../api/data/forslag'
-import { assertNever } from '../../../../../utils/assert-never'
-import { BodyLong, BodyShort, Detail } from '@navikt/ds-react'
-import { formatDate } from '../../../../../utils/date-utils'
-import { endringAarsakTekstMapper } from '../tekst-mappers'
-import { getDagerPerUkeTekst } from '../../../../../utils/deltaker-utils'
 import globalStyles from '../../../../../globals.module.scss'
+import { assertNever } from '../../../../../utils/assert-never'
+import { formatDate } from '../../../../../utils/date-utils'
+import { getDagerPerUkeTekst } from '../../../../../utils/deltaker-utils'
+import { endringAarsakTekstMapper } from '../tekst-mappers'
 import styles from './Forslag.module.scss'
 
 interface Props {
@@ -85,9 +84,9 @@ function EndringsDetaljer({ endring }: { readonly endring: ForslagEndring }) {
             )}
           </BodyLong>
           {endring.gyldigFra && (
-            <BodyShort size="small">
+            <BodyLong size="small">
               Gjelder fra: {formatDate(endring.gyldigFra)}
-            </BodyShort>
+            </BodyLong>
           )}
         </>
       )

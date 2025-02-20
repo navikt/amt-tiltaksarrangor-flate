@@ -13,9 +13,10 @@ import {
   PlusCircleFillIcon
 } from '@navikt/aksel-icons'
 import { EndringType as HistorikkEndringType } from '../../../../api/data/historikk'
+import { ForslagEndringType } from '../../../../api/data/forslag'
 
 interface EndringTypeIkonProps {
-  type: EndringType | HistorikkEndringType
+  type: EndringType | HistorikkEndringType | ForslagEndringType
   size?: 'medium' | 'large' | 'small'
 }
 
@@ -33,6 +34,7 @@ export const EndringTypeIkon = ({ type, size }: EndringTypeIkonProps) => {
 
   switch (type) {
     case HistorikkEndringType.EndreStartdato:
+    case ForslagEndringType.Startdato:
     case EndringType.LEGG_TIL_OPPSTARTSDATO:
     case EndringType.ENDRE_OPPSTARTSDATO:
       return (
@@ -43,6 +45,7 @@ export const EndringTypeIkon = ({ type, size }: EndringTypeIkonProps) => {
         />
       )
     case HistorikkEndringType.ForlengDeltakelse:
+    case ForslagEndringType.ForlengDeltakelse:
     case EndringType.FORLENG_DELTAKELSE:
       return (
         <ChevronRightDoubleCircleFillIcon
@@ -54,6 +57,9 @@ export const EndringTypeIkon = ({ type, size }: EndringTypeIkonProps) => {
     case HistorikkEndringType.AvsluttDeltakelse:
     case HistorikkEndringType.EndreSluttdato:
     case HistorikkEndringType.FjernOppstartsdato:
+    case ForslagEndringType.AvsluttDeltakelse:
+    case ForslagEndringType.Sluttdato:
+    case ForslagEndringType.FjernOppstartsdato:
     case EndringType.AVSLUTT_DELTAKELSE:
     case EndringType.ENDRE_SLUTTDATO:
     case EndringType.FJERN_OPPSTARTSDATO:
@@ -65,6 +71,7 @@ export const EndringTypeIkon = ({ type, size }: EndringTypeIkonProps) => {
         />
       )
     case HistorikkEndringType.IkkeAktuell:
+    case ForslagEndringType.IkkeAktuell:
     case EndringType.DELTAKER_IKKE_AKTUELL:
       return (
         <PlusCircleFillIcon
@@ -74,6 +81,7 @@ export const EndringTypeIkon = ({ type, size }: EndringTypeIkonProps) => {
         />
       )
     case HistorikkEndringType.EndreSluttarsak:
+    case ForslagEndringType.Sluttarsak:
     case EndringType.ENDRE_SLUTTAARSAK:
       return (
         <ChevronRightLastCircleFillIcon
@@ -92,6 +100,7 @@ export const EndringTypeIkon = ({ type, size }: EndringTypeIkonProps) => {
         />
       )
     case HistorikkEndringType.EndreDeltakelsesmengde:
+    case ForslagEndringType.Deltakelsesmengde:
     case EndringType.ENDRE_DELTAKELSE_PROSENT:
       return (
         <PieChartFillIcon

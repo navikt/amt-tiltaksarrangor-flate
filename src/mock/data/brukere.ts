@@ -1,34 +1,39 @@
 import { faker } from '@faker-js/faker/locale/nb_NO'
 
+import dayjs from 'dayjs'
 import {
   Adresse,
   Adressetype,
-  Vurdering,
-  Vurderingstype,
-  TiltakDeltakerStatus,
-  Deltakelsesinnhold,
-  Deltakelsesmengder,
+  AktivEndring,
   AktivEndringForDeltaker,
   AktivEndringsType,
-  AktivEndring
+  Deltakelsesinnhold,
+  Deltakelsesmengder,
+  TiltakDeltakerStatus,
+  UlestEndring,
+  UlestEndringType,
+  Vurdering,
+  Vurderingstype
 } from '../../api/data/deltaker'
 import {
   DeltakerStatusAarsakType,
   Endringsmelding
 } from '../../api/data/endringsmelding'
+import { AktivtForslag, ForslagEndringType, ForslagStatusType, HistorikkForslag, HistorikkType } from '../../api/data/forslag'
+import { DeltakerEndring } from '../../api/data/historikk'
 import { Gjennomforing, Tiltakskode } from '../../api/data/tiltak'
 import { VeilederMedType } from '../../api/data/veileder'
-import { randBetween, randomBoolean, randomFnr } from '../utils/faker'
+import { ulestEndringErOppdateringFraNav, ulestEndringErSvarFraNav } from '../../component/page/bruker-detaljer/deltaker-detaljer/forslag/forslagUtils'
+import { randBetween, randomBoolean, randomFnr, randomUuid } from '../utils/faker'
 import {
   lagMockEndringsmeldingForDeltaker,
   lagMockHistoriskeEndringsmeldingForDeltaker
 } from './endringsmelding'
+import { mockDeltakerHistorikk } from './historikk'
 import { deltakerId } from './id'
+import { lagMockAktiveForslag } from './mock-forslag'
 import { deltakerlisteErKurs, MockGjennomforing } from './tiltak'
 import { lagMockVeiledereForDeltaker } from './veileder'
-import { AktivtForslag, ForslagEndringType } from '../../api/data/forslag'
-import { lagMockAktiveForslag } from './mock-forslag'
-import dayjs from 'dayjs'
 
 export type MockVurdering = Vurdering
 
@@ -72,6 +77,7 @@ export interface MockTiltakDeltaker {
   innsokBegrunnelse: string | null
   innhold: Deltakelsesinnhold | null
   aktiveForslag: AktivtForslag[]
+  ulesteEndringer: UlestEndring[]
   aktiveEndringsmeldinger: Endringsmelding[]
   historiskeEndringsmeldinger: Endringsmelding[]
   veiledere: VeilederMedType[]
@@ -81,6 +87,8 @@ export interface MockTiltakDeltaker {
   erVeilederForDeltaker: boolean
   deltakelsesmengder: Deltakelsesmengder | null
   aktivEndring?: AktivEndringForDeltaker | null,
+  svarFraNav: boolean,
+  oppdateringFraNav: boolean
 }
 
 const navEnheter: MockNavEnhet[] = [
@@ -295,6 +303,30 @@ const lagMockTiltakDeltagerForGjennomforing = (
     }
   }
 
+  const historikk = mockDeltakerHistorikk()
+  const ulesteEndringer: UlestEndring[] = randomBoolean(30)
+    ? historikk.filter(h => h.type === HistorikkType.Endring ||
+      (h.type === HistorikkType.Forslag && h.status.type === ForslagStatusType.Avvist))
+      .map(h => {
+
+        return h.type === HistorikkType.Endring ? {
+          id: randomUuid(),
+          deltakerId: id,
+          oppdatering: {
+            type: UlestEndringType.DeltakelsesEndring,
+            endring: h as DeltakerEndring
+          },
+        } : {
+          id: randomUuid(),
+          deltakerId: id,
+          oppdatering: {
+            type: UlestEndringType.AvvistForslag,
+            forslag: h as HistorikkForslag
+          },
+        }
+      })
+    : []
+
   return {
     id: id,
     fornavn: brukerFornavn,
@@ -356,7 +388,10 @@ const lagMockTiltakDeltagerForGjennomforing = (
           }
         : null
     },
-    aktivEndring
+    aktivEndring,
+    ulesteEndringer,
+    svarFraNav: ulesteEndringer.find(ulestEndringErSvarFraNav) ? true : false,
+    oppdateringFraNav: ulesteEndringer.find(ulestEndringErOppdateringFraNav) ? true : false
   }
 }
 

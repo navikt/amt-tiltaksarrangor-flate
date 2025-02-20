@@ -5,6 +5,9 @@ import {
   deltakerStatusAarsakSchema,
   endringsmeldingSchema
 } from './endringsmelding'
+import { aktivtForslagSchema, historikkForslagSchema } from './forslag'
+import { deltakerEndringSchema } from './historikk'
+import { deltakelsesinnholdSchema } from './innhold'
 import {
   Tiltakskode,
   koordinatorListSchema,
@@ -12,10 +15,10 @@ import {
   tiltakstypeSchema
 } from './tiltak'
 import { veilederMedTypeSchema, veiledertypeSchema } from './veileder'
-import { aktivtForslagSchema } from './forslag'
 
 export enum Hendelser {
-  VenterPaSvarFraNav = 'VenterPaSvarFraNav'
+  VenterPaSvarFraNav = 'VenterPaSvarFraNav',
+  SvarFraNav = 'SvarFraNav'
 }
 
 export enum KursDeltakerStatuser {
@@ -67,6 +70,11 @@ export enum AktivEndring {
   FjernOppstartsdato = 'FjernOppstartsdato'
 }
 
+export enum UlestEndringType {
+  DeltakelsesEndring = 'DeltakelsesEndring',
+  AvvistForslag = 'AvvistForslag'
+}
+
 const tiltakDeltakerStatusSchema = z.nativeEnum(TiltakDeltakerStatus)
 
 export const deltakerStatusSchema = z.object({
@@ -116,6 +124,8 @@ export const tiltakDeltakerSchema = z.object({
   adressebeskyttet: z.boolean(),
   erVeilederForDeltaker: z.boolean(),
   aktivEndring: aktivEndringSchema.nullable(),
+  svarFraNav: z.boolean(),
+  oppdateringFraNav: z.boolean()
 })
 
 export const deltakersDeltakerlisteSchema = z.object({
@@ -134,17 +144,6 @@ export const adresseSchema = z.object({
   adressenavn: z.string().nullable()
 })
 
-export const innholdSchema = z.object({
-  tekst: z.string(),
-  innholdskode: z.string(),
-  beskrivelse: z.string().nullable()
-})
-
-export const deltakelsesinnholdSchema = z.object({
-  ledetekst: z.string(),
-  innhold: z.array(innholdSchema)
-})
-
 export const deltakelsesmengdeSchema = z.object({
   deltakelsesprosent: z.number(),
   dagerPerUke: z.number().nullable(),
@@ -154,6 +153,25 @@ export const deltakelsesmengdeSchema = z.object({
 export const deltakelsesmengderSchema = z.object({
   nesteDeltakelsesmengde: deltakelsesmengdeSchema.nullable(),
   sisteDeltakelsesmengde: deltakelsesmengdeSchema.nullable()
+})
+
+const ulestEndrinDeltakelsesEndringSchema = z.object({
+  type: z.literal(UlestEndringType.DeltakelsesEndring),
+  endring: deltakerEndringSchema
+})
+
+const ulestEndringForslagSchema = z.object({
+  type: z.literal(UlestEndringType.AvvistForslag),
+  forslag: historikkForslagSchema
+})
+
+export const ulestEndringSchema = z.object({
+  id: z.string().uuid(),
+  deltakerId: z.string().uuid(),
+  oppdatering: z.discriminatedUnion('type', [
+    ulestEndrinDeltakelsesEndringSchema,
+    ulestEndringForslagSchema,
+  ])
 })
 
 export const deltakerSchema = z.object({
@@ -179,6 +197,7 @@ export const deltakerSchema = z.object({
   navInformasjon: navInformasjonSchema,
   veiledere: z.array(veilederMedTypeSchema),
   aktiveForslag: z.array(aktivtForslagSchema),
+  ulesteEndringer: z.array(ulestEndringSchema),
   aktiveEndringsmeldinger: z.array(endringsmeldingSchema),
   historiskeEndringsmeldinger: z.array(endringsmeldingSchema).nullable(),
   adresse: adresseSchema.nullable(),
@@ -230,7 +249,9 @@ export const veiledersDeltakerSchema = z.object({
   aktiveEndringsmeldinger: z.array(endringsmeldingSchema),
   aktivEndring: aktivEndringSchema.nullable(),
   sistEndret: dateSchema,
-  adressebeskyttet: z.boolean()
+  adressebeskyttet: z.boolean(),
+  svarFraNav: z.boolean(),
+  oppdateringFraNav: z.boolean()
 })
 
 export const deltakerlisteVeilederSchema = z.array(veiledersDeltakerSchema)
@@ -285,7 +306,7 @@ export type AktivEndringForDeltaker = z.infer<typeof aktivEndringSchema>
 
 export type Vurdering = z.infer<typeof vurderingSchema>
 
-export type Deltakelsesinnhold = z.infer<typeof deltakelsesinnholdSchema>
-
 export type Deltakelsesmengder = z.infer<typeof deltakelsesmengderSchema>
 export type Deltakelsesmengde = z.infer<typeof deltakelsesmengdeSchema>
+
+export type UlestEndring = z.infer<typeof ulestEndringSchema>

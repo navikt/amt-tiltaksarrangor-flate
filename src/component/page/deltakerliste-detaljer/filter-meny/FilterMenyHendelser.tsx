@@ -46,12 +46,6 @@ export const FilterMenyHendelser = ({ deltakere }: Props): React.ReactElement =>
     Object.keys(hendelser).forEach((hendelse) => {
       const tekst = mapHendelseTypeTilTekst(hendelse)
 
-      if (
-        hendelse !== Hendelser.VenterPaSvarFraNav
-      ) {
-        return
-      }
-
       dataMap.set(hendelse, {
         id: hendelse,
         displayName: tekst,
@@ -71,6 +65,15 @@ export const FilterMenyHendelser = ({ deltakere }: Props): React.ReactElement =>
 
           hendelseMap.set(Hendelser.VenterPaSvarFraNav, {
             id: Hendelser.VenterPaSvarFraNav,
+            displayName: entry ? entry.displayName : '',
+            antallDeltakere: entry ? entry.antallDeltakere + 1 : 1
+          })
+        }
+        if (deltaker.svarFraNav) {
+          const entry = hendelseMap.get(Hendelser.SvarFraNav)
+
+          hendelseMap.set(Hendelser.SvarFraNav, {
+            id: Hendelser.SvarFraNav,
             displayName: entry ? entry.displayName : '',
             antallDeltakere: entry ? entry.antallDeltakere + 1 : 1
           })

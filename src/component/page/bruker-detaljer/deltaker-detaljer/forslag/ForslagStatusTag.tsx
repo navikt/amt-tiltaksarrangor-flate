@@ -16,5 +16,19 @@ export function ForslagStatusTag({
         </Tag>
       )
     }
+    case ForslagStatusType.Godkjent: {
+      return (
+        <Tag variant="success" size="small" className={className ?? ''}>
+          Godkjent av Nav
+        </Tag>
+      )
+    }
+    case ForslagStatusType.Avvist: {
+      return (
+        <Tag variant="error" size="small" className={className ?? ''}>
+          Avvist av Nav
+        </Tag>
+      )
+    }
   }
 }
