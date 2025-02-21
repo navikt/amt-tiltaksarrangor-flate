@@ -41,6 +41,7 @@ export const ForslagSendt = ({
       padding={{ xs: '2', md: '4' }}
       borderRadius="medium"
     >
+      {(ulesteSvarFraNav.length > 0 || forslag.length > 0) && (<>
       <Heading level="3" size="small" className={styles.aktiveForslagTitle}>
         Forslag sendt til Nav:
       </Heading>
@@ -63,7 +64,8 @@ export const ForslagSendt = ({
           </EndringPanel>
         )
       })}
-      {ulesteSvarFraNav.filter(ulestEndringErSvarFraNav).map((it, i) => (
+      </>)}
+      {ulesteSvarFraNav.map((it, i) => (
         <EndringPanel
           key={`${it.id}${i}`}
           erAktivtForslag={false}
@@ -86,7 +88,7 @@ export const ForslagSendt = ({
       )
       )}
 
-      {ulesteOppdateringerFraNav && (<>
+      {ulesteOppdateringerFraNav.length > 0 && (<>
         <Heading level="3" size="small" className={styles.aktiveForslagTitle}>
           Oppdatering fra Nav:
         </Heading>
