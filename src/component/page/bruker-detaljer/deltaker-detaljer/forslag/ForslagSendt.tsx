@@ -28,10 +28,12 @@ export const ForslagSendt = ({
   onTilbakekalt,
   onMarkertSomLest
 }: Props) => {
-  const ulesteSvarFraNav = ulesteEndringer.filter(ulestEndringErSvarFraNav)
-  if (forslag.length === 0 && ulesteSvarFraNav.length === 0) {
+  if (forslag.length === 0 && ulesteEndringer.length === 0) {
     return
   }
+
+  const ulesteSvarFraNav = ulesteEndringer.filter(ulestEndringErSvarFraNav)
+  const ulesteOppdateringerFraNav = ulesteEndringer.filter((it) => !ulestEndringErSvarFraNav(it))
 
   return (
     <Box
@@ -61,29 +63,52 @@ export const ForslagSendt = ({
           </EndringPanel>
         )
       })}
-      {ulesteSvarFraNav.filter(ulestEndringErSvarFraNav).map((it, i) => {
-        return (
+      {ulesteSvarFraNav.filter(ulestEndringErSvarFraNav).map((it, i) => (
+        <EndringPanel
+          key={`${it.id}${i}`}
+          erAktivtForslag={false}
+          tittel={it.oppdatering.type === UlestEndringType.DeltakelsesEndring ? getEndringsTittel(it.oppdatering.endring.endring) : undefined}
+          endringType={getEndringsType(it)}
+          forslagStatusType={getForslagStatusType(it)}
+          fjernEndringComponent={
+            <FjernEndring endringId={it.id} deltakerId={deltakerId} onMarkertSomLest={onMarkertSomLest} />
+          }
+        >
+          {
+            it.oppdatering.type === UlestEndringType.DeltakelsesEndring
+              ? <Endringsdetaljer
+                deltakerEndring={it.oppdatering.endring}
+                tiltakstype={tiltakstype}
+              />
+              : <AvvistForslagDetaljer forslag={it.oppdatering.forslag} />
+          }
+        </EndringPanel>
+      )
+      )}
+
+      {ulesteOppdateringerFraNav && (<>
+        <Heading level="3" size="small" className={styles.aktiveForslagTitle}>
+          Oppdatering fra Nav:
+        </Heading>
+        {ulesteOppdateringerFraNav.map((it, i) => (
           <EndringPanel
             key={`${it.id}${i}`}
             erAktivtForslag={false}
             tittel={it.oppdatering.type === UlestEndringType.DeltakelsesEndring ? getEndringsTittel(it.oppdatering.endring.endring) : undefined}
             endringType={getEndringsType(it)}
-            forslagStatusType={getForslagStatusType(it)}
             fjernEndringComponent={
               <FjernEndring endringId={it.id} deltakerId={deltakerId} onMarkertSomLest={onMarkertSomLest} />
             }
           >
-            {
-              it.oppdatering.type === UlestEndringType.DeltakelsesEndring
-                ? <Endringsdetaljer
-                  deltakerEndring={it.oppdatering.endring}
-                  tiltakstype={tiltakstype}
-                />
-                : <AvvistForslagDetaljer forslag={it.oppdatering.forslag} />
-            }
+            {it.oppdatering.type === UlestEndringType.DeltakelsesEndring && (
+              <Endringsdetaljer
+                deltakerEndring={it.oppdatering.endring}
+                tiltakstype={tiltakstype}
+              />
+            )}
           </EndringPanel>
-        )
-      })}
+        ))} </>
+      )}
     </Box>
   )
 }

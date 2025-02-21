@@ -60,24 +60,22 @@ export const FilterMenyHendelser = ({ deltakere }: Props): React.ReactElement =>
 
     filtrerDeltakerePaaAltUtenom(FilterType.Hendelse, deltakere).forEach(
       (deltaker: TiltakDeltaker) => {
-        if (deltaker.aktivEndring) {
-          const entry = hendelseMap.get(Hendelser.VenterPaSvarFraNav)
+        const hendelseTypes: { key: keyof TiltakDeltaker, hendelse: Hendelser }[] = [
+          { key: 'aktivEndring', hendelse: Hendelser.VenterPaSvarFraNav },
+          { key: 'svarFraNav', hendelse: Hendelser.SvarFraNav },
+          { key: 'oppdateringFraNav', hendelse: Hendelser.OppdateringFraNav }
+        ]
 
-          hendelseMap.set(Hendelser.VenterPaSvarFraNav, {
-            id: Hendelser.VenterPaSvarFraNav,
-            displayName: entry ? entry.displayName : '',
-            antallDeltakere: entry ? entry.antallDeltakere + 1 : 1
-          })
-        }
-        if (deltaker.svarFraNav) {
-          const entry = hendelseMap.get(Hendelser.SvarFraNav)
-
-          hendelseMap.set(Hendelser.SvarFraNav, {
-            id: Hendelser.SvarFraNav,
-            displayName: entry ? entry.displayName : '',
-            antallDeltakere: entry ? entry.antallDeltakere + 1 : 1
-          })
-        }
+        hendelseTypes.forEach(({ key, hendelse }) => {
+          if (deltaker[ key ]) {
+            const entry = hendelseMap.get(hendelse)
+            hendelseMap.set(hendelse, {
+              id: hendelse,
+              displayName: entry ? entry.displayName : '',
+              antallDeltakere: entry ? entry.antallDeltakere + 1 : 1
+            })
+          }
+        })
       }
     )
 

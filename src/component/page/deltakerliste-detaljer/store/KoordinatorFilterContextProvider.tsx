@@ -100,6 +100,7 @@ const KoordinatorFilterContextProvider = ({
     if (hendelseFilter.length === 0) return true
     if (deltaker.aktivEndring && hendelseFilter.includes(Hendelser.VenterPaSvarFraNav)) return true
     if (deltaker.svarFraNav && hendelseFilter.includes(Hendelser.SvarFraNav)) return true
+    if (deltaker.oppdateringFraNav && hendelseFilter.includes(Hendelser.OppdateringFraNav)) return true
     return false
   }
 
@@ -243,6 +244,9 @@ const KoordinatorFilterContextProvider = ({
         }
         if (hendelse === Hendelser.SvarFraNav) {
           return deltaker.svarFraNav
+        }
+        if (hendelse === Hendelser.OppdateringFraNav) {
+          return deltaker.oppdateringFraNav
         }
         return false
       }

@@ -18,7 +18,8 @@ import { veilederMedTypeSchema, veiledertypeSchema } from './veileder'
 
 export enum Hendelser {
   VenterPaSvarFraNav = 'VenterPaSvarFraNav',
-  SvarFraNav = 'SvarFraNav'
+  SvarFraNav = 'SvarFraNav',
+  OppdateringFraNav = 'OppdateringFraNav'
 }
 
 export enum KursDeltakerStatuser {
