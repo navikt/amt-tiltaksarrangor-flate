@@ -18,7 +18,7 @@ export interface Props {
   tittel?: string
   fjernEndringComponent: React.ReactNode
   forslagStatusType?: ForslagStatusType
-  endringType: EndringType | ForslagEndringType
+  endringType?: EndringType | ForslagEndringType
   erAktivtForslag?: boolean
 }
 
@@ -43,7 +43,7 @@ export const EndringPanel = ({
         <VStack>
           <EndringTypeIkon
             size="large"
-            type={endringType}
+            type={endringType || EndringType.EndreBakgrunnsinformasjon}
           />
         </VStack>
         <VStack>

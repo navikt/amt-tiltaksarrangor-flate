@@ -1,5 +1,4 @@
 import { Box, Heading } from '@navikt/ds-react'
-import { UlestEndring, UlestEndringType } from '../../../../../api/data/deltaker'
 import { AktivtForslag } from '../../../../../api/data/forslag'
 import { Tiltakskode } from '../../../../../api/data/tiltak'
 import { getEndringsTittel } from '../../../../../utils/text-mappers'
@@ -10,6 +9,7 @@ import styles from './Forslag.module.scss'
 import { ForslagEndringsdetaljer } from './ForslagEndringsdetaljer'
 import { ulestEndringErSvarFraNav } from './forslagUtils'
 import { AvvistForslagDetaljer, Endringsdetaljer } from './SvarFraNavDetaljer'
+import { UlestEndring, UlestEndringType } from '../../../../../api/data/ulestEndring'
 
 interface Props {
   forslag: AktivtForslag[]
@@ -78,11 +78,18 @@ export const ForslagSendt = ({
         >
           {
             it.oppdatering.type === UlestEndringType.DeltakelsesEndring
-              ? <Endringsdetaljer
+            && <Endringsdetaljer
                 deltakerEndring={it.oppdatering.endring}
                 tiltakstype={tiltakstype}
               />
-              : <AvvistForslagDetaljer forslag={it.oppdatering.forslag} />
+          }
+          {it.oppdatering.type === UlestEndringType.AvvistForslag
+            && <AvvistForslagDetaljer forslag={it.oppdatering.forslag} />
+          }
+          {(it.oppdatering.type === UlestEndringType.NavBrukerEndring
+            || it.oppdatering.type === UlestEndringType.NavEndring) && (
+              <div>TODO Ny komponent</div>
+            )
           }
         </EndringPanel>
       )
@@ -118,15 +125,19 @@ export const ForslagSendt = ({
 const getEndringsType = (ulesteEndringer: UlestEndring) => {
   if (ulesteEndringer.oppdatering.type === UlestEndringType.DeltakelsesEndring) {
     return ulesteEndringer.oppdatering.endring.endring.type
-  } else {
+  } else if (ulesteEndringer.oppdatering.type === UlestEndringType.AvvistForslag) {
     return ulesteEndringer.oppdatering.forslag.endring.type
+  } else {
+    return undefined
   }
 }
 
 const getForslagStatusType = (ulesteEndringer: UlestEndring) => {
   if (ulesteEndringer.oppdatering.type === UlestEndringType.DeltakelsesEndring) {
     return ulesteEndringer.oppdatering.endring.forslag?.status.type
-  } else {
+  } else if (ulesteEndringer.oppdatering.type === UlestEndringType.AvvistForslag) {
     return ulesteEndringer.oppdatering.forslag.status.type
+  } else {
+    return undefined
   }
 }
