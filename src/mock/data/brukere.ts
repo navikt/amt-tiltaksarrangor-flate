@@ -7,11 +7,8 @@ import {
   AktivEndring,
   AktivEndringForDeltaker,
   AktivEndringsType,
-  Deltakelsesinnhold,
   Deltakelsesmengder,
   TiltakDeltakerStatus,
-  UlestEndring,
-  UlestEndringType,
   Vurdering,
   Vurderingstype
 } from '../../api/data/deltaker'
@@ -34,6 +31,8 @@ import { deltakerId } from './id'
 import { lagMockAktiveForslag } from './mock-forslag'
 import { deltakerlisteErKurs, MockGjennomforing } from './tiltak'
 import { lagMockVeiledereForDeltaker } from './veileder'
+import { Deltakelsesinnhold } from '../../api/data/innhold'
+import { UlestEndring, UlestEndringType } from '../../api/data/ulestEndring'
 
 export type MockVurdering = Vurdering
 

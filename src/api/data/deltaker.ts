@@ -5,8 +5,7 @@ import {
   deltakerStatusAarsakSchema,
   endringsmeldingSchema
 } from './endringsmelding'
-import { aktivtForslagSchema, historikkForslagSchema } from './forslag'
-import { deltakerEndringSchema } from './historikk'
+import { aktivtForslagSchema } from './forslag'
 import { deltakelsesinnholdSchema } from './innhold'
 import {
   Tiltakskode,
@@ -14,6 +13,7 @@ import {
   tiltakGjennomforingStatusSchema,
   tiltakstypeSchema
 } from './tiltak'
+import { ulestEndringSchema } from './ulestEndring'
 import { veilederMedTypeSchema, veiledertypeSchema } from './veileder'
 
 export enum Hendelser {
@@ -69,11 +69,6 @@ export enum AktivEndring {
   Startdato = 'Startdato',
   Sluttarsak = 'Sluttarsak',
   FjernOppstartsdato = 'FjernOppstartsdato'
-}
-
-export enum UlestEndringType {
-  DeltakelsesEndring = 'DeltakelsesEndring',
-  AvvistForslag = 'AvvistForslag'
 }
 
 const tiltakDeltakerStatusSchema = z.nativeEnum(TiltakDeltakerStatus)
@@ -154,25 +149,6 @@ export const deltakelsesmengdeSchema = z.object({
 export const deltakelsesmengderSchema = z.object({
   nesteDeltakelsesmengde: deltakelsesmengdeSchema.nullable(),
   sisteDeltakelsesmengde: deltakelsesmengdeSchema.nullable()
-})
-
-const ulestEndrinDeltakelsesEndringSchema = z.object({
-  type: z.literal(UlestEndringType.DeltakelsesEndring),
-  endring: deltakerEndringSchema
-})
-
-const ulestEndringForslagSchema = z.object({
-  type: z.literal(UlestEndringType.AvvistForslag),
-  forslag: historikkForslagSchema
-})
-
-export const ulestEndringSchema = z.object({
-  id: z.string().uuid(),
-  deltakerId: z.string().uuid(),
-  oppdatering: z.discriminatedUnion('type', [
-    ulestEndrinDeltakelsesEndringSchema,
-    ulestEndringForslagSchema,
-  ])
 })
 
 export const deltakerSchema = z.object({
@@ -309,5 +285,3 @@ export type Vurdering = z.infer<typeof vurderingSchema>
 
 export type Deltakelsesmengder = z.infer<typeof deltakelsesmengderSchema>
 export type Deltakelsesmengde = z.infer<typeof deltakelsesmengdeSchema>
-
-export type UlestEndring = z.infer<typeof ulestEndringSchema>
