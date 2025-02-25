@@ -93,11 +93,7 @@ export const EndringTypeIkon = ({ type, size }: EndringTypeIkonProps) => {
     case HistorikkEndringType.EndreBakgrunnsinformasjon:
     case HistorikkEndringType.EndreInnhold:
       return (
-        <MenuElipsisHorizontalCircleFillIcon
-          className={sizeName(size)}
-          aria-hidden
-          color="var(--a-deepblue-400)"
-        />
+        < DefaultIcon size={size} />
       )
     case HistorikkEndringType.EndreDeltakelsesmengde:
     case ForslagEndringType.Deltakelsesmengde:
@@ -119,4 +115,18 @@ export const EndringTypeIkon = ({ type, size }: EndringTypeIkonProps) => {
       )
   }
 
+}
+
+interface DefaultIconProps {
+  size?: 'medium' | 'large' | 'small'
+}
+
+export const DefaultIcon = ({ size }: DefaultIconProps) => {
+  return (
+    <MenuElipsisHorizontalCircleFillIcon
+      className={sizeName(size)}
+      aria-hidden
+      color="var(--a-deepblue-400)"
+    />
+  )
 }

@@ -1,6 +1,7 @@
 import { z } from 'zod'
 import { deltakerEndringSchema } from './historikk'
 import { historikkForslagSchema } from './forslag'
+import { dateSchema } from '../utils'
 
 export enum UlestEndringType {
   DeltakelsesEndring = 'DeltakelsesEndring',
@@ -20,15 +21,19 @@ const ulestEndringForslagSchema = z.object({
 })
 
 const ulestEndringNavBrukerSchema = z.object({
-  type: z.literal(UlestEndringType.NavBrukerEndring),
-  tlf: z.string(),
-  epost: z.string(),
+    type: z.literal(UlestEndringType.NavBrukerEndring),
+    tlf: z.string().nullable(),
+    epost: z.string().nullable(),
+    oppdatert: dateSchema
 })
 
 const ulestEndringNavSchema = z.object({
-  type: z.literal(UlestEndringType.NavEndring),
-  navVeileder: z.string(),
-  navEnhet: z.string(),
+    type: z.literal(UlestEndringType.NavEndring),
+    navVeilederNavn: z.string().nullable(),
+    navEnhet: z.string().nullable(),
+    navVeilederTelefonnummer: z.string().nullable(),
+    navVeilederEpost: z.string().nullable(),
+    oppdatert: dateSchema
 })
 
 export const ulestEndringSchema = z.object({
@@ -43,3 +48,5 @@ export const ulestEndringSchema = z.object({
 })
 
 export type UlestEndring = z.infer<typeof ulestEndringSchema>
+export type UlestEndringOppdateringNavBruker = z.infer<typeof ulestEndringNavBrukerSchema>
+export type UlestEndringOppdateringNav = z.infer<typeof ulestEndringNavSchema>
