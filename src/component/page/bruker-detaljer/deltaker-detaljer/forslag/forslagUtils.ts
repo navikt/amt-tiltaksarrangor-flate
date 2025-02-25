@@ -1,8 +1,8 @@
-import { UlestEndring, UlestEndringType } from '../../../../../api/data/deltaker'
 import { ForslagEndringType } from '../../../../../api/data/forslag'
 import { EndringType } from '../../../../../api/data/historikk'
+import { UlestEndring, UlestEndringType } from '../../../../../api/data/ulestEndring'
 
-export function endringsTittel(type: ForslagEndringType | EndringType) {
+export function forslagEndringsTittel(type: ForslagEndringType | EndringType) {
   switch (type) {
     case ForslagEndringType.ForlengDeltakelse:
     case EndringType.ForlengDeltakelse:

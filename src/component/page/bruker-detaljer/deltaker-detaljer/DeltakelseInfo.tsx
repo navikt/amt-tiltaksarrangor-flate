@@ -25,7 +25,7 @@ import { ElementPanel } from './ElementPanel'
 import { EndreDeltakelseKnapp } from './EndreDeltakelseKnapp'
 import { Endringsmeldinger } from './endringsmelding/Endringsmeldinger'
 import { FjernDeltakerModal } from './fjern-deltaker-modal/FjernDeltakerModal'
-import { ForslagSendt } from './forslag/ForslagSendt'
+import { UbehandledeEndringer } from './forslag/UbehandledeEndringer'
 import { SeEndringer } from './historikk/SeEndringer'
 import { getDeltakerStatusAarsakText } from './tekst-mappers'
 import { Tiltakskode } from '../../../../api/data/tiltak'
@@ -153,7 +153,7 @@ export const DeltakelseInfo = ({
 
       <div className={styles.body}>
         {erForslagEnabled && (
-          <ForslagSendt
+          <UbehandledeEndringer
             forslag={forslag}
             deltakerId={deltaker.id}
             ulesteEndringer={ulesteEndringer}

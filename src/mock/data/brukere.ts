@@ -303,11 +303,10 @@ const lagMockTiltakDeltagerForGjennomforing = (
   }
 
   const historikk = mockDeltakerHistorikk()
-  const ulesteEndringer: UlestEndring[] = randomBoolean(30)
+  const ulestHistorikk: UlestEndring[] = randomBoolean(30)
     ? historikk.filter(h => h.type === HistorikkType.Endring ||
       (h.type === HistorikkType.Forslag && h.status.type === ForslagStatusType.Avvist))
       .map(h => {
-
         return h.type === HistorikkType.Endring ? {
           id: randomUuid(),
           deltakerId: id,
@@ -326,6 +325,34 @@ const lagMockTiltakDeltagerForGjennomforing = (
       })
     : []
 
+  const ulesteEndringer: UlestEndring[] = ulestHistorikk[ 0 ] ? [ ulestHistorikk[ 0 ] ] : []
+  const telefonnummer = lagTelefonnummer()
+
+  if (randomBoolean(20)) {
+    ulesteEndringer.push({
+      id: randomUuid(),
+      deltakerId: id,
+      oppdatering: {
+        type: UlestEndringType.NavBrukerEndring,
+        tlf: telefonnummer,
+        epost: null,
+        oppdatert: faker.date.recent()
+      }
+    },
+      {
+        id: randomUuid(),
+        deltakerId: id,
+        oppdatering: {
+          type: UlestEndringType.NavEndring,
+          navVeilederNavn: veilederNavn,
+          navEnhet: 'Nav Oslo',
+          navVeilederTelefonnummer: veileder?.telefon ?? null,
+          navVeilederEpost: veileder?.epost ?? null,
+          oppdatert: faker.date.recent()
+        }
+      })
+  }
+
   return {
     id: id,
     fornavn: brukerFornavn,
@@ -333,7 +360,7 @@ const lagMockTiltakDeltagerForGjennomforing = (
     etternavn: brukerEtternavn,
     fodselsnummer: randomFnr(),
     epost: lagMailFraNavn(`${brukerFornavn} ${brukerEtternavn}`, 'example.com'),
-    telefonnummer: lagTelefonnummer(),
+    telefonnummer,
     startDato: startDato,
     sluttDato: sluttDato,
     deltakelseProsent: deltakelseProsent,
