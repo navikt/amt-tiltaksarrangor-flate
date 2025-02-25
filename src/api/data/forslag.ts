@@ -7,7 +7,8 @@ export enum HistorikkType {
   Endring = 'Endring',
   Forslag = 'Forslag',
   EndringFraArrangor = 'EndringFraArrangor',
-  ImportertFraArena = 'ImportertFraArena'
+  ImportertFraArena = 'ImportertFraArena',
+  VurderingFraArrangor = 'VurderingFraArrangor'
 }
 
 export enum ForslagStatusType {

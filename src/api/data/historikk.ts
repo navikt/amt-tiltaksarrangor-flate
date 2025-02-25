@@ -1,6 +1,6 @@
 import { z } from 'zod'
 import { dateSchema, nullableDateSchema } from '../utils'
-import { deltakelsesinnholdSchema, innholdSchema } from './deltaker'
+import {deltakelsesinnholdSchema, innholdSchema, Vurderingstype} from './deltaker'
 import { deltakerStatusAarsakSchema } from './endringsmelding'
 import { historikkForslagSchema, HistorikkType } from './forslag'
 
@@ -38,6 +38,8 @@ export enum DeltakerHistorikkStatus {
   FULLFORT = 'FULLFORT',
   PABEGYNT_REGISTRERING = 'PABEGYNT_REGISTRERING'
 }
+
+export const vurderingstypeSchema = z.nativeEnum(Vurderingstype)
 
 export const endreBakgrunnsinformasjonSchema = z.object({
   type: z.literal(EndringType.EndreBakgrunnsinformasjon),
@@ -176,12 +178,21 @@ export const importertFraArenaSchema = z.object({
   status: deltakerHistorikkStatusSchema
 })
 
+export const vurderingFraArrangorSchema = z.object({
+  type: z.literal(HistorikkType.VurderingFraArrangor),
+  vurderingstype: vurderingstypeSchema,
+  begrunnelse: z.string().nullable(),
+  opprettetDato: dateSchema,
+  endretAv: z.string()
+})
+
 export const deltakerHistorikkSchema = z.discriminatedUnion('type', [
   vedtakSchema,
   deltakerEndringSchema,
   historikkForslagSchema,
   endringFraArrangorSchema,
-  importertFraArenaSchema
+  importertFraArenaSchema,
+  vurderingFraArrangorSchema
 ])
 
 export const deltakerHistorikkListeSchema = z.array(deltakerHistorikkSchema)
@@ -198,3 +209,4 @@ export type DeltakerHistorikk = z.infer<typeof deltakerHistorikkSchema>
 export type DeltakerHistorikkListe = z.infer<
   typeof deltakerHistorikkListeSchema
 >
+export type VurderingFraArrangor = z.infer<typeof vurderingFraArrangorSchema>
