@@ -1,7 +1,6 @@
 import { z } from 'zod'
 import { dateSchema, nullableDateSchema } from '../utils'
 import { deltakerStatusAarsakSchema } from './endringsmelding'
-import { Vurderingstype } from './deltaker'
 import { historikkForslagSchema, HistorikkType } from './forslag'
 import { deltakelsesinnholdSchema, innholdSchema } from './innhold'
 
@@ -38,6 +37,11 @@ export enum DeltakerHistorikkStatus {
   AVBRUTT = 'AVBRUTT',
   FULLFORT = 'FULLFORT',
   PABEGYNT_REGISTRERING = 'PABEGYNT_REGISTRERING'
+}
+
+export enum Vurderingstype {
+  OPPFYLLER_KRAVENE = 'OPPFYLLER_KRAVENE',
+  OPPFYLLER_IKKE_KRAVENE = 'OPPFYLLER_IKKE_KRAVENE'
 }
 
 export const vurderingstypeSchema = z.nativeEnum(Vurderingstype)
