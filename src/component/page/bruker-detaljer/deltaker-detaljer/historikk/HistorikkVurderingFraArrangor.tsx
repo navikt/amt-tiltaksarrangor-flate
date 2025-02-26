@@ -4,6 +4,7 @@ import { HistorikkElement } from './HistorikkElement'
 import { VurderingFraArrangor } from '../../../../../api/data/historikk'
 import { formatDateStr } from '../../../../../utils/date-utils'
 import { Vurderingstype } from '../../../../../api/data/deltaker'
+import styles from './Historikk.module.scss'
 
 interface Props {
   vurdering: VurderingFraArrangor
@@ -22,7 +23,7 @@ export const HistorikkVurderingFraArrangor = ({ vurdering }: Props) => {
       {vurdering.begrunnelse && (
         <BodyShort size="small">Begrunnelse: {vurdering.begrunnelse}</BodyShort>
       )}
-      <Detail className="mt-1" textColor="subtle">
+      <Detail className={styles.import_text} textColor="subtle">
         Endret {vurderingsdato} av {vurdering.endretAv}
       </Detail>
     </HistorikkElement>
