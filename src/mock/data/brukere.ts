@@ -334,7 +334,7 @@ const lagMockTiltakDeltagerForGjennomforing = (
       deltakerId: id,
       oppdatering: {
         type: UlestEndringType.NavBrukerEndring,
-        tlf: telefonnummer,
+        telefonnummer: telefonnummer,
         epost: null,
         oppdatert: faker.date.recent()
       }

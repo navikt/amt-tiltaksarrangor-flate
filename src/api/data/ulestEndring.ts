@@ -22,7 +22,7 @@ const ulestEndringForslagSchema = z.object({
 
 const ulestEndringNavBrukerSchema = z.object({
     type: z.literal(UlestEndringType.NavBrukerEndring),
-    tlf: z.string().nullable(),
+    telefonnummer: z.string().nullable(),
     epost: z.string().nullable(),
     oppdatert: dateSchema
 })

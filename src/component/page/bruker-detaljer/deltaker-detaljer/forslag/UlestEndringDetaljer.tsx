@@ -37,8 +37,8 @@ interface NavBrukerDetaljerProps {
 export const NavBrukerDetaljer = ({ oppdatering }: NavBrukerDetaljerProps) => {
   return (
     <>
-      {oppdatering.tlf && <BodyLong size="small">
-        {`Telefonnummer til deltaker er oppdatert: ${formaterTelefonnummer(oppdatering.tlf)}`}
+      {oppdatering.telefonnummer && <BodyLong size="small">
+        {`Telefonnummer til deltaker er oppdatert: ${formaterTelefonnummer(oppdatering.telefonnummer)}`}
       </BodyLong>}
       {oppdatering.epost && <BodyLong size="small">
         {`E-posten til deltaker er oppdatert: ${oppdatering.epost}`}
