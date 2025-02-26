@@ -14,9 +14,10 @@ export enum HistorikkType {
 export enum ForslagStatusType {
   VenterPaSvar = 'VenterPaSvar',
   Avvist = 'Avvist',
+  Godkjent = 'Godkjent',
+
   Tilbakekalt = 'Tilbakekalt',
-  Erstattet = 'Erstattet',
-  Godkjent = 'Godkjent'
+  Erstattet = 'Erstattet'
 }
 
 export enum ForslagEndringType {

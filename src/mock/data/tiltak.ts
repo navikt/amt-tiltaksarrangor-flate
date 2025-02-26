@@ -79,9 +79,9 @@ export const gjennomforingInfoListe: GjennomforingInfo[] = [
     status: TiltakGjennomforingStatus.GJENNOMFORES
   },
   {
-    gjennomforingNavn: 'Digitalt oppfølgingstiltak Region Nordsør',
+    gjennomforingNavn: 'Digitalt jobbsøkerkurs Region Nordsør',
     tiltakskode: Tiltakskode.DIGIOPPARB,
-    tiltaksnavn: 'Digitalt oppfølgingstiltak for arbeidsledige',
+    tiltaksnavn: 'Digitalt jobbsøkerkurs for arbeidsledige',
     status: TiltakGjennomforingStatus.GJENNOMFORES
   },
   {
@@ -258,9 +258,11 @@ const lagMockVeiledersDeltaker = (
     },
     veiledertype: getVeiledertype(),
     aktiveEndringsmeldinger: getEndringsmeldinger(),
-    aktivEndring: lagMockAktivEndring(),
+    aktivEndring: deltaker.aktivEndring ?? null,
     sistEndret: faker.date.recent(),
-    adressebeskyttet: deltaker.adressebeskyttet
+    adressebeskyttet: deltaker.adressebeskyttet,
+    svarFraNav: deltaker.svarFraNav,
+    oppdateringFraNav: deltaker.oppdateringFraNav
   }
 }
 

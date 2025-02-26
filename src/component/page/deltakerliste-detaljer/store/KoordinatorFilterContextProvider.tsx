@@ -96,9 +96,12 @@ const KoordinatorFilterContextProvider = ({
     return statusFilter.includes(brukerStatus)
   }
 
-  const matcherHendelse = (hendelse: string) => {
+  const matcherHendelse = (deltaker: TiltakDeltaker) => {
     if (hendelseFilter.length === 0) return true
-    return hendelseFilter.includes(hendelse)
+    if (deltaker.aktivEndring && hendelseFilter.includes(Hendelser.VenterPaSvarFraNav)) return true
+    if (deltaker.svarFraNav && hendelseFilter.includes(Hendelser.SvarFraNav)) return true
+    if (deltaker.oppdateringFraNav && hendelseFilter.includes(Hendelser.OppdateringFraNav)) return true
+    return false
   }
 
   const matcherVeileder = (brukersVeileder: VeilederMedType) => {
@@ -141,8 +144,8 @@ const KoordinatorFilterContextProvider = ({
   const filtrerDeltakerePaHendelse = (
     deltakere: TiltakDeltaker[]
   ): TiltakDeltaker[] => {
-    return deltakere.filter((bruker) =>
-      matcherHendelse(bruker.aktivEndring ? Hendelser.VenterPaSvarFraNav : '')
+    return deltakere.filter((deltaker) =>
+      matcherHendelse(deltaker)
     )
   }
 
@@ -235,9 +238,18 @@ const KoordinatorFilterContextProvider = ({
     setStatusFilter(gyldigStatusFIlter)
 
     const gyldigHendelseFilter = hendelseFilter.filter((hendelse) =>
-      deltakere.find((deltaker) => hendelse === Hendelser.VenterPaSvarFraNav
-        ? !!deltaker.aktivEndring
-        : false
+      deltakere.find((deltaker) => {
+        if (hendelse === Hendelser.VenterPaSvarFraNav) {
+          return !!deltaker.aktivEndring
+        }
+        if (hendelse === Hendelser.SvarFraNav) {
+          return deltaker.svarFraNav
+        }
+        if (hendelse === Hendelser.OppdateringFraNav) {
+          return deltaker.oppdateringFraNav
+        }
+        return false
+      }
       )
     )
     setHendelseFilter(gyldigHendelseFilter)

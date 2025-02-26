@@ -2,6 +2,7 @@ import { useRef, useState } from 'react'
 
 import { Alert } from '@navikt/ds-react'
 import { Deltaker } from '../../../../../api/data/deltaker'
+import { Tiltakskode } from '../../../../../api/data/tiltak'
 import { leggTilOppstartsdatoFraArrangor } from '../../../../../api/endring-api'
 import { leggTilOppstartsdato } from '../../../../../api/tiltak-api'
 import { Nullable } from '../../../../../utils/types/or-nothing'
@@ -12,7 +13,6 @@ import { Endringsmodal } from './endringsmodal/Endringsmodal'
 import { SluttdatoRef, SluttdatoVelger } from './SluttdatoVelger'
 import { finnValgtVarighet } from './varighet'
 import { VeilederConfirmationPanel } from './VeilederConfirmationPanel'
-import { Tiltakskode } from '../../../../../api/data/tiltak'
 
 export interface LeggTilOppstartModalProps {
   onClose: () => void

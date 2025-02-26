@@ -83,9 +83,12 @@ const VeilederFilterContextProvider = ({
     return statusFilter.includes(brukerStatus)
   }
 
-  const matcherHendelse = (hendelse: string) => {
+  const matcherHendelse = (deltaker: VeiledersDeltaker) => {
     if (hendelseFilter.length === 0) return true
-    return hendelseFilter.includes(hendelse)
+    if (deltaker.aktivEndring && hendelseFilter.includes(Hendelser.VenterPaSvarFraNav)) return true
+    if (deltaker.svarFraNav && hendelseFilter.includes(Hendelser.SvarFraNav)) return true
+    if (deltaker.oppdateringFraNav && hendelseFilter.includes(Hendelser.OppdateringFraNav)) return true
+    return false
   }
 
   const matcherVeiledertype = (veiledertype: Veiledertype) => {
@@ -109,8 +112,8 @@ const VeilederFilterContextProvider = ({
   const filtrerDeltakerePaHendelse = (
     deltakere: VeiledersDeltaker[]
   ): VeiledersDeltaker[] => {
-    return deltakere.filter((bruker) =>
-      matcherHendelse(bruker.aktivEndring ? Hendelser.VenterPaSvarFraNav : '')
+    return deltakere.filter((deltaker) =>
+      matcherHendelse(deltaker)
     )
   }
 

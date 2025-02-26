@@ -20,7 +20,7 @@ export function lagMockAktiveForslag(
 }
 
 function deltarForslag(): AktivtForslag[] {
-  if (randBetween(1, 10) <= 5) {
+  if (randBetween(1, 10) <= 4) {
     return [
       {
         id: randomUuid(),

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import {
   Hendelser,
   VeiledersDeltaker
@@ -35,35 +35,47 @@ export const FilterMenyHendelser = (props: Props): React.ReactElement => {
     filtrerDeltakerePaaAltUtenom
   } = useVeilederFilterContext()
 
-  useEffect(() => {
+  const createInitialDataMap = useCallback((): Map<
+    string,
+    FiltermenyDataEntry
+  > => {
+    const dataMap = new Map<string, FiltermenyDataEntry>()
     const hendelser = { ...Hendelser }
-    const deltakereFiltrert = filtrerDeltakerePaaAltUtenom(
-      FilterType.Hendelse,
-      props.deltakere
-    )
 
-    const hendelseMap = Object.keys(hendelser).reduce(
-      (list: Map<string, FiltermenyDataEntry>, hendelse: string) => {
-        const antallDeltakereTotalt = deltakereFiltrert.filter(
-          (deltaker) => hendelse === Hendelser.VenterPaSvarFraNav
-            ? !!deltaker.aktivEndring
-            : false
-        ).length
-        const antallDeltakereFiltrert = deltakereFiltrert.filter(
-          (deltaker) => hendelse === Hendelser.VenterPaSvarFraNav
-            ? !!deltaker.aktivEndring
-            : false
-        ).length
+    Object.keys(hendelser).forEach((hendelse) => {
+      const tekst = mapHendelseTypeTilTekst(hendelse)
 
-        return antallDeltakereTotalt == 0
-          ? list
-          : list.set(hendelse, {
-            id: hendelse,
-            displayName: mapHendelseTypeTilTekst(hendelse),
-            antallDeltakere: antallDeltakereFiltrert
-          })
-      },
-      new Map<string, FiltermenyDataEntry>()
+      dataMap.set(hendelse, {
+        id: hendelse,
+        displayName: tekst,
+        antallDeltakere: 0
+      })
+    })
+    return dataMap
+  }, [])
+
+  useEffect(() => {
+    const hendelseMap = createInitialDataMap()
+
+    filtrerDeltakerePaaAltUtenom(FilterType.Hendelse, props.deltakere).forEach(
+      (deltaker: VeiledersDeltaker) => {
+        const hendelseTypes: { key: keyof VeiledersDeltaker, hendelse: Hendelser }[] = [
+          { key: 'aktivEndring', hendelse: Hendelser.VenterPaSvarFraNav },
+          { key: 'svarFraNav', hendelse: Hendelser.SvarFraNav },
+          { key: 'oppdateringFraNav', hendelse: Hendelser.OppdateringFraNav }
+        ]
+
+        hendelseTypes.forEach(({ key, hendelse }) => {
+          if (deltaker[ key ]) {
+            const entry = hendelseMap.get(hendelse)
+            hendelseMap.set(hendelse, {
+              id: hendelse,
+              displayName: entry ? entry.displayName : '',
+              antallDeltakere: entry ? entry.antallDeltakere + 1 : 1
+            })
+          }
+        })
+      }
     )
 
     setDeltakerePerHendelse([ ...hendelseMap.values() ])
@@ -72,6 +84,7 @@ export const FilterMenyHendelser = (props: Props): React.ReactElement => {
     statusFilter,
     veiledertypeFilter,
     deltakerlisteFilter,
+    createInitialDataMap,
     filtrerDeltakerePaaAltUtenom
   ])
 

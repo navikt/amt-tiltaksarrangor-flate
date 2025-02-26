@@ -17,6 +17,7 @@ import { Veileder, VeilederMedType, Veiledertype } from '../api/data/veileder'
 import { AktivtForslag, ForslagEndring, ForslagEndringType, ForslagStatusType } from '../api/data/forslag'
 import { EndringFraArrangor, EndringFraArrangorType } from '../api/data/endring'
 import { KOMET_DELTAKERE_TOGGLE_NAVN, VIS_DRIFTSMELDING_TOGGLE_NAVN } from '../api/data/feature-toggle'
+import { ulestEndringErOppdateringFraNav, ulestEndringErSvarFraNav } from '../component/page/bruker-detaljer/deltaker-detaljer/forslag/forslagUtils'
 
 export async function enableMocking() {
 	if (useMock) {
@@ -390,6 +391,24 @@ export const worker = setupWorker(
 			return new HttpResponse(null, { status: 200 })
 		}
 	),
+	http.post(appUrl('/amt-tiltaksarrangor-bff/tiltaksarrangor/deltaker/:deltakerId/endring/:ulestEndringId/marker-som-lest')
+		, async ({ params }) => {
+			await delay(500)
+			const deltakerId = params.deltakerId
+			const ulestEndringId = params.ulestEndringId
+
+			const deltaker = mockTiltakDeltakere.find((d) => d.id == deltakerId)
+			if (!deltaker) {
+				return new HttpResponse(null, { status: 500 })
+			}
+			deltaker.ulesteEndringer = deltaker.ulesteEndringer.filter(
+				(it) => it.id !== ulestEndringId
+			)
+			deltaker.svarFraNav = deltaker.ulesteEndringer.find(ulestEndringErSvarFraNav) ? true : false
+			deltaker.oppdateringFraNav = deltaker.ulesteEndringer.find(ulestEndringErOppdateringFraNav) ? true : false
+			return new HttpResponse(null, { status: 200 })
+		}
+	),
 	handlePostForslagRequest('forleng', (body) => ({
 		type: ForslagEndringType.ForlengDeltakelse,
 		sluttdato: dayjs(body.sluttdato).toDate()
@@ -463,7 +482,9 @@ export const mapToDeltakerListView = (
 		gjeldendeVurderingFraArrangor: deltaker.gjeldendeVurderingFraArrangor,
 		adressebeskyttet: deltaker.adressebeskyttet,
 		erVeilederForDeltaker: deltaker.erVeilederForDeltaker,
-		aktivEndring: deltaker.aktivEndring ?? null
+		aktivEndring: deltaker.aktivEndring ?? null,
+		svarFraNav: deltaker.svarFraNav,
+		oppdateringFraNav: deltaker.oppdateringFraNav
 	}
 }
 
@@ -510,6 +531,7 @@ const mapToDeltakerDetaljerView = (
 		},
 		veiledere: deltaker.veiledere,
 		aktiveForslag: deltaker.aktiveForslag,
+		ulesteEndringer: deltaker.ulesteEndringer,
 		aktiveEndringsmeldinger: deltaker.aktiveEndringsmeldinger,
 		historiskeEndringsmeldinger: deltaker.historiskeEndringsmeldinger,
 		adresse: deltaker.adresse
