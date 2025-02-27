@@ -51,7 +51,6 @@ export const DeltakelseInfo = ({
     deltaker.deltakerliste.tiltakstype
   ) || brukMasterVisning(deltaker.deltakerliste.tiltakstype)
 
-
   const handleForslagSendt = (forslag: AktivtForslag) => {
     setForslag((prev) => [
       forslag,
