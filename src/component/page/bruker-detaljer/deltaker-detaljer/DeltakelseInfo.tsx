@@ -46,10 +46,11 @@ export const DeltakelseInfo = ({
 
   const skjulDeltakerPromise = usePromise<AxiosResponse>()
 
-  const { erKometMasterForTiltak } = useFeatureToggle()
+  const { erKometMasterForTiltak, brukMasterVisning } = useFeatureToggle()
   const erForslagEnabled = erKometMasterForTiltak(
     deltaker.deltakerliste.tiltakstype
-  )
+  ) || brukMasterVisning(deltaker.deltakerliste.tiltakstype)
+
 
   const handleForslagSendt = (forslag: AktivtForslag) => {
     setForslag((prev) => [
