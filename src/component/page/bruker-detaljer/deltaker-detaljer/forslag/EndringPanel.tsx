@@ -22,6 +22,7 @@ export interface Props {
   endringType?: EndringType | ForslagEndringType
   erAktivtForslag?: boolean
   ulestEndringType?: UlestEndringType
+  nyNavVeileder?: boolean
 }
 
 export const EndringPanel = ({
@@ -32,6 +33,7 @@ export const EndringPanel = ({
   endringType,
   erAktivtForslag,
   ulestEndringType,
+  nyNavVeileder
 }: Props) => {
   return (
     <Box
@@ -49,7 +51,7 @@ export const EndringPanel = ({
         <VStack>
           <div className={styles.tittel}>
             <Heading level="4" size="small" className={styles.tittel_hedaing}>
-              {getEndringsTittel(tittel, endringType, ulestEndringType)}
+              {getEndringsTittel(tittel, endringType, ulestEndringType, nyNavVeileder)}
             </Heading>
             {forslagStatusType && <ForslagStatusTag type={forslagStatusType} />}
             {erAktivtForslag && fjernEndring}
@@ -66,7 +68,8 @@ export const EndringPanel = ({
 const getEndringsTittel = (
   tittel?: string,
   endringType?: EndringType | ForslagEndringType,
-  ulestEndringType?: UlestEndringType
+  ulestEndringType?: UlestEndringType,
+  nyNavVeileder?: boolean
 ): string => {
   if (tittel) {
     return tittel
@@ -74,6 +77,8 @@ const getEndringsTittel = (
     return forslagEndringsTittel(endringType)
   } else if (ulestEndringType === UlestEndringType.NavBrukerEndring) {
     return 'Kontaktinformasjon oppdatert'
+  } else if (nyNavVeileder) {
+    return 'Endret Nav-veileder'
   } else if (ulestEndringType === UlestEndringType.NavEndring) {
     return 'Kontaktinformasjon til Nav oppdatert'
   }

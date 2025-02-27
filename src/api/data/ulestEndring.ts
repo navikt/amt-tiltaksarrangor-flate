@@ -29,6 +29,7 @@ const ulestEndringNavBrukerSchema = z.object({
 
 const ulestEndringNavSchema = z.object({
     type: z.literal(UlestEndringType.NavEndring),
+    navVeilederId: z.string().uuid().nullable(),
     navVeilederNavn: z.string().nullable(),
     navEnhet: z.string().nullable(),
     navVeilederTelefonnummer: z.string().nullable(),

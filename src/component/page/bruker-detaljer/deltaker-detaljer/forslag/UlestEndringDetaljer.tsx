@@ -78,6 +78,22 @@ export const NavDetaljer = ({ oppdatering }: NavDetaljerProps) => {
   )
 }
 
+interface NyNavVeilederDetaljer {
+  oppdatering: UlestEndringOppdateringNav
+}
+export const NyNavVeilederDetaljer = ({ oppdatering }: NyNavVeilederDetaljer) => {
+  return (
+    <>
+      {oppdatering.navVeilederNavn && <BodyLong size="small">
+        {'Deltakerens Nav-veileder er endret'}
+      </BodyLong>}
+      <Detail className={styles.endring_detail} textColor="subtle">
+        {`Oppdatert ${formatDate(oppdatering.oppdatert)}`}
+      </Detail>
+    </>
+  )
+}
+
 interface AvvistForslagDetaljerProps {
   forslag: HistorikkForslag
 }

@@ -344,6 +344,20 @@ const lagMockTiltakDeltagerForGjennomforing = (
         deltakerId: id,
         oppdatering: {
           type: UlestEndringType.NavEndring,
+          navVeilederId: randomUuid(),
+          navVeilederNavn: veilederNavn,
+          navEnhet: 'Nav Oslo',
+          navVeilederTelefonnummer: veileder?.telefon ?? null,
+          navVeilederEpost: veileder?.epost ?? null,
+          oppdatert: faker.date.recent()
+        }
+      },
+      {
+        id: randomUuid(),
+        deltakerId: id,
+        oppdatering: {
+          type: UlestEndringType.NavEndring,
+          navVeilederId: null,
           navVeilederNavn: veilederNavn,
           navEnhet: 'Nav Oslo',
           navVeilederTelefonnummer: veileder?.telefon ?? null,

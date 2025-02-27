@@ -9,7 +9,13 @@ import { FjernForslag } from './FjernForslag'
 import styles from './Forslag.module.scss'
 import { ForslagEndringsdetaljer } from './ForslagEndringsdetaljer'
 import { ulestEndringErSvarFraNav } from './forslagUtils'
-import { AvvistForslagDetaljer, Endringsdetaljer, NavBrukerDetaljer, NavDetaljer } from './UlestEndringDetaljer'
+import {
+  AvvistForslagDetaljer,
+  Endringsdetaljer,
+  NavBrukerDetaljer,
+  NavDetaljer,
+  NyNavVeilederDetaljer
+} from './UlestEndringDetaljer'
 
 interface Props {
   forslag: AktivtForslag[]
@@ -73,6 +79,7 @@ const getsendteForslag = (
         fjernEndring={
           <FjernForslag forslagId={it.id} deltakerId={deltakerId} onTilbakekalt={onTilbakekalt} />
         }
+        nyNavVeileder={false}
       >
         <ForslagEndringsdetaljer
           endring={it.endring}
@@ -97,6 +104,7 @@ const getEndringsDetaljer = (
       endringType={getEndringsType(it)}
       forslagStatusType={getForslagStatusType(it)}
       fjernEndring={<FjernEndring endringId={it.id} deltakerId={deltakerId} onMarkertSomLest={onMarkertSomLest} />}
+      nyNavVeileder={it.oppdatering.type === UlestEndringType.NavEndring && it.oppdatering.navVeilederId !== null && it.oppdatering.navVeilederId !== undefined}
     >
       {it.oppdatering.type === UlestEndringType.DeltakelsesEndring &&
         <Endringsdetaljer
@@ -110,8 +118,11 @@ const getEndringsDetaljer = (
       {it.oppdatering.type === UlestEndringType.NavBrukerEndring && (
         <NavBrukerDetaljer oppdatering={it.oppdatering} />
       )}
-      {it.oppdatering.type === UlestEndringType.NavEndring && (
+      {it.oppdatering.type === UlestEndringType.NavEndring && !it.oppdatering.navVeilederId && (
         <NavDetaljer oppdatering={it.oppdatering} />
+      )}
+      {it.oppdatering.type === UlestEndringType.NavEndring && it.oppdatering.navVeilederId !== undefined && (
+        <NyNavVeilederDetaljer oppdatering={it.oppdatering} />
       )}
     </EndringPanel>
   ))
