@@ -8,6 +8,7 @@ import { HistorikkType } from '../../../../../api/data/forslag'
 import styles from './Historikk.module.scss'
 import { Tiltakskode } from '../../../../../api/data/tiltak'
 import { HistorikkImportertFraArena } from './HistorikkImportertFraArena'
+import { HistorikkVurderingFraArrangor } from './HistorikkVurderingFraArrangor'
 
 interface Props {
   historikk: DeltakerHistorikkListe | null
@@ -32,6 +33,10 @@ const getHistorikkItem = (historikk: DeltakerHistorikk, tiltakstype: Tiltakskode
           deltakelseVedImport={historikk}
           tiltakstype={tiltakstype}
         />
+      )
+    case HistorikkType.VurderingFraArrangor:
+      return (
+          <HistorikkVurderingFraArrangor vurdering={historikk}/>
       )
   }
 }

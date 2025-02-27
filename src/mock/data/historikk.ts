@@ -15,6 +15,7 @@ import nb from 'dayjs/locale/nb'
 import customParseFormat from 'dayjs/plugin/customParseFormat'
 import { randomUuid } from '../utils/faker'
 import { DeltakerStatusAarsakType } from '../../api/data/endringsmelding'
+import { Vurderingstype } from '../../api/data/deltaker'
 
 dayjs.locale(nb)
 dayjs.extend(customParseFormat)
@@ -345,6 +346,13 @@ export const mockDeltakerHistorikk = (): DeltakerHistorikkListe => {
         type: DeltakerHistorikkStatus.DELTAR,
         aarsak: null
       }
+    },
+    {
+      type: HistorikkType.VurderingFraArrangor,
+      vurderingstype: Vurderingstype.OPPFYLLER_IKKE_KRAVENE,
+      begrunnelse: 'Oppfyller ikke kravene',
+      opprettetDato: dayjs().subtract(17, 'day').toDate(),
+      endretAv: 'Nav'
     }
   ]
 }
