@@ -16,7 +16,7 @@ import { mockDeltakerHistorikk } from './data/historikk'
 import { Veileder, VeilederMedType, Veiledertype } from '../api/data/veileder'
 import { AktivtForslag, ForslagEndring, ForslagEndringType, ForslagStatusType } from '../api/data/forslag'
 import { EndringFraArrangor, EndringFraArrangorType } from '../api/data/endring'
-import { KOMET_DELTAKERE_TOGGLE_NAVN, VIS_DRIFTSMELDING_TOGGLE_NAVN } from '../api/data/feature-toggle'
+import {KOMET_DELTAKERE_TOGGLE_NAVN, MASTER_VISNING, VIS_DRIFTSMELDING_TOGGLE_NAVN} from '../api/data/feature-toggle'
 import { ulestEndringErOppdateringFraNav, ulestEndringErSvarFraNav } from '../component/page/bruker-detaljer/deltaker-detaljer/forslag/forslagUtils'
 
 export async function enableMocking() {
@@ -455,7 +455,8 @@ export const worker = setupWorker(
 			await delay(500)
 			const toggles = {
 				[ VIS_DRIFTSMELDING_TOGGLE_NAVN ]: false,
-				[ KOMET_DELTAKERE_TOGGLE_NAVN ]: true
+				[ KOMET_DELTAKERE_TOGGLE_NAVN ]: false,
+				[ MASTER_VISNING ]: true
 			}
 
 			return HttpResponse.json(toggles)
