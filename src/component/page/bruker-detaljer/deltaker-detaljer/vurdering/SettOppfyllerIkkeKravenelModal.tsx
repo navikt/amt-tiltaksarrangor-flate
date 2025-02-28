@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-import { BodyShort, Button, Modal, Textarea } from '@navikt/ds-react'
+import {Alert, BodyShort, Button, Modal, Textarea} from '@navikt/ds-react'
 import styles from './SettVurderingModal.module.scss'
 import { Nullable } from '../../../../../utils/types/or-nothing'
 import { postDeltakerVurderingOppfyllerIkkeKravene } from '../../../../../api/tiltak-api'
@@ -53,20 +53,24 @@ export const SettOppfyllerIkkeKravenelModal = ({
       header={{ heading: 'Oppfyller ikke kravene' }}
     >
       <Modal.Body className={styles.content}>
-        <BodyShort size="small">
+        <Alert variant="info" size="small">
+          Forslaget sendes til Nav-veileder. Deltaker kan se innholdet i begrunnelsen på nav.no.
+        </Alert>
+        <div>
+        <BodyShort size="small" spacing>
           Personen oppfyller ikke kravene for å delta på dette
           arbeidsmarkedstiltaket.
         </BodyShort>
-        <Textarea
-          label="Forklar hvorfor:"
-          description="Teksten kan bli vist til deltakeren"
-          value={beskrivelse ?? ''}
-          onChange={handleChangeDescription}
-          maxLength={BESKRIVELSE_MAKS_TEGN}
-          minRows={1}
-          rows={1}
-          size="small"
-        />
+          <Textarea
+              label="Forklar hvorfor:"
+              value={beskrivelse ?? ''}
+              onChange={handleChangeDescription}
+              maxLength={BESKRIVELSE_MAKS_TEGN}
+              minRows={1}
+              rows={1}
+              size="small"
+          />
+          </div>
         <Button
           type="button"
           onClick={sendVurdering}
