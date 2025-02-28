@@ -56,34 +56,25 @@ interface NavDetaljerProps {
 export const NavDetaljer = ({ oppdatering }: NavDetaljerProps) => {
   return (
     <>
-      {oppdatering.navVeilederNavn && <BodyLong size="small">
-        {`Deltakerens Nav-veileder er endret til ${oppdatering.navVeilederNavn}`}
-      </BodyLong>}
-      {oppdatering.navVeilederEpost && <BodyLong size="small">
-        {`E-posten til Nav-veileder er endret til ${oppdatering.navVeilederEpost}`}
-      </BodyLong>}
-      {oppdatering.navVeilederTelefonnummer && <BodyLong size="small">
-        {`Telefonnummer til Nav-veileder er endret til ${formaterTelefonnummer(oppdatering.navVeilederTelefonnummer)}`}
-      </BodyLong>}
-      {oppdatering.navEnhet && <BodyLong size="small">
-        {`Deltakerens Nav-enhet er endret til ${oppdatering.navEnhet}`}
-      </BodyLong>}
-      <Detail className={styles.endring_detail} textColor="subtle">
-        {`Oppdatert ${formatDate(oppdatering.oppdatert)}`}
-      </Detail>
-    </>
-  )
-}
-
-interface NyNavVeilederDetaljer {
-  oppdatering: UlestEndringOppdateringNav
-}
-export const NyNavVeilederDetaljer = ({ oppdatering }: NyNavVeilederDetaljer) => {
-  return (
-    <>
-      {oppdatering.navVeilederNavn && <BodyLong size="small">
-        {'Deltakerens Nav-veileder er endret'}
-      </BodyLong>}
+      {oppdatering.nyNavVeileder
+        ? <BodyLong size="small">
+          {'Deltakerens Nav-veileder er endret'}
+        </BodyLong>
+        : <>
+          {oppdatering.navVeilederNavn && <BodyLong size="small">
+            {`Navnet til Nav-veileder er endret til ${oppdatering.navVeilederNavn}`}
+          </BodyLong>}
+          {oppdatering.navVeilederEpost && <BodyLong size="small">
+            {`E-posten til Nav-veileder er endret til ${oppdatering.navVeilederEpost}`}
+          </BodyLong>}
+          {oppdatering.navVeilederTelefonnummer && <BodyLong size="small">
+            {`Telefonnummer til Nav-veileder er endret til ${formaterTelefonnummer(oppdatering.navVeilederTelefonnummer)}`}
+          </BodyLong>}
+          {oppdatering.navEnhet && <BodyLong size="small">
+            {`Deltakerens Nav-enhet er endret til ${oppdatering.navEnhet}`}
+          </BodyLong>}
+        </>
+      }
       <Detail className={styles.endring_detail} textColor="subtle">
         {`Oppdatert ${formatDate(oppdatering.oppdatert)}`}
       </Detail>

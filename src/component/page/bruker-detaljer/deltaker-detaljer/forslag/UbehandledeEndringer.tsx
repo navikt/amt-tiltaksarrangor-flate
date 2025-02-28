@@ -13,8 +13,7 @@ import {
   AvvistForslagDetaljer,
   Endringsdetaljer,
   NavBrukerDetaljer,
-  NavDetaljer,
-  NyNavVeilederDetaljer
+  NavDetaljer
 } from './UlestEndringDetaljer'
 
 interface Props {
@@ -118,11 +117,8 @@ const getEndringsDetaljer = (
       {it.oppdatering.type === UlestEndringType.NavBrukerEndring && (
         <NavBrukerDetaljer oppdatering={it.oppdatering} />
       )}
-      {it.oppdatering.type === UlestEndringType.NavEndring && !it.oppdatering.nyNavVeileder && (
+      {it.oppdatering.type === UlestEndringType.NavEndring && (
         <NavDetaljer oppdatering={it.oppdatering} />
-      )}
-      {it.oppdatering.type === UlestEndringType.NavEndring && it.oppdatering.nyNavVeileder && (
-        <NyNavVeilederDetaljer oppdatering={it.oppdatering} />
       )}
     </EndringPanel>
   ))
