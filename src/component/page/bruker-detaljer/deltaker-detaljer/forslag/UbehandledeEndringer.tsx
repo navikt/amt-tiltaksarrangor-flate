@@ -104,7 +104,7 @@ const getEndringsDetaljer = (
       endringType={getEndringsType(it)}
       forslagStatusType={getForslagStatusType(it)}
       fjernEndring={<FjernEndring endringId={it.id} deltakerId={deltakerId} onMarkertSomLest={onMarkertSomLest} />}
-      nyNavVeileder={it.oppdatering.type === UlestEndringType.NavEndring && it.oppdatering.navVeilederId !== null && it.oppdatering.navVeilederId !== undefined}
+      nyNavVeileder={it.oppdatering.type === UlestEndringType.NavEndring && !!it.oppdatering.nyNavVeileder}
     >
       {it.oppdatering.type === UlestEndringType.DeltakelsesEndring &&
         <Endringsdetaljer
@@ -118,10 +118,10 @@ const getEndringsDetaljer = (
       {it.oppdatering.type === UlestEndringType.NavBrukerEndring && (
         <NavBrukerDetaljer oppdatering={it.oppdatering} />
       )}
-      {it.oppdatering.type === UlestEndringType.NavEndring && !it.oppdatering.navVeilederId && (
+      {it.oppdatering.type === UlestEndringType.NavEndring && !it.oppdatering.nyNavVeileder && (
         <NavDetaljer oppdatering={it.oppdatering} />
       )}
-      {it.oppdatering.type === UlestEndringType.NavEndring && it.oppdatering.navVeilederId !== undefined && (
+      {it.oppdatering.type === UlestEndringType.NavEndring && it.oppdatering.nyNavVeileder && (
         <NyNavVeilederDetaljer oppdatering={it.oppdatering} />
       )}
     </EndringPanel>

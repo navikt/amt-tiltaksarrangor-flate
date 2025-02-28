@@ -68,9 +68,6 @@ export const NavDetaljer = ({ oppdatering }: NavDetaljerProps) => {
       {oppdatering.navEnhet && <BodyLong size="small">
         {`Deltakerens Nav-enhet er endret til ${oppdatering.navEnhet}`}
       </BodyLong>}
-      <BodyLong size="small">
-        Informasjon i kontaktinfo-panelet er oppdatert.
-      </BodyLong>
       <Detail className={styles.endring_detail} textColor="subtle">
         {`Oppdatert ${formatDate(oppdatering.oppdatert)}`}
       </Detail>

@@ -206,9 +206,9 @@ const finnSluttdato = (
       ? deltakerstatus === TiltakDeltakerStatus.HAR_SLUTTET
         ? faker.date.between({ from: startDato, to: new Date() })
         : faker.date.between({
-            from: startDato,
-            to: gjennomforing.sluttDato ?? new Date()
-          })
+          from: startDato,
+          to: gjennomforing.sluttDato ?? new Date()
+        })
       : null
   }
 }
@@ -231,7 +231,7 @@ const lagVurdering = (erHistorisk: boolean): MockVurdering => {
     gyldigFra,
     gyldigTil: erHistorisk
       ? historiskGyldigTilDato
-      : faker.helpers.arrayElement([faker.date.future(), null])
+      : faker.helpers.arrayElement([ faker.date.future(), null ])
   }
 }
 
@@ -262,16 +262,16 @@ const lagMockTiltakDeltagerForGjennomforing = (
 
   const fjernesDato =
     status === TiltakDeltakerStatus.IKKE_AKTUELL ||
-    status === TiltakDeltakerStatus.HAR_SLUTTET
+      status === TiltakDeltakerStatus.HAR_SLUTTET
       ? faker.date.future()
       : null
 
   const veileder = randomBoolean(90)
     ? {
-        epost: lagMailFraNavn(veilederNavn, 'nav.no'),
-        navn: veilederNavn,
-        telefon: lagTelefonnummer()
-      }
+      epost: lagMailFraNavn(veilederNavn, 'nav.no'),
+      navn: veilederNavn,
+      telefon: lagTelefonnummer()
+    }
     : null
 
   const gjeldendeVurderingFraArrangor = lagVurdering(false)
@@ -328,7 +328,8 @@ const lagMockTiltakDeltagerForGjennomforing = (
   const ulesteEndringer: UlestEndring[] = ulestHistorikk[ 0 ] ? [ ulestHistorikk[ 0 ] ] : []
   const telefonnummer = lagTelefonnummer()
 
-  if (randomBoolean(20)) {
+  const rndaomNumber = randBetween(0, 10)
+  if (rndaomNumber < 2) {
     ulesteEndringer.push({
       id: randomUuid(),
       deltakerId: id,
@@ -338,26 +339,30 @@ const lagMockTiltakDeltagerForGjennomforing = (
         epost: null,
         oppdatert: faker.date.recent()
       }
-    },
+    })
+  } else if (rndaomNumber < 4) {
+    ulesteEndringer.push(
       {
         id: randomUuid(),
         deltakerId: id,
         oppdatering: {
           type: UlestEndringType.NavEndring,
-          navVeilederId: randomUuid(),
+          nyNavVeileder: true,
           navVeilederNavn: veilederNavn,
           navEnhet: 'Nav Oslo',
           navVeilederTelefonnummer: veileder?.telefon ?? null,
           navVeilederEpost: veileder?.epost ?? null,
           oppdatert: faker.date.recent()
         }
-      },
+      })
+  } else if (rndaomNumber < 6) {
+    ulesteEndringer.push(
       {
         id: randomUuid(),
         deltakerId: id,
         oppdatering: {
           type: UlestEndringType.NavEndring,
-          navVeilederId: null,
+          nyNavVeileder: null,
           navVeilederNavn: veilederNavn,
           navEnhet: 'Nav Oslo',
           navVeilederTelefonnummer: veileder?.telefon ?? null,
@@ -384,12 +389,12 @@ const lagMockTiltakDeltagerForGjennomforing = (
       endretDato: faker.date.recent(),
       aarsak:
         status === TiltakDeltakerStatus.IKKE_AKTUELL ||
-        status === TiltakDeltakerStatus.AVBRUTT ||
-        status === TiltakDeltakerStatus.HAR_SLUTTET
+          status === TiltakDeltakerStatus.AVBRUTT ||
+          status === TiltakDeltakerStatus.HAR_SLUTTET
           ? {
-              type: DeltakerStatusAarsakType.FATT_JOBB,
-              beskrivelse: null
-            }
+            type: DeltakerStatusAarsakType.FATT_JOBB,
+            beskrivelse: null
+          }
           : null
     },
     navEnhet:
@@ -415,17 +420,17 @@ const lagMockTiltakDeltagerForGjennomforing = (
     deltakelsesmengder: {
       nesteDeltakelsesmengde: deltakelseProsent
         ? {
-            dagerPerUke: null,
-            deltakelsesprosent: 42,
-            gyldigFra: dayjs().add(7, 'days').toDate()
-          }
+          dagerPerUke: null,
+          deltakelsesprosent: 42,
+          gyldigFra: dayjs().add(7, 'days').toDate()
+        }
         : null,
       sisteDeltakelsesmengde: deltakelseProsent
         ? {
-            dagerPerUke: null,
-            deltakelsesprosent: 42,
-            gyldigFra: dayjs().add(7, 'days').toDate()
-          }
+          dagerPerUke: null,
+          deltakelsesprosent: 42,
+          gyldigFra: dayjs().add(7, 'days').toDate()
+        }
         : null
     },
     aktivEndring,
