@@ -26,11 +26,6 @@ updates:
         update-types:
           - 'patch'
           - 'minor'
-        exclude-patterns:
-          - 'react'
-          - 'react-dom'
-          - '@navikt/aksel-*'
-          - '@navikt/ds-*'
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
