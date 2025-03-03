@@ -20,7 +20,7 @@ import { AktivtForslag, ForslagEndringType, ForslagStatusType, HistorikkForslag,
 import { DeltakerEndring } from '../../api/data/historikk'
 import { Gjennomforing, Tiltakskode } from '../../api/data/tiltak'
 import { VeilederMedType } from '../../api/data/veileder'
-import { ulestEndringErOppdateringFraNav, ulestEndringErSvarFraNav } from '../../component/page/bruker-detaljer/deltaker-detaljer/forslag/forslagUtils'
+import { ulestEndringErNyeDeltaker, ulestEndringErOppdateringFraNav, ulestEndringErSvarFraNav } from '../../component/page/bruker-detaljer/deltaker-detaljer/forslag/forslagUtils'
 import { randBetween, randomBoolean, randomFnr, randomUuid } from '../utils/faker'
 import {
   lagMockEndringsmeldingForDeltaker,
@@ -88,7 +88,7 @@ export interface MockTiltakDeltaker {
   aktivEndring?: AktivEndringForDeltaker | null,
   svarFraNav: boolean,
   oppdateringFraNav: boolean,
-  nyeDeltaker: boolean
+  nyDeltaker: boolean
 }
 
 const navEnheter: MockNavEnhet[] = [
@@ -373,6 +373,18 @@ const lagMockTiltakDeltagerForGjennomforing = (
       })
   }
 
+  ulesteEndringer.push(
+    {
+      id: randomUuid(),
+      deltakerId: id,
+      oppdatering: {
+        type: UlestEndringType.NyDeltaker,
+        opprettet: faker.date.recent(),
+        opprettetAvNavn: veilederNavn,
+        opprettetAvEnhet: 'Nav Oslo'
+      }
+    })
+
   return {
     id: id,
     fornavn: brukerFornavn,
@@ -438,7 +450,7 @@ const lagMockTiltakDeltagerForGjennomforing = (
     ulesteEndringer,
     svarFraNav: ulesteEndringer.find(ulestEndringErSvarFraNav) ? true : false,
     oppdateringFraNav: ulesteEndringer.find(ulestEndringErOppdateringFraNav) ? true : false,
-    nyeDeltaker: false // ulesteEndringer.find(ulestEndringErNyeDeltaker) ? true : false
+    nyDeltaker: ulesteEndringer.find(ulestEndringErNyeDeltaker) ? true : false
   }
 }
 

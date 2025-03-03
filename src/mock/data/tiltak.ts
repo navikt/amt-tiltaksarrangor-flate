@@ -263,7 +263,7 @@ const lagMockVeiledersDeltaker = (
     adressebeskyttet: deltaker.adressebeskyttet,
     svarFraNav: deltaker.svarFraNav,
     oppdateringFraNav: deltaker.oppdateringFraNav,
-    nyeDeltaker: deltaker.nyeDeltaker
+    nyDeltaker: deltaker.nyDeltaker
   }
 }
 
