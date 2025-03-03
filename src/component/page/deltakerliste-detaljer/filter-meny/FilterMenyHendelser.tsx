@@ -63,7 +63,8 @@ export const FilterMenyHendelser = ({ deltakere }: Props): React.ReactElement =>
         const hendelseTypes: { key: keyof TiltakDeltaker, hendelse: Hendelser }[] = [
           { key: 'aktivEndring', hendelse: Hendelser.VenterPaSvarFraNav },
           { key: 'svarFraNav', hendelse: Hendelser.SvarFraNav },
-          { key: 'oppdateringFraNav', hendelse: Hendelser.OppdateringFraNav }
+          { key: 'oppdateringFraNav', hendelse: Hendelser.OppdateringFraNav },
+          { key: 'nyeDeltaker', hendelse: Hendelser.NyeDeltaker }
         ]
 
         hendelseTypes.forEach(({ key, hendelse }) => {
