@@ -8,29 +8,33 @@ import {
   VStack
 } from '@navikt/ds-react'
 import { EndringType } from '../../../../../api/data/historikk'
-import { EndringTypeIkon } from '../EndringTypeIkon'
+import { UlestEndringType } from '../../../../../api/data/ulestEndring'
+import { DefaultIcon, EndringTypeIkon } from '../EndringTypeIkon'
 import styles from './AktivtForslagPanel.module.scss'
 import { ForslagStatusTag } from './ForslagStatusTag'
-import { endringsTittel } from './forslagUtils'
+import { forslagEndringsTittel } from './forslagUtils'
 
 export interface Props {
   children: React.ReactNode
+  fjernEndring: React.ReactNode
   tittel?: string
-  fjernEndringComponent: React.ReactNode
   forslagStatusType?: ForslagStatusType
-  endringType: EndringType | ForslagEndringType
+  endringType?: EndringType | ForslagEndringType
   erAktivtForslag?: boolean
+  ulestEndringType?: UlestEndringType
+  nyNavVeileder?: boolean
 }
 
 export const EndringPanel = ({
   children,
   tittel,
-  fjernEndringComponent,
+  fjernEndring,
   forslagStatusType,
   endringType,
-  erAktivtForslag
+  erAktivtForslag,
+  ulestEndringType,
+  nyNavVeileder
 }: Props) => {
-
   return (
     <Box
       background="surface-default"
@@ -40,25 +44,43 @@ export const EndringPanel = ({
       className={styles.panel}
     >
       <HGrid columns="2rem auto" className={styles.grid}>
-        <VStack>
-          <EndringTypeIkon
-            size="large"
-            type={endringType}
-          />
-        </VStack>
+        {endringType
+          ? <EndringTypeIkon size="large" type={endringType} />
+          : <DefaultIcon size="large" />
+        }
         <VStack>
           <div className={styles.tittel}>
             <Heading level="4" size="small" className={styles.tittel_hedaing}>
-              {tittel || endringsTittel(endringType)}
+              {getEndringsTittel(tittel, endringType, ulestEndringType, nyNavVeileder)}
             </Heading>
             {forslagStatusType && <ForslagStatusTag type={forslagStatusType} />}
-            {erAktivtForslag && fjernEndringComponent}
+            {erAktivtForslag && fjernEndring}
           </div>
           {children}
         </VStack>
       </HGrid>
 
-      {!erAktivtForslag && fjernEndringComponent}
+      {!erAktivtForslag && fjernEndring}
     </Box>
   )
+}
+
+const getEndringsTittel = (
+  tittel?: string,
+  endringType?: EndringType | ForslagEndringType,
+  ulestEndringType?: UlestEndringType,
+  nyNavVeileder?: boolean
+): string => {
+  if (tittel) {
+    return tittel
+  } else if (endringType) {
+    return forslagEndringsTittel(endringType)
+  } else if (ulestEndringType === UlestEndringType.NavBrukerEndring) {
+    return 'Kontaktinformasjon oppdatert'
+  } else if (nyNavVeileder) {
+    return 'Endret Nav-veileder'
+  } else if (ulestEndringType === UlestEndringType.NavEndring) {
+    return 'Kontaktinformasjon til Nav oppdatert'
+  }
+  return 'Oppdatert deltkaer'
 }

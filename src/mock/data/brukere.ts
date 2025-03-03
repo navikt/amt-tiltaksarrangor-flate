@@ -7,11 +7,8 @@ import {
   AktivEndring,
   AktivEndringForDeltaker,
   AktivEndringsType,
-  Deltakelsesinnhold,
   Deltakelsesmengder,
   TiltakDeltakerStatus,
-  UlestEndring,
-  UlestEndringType,
   Vurdering,
   Vurderingstype
 } from '../../api/data/deltaker'
@@ -34,6 +31,8 @@ import { deltakerId } from './id'
 import { lagMockAktiveForslag } from './mock-forslag'
 import { deltakerlisteErKurs, MockGjennomforing } from './tiltak'
 import { lagMockVeiledereForDeltaker } from './veileder'
+import { Deltakelsesinnhold } from '../../api/data/innhold'
+import { UlestEndring, UlestEndringType } from '../../api/data/ulestEndring'
 
 export type MockVurdering = Vurdering
 
@@ -207,9 +206,9 @@ const finnSluttdato = (
       ? deltakerstatus === TiltakDeltakerStatus.HAR_SLUTTET
         ? faker.date.between({ from: startDato, to: new Date() })
         : faker.date.between({
-            from: startDato,
-            to: gjennomforing.sluttDato ?? new Date()
-          })
+          from: startDato,
+          to: gjennomforing.sluttDato ?? new Date()
+        })
       : null
   }
 }
@@ -232,7 +231,7 @@ const lagVurdering = (erHistorisk: boolean): MockVurdering => {
     gyldigFra,
     gyldigTil: erHistorisk
       ? historiskGyldigTilDato
-      : faker.helpers.arrayElement([faker.date.future(), null])
+      : faker.helpers.arrayElement([ faker.date.future(), null ])
   }
 }
 
@@ -263,16 +262,16 @@ const lagMockTiltakDeltagerForGjennomforing = (
 
   const fjernesDato =
     status === TiltakDeltakerStatus.IKKE_AKTUELL ||
-    status === TiltakDeltakerStatus.HAR_SLUTTET
+      status === TiltakDeltakerStatus.HAR_SLUTTET
       ? faker.date.future()
       : null
 
   const veileder = randomBoolean(90)
     ? {
-        epost: lagMailFraNavn(veilederNavn, 'nav.no'),
-        navn: veilederNavn,
-        telefon: lagTelefonnummer()
-      }
+      epost: lagMailFraNavn(veilederNavn, 'nav.no'),
+      navn: veilederNavn,
+      telefon: lagTelefonnummer()
+    }
     : null
 
   const gjeldendeVurderingFraArrangor = lagVurdering(false)
@@ -304,11 +303,10 @@ const lagMockTiltakDeltagerForGjennomforing = (
   }
 
   const historikk = mockDeltakerHistorikk()
-  const ulesteEndringer: UlestEndring[] = randomBoolean(30)
+  const ulestHistorikk: UlestEndring[] = randomBoolean(30)
     ? historikk.filter(h => h.type === HistorikkType.Endring ||
       (h.type === HistorikkType.Forslag && h.status.type === ForslagStatusType.Avvist))
       .map(h => {
-
         return h.type === HistorikkType.Endring ? {
           id: randomUuid(),
           deltakerId: id,
@@ -327,6 +325,53 @@ const lagMockTiltakDeltagerForGjennomforing = (
       })
     : []
 
+  const ulesteEndringer: UlestEndring[] = ulestHistorikk[ 0 ] ? [ ulestHistorikk[ 0 ] ] : []
+  const telefonnummer = lagTelefonnummer()
+
+  const rndaomNumber = randBetween(0, 10)
+  if (rndaomNumber < 2) {
+    ulesteEndringer.push({
+      id: randomUuid(),
+      deltakerId: id,
+      oppdatering: {
+        type: UlestEndringType.NavBrukerEndring,
+        telefonnummer: telefonnummer,
+        epost: null,
+        oppdatert: faker.date.recent()
+      }
+    })
+  } else if (rndaomNumber < 4) {
+    ulesteEndringer.push(
+      {
+        id: randomUuid(),
+        deltakerId: id,
+        oppdatering: {
+          type: UlestEndringType.NavEndring,
+          nyNavVeileder: true,
+          navVeilederNavn: veilederNavn,
+          navEnhet: 'Nav Oslo',
+          navVeilederTelefonnummer: veileder?.telefon ?? null,
+          navVeilederEpost: veileder?.epost ?? null,
+          oppdatert: faker.date.recent()
+        }
+      })
+  } else if (rndaomNumber < 6) {
+    ulesteEndringer.push(
+      {
+        id: randomUuid(),
+        deltakerId: id,
+        oppdatering: {
+          type: UlestEndringType.NavEndring,
+          nyNavVeileder: null,
+          navVeilederNavn: veilederNavn,
+          navEnhet: 'Nav Oslo',
+          navVeilederTelefonnummer: veileder?.telefon ?? null,
+          navVeilederEpost: veileder?.epost ?? null,
+          oppdatert: faker.date.recent()
+        }
+      })
+  }
+
   return {
     id: id,
     fornavn: brukerFornavn,
@@ -334,7 +379,7 @@ const lagMockTiltakDeltagerForGjennomforing = (
     etternavn: brukerEtternavn,
     fodselsnummer: randomFnr(),
     epost: lagMailFraNavn(`${brukerFornavn} ${brukerEtternavn}`, 'example.com'),
-    telefonnummer: lagTelefonnummer(),
+    telefonnummer,
     startDato: startDato,
     sluttDato: sluttDato,
     deltakelseProsent: deltakelseProsent,
@@ -344,12 +389,12 @@ const lagMockTiltakDeltagerForGjennomforing = (
       endretDato: faker.date.recent(),
       aarsak:
         status === TiltakDeltakerStatus.IKKE_AKTUELL ||
-        status === TiltakDeltakerStatus.AVBRUTT ||
-        status === TiltakDeltakerStatus.HAR_SLUTTET
+          status === TiltakDeltakerStatus.AVBRUTT ||
+          status === TiltakDeltakerStatus.HAR_SLUTTET
           ? {
-              type: DeltakerStatusAarsakType.FATT_JOBB,
-              beskrivelse: null
-            }
+            type: DeltakerStatusAarsakType.FATT_JOBB,
+            beskrivelse: null
+          }
           : null
     },
     navEnhet:
@@ -375,17 +420,17 @@ const lagMockTiltakDeltagerForGjennomforing = (
     deltakelsesmengder: {
       nesteDeltakelsesmengde: deltakelseProsent
         ? {
-            dagerPerUke: null,
-            deltakelsesprosent: 42,
-            gyldigFra: dayjs().add(7, 'days').toDate()
-          }
+          dagerPerUke: null,
+          deltakelsesprosent: 42,
+          gyldigFra: dayjs().add(7, 'days').toDate()
+        }
         : null,
       sisteDeltakelsesmengde: deltakelseProsent
         ? {
-            dagerPerUke: null,
-            deltakelsesprosent: 42,
-            gyldigFra: dayjs().add(7, 'days').toDate()
-          }
+          dagerPerUke: null,
+          deltakelsesprosent: 42,
+          gyldigFra: dayjs().add(7, 'days').toDate()
+        }
         : null
     },
     aktivEndring,
