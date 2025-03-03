@@ -19,7 +19,8 @@ import { veilederMedTypeSchema, veiledertypeSchema } from './veileder'
 export enum Hendelser {
   VenterPaSvarFraNav = 'VenterPaSvarFraNav',
   SvarFraNav = 'SvarFraNav',
-  OppdateringFraNav = 'OppdateringFraNav'
+  OppdateringFraNav = 'OppdateringFraNav',
+  NyeDeltaker = 'NyeDeltaker'
 }
 
 export enum KursDeltakerStatuser {
@@ -121,7 +122,8 @@ export const tiltakDeltakerSchema = z.object({
   erVeilederForDeltaker: z.boolean(),
   aktivEndring: aktivEndringSchema.nullable(),
   svarFraNav: z.boolean(),
-  oppdateringFraNav: z.boolean()
+  oppdateringFraNav: z.boolean(),
+  nyeDeltaker: z.boolean()
 })
 
 export const deltakersDeltakerlisteSchema = z.object({
@@ -228,7 +230,8 @@ export const veiledersDeltakerSchema = z.object({
   sistEndret: dateSchema,
   adressebeskyttet: z.boolean(),
   svarFraNav: z.boolean(),
-  oppdateringFraNav: z.boolean()
+  oppdateringFraNav: z.boolean(),
+  nyeDeltaker: z.boolean()
 })
 
 export const deltakerlisteVeilederSchema = z.array(veiledersDeltakerSchema)

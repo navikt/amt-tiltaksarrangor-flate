@@ -87,7 +87,8 @@ export interface MockTiltakDeltaker {
   deltakelsesmengder: Deltakelsesmengder | null
   aktivEndring?: AktivEndringForDeltaker | null,
   svarFraNav: boolean,
-  oppdateringFraNav: boolean
+  oppdateringFraNav: boolean,
+  nyeDeltaker: boolean
 }
 
 const navEnheter: MockNavEnhet[] = [
@@ -436,7 +437,8 @@ const lagMockTiltakDeltagerForGjennomforing = (
     aktivEndring,
     ulesteEndringer,
     svarFraNav: ulesteEndringer.find(ulestEndringErSvarFraNav) ? true : false,
-    oppdateringFraNav: ulesteEndringer.find(ulestEndringErOppdateringFraNav) ? true : false
+    oppdateringFraNav: ulesteEndringer.find(ulestEndringErOppdateringFraNav) ? true : false,
+    nyeDeltaker: false // ulesteEndringer.find(ulestEndringErNyeDeltaker) ? true : false
   }
 }
 
