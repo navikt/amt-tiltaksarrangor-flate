@@ -342,39 +342,35 @@ const lagMockTiltakDeltagerForGjennomforing = (
       }
     })
   } else if (rndaomNumber < 4) {
-    ulesteEndringer.push(
-      {
-        id: randomUuid(),
-        deltakerId: id,
-        oppdatering: {
-          type: UlestEndringType.NavEndring,
-          nyNavVeileder: true,
-          navVeilederNavn: veilederNavn,
-          navEnhet: 'Nav Oslo',
-          navVeilederTelefonnummer: veileder?.telefon ?? null,
-          navVeilederEpost: veileder?.epost ?? null,
-          oppdatert: faker.date.recent()
-        }
-      })
+    ulesteEndringer.push({
+      id: randomUuid(),
+      deltakerId: id,
+      oppdatering: {
+        type: UlestEndringType.NavEndring,
+        nyNavVeileder: true,
+        navVeilederNavn: veilederNavn,
+        navEnhet: 'Nav Oslo',
+        navVeilederTelefonnummer: veileder?.telefon ?? null,
+        navVeilederEpost: veileder?.epost ?? null,
+        oppdatert: faker.date.recent()
+      }
+    })
   } else if (rndaomNumber < 6) {
-    ulesteEndringer.push(
-      {
-        id: randomUuid(),
-        deltakerId: id,
-        oppdatering: {
-          type: UlestEndringType.NavEndring,
-          nyNavVeileder: null,
-          navVeilederNavn: veilederNavn,
-          navEnhet: 'Nav Oslo',
-          navVeilederTelefonnummer: veileder?.telefon ?? null,
-          navVeilederEpost: veileder?.epost ?? null,
-          oppdatert: faker.date.recent()
-        }
-      })
-  }
-
-  ulesteEndringer.push(
-    {
+    ulesteEndringer.push({
+      id: randomUuid(),
+      deltakerId: id,
+      oppdatering: {
+        type: UlestEndringType.NavEndring,
+        nyNavVeileder: null,
+        navVeilederNavn: veilederNavn,
+        navEnhet: 'Nav Oslo',
+        navVeilederTelefonnummer: veileder?.telefon ?? null,
+        navVeilederEpost: veileder?.epost ?? null,
+        oppdatert: faker.date.recent()
+      }
+    })
+  } else if (rndaomNumber < 8) {
+    ulesteEndringer.push({
       id: randomUuid(),
       deltakerId: id,
       oppdatering: {
@@ -384,6 +380,7 @@ const lagMockTiltakDeltagerForGjennomforing = (
         opprettetAvEnhet: 'Nav Oslo'
       }
     })
+  }
 
   return {
     id: id,
