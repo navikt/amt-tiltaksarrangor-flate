@@ -2,13 +2,13 @@ import { BodyLong, Detail, ReadMore } from '@navikt/ds-react'
 import { ForslagStatusType, HistorikkForslag } from '../../../../../api/data/forslag'
 import { DeltakerEndring } from '../../../../../api/data/historikk'
 import { Tiltakskode } from '../../../../../api/data/tiltak'
+import { UlestEndringOppdateringNav, UlestEndringOppdateringNavBruker, UlestEndringOppdateringNyDeltaker } from '../../../../../api/data/ulestEndring'
+import { formaterTelefonnummer } from '../../../../../utils/bruker-utils'
 import { formatDate } from '../../../../../utils/date-utils'
 import { getForslagTittel } from '../../../../../utils/text-mappers'
 import { ForslagtypeDetaljer } from '../historikk/HistorikkElement'
 import { getEndringsDetaljer } from '../historikk/HistorikkEndring'
 import styles from './AktivtForslagPanel.module.scss'
-import { formaterTelefonnummer } from '../../../../../utils/bruker-utils'
-import { UlestEndringOppdateringNav, UlestEndringOppdateringNavBruker } from '../../../../../api/data/ulestEndring'
 
 interface Props {
   deltakerEndring: DeltakerEndring
@@ -79,6 +79,20 @@ export const NavDetaljer = ({ oppdatering }: NavDetaljerProps) => {
         {`Oppdatert ${formatDate(oppdatering.oppdatert)}`}
       </Detail>
     </>
+  )
+}
+
+interface NyDeltakerDetaljerProps {
+  oppdatering: UlestEndringOppdateringNyDeltaker
+}
+export const NyDeltakerDetaljer = ({ oppdatering }: NyDeltakerDetaljerProps) => {
+  return (
+    <Detail className={styles.endring_detail} textColor="subtle">
+      {oppdatering.opprettetAvEnhet && oppdatering.opprettetAvNavn
+        ? `Meldt på av ${oppdatering.opprettetAvNavn} ${oppdatering.opprettetAvEnhet} ${formatDate(oppdatering.opprettet)}.`
+        : `Meldt på ${formatDate(oppdatering.opprettet)}.`
+      }
+    </Detail>
   )
 }
 

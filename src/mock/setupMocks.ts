@@ -17,7 +17,7 @@ import { Veileder, VeilederMedType, Veiledertype } from '../api/data/veileder'
 import { AktivtForslag, ForslagEndring, ForslagEndringType, ForslagStatusType } from '../api/data/forslag'
 import { EndringFraArrangor, EndringFraArrangorType } from '../api/data/endring'
 import { KOMET_DELTAKERE_TOGGLE_NAVN, VIS_DRIFTSMELDING_TOGGLE_NAVN } from '../api/data/feature-toggle'
-import { ulestEndringErOppdateringFraNav, ulestEndringErSvarFraNav } from '../component/page/bruker-detaljer/deltaker-detaljer/forslag/forslagUtils'
+import { ulestEndringErNyeDeltaker, ulestEndringErOppdateringFraNav, ulestEndringErSvarFraNav } from '../component/page/bruker-detaljer/deltaker-detaljer/forslag/forslagUtils'
 
 export async function enableMocking() {
 	if (useMock) {
@@ -406,6 +406,7 @@ export const worker = setupWorker(
 			)
 			deltaker.svarFraNav = deltaker.ulesteEndringer.find(ulestEndringErSvarFraNav) ? true : false
 			deltaker.oppdateringFraNav = deltaker.ulesteEndringer.find(ulestEndringErOppdateringFraNav) ? true : false
+			deltaker.nyDeltaker = deltaker.ulesteEndringer.find(ulestEndringErNyeDeltaker) ? true : false
 			return new HttpResponse(null, { status: 200 })
 		}
 	),
@@ -484,7 +485,8 @@ export const mapToDeltakerListView = (
 		erVeilederForDeltaker: deltaker.erVeilederForDeltaker,
 		aktivEndring: deltaker.aktivEndring ?? null,
 		svarFraNav: deltaker.svarFraNav,
-		oppdateringFraNav: deltaker.oppdateringFraNav
+		oppdateringFraNav: deltaker.oppdateringFraNav,
+		nyDeltaker: deltaker.nyDeltaker
 	}
 }
 
