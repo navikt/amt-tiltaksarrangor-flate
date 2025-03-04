@@ -262,7 +262,8 @@ const lagMockVeiledersDeltaker = (
     sistEndret: faker.date.recent(),
     adressebeskyttet: deltaker.adressebeskyttet,
     svarFraNav: deltaker.svarFraNav,
-    oppdateringFraNav: deltaker.oppdateringFraNav
+    oppdateringFraNav: deltaker.oppdateringFraNav,
+    nyDeltaker: deltaker.nyDeltaker
   }
 }
 
