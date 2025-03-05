@@ -1,6 +1,10 @@
 import { useEffect, useState } from 'react'
 
-import { FeatureToggles, KOMET_DELTAKERE_TOGGLE_NAVN, VIS_DRIFTSMELDING_TOGGLE_NAVN } from '../api/data/feature-toggle'
+import {
+  FeatureToggles,
+  KOMET_DELTAKERE_TOGGLE_NAVN, MASTER_VISNING,
+  VIS_DRIFTSMELDING_TOGGLE_NAVN
+} from '../api/data/feature-toggle'
 import { fetchToggles } from '../api/feature-toggle-api'
 import { Tiltakskode } from '../api/data/tiltak'
 
@@ -15,7 +19,11 @@ const tiltakstyperKometAlltidErMasterFor = [
   Tiltakskode.VASV
 ]
 
-const tiltakstyperKometKanskjeErMasterFor: Tiltakskode[] = []
+const tiltakstyperKometSnartErMasterFor: Tiltakskode[] = [
+  Tiltakskode.GRUPPEAMO,
+  Tiltakskode.GRUFAGYRKE,
+  Tiltakskode.JOBBK
+]
 
 export const useFeatureToggle = () => {
   const [toggles, setToggles] = useState<FeatureToggles>()
@@ -35,8 +43,15 @@ export const useFeatureToggle = () => {
     if (
       tiltakstyperKometAlltidErMasterFor.includes(tiltakstype) ||
       (toggles?.[KOMET_DELTAKERE_TOGGLE_NAVN] &&
-      tiltakstyperKometKanskjeErMasterFor.includes(tiltakstype))
+        tiltakstyperKometSnartErMasterFor.includes(tiltakstype))
     )
+      return true
+    return false
+  }
+
+  const brukMasterVisning = (tiltakstype: Tiltakskode) => {
+    if (toggles?.[MASTER_VISNING] &&
+        tiltakstyperKometSnartErMasterFor.includes(tiltakstype))
       return true
     return false
   }
@@ -46,6 +61,7 @@ export const useFeatureToggle = () => {
     erKometDeltakereEnabled: toggles
       ? toggles[KOMET_DELTAKERE_TOGGLE_NAVN]
       : false,
-    erKometMasterForTiltak
+    erKometMasterForTiltak,
+    brukMasterVisning
   }
 }
