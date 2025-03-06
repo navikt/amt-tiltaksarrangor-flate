@@ -11,7 +11,7 @@ import {
 } from './validering/aarsakValidering'
 import { endreSluttarsakForslag } from '../../../../../api/forslag-api'
 import { AktivtForslag } from '../../../../../api/data/forslag'
-import { Deltaker, IndividuellDeltakerStatus } from '../../../../../api/data/deltaker'
+import { Deltaker, TiltakDeltakerStatus } from '../../../../../api/data/deltaker'
 import { EndringType } from '../types'
 
 interface EndreSluttaarsakModalProps {
@@ -22,8 +22,8 @@ export interface EndreSluttaarsakModalDataProps {
   readonly deltakerId: string
   readonly deltaker: Deltaker
   readonly deltakerStatus:
-    | IndividuellDeltakerStatus.IKKE_AKTUELL
-    | IndividuellDeltakerStatus.HAR_SLUTTET
+  | TiltakDeltakerStatus.IKKE_AKTUELL
+  | TiltakDeltakerStatus.HAR_SLUTTET
   readonly visGodkjennVilkaarPanel: boolean
   readonly onEndringUtfort: () => void
   readonly onForslagSendt: (forslag: AktivtForslag) => void
@@ -96,7 +96,7 @@ export const EndreSluttaarsakModal = ({
     >
       <AarsakSelector
         tittel={
-          deltakerStatus === IndividuellDeltakerStatus.HAR_SLUTTET
+          deltakerStatus === TiltakDeltakerStatus.HAR_SLUTTET
             ? 'Hva er årsaken til avslutning?'
             : 'Hva er årsaken til at deltakeren ikke er aktuell?'
         }

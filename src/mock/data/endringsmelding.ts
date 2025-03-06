@@ -11,7 +11,7 @@ import { randBetween } from '../utils/faker'
 import { endringsmeldingId } from './id'
 
 export const lagMockEndringsmeldingForDeltaker = (
-  deltakerStatus: typeof TiltakDeltakerStatus
+  deltakerStatus: TiltakDeltakerStatus
 ): Endringsmelding[] => {
   const n = randBetween(0, 10)
 
@@ -100,7 +100,7 @@ export const lagMockEndringsmeldingForDeltaker = (
 }
 
 export const lagMockHistoriskeEndringsmeldingForDeltaker = (
-  deltakerStatus: typeof TiltakDeltakerStatus,
+  deltakerStatus: TiltakDeltakerStatus,
   startDato: Date | null,
   sluttDato: Date | null
 ): Endringsmelding[] => {

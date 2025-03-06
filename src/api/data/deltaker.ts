@@ -23,22 +23,6 @@ export enum Hendelser {
   NyDeltaker = 'NyDeltaker'
 }
 
-export enum KursDeltakerStatuser {
-  VURDERES = 'VURDERES',
-  VENTER_PA_OPPSTART = 'VENTER_PA_OPPSTART',
-  DELTAR = 'DELTAR',
-  FULLFORT = 'FULLFORT',
-  AVBRUTT = 'AVBRUTT'
-}
-
-export enum IndividuellDeltakerStatus {
-  VURDERES = 'VURDERES',
-  VENTER_PA_OPPSTART = 'VENTER_PA_OPPSTART',
-  DELTAR = 'DELTAR',
-  HAR_SLUTTET = 'HAR_SLUTTET',
-  IKKE_AKTUELL = 'IKKE_AKTUELL'
-}
-
 export enum Adressetype {
   KONTAKTADRESSE = 'KONTAKTADRESSE',
   OPPHOLDSADRESSE = 'OPPHOLDSADRESSE',
@@ -50,9 +34,14 @@ export enum Vurderingstype {
   OPPFYLLER_IKKE_KRAVENE = 'OPPFYLLER_IKKE_KRAVENE'
 }
 
-export const TiltakDeltakerStatus = {
-  ...KursDeltakerStatuser,
-  ...IndividuellDeltakerStatus
+export enum TiltakDeltakerStatus {
+  VURDERES = 'VURDERES',
+  VENTER_PA_OPPSTART = 'VENTER_PA_OPPSTART',
+  DELTAR = 'DELTAR',
+  FULLFORT = 'FULLFORT',
+  AVBRUTT = 'AVBRUTT',
+  HAR_SLUTTET = 'HAR_SLUTTET',
+  IKKE_AKTUELL = 'IKKE_AKTUELL'
 }
 
 export enum AktivEndringsType {

@@ -7,7 +7,7 @@ import { dateStrWithMonthName } from './date-utils'
 import { getDeltakelsesmengdetekst } from './deltaker-utils'
 
 export const mapTiltakDeltakerStatusTilTekst = (
-  tiltakDeltakerStatus: typeof TiltakDeltakerStatus | string
+  tiltakDeltakerStatus: TiltakDeltakerStatus | string
 ): string => {
   switch (tiltakDeltakerStatus) {
     case TiltakDeltakerStatus.VENTER_PA_OPPSTART:

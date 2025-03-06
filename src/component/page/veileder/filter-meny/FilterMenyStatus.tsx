@@ -1,6 +1,5 @@
 import {
-  IndividuellDeltakerStatus,
-  KursDeltakerStatuser,
+  TiltakDeltakerStatus,
   VeiledersDeltaker
 } from '../../../../api/data/deltaker'
 import React, { useEffect, useState } from 'react'
@@ -37,7 +36,7 @@ export const FilterMenyStatus = (props: Props): React.ReactElement => {
   } = useVeilederFilterContext()
 
   useEffect(() => {
-    const statuser = { ...KursDeltakerStatuser, ...IndividuellDeltakerStatus }
+    const statuser = { ...TiltakDeltakerStatus }
     const deltakereFiltrert = filtrerDeltakerePaaAltUtenom(
       FilterType.Status,
       props.deltakere

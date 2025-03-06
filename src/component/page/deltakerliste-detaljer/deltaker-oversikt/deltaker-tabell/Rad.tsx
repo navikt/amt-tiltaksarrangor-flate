@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import cls from 'classnames'
 import { Link, useNavigate } from 'react-router-dom'
 import {
-  KursDeltakerStatuser,
+  TiltakDeltakerStatus,
   TiltakDeltaker,
   Vurderingstype
 } from '../../../../../api/data/deltaker'
@@ -161,7 +161,7 @@ export const Rad = (props: RadProps): React.ReactElement<RadProps> => {
       <Table.DataCell className={cls(styles.smallText)}>
         <div className={cls(styles.statusCelle)}>
           <StatusMerkelapp status={status} erDeltakerlisteVisning />
-          {status.type === KursDeltakerStatuser.VURDERES &&
+          {status.type === TiltakDeltakerStatus.VURDERES &&
             gjeldendeVurderingFraArrangor &&
             vurderingIkon}
         </div>
