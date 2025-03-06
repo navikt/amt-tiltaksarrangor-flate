@@ -7,7 +7,7 @@ import { dateStrWithMonthName } from './date-utils'
 import { getDeltakelsesmengdetekst } from './deltaker-utils'
 
 export const mapTiltakDeltakerStatusTilTekst = (
-  tiltakDeltakerStatus: typeof TiltakDeltakerStatus | string
+  tiltakDeltakerStatus: TiltakDeltakerStatus | string
 ): string => {
   switch (tiltakDeltakerStatus) {
     case TiltakDeltakerStatus.VENTER_PA_OPPSTART:
@@ -38,6 +38,8 @@ export const mapHendelseTypeTilTekst = (
     return 'Venter på svar fra Nav'
   } else if (hendelse === Hendelser.OppdateringFraNav) {
     return 'Oppdatering fra Nav'
+  } else if (hendelse === Hendelser.NyDeltaker) {
+    return 'Nye deltakere'
   } else {
     return ''
   }

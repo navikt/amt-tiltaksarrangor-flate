@@ -4,7 +4,6 @@ import React, { useRef } from 'react'
 
 import {
   Deltaker,
-  IndividuellDeltakerStatus,
   TiltakDeltakerStatus
 } from '../../../../api/data/deltaker'
 import { DropDownButton } from './DropDownButton'
@@ -201,10 +200,10 @@ export const EndreDeltakelseKnapp = (props: EndreDeltakelseKnappProps) => {
                 }
               />
             )}
-            {(deltaker.status.type === IndividuellDeltakerStatus.HAR_SLUTTET ||
+            {(deltaker.status.type === TiltakDeltakerStatus.HAR_SLUTTET ||
               (props.erForslagEnabled &&
                 deltaker.status.type ===
-                  IndividuellDeltakerStatus.IKKE_AKTUELL)) &&
+                TiltakDeltakerStatus.IKKE_AKTUELL)) &&
               !deltaker.deltakerliste.erKurs && (
                 <DropDownButton
                   endringstype={EndringType.ENDRE_SLUTTAARSAK}
@@ -213,8 +212,8 @@ export const EndreDeltakelseKnapp = (props: EndreDeltakelseKnappProps) => {
                       deltakerId: deltaker.id,
                       deltaker: deltaker,
                       deltakerStatus: deltaker.status.type as
-                        | IndividuellDeltakerStatus.HAR_SLUTTET
-                        | IndividuellDeltakerStatus.IKKE_AKTUELL,
+                        | TiltakDeltakerStatus.HAR_SLUTTET
+                        | TiltakDeltakerStatus.IKKE_AKTUELL,
                       visGodkjennVilkaarPanel: visGodkjennVilkaarPanel,
                       onEndringUtfort: props.onEndringUtfort,
                       onForslagSendt: props.onForslagSendt,

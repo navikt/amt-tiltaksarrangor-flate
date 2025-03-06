@@ -2,6 +2,7 @@ import { Box, Heading } from '@navikt/ds-react'
 import { AktivtForslag } from '../../../../../api/data/forslag'
 import { Tiltakskode } from '../../../../../api/data/tiltak'
 import { UlestEndring, UlestEndringType } from '../../../../../api/data/ulestEndring'
+import { dateStrWithMonthName } from '../../../../../utils/date-utils'
 import { getEndringsTittel } from '../../../../../utils/text-mappers'
 import { EndringPanel } from './EndringPanel'
 import { FjernEndring } from './FjernEndring'
@@ -13,7 +14,8 @@ import {
   AvvistForslagDetaljer,
   Endringsdetaljer,
   NavBrukerDetaljer,
-  NavDetaljer
+  NavDetaljer,
+  NyDeltakerDetaljer
 } from './UlestEndringDetaljer'
 
 interface Props {
@@ -50,7 +52,7 @@ export const UbehandledeEndringer = ({
         <Heading level="3" size="small" className={styles.aktiveForslagTitle}>
           Forslag sendt til Nav:
         </Heading>
-        {getsendteForslag(forslag, deltakerId, onTilbakekalt)}
+        {getSendteForslag(forslag, deltakerId, onTilbakekalt)}
         {getEndringsDetaljer(ulesteSvarFraNav, deltakerId, tiltakstype, onMarkertSomLest)}
       </>)}
 
@@ -64,7 +66,7 @@ export const UbehandledeEndringer = ({
   )
 }
 
-const getsendteForslag = (
+const getSendteForslag = (
   forslag: AktivtForslag[],
   deltakerId: string,
   onTilbakekalt: (forslagId: string) => void) => {
@@ -98,7 +100,7 @@ const getEndringsDetaljer = (
   return ulesteEndringer.map((it, i) => (
     <EndringPanel
       key={`${it.id}${i}`}
-      tittel={it.oppdatering.type === UlestEndringType.DeltakelsesEndring ? getEndringsTittel(it.oppdatering.endring.endring) : undefined}
+      tittel={getUlestOppdateringTittel(it)}
       ulestEndringType={it.oppdatering.type}
       endringType={getEndringsType(it)}
       forslagStatusType={getForslagStatusType(it)}
@@ -120,6 +122,9 @@ const getEndringsDetaljer = (
       {it.oppdatering.type === UlestEndringType.NavEndring && (
         <NavDetaljer oppdatering={it.oppdatering} />
       )}
+      {it.oppdatering.type === UlestEndringType.NyDeltaker && (
+        <NyDeltakerDetaljer oppdatering={it.oppdatering} />
+      )}
     </EndringPanel>
   ))
 }
@@ -138,6 +143,15 @@ const getForslagStatusType = (ulesteEndringer: UlestEndring) => {
     return ulesteEndringer.oppdatering.endring.forslag?.status.type
   } else if (ulesteEndringer.oppdatering.type === UlestEndringType.AvvistForslag) {
     return ulesteEndringer.oppdatering.forslag.status.type
+  }
+  return undefined
+}
+
+const getUlestOppdateringTittel = (ulesteEndringer: UlestEndring) => {
+  if (ulesteEndringer.oppdatering.type === UlestEndringType.DeltakelsesEndring) {
+    return getEndringsTittel(ulesteEndringer.oppdatering.endring.endring)
+  } else if (ulesteEndringer.oppdatering.type === UlestEndringType.NyDeltaker) {
+    return `Påmelding ${dateStrWithMonthName(ulesteEndringer.oppdatering.opprettet)}`
   }
   return undefined
 }

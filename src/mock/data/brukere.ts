@@ -20,7 +20,7 @@ import { AktivtForslag, ForslagEndringType, ForslagStatusType, HistorikkForslag,
 import { DeltakerEndring } from '../../api/data/historikk'
 import { Gjennomforing, Tiltakskode } from '../../api/data/tiltak'
 import { VeilederMedType } from '../../api/data/veileder'
-import { ulestEndringErOppdateringFraNav, ulestEndringErSvarFraNav } from '../../component/page/bruker-detaljer/deltaker-detaljer/forslag/forslagUtils'
+import { ulestEndringErNyeDeltaker, ulestEndringErOppdateringFraNav, ulestEndringErSvarFraNav } from '../../component/page/bruker-detaljer/deltaker-detaljer/forslag/forslagUtils'
 import { randBetween, randomBoolean, randomFnr, randomUuid } from '../utils/faker'
 import {
   lagMockEndringsmeldingForDeltaker,
@@ -87,7 +87,8 @@ export interface MockTiltakDeltaker {
   deltakelsesmengder: Deltakelsesmengder | null
   aktivEndring?: AktivEndringForDeltaker | null,
   svarFraNav: boolean,
-  oppdateringFraNav: boolean
+  oppdateringFraNav: boolean,
+  nyDeltaker: boolean
 }
 
 const navEnheter: MockNavEnhet[] = [
@@ -341,35 +342,45 @@ const lagMockTiltakDeltagerForGjennomforing = (
       }
     })
   } else if (rndaomNumber < 4) {
-    ulesteEndringer.push(
-      {
-        id: randomUuid(),
-        deltakerId: id,
-        oppdatering: {
-          type: UlestEndringType.NavEndring,
-          nyNavVeileder: true,
-          navVeilederNavn: veilederNavn,
-          navEnhet: 'Nav Oslo',
-          navVeilederTelefonnummer: veileder?.telefon ?? null,
-          navVeilederEpost: veileder?.epost ?? null,
-          oppdatert: faker.date.recent()
-        }
-      })
+    ulesteEndringer.push({
+      id: randomUuid(),
+      deltakerId: id,
+      oppdatering: {
+        type: UlestEndringType.NavEndring,
+        nyNavVeileder: true,
+        navVeilederNavn: veilederNavn,
+        navEnhet: 'Nav Oslo',
+        navVeilederTelefonnummer: veileder?.telefon ?? null,
+        navVeilederEpost: veileder?.epost ?? null,
+        oppdatert: faker.date.recent()
+      }
+    })
   } else if (rndaomNumber < 6) {
-    ulesteEndringer.push(
-      {
-        id: randomUuid(),
-        deltakerId: id,
-        oppdatering: {
-          type: UlestEndringType.NavEndring,
-          nyNavVeileder: null,
-          navVeilederNavn: veilederNavn,
-          navEnhet: 'Nav Oslo',
-          navVeilederTelefonnummer: veileder?.telefon ?? null,
-          navVeilederEpost: veileder?.epost ?? null,
-          oppdatert: faker.date.recent()
-        }
-      })
+    ulesteEndringer.push({
+      id: randomUuid(),
+      deltakerId: id,
+      oppdatering: {
+        type: UlestEndringType.NavEndring,
+        nyNavVeileder: null,
+        navVeilederNavn: veilederNavn,
+        navEnhet: 'Nav Oslo',
+        navVeilederTelefonnummer: veileder?.telefon ?? null,
+        navVeilederEpost: veileder?.epost ?? null,
+        oppdatert: faker.date.recent()
+      }
+    })
+  } else if (rndaomNumber < 8) {
+    ulesteEndringer.push({
+      id: randomUuid(),
+      deltakerId: id,
+      oppdatering: {
+        type: UlestEndringType.NyDeltaker,
+        opprettet: faker.date.recent(), //  "2025-02-24"
+        opprettetAvNavn: null,
+        opprettetAvEnhet: null
+      }
+    },
+    )
   }
 
   return {
@@ -436,7 +447,8 @@ const lagMockTiltakDeltagerForGjennomforing = (
     aktivEndring,
     ulesteEndringer,
     svarFraNav: ulesteEndringer.find(ulestEndringErSvarFraNav) ? true : false,
-    oppdateringFraNav: ulesteEndringer.find(ulestEndringErOppdateringFraNav) ? true : false
+    oppdateringFraNav: ulesteEndringer.find(ulestEndringErOppdateringFraNav) ? true : false,
+    nyDeltaker: ulesteEndringer.find(ulestEndringErNyeDeltaker) ? true : false
   }
 }
 

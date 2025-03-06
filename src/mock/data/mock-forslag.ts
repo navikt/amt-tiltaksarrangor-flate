@@ -9,7 +9,7 @@ import {
 import { randBetween, randomUuid } from '../utils/faker'
 
 export function lagMockAktiveForslag(
-  deltakerStatus: typeof TiltakDeltakerStatus | string
+  deltakerStatus: TiltakDeltakerStatus | string
 ): AktivtForslag[] {
   switch (deltakerStatus) {
     case TiltakDeltakerStatus.DELTAR:

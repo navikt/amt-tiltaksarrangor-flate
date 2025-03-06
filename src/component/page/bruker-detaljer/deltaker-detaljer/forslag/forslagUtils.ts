@@ -49,3 +49,6 @@ export const ulestEndringErSvarFraNav = (ulestEndring: UlestEndring) => {
 
 export const ulestEndringErOppdateringFraNav = (ulestEndring: UlestEndring) =>
   !ulestEndringErSvarFraNav(ulestEndring)
+
+export const ulestEndringErNyeDeltaker = (ulestEndring: UlestEndring) =>
+  ulestEndring.oppdatering.type === UlestEndringType.NyDeltaker

@@ -19,23 +19,8 @@ import { veilederMedTypeSchema, veiledertypeSchema } from './veileder'
 export enum Hendelser {
   VenterPaSvarFraNav = 'VenterPaSvarFraNav',
   SvarFraNav = 'SvarFraNav',
-  OppdateringFraNav = 'OppdateringFraNav'
-}
-
-export enum KursDeltakerStatuser {
-  VURDERES = 'VURDERES',
-  VENTER_PA_OPPSTART = 'VENTER_PA_OPPSTART',
-  DELTAR = 'DELTAR',
-  FULLFORT = 'FULLFORT',
-  AVBRUTT = 'AVBRUTT'
-}
-
-export enum IndividuellDeltakerStatus {
-  VURDERES = 'VURDERES',
-  VENTER_PA_OPPSTART = 'VENTER_PA_OPPSTART',
-  DELTAR = 'DELTAR',
-  HAR_SLUTTET = 'HAR_SLUTTET',
-  IKKE_AKTUELL = 'IKKE_AKTUELL'
+  OppdateringFraNav = 'OppdateringFraNav',
+  NyDeltaker = 'NyDeltaker'
 }
 
 export enum Adressetype {
@@ -49,9 +34,14 @@ export enum Vurderingstype {
   OPPFYLLER_IKKE_KRAVENE = 'OPPFYLLER_IKKE_KRAVENE'
 }
 
-export const TiltakDeltakerStatus = {
-  ...KursDeltakerStatuser,
-  ...IndividuellDeltakerStatus
+export enum TiltakDeltakerStatus {
+  VURDERES = 'VURDERES',
+  VENTER_PA_OPPSTART = 'VENTER_PA_OPPSTART',
+  DELTAR = 'DELTAR',
+  FULLFORT = 'FULLFORT',
+  AVBRUTT = 'AVBRUTT',
+  HAR_SLUTTET = 'HAR_SLUTTET',
+  IKKE_AKTUELL = 'IKKE_AKTUELL'
 }
 
 export enum AktivEndringsType {
@@ -121,7 +111,8 @@ export const tiltakDeltakerSchema = z.object({
   erVeilederForDeltaker: z.boolean(),
   aktivEndring: aktivEndringSchema.nullable(),
   svarFraNav: z.boolean(),
-  oppdateringFraNav: z.boolean()
+  oppdateringFraNav: z.boolean(),
+  nyDeltaker: z.boolean()
 })
 
 export const deltakersDeltakerlisteSchema = z.object({
@@ -228,7 +219,8 @@ export const veiledersDeltakerSchema = z.object({
   sistEndret: dateSchema,
   adressebeskyttet: z.boolean(),
   svarFraNav: z.boolean(),
-  oppdateringFraNav: z.boolean()
+  oppdateringFraNav: z.boolean(),
+  nyDeltaker: z.boolean()
 })
 
 export const deltakerlisteVeilederSchema = z.array(veiledersDeltakerSchema)

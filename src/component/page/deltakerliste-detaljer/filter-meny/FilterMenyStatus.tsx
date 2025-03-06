@@ -1,6 +1,5 @@
 import {
-  IndividuellDeltakerStatus,
-  KursDeltakerStatuser,
+  TiltakDeltakerStatus,
   TiltakDeltaker
 } from '../../../../api/data/deltaker'
 import React, { useCallback, useEffect, useState } from 'react'
@@ -45,16 +44,15 @@ export const FilterMenyStatus = (props: Props): React.ReactElement => {
     FiltermenyDataEntry
   > => {
     const dataMap = new Map<string, FiltermenyDataEntry>()
-    const statuser = props.erKurs
-      ? KursDeltakerStatuser
-      : IndividuellDeltakerStatus
+
+    const statuser = { ...TiltakDeltakerStatus }
 
     Object.keys(statuser).forEach((status) => {
       const tekst = mapTiltakDeltakerStatusTilTekst(status)
 
       if (
         props.tiltakType !== Tiltakskode.GRUPPEAMO &&
-        status === KursDeltakerStatuser.VURDERES
+        status === TiltakDeltakerStatus.VURDERES
       ) {
         return
       }

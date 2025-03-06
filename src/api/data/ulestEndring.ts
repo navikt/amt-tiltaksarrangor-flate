@@ -7,7 +7,8 @@ export enum UlestEndringType {
   DeltakelsesEndring = 'DeltakelsesEndring',
   AvvistForslag = 'AvvistForslag',
   NavBrukerEndring = 'NavBrukerEndring',
-  NavEndring = 'NavEndring'
+  NavEndring = 'NavEndring',
+  NyDeltaker = 'NyDeltaker'
 }
 
 const ulestEndrinDeltakelsesEndringSchema = z.object({
@@ -37,6 +38,13 @@ const ulestEndringNavSchema = z.object({
     oppdatert: dateSchema
 })
 
+const nyDeltakerSchema = z.object({
+  type: z.literal(UlestEndringType.NyDeltaker),
+  opprettet: dateSchema,
+  opprettetAvNavn: z.string().nullable(),
+  opprettetAvEnhet: z.string().nullable()
+})
+
 export const ulestEndringSchema = z.object({
   id: z.string().uuid(),
   deltakerId: z.string().uuid(),
@@ -44,10 +52,12 @@ export const ulestEndringSchema = z.object({
     ulestEndrinDeltakelsesEndringSchema,
     ulestEndringForslagSchema,
     ulestEndringNavBrukerSchema,
-    ulestEndringNavSchema
+    ulestEndringNavSchema,
+    nyDeltakerSchema
   ])
 })
 
 export type UlestEndring = z.infer<typeof ulestEndringSchema>
 export type UlestEndringOppdateringNavBruker = z.infer<typeof ulestEndringNavBrukerSchema>
 export type UlestEndringOppdateringNav = z.infer<typeof ulestEndringNavSchema>
+export type UlestEndringOppdateringNyDeltaker = z.infer<typeof nyDeltakerSchema>

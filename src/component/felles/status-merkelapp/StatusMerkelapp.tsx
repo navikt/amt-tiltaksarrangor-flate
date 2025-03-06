@@ -9,7 +9,7 @@ import {
 import { mapTiltakDeltakerStatusTilTekst } from '../../../utils/text-mappers'
 import styles from './StatusMerkelapp.module.scss'
 
-const getStyle = (statusType: typeof TiltakDeltakerStatus | string) => {
+const getStyle = (statusType: TiltakDeltakerStatus | string) => {
   switch (statusType) {
     case TiltakDeltakerStatus.DELTAR:
       return styles.statusTagHvit
@@ -19,7 +19,7 @@ const getStyle = (statusType: typeof TiltakDeltakerStatus | string) => {
 }
 
 const deltakerlisteStyle = (
-  statusType: typeof TiltakDeltakerStatus | string
+  statusType: TiltakDeltakerStatus | string
 ) => {
   switch (statusType) {
     case TiltakDeltakerStatus.IKKE_AKTUELL:
@@ -35,7 +35,7 @@ const deltakerlisteStyle = (
   }
 }
 
-const getTagType = (statusType: typeof TiltakDeltakerStatus | string) => {
+const getTagType = (statusType: TiltakDeltakerStatus | string) => {
   switch (statusType) {
     case TiltakDeltakerStatus.VENTER_PA_OPPSTART:
       return 'alt3'
