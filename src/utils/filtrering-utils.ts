@@ -1,4 +1,4 @@
-import { VeiledersDeltaker } from '../api/data/deltaker'
+import { TiltakDeltakerStatus, VeiledersDeltaker } from '../api/data/deltaker'
 
 const matcherDeltakerliste = (
   deltakerlisteFilter: string[],
@@ -15,4 +15,25 @@ export const filtrerDeltakerliste = (
   return brukere.filter((bruker) =>
     matcherDeltakerliste(deltakerlisteFilter, bruker.deltakerliste.navn)
   )
+}
+
+export const getKursStatuser = () => {
+  return [ TiltakDeltakerStatus.VURDERES,
+  TiltakDeltakerStatus.VURDERES,
+  TiltakDeltakerStatus.VENTER_PA_OPPSTART,
+  TiltakDeltakerStatus.DELTAR,
+  TiltakDeltakerStatus.FULLFORT,
+  TiltakDeltakerStatus.AVBRUTT,
+  TiltakDeltakerStatus.IKKE_AKTUELL,
+  ]
+}
+
+export const getIndividuellStatuser = () => {
+  return [
+    TiltakDeltakerStatus.VURDERES,
+    TiltakDeltakerStatus.VENTER_PA_OPPSTART,
+    TiltakDeltakerStatus.DELTAR,
+    TiltakDeltakerStatus.HAR_SLUTTET,
+    TiltakDeltakerStatus.IKKE_AKTUELL
+  ]
 }

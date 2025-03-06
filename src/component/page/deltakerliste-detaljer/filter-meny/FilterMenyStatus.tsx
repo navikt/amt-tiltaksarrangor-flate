@@ -1,6 +1,6 @@
 import {
-  TiltakDeltakerStatus,
-  TiltakDeltaker
+  TiltakDeltaker,
+  TiltakDeltakerStatus
 } from '../../../../api/data/deltaker'
 import React, { useCallback, useEffect, useState } from 'react'
 import {
@@ -13,6 +13,7 @@ import { mapTiltakDeltakerStatusTilTekst } from '../../../../utils/text-mappers'
 import { FiltermenyDataEntry } from '../../../felles/table-filter/filtermeny-data-entry'
 import useLocalStorage from '../../../../hooks/useLocalStorage'
 import { Tiltakskode } from '../../../../api/data/tiltak'
+import { getIndividuellStatuser, getKursStatuser } from '../../../../utils/filtrering-utils'
 
 interface Props {
   deltakere: TiltakDeltaker[]
@@ -45,9 +46,11 @@ export const FilterMenyStatus = (props: Props): React.ReactElement => {
   > => {
     const dataMap = new Map<string, FiltermenyDataEntry>()
 
-    const statuser = { ...TiltakDeltakerStatus }
+    const statuser = props.erKurs
+      ? getKursStatuser()
+      : getIndividuellStatuser()
 
-    Object.keys(statuser).forEach((status) => {
+    statuser.forEach((status) => {
       const tekst = mapTiltakDeltakerStatusTilTekst(status)
 
       if (
