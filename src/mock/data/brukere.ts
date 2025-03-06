@@ -375,11 +375,12 @@ const lagMockTiltakDeltagerForGjennomforing = (
       deltakerId: id,
       oppdatering: {
         type: UlestEndringType.NyDeltaker,
-        opprettet: faker.date.recent(),
-        opprettetAvNavn: veilederNavn,
-        opprettetAvEnhet: 'Nav Oslo'
+        opprettet: faker.date.recent(), //  "2025-02-24"
+        opprettetAvNavn: null,
+        opprettetAvEnhet: null
       }
-    })
+    },
+    )
   }
 
   return {

@@ -52,7 +52,7 @@ export const UbehandledeEndringer = ({
         <Heading level="3" size="small" className={styles.aktiveForslagTitle}>
           Forslag sendt til Nav:
         </Heading>
-        {getsendteForslag(forslag, deltakerId, onTilbakekalt)}
+        {getSendteForslag(forslag, deltakerId, onTilbakekalt)}
         {getEndringsDetaljer(ulesteSvarFraNav, deltakerId, tiltakstype, onMarkertSomLest)}
       </>)}
 
@@ -66,7 +66,7 @@ export const UbehandledeEndringer = ({
   )
 }
 
-const getsendteForslag = (
+const getSendteForslag = (
   forslag: AktivtForslag[],
   deltakerId: string,
   onTilbakekalt: (forslagId: string) => void) => {

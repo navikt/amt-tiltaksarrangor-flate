@@ -37,9 +37,9 @@ interface DeltakelseInfoProps {
 export const DeltakelseInfo = ({
   deltaker
 }: DeltakelseInfoProps): React.ReactElement => {
-  const [reloadEndringsmeldinger, setReloadEndringsmeldinger] = useState(false)
-  const [visFjernDeltakerModal, setVisFjernDeltakerModal] = useState(false)
-  const [forslag, setForslag] = useState(deltaker.aktiveForslag)
+  const [ reloadEndringsmeldinger, setReloadEndringsmeldinger ] = useState(false)
+  const [ visFjernDeltakerModal, setVisFjernDeltakerModal ] = useState(false)
+  const [ forslag, setForslag ] = useState(deltaker.aktiveForslag)
   const [ ulesteEndringer, setUlesteEndringer ] = useState(deltaker.ulesteEndringer)
 
   const { setDeltaker } = useDeltakerContext()
@@ -152,16 +152,14 @@ export const DeltakelseInfo = ({
       </div>
 
       <div className={styles.body}>
-        {erForslagEnabled && (
-          <UbehandledeEndringer
-            forslag={forslag}
-            deltakerId={deltaker.id}
-            ulesteEndringer={ulesteEndringer}
-            onTilbakekalt={handleForslagTilbakekalt}
-            onMarkertSomLest={fjernLesteEndringer}
-            tiltakstype={deltaker.deltakerliste.tiltakstype}
-          />
-        )}
+        <UbehandledeEndringer
+          forslag={forslag}
+          deltakerId={deltaker.id}
+          ulesteEndringer={ulesteEndringer}
+          onTilbakekalt={handleForslagTilbakekalt}
+          onMarkertSomLest={fjernLesteEndringer}
+          tiltakstype={deltaker.deltakerliste.tiltakstype}
+        />
 
         {erForslagEnabled && (
           <SeEndringer
