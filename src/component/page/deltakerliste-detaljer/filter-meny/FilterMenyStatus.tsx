@@ -50,7 +50,7 @@ export const FilterMenyStatus = (props: Props): React.ReactElement => {
       ? getKursStatuser()
       : getIndividuellStatuser()
 
-    Object.keys(statuser).forEach((status) => {
+    statuser.forEach((status) => {
       const tekst = mapTiltakDeltakerStatusTilTekst(status)
 
       if (
