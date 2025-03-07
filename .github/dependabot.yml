@@ -23,6 +23,8 @@ updates:
           - 'react'
           - 'react-dom'
       minor-and-patch:
+        patterns:
+          - '*'
         update-types:
           - 'patch'
           - 'minor'
