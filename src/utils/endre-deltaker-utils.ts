@@ -1,2 +1,2 @@
 export const BESKRIVELSE_MAKS_TEGN = 40
-export const BEGRUNNELSE_MAKS_TEGN = 200
+export const BEGRUNNELSE_MAKS_TEGN = 0
