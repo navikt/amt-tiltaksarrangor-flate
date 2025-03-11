@@ -67,7 +67,7 @@
     "sass": "^1.85.1",
     "table": "^6.9.0",
     "typescript": "^5.8.2",
-    "typescript-eslint": "^8.26.0",
+    "typescript-eslint": "^8.26.1",
     "vite": "^6.2.1",
     "vitest": "^3.0.8"
   },
