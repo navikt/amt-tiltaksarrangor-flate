@@ -12,6 +12,9 @@ import { TabellBodyVeileder } from './TabellBodyVeileder'
 import { filtrerDeltakerliste } from '../../../utils/filtrering-utils'
 import { useVeilederFilterContext } from './store/VeilederFilterContextProvider'
 import { AlertInfoMessage } from '../../felles/alert-info-message/AlertInfoMessage'
+import {
+  AlertInfoMessageSoktInnVurderes
+} from '../../felles/alert-info-message/sokt-inn-vurderes/AlertInfoMessageSoktInnVurderes'
 
 interface MineDeltakereTabellProps {
   mineDeltakere: VeiledersDeltaker[]
@@ -63,6 +66,7 @@ export const MineDeltakereTabell = (
   return (
     <div>
       <AlertInfoMessage />
+      <AlertInfoMessageSoktInnVurderes />
 
       {mineDeltakere.length === 0 ? (
         <IngenDeltakere />

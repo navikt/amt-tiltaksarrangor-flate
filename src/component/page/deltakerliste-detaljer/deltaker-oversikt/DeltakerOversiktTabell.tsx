@@ -10,6 +10,9 @@ import { DeltakerTabell } from './deltaker-tabell/DeltakerTabell'
 import { sorterDeltakere } from './deltaker-tabell/sortering'
 import styles from './DeltakerOversiktTabell.module.scss'
 import { IngenDeltakereAlertstripe } from './IngenDeltakereAlertstripe'
+import {
+  AlertInfoMessageSoktInnVurderes
+} from '../../../felles/alert-info-message/sokt-inn-vurderes/AlertInfoMessageSoktInnVurderes'
 
 interface DeltakerOversiktTabellProps {
   deltakere: TiltakDeltaker[]
@@ -49,6 +52,7 @@ export const DeltakerOversiktTabell = (
   return (
     <div className={styles.tableWrapper}>
       <AlertInfoMessage />
+      <AlertInfoMessageSoktInnVurderes />
 
       {deltakere.length === 0 ? (
         <IngenDeltakereAlertstripe />
