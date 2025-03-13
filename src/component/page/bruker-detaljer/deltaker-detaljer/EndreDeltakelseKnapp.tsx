@@ -42,11 +42,12 @@ export const EndreDeltakelseKnapp = (props: EndreDeltakelseKnappProps) => {
     deltaker.status.type === TiltakDeltakerStatus.IKKE_AKTUELL &&
     props.erForslagEnabled
 
-  const kanEndreStartDato =
-    deltaker.status.type === TiltakDeltakerStatus.VENTER_PA_OPPSTART ||
-    deltaker.status.type === TiltakDeltakerStatus.IKKE_AKTUELL ||
-    deltaker.status.type === TiltakDeltakerStatus.DELTAR ||
-    deltaker.status.type === TiltakDeltakerStatus.VURDERES
+	const kanEndreStartDato =
+		deltaker.status.type === TiltakDeltakerStatus.VENTER_PA_OPPSTART ||
+		deltaker.status.type === TiltakDeltakerStatus.IKKE_AKTUELL ||
+		deltaker.status.type === TiltakDeltakerStatus.DELTAR ||
+		deltaker.status.type === TiltakDeltakerStatus.VURDERES ||
+		deltaker.status.type === TiltakDeltakerStatus.SOKT_INN
 
   const kanFjerneOppstartsdato =
     deltaker.status.type === TiltakDeltakerStatus.VENTER_PA_OPPSTART &&
@@ -170,20 +171,20 @@ export const EndreDeltakelseKnapp = (props: EndreDeltakelseKnappProps) => {
                 }
               />
             )}
-            {deltaker.status.type === TiltakDeltakerStatus.VURDERES && (
-              <DropDownButton
-                endringstype={EndringType.DELTAKER_IKKE_AKTUELL}
-                onClick={() =>
-                  visSettDeltakerIkkeAktuellModal({
-                    deltakerId: deltaker.id,
-                    visGodkjennVilkaarPanel: visGodkjennVilkaarPanel,
-                    onEndringUtfort: props.onEndringUtfort,
-                    onForslagSendt: props.onForslagSendt,
-                    erForslagEnabled: props.erForslagEnabled
-                  })
-                }
-              />
-            )}
+						{(deltaker.status.type === TiltakDeltakerStatus.VURDERES || deltaker.status.type === TiltakDeltakerStatus.SOKT_INN) && (
+							<DropDownButton
+								endringstype={EndringType.DELTAKER_IKKE_AKTUELL}
+								onClick={() =>
+									visSettDeltakerIkkeAktuellModal({
+										deltakerId: deltaker.id,
+										visGodkjennVilkaarPanel: visGodkjennVilkaarPanel,
+										onEndringUtfort: props.onEndringUtfort,
+										onForslagSendt: props.onForslagSendt,
+										erForslagEnabled: props.erForslagEnabled
+									})
+								}
+							/>
+						)}
             {(deltaker.status.type === TiltakDeltakerStatus.FULLFORT ||
               deltaker.status.type === TiltakDeltakerStatus.AVBRUTT ||
               deltaker.status.type === TiltakDeltakerStatus.HAR_SLUTTET) && (

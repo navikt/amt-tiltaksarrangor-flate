@@ -161,7 +161,7 @@ export const Rad = (props: RadProps): React.ReactElement<RadProps> => {
       <Table.DataCell className={cls(styles.smallText)}>
         <div className={cls(styles.statusCelle)}>
           <StatusMerkelapp status={status} erDeltakerlisteVisning />
-          {status.type === TiltakDeltakerStatus.VURDERES &&
+          {(status.type === TiltakDeltakerStatus.VURDERES || status.type == TiltakDeltakerStatus.SOKT_INN) &&
             gjeldendeVurderingFraArrangor &&
             vurderingIkon}
         </div>

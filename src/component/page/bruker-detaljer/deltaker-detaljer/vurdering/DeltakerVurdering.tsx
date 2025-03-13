@@ -56,7 +56,7 @@ export const DeltakerVurdering = ({
           EMDASH
         )}
       </BodyShort>
-      {deltaker.status.type === TiltakDeltakerStatus.VURDERES && (
+      {(deltaker.status.type === TiltakDeltakerStatus.VURDERES || deltaker.status.type === TiltakDeltakerStatus.SOKT_INN) && (
         <VurderDeltakelseKnapp
           deltakerId={deltaker.id}
           updateVurdering={updateVurdering}
