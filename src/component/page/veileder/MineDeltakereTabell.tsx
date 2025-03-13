@@ -15,6 +15,7 @@ import { AlertInfoMessage } from '../../felles/alert-info-message/AlertInfoMessa
 import {
   AlertInfoMessageSoktInnVurderes
 } from '../../felles/alert-info-message/sokt-inn-vurderes/AlertInfoMessageSoktInnVurderes'
+import { useFeatureToggle } from '../../../hooks/useFeatureToggle'
 
 interface MineDeltakereTabellProps {
   mineDeltakere: VeiledersDeltaker[]
@@ -36,6 +37,7 @@ export const MineDeltakereTabell = (
   const [deltakereBearbeidet, setDeltakereBearbeidet] = useState<
     VeiledersDeltaker[]
   >(sorterVeiledersDeltakere(mineDeltakere, deltakerSortering))
+  const { visInfomeldingSoktInnVurderes } = useFeatureToggle()
 
   useEffect(() => {
     if (!mineDeltakere) return
@@ -66,8 +68,10 @@ export const MineDeltakereTabell = (
   return (
     <div>
       <AlertInfoMessage />
-      <AlertInfoMessageSoktInnVurderes />
-
+      { visInfomeldingSoktInnVurderes && (
+          <AlertInfoMessageSoktInnVurderes/>
+        )
+      }
       {mineDeltakere.length === 0 ? (
         <IngenDeltakere />
       ) : (
