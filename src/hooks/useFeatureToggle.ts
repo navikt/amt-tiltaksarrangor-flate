@@ -48,10 +48,10 @@ export const useFeatureToggle = () => {
 
   return {
     visDriftsmelding: toggles ? toggles[VIS_DRIFTSMELDING_TOGGLE_NAVN] : false,
+    visInfomeldingSoktInnVurderes: toggles ? toggles[VIS_INFOMELDING_SOKT_INN_SKAL_VURDERES] : false,
     erKometDeltakereEnabled: toggles
       ? toggles[KOMET_DELTAKERE_TOGGLE_NAVN]
       : false,
-    erKometMasterForTiltak,
-    visInfomeldingSoktInnVurderes: toggles ? toggles[VIS_INFOMELDING_SOKT_INN_SKAL_VURDERES] : false
+    erKometMasterForTiltak
   }
 }
