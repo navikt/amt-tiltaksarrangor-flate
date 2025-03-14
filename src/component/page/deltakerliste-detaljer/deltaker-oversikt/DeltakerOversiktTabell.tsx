@@ -10,64 +10,75 @@ import { DeltakerTabell } from './deltaker-tabell/DeltakerTabell'
 import { sorterDeltakere } from './deltaker-tabell/sortering'
 import styles from './DeltakerOversiktTabell.module.scss'
 import { IngenDeltakereAlertstripe } from './IngenDeltakereAlertstripe'
+import {
+	AlertInfoMessageSoktInnVurderes
+} from '../../../felles/alert-info-message/sokt-inn-vurderes/AlertInfoMessageSoktInnVurderes'
+import { Tiltakskode } from '../../../../api/data/tiltak'
+import { useFeatureToggle } from '../../../../hooks/useFeatureToggle'
 
 interface DeltakerOversiktTabellProps {
-  deltakere: TiltakDeltaker[]
+	deltakere: TiltakDeltaker[],
+	tiltakstype?: Tiltakskode
 }
 
 export const DeltakerOversiktTabell = (
-  props: DeltakerOversiktTabellProps
+	props: DeltakerOversiktTabellProps
 ): React.ReactElement<DeltakerOversiktTabellProps> => {
-  const { deltakere } = props
-  const { filtrerDeltakere, veilederFilter, medveilederFilter, statusFilter, hendelseFilter } =
-    useKoordinatorFilterContext()
-  const { deltakerSortering, setDeltakerSortering } =
-    useDeltakerSorteringContext()
-  const [deltakereBearbeidet, setDeltakereBearbeidet] = useState<
-    TiltakDeltaker[]
-  >(sorterDeltakere(deltakere, deltakerSortering))
+	const { deltakere, tiltakstype } = props
+	const { filtrerDeltakere, veilederFilter, medveilederFilter, statusFilter, hendelseFilter } =
+		useKoordinatorFilterContext()
+	const { deltakerSortering, setDeltakerSortering } =
+		useDeltakerSorteringContext()
+	const [ deltakereBearbeidet, setDeltakereBearbeidet ] = useState<
+		TiltakDeltaker[]
+	>(sorterDeltakere(deltakere, deltakerSortering))
+  const { visInfomeldingSoktInnVurderes } = useFeatureToggle()
 
   useEffect(() => {
-    if (!deltakere) return
-    const filtrerteDeltakere = filtrerDeltakere(deltakere)
-    const sortert = sorterDeltakere(filtrerteDeltakere, deltakerSortering)
-    setDeltakereBearbeidet(sortert)
-  }, [
-    deltakere,
-    filtrerDeltakere,
-    deltakerSortering,
-    veilederFilter,
-    medveilederFilter,
-    statusFilter,
-    hendelseFilter
-  ])
+		if (!deltakere) return
+		const filtrerteDeltakere = filtrerDeltakere(deltakere)
+		const sortert = sorterDeltakere(filtrerteDeltakere, deltakerSortering)
+		setDeltakereBearbeidet(sortert)
+	}, [
+		deltakere,
+		filtrerDeltakere,
+		deltakerSortering,
+		veilederFilter,
+		medveilederFilter,
+		statusFilter,
+		hendelseFilter
+	])
 
-  const handleOnSortChange = (sortKey: string | undefined) => {
-    setDeltakerSortering((prevSort) => finnNesteSortering(sortKey, prevSort))
-  }
+	const handleOnSortChange = (sortKey: string | undefined) => {
+		setDeltakerSortering((prevSort) => finnNesteSortering(sortKey, prevSort))
+	}
 
-  return (
-    <div className={styles.tableWrapper}>
-      <AlertInfoMessage />
+	return (
+		<div className={styles.tableWrapper}>
+			<AlertInfoMessage/>
+      { visInfomeldingSoktInnVurderes && tiltakstype === Tiltakskode.GRUPPEAMO && (
+			    <AlertInfoMessageSoktInnVurderes/>
+        )
+      }
 
-      {deltakere.length === 0 ? (
-        <IngenDeltakereAlertstripe />
-      ) : (
-        <>
-          <DeltakerTabell
-            deltakere={deltakereBearbeidet}
-            sortering={deltakerSortering}
-            onSortChange={handleOnSortChange}
-          />
-          <div
-            aria-live="polite"
-            aria-atomic="true"
-            className={globalStyles.screenReaderOnly}
-          >
-            Viser {deltakereBearbeidet.length} av {deltakere.length} deltakere.
-          </div>
-        </>
-      )}
-    </div>
-  )
+			{deltakere.length === 0 ? (
+				<IngenDeltakereAlertstripe/>
+			) : (
+				<>
+					<DeltakerTabell
+						deltakere={deltakereBearbeidet}
+						sortering={deltakerSortering}
+						onSortChange={handleOnSortChange}
+					/>
+					<div
+						aria-live="polite"
+						aria-atomic="true"
+						className={globalStyles.screenReaderOnly}
+					>
+						Viser {deltakereBearbeidet.length} av {deltakere.length} deltakere.
+					</div>
+				</>
+			)}
+		</div>
+	)
 }

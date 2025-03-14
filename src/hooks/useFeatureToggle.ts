@@ -1,6 +1,11 @@
 import { useEffect, useState } from 'react'
 
-import { FeatureToggles, KOMET_DELTAKERE_TOGGLE_NAVN, VIS_DRIFTSMELDING_TOGGLE_NAVN } from '../api/data/feature-toggle'
+import {
+  FeatureToggles,
+  KOMET_DELTAKERE_TOGGLE_NAVN,
+  VIS_DRIFTSMELDING_TOGGLE_NAVN,
+  VIS_INFOMELDING_SOKT_INN_SKAL_VURDERES
+} from '../api/data/feature-toggle'
 import { fetchToggles } from '../api/feature-toggle-api'
 import { Tiltakskode } from '../api/data/tiltak'
 
@@ -43,6 +48,7 @@ export const useFeatureToggle = () => {
 
   return {
     visDriftsmelding: toggles ? toggles[VIS_DRIFTSMELDING_TOGGLE_NAVN] : false,
+    visInfomeldingSoktInnVurderes: toggles ? toggles[VIS_INFOMELDING_SOKT_INN_SKAL_VURDERES] : false,
     erKometDeltakereEnabled: toggles
       ? toggles[KOMET_DELTAKERE_TOGGLE_NAVN]
       : false,
