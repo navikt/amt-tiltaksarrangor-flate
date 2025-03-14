@@ -23,7 +23,7 @@ interface EndringsmodalProps {
 }
 
 export function Endringsmodal(props: EndringsmodalProps) {
-  const [vilkaarGodkjent, setVilkaarGodkjent] = useState(false)
+  const [ vilkaarGodkjent, setVilkaarGodkjent ] = useState(false)
 
   const krevVilkaarGodkjent =
     props.erForslag !== true && props.visGodkjennVilkaarPanel
@@ -38,7 +38,7 @@ export function Endringsmodal(props: EndringsmodalProps) {
     >
       {props.erForslag && (
         <Alert variant="info" size="small" className={styles.endringsmodal_info}>
-          Forslaget sendes til Nav-veileder. Deltaker kan se innholdet i begrunnelsen på nav.no.
+          Forslaget sendes til Nav-veileder. Deltaker kan se innholdet i begrunnelsen på nav.no. Hvis Nav godkjenner forslaget, får deltaker vedtak. Begrunnelsen din vises i vedtaket.
         </Alert>
       )}
 
