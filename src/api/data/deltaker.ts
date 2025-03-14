@@ -35,6 +35,7 @@ export enum Vurderingstype {
 }
 
 export enum TiltakDeltakerStatus {
+  SOKT_INN = 'SOKT_INN',
   VURDERES = 'VURDERES',
   VENTER_PA_OPPSTART = 'VENTER_PA_OPPSTART',
   DELTAR = 'DELTAR',
