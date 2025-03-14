@@ -55,7 +55,7 @@ export const FilterMenyStatus = (props: Props): React.ReactElement => {
 
       if (
         props.tiltakType !== Tiltakskode.GRUPPEAMO &&
-        status === TiltakDeltakerStatus.VURDERES
+        (status === TiltakDeltakerStatus.VURDERES || status === TiltakDeltakerStatus.SOKT_INN)
       ) {
         return
       }

@@ -18,9 +18,7 @@ const getStyle = (statusType: TiltakDeltakerStatus | string) => {
   }
 }
 
-const deltakerlisteStyle = (
-  statusType: TiltakDeltakerStatus | string
-) => {
+const deltakerlisteStyle = (statusType: TiltakDeltakerStatus | string) => {
   switch (statusType) {
     case TiltakDeltakerStatus.IKKE_AKTUELL:
     case TiltakDeltakerStatus.AVBRUTT:
@@ -42,6 +40,7 @@ const getTagType = (statusType: TiltakDeltakerStatus | string) => {
     case TiltakDeltakerStatus.FULLFORT:
     case TiltakDeltakerStatus.HAR_SLUTTET:
       return 'alt1'
+    case TiltakDeltakerStatus.SOKT_INN:
     case TiltakDeltakerStatus.VURDERES:
       return 'alt2'
     case TiltakDeltakerStatus.DELTAR:

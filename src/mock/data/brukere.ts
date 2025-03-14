@@ -147,6 +147,7 @@ const getStatus = (
   const i = randBetween(0, 10)
 
   if (erKurs && tiltakskode == Tiltakskode.GRUPPEAMO) {
+    if (i < 1) return TiltakDeltakerStatus.SOKT_INN
     if (i < 2) return TiltakDeltakerStatus.VURDERES
     if (i < 4) return TiltakDeltakerStatus.DELTAR
     if (i < 7) return TiltakDeltakerStatus.VENTER_PA_OPPSTART

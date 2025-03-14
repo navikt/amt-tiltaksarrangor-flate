@@ -18,6 +18,8 @@ export const mapTiltakDeltakerStatusTilTekst = (
       return 'Har sluttet'
     case TiltakDeltakerStatus.IKKE_AKTUELL:
       return 'Ikke aktuell'
+		case TiltakDeltakerStatus.SOKT_INN:
+			return 'Søkt inn'
     case TiltakDeltakerStatus.VURDERES:
       return 'Vurderes'
     case TiltakDeltakerStatus.FULLFORT:
