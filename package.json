@@ -31,9 +31,9 @@
     "@navikt/ds-react": "^7.17.3",
     "@navikt/ds-tokens": "^7.17.3",
     "@navikt/nav-dekoratoren-moduler": "^3.2.2",
-    "@sentry/react": "^9.5.0",
+    "@sentry/react": "^9.6.0",
     "@sentry/tracing": "^7.120.3",
-    "@types/react": "^19.0.10",
+    "@types/react": "^19.0.11",
     "@types/react-collapse": "^5.0.4",
     "@types/react-dom": "^19.0.4",
     "@types/react-router-dom": "^5.3.3",
@@ -64,12 +64,12 @@
     "lint-staged": "^15.5.0",
     "msw": "^2.7.3",
     "prettier": "^3.5.3",
-    "sass": "^1.85.1",
+    "sass": "^1.86.0",
     "table": "^6.9.0",
     "typescript": "^5.8.2",
     "typescript-eslint": "^8.26.1",
     "vite": "^6.2.2",
-    "vitest": "^3.0.8"
+    "vitest": "^3.0.9"
   },
   "msw": {
     "workerDirectory": [
