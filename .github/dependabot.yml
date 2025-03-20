@@ -18,10 +18,14 @@ updates:
         patterns:
           - '@navikt/aksel-*'
           - '@navikt/ds-*'
+        update-types:
+          - 'major'
       react:
         patterns:
           - 'react'
           - 'react-dom'
+        update-types:
+          - 'major'
       minor-and-patch:
         patterns:
           - '*'
