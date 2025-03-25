@@ -4,7 +4,7 @@ import {Alert, BodyShort, Button, Modal, Textarea} from '@navikt/ds-react'
 import styles from './SettVurderingModal.module.scss'
 import { Nullable } from '../../../../../utils/types/or-nothing'
 import { postDeltakerVurderingOppfyllerIkkeKravene } from '../../../../../api/tiltak-api'
-import { BESKRIVELSE_MAKS_TEGN } from '../../../../../utils/endre-deltaker-utils'
+import { BESKRIVELSE_MAKS_TEGN, fjernUgyldigeTegn } from '../../../../../utils/endre-deltaker-utils'
 
 export interface OppfyllerIkkeKravenelModalProps {
   isOpen: boolean
@@ -38,7 +38,7 @@ export const SettOppfyllerIkkeKravenelModal = ({
   const handleChangeDescription = (
     e: React.ChangeEvent<HTMLTextAreaElement>
   ) => {
-    const nyBeskrivelse = e.target.value
+    const nyBeskrivelse = fjernUgyldigeTegn(e.target.value)
     settBeskrivelse(nyBeskrivelse)
   }
 

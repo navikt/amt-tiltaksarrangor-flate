@@ -5,7 +5,7 @@ import { Textarea, useId } from '@navikt/ds-react'
 import styles from './AarsakSelector.module.scss'
 import { AarsakRadio } from './AarsakRadio'
 import { Nullable } from '../../../../../utils/types/or-nothing'
-import { BESKRIVELSE_MAKS_TEGN } from '../../../../../utils/endre-deltaker-utils'
+import { BESKRIVELSE_MAKS_TEGN, fjernUgyldigeTegn } from '../../../../../utils/endre-deltaker-utils'
 
 interface AarsakRadioMedBeskrivelseProps {
   aarsakType: DeltakerStatusAarsakType
@@ -23,7 +23,7 @@ export const AarsakRadioMedBeskrivelse = ({
   const visBeskrivelse = valgtAarsak === aarsakType
 
   const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    const nyBeskrivelse = e.target.value
+    const nyBeskrivelse = fjernUgyldigeTegn(e.target.value)
     settBeskrivelse(nyBeskrivelse)
     onBeskrivelse(nyBeskrivelse)
   }
