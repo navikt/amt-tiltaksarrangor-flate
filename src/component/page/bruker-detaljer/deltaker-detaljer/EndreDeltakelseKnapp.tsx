@@ -62,6 +62,16 @@ export const EndreDeltakelseKnapp = (props: EndreDeltakelseKnappProps) => {
     endreDeltakelseRef?.current?.focus()
   }
 
+	const kanForlengeDeltakelse = () => {
+		const harSluttet = deltaker.status.type === TiltakDeltakerStatus.HAR_SLUTTET
+		const deltarMedSluttdato = deltaker.status.type === TiltakDeltakerStatus.DELTAR && deltaker.sluttDato
+
+		if (props.erForslagEnabled) {
+			return harSluttet || (deltarMedSluttdato && !deltaker.deltakerliste.erKurs)
+		}
+		return harSluttet || deltarMedSluttdato 
+	}
+
   const visGodkjennVilkaarPanel = deltaker.tiltakskode !== Tiltakskode.VASV
 
   return (
@@ -112,9 +122,7 @@ export const EndreDeltakelseKnapp = (props: EndreDeltakelseKnappProps) => {
               />
             )}
 
-            {(deltaker.status.type === TiltakDeltakerStatus.HAR_SLUTTET ||
-              (deltaker.status.type === TiltakDeltakerStatus.DELTAR &&
-                deltaker.sluttDato)) && (
+            {kanForlengeDeltakelse() && (
               <DropDownButton
                 endringstype={EndringType.FORLENG_DELTAKELSE}
                 onClick={() =>
