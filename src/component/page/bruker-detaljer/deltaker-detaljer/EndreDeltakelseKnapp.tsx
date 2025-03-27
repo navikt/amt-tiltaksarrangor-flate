@@ -38,13 +38,6 @@ export const EndreDeltakelseKnapp = (props: EndreDeltakelseKnappProps) => {
   } = useModalData()
   const { deltaker } = props
 
-  const kanIkkeLeggeTilOppstartDato =
-    (deltaker.status.type === TiltakDeltakerStatus.IKKE_AKTUELL ||
-			deltaker.status.type === TiltakDeltakerStatus.SOKT_INN ||
-			deltaker.status.type === TiltakDeltakerStatus.VURDERES 
-		) &&
-    props.erForslagEnabled
-
 	const kanEndreStartDato =
 		deltaker.status.type === TiltakDeltakerStatus.VENTER_PA_OPPSTART ||
 		deltaker.status.type === TiltakDeltakerStatus.IKKE_AKTUELL ||
@@ -73,6 +66,10 @@ export const EndreDeltakelseKnapp = (props: EndreDeltakelseKnappProps) => {
 		return harSluttet || deltarMedSluttdato 
 	}
 
+	const kanEndreSluttdato = deltaker.status.type === TiltakDeltakerStatus.FULLFORT ||
+		deltaker.status.type === TiltakDeltakerStatus.AVBRUTT ||
+		deltaker.status.type === TiltakDeltakerStatus.HAR_SLUTTET
+
 	const kanEndreSluttaarsak = () => {
 		const harSluttet = deltaker.status.type === TiltakDeltakerStatus.HAR_SLUTTET
 		const ferdigPaKurs = [TiltakDeltakerStatus.FULLFORT, TiltakDeltakerStatus.AVBRUTT].includes(deltaker.status.type)
@@ -82,6 +79,24 @@ export const EndreDeltakelseKnapp = (props: EndreDeltakelseKnappProps) => {
 			return harSluttet || ferdigPaKurs || ikkeAktuell
 		}
 		return harSluttet && !deltaker.deltakerliste.erKurs
+	}
+
+	const kanSetteIkkeAktuell = deltaker.status.type === TiltakDeltakerStatus.VURDERES || 
+		deltaker.status.type === TiltakDeltakerStatus.SOKT_INN || 
+		deltaker.status.type === TiltakDeltakerStatus.VENTER_PA_OPPSTART
+
+	const kanEndreDeltakelsesmengde = deltaker.tiltakskode === Tiltakskode.ARBFORB || deltaker.tiltakskode === Tiltakskode.VASV
+
+	const kanAvsluteDeltakelse = deltaker.status.type === TiltakDeltakerStatus.DELTAR
+
+	const kanEndreOppstartsdato = kanEndreStartDato && deltaker.startDato
+
+	const kanLeggeTilOppstartsdato = () => {
+		if (props.erForslagEnabled) {
+			return (deltaker.status.type === TiltakDeltakerStatus.VENTER_PA_OPPSTART || deltaker.status.type === TiltakDeltakerStatus.DELTAR) && !deltaker.startDato
+			
+		}
+		return kanEndreStartDato && !deltaker.startDato
 	}
 
   const visGodkjennVilkaarPanel = deltaker.tiltakskode !== Tiltakskode.VASV
@@ -102,9 +117,7 @@ export const EndreDeltakelseKnapp = (props: EndreDeltakelseKnappProps) => {
         </Button>
         <Dropdown.Menu className={styles.dropdownMenu}>
           <Dropdown.Menu.List>
-            {kanEndreStartDato &&
-              !kanIkkeLeggeTilOppstartDato &&
-              !deltaker.startDato && (
+            {kanLeggeTilOppstartsdato() && (
                 <DropDownButton
                   endringstype={EndringType.LEGG_TIL_OPPSTARTSDATO}
                   onClick={() =>
@@ -119,7 +132,7 @@ export const EndreDeltakelseKnapp = (props: EndreDeltakelseKnappProps) => {
                 />
               )}
 
-            {kanEndreStartDato && deltaker.startDato && (
+            {kanEndreOppstartsdato && (
               <DropDownButton
                 endringstype={EndringType.ENDRE_OPPSTARTSDATO}
                 onClick={() =>
@@ -149,8 +162,7 @@ export const EndreDeltakelseKnapp = (props: EndreDeltakelseKnappProps) => {
               />
             )}
 
-            {deltaker.status.type ===
-              TiltakDeltakerStatus.VENTER_PA_OPPSTART && (
+            {kanSetteIkkeAktuell && (
               <DropDownButton
                 endringstype={EndringType.DELTAKER_IKKE_AKTUELL}
                 onClick={() =>
@@ -164,7 +176,7 @@ export const EndreDeltakelseKnapp = (props: EndreDeltakelseKnappProps) => {
                 }
               />
             )}
-            {deltaker.status.type === TiltakDeltakerStatus.DELTAR && (
+            {kanAvsluteDeltakelse && (
               <DropDownButton
                 endringstype={EndringType.AVSLUTT_DELTAKELSE}
                 onClick={() =>
@@ -178,8 +190,7 @@ export const EndreDeltakelseKnapp = (props: EndreDeltakelseKnappProps) => {
                 }
               />
             )}
-            {(deltaker.tiltakskode === Tiltakskode.ARBFORB ||
-              deltaker.tiltakskode === Tiltakskode.VASV) && (
+            {kanEndreDeltakelsesmengde && (
               <DropDownButton
                 endringstype={EndringType.ENDRE_DELTAKELSE_PROSENT}
                 onClick={() =>
@@ -193,23 +204,7 @@ export const EndreDeltakelseKnapp = (props: EndreDeltakelseKnappProps) => {
                 }
               />
             )}
-						{(deltaker.status.type === TiltakDeltakerStatus.VURDERES || deltaker.status.type === TiltakDeltakerStatus.SOKT_INN) && (
-							<DropDownButton
-								endringstype={EndringType.DELTAKER_IKKE_AKTUELL}
-								onClick={() =>
-									visSettDeltakerIkkeAktuellModal({
-										deltaker: deltaker,
-										visGodkjennVilkaarPanel: visGodkjennVilkaarPanel,
-										onEndringUtfort: props.onEndringUtfort,
-										onForslagSendt: props.onForslagSendt,
-										erForslagEnabled: props.erForslagEnabled
-									})
-								}
-							/>
-						)}
-            {(deltaker.status.type === TiltakDeltakerStatus.FULLFORT ||
-              deltaker.status.type === TiltakDeltakerStatus.AVBRUTT ||
-              deltaker.status.type === TiltakDeltakerStatus.HAR_SLUTTET) && (
+            {kanEndreSluttdato && (
               <DropDownButton
                 endringstype={EndringType.ENDRE_SLUTTDATO}
                 onClick={() =>
@@ -224,32 +219,32 @@ export const EndreDeltakelseKnapp = (props: EndreDeltakelseKnappProps) => {
               />
             )}
             {kanEndreSluttaarsak() && (
-                <DropDownButton
-                  endringstype={EndringType.ENDRE_SLUTTAARSAK}
-                  onClick={() =>
-                    visEndreSluttaarsakModal({
-                      deltaker: deltaker,
-                      visGodkjennVilkaarPanel: visGodkjennVilkaarPanel,
-                      onEndringUtfort: props.onEndringUtfort,
-                      onForslagSendt: props.onForslagSendt,
-                      erForslagEnabled: props.erForslagEnabled
-                    })
-                  }
-                />
-              )}
+							<DropDownButton
+								endringstype={EndringType.ENDRE_SLUTTAARSAK}
+								onClick={() =>
+									visEndreSluttaarsakModal({
+										deltaker: deltaker,
+										visGodkjennVilkaarPanel: visGodkjennVilkaarPanel,
+										onEndringUtfort: props.onEndringUtfort,
+										onForslagSendt: props.onForslagSendt,
+										erForslagEnabled: props.erForslagEnabled
+									})
+								}
+							/>
+						)}
             {kanFjerneOppstartsdato && (
-                <DropDownButton
-                  endringstype={EndringType.FJERN_OPPSTARTSDATO}
-                  onClick={() =>
-                    visFjernOppstartsdatoModal({
-                      deltaker: deltaker,
-                      visGodkjennVilkaarPanel: false,
-                      onForslagSendt: props.onForslagSendt,
-                      erForslagEnabled: props.erForslagEnabled
-                    })
-                  }
-                />
-              )}
+							<DropDownButton
+								endringstype={EndringType.FJERN_OPPSTARTSDATO}
+								onClick={() =>
+									visFjernOppstartsdatoModal({
+										deltaker: deltaker,
+										visGodkjennVilkaarPanel: false,
+										onForslagSendt: props.onForslagSendt,
+										erForslagEnabled: props.erForslagEnabled
+									})
+								}
+							/>
+						)}
           </Dropdown.Menu.List>
         </Dropdown.Menu>
       </Dropdown>
