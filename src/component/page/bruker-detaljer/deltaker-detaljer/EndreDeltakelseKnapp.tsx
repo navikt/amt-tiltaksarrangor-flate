@@ -39,7 +39,10 @@ export const EndreDeltakelseKnapp = (props: EndreDeltakelseKnappProps) => {
   const { deltaker } = props
 
   const kanIkkeLeggeTilOppstartDato =
-    deltaker.status.type === TiltakDeltakerStatus.IKKE_AKTUELL &&
+    (deltaker.status.type === TiltakDeltakerStatus.IKKE_AKTUELL ||
+			deltaker.status.type === TiltakDeltakerStatus.SOKT_INN ||
+			deltaker.status.type === TiltakDeltakerStatus.VURDERES 
+		) &&
     props.erForslagEnabled
 
 	const kanEndreStartDato =
@@ -51,7 +54,7 @@ export const EndreDeltakelseKnapp = (props: EndreDeltakelseKnappProps) => {
 
   const kanFjerneOppstartsdato =
     deltaker.status.type === TiltakDeltakerStatus.VENTER_PA_OPPSTART &&
-    deltaker.startDato && props.erForslagEnabled
+    deltaker.startDato && !deltaker.deltakerliste.erKurs && props.erForslagEnabled
 
   const endreDeltakelseRef = useRef<HTMLButtonElement>(null)
   const handleCloseModal = () => {

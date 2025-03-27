@@ -174,7 +174,7 @@ const finnStartdato = (
   skalHaDatoer: boolean,
   deltakerstatus: TiltakDeltakerStatus
 ): Date | null => {
-  if (erKurs) {
+  if (skalHaDatoer && erKurs) {
     return gjennomforing.startDato
   } else {
     return skalHaDatoer
@@ -201,7 +201,7 @@ const finnSluttdato = (
     return startDato && gjennomforing.sluttDato
       ? faker.date.between({ from: startDato, to: gjennomforing.sluttDato })
       : gjennomforing.sluttDato
-  } else if (erKurs) {
+  } else if (startDato && erKurs) {
     return gjennomforing.sluttDato
   } else {
     return startDato != null
@@ -251,15 +251,19 @@ const lagMockTiltakDeltagerForGjennomforing = (
 
   const veilederNavn = faker.person.firstName() + ' ' + faker.person.lastName()
 
-  // 80% av deltakere med status VENTER_PA_OPPSTART, IKKE_AKTUELL skal ikke ha datoer
-  const skalHaDatoer = [
-    TiltakDeltakerStatus.VENTER_PA_OPPSTART,
-    TiltakDeltakerStatus.IKKE_AKTUELL
-  ].includes(status)
-    ? randomBoolean(20)
-    : true
+  const skalHaDatoer = () => {
+		if (status === TiltakDeltakerStatus.SOKT_INN || status === TiltakDeltakerStatus.VURDERES) return false
 
-  const startDato = finnStartdato(erKurs, gjennomforing, skalHaDatoer, status)
+		// 80% av deltakere med status VENTER_PA_OPPSTART, IKKE_AKTUELL skal ikke ha datoer
+		return [
+			TiltakDeltakerStatus.VENTER_PA_OPPSTART,
+			TiltakDeltakerStatus.IKKE_AKTUELL
+		].includes(status)
+			? randomBoolean(20)
+			: true
+	}
+
+  const startDato = finnStartdato(erKurs, gjennomforing, skalHaDatoer(), status)
   const sluttDato = finnSluttdato(erKurs, gjennomforing, startDato, status)
 
   const fjernesDato =
@@ -566,7 +570,11 @@ const erKometMasterForTiltak = (tiltakstype: Tiltakskode) => {
     Tiltakskode.AVKLARAG,
     Tiltakskode.INDOPPFAG,
     Tiltakskode.DIGIOPPARB,
-    Tiltakskode.VASV ]
+    Tiltakskode.VASV,
+		Tiltakskode.JOBBK,
+		Tiltakskode.GRUPPEAMO,
+		Tiltakskode.GRUFAGYRKE,
+	]
   if (tiltakstyperKometErMasterFor.includes(tiltakstype))
     return true
   return false
