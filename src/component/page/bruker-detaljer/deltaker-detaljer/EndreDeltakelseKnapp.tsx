@@ -64,12 +64,24 @@ export const EndreDeltakelseKnapp = (props: EndreDeltakelseKnappProps) => {
 
 	const kanForlengeDeltakelse = () => {
 		const harSluttet = deltaker.status.type === TiltakDeltakerStatus.HAR_SLUTTET
+		const ferdigPaKurs = [TiltakDeltakerStatus.FULLFORT, TiltakDeltakerStatus.AVBRUTT].includes(deltaker.status.type)
 		const deltarMedSluttdato = deltaker.status.type === TiltakDeltakerStatus.DELTAR && deltaker.sluttDato
 
 		if (props.erForslagEnabled) {
-			return harSluttet || (deltarMedSluttdato && !deltaker.deltakerliste.erKurs)
+			return harSluttet || ferdigPaKurs || (deltarMedSluttdato && !deltaker.deltakerliste.erKurs)
 		}
 		return harSluttet || deltarMedSluttdato 
+	}
+
+	const kanEndreSluttaarsak = () => {
+		const harSluttet = deltaker.status.type === TiltakDeltakerStatus.HAR_SLUTTET
+		const ferdigPaKurs = [TiltakDeltakerStatus.FULLFORT, TiltakDeltakerStatus.AVBRUTT].includes(deltaker.status.type)
+		const ikkeAktuell = deltaker.status.type === TiltakDeltakerStatus.IKKE_AKTUELL
+
+		if (props.erForslagEnabled) {
+			return harSluttet || ferdigPaKurs || ikkeAktuell
+		}
+		return harSluttet && !deltaker.deltakerliste.erKurs
 	}
 
   const visGodkjennVilkaarPanel = deltaker.tiltakskode !== Tiltakskode.VASV
@@ -212,11 +224,7 @@ export const EndreDeltakelseKnapp = (props: EndreDeltakelseKnappProps) => {
                 }
               />
             )}
-            {(deltaker.status.type === TiltakDeltakerStatus.HAR_SLUTTET ||
-              (props.erForslagEnabled &&
-                deltaker.status.type ===
-                TiltakDeltakerStatus.IKKE_AKTUELL)) &&
-              !deltaker.deltakerliste.erKurs && (
+            {kanEndreSluttaarsak() && (
                 <DropDownButton
                   endringstype={EndringType.ENDRE_SLUTTAARSAK}
                   onClick={() =>
