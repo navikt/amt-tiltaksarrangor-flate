@@ -65,7 +65,7 @@ export const EndreDeltakelseKnapp = (props: EndreDeltakelseKnappProps) => {
 						{endringsknapper(deltaker, props.erForslagEnabled, modal).map(knapp => {
 							if (knapp.erTilgjengelig) {
 								return <DropDownButton
-									key={knapp.type.toString()}
+									key={knapp.type}
 									endringstype={knapp.type}
 									onClick={() =>
 										knapp.modalFunc({

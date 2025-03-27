@@ -13,8 +13,6 @@ import { FjernOppstartsdatoModal } from './endre-deltaker-modal/FjernOppstartsda
 import { Deltaker } from '../../../../api/data/deltaker'
 import { AktivtForslag } from '../../../../api/data/forslag'
 
-
-
 export interface ModalDataProps {
   readonly deltaker: Deltaker
   readonly visGodkjennVilkaarPanel: boolean

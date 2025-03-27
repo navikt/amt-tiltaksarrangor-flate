@@ -23,57 +23,59 @@ export function endringsknapper(deltaker: Deltaker, erForslagEnabled: boolean, m
 		visFjernOppstartsdatoModal,
 	} = modal
 
-	const kanEndreStartDato =
-		deltaker.status.type === TiltakDeltakerStatus.VENTER_PA_OPPSTART ||
-		deltaker.status.type === TiltakDeltakerStatus.IKKE_AKTUELL ||
-		deltaker.status.type === TiltakDeltakerStatus.DELTAR ||
-		deltaker.status.type === TiltakDeltakerStatus.VURDERES ||
-		deltaker.status.type === TiltakDeltakerStatus.SOKT_INN
+	const status = statusBooleans(deltaker.status.type)
+
+	const ferdigPaKurs = status.erFullfort || status.erAvbrutt
 
 	const kanFjerneOppstartsdato =
-		deltaker.status.type === TiltakDeltakerStatus.VENTER_PA_OPPSTART &&
-		deltaker.startDato !== null && !deltaker.deltakerliste.erKurs && erForslagEnabled
+		status.erVenterPaOppstart &&
+		deltaker.startDato !== null &&
+		!deltaker.deltakerliste.erKurs &&
+		erForslagEnabled
 
 	const kanForlengeDeltakelse = () => {
-		const harSluttet = deltaker.status.type === TiltakDeltakerStatus.HAR_SLUTTET
-		const ferdigPaKurs = [TiltakDeltakerStatus.FULLFORT, TiltakDeltakerStatus.AVBRUTT].includes(deltaker.status.type)
-		const deltarMedSluttdato = deltaker.status.type === TiltakDeltakerStatus.DELTAR && deltaker.sluttDato !== null
+		const deltarMedSluttdato = status.erDeltar && deltaker.sluttDato !== null
 
 		if (erForslagEnabled) {
-			return harSluttet || ferdigPaKurs || (deltarMedSluttdato && !deltaker.deltakerliste.erKurs)
+			return status.erHarSluttet || ferdigPaKurs || (deltarMedSluttdato && !deltaker.deltakerliste.erKurs)
 		}
-		return harSluttet || deltarMedSluttdato
+		return status.erHarSluttet || deltarMedSluttdato
 	}
 
-	const kanEndreSluttdato = deltaker.status.type === TiltakDeltakerStatus.FULLFORT ||
-		deltaker.status.type === TiltakDeltakerStatus.AVBRUTT ||
-		deltaker.status.type === TiltakDeltakerStatus.HAR_SLUTTET
+	const kanEndreSluttdato =
+		status.erFullfort ||
+		status.erAvbrutt ||
+		status.erHarSluttet
 
 	const kanEndreSluttaarsak = () => {
-		const harSluttet = deltaker.status.type === TiltakDeltakerStatus.HAR_SLUTTET
-		const ferdigPaKurs = [TiltakDeltakerStatus.FULLFORT, TiltakDeltakerStatus.AVBRUTT].includes(deltaker.status.type)
-		const ikkeAktuell = deltaker.status.type === TiltakDeltakerStatus.IKKE_AKTUELL
 
 		if (erForslagEnabled) {
-			return harSluttet || ferdigPaKurs || ikkeAktuell
+			return status.erHarSluttet || ferdigPaKurs || status.erIkkeAktuell
 		}
-		return harSluttet && !deltaker.deltakerliste.erKurs
+		return status.erHarSluttet && !deltaker.deltakerliste.erKurs
 	}
 
-	const kanSetteIkkeAktuell = deltaker.status.type === TiltakDeltakerStatus.VURDERES ||
-		deltaker.status.type === TiltakDeltakerStatus.SOKT_INN ||
-		deltaker.status.type === TiltakDeltakerStatus.VENTER_PA_OPPSTART
+	const kanSetteIkkeAktuell =
+		status.erVurderes ||
+		status.erSoktInn ||
+		status.erVenterPaOppstart
 
 	const kanEndreDeltakelsesmengde = deltaker.tiltakskode === Tiltakskode.ARBFORB || deltaker.tiltakskode === Tiltakskode.VASV
 
-	const kanAvsluteDeltakelse = deltaker.status.type === TiltakDeltakerStatus.DELTAR
+	const kanAvslutteDeltakelse = status.erDeltar
+
+	const kanEndreStartDato =
+		status.erVenterPaOppstart ||
+		status.erIkkeAktuell ||
+		status.erDeltar ||
+		status.erVurderes ||
+		status.erSoktInn
 
 	const kanEndreOppstartsdato = kanEndreStartDato && deltaker.startDato !== null
 
 	const kanLeggeTilOppstartsdato = () => {
 		if (erForslagEnabled) {
-			return (deltaker.status.type === TiltakDeltakerStatus.VENTER_PA_OPPSTART || deltaker.status.type === TiltakDeltakerStatus.DELTAR) && !deltaker.startDato
-
+			return (status.erVenterPaOppstart || status.erDeltar) && !deltaker.startDato
 		}
 		return kanEndreStartDato && !deltaker.startDato
 	}
@@ -101,7 +103,7 @@ export function endringsknapper(deltaker: Deltaker, erForslagEnabled: boolean, m
 		},
 		{
 			type: EndringType.AVSLUTT_DELTAKELSE,
-			erTilgjengelig: kanAvsluteDeltakelse,
+			erTilgjengelig: kanAvslutteDeltakelse,
 			modalFunc: visAvsluttDeltakerModal,
 		},
 		{
@@ -126,4 +128,17 @@ export function endringsknapper(deltaker: Deltaker, erForslagEnabled: boolean, m
 			modalFunc: visFjernOppstartsdatoModal,
 		},
 	]
+}
+
+function statusBooleans(status: TiltakDeltakerStatus) {
+	return {
+		erSoktInn: status === TiltakDeltakerStatus.SOKT_INN,
+		erVurderes: status === TiltakDeltakerStatus.VURDERES,
+		erVenterPaOppstart: status === TiltakDeltakerStatus.VENTER_PA_OPPSTART,
+		erDeltar: status === TiltakDeltakerStatus.DELTAR,
+		erFullfort: status === TiltakDeltakerStatus.FULLFORT,
+		erAvbrutt: status === TiltakDeltakerStatus.AVBRUTT,
+		erHarSluttet: status === TiltakDeltakerStatus.HAR_SLUTTET,
+		erIkkeAktuell: status === TiltakDeltakerStatus.IKKE_AKTUELL,
+	}
 }
