@@ -4,7 +4,6 @@ import { postEndreSluttdato } from '../../../../../api/tiltak-api'
 import { Nullable } from '../../../../../utils/types/or-nothing'
 import { Endringsmodal } from './endringsmodal/Endringsmodal'
 import { DateField } from '../../../../felles/DateField'
-import { AktivtForslag } from '../../../../../api/data/forslag'
 import { endreSluttdatoForslag } from '../../../../../api/forslag-api'
 import {
   gyldigObligatoriskBegrunnelse,
@@ -12,20 +11,8 @@ import {
 } from './validering/begrunnelseValidering'
 import { EndringType } from '../types'
 import { kalkulerMinDato, maxSluttdato } from './datoutils'
-import { Deltaker } from '../../../../../api/data/deltaker'
 import dayjs from 'dayjs'
-
-export interface EndreSluttdatoModalProps {
-  onClose: () => void
-}
-
-export interface EndreSluttdatoModalDataProps {
-  readonly deltaker: Deltaker
-  readonly visGodkjennVilkaarPanel: boolean
-  readonly onEndringUtfort: () => void
-  readonly onForslagSendt: (forslag: AktivtForslag) => void
-  readonly erForslagEnabled: boolean
-}
+import { ModalDataProps } from '../ModalController'
 
 export const EndreSluttdatoModal = ({
   deltaker,
@@ -34,7 +21,7 @@ export const EndreSluttdatoModal = ({
   onForslagSendt,
   onClose,
   erForslagEnabled
-}: EndreSluttdatoModalProps & EndreSluttdatoModalDataProps) => {
+}: ModalDataProps) => {
   const [valgtDato, setValgtDato] = useState<Nullable<Date>>()
   const [begrunnelse, setBegrunnelse] = useState<string>('')
 

@@ -2,7 +2,6 @@ import React, { useRef, useState } from 'react'
 
 import { forlengDeltakelse } from '../../../../../api/tiltak-api'
 import { maxDate } from '../../../../../utils/date-utils'
-import { AktivtForslag } from '../../../../../api/data/forslag'
 import { forlengDeltakelseForslag } from '../../../../../api/forslag-api'
 import { Endringsmodal } from './endringsmodal/Endringsmodal'
 import {
@@ -11,25 +10,11 @@ import {
 } from './validering/begrunnelseValidering'
 import { EndringType } from '../types'
 import { SluttdatoRef, SluttdatoVelger } from './SluttdatoVelger'
-import { Deltaker } from '../../../../../api/data/deltaker'
 import { maxSluttdato } from './datoutils'
 import dayjs from 'dayjs'
+import { ModalDataProps } from '../ModalController'
 
-export interface ForlengDeltakelseModalProps {
-  readonly onClose: () => void
-}
-
-export interface ForlengDeltakelseModalDataProps {
-  readonly deltaker: Deltaker
-  readonly visGodkjennVilkaarPanel: boolean
-  readonly onEndringUtfort: () => void
-  readonly onForslagSendt: (forslag: AktivtForslag) => void
-  readonly erForslagEnabled: boolean
-}
-
-export const ForlengDeltakelseModal = (
-  props: ForlengDeltakelseModalProps & ForlengDeltakelseModalDataProps
-) => {
+export const ForlengDeltakelseModal = (props: ModalDataProps) => {
   const {
     deltaker,
     onClose,

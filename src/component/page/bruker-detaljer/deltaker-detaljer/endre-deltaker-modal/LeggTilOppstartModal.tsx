@@ -1,7 +1,6 @@
 import { useRef, useState } from 'react'
 
 import { Alert } from '@navikt/ds-react'
-import { Deltaker } from '../../../../../api/data/deltaker'
 import { Tiltakskode } from '../../../../../api/data/tiltak'
 import { leggTilOppstartsdatoFraArrangor } from '../../../../../api/endring-api'
 import { leggTilOppstartsdato } from '../../../../../api/tiltak-api'
@@ -13,18 +12,7 @@ import { Endringsmodal } from './endringsmodal/Endringsmodal'
 import { SluttdatoRef, SluttdatoVelger } from './SluttdatoVelger'
 import { finnValgtVarighet } from './varighet'
 import { VeilederConfirmationPanel } from './VeilederConfirmationPanel'
-
-export interface LeggTilOppstartModalProps {
-  onClose: () => void
-}
-
-export interface LeggTilOppstartModalDataProps {
-  readonly deltaker: Deltaker
-  readonly visGodkjennVilkaarPanel: boolean
-  readonly onEndringUtfort: () => void
-  readonly onEndringSendt: (oppdatertDeltaker: Deltaker) => void
-  readonly erForslagEnabled: boolean
-}
+import { ModalDataProps } from '../ModalController'
 
 export const LeggTilOppstartModal = ({
   deltaker,
@@ -33,7 +21,7 @@ export const LeggTilOppstartModal = ({
   onEndringUtfort,
   onEndringSendt,
   erForslagEnabled
-}: LeggTilOppstartModalProps & LeggTilOppstartModalDataProps) => {
+}: ModalDataProps) => {
   const erEndringFraArrangorEnabled = erForslagEnabled
   const [ startdato, setStartdato ] = useState<Nullable<Date>>(null)
   const sluttdato = useRef<SluttdatoRef>(null)

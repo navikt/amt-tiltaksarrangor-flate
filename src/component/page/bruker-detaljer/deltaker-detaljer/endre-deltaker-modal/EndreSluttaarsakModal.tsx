@@ -10,21 +10,9 @@ import {
   validerAarsakForm
 } from './validering/aarsakValidering'
 import { endreSluttarsakForslag } from '../../../../../api/forslag-api'
-import { AktivtForslag } from '../../../../../api/data/forslag'
-import { Deltaker, TiltakDeltakerStatus } from '../../../../../api/data/deltaker'
 import { EndringType } from '../types'
-
-interface EndreSluttaarsakModalProps {
-  onClose: () => void
-}
-
-export interface EndreSluttaarsakModalDataProps {
-  readonly deltaker: Deltaker
-  readonly visGodkjennVilkaarPanel: boolean
-  readonly onEndringUtfort: () => void
-  readonly onForslagSendt: (forslag: AktivtForslag) => void
-  readonly erForslagEnabled: boolean
-}
+import { ModalDataProps } from '../ModalController'
+import { TiltakDeltakerStatus } from '../../../../../api/data/deltaker'
 
 export const EndreSluttaarsakModal = ({
   deltaker,
@@ -33,7 +21,7 @@ export const EndreSluttaarsakModal = ({
   onEndringUtfort,
   onForslagSendt,
   erForslagEnabled
-}: EndreSluttaarsakModalProps & EndreSluttaarsakModalDataProps) => {
+}: ModalDataProps) => {
   const [aarsak, settAarsak] = useState<DeltakerStatusAarsakType>()
   const [beskrivelse, settBeskrivelse] = useState<Nullable<string>>()
   const [begrunnelse, setBegrunnelse] = useState<string>()
