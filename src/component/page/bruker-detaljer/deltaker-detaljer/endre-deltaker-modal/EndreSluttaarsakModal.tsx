@@ -21,9 +21,6 @@ interface EndreSluttaarsakModalProps {
 export interface EndreSluttaarsakModalDataProps {
   readonly deltakerId: string
   readonly deltaker: Deltaker
-  readonly deltakerStatus:
-  | TiltakDeltakerStatus.IKKE_AKTUELL
-  | TiltakDeltakerStatus.HAR_SLUTTET
   readonly visGodkjennVilkaarPanel: boolean
   readonly onEndringUtfort: () => void
   readonly onForslagSendt: (forslag: AktivtForslag) => void
@@ -33,7 +30,6 @@ export interface EndreSluttaarsakModalDataProps {
 export const EndreSluttaarsakModal = ({
   deltakerId,
   deltaker,
-  deltakerStatus,
   visGodkjennVilkaarPanel,
   onClose,
   onEndringUtfort,
@@ -96,9 +92,9 @@ export const EndreSluttaarsakModal = ({
     >
       <AarsakSelector
         tittel={
-          deltakerStatus === TiltakDeltakerStatus.HAR_SLUTTET
-            ? 'Hva er årsaken til avslutning?'
-            : 'Hva er årsaken til at deltakeren ikke er aktuell?'
+          deltaker.status.type === TiltakDeltakerStatus.IKKE_AKTUELL
+            ? 'Hva er årsaken til at deltakeren ikke er aktuell?'
+            : 'Hva er årsaken til avslutning?'
         }
         onAarsakSelected={onAarsakSelected}
       />

@@ -231,9 +231,6 @@ export const EndreDeltakelseKnapp = (props: EndreDeltakelseKnappProps) => {
                     visEndreSluttaarsakModal({
                       deltakerId: deltaker.id,
                       deltaker: deltaker,
-                      deltakerStatus: deltaker.status.type as
-                        | TiltakDeltakerStatus.HAR_SLUTTET
-                        | TiltakDeltakerStatus.IKKE_AKTUELL,
                       visGodkjennVilkaarPanel: visGodkjennVilkaarPanel,
                       onEndringUtfort: props.onEndringUtfort,
                       onForslagSendt: props.onForslagSendt,
