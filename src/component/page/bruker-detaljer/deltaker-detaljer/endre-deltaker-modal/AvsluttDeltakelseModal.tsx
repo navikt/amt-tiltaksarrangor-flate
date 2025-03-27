@@ -25,7 +25,6 @@ interface AvsluttDeltakelseModalProps {
 
 export interface AvsluttDeltakelseModalDataProps {
   readonly deltaker: Deltaker
-  readonly startDato: Nullable<Date>
   readonly visGodkjennVilkaarPanel: boolean
   readonly onEndringUtfort: () => void
   readonly onForslagSendt: (forslag: AktivtForslag) => void
@@ -38,7 +37,6 @@ export const AvsluttDeltakelseModal = (
   const {
     onClose,
     deltaker,
-    startDato,
     visGodkjennVilkaarPanel,
     onEndringUtfort,
     onForslagSendt,
@@ -151,7 +149,7 @@ export const AvsluttDeltakelseModal = (
         <DateField
           label="Hva er ny sluttdato?"
           defaultDate={sluttDato}
-          min={maxDate(startDato, deltaker.deltakerliste.startDato)}
+          min={maxDate(deltaker.startDato, deltaker.deltakerliste.startDato)}
           max={maxSluttdato(deltaker.startDato, deltaker.deltakerliste)}
           onDateChanged={(d) => settSluttDato(d)}
         />

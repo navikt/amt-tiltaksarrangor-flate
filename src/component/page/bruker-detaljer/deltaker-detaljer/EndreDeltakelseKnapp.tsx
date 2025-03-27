@@ -155,7 +155,7 @@ export const EndreDeltakelseKnapp = (props: EndreDeltakelseKnappProps) => {
                 endringstype={EndringType.DELTAKER_IKKE_AKTUELL}
                 onClick={() =>
                   visSettDeltakerIkkeAktuellModal({
-                    deltakerId: deltaker.id,
+                    deltaker: deltaker,
                     visGodkjennVilkaarPanel: visGodkjennVilkaarPanel,
                     onEndringUtfort: props.onEndringUtfort,
                     onForslagSendt: props.onForslagSendt,
@@ -170,7 +170,6 @@ export const EndreDeltakelseKnapp = (props: EndreDeltakelseKnappProps) => {
                 onClick={() =>
                   visAvsluttDeltakerModal({
                     deltaker: deltaker,
-                    startDato: deltaker.startDato,
                     visGodkjennVilkaarPanel: visGodkjennVilkaarPanel,
                     onEndringUtfort: props.onEndringUtfort,
                     onForslagSendt: props.onForslagSendt,
@@ -199,7 +198,7 @@ export const EndreDeltakelseKnapp = (props: EndreDeltakelseKnappProps) => {
 								endringstype={EndringType.DELTAKER_IKKE_AKTUELL}
 								onClick={() =>
 									visSettDeltakerIkkeAktuellModal({
-										deltakerId: deltaker.id,
+										deltaker: deltaker,
 										visGodkjennVilkaarPanel: visGodkjennVilkaarPanel,
 										onEndringUtfort: props.onEndringUtfort,
 										onForslagSendt: props.onForslagSendt,
@@ -229,7 +228,6 @@ export const EndreDeltakelseKnapp = (props: EndreDeltakelseKnappProps) => {
                   endringstype={EndringType.ENDRE_SLUTTAARSAK}
                   onClick={() =>
                     visEndreSluttaarsakModal({
-                      deltakerId: deltaker.id,
                       deltaker: deltaker,
                       visGodkjennVilkaarPanel: visGodkjennVilkaarPanel,
                       onEndringUtfort: props.onEndringUtfort,

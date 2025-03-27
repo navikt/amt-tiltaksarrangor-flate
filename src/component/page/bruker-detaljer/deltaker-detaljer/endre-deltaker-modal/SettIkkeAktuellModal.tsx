@@ -12,13 +12,14 @@ import {
   validerAarsakForm
 } from './validering/aarsakValidering'
 import { EndringType } from '../types'
+import { Deltaker } from '../../../../../api/data/deltaker'
 
 interface SettIkkeAktuellModalProps {
   onClose: () => void
 }
 
 export interface SettIkkeAktuellModalDataProps {
-  readonly deltakerId: string
+  readonly deltaker: Deltaker
   readonly visGodkjennVilkaarPanel: boolean
   readonly onEndringUtfort: () => void
   readonly onForslagSendt: (forslag: AktivtForslag) => void
@@ -26,7 +27,7 @@ export interface SettIkkeAktuellModalDataProps {
 }
 
 export const SettIkkeAktuellModal = ({
-  deltakerId,
+  deltaker,
   onClose,
   visGodkjennVilkaarPanel,
   onEndringUtfort,
@@ -42,7 +43,7 @@ export const SettIkkeAktuellModal = ({
   const sendEndringsmelding = () => {
     return validerAarsakForm(aarsak, beskrivelse)
       .then((validertForm) =>
-        deltakerIkkeAktuell(deltakerId, validertForm.endringsmelding.aarsak)
+        deltakerIkkeAktuell(deltaker.id, validertForm.endringsmelding.aarsak)
       )
       .then(onEndringUtfort)
   }
@@ -51,7 +52,7 @@ export const SettIkkeAktuellModal = ({
     return validerAarsakForm(aarsak, beskrivelse, begrunnelse)
       .then((validertForm) =>
         ikkeAktuellForslag(
-          deltakerId,
+          deltaker.id,
           validertForm.forslag.aarsak,
           validertForm.forslag.begrunnelse
         )

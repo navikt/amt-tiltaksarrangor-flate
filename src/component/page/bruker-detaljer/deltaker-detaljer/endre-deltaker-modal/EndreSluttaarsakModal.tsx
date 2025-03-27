@@ -19,7 +19,6 @@ interface EndreSluttaarsakModalProps {
 }
 
 export interface EndreSluttaarsakModalDataProps {
-  readonly deltakerId: string
   readonly deltaker: Deltaker
   readonly visGodkjennVilkaarPanel: boolean
   readonly onEndringUtfort: () => void
@@ -28,7 +27,6 @@ export interface EndreSluttaarsakModalDataProps {
 }
 
 export const EndreSluttaarsakModal = ({
-  deltakerId,
   deltaker,
   visGodkjennVilkaarPanel,
   onClose,
@@ -44,7 +42,7 @@ export const EndreSluttaarsakModal = ({
   const sendEndringsmelding = () => {
     return validerAarsakForm(aarsak, beskrivelse)
       .then((validertForm) =>
-        endreSluttaarsak(deltakerId, validertForm.endringsmelding.aarsak)
+        endreSluttaarsak(deltaker.id, validertForm.endringsmelding.aarsak)
       )
       .then(onEndringUtfort)
   }
@@ -60,7 +58,7 @@ export const EndreSluttaarsakModal = ({
     return validerAarsakForm(aarsak, beskrivelse, begrunnelse)
       .then((validertForm) =>
         endreSluttarsakForslag(
-          deltakerId,
+          deltaker.id,
           validertForm.forslag.aarsak,
           validertForm.forslag.begrunnelse
         )
