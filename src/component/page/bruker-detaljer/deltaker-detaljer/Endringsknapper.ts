@@ -10,6 +10,8 @@ interface EndringsknappData {
 	modalFunc: (props: ModalDataProps) => void,
 }
 
+// Foobar
+
 export function endringsknapper(deltaker: Deltaker, erForslagEnabled: boolean, modal: ModalHandler): EndringsknappData[] {
 	const {
 		visEndreOppstartModal,

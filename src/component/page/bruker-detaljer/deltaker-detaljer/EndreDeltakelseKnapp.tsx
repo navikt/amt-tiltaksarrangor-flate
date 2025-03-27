@@ -12,7 +12,7 @@ import { ModalController } from './ModalController'
 import { EndringType } from './types'
 import { Tiltakskode } from '../../../../api/data/tiltak'
 import { AktivtForslag } from '../../../../api/data/forslag'
-import { endringsknapper } from './Endringsknapper'
+import { endringsknapper } from './endringsknapper'
 
 interface EndreDeltakelseKnappProps {
 	deltaker: Deltaker
