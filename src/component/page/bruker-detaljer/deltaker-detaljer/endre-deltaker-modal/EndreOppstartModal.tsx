@@ -2,7 +2,6 @@ import React, { useRef, useState } from 'react'
 
 import { endreOppstartsdato } from '../../../../../api/tiltak-api'
 import { Nullable } from '../../../../../utils/types/or-nothing'
-import { AktivtForslag } from '../../../../../api/data/forslag'
 import {
   gyldigObligatoriskBegrunnelse,
   validerObligatoriskBegrunnelse
@@ -10,25 +9,13 @@ import {
 import { endreStartdatoForslag } from '../../../../../api/forslag-api'
 import { Endringsmodal } from './endringsmodal/Endringsmodal'
 import { DateField } from '../../../../felles/DateField'
-import { Deltaker } from '../../../../../api/data/deltaker'
 import { EndringType } from '../types'
 import { maxSluttdato, kalkulerMaxDato, kalkulerMinDato } from './datoutils'
 import { SluttdatoVelger, SluttdatoRef } from './SluttdatoVelger'
 import { finnValgtVarighet } from './varighet'
 import dayjs from 'dayjs'
 import { Tiltakskode } from '../../../../../api/data/tiltak'
-
-export interface EndreOppstartModalProps {
-  onClose: () => void
-}
-
-export interface EndreOppstartModalDataProps {
-  readonly deltaker: Deltaker
-  readonly visGodkjennVilkaarPanel: boolean
-  readonly onEndringUtfort: () => void
-  readonly onForslagSendt: (forslag: AktivtForslag) => void
-  readonly erForslagEnabled: boolean
-}
+import { ModalDataProps } from '../ModalController'
 
 export const EndreOppstartModal = ({
   deltaker,
@@ -37,7 +24,7 @@ export const EndreOppstartModal = ({
   onForslagSendt,
   onClose,
   erForslagEnabled
-}: EndreOppstartModalProps & EndreOppstartModalDataProps) => {
+}: ModalDataProps) => {
   const [startdato, setStartdato] = useState<Nullable<Date>>(deltaker.startDato)
   const [begrunnelse, setBegrunnelse] = useState<string>('')
   const skalVelgeVarighet = erForslagEnabled && deltaker.deltakerliste.tiltakstype != Tiltakskode.VASV

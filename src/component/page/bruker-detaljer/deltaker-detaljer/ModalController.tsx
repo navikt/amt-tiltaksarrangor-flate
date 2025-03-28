@@ -10,34 +10,43 @@ import { ModalData, ModalType } from './modal-store'
 import { EndreSluttdatoModal } from './endre-deltaker-modal/EndreSluttdatoModal'
 import { EndreSluttaarsakModal } from './endre-deltaker-modal/EndreSluttaarsakModal'
 import { FjernOppstartsdatoModal } from './endre-deltaker-modal/FjernOppstartsdatoModal'
+import { Deltaker } from '../../../../api/data/deltaker'
+import { AktivtForslag } from '../../../../api/data/forslag'
+
+export interface ModalDataProps {
+  readonly deltaker: Deltaker
+  readonly visGodkjennVilkaarPanel: boolean
+  readonly onEndringUtfort: () => void
+  readonly onEndringSendt: (oppdatertDeltaker: Deltaker) => void
+  readonly onForslagSendt: (forslag: AktivtForslag) => void
+  readonly erForslagEnabled: boolean
+  readonly onClose: () => void
+}
 
 export const ModalController = (props: {
   modalData: ModalData | undefined
-  onClose: () => void
 }): React.ReactElement | null => {
-  const { modalData, onClose } = props
+  const { modalData } = props
 
   switch (modalData?.type) {
     case ModalType.LeggTilOppstart:
-      return <LeggTilOppstartModal onClose={onClose} {...modalData.props} />
+      return <LeggTilOppstartModal {...modalData.props} />
     case ModalType.EndreOppstart:
-      return <EndreOppstartModal onClose={onClose} {...modalData.props} />
+      return <EndreOppstartModal {...modalData.props} />
     case ModalType.ForlengDeltakelse:
-      return <ForlengDeltakelseModal onClose={onClose} {...modalData.props} />
+      return <ForlengDeltakelseModal {...modalData.props} />
     case ModalType.SettDeltakerIkkeAktuell:
-      return <SettIkkeAktuellModal onClose={onClose} {...modalData.props} />
+      return <SettIkkeAktuellModal {...modalData.props} />
     case ModalType.AvsluttDeltaker:
-      return <AvsluttDeltakelseModal onClose={onClose} {...modalData.props} />
+      return <AvsluttDeltakelseModal {...modalData.props} />
     case ModalType.EndreProsentDeltakelse:
-      return (
-        <EndreProsentDeltakelseModal onClose={onClose} {...modalData.props} />
-      )
+      return <EndreProsentDeltakelseModal {...modalData.props} />
     case ModalType.EndreSluttdato:
-      return <EndreSluttdatoModal onClose={onClose} {...modalData.props} />
+      return <EndreSluttdatoModal {...modalData.props} />
     case ModalType.EndreSluttaarsak:
-      return <EndreSluttaarsakModal onClose={onClose} {...modalData.props} />
+      return <EndreSluttaarsakModal {...modalData.props} />
     case ModalType.FjernOppstartsdato:
-      return <FjernOppstartsdatoModal onClose={onClose} {...modalData.props} />
+      return <FjernOppstartsdatoModal {...modalData.props} />
     default:
       return null
   }

@@ -3,7 +3,6 @@ import { useState } from 'react'
 import { Radio, RadioGroup } from '@navikt/ds-react'
 import { Deltaker } from '../../../../../api/data/deltaker'
 import { DeltakerStatusAarsakType } from '../../../../../api/data/endringsmelding'
-import { AktivtForslag } from '../../../../../api/data/forslag'
 import { avsluttDeltakelseForslag } from '../../../../../api/forslag-api'
 import { avsluttDeltakelse } from '../../../../../api/tiltak-api'
 import { maxDate } from '../../../../../utils/date-utils'
@@ -18,27 +17,14 @@ import {
   useAarsakValidering,
   validerAarsakForm
 } from './validering/aarsakValidering'
-
-interface AvsluttDeltakelseModalProps {
-  onClose: () => void
-}
-
-export interface AvsluttDeltakelseModalDataProps {
-  readonly deltaker: Deltaker
-  readonly startDato: Nullable<Date>
-  readonly visGodkjennVilkaarPanel: boolean
-  readonly onEndringUtfort: () => void
-  readonly onForslagSendt: (forslag: AktivtForslag) => void
-  readonly erForslagEnabled: boolean
-}
+import { ModalDataProps } from '../ModalController'
 
 export const AvsluttDeltakelseModal = (
-  props: AvsluttDeltakelseModalProps & AvsluttDeltakelseModalDataProps
+  props: ModalDataProps
 ) => {
   const {
     onClose,
     deltaker,
-    startDato,
     visGodkjennVilkaarPanel,
     onEndringUtfort,
     onForslagSendt,
@@ -151,7 +137,7 @@ export const AvsluttDeltakelseModal = (
         <DateField
           label="Hva er ny sluttdato?"
           defaultDate={sluttDato}
-          min={maxDate(startDato, deltaker.deltakerliste.startDato)}
+          min={maxDate(deltaker.startDato, deltaker.deltakerliste.startDato)}
           max={maxSluttdato(deltaker.startDato, deltaker.deltakerliste)}
           onDateChanged={(d) => settSluttDato(d)}
         />

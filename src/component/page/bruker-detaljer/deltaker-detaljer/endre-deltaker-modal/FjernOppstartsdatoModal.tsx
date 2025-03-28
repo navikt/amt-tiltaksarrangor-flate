@@ -4,22 +4,11 @@ import { Endringsmodal } from './endringsmodal/Endringsmodal'
 import {
   fjernOppstartsdatoForslag
 } from '../../../../../api/forslag-api'
-import { AktivtForslag } from '../../../../../api/data/forslag'
-import { Deltaker, TiltakDeltakerStatus } from '../../../../../api/data/deltaker'
+import { TiltakDeltakerStatus } from '../../../../../api/data/deltaker'
 import { EndringType } from '../types'
 import { validerObligatoriskBegrunnelse } from './validering/begrunnelseValidering'
 import { BodyLong } from '@navikt/ds-react'
-
-interface FjernOppstartsdatoModalProps {
-  onClose: () => void
-}
-
-export interface FjernOppstartsdatoModalDataProps {
-  readonly deltaker: Deltaker
-  readonly visGodkjennVilkaarPanel: boolean
-  readonly onForslagSendt: (forslag: AktivtForslag) => void
-  readonly erForslagEnabled: boolean
-}
+import { ModalDataProps } from '../ModalController'
 
 export const FjernOppstartsdatoModal = ({
   deltaker,
@@ -27,7 +16,7 @@ export const FjernOppstartsdatoModal = ({
   onClose,
   onForslagSendt,
   erForslagEnabled
-}: FjernOppstartsdatoModalProps & FjernOppstartsdatoModalDataProps) => {
+}: ModalDataProps) => {
   const [begrunnelse, setBegrunnelse] = useState('')
   const kanSendeForslag = erForslagEnabled &&
     deltaker.status.type === TiltakDeltakerStatus.VENTER_PA_OPPSTART && deltaker.startDato

@@ -4,7 +4,6 @@ import { DeltakerStatusAarsakType } from '../../../../../api/data/endringsmeldin
 import { deltakerIkkeAktuell } from '../../../../../api/tiltak-api'
 import { Nullable } from '../../../../../utils/types/or-nothing'
 import { AarsakSelector } from './AarsakSelector'
-import { AktivtForslag } from '../../../../../api/data/forslag'
 import { Endringsmodal } from './endringsmodal/Endringsmodal'
 import { ikkeAktuellForslag } from '../../../../../api/forslag-api'
 import {
@@ -12,27 +11,16 @@ import {
   validerAarsakForm
 } from './validering/aarsakValidering'
 import { EndringType } from '../types'
-
-interface SettIkkeAktuellModalProps {
-  onClose: () => void
-}
-
-export interface SettIkkeAktuellModalDataProps {
-  readonly deltakerId: string
-  readonly visGodkjennVilkaarPanel: boolean
-  readonly onEndringUtfort: () => void
-  readonly onForslagSendt: (forslag: AktivtForslag) => void
-  readonly erForslagEnabled: boolean
-}
+import { ModalDataProps } from '../ModalController'
 
 export const SettIkkeAktuellModal = ({
-  deltakerId,
+  deltaker,
   onClose,
   visGodkjennVilkaarPanel,
   onEndringUtfort,
   onForslagSendt,
   erForslagEnabled
-}: SettIkkeAktuellModalProps & SettIkkeAktuellModalDataProps) => {
+}: ModalDataProps) => {
   const [aarsak, settAarsak] = useState<DeltakerStatusAarsakType>()
   const [beskrivelse, settBeskrivelse] = useState<Nullable<string>>()
   const [begrunnelse, setBegrunnelse] = useState<string>()
@@ -42,7 +30,7 @@ export const SettIkkeAktuellModal = ({
   const sendEndringsmelding = () => {
     return validerAarsakForm(aarsak, beskrivelse)
       .then((validertForm) =>
-        deltakerIkkeAktuell(deltakerId, validertForm.endringsmelding.aarsak)
+        deltakerIkkeAktuell(deltaker.id, validertForm.endringsmelding.aarsak)
       )
       .then(onEndringUtfort)
   }
@@ -51,7 +39,7 @@ export const SettIkkeAktuellModal = ({
     return validerAarsakForm(aarsak, beskrivelse, begrunnelse)
       .then((validertForm) =>
         ikkeAktuellForslag(
-          deltakerId,
+          deltaker.id,
           validertForm.forslag.aarsak,
           validertForm.forslag.begrunnelse
         )

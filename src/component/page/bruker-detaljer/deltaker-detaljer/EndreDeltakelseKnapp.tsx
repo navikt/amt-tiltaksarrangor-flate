@@ -3,8 +3,7 @@ import { Button, Dropdown } from '@navikt/ds-react'
 import React, { useRef } from 'react'
 
 import {
-  Deltaker,
-  TiltakDeltakerStatus
+	Deltaker,
 } from '../../../../api/data/deltaker'
 import { DropDownButton } from './DropDownButton'
 import styles from './EndreDeltakelseKnapp.module.scss'
@@ -13,232 +12,78 @@ import { ModalController } from './ModalController'
 import { EndringType } from './types'
 import { Tiltakskode } from '../../../../api/data/tiltak'
 import { AktivtForslag } from '../../../../api/data/forslag'
+import { endringsknapper } from './endringsknapper'
 
 interface EndreDeltakelseKnappProps {
-  deltaker: Deltaker
-  onEndringUtfort: () => void
-  erForslagEnabled: boolean
-  onForslagSendt: (forslag: AktivtForslag) => void
-  onEndringSendt: (oppdatertDeltaker: Deltaker) => void
+	deltaker: Deltaker
+	onEndringUtfort: () => void
+	erForslagEnabled: boolean
+	onForslagSendt: (forslag: AktivtForslag) => void
+	onEndringSendt: (oppdatertDeltaker: Deltaker) => void
 }
 
 export const EndreDeltakelseKnapp = (props: EndreDeltakelseKnappProps) => {
-  const {
-    modalData,
-    visEndreOppstartModal,
-    visLeggTilOppstartModal,
-    visForlengDeltakelseModal,
-    visSettDeltakerIkkeAktuellModal,
-    visAvsluttDeltakerModal,
-    visEndreProsentDeltakelseModal,
-    visEndreSluttdatoModal,
-    visEndreSluttaarsakModal,
-    visFjernOppstartsdatoModal,
-    lukkModal
-  } = useModalData()
-  const { deltaker } = props
+	const { deltaker } = props
+	const modal = useModalData()
+	const endreDeltakelseRef = useRef<HTMLButtonElement>(null)
+	const handleCloseModal = () => {
+		modal.lukkModal()
+		endreDeltakelseRef?.current?.focus()
+	}
 
-  const kanIkkeLeggeTilOppstartDato =
-    deltaker.status.type === TiltakDeltakerStatus.IKKE_AKTUELL &&
-    props.erForslagEnabled
+	const visGodkjennVilkaarPanel = (type: EndringType) => {
+		switch (type) {
+			case EndringType.ENDRE_OPPSTARTSDATO:
+			case EndringType.FORLENG_DELTAKELSE:
+			case EndringType.AVSLUTT_DELTAKELSE:
+			case EndringType.DELTAKER_IKKE_AKTUELL:
+			case EndringType.ENDRE_DELTAKELSE_PROSENT:
+			case EndringType.ENDRE_SLUTTDATO:
+			case EndringType.ENDRE_SLUTTAARSAK: return deltaker.tiltakskode !== Tiltakskode.VASV
+			case EndringType.FJERN_OPPSTARTSDATO:
+			case EndringType.LEGG_TIL_OPPSTARTSDATO: return false
+			default: return false
+		}
+	}
 
-	const kanEndreStartDato =
-		deltaker.status.type === TiltakDeltakerStatus.VENTER_PA_OPPSTART ||
-		deltaker.status.type === TiltakDeltakerStatus.IKKE_AKTUELL ||
-		deltaker.status.type === TiltakDeltakerStatus.DELTAR ||
-		deltaker.status.type === TiltakDeltakerStatus.VURDERES ||
-		deltaker.status.type === TiltakDeltakerStatus.SOKT_INN
-
-  const kanFjerneOppstartsdato =
-    deltaker.status.type === TiltakDeltakerStatus.VENTER_PA_OPPSTART &&
-    deltaker.startDato && props.erForslagEnabled
-
-  const endreDeltakelseRef = useRef<HTMLButtonElement>(null)
-  const handleCloseModal = () => {
-    lukkModal()
-    endreDeltakelseRef?.current?.focus()
-  }
-
-  const visGodkjennVilkaarPanel = deltaker.tiltakskode !== Tiltakskode.VASV
-
-  return (
-    <>
-      <ModalController modalData={modalData} onClose={handleCloseModal} />
-      <Dropdown>
-        <Button
-          ref={endreDeltakelseRef}
-          className={styles.knapp}
-          as={Dropdown.Toggle}
-          variant="secondary"
-          size="small"
-          icon={<PencilIcon aria-hidden />}
-        >
-          Endre deltakelse
-        </Button>
-        <Dropdown.Menu className={styles.dropdownMenu}>
-          <Dropdown.Menu.List>
-            {kanEndreStartDato &&
-              !kanIkkeLeggeTilOppstartDato &&
-              !deltaker.startDato && (
-                <DropDownButton
-                  endringstype={EndringType.LEGG_TIL_OPPSTARTSDATO}
-                  onClick={() =>
-                    visLeggTilOppstartModal({
-                      deltaker: deltaker,
-                      visGodkjennVilkaarPanel: false,
-                      onEndringUtfort: props.onEndringUtfort,
-                      onEndringSendt: props.onEndringSendt,
-                      erForslagEnabled: props.erForslagEnabled
-                    })
-                  }
-                />
-              )}
-
-            {kanEndreStartDato && deltaker.startDato && (
-              <DropDownButton
-                endringstype={EndringType.ENDRE_OPPSTARTSDATO}
-                onClick={() =>
-                  visEndreOppstartModal({
-                    deltaker: deltaker,
-                    visGodkjennVilkaarPanel: visGodkjennVilkaarPanel,
-                    onEndringUtfort: props.onEndringUtfort,
-                    onForslagSendt: props.onForslagSendt,
-                    erForslagEnabled: props.erForslagEnabled
-                  })
-                }
-              />
-            )}
-
-            {(deltaker.status.type === TiltakDeltakerStatus.HAR_SLUTTET ||
-              (deltaker.status.type === TiltakDeltakerStatus.DELTAR &&
-                deltaker.sluttDato)) && (
-              <DropDownButton
-                endringstype={EndringType.FORLENG_DELTAKELSE}
-                onClick={() =>
-                  visForlengDeltakelseModal({
-                    deltaker: deltaker,
-                    visGodkjennVilkaarPanel: visGodkjennVilkaarPanel,
-                    onEndringUtfort: props.onEndringUtfort,
-                    onForslagSendt: props.onForslagSendt,
-                    erForslagEnabled: props.erForslagEnabled
-                  })
-                }
-              />
-            )}
-
-            {deltaker.status.type ===
-              TiltakDeltakerStatus.VENTER_PA_OPPSTART && (
-              <DropDownButton
-                endringstype={EndringType.DELTAKER_IKKE_AKTUELL}
-                onClick={() =>
-                  visSettDeltakerIkkeAktuellModal({
-                    deltakerId: deltaker.id,
-                    visGodkjennVilkaarPanel: visGodkjennVilkaarPanel,
-                    onEndringUtfort: props.onEndringUtfort,
-                    onForslagSendt: props.onForslagSendt,
-                    erForslagEnabled: props.erForslagEnabled
-                  })
-                }
-              />
-            )}
-            {deltaker.status.type === TiltakDeltakerStatus.DELTAR && (
-              <DropDownButton
-                endringstype={EndringType.AVSLUTT_DELTAKELSE}
-                onClick={() =>
-                  visAvsluttDeltakerModal({
-                    deltaker: deltaker,
-                    startDato: deltaker.startDato,
-                    visGodkjennVilkaarPanel: visGodkjennVilkaarPanel,
-                    onEndringUtfort: props.onEndringUtfort,
-                    onForslagSendt: props.onForslagSendt,
-                    erForslagEnabled: props.erForslagEnabled
-                  })
-                }
-              />
-            )}
-            {(deltaker.tiltakskode === Tiltakskode.ARBFORB ||
-              deltaker.tiltakskode === Tiltakskode.VASV) && (
-              <DropDownButton
-                endringstype={EndringType.ENDRE_DELTAKELSE_PROSENT}
-                onClick={() =>
-                  visEndreProsentDeltakelseModal({
-                    deltaker: deltaker,
-                    visGodkjennVilkaarPanel: visGodkjennVilkaarPanel,
-                    onEndringUtfort: props.onEndringUtfort,
-                    onForslagSendt: props.onForslagSendt,
-                    erForslagEnabled: props.erForslagEnabled
-                  })
-                }
-              />
-            )}
-						{(deltaker.status.type === TiltakDeltakerStatus.VURDERES || deltaker.status.type === TiltakDeltakerStatus.SOKT_INN) && (
-							<DropDownButton
-								endringstype={EndringType.DELTAKER_IKKE_AKTUELL}
-								onClick={() =>
-									visSettDeltakerIkkeAktuellModal({
-										deltakerId: deltaker.id,
-										visGodkjennVilkaarPanel: visGodkjennVilkaarPanel,
-										onEndringUtfort: props.onEndringUtfort,
-										onForslagSendt: props.onForslagSendt,
-										erForslagEnabled: props.erForslagEnabled
-									})
-								}
-							/>
-						)}
-            {(deltaker.status.type === TiltakDeltakerStatus.FULLFORT ||
-              deltaker.status.type === TiltakDeltakerStatus.AVBRUTT ||
-              deltaker.status.type === TiltakDeltakerStatus.HAR_SLUTTET) && (
-              <DropDownButton
-                endringstype={EndringType.ENDRE_SLUTTDATO}
-                onClick={() =>
-                  visEndreSluttdatoModal({
-                    deltaker: deltaker,
-                    visGodkjennVilkaarPanel: visGodkjennVilkaarPanel,
-                    onEndringUtfort: props.onEndringUtfort,
-                    onForslagSendt: props.onForslagSendt,
-                    erForslagEnabled: props.erForslagEnabled
-                  })
-                }
-              />
-            )}
-            {(deltaker.status.type === TiltakDeltakerStatus.HAR_SLUTTET ||
-              (props.erForslagEnabled &&
-                deltaker.status.type ===
-                TiltakDeltakerStatus.IKKE_AKTUELL)) &&
-              !deltaker.deltakerliste.erKurs && (
-                <DropDownButton
-                  endringstype={EndringType.ENDRE_SLUTTAARSAK}
-                  onClick={() =>
-                    visEndreSluttaarsakModal({
-                      deltakerId: deltaker.id,
-                      deltaker: deltaker,
-                      deltakerStatus: deltaker.status.type as
-                        | TiltakDeltakerStatus.HAR_SLUTTET
-                        | TiltakDeltakerStatus.IKKE_AKTUELL,
-                      visGodkjennVilkaarPanel: visGodkjennVilkaarPanel,
-                      onEndringUtfort: props.onEndringUtfort,
-                      onForslagSendt: props.onForslagSendt,
-                      erForslagEnabled: props.erForslagEnabled
-                    })
-                  }
-                />
-              )}
-            {kanFjerneOppstartsdato && (
-                <DropDownButton
-                  endringstype={EndringType.FJERN_OPPSTARTSDATO}
-                  onClick={() =>
-                    visFjernOppstartsdatoModal({
-                      deltaker: deltaker,
-                      visGodkjennVilkaarPanel: false,
-                      onForslagSendt: props.onForslagSendt,
-                      erForslagEnabled: props.erForslagEnabled
-                    })
-                  }
-                />
-              )}
-          </Dropdown.Menu.List>
-        </Dropdown.Menu>
-      </Dropdown>
-    </>
-  )
+	return (
+		<>
+			<ModalController modalData={modal.modalData} />
+			<Dropdown>
+				<Button
+					ref={endreDeltakelseRef}
+					className={styles.knapp}
+					as={Dropdown.Toggle}
+					variant="secondary"
+					size="small"
+					icon={<PencilIcon aria-hidden />}
+				>
+					Endre deltakelse
+				</Button>
+				<Dropdown.Menu className={styles.dropdownMenu}>
+					<Dropdown.Menu.List>
+						{endringsknapper(deltaker, props.erForslagEnabled, modal).map(knapp => {
+							if (knapp.erTilgjengelig) {
+								return <DropDownButton
+									key={knapp.type}
+									endringstype={knapp.type}
+									onClick={() =>
+										knapp.modalFunc({
+											deltaker: deltaker,
+											visGodkjennVilkaarPanel: visGodkjennVilkaarPanel(knapp.type),
+											onEndringUtfort: props.onEndringUtfort,
+											onEndringSendt: props.onEndringSendt,
+											erForslagEnabled: props.erForslagEnabled,
+											onForslagSendt: props.onForslagSendt,
+											onClose: handleCloseModal,
+										})
+									}
+								/>
+							} else return <></>
+						})}
+					</Dropdown.Menu.List>
+				</Dropdown.Menu>
+			</Dropdown>
+		</>
+	)
 }

@@ -20,7 +20,11 @@ const tiltakstyperKometAlltidErMasterFor = [
   Tiltakskode.VASV
 ]
 
-const tiltakstyperKometKanskjeErMasterFor: Tiltakskode[] = []
+const tiltakstyperKometKanskjeErMasterFor: Tiltakskode[] = [
+  Tiltakskode.JOBBK,
+  Tiltakskode.GRUFAGYRKE,
+  Tiltakskode.GRUPPEAMO,
+]
 
 export const useFeatureToggle = () => {
   const [toggles, setToggles] = useState<FeatureToggles>()

@@ -7,7 +7,6 @@ import { endreDeltakelsesprosent } from '../../../../../api/tiltak-api'
 import { DateField } from '../../../../felles/DateField'
 import styles from './EndreProsentDeltakelseModal.module.scss'
 import { Endringsmodal } from './endringsmodal/Endringsmodal'
-import { AktivtForslag } from '../../../../../api/data/forslag'
 import {
   gyldigObligatoriskBegrunnelse,
   validerObligatoriskBegrunnelse
@@ -16,19 +15,7 @@ import { deltakelsesmengdeForslag } from '../../../../../api/forslag-api'
 import { useDeltakelsesmengdeValidering } from './validering/deltakelsesmengdeValidering'
 import { EndringType } from '../types'
 import { SimpleDatePicker } from '../../../../felles/SimpleDatePicker'
-import { Deltaker } from '../../../../../api/data/deltaker'
-
-interface EndreProsentDeltakelseModalProps {
-  onClose: () => void
-}
-
-export interface EndreProsentDeltakelseModalDataProps {
-  readonly deltaker: Deltaker
-  readonly visGodkjennVilkaarPanel: boolean
-  readonly onEndringUtfort: () => void
-  readonly onForslagSendt: (forslag: AktivtForslag) => void
-  readonly erForslagEnabled: boolean
-}
+import { ModalDataProps } from '../ModalController'
 
 export const EndreProsentDeltakelseModal = ({
   deltaker,
@@ -37,7 +24,7 @@ export const EndreProsentDeltakelseModal = ({
   onEndringUtfort,
   onForslagSendt,
   onClose
-}: EndreProsentDeltakelseModalProps & EndreProsentDeltakelseModalDataProps) => {
+}: ModalDataProps) => {
   const today = dayjs()
   const [prosentDeltakelseFelt, settProsentDeltakelseFelt] =
     useState<string>('')

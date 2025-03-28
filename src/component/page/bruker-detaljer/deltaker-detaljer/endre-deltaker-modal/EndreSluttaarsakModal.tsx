@@ -10,36 +10,18 @@ import {
   validerAarsakForm
 } from './validering/aarsakValidering'
 import { endreSluttarsakForslag } from '../../../../../api/forslag-api'
-import { AktivtForslag } from '../../../../../api/data/forslag'
-import { Deltaker, TiltakDeltakerStatus } from '../../../../../api/data/deltaker'
 import { EndringType } from '../types'
-
-interface EndreSluttaarsakModalProps {
-  onClose: () => void
-}
-
-export interface EndreSluttaarsakModalDataProps {
-  readonly deltakerId: string
-  readonly deltaker: Deltaker
-  readonly deltakerStatus:
-  | TiltakDeltakerStatus.IKKE_AKTUELL
-  | TiltakDeltakerStatus.HAR_SLUTTET
-  readonly visGodkjennVilkaarPanel: boolean
-  readonly onEndringUtfort: () => void
-  readonly onForslagSendt: (forslag: AktivtForslag) => void
-  readonly erForslagEnabled: boolean
-}
+import { ModalDataProps } from '../ModalController'
+import { TiltakDeltakerStatus } from '../../../../../api/data/deltaker'
 
 export const EndreSluttaarsakModal = ({
-  deltakerId,
   deltaker,
-  deltakerStatus,
   visGodkjennVilkaarPanel,
   onClose,
   onEndringUtfort,
   onForslagSendt,
   erForslagEnabled
-}: EndreSluttaarsakModalProps & EndreSluttaarsakModalDataProps) => {
+}: ModalDataProps) => {
   const [aarsak, settAarsak] = useState<DeltakerStatusAarsakType>()
   const [beskrivelse, settBeskrivelse] = useState<Nullable<string>>()
   const [begrunnelse, setBegrunnelse] = useState<string>()
@@ -48,7 +30,7 @@ export const EndreSluttaarsakModal = ({
   const sendEndringsmelding = () => {
     return validerAarsakForm(aarsak, beskrivelse)
       .then((validertForm) =>
-        endreSluttaarsak(deltakerId, validertForm.endringsmelding.aarsak)
+        endreSluttaarsak(deltaker.id, validertForm.endringsmelding.aarsak)
       )
       .then(onEndringUtfort)
   }
@@ -64,7 +46,7 @@ export const EndreSluttaarsakModal = ({
     return validerAarsakForm(aarsak, beskrivelse, begrunnelse)
       .then((validertForm) =>
         endreSluttarsakForslag(
-          deltakerId,
+          deltaker.id,
           validertForm.forslag.aarsak,
           validertForm.forslag.begrunnelse
         )
@@ -96,9 +78,9 @@ export const EndreSluttaarsakModal = ({
     >
       <AarsakSelector
         tittel={
-          deltakerStatus === TiltakDeltakerStatus.HAR_SLUTTET
-            ? 'Hva er årsaken til avslutning?'
-            : 'Hva er årsaken til at deltakeren ikke er aktuell?'
+          deltaker.status.type === TiltakDeltakerStatus.IKKE_AKTUELL
+            ? 'Hva er årsaken til at deltakeren ikke er aktuell?'
+            : 'Hva er årsaken til avslutning?'
         }
         onAarsakSelected={onAarsakSelected}
       />
