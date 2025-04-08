@@ -26,10 +26,10 @@
     ]
   },
   "dependencies": {
-    "@navikt/aksel-icons": "^7.18.0",
-    "@navikt/ds-css": "^7.18.0",
-    "@navikt/ds-react": "^7.18.0",
-    "@navikt/ds-tokens": "^7.18.0",
+    "@navikt/aksel-icons": "^7.19.0",
+    "@navikt/ds-css": "^7.19.0",
+    "@navikt/ds-react": "^7.19.0",
+    "@navikt/ds-tokens": "^7.19.0",
     "@navikt/nav-dekoratoren-moduler": "^3.2.2",
     "@sentry/react": "^9.11.0",
     "@sentry/tracing": "^7.120.3",
@@ -67,7 +67,7 @@
     "sass": "^1.86.3",
     "table": "^6.9.0",
     "typescript": "^5.8.3",
-    "typescript-eslint": "^8.29.0",
+    "typescript-eslint": "^8.29.1",
     "vite": "^6.2.5",
     "vitest": "^3.1.1"
   },
