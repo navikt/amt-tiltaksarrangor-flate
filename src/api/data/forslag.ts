@@ -4,6 +4,7 @@ import { dateSchema } from '../utils'
 
 export enum HistorikkType {
   Vedtak = 'Vedtak',
+  InnsokPaaFellesOppstart = 'InnsokPaaFellesOppstart',
   Endring = 'Endring',
   Forslag = 'Forslag',
   EndringFraArrangor = 'EndringFraArrangor',

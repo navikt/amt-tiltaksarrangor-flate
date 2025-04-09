@@ -9,6 +9,7 @@ import styles from './Historikk.module.scss'
 import { Tiltakskode } from '../../../../../api/data/tiltak'
 import { HistorikkImportertFraArena } from './HistorikkImportertFraArena'
 import { HistorikkVurderingFraArrangor } from './HistorikkVurderingFraArrangor'
+import { HistorikkSoktInn } from './HistorikkSoktInn'
 
 interface Props {
   historikk: DeltakerHistorikkListe | null
@@ -21,6 +22,8 @@ const getHistorikkItem = (historikk: DeltakerHistorikk, tiltakstype: Tiltakskode
   switch (historikk.type) {
     case HistorikkType.Vedtak:
       return <HistorikkVedtak endringsVedtak={historikk} tiltakstype={tiltakstype} />
+    case HistorikkType.InnsokPaaFellesOppstart:
+      return <HistorikkSoktInn soktInnHistorikk={historikk} />
     case HistorikkType.Endring:
       return <HistorikkEndring deltakerEndring={historikk} tiltakstype={tiltakstype} />
     case HistorikkType.Forslag:

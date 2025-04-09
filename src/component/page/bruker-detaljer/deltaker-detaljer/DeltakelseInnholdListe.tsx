@@ -1,8 +1,8 @@
 import { BodyLong, List } from '@navikt/ds-react'
-import { Deltakelsesinnhold } from '../../../../api/data/deltaker'
 import { INNHOLD_TYPE_ANNET } from '../../../../utils/deltaker-utils'
 import { Tiltakskode } from '../../../../api/data/tiltak'
 import styles from './DeltakelseInfo.module.scss'
+import { Deltakelsesinnhold } from '../../../../api/data/innhold'
 
 interface Props {
   deltakelsesinnhold: Deltakelsesinnhold

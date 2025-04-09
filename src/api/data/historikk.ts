@@ -151,6 +151,16 @@ export const vedtakSchema = z.object({
   opprettet: dateSchema
 })
 
+export const soktInnSchema = z.object({
+  type: z.literal(HistorikkType.InnsokPaaFellesOppstart),
+  innsokt: nullableDateSchema,
+  innsoktAv: z.string(),
+  innsoktAvEnhet: z.string(),
+  deltakelsesinnholdVedInnsok: deltakelsesinnholdSchema.nullable(),
+  utkastDelt: nullableDateSchema,
+  utkastGodkjentAvNav: z.boolean()
+})
+
 export const deltakerEndringSchema = z.object({
   type: z.literal(HistorikkType.Endring),
   endring: endringSchema,
@@ -193,6 +203,7 @@ export const vurderingFraArrangorSchema = z.object({
 
 export const deltakerHistorikkSchema = z.discriminatedUnion('type', [
   vedtakSchema,
+  soktInnSchema,
   deltakerEndringSchema,
   historikkForslagSchema,
   endringFraArrangorSchema,
@@ -209,6 +220,7 @@ export type DeltakerEndringFraArrangor = z.infer<
   typeof endringFraArrangorSchema
 >
 export type Vedtak = z.infer<typeof vedtakSchema>
+export type InnsokPaaFellesOppstart = z.infer<typeof soktInnSchema>
 export type importertFraArena = z.infer<typeof importertFraArenaSchema>
 export type DeltakerHistorikk = z.infer<typeof deltakerHistorikkSchema>
 export type DeltakerHistorikkListe = z.infer<

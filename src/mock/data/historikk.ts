@@ -348,6 +348,15 @@ export const mockDeltakerHistorikk = (): DeltakerHistorikkListe => {
       }
     },
     {
+      type: HistorikkType.InnsokPaaFellesOppstart,
+      innsokt: dayjs().subtract(10, 'days').toDate(),
+      innsoktAv: 'Navn Navnesen',
+      innsoktAvEnhet: 'Nav Fredrikstad',
+      utkastDelt: dayjs().subtract(3, 'day').toDate(),
+      utkastGodkjentAvNav: false,
+      deltakelsesinnholdVedInnsok: null
+    },
+    {
       type: HistorikkType.VurderingFraArrangor,
       vurderingstype: Vurderingstype.OPPFYLLER_IKKE_KRAVENE,
       begrunnelse: 'Oppfyller ikke kravene',
