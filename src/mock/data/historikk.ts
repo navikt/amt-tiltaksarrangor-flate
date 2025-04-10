@@ -354,6 +354,15 @@ export const mockDeltakerHistorikk = (): DeltakerHistorikkListe => {
 export const lagHistorikkFellesOppstart = (): DeltakerHistorikkListe => {
   return [
     {
+      type: HistorikkType.EndringFraTiltakskoordinator,
+      endring: {
+        type: TiltakskoordinatorEndringsType.SettPaVenteliste
+      },
+      endret: dayjs().subtract(17, 'day').toDate(),
+      endretAv: 'Nav',
+      endretAvEnhet: 'Nav Fredrikstad'
+    },
+    {
       type: HistorikkType.VurderingFraArrangor,
       vurderingstype: Vurderingstype.OPPFYLLER_IKKE_KRAVENE,
       begrunnelse: 'Oppfyller ikke kravene',
@@ -366,7 +375,8 @@ export const lagHistorikkFellesOppstart = (): DeltakerHistorikkListe => {
         type: TiltakskoordinatorEndringsType.DelMedArrangor
       },
       endret: dayjs().subtract(17, 'day').toDate(),
-      endretAv: 'Navn Navnesen'
+      endretAv: 'Navn Navnesen',
+      endretAvEnhet: 'Nav Fredrikstad'
     },
     {
       type: HistorikkType.InnsokPaaFellesOppstart,

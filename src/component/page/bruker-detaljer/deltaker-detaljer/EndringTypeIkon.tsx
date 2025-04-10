@@ -93,6 +93,7 @@ export const EndringTypeIkon = ({ type, size }: EndringTypeIkonProps) => {
     case HistorikkEndringType.EndreBakgrunnsinformasjon:
     case HistorikkEndringType.EndreInnhold:
     case TiltakskoordinatorEndringsType.DelMedArrangor:
+    case TiltakskoordinatorEndringsType.SettPaVenteliste:
       return (
         < DefaultIcon size={size} />
       )
