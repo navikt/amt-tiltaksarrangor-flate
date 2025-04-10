@@ -12,11 +12,11 @@ import {
   PieChartFillIcon,
   PlusCircleFillIcon
 } from '@navikt/aksel-icons'
-import { EndringType as HistorikkEndringType } from '../../../../api/data/historikk'
+import { EndringType as HistorikkEndringType, TiltakskoordinatorEndringsType } from '../../../../api/data/historikk'
 import { ForslagEndringType } from '../../../../api/data/forslag'
 
 interface EndringTypeIkonProps {
-  type: EndringType | HistorikkEndringType | ForslagEndringType
+  type: EndringType | HistorikkEndringType | ForslagEndringType | TiltakskoordinatorEndringsType
   size?: 'medium' | 'large' | 'small'
 }
 
@@ -92,6 +92,7 @@ export const EndringTypeIkon = ({ type, size }: EndringTypeIkonProps) => {
       )
     case HistorikkEndringType.EndreBakgrunnsinformasjon:
     case HistorikkEndringType.EndreInnhold:
+    case TiltakskoordinatorEndringsType.DelMedArrangor:
       return (
         < DefaultIcon size={size} />
       )

@@ -1,7 +1,7 @@
 import { Adressetype, Hendelser, TiltakDeltakerStatus } from '../api/data/deltaker'
 import { DeltakerStatusAarsak, DeltakerStatusAarsakType } from '../api/data/endringsmelding'
 import { EndringAarsak, ForslagEndringAarsakType, ForslagEndringType, ForslagStatusType } from '../api/data/forslag'
-import { DeltakerHistorikkStatus, Endring, EndringType } from '../api/data/historikk'
+import { DeltakerHistorikkStatus, Endring, EndringType, TiltakskoordinatorEndringsType } from '../api/data/historikk'
 import { Veiledertype } from '../api/data/veileder'
 import { dateStrWithMonthName } from './date-utils'
 import { getDeltakelsesmengdetekst } from './deltaker-utils'
@@ -133,6 +133,15 @@ export const getForslagTittel = (endringstype: ForslagEndringType) => {
       return 'Endre oppstartsdato'
     case ForslagEndringType.FjernOppstartsdato:
       return 'Fjern oppstartsdato'
+  }
+}
+
+export const getTiltakskoordinatorEndringsTittel = (
+  endring: TiltakskoordinatorEndringsType
+) => {
+  switch (endring) {
+    case TiltakskoordinatorEndringsType.DelMedArrangor:
+      return 'Informasjon sendt til arrangør'
   }
 }
 

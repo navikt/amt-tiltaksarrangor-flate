@@ -2,7 +2,8 @@ import {
   ArrangorEndringsType,
   DeltakerHistorikkListe,
   DeltakerHistorikkStatus,
-  EndringType
+  EndringType,
+  TiltakskoordinatorEndringsType
 } from '../../api/data/historikk'
 import {
   ForslagEndringAarsakType,
@@ -346,6 +347,26 @@ export const mockDeltakerHistorikk = (): DeltakerHistorikkListe => {
         type: DeltakerHistorikkStatus.DELTAR,
         aarsak: null
       }
+    }, ...lagHistorikkFellesOppstart()
+  ]
+}
+
+export const lagHistorikkFellesOppstart = (): DeltakerHistorikkListe => {
+  return [
+    {
+      type: HistorikkType.VurderingFraArrangor,
+      vurderingstype: Vurderingstype.OPPFYLLER_IKKE_KRAVENE,
+      begrunnelse: 'Oppfyller ikke kravene',
+      opprettetDato: dayjs().subtract(17, 'day').toDate(),
+      endretAv: 'Navn Navnesen'
+    },
+    {
+      type: HistorikkType.EndringFraTiltakskoordinator,
+      endring: {
+        type: TiltakskoordinatorEndringsType.DelMedArrangor
+      },
+      endret: dayjs().subtract(17, 'day').toDate(),
+      endretAv: 'Navn Navnesen'
     },
     {
       type: HistorikkType.InnsokPaaFellesOppstart,
@@ -355,13 +376,6 @@ export const mockDeltakerHistorikk = (): DeltakerHistorikkListe => {
       utkastDelt: dayjs().subtract(3, 'day').toDate(),
       utkastGodkjentAvNav: false,
       deltakelsesinnholdVedInnsok: null
-    },
-    {
-      type: HistorikkType.VurderingFraArrangor,
-      vurderingstype: Vurderingstype.OPPFYLLER_IKKE_KRAVENE,
-      begrunnelse: 'Oppfyller ikke kravene',
-      opprettetDato: dayjs().subtract(17, 'day').toDate(),
-      endretAv: 'Nav'
     }
   ]
 }

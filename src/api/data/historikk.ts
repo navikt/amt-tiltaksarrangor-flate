@@ -44,6 +44,10 @@ export enum Vurderingstype {
   OPPFYLLER_IKKE_KRAVENE = 'OPPFYLLER_IKKE_KRAVENE'
 }
 
+export enum TiltakskoordinatorEndringsType {
+  DelMedArrangor = 'DelMedArrangor'
+}
+
 export const vurderingstypeSchema = z.nativeEnum(Vurderingstype)
 
 export const endreBakgrunnsinformasjonSchema = z.object({
@@ -138,6 +142,14 @@ const arrangorEndringSchema = z.discriminatedUnion('type', [
   arrangorLeggTilOppstartSchema
 ])
 
+const tiltakskoordinatorDelMedArrangorSchema = z.object({
+  type: z.literal(TiltakskoordinatorEndringsType.DelMedArrangor)
+})
+
+const tiltakskoordinatorEndringSchema = z.discriminatedUnion('type', [
+  tiltakskoordinatorDelMedArrangorSchema
+])
+
 export const vedtakSchema = z.object({
   type: z.literal(HistorikkType.Vedtak),
   fattet: nullableDateSchema,
@@ -201,6 +213,13 @@ export const vurderingFraArrangorSchema = z.object({
   endretAv: z.string()
 })
 
+export const endringFraTiltakskoordinatorSchema = z.object({
+  type: z.literal(HistorikkType.EndringFraTiltakskoordinator),
+  endring: tiltakskoordinatorEndringSchema,
+  endret: dateSchema,
+  endretAv: z.string()
+})
+
 export const deltakerHistorikkSchema = z.discriminatedUnion('type', [
   vedtakSchema,
   soktInnSchema,
@@ -208,7 +227,8 @@ export const deltakerHistorikkSchema = z.discriminatedUnion('type', [
   historikkForslagSchema,
   endringFraArrangorSchema,
   importertFraArenaSchema,
-  vurderingFraArrangorSchema
+  vurderingFraArrangorSchema,
+  endringFraTiltakskoordinatorSchema
 ])
 
 export const deltakerHistorikkListeSchema = z.array(deltakerHistorikkSchema)
@@ -227,3 +247,9 @@ export type DeltakerHistorikkListe = z.infer<
   typeof deltakerHistorikkListeSchema
 >
 export type VurderingFraArrangor = z.infer<typeof vurderingFraArrangorSchema>
+export type EndringerFraTiltakskoordinator = z.infer<
+  typeof endringFraTiltakskoordinatorSchema
+>
+export type TiltakskoordinatorEndring = z.infer<
+  typeof tiltakskoordinatorEndringSchema
+>

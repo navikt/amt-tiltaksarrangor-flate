@@ -10,6 +10,7 @@ import { Tiltakskode } from '../../../../../api/data/tiltak'
 import { HistorikkImportertFraArena } from './HistorikkImportertFraArena'
 import { HistorikkVurderingFraArrangor } from './HistorikkVurderingFraArrangor'
 import { HistorikkSoktInn } from './HistorikkSoktInn'
+import { HistorikkTiltakskoordinatorEndring } from './HistorikkTiltakskoordinatorEndring'
 
 interface Props {
   historikk: DeltakerHistorikkListe | null
@@ -40,6 +41,12 @@ const getHistorikkItem = (historikk: DeltakerHistorikk, tiltakstype: Tiltakskode
     case HistorikkType.VurderingFraArrangor:
       return (
           <HistorikkVurderingFraArrangor vurdering={historikk}/>
+      )
+    case HistorikkType.EndringFraTiltakskoordinator:
+      return (
+        <HistorikkTiltakskoordinatorEndring
+          tiltakskoordinatorEndring={historikk}
+        />
       )
   }
 }
