@@ -20,7 +20,7 @@ const getEndringsDetaljer = (endring: TiltakskoordinatorEndring) => {
         </BodyLong>
       )
     }
-    case TiltakskoordinatorEndringsType.SettPaVenteliste: {
+    case TiltakskoordinatorEndringsType.SettPaaVenteliste: {
       return (
         <BodyLong size="small">
           Du har fått plass på ventelisten til kurset.

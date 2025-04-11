@@ -142,7 +142,7 @@ export const getTiltakskoordinatorEndringsTittel = (
   switch (endring) {
     case TiltakskoordinatorEndringsType.DelMedArrangor:
       return 'Informasjon sendt til arrangør'
-    case TiltakskoordinatorEndringsType.SettPaVenteliste:
+    case TiltakskoordinatorEndringsType.SettPaaVenteliste:
       return 'Venteliste'
   }
 }
