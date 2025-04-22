@@ -46,7 +46,7 @@ export enum Vurderingstype {
 
 export enum TiltakskoordinatorEndringsType {
   DelMedArrangor = 'DelMedArrangor',
-  SettPaaVenteliste = 'SettPaVenteliste'
+  SettPaaVenteliste = 'SettPaaVenteliste'
 }
 
 export const vurderingstypeSchema = z.nativeEnum(Vurderingstype)
