@@ -20,6 +20,13 @@ const getEndringsDetaljer = (endring: TiltakskoordinatorEndring) => {
         </BodyLong>
       )
     }
+    case TiltakskoordinatorEndringsType.SettPaaVenteliste: {
+      return (
+        <BodyLong size="small">
+          Du har fått plass på ventelisten til kurset.
+        </BodyLong>
+      )
+    }
   }
 }
 
@@ -35,7 +42,7 @@ export const HistorikkTiltakskoordinatorEndring = ({
     >
       {getEndringsDetaljer(tiltakskoordinatorEndring.endring)}
       <Detail className={styles.endring_detail} textColor="subtle">
-        {`Endret ${formatDate(tiltakskoordinatorEndring.endret)} av ${tiltakskoordinatorEndring.endretAv}.`}
+        {`Endret ${formatDate(tiltakskoordinatorEndring.endret)} av ${tiltakskoordinatorEndring.endretAv}${tiltakskoordinatorEndring.endretAvEnhet ? ' ' + tiltakskoordinatorEndring.endretAvEnhet : ''}.`}
       </Detail>
     </HistorikkElement>
   )
