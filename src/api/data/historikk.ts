@@ -46,7 +46,8 @@ export enum Vurderingstype {
 
 export enum TiltakskoordinatorEndringsType {
   DelMedArrangor = 'DelMedArrangor',
-  SettPaaVenteliste = 'SettPaaVenteliste'
+  SettPaaVenteliste = 'SettPaaVenteliste',
+  TildelPlass = 'TildelPlass'
 }
 
 export const vurderingstypeSchema = z.nativeEnum(Vurderingstype)
@@ -147,12 +148,17 @@ const tiltakskoordinatorDelMedArrangorSchema = z.object({
   type: z.literal(TiltakskoordinatorEndringsType.DelMedArrangor)
 })
 
+const tiltakskoordinatorTildelPlassSchema = z.object({
+  type: z.literal(TiltakskoordinatorEndringsType.TildelPlass)
+})
+
 const tiltakskoordinatorSettPaVentelisteSchema = z.object({
   type: z.literal(TiltakskoordinatorEndringsType.SettPaaVenteliste)
 })
 
 const tiltakskoordinatorEndringSchema = z.discriminatedUnion('type', [
   tiltakskoordinatorDelMedArrangorSchema,
+  tiltakskoordinatorTildelPlassSchema,
   tiltakskoordinatorSettPaVentelisteSchema
 ])
 
