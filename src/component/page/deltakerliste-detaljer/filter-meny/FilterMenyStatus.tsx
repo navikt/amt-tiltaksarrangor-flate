@@ -54,7 +54,8 @@ export const FilterMenyStatus = (props: Props): React.ReactElement => {
       const tekst = mapTiltakDeltakerStatusTilTekst(status)
 
       if (
-        props.tiltakType !== Tiltakskode.GRUPPEAMO &&
+        ![ Tiltakskode.GRUFAGYRKE, Tiltakskode.GRUPPEAMO, Tiltakskode.JOBBK ]
+          .includes(props.tiltakType) &&
         (status === TiltakDeltakerStatus.VURDERES || status === TiltakDeltakerStatus.SOKT_INN)
       ) {
         return
