@@ -144,6 +144,8 @@ export const getTiltakskoordinatorEndringsTittel = (
       return 'Informasjon sendt til arrangør'
     case TiltakskoordinatorEndringsType.SettPaaVenteliste:
       return 'Venteliste'
+    case TiltakskoordinatorEndringsType.TildelPlass:
+      return 'Fått plass'
   }
 }
 

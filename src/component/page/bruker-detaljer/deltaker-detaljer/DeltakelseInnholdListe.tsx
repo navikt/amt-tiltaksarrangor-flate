@@ -15,9 +15,13 @@ export const DeltakelseInnholdListe = ({
   tiltakstype,
   className
 }: Props) => {
+  if (deltakelsesinnhold.innhold.length === 0) {
+    return null
+  }
+
   return (<>
-    {tiltakstype === Tiltakskode.VASV && deltakelsesinnhold.innhold.length > 0
-      && deltakelsesinnhold.innhold.map((i) => {
+    {tiltakstype === Tiltakskode.VASV &&
+      deltakelsesinnhold.innhold.map((i) => {
         if (i.innholdskode === 'annet') {
           return <BodyLong
             className={styles.annetTekst}
@@ -37,8 +41,7 @@ export const DeltakelseInnholdListe = ({
             {i.innholdskode === INNHOLD_TYPE_ANNET ? i.beskrivelse : i.tekst}
           </List.Item>
         ))}
-    </List>
+      </List>
     }</>
-
   )
 }

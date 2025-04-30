@@ -107,6 +107,14 @@ export const EndringTypeIkon = ({ type, size }: EndringTypeIkonProps) => {
           color="var(--a-purple-500)"
         />
       )
+    case TiltakskoordinatorEndringsType.TildelPlass:
+      return (
+        <ChevronRightCircleFillIcon
+          className={sizeName(size)}
+          aria-hidden
+          color="var(--a-deepblue-300)"
+        />
+      )
     case HistorikkEndringType.ReaktiverDeltakelse:
       return (
         <CaretRightCircleFillIcon

@@ -25,20 +25,26 @@ export const HistorikkVedtak = ({ endringsVedtak, tiltakstype }: Props) => {
     bakgrunnsinformasjon
   } = endringsVedtak
 
+  const harInnhold = deltakelsesinnhold.innhold.length > 0 || deltakelsesinnhold.ledetekst
+
   return (
     <HistorikkElement
       tittel={`Påmelding ${dateStrWithMonthName(fattet)}`}
       icon={<CaretRightCircleFillIcon color="var(--a-limegreen-800)" />}
     >
-      <BodyLong size="small" weight="semibold">
-        Dette er innholdet
-      </BodyLong>
-      <BodyLong size="small">{deltakelsesinnhold.ledetekst}</BodyLong>
-      <DeltakelseInnholdListe
-        tiltakstype={tiltakstype}
-        deltakelsesinnhold={deltakelsesinnhold}
-        className={styles.innhold_liste}
-      />
+      {harInnhold && (<>
+        <BodyLong size="small" weight="semibold">
+          Dette er innholdet
+        </BodyLong>
+        {deltakelsesinnhold.ledetekst && (
+          <BodyLong size="small">{deltakelsesinnhold.ledetekst}</BodyLong>
+        )}
+        <DeltakelseInnholdListe
+          tiltakstype={tiltakstype}
+          deltakelsesinnhold={deltakelsesinnhold}
+          className={styles.innhold_liste}
+        /> </>
+      )}
 
       {bakgrunnsinformasjon && bakgrunnsinformasjon.length > 0 && (
         <>

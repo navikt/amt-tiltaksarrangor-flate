@@ -12,21 +12,21 @@ interface Props {
 
 const getEndringsDetaljer = (endring: TiltakskoordinatorEndring) => {
   switch (endring.type) {
-    case TiltakskoordinatorEndringsType.DelMedArrangor: {
+    case TiltakskoordinatorEndringsType.DelMedArrangor:
       return (
         <BodyLong size="small">
           Informasjon om deltakelsen er sendt til arrangør for vurdering. Se
           “Dette deles med arrangøren” for mer informasjon om hva som er delt.
         </BodyLong>
       )
-    }
-    case TiltakskoordinatorEndringsType.SettPaaVenteliste: {
+    case TiltakskoordinatorEndringsType.TildelPlass:
+      return <BodyLong size="small">Du har fått plass på kurset.</BodyLong>
+    case TiltakskoordinatorEndringsType.SettPaaVenteliste:
       return (
         <BodyLong size="small">
           Du har fått plass på ventelisten til kurset.
         </BodyLong>
       )
-    }
   }
 }
 
