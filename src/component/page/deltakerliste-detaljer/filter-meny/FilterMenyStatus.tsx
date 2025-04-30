@@ -53,7 +53,8 @@ export const FilterMenyStatus = (props: Props): React.ReactElement => {
     statuser.forEach((status) => {
       const tekst = mapTiltakDeltakerStatusTilTekst(status)
 
-      if (!props.erKurs &&
+      if (
+        (!props.erKurs || props.tiltakType === Tiltakskode.JOBBK) &&
         props.tiltakType !== Tiltakskode.GRUFAGYRKE &&
         props.tiltakType !== Tiltakskode.GRUPPEAMO &&
         (status === TiltakDeltakerStatus.VURDERES || status === TiltakDeltakerStatus.SOKT_INN)

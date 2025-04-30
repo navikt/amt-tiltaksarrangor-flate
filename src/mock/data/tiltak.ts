@@ -35,7 +35,7 @@ interface GjennomforingInfo {
 export const deltakerlisteErKurs = (tiltakskode: Tiltakskode): boolean => {
   return [
     Tiltakskode.GRUFAGYRKE,
-    Tiltakskode.JOBBK, // Greit i mock, men bør sjekke oppstartstype er Felles
+    Tiltakskode.JOBBK,
     Tiltakskode.GRUPPEAMO
   ].includes(tiltakskode)
 }
