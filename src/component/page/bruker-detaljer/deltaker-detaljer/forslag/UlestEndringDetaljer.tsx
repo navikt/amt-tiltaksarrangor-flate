@@ -102,10 +102,7 @@ interface DeltMedArrangorDetaljerProps {
 export const DeltMedArrangorDetaljer = ({ oppdatering }: DeltMedArrangorDetaljerProps) => {
   return (
     <Detail className={styles.endring_detail} textColor="subtle">
-      {oppdatering.deltAvEnhet && oppdatering.deltAvNavn
-        ? `Endret av ${oppdatering.deltAvNavn} ${oppdatering.deltAvEnhet} ${formatDate(oppdatering.delt)}.`
-        : `Endret ${formatDate(oppdatering.delt)}.`
-      }
+      {getEndretTekst(oppdatering.delt, oppdatering.deltAvNavn, oppdatering.deltAvEnhet)}
     </Detail>
   )
 }
@@ -116,12 +113,18 @@ interface TildeltPlassDetaljerProps {
 export const TildeltPlassDetaljer = ({ oppdatering }: TildeltPlassDetaljerProps) => {
   return (
     <Detail className={styles.endring_detail} textColor="subtle">
-      {oppdatering.tildeltPlassAvNavn && oppdatering.tildeltPlassAvEnhet
-        ? `Endret av ${oppdatering.tildeltPlassAvNavn} ${oppdatering.tildeltPlassAvEnhet} ${formatDate(oppdatering.tildeltPlass)}.`
-        : `Endret ${formatDate(oppdatering.tildeltPlass)}.`
-      }
+      {getEndretTekst(oppdatering.tildeltPlass, oppdatering.tildeltPlassAvNavn, oppdatering.tildeltPlassAvEnhet)}
     </Detail>
   )
+}
+
+const getEndretTekst = (endret: Date, endreatAvNavn: string | null, endretAvEnhet: string | null) => {
+  const endretAv = endreatAvNavn && endretAvEnhet
+    ? ` av ${endreatAvNavn} ${endretAvEnhet}`
+    : endreatAvNavn
+      ? ` av ${endreatAvNavn}`
+      : ''
+  return `Endret ${formatDate(endret)}${endretAv}.`
 }
 
 interface AvvistForslagDetaljerProps {
