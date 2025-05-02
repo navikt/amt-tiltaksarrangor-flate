@@ -103,8 +103,8 @@ export const DeltMedArrangorDetaljer = ({ oppdatering }: DeltMedArrangorDetaljer
   return (
     <Detail className={styles.endring_detail} textColor="subtle">
       {oppdatering.deltAvEnhet && oppdatering.deltAvNavn
-        ? `Sendt av ${oppdatering.deltAvNavn} ${oppdatering.deltAvEnhet} ${formatDate(oppdatering.delt)}.`
-        : `Sendt ${formatDate(oppdatering.delt)}.`
+        ? `Endret av ${oppdatering.deltAvNavn} ${oppdatering.deltAvEnhet} ${formatDate(oppdatering.delt)}.`
+        : `Endret ${formatDate(oppdatering.delt)}.`
       }
     </Detail>
   )
@@ -117,8 +117,8 @@ export const TildeltPlassDetaljer = ({ oppdatering }: TildeltPlassDetaljerProps)
   return (
     <Detail className={styles.endring_detail} textColor="subtle">
       {oppdatering.tildeltPlassAvNavn && oppdatering.tildeltPlassAvEnhet
-        ? `Tildelt plass av ${oppdatering.tildeltPlassAvNavn} ${oppdatering.tildeltPlassAvEnhet} ${formatDate(oppdatering.tildeltPlass)}.`
-        : `Tildelt plass ${formatDate(oppdatering.tildeltPlass)}.`
+        ? `Endret av ${oppdatering.tildeltPlassAvNavn} ${oppdatering.tildeltPlassAvEnhet} ${formatDate(oppdatering.tildeltPlass)}.`
+        : `Endret ${formatDate(oppdatering.tildeltPlass)}.`
       }
     </Detail>
   )
