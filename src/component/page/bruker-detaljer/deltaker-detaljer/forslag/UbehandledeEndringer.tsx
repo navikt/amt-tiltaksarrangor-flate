@@ -49,6 +49,7 @@ export const UbehandledeEndringer = ({
       background="bg-subtle"
       padding={{ xs: '2', md: '4' }}
       borderRadius="medium"
+      className={styles.ulesteEndringerContainer}
     >
       {(forslag.length > 0 || ulesteSvarFraNav.length > 0) && (<>
         <Heading level="3" size="small" className={styles.aktiveForslagTitle}>
