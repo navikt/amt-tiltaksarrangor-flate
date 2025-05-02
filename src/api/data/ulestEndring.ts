@@ -8,7 +8,9 @@ export enum UlestEndringType {
   AvvistForslag = 'AvvistForslag',
   NavBrukerEndring = 'NavBrukerEndring',
   NavEndring = 'NavEndring',
-  NyDeltaker = 'NyDeltaker'
+  NyDeltaker = 'NyDeltaker',
+  TildeltPlass = 'TildeltPlass',
+  DeltMedArrangor = 'DeltMedArrangor'
 }
 
 const ulestEndrinDeltakelsesEndringSchema = z.object({
@@ -45,6 +47,21 @@ const nyDeltakerSchema = z.object({
   opprettetAvEnhet: z.string().nullable()
 })
 
+const deltMedArrangorSchema = z.object({
+  type: z.literal(UlestEndringType.DeltMedArrangor),
+  delt: dateSchema,
+  deltAvNavn: z.string().nullable(),
+  deltAvEnhet: z.string().nullable()
+})
+
+const tildeltPlassSchema = z.object({
+  type: z.literal(UlestEndringType.TildeltPlass),
+  tildeltPlass: dateSchema,
+  tildeltPlassAvNavn: z.string().nullable(),
+  tildeltPlassAvEnhet: z.string().nullable(),
+  erNyDeltaker: z.boolean()
+})
+
 export const ulestEndringSchema = z.object({
   id: z.string().uuid(),
   deltakerId: z.string().uuid(),
@@ -53,7 +70,9 @@ export const ulestEndringSchema = z.object({
     ulestEndringForslagSchema,
     ulestEndringNavBrukerSchema,
     ulestEndringNavSchema,
-    nyDeltakerSchema
+    nyDeltakerSchema,
+    deltMedArrangorSchema,
+    tildeltPlassSchema
   ])
 })
 
@@ -61,3 +80,5 @@ export type UlestEndring = z.infer<typeof ulestEndringSchema>
 export type UlestEndringOppdateringNavBruker = z.infer<typeof ulestEndringNavBrukerSchema>
 export type UlestEndringOppdateringNav = z.infer<typeof ulestEndringNavSchema>
 export type UlestEndringOppdateringNyDeltaker = z.infer<typeof nyDeltakerSchema>
+export type UlestEndringOppdateringDeltMedArrangor = z.infer<typeof deltMedArrangorSchema>
+export type UlestEndringOppdateringTildeltPlass = z.infer<typeof tildeltPlassSchema>

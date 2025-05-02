@@ -334,8 +334,8 @@ const lagMockTiltakDeltagerForGjennomforing = (
   const ulesteEndringer: UlestEndring[] = ulestHistorikk[ 0 ] ? [ ulestHistorikk[ 0 ] ] : []
   const telefonnummer = lagTelefonnummer()
 
-  const rndaomNumber = randBetween(0, 10)
-  if (rndaomNumber < 2) {
+  const randomNumber = randBetween(0, 12)
+  if (randomNumber < 2) {
     ulesteEndringer.push({
       id: randomUuid(),
       deltakerId: id,
@@ -346,7 +346,7 @@ const lagMockTiltakDeltagerForGjennomforing = (
         oppdatert: faker.date.recent()
       }
     })
-  } else if (rndaomNumber < 4) {
+  } else if (randomNumber < 4) {
     ulesteEndringer.push({
       id: randomUuid(),
       deltakerId: id,
@@ -360,7 +360,7 @@ const lagMockTiltakDeltagerForGjennomforing = (
         oppdatert: faker.date.recent()
       }
     })
-  } else if (rndaomNumber < 6) {
+  } else if (randomNumber < 6) {
     ulesteEndringer.push({
       id: randomUuid(),
       deltakerId: id,
@@ -374,8 +374,18 @@ const lagMockTiltakDeltagerForGjennomforing = (
         oppdatert: faker.date.recent()
       }
     })
-  } else if (rndaomNumber < 8) {
-    ulesteEndringer.push({
+  } else if (randomNumber < 8) {
+    ulesteEndringer.push(erKurs ? {
+      id: randomUuid(),
+      deltakerId: id,
+      oppdatering: {
+        type: UlestEndringType.TildeltPlass,
+        tildeltPlass: faker.date.recent(),
+        tildeltPlassAvEnhet: null,
+        tildeltPlassAvNavn: null,
+        erNyDeltaker: true
+      }
+    } : {
       id: randomUuid(),
       deltakerId: id,
       oppdatering: {
@@ -383,6 +393,32 @@ const lagMockTiltakDeltagerForGjennomforing = (
         opprettet: faker.date.recent(), //  "2025-02-24"
         opprettetAvNavn: null,
         opprettetAvEnhet: null
+      }
+    },
+    )
+  } else if (randomNumber < 11 && erKurs && status === TiltakDeltakerStatus.VENTER_PA_OPPSTART) {
+    ulesteEndringer.push({
+      id: randomUuid(),
+      deltakerId: id,
+      oppdatering: {
+        type: UlestEndringType.TildeltPlass,
+        tildeltPlass: faker.date.recent(),
+        tildeltPlassAvEnhet: null,
+        tildeltPlassAvNavn: null,
+        erNyDeltaker: false
+      }
+    },
+    )
+  } else if (randomNumber < 12 && erKurs && status === TiltakDeltakerStatus.SOKT_INN) {
+    ulesteEndringer.push({
+      id: randomUuid(),
+      deltakerId: id,
+      oppdatering: {
+        type: UlestEndringType.DeltMedArrangor,
+        delt: faker.date.recent(),
+        deltAvEnhet: null,
+
+        deltAvNavn: null
       }
     },
     )

@@ -12,10 +12,12 @@ import { ForslagEndringsdetaljer } from './ForslagEndringsdetaljer'
 import { ulestEndringErSvarFraNav } from './forslagUtils'
 import {
   AvvistForslagDetaljer,
+  DeltMedArrangorDetaljer,
   Endringsdetaljer,
   NavBrukerDetaljer,
   NavDetaljer,
-  NyDeltakerDetaljer
+  NyDeltakerDetaljer,
+  TildeltPlassDetaljer
 } from './UlestEndringDetaljer'
 
 interface Props {
@@ -125,6 +127,12 @@ const getEndringsDetaljer = (
       {it.oppdatering.type === UlestEndringType.NyDeltaker && (
         <NyDeltakerDetaljer oppdatering={it.oppdatering} />
       )}
+      {it.oppdatering.type === UlestEndringType.DeltMedArrangor && (
+        <DeltMedArrangorDetaljer oppdatering={it.oppdatering} />
+      )}
+      {it.oppdatering.type === UlestEndringType.TildeltPlass && (
+        <TildeltPlassDetaljer oppdatering={it.oppdatering} />
+      )}
     </EndringPanel>
   ))
 }
@@ -152,6 +160,10 @@ const getUlestOppdateringTittel = (ulesteEndringer: UlestEndring) => {
     return getEndringsTittel(ulesteEndringer.oppdatering.endring.endring)
   } else if (ulesteEndringer.oppdatering.type === UlestEndringType.NyDeltaker) {
     return `Påmelding ${dateStrWithMonthName(ulesteEndringer.oppdatering.opprettet)}`
+  } else if (ulesteEndringer.oppdatering.type === UlestEndringType.DeltMedArrangor) {
+    return 'Informasjon sendt til arrangør'
+  } else if (ulesteEndringer.oppdatering.type === UlestEndringType.TildeltPlass) {
+    return 'Fått plass'
   }
   return undefined
 }

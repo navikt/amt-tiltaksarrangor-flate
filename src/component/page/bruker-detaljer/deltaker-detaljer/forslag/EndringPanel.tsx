@@ -81,6 +81,10 @@ const getEndringsTittel = (
     return 'Endret Nav-veileder'
   } else if (ulestEndringType === UlestEndringType.NavEndring) {
     return 'Kontaktinformasjon til Nav oppdatert'
+  } else if (ulestEndringType === UlestEndringType.DeltMedArrangor) {
+    return 'Informasjon sendt til arrangør'
+  } else if (ulestEndringType === UlestEndringType.TildeltPlass) {
+    return 'Fått plass'
   }
   return 'Oppdatert deltkaer'
 }

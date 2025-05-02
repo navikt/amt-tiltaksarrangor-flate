@@ -2,7 +2,7 @@ import { BodyLong, Detail, ReadMore } from '@navikt/ds-react'
 import { ForslagStatusType, HistorikkForslag } from '../../../../../api/data/forslag'
 import { DeltakerEndring } from '../../../../../api/data/historikk'
 import { Tiltakskode } from '../../../../../api/data/tiltak'
-import { UlestEndringOppdateringNav, UlestEndringOppdateringNavBruker, UlestEndringOppdateringNyDeltaker } from '../../../../../api/data/ulestEndring'
+import { UlestEndringOppdateringDeltMedArrangor, UlestEndringOppdateringNav, UlestEndringOppdateringNavBruker, UlestEndringOppdateringNyDeltaker, UlestEndringOppdateringTildeltPlass } from '../../../../../api/data/ulestEndring'
 import { formaterTelefonnummer } from '../../../../../utils/bruker-utils'
 import { formatDate } from '../../../../../utils/date-utils'
 import { getForslagTittel } from '../../../../../utils/text-mappers'
@@ -91,6 +91,34 @@ export const NyDeltakerDetaljer = ({ oppdatering }: NyDeltakerDetaljerProps) => 
       {oppdatering.opprettetAvEnhet && oppdatering.opprettetAvNavn
         ? `Meldt på av ${oppdatering.opprettetAvNavn} ${oppdatering.opprettetAvEnhet} ${formatDate(oppdatering.opprettet)}.`
         : `Meldt på ${formatDate(oppdatering.opprettet)}.`
+      }
+    </Detail>
+  )
+}
+
+interface DeltMedArrangorDetaljerProps {
+  oppdatering: UlestEndringOppdateringDeltMedArrangor
+}
+export const DeltMedArrangorDetaljer = ({ oppdatering }: DeltMedArrangorDetaljerProps) => {
+  return (
+    <Detail className={styles.endring_detail} textColor="subtle">
+      {oppdatering.deltAvEnhet && oppdatering.deltAvNavn
+        ? `Sendt av ${oppdatering.deltAvNavn} ${oppdatering.deltAvEnhet} ${formatDate(oppdatering.delt)}.`
+        : `Sendt ${formatDate(oppdatering.delt)}.`
+      }
+    </Detail>
+  )
+}
+
+interface TildeltPlassDetaljerProps {
+  oppdatering: UlestEndringOppdateringTildeltPlass
+}
+export const TildeltPlassDetaljer = ({ oppdatering }: TildeltPlassDetaljerProps) => {
+  return (
+    <Detail className={styles.endring_detail} textColor="subtle">
+      {oppdatering.tildeltPlassAvNavn && oppdatering.tildeltPlassAvEnhet
+        ? `Tildelt plass av ${oppdatering.tildeltPlassAvNavn} ${oppdatering.tildeltPlassAvEnhet} ${formatDate(oppdatering.tildeltPlass)}.`
+        : `Tildelt plass ${formatDate(oppdatering.tildeltPlass)}.`
       }
     </Detail>
   )
