@@ -145,6 +145,7 @@ const getEndringsType = (ulesteEndringer: UlestEndring) => {
     return ulesteEndringer.oppdatering.forslag.endring.type
   }
   return undefined
+
 }
 
 const getForslagStatusType = (ulesteEndringer: UlestEndring) => {

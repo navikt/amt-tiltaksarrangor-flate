@@ -7,7 +7,7 @@ import {
   Heading,
   VStack
 } from '@navikt/ds-react'
-import { EndringType } from '../../../../../api/data/historikk'
+import { EndringType, TiltakskoordinatorEndringsType } from '../../../../../api/data/historikk'
 import { UlestEndringType } from '../../../../../api/data/ulestEndring'
 import { DefaultIcon, EndringTypeIkon } from '../EndringTypeIkon'
 import styles from './AktivtForslagPanel.module.scss'
@@ -35,6 +35,12 @@ export const EndringPanel = ({
   ulestEndringType,
   nyNavVeileder
 }: Props) => {
+  const endringIkon = endringType
+    ? <EndringTypeIkon size="large" type={endringType} />
+    : ulestEndringType === UlestEndringType.TildeltPlass
+      ? <EndringTypeIkon size="large" type={TiltakskoordinatorEndringsType.TildelPlass} />
+      : <DefaultIcon size="large" />
+
   return (
     <Box
       background="surface-default"
@@ -44,10 +50,7 @@ export const EndringPanel = ({
       className={styles.panel}
     >
       <HGrid columns="2rem auto" className={styles.grid}>
-        {endringType
-          ? <EndringTypeIkon size="large" type={endringType} />
-          : <DefaultIcon size="large" />
-        }
+        {endringIkon}
         <VStack>
           <div className={styles.tittel}>
             <Heading level="4" size="small" className={styles.tittel_hedaing}>
