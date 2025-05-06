@@ -12,10 +12,12 @@ import { ForslagEndringsdetaljer } from './ForslagEndringsdetaljer'
 import { ulestEndringErSvarFraNav } from './forslagUtils'
 import {
   AvvistForslagDetaljer,
+  DeltMedArrangorDetaljer,
   Endringsdetaljer,
   NavBrukerDetaljer,
   NavDetaljer,
-  NyDeltakerDetaljer
+  NyDeltakerDetaljer,
+  TildeltPlassDetaljer
 } from './UlestEndringDetaljer'
 
 interface Props {
@@ -47,6 +49,7 @@ export const UbehandledeEndringer = ({
       background="bg-subtle"
       padding={{ xs: '2', md: '4' }}
       borderRadius="medium"
+      className={styles.ulesteEndringerContainer}
     >
       {(forslag.length > 0 || ulesteSvarFraNav.length > 0) && (<>
         <Heading level="3" size="small" className={styles.aktiveForslagTitle}>
@@ -125,6 +128,12 @@ const getEndringsDetaljer = (
       {it.oppdatering.type === UlestEndringType.NyDeltaker && (
         <NyDeltakerDetaljer oppdatering={it.oppdatering} />
       )}
+      {it.oppdatering.type === UlestEndringType.DeltMedArrangor && (
+        <DeltMedArrangorDetaljer oppdatering={it.oppdatering} />
+      )}
+      {it.oppdatering.type === UlestEndringType.TildeltPlass && (
+        <TildeltPlassDetaljer oppdatering={it.oppdatering} />
+      )}
     </EndringPanel>
   ))
 }
@@ -136,6 +145,7 @@ const getEndringsType = (ulesteEndringer: UlestEndring) => {
     return ulesteEndringer.oppdatering.forslag.endring.type
   }
   return undefined
+
 }
 
 const getForslagStatusType = (ulesteEndringer: UlestEndring) => {
@@ -152,6 +162,10 @@ const getUlestOppdateringTittel = (ulesteEndringer: UlestEndring) => {
     return getEndringsTittel(ulesteEndringer.oppdatering.endring.endring)
   } else if (ulesteEndringer.oppdatering.type === UlestEndringType.NyDeltaker) {
     return `Påmelding ${dateStrWithMonthName(ulesteEndringer.oppdatering.opprettet)}`
+  } else if (ulesteEndringer.oppdatering.type === UlestEndringType.DeltMedArrangor) {
+    return 'Informasjon sendt til arrangør'
+  } else if (ulesteEndringer.oppdatering.type === UlestEndringType.TildeltPlass) {
+    return 'Fått plass'
   }
   return undefined
 }

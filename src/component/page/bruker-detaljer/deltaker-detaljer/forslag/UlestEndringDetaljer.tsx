@@ -2,7 +2,7 @@ import { BodyLong, Detail, ReadMore } from '@navikt/ds-react'
 import { ForslagStatusType, HistorikkForslag } from '../../../../../api/data/forslag'
 import { DeltakerEndring } from '../../../../../api/data/historikk'
 import { Tiltakskode } from '../../../../../api/data/tiltak'
-import { UlestEndringOppdateringNav, UlestEndringOppdateringNavBruker, UlestEndringOppdateringNyDeltaker } from '../../../../../api/data/ulestEndring'
+import { UlestEndringOppdateringDeltMedArrangor, UlestEndringOppdateringNav, UlestEndringOppdateringNavBruker, UlestEndringOppdateringNyDeltaker, UlestEndringOppdateringTildeltPlass } from '../../../../../api/data/ulestEndring'
 import { formaterTelefonnummer } from '../../../../../utils/bruker-utils'
 import { formatDate } from '../../../../../utils/date-utils'
 import { getForslagTittel } from '../../../../../utils/text-mappers'
@@ -94,6 +94,37 @@ export const NyDeltakerDetaljer = ({ oppdatering }: NyDeltakerDetaljerProps) => 
       }
     </Detail>
   )
+}
+
+interface DeltMedArrangorDetaljerProps {
+  oppdatering: UlestEndringOppdateringDeltMedArrangor
+}
+export const DeltMedArrangorDetaljer = ({ oppdatering }: DeltMedArrangorDetaljerProps) => {
+  return (
+    <Detail className={styles.endring_detail} textColor="subtle">
+      {getEndretTekst(oppdatering.delt, oppdatering.deltAvNavn, oppdatering.deltAvEnhet)}
+    </Detail>
+  )
+}
+
+interface TildeltPlassDetaljerProps {
+  oppdatering: UlestEndringOppdateringTildeltPlass
+}
+export const TildeltPlassDetaljer = ({ oppdatering }: TildeltPlassDetaljerProps) => {
+  return (
+    <Detail className={styles.endring_detail} textColor="subtle">
+      {getEndretTekst(oppdatering.tildeltPlass, oppdatering.tildeltPlassAvNavn, oppdatering.tildeltPlassAvEnhet)}
+    </Detail>
+  )
+}
+
+const getEndretTekst = (endret: Date, endreatAvNavn: string | null, endretAvEnhet: string | null) => {
+  const endretAv = endreatAvNavn && endretAvEnhet
+    ? ` av ${endreatAvNavn} ${endretAvEnhet}`
+    : endreatAvNavn
+      ? ` av ${endreatAvNavn}`
+      : ''
+  return `Endret ${formatDate(endret)}${endretAv}.`
 }
 
 interface AvvistForslagDetaljerProps {
