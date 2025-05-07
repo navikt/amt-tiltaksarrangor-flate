@@ -356,6 +356,20 @@ export const lagHistorikkFellesOppstart = (): DeltakerHistorikkListe => {
     {
       type: HistorikkType.EndringFraTiltakskoordinator,
       endring: {
+        type: TiltakskoordinatorEndringsType.Avslag,
+        aarsak: {
+          type: DeltakerStatusAarsakType.KURS_FULLT,
+          beskrivelse: null
+        },
+        begrunnelse: 'For mange kandidater'
+      },
+      endret: dayjs().subtract(5, 'day').toDate(),
+      endretAv: 'Navn Navnesen',
+      endretAvEnhet: 'Nav Fredrikstad'
+    },
+    {
+      type: HistorikkType.EndringFraTiltakskoordinator,
+      endring: {
         type: TiltakskoordinatorEndringsType.TildelPlass
       },
       endret: dayjs().subtract(17, 'day').toDate(),

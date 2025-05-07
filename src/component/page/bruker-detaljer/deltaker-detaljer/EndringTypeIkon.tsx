@@ -70,6 +70,7 @@ export const EndringTypeIkon = ({ type, size }: EndringTypeIkonProps) => {
           color="var(--a-gray-600)"
         />
       )
+			case TiltakskoordinatorEndringsType.Avslag:
     case HistorikkEndringType.IkkeAktuell:
     case ForslagEndringType.IkkeAktuell:
     case EndringType.DELTAKER_IKKE_AKTUELL:

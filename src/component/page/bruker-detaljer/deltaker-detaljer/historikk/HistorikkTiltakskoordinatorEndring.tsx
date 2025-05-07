@@ -2,7 +2,7 @@ import { BodyLong, Detail } from '@navikt/ds-react'
 import { EndringerFraTiltakskoordinator, TiltakskoordinatorEndring, TiltakskoordinatorEndringsType } from '../../../../../api/data/historikk'
 import { HistorikkElement } from './HistorikkElement'
 import { EndringTypeIkon } from '../EndringTypeIkon'
-import { getTiltakskoordinatorEndringsTittel } from '../../../../../utils/text-mappers'
+import { getDeltakerStatusAarsakText, getTiltakskoordinatorEndringsTittel } from '../../../../../utils/text-mappers'
 import { formatDate } from '../../../../../utils/date-utils'
 import styles from './Historikk.module.scss'
 
@@ -26,6 +26,19 @@ const getEndringsDetaljer = (endring: TiltakskoordinatorEndring) => {
         <BodyLong size="small">
           Du har fått plass på ventelisten til kurset.
         </BodyLong>
+      )
+    case TiltakskoordinatorEndringsType.Avslag:
+      return (
+        <>
+          <BodyLong size="small">
+            Årsak: {getDeltakerStatusAarsakText(endring.aarsak)}
+          </BodyLong>
+          {endring.begrunnelse && (
+            <BodyLong size="small" className="whitespace-pre-wrap">
+              Navs begrunnelse: {endring.begrunnelse}
+            </BodyLong>
+          )}
+        </>
       )
   }
 }
