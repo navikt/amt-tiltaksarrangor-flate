@@ -14,9 +14,10 @@ import {
 } from '@navikt/aksel-icons'
 import { EndringType as HistorikkEndringType, TiltakskoordinatorEndringsType } from '../../../../api/data/historikk'
 import { ForslagEndringType } from '../../../../api/data/forslag'
+import { UlestEndringType } from '../../../../api/data/ulestEndring'
 
 interface EndringTypeIkonProps {
-  type: EndringType | HistorikkEndringType | ForslagEndringType | TiltakskoordinatorEndringsType
+  type: EndringType | HistorikkEndringType | ForslagEndringType | TiltakskoordinatorEndringsType | UlestEndringType
   size?: 'medium' | 'large' | 'small'
 }
 
@@ -70,6 +71,8 @@ export const EndringTypeIkon = ({ type, size }: EndringTypeIkonProps) => {
           color="var(--a-gray-600)"
         />
       )
+		case UlestEndringType.Avslag:
+		case TiltakskoordinatorEndringsType.Avslag:
     case HistorikkEndringType.IkkeAktuell:
     case ForslagEndringType.IkkeAktuell:
     case EndringType.DELTAKER_IKKE_AKTUELL:
@@ -123,6 +126,8 @@ export const EndringTypeIkon = ({ type, size }: EndringTypeIkonProps) => {
           color="var(--a-icon-alt-2)"
         />
       )
+		default:
+			return <DefaultIcon size={size} />
   }
 
 }

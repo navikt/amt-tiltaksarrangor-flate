@@ -7,7 +7,7 @@ import {
   Heading,
   VStack
 } from '@navikt/ds-react'
-import { EndringType, TiltakskoordinatorEndringsType } from '../../../../../api/data/historikk'
+import { EndringType } from '../../../../../api/data/historikk'
 import { UlestEndringType } from '../../../../../api/data/ulestEndring'
 import { DefaultIcon, EndringTypeIkon } from '../EndringTypeIkon'
 import styles from './AktivtForslagPanel.module.scss'
@@ -37,8 +37,8 @@ export const EndringPanel = ({
 }: Props) => {
   const endringIkon = endringType
     ? <EndringTypeIkon size="large" type={endringType} />
-    : ulestEndringType === UlestEndringType.TildeltPlass
-      ? <EndringTypeIkon size="large" type={TiltakskoordinatorEndringsType.TildelPlass} />
+    : ulestEndringType 
+      ? <EndringTypeIkon size="large" type={ulestEndringType} />
       : <DefaultIcon size="large" />
 
   return (
@@ -88,6 +88,8 @@ const getEndringsTittel = (
     return 'Informasjon sendt til arrangør'
   } else if (ulestEndringType === UlestEndringType.TildeltPlass) {
     return 'Fått plass'
-  }
-  return 'Oppdatert deltkaer'
+  } else if (ulestEndringType === UlestEndringType.Avslag) {
+		return 'Søknaden er avslått'
+	}
+  return 'Oppdatert deltaker'
 }

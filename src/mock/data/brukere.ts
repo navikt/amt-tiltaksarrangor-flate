@@ -420,9 +420,25 @@ const lagMockTiltakDeltagerForGjennomforing = (
 
         deltAvNavn: null
       }
-    },
-    )
-  }
+    })
+	} 
+	if (erKurs) {
+		ulesteEndringer.push({
+			id: randomUuid(),
+			deltakerId: id,
+			oppdatering: {
+				type: UlestEndringType.Avslag,
+				endretAvEnhet: navEnheter[0].navn,
+				endretAv: veilederNavn,
+				endret: faker.date.recent(),
+				aarsak: {
+					type: DeltakerStatusAarsakType.KURS_FULLT,
+					beskrivelse: null,
+				},
+				begrunnelse: 'Fordi at det...',
+			}
+		})
+	}
 
   return {
     id: id,

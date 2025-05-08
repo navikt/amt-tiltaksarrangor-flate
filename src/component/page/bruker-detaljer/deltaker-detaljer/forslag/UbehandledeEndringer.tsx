@@ -17,7 +17,8 @@ import {
   NavBrukerDetaljer,
   NavDetaljer,
   NyDeltakerDetaljer,
-  TildeltPlassDetaljer
+  TildeltPlassDetaljer,
+  UlestAvslagDetaljer
 } from './UlestEndringDetaljer'
 
 interface Props {
@@ -134,6 +135,9 @@ const getEndringsDetaljer = (
       {it.oppdatering.type === UlestEndringType.TildeltPlass && (
         <TildeltPlassDetaljer oppdatering={it.oppdatering} />
       )}
+			{it.oppdatering.type === UlestEndringType.Avslag && (
+				<UlestAvslagDetaljer oppdatering={it.oppdatering} />
+			)}
     </EndringPanel>
   ))
 }
@@ -166,6 +170,8 @@ const getUlestOppdateringTittel = (ulesteEndringer: UlestEndring) => {
     return 'Informasjon sendt til arrangør'
   } else if (ulesteEndringer.oppdatering.type === UlestEndringType.TildeltPlass) {
     return 'Fått plass'
-  }
+  } else if (ulesteEndringer.oppdatering.type === UlestEndringType.Avslag) {
+		return 'Søknaden er avslått'
+	}
   return undefined
 }
