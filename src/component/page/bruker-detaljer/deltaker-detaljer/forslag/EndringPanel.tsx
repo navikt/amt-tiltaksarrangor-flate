@@ -7,7 +7,7 @@ import {
   Heading,
   VStack
 } from '@navikt/ds-react'
-import { EndringType, TiltakskoordinatorEndringsType } from '../../../../../api/data/historikk'
+import { EndringType } from '../../../../../api/data/historikk'
 import { UlestEndringType } from '../../../../../api/data/ulestEndring'
 import { DefaultIcon, EndringTypeIkon } from '../EndringTypeIkon'
 import styles from './AktivtForslagPanel.module.scss'
