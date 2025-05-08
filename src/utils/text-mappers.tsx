@@ -90,6 +90,10 @@ export const getDeltakerStatusAarsakText = (aarsak: DeltakerStatusAarsak) => {
       return 'Kurset er fullt'
     case DeltakerStatusAarsakType.KRAV_IKKE_OPPFYLT:
       return 'Krav for deltakelse er ikke oppfylt'
+    case DeltakerStatusAarsakType.FIKK_IKKE_PLASS:
+      return 'Fikk ikke plass'
+		default: 
+			return `Ukjent årsak ${aarsak.type}`
   }
 }
 
@@ -151,7 +155,7 @@ export const getTiltakskoordinatorEndringsTittel = (
     case TiltakskoordinatorEndringsType.TildelPlass:
       return 'Fått plass'
 		case TiltakskoordinatorEndringsType.Avslag:
-			return 'Deltakelsen er ikke aktuell'
+			return 'Søknaden er avslått'
   }
 }
 

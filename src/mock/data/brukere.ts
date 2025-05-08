@@ -421,7 +421,8 @@ const lagMockTiltakDeltagerForGjennomforing = (
         deltAvNavn: null
       }
     })
-	} else if (erKurs && status === TiltakDeltakerStatus.IKKE_AKTUELL) {
+	} 
+	if (erKurs) {
 		ulesteEndringer.push({
 			id: randomUuid(),
 			deltakerId: id,
@@ -431,7 +432,7 @@ const lagMockTiltakDeltagerForGjennomforing = (
 				endretAv: veilederNavn,
 				endret: faker.date.recent(),
 				aarsak: {
-					type: DeltakerStatusAarsakType.FIKK_IKKE_PLASS,
+					type: DeltakerStatusAarsakType.KURS_FULLT,
 					beskrivelse: null,
 				},
 				begrunnelse: 'Fordi at det...',

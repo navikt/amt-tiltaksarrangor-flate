@@ -89,7 +89,7 @@ const getEndringsTittel = (
   } else if (ulestEndringType === UlestEndringType.TildeltPlass) {
     return 'Fått plass'
   } else if (ulestEndringType === UlestEndringType.Avslag) {
-		return 'Deltakelse ikke aktuell'
+		return 'Søknaden er avslått'
 	}
   return 'Oppdatert deltaker'
 }

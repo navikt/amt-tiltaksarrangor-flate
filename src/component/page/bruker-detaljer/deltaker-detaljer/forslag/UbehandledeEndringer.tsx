@@ -170,6 +170,8 @@ const getUlestOppdateringTittel = (ulesteEndringer: UlestEndring) => {
     return 'Informasjon sendt til arrangør'
   } else if (ulesteEndringer.oppdatering.type === UlestEndringType.TildeltPlass) {
     return 'Fått plass'
-  }
+  } else if (ulesteEndringer.oppdatering.type === UlestEndringType.Avslag) {
+		return 'Søknaden er avslått'
+	}
   return undefined
 }
