@@ -37,8 +37,8 @@ export const EndringPanel = ({
 }: Props) => {
   const endringIkon = endringType
     ? <EndringTypeIkon size="large" type={endringType} />
-    : ulestEndringType === UlestEndringType.TildeltPlass
-      ? <EndringTypeIkon size="large" type={TiltakskoordinatorEndringsType.TildelPlass} />
+    : ulestEndringType 
+      ? <EndringTypeIkon size="large" type={ulestEndringType} />
       : <DefaultIcon size="large" />
 
   return (
@@ -88,6 +88,8 @@ const getEndringsTittel = (
     return 'Informasjon sendt til arrangør'
   } else if (ulestEndringType === UlestEndringType.TildeltPlass) {
     return 'Fått plass'
-  }
-  return 'Oppdatert deltkaer'
+  } else if (ulestEndringType === UlestEndringType.Avslag) {
+		return 'Deltakelse ikke aktuell'
+	}
+  return 'Oppdatert deltaker'
 }

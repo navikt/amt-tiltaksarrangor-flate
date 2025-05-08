@@ -420,9 +420,24 @@ const lagMockTiltakDeltagerForGjennomforing = (
 
         deltAvNavn: null
       }
-    },
-    )
-  }
+    })
+	} else if (erKurs && status === TiltakDeltakerStatus.IKKE_AKTUELL) {
+		ulesteEndringer.push({
+			id: randomUuid(),
+			deltakerId: id,
+			oppdatering: {
+				type: UlestEndringType.Avslag,
+				endretAvEnhet: navEnheter[0].navn,
+				endretAv: veilederNavn,
+				endret: faker.date.recent(),
+				aarsak: {
+					type: DeltakerStatusAarsakType.FIKK_IKKE_PLASS,
+					beskrivelse: null,
+				},
+				begrunnelse: 'Fordi at det...',
+			}
+		})
+	}
 
   return {
     id: id,

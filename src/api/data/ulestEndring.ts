@@ -2,6 +2,7 @@ import { z } from 'zod'
 import { deltakerEndringSchema } from './historikk'
 import { historikkForslagSchema } from './forslag'
 import { dateSchema } from '../utils'
+import { deltakerStatusAarsakSchema } from './endringsmelding'
 
 export enum UlestEndringType {
   DeltakelsesEndring = 'DeltakelsesEndring',
@@ -10,7 +11,8 @@ export enum UlestEndringType {
   NavEndring = 'NavEndring',
   NyDeltaker = 'NyDeltaker',
   TildeltPlass = 'TildeltPlass',
-  DeltMedArrangor = 'DeltMedArrangor'
+  DeltMedArrangor = 'DeltMedArrangor',
+	Avslag = 'Avslag'
 }
 
 const ulestEndrinDeltakelsesEndringSchema = z.object({
@@ -62,6 +64,15 @@ const tildeltPlassSchema = z.object({
   erNyDeltaker: z.boolean()
 })
 
+const avslagSchema = z.object({
+	type: z.literal(UlestEndringType.Avslag),
+	endret: dateSchema,
+	endretAv: z.string(),
+	endretAvEnhet: z.string(),
+	aarsak: deltakerStatusAarsakSchema,
+	begrunnelse: z.string().nullable(),
+})
+
 export const ulestEndringSchema = z.object({
   id: z.string().uuid(),
   deltakerId: z.string().uuid(),
@@ -72,7 +83,8 @@ export const ulestEndringSchema = z.object({
     ulestEndringNavSchema,
     nyDeltakerSchema,
     deltMedArrangorSchema,
-    tildeltPlassSchema
+    tildeltPlassSchema,
+		avslagSchema
   ])
 })
 
@@ -82,3 +94,5 @@ export type UlestEndringOppdateringNav = z.infer<typeof ulestEndringNavSchema>
 export type UlestEndringOppdateringNyDeltaker = z.infer<typeof nyDeltakerSchema>
 export type UlestEndringOppdateringDeltMedArrangor = z.infer<typeof deltMedArrangorSchema>
 export type UlestEndringOppdateringTildeltPlass = z.infer<typeof tildeltPlassSchema>
+export type UlestEndringOppdateringAvslag = z.infer<typeof avslagSchema>
+
