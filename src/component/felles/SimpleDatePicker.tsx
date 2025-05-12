@@ -19,7 +19,7 @@ export function SimpleDatePicker({
   defaultDate,
   defaultMonth,
   onValidate,
-  onChange
+  onChange,
 }: Props) {
   const { datepickerProps, inputProps } = useDatepicker({
     fromDate: min,
@@ -27,7 +27,7 @@ export function SimpleDatePicker({
     defaultSelected: defaultDate,
     defaultMonth: defaultMonth,
     onValidate: onValidate,
-    onDateChange: onChange
+    onDateChange: onChange,
   })
 
   return (

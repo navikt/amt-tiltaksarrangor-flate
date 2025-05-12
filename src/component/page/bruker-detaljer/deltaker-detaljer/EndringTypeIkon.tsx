@@ -1,7 +1,7 @@
 import React from 'react'
 
 import styles from './EndringTypeIkon.module.scss'
-import { EndringType } from './types'
+import {EndringType} from './types'
 import {
   CaretRightCircleFillIcon,
   ChevronRightCircleFillIcon,
@@ -12,9 +12,9 @@ import {
   PieChartFillIcon,
   PlusCircleFillIcon
 } from '@navikt/aksel-icons'
-import { EndringType as HistorikkEndringType, TiltakskoordinatorEndringsType } from '../../../../api/data/historikk'
-import { ForslagEndringType } from '../../../../api/data/forslag'
-import { UlestEndringType } from '../../../../api/data/ulestEndring'
+import {EndringType as HistorikkEndringType, TiltakskoordinatorEndringsType} from '../../../../api/data/historikk'
+import {ForslagEndringType} from '../../../../api/data/forslag'
+import {UlestEndringType} from '../../../../api/data/ulestEndring'
 
 interface EndringTypeIkonProps {
   type: EndringType | HistorikkEndringType | ForslagEndringType | TiltakskoordinatorEndringsType | UlestEndringType
@@ -62,6 +62,7 @@ export const EndringTypeIkon = ({ type, size }: EndringTypeIkonProps) => {
     case ForslagEndringType.Sluttdato:
     case ForslagEndringType.FjernOppstartsdato:
     case EndringType.AVSLUTT_DELTAKELSE:
+    case EndringType.AVSLUTT_KURS_DELTAKELSE:
     case EndringType.ENDRE_SLUTTDATO:
     case EndringType.FJERN_OPPSTARTSDATO:
       return (

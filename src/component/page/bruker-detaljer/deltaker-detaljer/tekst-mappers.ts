@@ -1,7 +1,8 @@
 import { Vurderingstype } from '../../../../api/data/deltaker'
-import { DeltakerStatusAarsak, DeltakerStatusAarsakType } from '../../../../api/data/endringsmelding'
+import { DeltakerStatusAarsak, DeltakerStatusAarsakType} from '../../../../api/data/endringsmelding'
 import { EndringAarsak } from '../../../../api/data/forslag'
 import { EndringType } from './types'
+import { AvslutningsType } from './endre-deltaker-modal/AvsluttKursDeltakelseModal'
 
 export const aarsakTekstMapper = (aarsakType: DeltakerStatusAarsakType) => {
   switch (aarsakType) {
@@ -24,6 +25,31 @@ export const aarsakTekstMapper = (aarsakType: DeltakerStatusAarsakType) => {
   }
 }
 
+export const avslutningsTypeTekstMapper = (kategoriType: AvslutningsType) => {
+  switch (kategoriType) {
+    case AvslutningsType.FULLFORT:
+      return 'Ja, kurset er fullført'
+    case AvslutningsType.AVBRUTT:
+      return 'Nei, kurset er avbrutt'
+    case AvslutningsType.IKKE_DELTATT:
+      return 'Nei, personen har ikke deltatt'
+    default:
+      return 'Ukjent'
+  }
+}
+
+export const avslutningsBeskrivelseTekstMapper = (kategoriType: AvslutningsType) => {
+  switch (kategoriType) {
+    case AvslutningsType.FULLFORT:
+      return 'Med fullført menes at kurset er gjennomført, og/eller at ønsket mål, sertifisering el. er oppnådd'
+    case AvslutningsType.AVBRUTT:
+      return 'Med avbrutt menes at deltakeren avslutter på kurset uten å ha gjennomført og/eller oppnådd ønsket mål, sertifisering el.'
+    case AvslutningsType.IKKE_DELTATT:
+      return 'Dersom personen ikke har deltatt på tiltaket, vil statusen på tiltaket endres til “Ikke aktuell”.'
+    default:
+      return 'Ukjent'
+  }
+}
 export const getDeltakerStatusAarsakText = (aarsak: DeltakerStatusAarsak) => {
   switch (aarsak.type) {
     case DeltakerStatusAarsakType.ANNET: {
@@ -73,6 +99,8 @@ export const endringTypeTekstMapper = (endringsType: EndringType) => {
     case EndringType.DELTAKER_IKKE_AKTUELL:
       return 'Er ikke aktuell'
     case EndringType.AVSLUTT_DELTAKELSE:
+      return 'Avslutt deltakelse'
+    case EndringType.AVSLUTT_KURS_DELTAKELSE:
       return 'Avslutt deltakelse'
     case EndringType.ENDRE_DELTAKELSE_PROSENT:
       return 'Endre deltakelsesmengde'

@@ -10,13 +10,14 @@ interface EndringsknappData {
 	modalFunc: (props: ModalDataProps) => void,
 }
 
-export function endringsknapper(deltaker: Deltaker, erForslagEnabled: boolean, modal: ModalHandler): EndringsknappData[] {
+export function endringsknapper(deltaker: Deltaker, erKometMaster: boolean, modal: ModalHandler): EndringsknappData[] {
 	const {
 		visEndreOppstartModal,
 		visLeggTilOppstartModal,
 		visForlengDeltakelseModal,
 		visSettDeltakerIkkeAktuellModal,
 		visAvsluttDeltakerModal,
+		visAvsluttKursDeltakerModal,
 		visEndreProsentDeltakelseModal,
 		visEndreSluttdatoModal,
 		visEndreSluttaarsakModal,
@@ -31,12 +32,12 @@ export function endringsknapper(deltaker: Deltaker, erForslagEnabled: boolean, m
 		status.erVenterPaOppstart &&
 		deltaker.startDato !== null &&
 		!deltaker.deltakerliste.erKurs &&
-		erForslagEnabled
+		erKometMaster
 
 	const kanForlengeDeltakelse = () => {
 		const deltarMedSluttdato = status.erDeltar && deltaker.sluttDato !== null
 
-		if (erForslagEnabled) {
+		if (erKometMaster) {
 			return status.erHarSluttet || ferdigPaKurs || (deltarMedSluttdato && !deltaker.deltakerliste.erKurs)
 		}
 		return status.erHarSluttet || deltarMedSluttdato
@@ -49,7 +50,7 @@ export function endringsknapper(deltaker: Deltaker, erForslagEnabled: boolean, m
 
 	const kanEndreSluttaarsak = () => {
 
-		if (erForslagEnabled) {
+		if (erKometMaster) {
 			return status.erHarSluttet || ferdigPaKurs || status.erIkkeAktuell
 		}
 		return status.erHarSluttet && !deltaker.deltakerliste.erKurs
@@ -62,7 +63,9 @@ export function endringsknapper(deltaker: Deltaker, erForslagEnabled: boolean, m
 
 	const kanEndreDeltakelsesmengde = deltaker.tiltakskode === Tiltakskode.ARBFORB || deltaker.tiltakskode === Tiltakskode.VASV
 
-	const kanAvslutteDeltakelse = status.erDeltar
+	const kanAvslutteDeltakelse = status.erDeltar && !(erKometMaster && deltaker.deltakerliste.erKurs)
+	const kanAvslutteKursDeltakelse =
+		status.erDeltar && deltaker.deltakerliste.erKurs && erKometMaster
 
 	const kanEndreStartDato =
 		status.erVenterPaOppstart ||
@@ -74,7 +77,7 @@ export function endringsknapper(deltaker: Deltaker, erForslagEnabled: boolean, m
 	const kanEndreOppstartsdato = kanEndreStartDato && deltaker.startDato !== null
 
 	const kanLeggeTilOppstartsdato = () => {
-		if (erForslagEnabled) {
+		if (erKometMaster) {
 			return (status.erVenterPaOppstart || status.erDeltar) && !deltaker.startDato
 		}
 		return kanEndreStartDato && !deltaker.startDato
@@ -105,6 +108,11 @@ export function endringsknapper(deltaker: Deltaker, erForslagEnabled: boolean, m
 			type: EndringType.AVSLUTT_DELTAKELSE,
 			erTilgjengelig: kanAvslutteDeltakelse,
 			modalFunc: visAvsluttDeltakerModal,
+		},
+		{
+			type: EndringType.AVSLUTT_KURS_DELTAKELSE,
+			erTilgjengelig: kanAvslutteKursDeltakelse,
+			modalFunc: visAvsluttKursDeltakerModal,
 		},
 		{
 			type: EndringType.ENDRE_DELTAKELSE_PROSENT,

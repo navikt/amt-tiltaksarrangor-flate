@@ -47,7 +47,7 @@ export const DeltakelseInfo = ({
   const skjulDeltakerPromise = usePromise<AxiosResponse>()
 
   const { erKometMasterForTiltak } = useFeatureToggle()
-  const erForslagEnabled = erKometMasterForTiltak(
+  const erKometMaster = erKometMasterForTiltak(
     deltaker.deltakerliste.tiltakstype
   )
 
@@ -94,7 +94,7 @@ export const DeltakelseInfo = ({
   const skruAvEndringer =
     (deltaker.deltakerliste.tiltakstype === Tiltakskode.VASV ||
       deltaker.deltakerliste.tiltakstype === Tiltakskode.DIGIOPPARB) &&
-    !erForslagEnabled
+    !erKometMaster
 
   return (
     <div className={styles.section}>
@@ -103,7 +103,7 @@ export const DeltakelseInfo = ({
           <ElementPanel tittel="Status:">
             <StatusMerkelapp status={deltaker.status} />
           </ElementPanel>
-          {erForslagEnabled && deltaker.status.aarsak && (
+          {erKometMaster && deltaker.status.aarsak && (
             <ElementPanel tittel="Årsak:">
               <span>{getDeltakerStatusAarsakText(deltaker.status.aarsak)}</span>
             </ElementPanel>
@@ -144,7 +144,7 @@ export const DeltakelseInfo = ({
           <EndreDeltakelseKnapp
             deltaker={deltaker}
             onEndringUtfort={triggerReloadEndringsmeldinger}
-            erForslagEnabled={erForslagEnabled}
+            erKometMaster={erKometMaster}
             onForslagSendt={handleForslagSendt}
             onEndringSendt={oppdaterDeltaker}
           />
@@ -161,7 +161,7 @@ export const DeltakelseInfo = ({
           tiltakstype={deltaker.deltakerliste.tiltakstype}
         />
 
-        {erForslagEnabled && (
+        {erKometMaster && (
           <SeEndringer
             className={styles.seEndringerKnapp}
             tiltakstype={deltaker.deltakerliste.tiltakstype}
@@ -169,7 +169,7 @@ export const DeltakelseInfo = ({
           />
         )}
 
-        {!erForslagEnabled && (
+        {!erKometMaster && (
           <Endringsmeldinger
             deltaker={deltaker}
             setReloadEndringsmeldinger={setReloadEndringsmeldinger}
