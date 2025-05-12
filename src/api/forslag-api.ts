@@ -29,7 +29,7 @@ export const ikkeAktuellForslag = (
 export const postAvsluttDeltakelse = (
   deltakerId: string,
   aarsak: EndringAarsak,
-  harFullfort: boolean,
+  harFullfort: boolean | null,
   harDeltatt: boolean | null,
   sluttdato?: Date | null,
   begrunnelse?: string
