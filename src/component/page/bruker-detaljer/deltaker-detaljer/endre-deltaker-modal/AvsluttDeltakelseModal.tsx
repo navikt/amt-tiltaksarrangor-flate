@@ -3,7 +3,7 @@ import { useState } from 'react'
 import { Radio, RadioGroup } from '@navikt/ds-react'
 import { Deltaker } from '../../../../../api/data/deltaker'
 import { DeltakerStatusAarsakType } from '../../../../../api/data/endringsmelding'
-import { avsluttDeltakelseForslag } from '../../../../../api/forslag-api'
+import { postAvsluttDeltakelse } from '../../../../../api/forslag-api'
 import { avsluttDeltakelse } from '../../../../../api/tiltak-api'
 import { maxDate } from '../../../../../utils/date-utils'
 import { Nullable } from '../../../../../utils/types/or-nothing'
@@ -81,9 +81,10 @@ export const AvsluttDeltakelseModal = (
 
     return validerAarsakForm(aarsak, beskrivelse, begrunnelse)
       .then((validertForm) =>
-        avsluttDeltakelseForslag(
+        postAvsluttDeltakelse(
           deltaker.id,
           validertForm.forslag.aarsak,
+          true,
           harDeltatt,
           harDeltatt === false ? null : sluttDato,
           validertForm.forslag.begrunnelse

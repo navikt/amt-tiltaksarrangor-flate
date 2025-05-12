@@ -12,6 +12,7 @@ import { EndreSluttaarsakModal } from './endre-deltaker-modal/EndreSluttaarsakMo
 import { FjernOppstartsdatoModal } from './endre-deltaker-modal/FjernOppstartsdatoModal'
 import { Deltaker } from '../../../../api/data/deltaker'
 import { AktivtForslag } from '../../../../api/data/forslag'
+import { AvsluttKursDeltakelseModal } from './endre-deltaker-modal/AvsluttKursDeltakelseModal'
 
 export interface ModalDataProps {
   readonly deltaker: Deltaker
@@ -39,6 +40,8 @@ export const ModalController = (props: {
       return <SettIkkeAktuellModal {...modalData.props} />
     case ModalType.AvsluttDeltaker:
       return <AvsluttDeltakelseModal {...modalData.props} />
+    case ModalType.AvsluttKursDeltaker:
+      return <AvsluttKursDeltakelseModal {...modalData.props} />
     case ModalType.EndreProsentDeltakelse:
       return <EndreProsentDeltakelseModal {...modalData.props} />
     case ModalType.EndreSluttdato:

@@ -8,6 +8,7 @@ export enum ModalType {
   ForlengDeltakelse,
   SettDeltakerIkkeAktuell,
   AvsluttDeltaker,
+  AvsluttKursDeltaker,
   EndreProsentDeltakelse,
   EndreSluttdato,
   EndreSluttaarsak,
@@ -39,14 +40,16 @@ type AvsluttDeltakerModalData = BaseModalData<
   ModalType.AvsluttDeltaker,
   ModalDataProps
 >
+
+type AvsluttKursDeltakerModalData = BaseModalData<
+  ModalType.AvsluttKursDeltaker,
+  ModalDataProps
+>
 type EndreProsentDeltakelse = BaseModalData<
   ModalType.EndreProsentDeltakelse,
   ModalDataProps
 >
-type EndreSluttdato = BaseModalData<
-  ModalType.EndreSluttdato,
-  ModalDataProps
->
+type EndreSluttdato = BaseModalData<ModalType.EndreSluttdato, ModalDataProps>
 type EndreSluttaarsak = BaseModalData<
   ModalType.EndreSluttaarsak,
   ModalDataProps
@@ -62,26 +65,28 @@ export type ModalData =
   | ForlengDeltakelseModalData
   | SettDeltakerIkkeAktuellModalData
   | AvsluttDeltakerModalData
+  | AvsluttKursDeltakerModalData
   | EndreProsentDeltakelse
   | EndreSluttdato
   | EndreSluttaarsak
   | FjernOppstartsdato
 
 export interface ModalHandler {
-    modalData: ModalData | undefined
-    lukkModal: () => void
-    visEndreOppstartModal: (props: ModalDataProps) => void
-    visLeggTilOppstartModal: (props: ModalDataProps) => void
-    visForlengDeltakelseModal: (props: ModalDataProps) => void
-    visSettDeltakerIkkeAktuellModal: (props: ModalDataProps) => void
-    visAvsluttDeltakerModal: (props: ModalDataProps) => void
-    visEndreProsentDeltakelseModal: (props: ModalDataProps) => void
-    visEndreSluttdatoModal: (props: ModalDataProps) => void
-    visEndreSluttaarsakModal: (props: ModalDataProps) => void
-    visFjernOppstartsdatoModal: (props: ModalDataProps) => void
+  modalData: ModalData | undefined
+  lukkModal: () => void
+  visEndreOppstartModal: (props: ModalDataProps) => void
+  visLeggTilOppstartModal: (props: ModalDataProps) => void
+  visForlengDeltakelseModal: (props: ModalDataProps) => void
+  visSettDeltakerIkkeAktuellModal: (props: ModalDataProps) => void
+  visAvsluttDeltakerModal: (props: ModalDataProps) => void
+  visAvsluttKursDeltakerModal: (props: ModalDataProps) => void
+  visEndreProsentDeltakelseModal: (props: ModalDataProps) => void
+  visEndreSluttdatoModal: (props: ModalDataProps) => void
+  visEndreSluttaarsakModal: (props: ModalDataProps) => void
+  visFjernOppstartsdatoModal: (props: ModalDataProps) => void
 }
 
-export const useModalData = (): ModalHandler =>  {
+export const useModalData = (): ModalHandler => {
   const [modalData, setModalData] = useState<ModalData>()
 
   const lukkModal = () => {
@@ -123,6 +128,13 @@ export const useModalData = (): ModalHandler =>  {
     })
   }
 
+  const visAvsluttKursDeltakerModal = (props: ModalDataProps) => {
+    setModalData({
+      type: ModalType.AvsluttKursDeltaker,
+      props: props
+    })
+  }
+
   const visEndreProsentDeltakelseModal = (props: ModalDataProps) => {
     setModalData({
       type: ModalType.EndreProsentDeltakelse,
@@ -159,6 +171,7 @@ export const useModalData = (): ModalHandler =>  {
     visForlengDeltakelseModal,
     visSettDeltakerIkkeAktuellModal,
     visAvsluttDeltakerModal,
+    visAvsluttKursDeltakerModal,
     visEndreProsentDeltakelseModal,
     visEndreSluttdatoModal,
     visEndreSluttaarsakModal,

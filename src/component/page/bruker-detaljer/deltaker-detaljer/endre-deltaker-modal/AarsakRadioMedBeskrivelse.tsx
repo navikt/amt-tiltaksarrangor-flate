@@ -9,7 +9,7 @@ import { BESKRIVELSE_MAKS_TEGN, fjernUgyldigeTegn } from '../../../../../utils/e
 
 interface AarsakRadioMedBeskrivelseProps {
   aarsakType: DeltakerStatusAarsakType
-  valgtAarsak: DeltakerStatusAarsakType | undefined
+  valgtAarsak: Nullable<DeltakerStatusAarsakType>
   onBeskrivelse: (beskrivelse: Nullable<string>) => void
 }
 

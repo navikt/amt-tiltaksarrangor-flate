@@ -16,11 +16,10 @@ interface AarsakSelectorProps {
 
 export const AarsakSelector = ({
   tittel,
-  onAarsakSelected
+  onAarsakSelected,
 }: AarsakSelectorProps) => {
   const [aarsak, settAarsak] = useState<DeltakerStatusAarsakType>()
   const [beskrivelse, settBeskrivelse] = useState<Nullable<string>>()
-
   const onBeskrivelse = (nyBeskrivelse: Nullable<string>) => {
     settBeskrivelse(nyBeskrivelse)
   }

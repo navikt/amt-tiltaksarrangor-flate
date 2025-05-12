@@ -9,6 +9,7 @@ interface Props {
   readonly defaultMonth?: Date
   readonly onValidate?: (validation: DateValidationT, date?: Date) => void
   readonly onChange: (date: Date | undefined) => void
+  readonly disabled: boolean
 }
 
 export function SimpleDatePicker({
@@ -19,7 +20,8 @@ export function SimpleDatePicker({
   defaultDate,
   defaultMonth,
   onValidate,
-  onChange
+  onChange,
+    disabled
 }: Props) {
   const { datepickerProps, inputProps } = useDatepicker({
     fromDate: min,
@@ -27,7 +29,7 @@ export function SimpleDatePicker({
     defaultSelected: defaultDate,
     defaultMonth: defaultMonth,
     onValidate: onValidate,
-    onDateChange: onChange
+    onDateChange: onChange,
   })
 
   return (
@@ -37,6 +39,7 @@ export function SimpleDatePicker({
         label={label}
         size="small"
         error={error}
+        disabled={disabled}
       />
     </DatePicker>
   )

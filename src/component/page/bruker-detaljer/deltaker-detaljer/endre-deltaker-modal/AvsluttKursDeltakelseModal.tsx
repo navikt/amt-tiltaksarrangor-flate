@@ -1,0 +1,149 @@
+import React, { useEffect, useState } from 'react'
+
+import { Radio, RadioGroup } from '@navikt/ds-react'
+import { DeltakerStatusAarsakType } from '../../../../../api/data/endringsmelding'
+import { postAvsluttDeltakelse } from '../../../../../api/forslag-api'
+import { maxDate } from '../../../../../utils/date-utils'
+import { Nullable } from '../../../../../utils/types/or-nothing'
+import { DateField } from '../../../../felles/DateField'
+import { EndringType } from '../types'
+import { AarsakSelector } from './AarsakSelector'
+import { maxSluttdato } from './datoutils'
+import { Endringsmodal } from './endringsmodal/Endringsmodal'
+import {
+  useAarsakValidering,
+  validerAarsakForm
+} from './validering/aarsakValidering'
+import { ModalDataProps } from '../ModalController'
+import {
+  avslutningsBeskrivelseTekstMapper,
+  avslutningsTypeTekstMapper
+} from '../tekst-mappers'
+
+export const AvsluttKursDeltakelseModal = (props: ModalDataProps) => {
+  const {
+    onClose,
+    deltaker,
+    visGodkjennVilkaarPanel,
+    onForslagSendt,
+    erForslagEnabled
+  } = props
+  const [sluttDato, settSluttDato] = useState<Nullable<Date>>()
+  const [aarsak, settAarsak] = useState<DeltakerStatusAarsakType>()
+  const [beskrivelse, settBeskrivelse] = useState<Nullable<string>>()
+  const [begrunnelse, setBegrunnelse] = useState<string>()
+  const [avslutningsType, settAvslutningsType] = useState<AvslutningsType>()
+  const [harFullfort, setHarFullfort] = useState<boolean | null>(null)
+  const harDeltatt = avslutningsType != AvslutningsType.IKKE_DELTATT
+
+  const { validering } = useAarsakValidering(aarsak, beskrivelse, begrunnelse)
+
+  const onAarsakSelected = (
+    nyAarsak: DeltakerStatusAarsakType,
+    nyBeskrivelse: Nullable<string>
+  ) => {
+    settAarsak(nyAarsak)
+    settBeskrivelse(nyBeskrivelse)
+  }
+
+  useEffect(() => {
+    settAarsak(undefined)
+    setHarFullfort(avslutningsType === AvslutningsType.FULLFORT)
+  }, [avslutningsType])
+
+  const sendForslag = () => {
+    if ((harDeltatt || harDeltatt === null) && !sluttDato) {
+      return Promise.reject(
+        'Sluttdato er påkrevd for å sende AvsluttDeltakelse forslag'
+      )
+    }
+    if (!harFullfort) {
+      return Promise.reject(
+        'Kan ikke sende forslag uten at avslutningstype er satt'
+      )
+    }
+
+    return validerAarsakForm(aarsak, beskrivelse, begrunnelse)
+      .then((validertForm) =>
+        postAvsluttDeltakelse(
+          deltaker.id,
+          validertForm.forslag.aarsak,
+          harFullfort,
+          harDeltatt,
+          !harDeltatt ? null : sluttDato,
+          validertForm.forslag.begrunnelse
+        )
+      )
+      .then((res) => onForslagSendt(res.data))
+  }
+
+  const skalOppgiSluttdato =
+    avslutningsType === AvslutningsType.FULLFORT ||
+    avslutningsType === AvslutningsType.AVBRUTT
+
+  const skalOppgiAarsak =
+    avslutningsType === AvslutningsType.AVBRUTT ||
+    avslutningsType === AvslutningsType.IKKE_DELTATT
+
+  return (
+    <Endringsmodal
+      tittel="Avslutt deltakelse"
+      endringstype={EndringType.AVSLUTT_DELTAKELSE}
+      visGodkjennVilkaarPanel={visGodkjennVilkaarPanel}
+      erForslag={erForslagEnabled}
+      erSendKnappDisabled={!validering.isSuccess}
+      begrunnelseType="valgfri"
+      onClose={onClose}
+      onSend={sendForslag}
+      onBegrunnelse={(begrunnelse) => {
+        setBegrunnelse(begrunnelse)
+      }}
+    >
+      <RadioGroup
+        size="small"
+        legend="Har deltakeren fullført kurset?"
+        onChange={settAvslutningsType}
+      >
+        <AvslutningstypeRadio avslutningstype={AvslutningsType.FULLFORT} />
+        <AvslutningstypeRadio avslutningstype={AvslutningsType.AVBRUTT} />
+        <AvslutningstypeRadio avslutningstype={AvslutningsType.IKKE_DELTATT} />
+      </RadioGroup>
+
+      {skalOppgiAarsak && (
+        <AarsakSelector
+          tittel="Hva er årsaken til avslutning?"
+          onAarsakSelected={onAarsakSelected}
+        />
+      )}
+      {skalOppgiSluttdato && (
+        <DateField
+          label="Hva er ny sluttdato?"
+          defaultDate={sluttDato}
+          min={maxDate(deltaker.startDato, deltaker.deltakerliste.startDato)}
+          max={maxSluttdato(deltaker.startDato, deltaker.deltakerliste)}
+          onDateChanged={(d) => settSluttDato(d)}
+        />
+      )}
+    </Endringsmodal>
+  )
+}
+
+export enum AvslutningsType {
+  FULLFORT = 'FULLFORT',
+  AVBRUTT = 'AVBRUTT',
+  IKKE_DELTATT = 'IKKE_DELTATT'
+}
+
+export const AvslutningstypeRadio = ({
+  avslutningstype
+}: {
+  avslutningstype: AvslutningsType
+}) => {
+  const tekst = avslutningsTypeTekstMapper(avslutningstype)
+  const beskrivelse = avslutningsBeskrivelseTekstMapper(avslutningstype)
+  return (
+    <Radio value={avslutningstype} description={beskrivelse}>
+      {tekst}
+    </Radio>
+  )
+}
