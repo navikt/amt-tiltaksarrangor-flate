@@ -84,7 +84,7 @@ export const AvsluttDeltakelseModal = (
         postAvsluttDeltakelse(
           deltaker.id,
           validertForm.forslag.aarsak,
-          harDeltatt == true,
+          harDeltatt === true,
           harDeltatt,
           harDeltatt === false ? null : sluttDato,
           validertForm.forslag.begrunnelse
