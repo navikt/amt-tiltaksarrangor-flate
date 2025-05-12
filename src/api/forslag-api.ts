@@ -36,8 +36,9 @@ export const postAvsluttDeltakelse = (
 ): AxiosPromise => {
   return postForslag(deltakerId, 'avslutt', {
     sluttdato: sluttdato ? formatDateToDateInputStr(sluttdato) : null,
-    aarsak,
-    harDeltatt,
+    aarsak: aarsak,
+    harDeltatt: harDeltatt,
+    harFullfort: harFullfort,
     begrunnelse: begrunnelse ?? null
   })
 }
