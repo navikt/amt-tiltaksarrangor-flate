@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { DeltakerStatusAarsakType } from '../../../../../../api/data/endringsmelding'
-import { EndringAarsak } from '../../../../../../api/data/forslag'
+import {EndringAarsak, ForslagEndringAarsakType} from '../../../../../../api/data/forslag'
 import { BEGRUNNELSE_MAKS_TEGN } from '../../../../../../utils/endre-deltaker-utils'
 import { aarsakTekstMapper } from '../../tekst-mappers'
 
@@ -53,7 +53,7 @@ export function validerAarsakForm(
         }
       },
       forslag: {
-        aarsak: toEndringAarsakType(aarsak, beskrivelse),
+        aarsak: toEndringAarsakType(aarsak, beskrivelse)!,
         begrunnelse: begrunnelse
       }
     })
@@ -91,28 +91,27 @@ export function useAarsakValidering(
   return { validering, validertForm }
 }
 
-function toEndringAarsakType(
-  aarsak: DeltakerStatusAarsakType,
-  beskrivelse: string | undefined | null
-): EndringAarsak {
+export function toEndringAarsakType(
+  aarsak?: DeltakerStatusAarsakType,
+  beskrivelse?: string | null
+): EndringAarsak | null {
   switch (aarsak) {
     case DeltakerStatusAarsakType.SYK:
-      return { type: 'Syk' }
+      return { type: ForslagEndringAarsakType.Syk }
     case DeltakerStatusAarsakType.FATT_JOBB:
-      return { type: 'FattJobb' }
+      return { type: ForslagEndringAarsakType.FattJobb }
     case DeltakerStatusAarsakType.TRENGER_ANNEN_STOTTE:
-      return { type: 'TrengerAnnenStotte' }
+      return { type: ForslagEndringAarsakType.TrengerAnnenStotte }
     case DeltakerStatusAarsakType.UTDANNING:
-      return { type: 'Utdanning' }
+      return { type: ForslagEndringAarsakType.Utdanning }
     case DeltakerStatusAarsakType.IKKE_MOTT:
-      return { type: 'IkkeMott' }
+      return { type: ForslagEndringAarsakType.IkkeMott }
     case DeltakerStatusAarsakType.ANNET: {
       if (!beskrivelse) {
         throw new Error('Beskrivelse mangler for Annet')
       }
-      return { type: 'Annet', beskrivelse: beskrivelse }
+      return { type: ForslagEndringAarsakType.Annet, beskrivelse: beskrivelse }
     }
-    default:
-      throw new Error(`Kan ikke konvertere ${aarsak} til EndringsAarsakType`)
+    default: return null
   }
 }

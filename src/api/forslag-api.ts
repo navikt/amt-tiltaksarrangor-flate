@@ -28,9 +28,9 @@ export const ikkeAktuellForslag = (
 
 export const postAvsluttDeltakelse = (
   deltakerId: string,
-  aarsak: EndringAarsak,
   harFullfort: boolean | null,
   harDeltatt: boolean | null,
+  aarsak: EndringAarsak | null,
   sluttdato?: Date | null,
   begrunnelse?: string
 ): AxiosPromise => {

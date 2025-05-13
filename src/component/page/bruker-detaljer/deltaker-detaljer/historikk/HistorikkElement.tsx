@@ -67,9 +67,11 @@ export const ForslagtypeDetaljer = ({
       case ForslagEndringType.AvsluttDeltakelse:
         return (
           <>
-            <BodyLong size="small">
-              Årsak: {getForslagEndringAarsakText(forslag.endring.aarsak)}
-            </BodyLong>
+            {forslag.endring.aarsak && (
+              <BodyLong size="small">
+                Årsak: {getForslagEndringAarsakText(forslag.endring.aarsak)}
+              </BodyLong>
+            )}
             {forslag.endring.harDeltatt !== null && (
               <BodyLong size="small">
                 Har personen deltatt?{' '}

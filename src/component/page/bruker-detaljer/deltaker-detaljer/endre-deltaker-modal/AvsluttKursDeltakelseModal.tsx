@@ -10,15 +10,14 @@ import { EndringType } from '../types'
 import { AarsakSelector } from './AarsakSelector'
 import { maxSluttdato } from './datoutils'
 import { Endringsmodal } from './endringsmodal/Endringsmodal'
-import {
-  useAarsakValidering,
-  validerAarsakForm
-} from './validering/aarsakValidering'
+import { toEndringAarsakType } from './validering/aarsakValidering'
 import { ModalDataProps } from '../ModalController'
 import {
   avslutningsBeskrivelseTekstMapper,
   avslutningsTypeTekstMapper
 } from '../tekst-mappers'
+import { EndringAarsak } from '../../../../../api/data/forslag'
+import { useAvsluttKursDeltakelseValidering } from './validering/useAvsluttKursDeltakelseValidering'
 
 export const AvsluttKursDeltakelseModal = (props: ModalDataProps) => {
   const {
@@ -28,22 +27,28 @@ export const AvsluttKursDeltakelseModal = (props: ModalDataProps) => {
     onForslagSendt,
     erForslagEnabled
   } = props
-  const [sluttDato, settSluttDato] = useState<Nullable<Date>>()
+  const [sluttDato, settSluttDato] = useState<Date>()
   const [aarsak, settAarsak] = useState<DeltakerStatusAarsakType>()
-  const [beskrivelse, settBeskrivelse] = useState<Nullable<string>>()
+  const [beskrivelse, settBeskrivelse] = useState<string>()
   const [begrunnelse, setBegrunnelse] = useState<string>()
   const [avslutningsType, settAvslutningsType] = useState<AvslutningsType>()
   const [harFullfort, setHarFullfort] = useState<boolean | null>(null)
   const harDeltatt = avslutningsType != AvslutningsType.IKKE_DELTATT
+  const skalOppgiSluttdato =
+    avslutningsType === AvslutningsType.FULLFORT ||
+    avslutningsType === AvslutningsType.AVBRUTT
 
-  const { validering } = useAarsakValidering(aarsak, beskrivelse, begrunnelse)
+  const skalOppgiAarsak =
+    avslutningsType === AvslutningsType.AVBRUTT ||
+    avslutningsType === AvslutningsType.IKKE_DELTATT
+  const { validering } = useAvsluttKursDeltakelseValidering(avslutningsType, sluttDato, aarsak, beskrivelse, begrunnelse)
 
   const onAarsakSelected = (
     nyAarsak: DeltakerStatusAarsakType,
     nyBeskrivelse: Nullable<string>
   ) => {
     settAarsak(nyAarsak)
-    settBeskrivelse(nyBeskrivelse)
+    settBeskrivelse(nyBeskrivelse ?? undefined)
   }
 
   useEffect(() => {
@@ -52,38 +57,22 @@ export const AvsluttKursDeltakelseModal = (props: ModalDataProps) => {
   }, [avslutningsType])
 
   const sendForslag = () => {
-    if ((harDeltatt || harDeltatt === null) && !sluttDato) {
-      return Promise.reject(
-        'Sluttdato er påkrevd for å sende AvsluttDeltakelse forslag'
-      )
-    }
-    if (!harFullfort) {
-      return Promise.reject(
-        'Kan ikke sende forslag uten at avslutningstype er satt'
-      )
+    if(!validering.isSuccess) {
+      return Promise.reject(validering.feilmelding)
     }
 
-    return validerAarsakForm(aarsak, beskrivelse, begrunnelse)
-      .then((validertForm) =>
-        postAvsluttDeltakelse(
-          deltaker.id,
-          validertForm.forslag.aarsak,
-          harFullfort,
-          harDeltatt,
-          !harDeltatt ? null : sluttDato,
-          validertForm.forslag.begrunnelse
-        )
-      )
-      .then((res) => onForslagSendt(res.data))
+    return avslutt(toEndringAarsakType(aarsak, beskrivelse), begrunnelse)
+
   }
 
-  const skalOppgiSluttdato =
-    avslutningsType === AvslutningsType.FULLFORT ||
-    avslutningsType === AvslutningsType.AVBRUTT
-
-  const skalOppgiAarsak =
-    avslutningsType === AvslutningsType.AVBRUTT ||
-    avslutningsType === AvslutningsType.IKKE_DELTATT
+  const avslutt = (nyaarsak: EndringAarsak | null, begrunnelse?: string) => postAvsluttDeltakelse(
+      deltaker.id,
+      harFullfort,
+      harDeltatt,
+      nyaarsak,
+      !harDeltatt ? null : sluttDato,
+      begrunnelse
+  ).then((res) => onForslagSendt(res.data))
 
   return (
     <Endringsmodal
@@ -121,7 +110,7 @@ export const AvsluttKursDeltakelseModal = (props: ModalDataProps) => {
           defaultDate={sluttDato}
           min={maxDate(deltaker.startDato, deltaker.deltakerliste.startDato)}
           max={maxSluttdato(deltaker.startDato, deltaker.deltakerliste)}
-          onDateChanged={(d) => settSluttDato(d)}
+          onDateChanged={(d) => settSluttDato(d ?? undefined)}
         />
       )}
     </Endringsmodal>

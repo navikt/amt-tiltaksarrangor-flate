@@ -426,7 +426,8 @@ export const worker = setupWorker(
 		type: ForslagEndringType.AvsluttDeltakelse,
 		sluttdato: body.sluttdato,
 		aarsak: body.aarsak,
-		harDeltatt: body.harDeltatt
+		harDeltatt: body.harDeltatt,
+		harFullfort: body.harFullfort
 	})),
 	handlePostForslagRequest('deltakelsesmengde', (body) => ({
 		type: ForslagEndringType.Deltakelsesmengde,
