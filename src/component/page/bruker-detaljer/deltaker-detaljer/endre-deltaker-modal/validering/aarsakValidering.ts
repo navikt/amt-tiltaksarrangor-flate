@@ -53,7 +53,7 @@ export function validerAarsakForm(
         }
       },
       forslag: {
-        aarsak: toEndringAarsakType(aarsak, beskrivelse),
+        aarsak: toEndringAarsakType(aarsak, beskrivelse)!,
         begrunnelse: begrunnelse
       }
     })
@@ -91,10 +91,10 @@ export function useAarsakValidering(
   return { validering, validertForm }
 }
 
-function toEndringAarsakType(
-  aarsak: DeltakerStatusAarsakType,
-  beskrivelse: string | undefined | null
-): EndringAarsak {
+export function toEndringAarsakType(
+  aarsak?: DeltakerStatusAarsakType,
+  beskrivelse?: string | null
+): EndringAarsak | null {
   switch (aarsak) {
     case DeltakerStatusAarsakType.SYK:
       return { type: ForslagEndringAarsakType.Syk }
@@ -112,7 +112,6 @@ function toEndringAarsakType(
       }
       return { type: ForslagEndringAarsakType.Annet, beskrivelse: beskrivelse }
     }
-    default:
-      throw new Error(`Kan ikke konvertere ${aarsak} til EndringsAarsakType`)
+    default: return null
   }
 }

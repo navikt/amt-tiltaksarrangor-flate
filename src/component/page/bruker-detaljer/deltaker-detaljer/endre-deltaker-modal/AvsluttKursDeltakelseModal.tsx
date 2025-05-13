@@ -10,13 +10,14 @@ import { EndringType } from '../types'
 import { AarsakSelector } from './AarsakSelector'
 import { maxSluttdato } from './datoutils'
 import { Endringsmodal } from './endringsmodal/Endringsmodal'
-import { validerAarsakForm } from './validering/aarsakValidering'
+import { toEndringAarsakType } from './validering/aarsakValidering'
 import { ModalDataProps } from '../ModalController'
 import {
   avslutningsBeskrivelseTekstMapper,
   avslutningsTypeTekstMapper
 } from '../tekst-mappers'
-import { EndringAarsak } from '../../../../../api/data/forslag';
+import { EndringAarsak } from '../../../../../api/data/forslag'
+import { useAvsluttKursDeltakelseValidering } from './validering/useAvsluttKursDeltakelseValidering'
 
 export const AvsluttKursDeltakelseModal = (props: ModalDataProps) => {
   const {
@@ -26,9 +27,9 @@ export const AvsluttKursDeltakelseModal = (props: ModalDataProps) => {
     onForslagSendt,
     erForslagEnabled
   } = props
-  const [sluttDato, settSluttDato] = useState<Nullable<Date>>()
+  const [sluttDato, settSluttDato] = useState<Date>()
   const [aarsak, settAarsak] = useState<DeltakerStatusAarsakType>()
-  const [beskrivelse, settBeskrivelse] = useState<Nullable<string>>()
+  const [beskrivelse, settBeskrivelse] = useState<string>()
   const [begrunnelse, setBegrunnelse] = useState<string>()
   const [avslutningsType, settAvslutningsType] = useState<AvslutningsType>()
   const [harFullfort, setHarFullfort] = useState<boolean | null>(null)
@@ -40,13 +41,14 @@ export const AvsluttKursDeltakelseModal = (props: ModalDataProps) => {
   const skalOppgiAarsak =
     avslutningsType === AvslutningsType.AVBRUTT ||
     avslutningsType === AvslutningsType.IKKE_DELTATT
+  const { validering } = useAvsluttKursDeltakelseValidering(avslutningsType, sluttDato, aarsak, beskrivelse, begrunnelse)
 
   const onAarsakSelected = (
     nyAarsak: DeltakerStatusAarsakType,
     nyBeskrivelse: Nullable<string>
   ) => {
     settAarsak(nyAarsak)
-    settBeskrivelse(nyBeskrivelse)
+    settBeskrivelse(nyBeskrivelse ?? undefined)
   }
 
   useEffect(() => {
@@ -55,29 +57,15 @@ export const AvsluttKursDeltakelseModal = (props: ModalDataProps) => {
   }, [avslutningsType])
 
   const sendForslag = () => {
-    if (!avslutningsType) {
-      return Promise.reject(
-        'Kan ikke sende forslag uten at avslutningstype er satt'
-      )
+    if(!validering.isSuccess) {
+      return Promise.reject(validering.feilmelding)
     }
 
-    if (!sluttDato &&
-      (avslutningsType === AvslutningsType.FULLFORT ||
-        avslutningsType === AvslutningsType.AVBRUTT)
-    ) {
-      return Promise.reject('Kan ikke sende forslag uten at sluttdato er satt')
-    }
-
-    if(avslutningsType === AvslutningsType.FULLFORT) {
-      return avslutt(undefined, begrunnelse)
-    }
-
-    return validerAarsakForm(aarsak, beskrivelse, begrunnelse)
-      .then((validertForm) => avslutt(validertForm.forslag.aarsak, validertForm.forslag.begrunnelse))
+    return avslutt(toEndringAarsakType(aarsak, beskrivelse), begrunnelse)
 
   }
 
-  const avslutt = (nyaarsak?: EndringAarsak, begrunnelse?: string) => postAvsluttDeltakelse(
+  const avslutt = (nyaarsak: EndringAarsak | null, begrunnelse?: string) => postAvsluttDeltakelse(
       deltaker.id,
       harFullfort,
       harDeltatt,
@@ -92,7 +80,7 @@ export const AvsluttKursDeltakelseModal = (props: ModalDataProps) => {
       endringstype={EndringType.AVSLUTT_DELTAKELSE}
       visGodkjennVilkaarPanel={visGodkjennVilkaarPanel}
       erForslag={erForslagEnabled}
-      erSendKnappDisabled={false}
+      erSendKnappDisabled={!validering.isSuccess}
       begrunnelseType="valgfri"
       onClose={onClose}
       onSend={sendForslag}
@@ -122,7 +110,7 @@ export const AvsluttKursDeltakelseModal = (props: ModalDataProps) => {
           defaultDate={sluttDato}
           min={maxDate(deltaker.startDato, deltaker.deltakerliste.startDato)}
           max={maxSluttdato(deltaker.startDato, deltaker.deltakerliste)}
-          onDateChanged={(d) => settSluttDato(d)}
+          onDateChanged={(d) => settSluttDato(d ?? undefined)}
         />
       )}
     </Endringsmodal>
