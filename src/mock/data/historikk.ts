@@ -171,7 +171,8 @@ export const mockDeltakerHistorikk = (): DeltakerHistorikkListe => {
           aarsak: {
             type: ForslagEndringAarsakType.FattJobb
           },
-          harDeltatt: null
+          harDeltatt: null,
+          harFullfort: null
         },
         status: {
           type: ForslagStatusType.Godkjent,
