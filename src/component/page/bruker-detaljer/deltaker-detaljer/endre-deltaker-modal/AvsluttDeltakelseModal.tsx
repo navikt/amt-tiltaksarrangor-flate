@@ -19,9 +19,7 @@ import {
 } from './validering/aarsakValidering'
 import { ModalDataProps } from '../ModalController'
 
-export const AvsluttDeltakelseModal = (
-  props: ModalDataProps
-) => {
+export const AvsluttDeltakelseModal = (props: ModalDataProps) => {
   const {
     onClose,
     deltaker,
@@ -83,9 +81,9 @@ export const AvsluttDeltakelseModal = (
       .then((validertForm) =>
         postAvsluttDeltakelse(
           deltaker.id,
-          validertForm.forslag.aarsak,
-          harDeltatt === true? true : null,
+          harDeltatt === true ? true : null,
           harDeltatt,
+          validertForm.forslag.aarsak,
           harDeltatt === false ? null : sluttDato,
           validertForm.forslag.begrunnelse
         )
