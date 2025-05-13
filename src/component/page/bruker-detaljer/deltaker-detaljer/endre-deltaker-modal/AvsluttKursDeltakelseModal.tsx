@@ -35,6 +35,13 @@ export const AvsluttKursDeltakelseModal = (props: ModalDataProps) => {
   const [avslutningsType, settAvslutningsType] = useState<AvslutningsType>()
   const [harFullfort, setHarFullfort] = useState<boolean | null>(null)
   const harDeltatt = avslutningsType != AvslutningsType.IKKE_DELTATT
+  const skalOppgiSluttdato =
+    avslutningsType === AvslutningsType.FULLFORT ||
+    avslutningsType === AvslutningsType.AVBRUTT
+
+  const skalOppgiAarsak =
+    avslutningsType === AvslutningsType.AVBRUTT ||
+    avslutningsType === AvslutningsType.IKKE_DELTATT
 
   const { validering } = useAarsakValidering(aarsak, beskrivelse, begrunnelse)
 
@@ -52,38 +59,33 @@ export const AvsluttKursDeltakelseModal = (props: ModalDataProps) => {
   }, [avslutningsType])
 
   const sendForslag = () => {
-    if ((harDeltatt || harDeltatt === null) && !sluttDato) {
-      return Promise.reject(
-        'Sluttdato er påkrevd for å sende AvsluttDeltakelse forslag'
-      )
-    }
-    if (!harFullfort) {
+    if (!avslutningsType) {
       return Promise.reject(
         'Kan ikke sende forslag uten at avslutningstype er satt'
       )
+    }
+
+    if (
+      !sluttDato &&
+      (avslutningsType === AvslutningsType.FULLFORT ||
+        avslutningsType === AvslutningsType.AVBRUTT)
+    ) {
+      return Promise.reject('Kan ikke sende forslag uten at sluttdato er satt')
     }
 
     return validerAarsakForm(aarsak, beskrivelse, begrunnelse)
       .then((validertForm) =>
         postAvsluttDeltakelse(
           deltaker.id,
-          validertForm.forslag.aarsak,
           harFullfort,
           harDeltatt,
+          validertForm.forslag.aarsak,
           !harDeltatt ? null : sluttDato,
           validertForm.forslag.begrunnelse
         )
       )
       .then((res) => onForslagSendt(res.data))
   }
-
-  const skalOppgiSluttdato =
-    avslutningsType === AvslutningsType.FULLFORT ||
-    avslutningsType === AvslutningsType.AVBRUTT
-
-  const skalOppgiAarsak =
-    avslutningsType === AvslutningsType.AVBRUTT ||
-    avslutningsType === AvslutningsType.IKKE_DELTATT
 
   return (
     <Endringsmodal

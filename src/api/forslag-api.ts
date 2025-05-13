@@ -28,15 +28,15 @@ export const ikkeAktuellForslag = (
 
 export const postAvsluttDeltakelse = (
   deltakerId: string,
-  aarsak: EndringAarsak,
   harFullfort: boolean | null,
   harDeltatt: boolean | null,
+  aarsak?: EndringAarsak,
   sluttdato?: Date | null,
   begrunnelse?: string
 ): AxiosPromise => {
   return postForslag(deltakerId, 'avslutt', {
     sluttdato: sluttdato ? formatDateToDateInputStr(sluttdato) : null,
-    aarsak: aarsak,
+    aarsak: aarsak ?? null,
     harDeltatt: harDeltatt,
     harFullfort: harFullfort,
     begrunnelse: begrunnelse ?? null

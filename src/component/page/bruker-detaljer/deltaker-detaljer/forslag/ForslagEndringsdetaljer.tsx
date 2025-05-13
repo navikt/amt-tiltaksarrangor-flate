@@ -58,12 +58,19 @@ function EndringsDetaljer({ endring }: { readonly endring: ForslagEndring }) {
     case ForslagEndringType.AvsluttDeltakelse: {
       return (
         <>
-          <BodyLong size="small">
-            Årsak: {endringAarsakTekstMapper(endring.aarsak)}
-          </BodyLong>
+          {endring.aarsak && (
+            <BodyLong size="small">
+              Årsak: {endringAarsakTekstMapper(endring.aarsak)}
+            </BodyLong>
+          )}
           {endring.harDeltatt !== null && (
             <BodyLong size="small">
               Har personen deltatt? {endring.harDeltatt ? 'Ja' : 'Nei'}
+            </BodyLong>
+          )}
+          {endring.harFullfort !== null && (
+            <BodyLong size="small">
+              Har personen fullført? {endring.harFullfort ? 'Ja' : 'Nei'}
             </BodyLong>
           )}
           {endring.sluttdato && (
