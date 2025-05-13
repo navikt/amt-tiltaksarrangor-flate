@@ -10,15 +10,13 @@ import { EndringType } from '../types'
 import { AarsakSelector } from './AarsakSelector'
 import { maxSluttdato } from './datoutils'
 import { Endringsmodal } from './endringsmodal/Endringsmodal'
-import {
-  useAarsakValidering,
-  validerAarsakForm
-} from './validering/aarsakValidering'
+import { validerAarsakForm } from './validering/aarsakValidering'
 import { ModalDataProps } from '../ModalController'
 import {
   avslutningsBeskrivelseTekstMapper,
   avslutningsTypeTekstMapper
 } from '../tekst-mappers'
+import { EndringAarsak } from '../../../../../api/data/forslag';
 
 export const AvsluttKursDeltakelseModal = (props: ModalDataProps) => {
   const {
@@ -43,8 +41,6 @@ export const AvsluttKursDeltakelseModal = (props: ModalDataProps) => {
     avslutningsType === AvslutningsType.AVBRUTT ||
     avslutningsType === AvslutningsType.IKKE_DELTATT
 
-  const { validering } = useAarsakValidering(aarsak, beskrivelse, begrunnelse)
-
   const onAarsakSelected = (
     nyAarsak: DeltakerStatusAarsakType,
     nyBeskrivelse: Nullable<string>
@@ -65,27 +61,30 @@ export const AvsluttKursDeltakelseModal = (props: ModalDataProps) => {
       )
     }
 
-    if (
-      !sluttDato &&
+    if (!sluttDato &&
       (avslutningsType === AvslutningsType.FULLFORT ||
         avslutningsType === AvslutningsType.AVBRUTT)
     ) {
       return Promise.reject('Kan ikke sende forslag uten at sluttdato er satt')
     }
 
+    if(avslutningsType === AvslutningsType.FULLFORT) {
+      return avslutt(undefined, begrunnelse)
+    }
+
     return validerAarsakForm(aarsak, beskrivelse, begrunnelse)
-      .then((validertForm) =>
-        postAvsluttDeltakelse(
-          deltaker.id,
-          harFullfort,
-          harDeltatt,
-          validertForm.forslag.aarsak,
-          !harDeltatt ? null : sluttDato,
-          validertForm.forslag.begrunnelse
-        )
-      )
-      .then((res) => onForslagSendt(res.data))
+      .then((validertForm) => avslutt(validertForm.forslag.aarsak, validertForm.forslag.begrunnelse))
+
   }
+
+  const avslutt = (nyaarsak?: EndringAarsak, begrunnelse?: string) => postAvsluttDeltakelse(
+      deltaker.id,
+      harFullfort,
+      harDeltatt,
+      nyaarsak,
+      !harDeltatt ? null : sluttDato,
+      begrunnelse
+  ).then((res) => onForslagSendt(res.data))
 
   return (
     <Endringsmodal
@@ -93,7 +92,7 @@ export const AvsluttKursDeltakelseModal = (props: ModalDataProps) => {
       endringstype={EndringType.AVSLUTT_DELTAKELSE}
       visGodkjennVilkaarPanel={visGodkjennVilkaarPanel}
       erForslag={erForslagEnabled}
-      erSendKnappDisabled={!validering.isSuccess}
+      erSendKnappDisabled={false}
       begrunnelseType="valgfri"
       onClose={onClose}
       onSend={sendForslag}
