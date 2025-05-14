@@ -38,7 +38,7 @@ export function endringsknapper(deltaker: Deltaker, erKometMaster: boolean, moda
 		const deltarMedSluttdato = status.erDeltar && deltaker.sluttDato !== null
 
 		if (erKometMaster) {
-			return status.erHarSluttet || ferdigPaKurs || (deltarMedSluttdato && !deltaker.deltakerliste.erKurs)
+			return status.erHarSluttet || ferdigPaKurs || deltarMedSluttdato
 		}
 		return status.erHarSluttet || deltarMedSluttdato
 	}
