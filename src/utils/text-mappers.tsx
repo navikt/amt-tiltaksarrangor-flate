@@ -92,7 +92,9 @@ export const getDeltakerStatusAarsakText = (aarsak: DeltakerStatusAarsak) => {
       return 'Krav for deltakelse er ikke oppfylt'
     case DeltakerStatusAarsakType.FIKK_IKKE_PLASS:
       return 'Fikk ikke plass'
-		default: 
+    case DeltakerStatusAarsakType.AVLYST_KONTRAKT:
+      return 'Kontrakten med arrangør er avlyst'
+    default:
 			return `Ukjent årsak ${aarsak.type}`
   }
 }

@@ -112,6 +112,15 @@ export function toEndringAarsakType(
       }
       return { type: ForslagEndringAarsakType.Annet, beskrivelse: beskrivelse }
     }
+    // TODO skal ikke disse mappes?
+    case DeltakerStatusAarsakType.KURS_FULLT:
+      return null
+    case DeltakerStatusAarsakType.KRAV_IKKE_OPPFYLT:
+      return null
+    case DeltakerStatusAarsakType.AVLYST_KONTRAKT:
+      return null
+    case DeltakerStatusAarsakType.FIKK_IKKE_PLASS:
+      return null
     default: return null
   }
 }
