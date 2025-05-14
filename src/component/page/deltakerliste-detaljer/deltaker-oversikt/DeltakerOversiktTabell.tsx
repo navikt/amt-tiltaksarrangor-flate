@@ -1,20 +1,19 @@
 import React, { useEffect, useState } from 'react'
 
 import { TiltakDeltaker } from '../../../../api/data/deltaker'
+import { Tiltakskode } from '../../../../api/data/tiltak'
 import globalStyles from '../../../../globals.module.scss'
 import { useDeltakerSorteringContext } from '../../../../store/DeltakerSorteringContextProvider'
 import { finnNesteSortering } from '../../../../utils/sortering-utils'
 import { AlertInfoMessage } from '../../../felles/alert-info-message/AlertInfoMessage'
+import {
+	AlertInfoMessageSoktInnVurderes
+} from '../../../felles/alert-info-message/sokt-inn-vurderes/AlertInfoMessageSoktInnVurderes'
 import { useKoordinatorFilterContext } from '../store/KoordinatorFilterContextProvider'
 import { DeltakerTabell } from './deltaker-tabell/DeltakerTabell'
 import { sorterDeltakere } from './deltaker-tabell/sortering'
 import styles from './DeltakerOversiktTabell.module.scss'
 import { IngenDeltakereAlertstripe } from './IngenDeltakereAlertstripe'
-import {
-	AlertInfoMessageSoktInnVurderes
-} from '../../../felles/alert-info-message/sokt-inn-vurderes/AlertInfoMessageSoktInnVurderes'
-import { Tiltakskode } from '../../../../api/data/tiltak'
-import { useFeatureToggle } from '../../../../hooks/useFeatureToggle'
 
 interface DeltakerOversiktTabellProps {
 	deltakere: TiltakDeltaker[],
@@ -32,9 +31,9 @@ export const DeltakerOversiktTabell = (
 	const [ deltakereBearbeidet, setDeltakereBearbeidet ] = useState<
 		TiltakDeltaker[]
 	>(sorterDeltakere(deltakere, deltakerSortering))
-  const { visInfomeldingSoktInnVurderes } = useFeatureToggle()
+	const visInfomeldingKursTiltak = tiltakstype === Tiltakskode.GRUPPEAMO || tiltakstype === Tiltakskode.GRUFAGYRKE || tiltakstype === Tiltakskode.JOBBK
 
-  useEffect(() => {
+	useEffect(() => {
 		if (!deltakere) return
 		const filtrerteDeltakere = filtrerDeltakere(deltakere)
 		const sortert = sorterDeltakere(filtrerteDeltakere, deltakerSortering)
@@ -55,14 +54,11 @@ export const DeltakerOversiktTabell = (
 
 	return (
 		<div className={styles.tableWrapper}>
-			<AlertInfoMessage/>
-      { visInfomeldingSoktInnVurderes && tiltakstype === Tiltakskode.GRUPPEAMO && (
-			    <AlertInfoMessageSoktInnVurderes/>
-        )
-      }
+			<AlertInfoMessage />
+			{visInfomeldingKursTiltak && <AlertInfoMessageSoktInnVurderes />}
 
 			{deltakere.length === 0 ? (
-				<IngenDeltakereAlertstripe/>
+				<IngenDeltakereAlertstripe />
 			) : (
 				<>
 					<DeltakerTabell

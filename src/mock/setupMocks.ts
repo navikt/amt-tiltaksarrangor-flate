@@ -1,27 +1,26 @@
+import dayjs from 'dayjs'
 import { delay, http, HttpResponse } from 'msw'
 import { setupWorker } from 'msw/browser'
-import { useMock } from '../utils/environment'
-import { appUrl } from '../utils/url-utils'
-import { mockMineRoller } from './data/ansatt'
-import { deltakerlisteErKurs, MockGjennomforing } from './data/tiltak'
-import { AdminDeltakerliste } from '../api/data/tiltak'
-import { mockDeltakerlisteVeileder, mockGjennomforinger, mockKoordinatorsDeltakerliste, mockMineDeltakerlister, mockTiltakDeltakere } from './data'
-import { MockTiltakDeltaker } from './data/brukere'
 import { Deltaker, TiltakDeltaker, Vurderingstype } from '../api/data/deltaker'
-import { DeltakerStatusAarsak, EndringsmeldingStatus, EndringsmeldingType } from '../api/data/endringsmelding'
-import { randomUuid } from './utils/faker'
-import dayjs from 'dayjs'
-import { mockTilgjengeligeVeiledere } from './data/veileder'
-import { mockDeltakerHistorikk } from './data/historikk'
-import { Veileder, VeilederMedType, Veiledertype } from '../api/data/veileder'
-import { AktivtForslag, ForslagEndring, ForslagEndringType, ForslagStatusType } from '../api/data/forslag'
 import { EndringFraArrangor, EndringFraArrangorType } from '../api/data/endring'
+import { DeltakerStatusAarsak, EndringsmeldingStatus, EndringsmeldingType } from '../api/data/endringsmelding'
 import {
 	KOMET_DELTAKERE_TOGGLE_NAVN,
-	VIS_DRIFTSMELDING_TOGGLE_NAVN,
-	VIS_INFOMELDING_SOKT_INN_SKAL_VURDERES
+	VIS_DRIFTSMELDING_TOGGLE_NAVN
 } from '../api/data/feature-toggle'
+import { AktivtForslag, ForslagEndring, ForslagEndringType, ForslagStatusType } from '../api/data/forslag'
+import { AdminDeltakerliste } from '../api/data/tiltak'
+import { Veileder, VeilederMedType, Veiledertype } from '../api/data/veileder'
 import { ulestEndringErNyeDeltaker, ulestEndringErOppdateringFraNav, ulestEndringErSvarFraNav } from '../component/page/bruker-detaljer/deltaker-detaljer/forslag/forslagUtils'
+import { useMock } from '../utils/environment'
+import { appUrl } from '../utils/url-utils'
+import { mockDeltakerlisteVeileder, mockGjennomforinger, mockKoordinatorsDeltakerliste, mockMineDeltakerlister, mockTiltakDeltakere } from './data'
+import { mockMineRoller } from './data/ansatt'
+import { MockTiltakDeltaker } from './data/brukere'
+import { mockDeltakerHistorikk } from './data/historikk'
+import { deltakerlisteErKurs, MockGjennomforing } from './data/tiltak'
+import { mockTilgjengeligeVeiledere } from './data/veileder'
+import { randomUuid } from './utils/faker'
 
 export async function enableMocking() {
 	if (useMock) {
@@ -461,8 +460,7 @@ export const worker = setupWorker(
 			await delay(500)
 			const toggles = {
 				[ VIS_DRIFTSMELDING_TOGGLE_NAVN ]: false,
-				[ KOMET_DELTAKERE_TOGGLE_NAVN ]: true,
-				[ VIS_INFOMELDING_SOKT_INN_SKAL_VURDERES] : true
+				[ KOMET_DELTAKERE_TOGGLE_NAVN ]: true
 			}
 
 			return HttpResponse.json(toggles)
