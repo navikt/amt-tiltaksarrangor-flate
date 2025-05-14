@@ -68,6 +68,14 @@ export const getDeltakerStatusAarsakText = (aarsak: DeltakerStatusAarsak) => {
       return 'Utdanning'
     case DeltakerStatusAarsakType.SAMARBEIDET_MED_ARRANGOREN_ER_AVBRUTT:
       return 'Samarbeidet med arrangøren er avbrutt'
+    case DeltakerStatusAarsakType.KURS_FULLT:
+      return 'Kurset er fullt'
+    case DeltakerStatusAarsakType.KRAV_IKKE_OPPFYLT:
+      return 'Krav for deltakelse er ikke oppfylt'
+    case DeltakerStatusAarsakType.AVLYST_KONTRAKT:
+      return 'Kontrakten med arrangør er avlyst'
+    case DeltakerStatusAarsakType.FIKK_IKKE_PLASS:
+      return 'Fikk ikke plass'
   }
 }
 
