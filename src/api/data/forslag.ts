@@ -41,7 +41,6 @@ export enum ForslagEndringAarsakType {
   IkkeMott = 'IkkeMott',
   Annet = 'Annet'
 }
-// TODO skal ikke de nye årsakene her også? de kommer fra arrangør, er de ikke fra forslag?
 
 const Syk = z.object({ type: z.literal(ForslagEndringAarsakType.Syk) })
 const FattJobb = z.object({
