@@ -16,7 +16,7 @@ import nb from 'dayjs/locale/nb'
 import customParseFormat from 'dayjs/plugin/customParseFormat'
 import { randomUuid } from '../utils/faker'
 import { DeltakerStatusAarsakType } from '../../api/data/endringsmelding'
-import { Vurderingstype } from '../../api/data/deltaker'
+import { Oppstartstype, Vurderingstype } from '../../api/data/deltaker'
 
 dayjs.locale(nb)
 dayjs.extend(customParseFormat)
@@ -154,7 +154,9 @@ export const mockDeltakerHistorikk = (): DeltakerHistorikkListe => {
           beskrivelse: null
         },
         sluttdato: dayjs().toDate(),
-        begrunnelse: null
+        begrunnelse: null,
+        harFullfort: false,
+        oppstartstype: Oppstartstype.LOPENDE
       },
       endretAv: 'Navn Navnesen',
       endretAvEnhet: 'Nav Fredrikstad',
@@ -354,6 +356,24 @@ export const mockDeltakerHistorikk = (): DeltakerHistorikkListe => {
 
 export const lagHistorikkFellesOppstart = (): DeltakerHistorikkListe => {
   return [
+    {
+      type: HistorikkType.Endring,
+      endring: {
+        type: EndringType.AvsluttDeltakelse,
+        aarsak: {
+          type: DeltakerStatusAarsakType.FATT_JOBB,
+          beskrivelse: null
+        },
+        sluttdato: dayjs().toDate(),
+        begrunnelse: null,
+        harFullfort: true,
+        oppstartstype: Oppstartstype.FELLES
+      },
+      endretAv: 'Navn Navnesen',
+      endretAvEnhet: 'Nav Fredrikstad',
+      endret: dayjs().subtract(2, 'day').toDate(),
+      forslag: null
+    },
     {
       type: HistorikkType.EndringFraTiltakskoordinator,
       endring: {
