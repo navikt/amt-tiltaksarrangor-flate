@@ -3,6 +3,7 @@ import { dateSchema, nullableDateSchema } from '../utils'
 import { deltakerStatusAarsakSchema } from './endringsmelding'
 import { historikkForslagSchema, HistorikkType } from './forslag'
 import { deltakelsesinnholdSchema, innholdSchema } from './innhold'
+import { Oppstartstype } from './deltaker'
 
 export enum EndringType {
   EndreStartdato = 'EndreStartdato',
@@ -99,9 +100,11 @@ export const ikkeAktuellSchema = z.object({
 
 export const avsluttDeltakelseSchema = z.object({
   type: z.literal(EndringType.AvsluttDeltakelse),
-  aarsak: deltakerStatusAarsakSchema,
+  aarsak: deltakerStatusAarsakSchema.nullable(),
   sluttdato: dateSchema,
-  begrunnelse: z.string().nullable()
+  begrunnelse: z.string().nullable(),
+  harFullfort: z.boolean(),
+  oppstartstype: z.nativeEnum(Oppstartstype)
 })
 
 export const endreSluttarsakSchema = z.object({

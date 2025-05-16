@@ -39,8 +39,7 @@ export const worker = setupWorker(
 	http.get(appUrl('/amt-tiltaksarrangor-bff/tiltaksarrangor/meg/roller'), async () => {
 		await delay(200)
 		return HttpResponse.json(mockMineRoller)
-	}
-	),
+	}),
 	http.get(appUrl(
 		'/amt-tiltaksarrangor-bff/tiltaksarrangor/koordinator/admin/deltakerlister'
 	), async () => {

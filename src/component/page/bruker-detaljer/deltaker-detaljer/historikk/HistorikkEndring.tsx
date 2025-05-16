@@ -16,6 +16,7 @@ import styles from './Historikk.module.scss'
 import { EndringTypeIkon } from '../EndringTypeIkon'
 import globalStyles from '../../../../../globals.module.scss'
 import { Tiltakskode } from '../../../../../api/data/tiltak'
+import { Oppstartstype } from '../../../../../api/data/deltaker'
 
 interface Props {
   deltakerEndring: DeltakerEndring
@@ -41,9 +42,16 @@ export const getEndringsDetaljer = (endring: Endring, tiltakstype: Tiltakskode) 
     case EndringType.AvsluttDeltakelse: {
       return (
         <>
-          <BodyLong size="small">
-            Årsak: {getDeltakerStatusAarsakText(endring.aarsak)}
-          </BodyLong>
+          {endring.aarsak && (
+            <BodyLong size="small">
+              Årsak: {getDeltakerStatusAarsakText(endring.aarsak)}
+            </BodyLong>
+          )}
+          {endring.oppstartstype === Oppstartstype.FELLES && (
+            <BodyLong size="small">
+              Er kurset fullført: {endring.harFullfort ? 'Ja' : 'Nei'}
+            </BodyLong>
+          )}
           {endring.begrunnelse && (
             <BodyLong size="small" className={globalStyles.textPreWrap}>
               Navs begrunnelse: {endring.begrunnelse}
