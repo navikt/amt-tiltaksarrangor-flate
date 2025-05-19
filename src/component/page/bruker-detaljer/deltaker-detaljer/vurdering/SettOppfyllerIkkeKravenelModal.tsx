@@ -54,7 +54,7 @@ export const SettOppfyllerIkkeKravenelModal = ({
     >
       <Modal.Body className={styles.content}>
         <Alert variant="info" size="small">
-          Forslaget sendes til Nav-veileder. Deltaker kan se innholdet i begrunnelsen på nav.no.
+          Vurderingen sendes til Nav. Deltaker kan se innholdet i begrunnelsen på nav.no.
         </Alert>
         <div>
         <BodyShort size="small" spacing>

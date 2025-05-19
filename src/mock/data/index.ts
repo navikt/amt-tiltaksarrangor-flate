@@ -71,7 +71,7 @@ export const lagMockTiltakDeltakere = (
     15
   )
   const deltakereGruppeFagOgYrkeSorvest =
-    lagMockTiltakDeltagereForGjennomforing(mockGjennomforinger[11], 18)
+    lagMockTiltakDeltagereForGjennomforing(mockGjennomforinger[ 11 ], 18, true)
 
   return tilfeldigeDeltakere.concat(
     deltakereJobbklubb,
