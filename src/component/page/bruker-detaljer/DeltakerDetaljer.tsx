@@ -37,7 +37,7 @@ export const DeltakerDetaljer = (props: {
       <section className={styles.section}>
         <DeltakelseInfo deltaker={deltaker} />
 
-        {deltaker.tiltakskode === Tiltakskode.GRUPPEAMO && (
+        {(deltaker.tiltakskode === Tiltakskode.GRUPPEAMO || deltaker.tiltakskode === Tiltakskode.GRUFAGYRKE) && (
           <DeltakerVurdering deltaker={deltaker} />
         )}
 
