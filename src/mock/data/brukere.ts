@@ -111,12 +111,13 @@ const lagMailFraNavn = (navn: string, mailDomain: string): string => {
 
 export const lagMockTiltakDeltagereForGjennomforing = (
   gjennomforing: Gjennomforing,
-  antallDeltakere = 10
+  antallDeltakere = 10,
+  harFellesOppstart?: boolean
 ): MockTiltakDeltaker[] => {
   const deltakere: MockTiltakDeltaker[] = []
 
   for (let i = 0; i < antallDeltakere; i++) {
-    deltakere.push(lagMockTiltakDeltagerForGjennomforing(gjennomforing))
+    deltakere.push(lagMockTiltakDeltagerForGjennomforing(gjennomforing, harFellesOppstart))
   }
 
   return deltakere
@@ -146,7 +147,7 @@ const getStatus = (
 ): TiltakDeltakerStatus => {
   const i = randBetween(0, 10)
 
-  if (erKurs && tiltakskode == Tiltakskode.GRUPPEAMO) {
+  if (erKurs && (tiltakskode === Tiltakskode.GRUPPEAMO || tiltakskode === Tiltakskode.GRUFAGYRKE)) {
     if (i < 1) return TiltakDeltakerStatus.SOKT_INN
     if (i < 2) return TiltakDeltakerStatus.VURDERES
     if (i < 4) return TiltakDeltakerStatus.DELTAR
@@ -238,9 +239,10 @@ const lagVurdering = (erHistorisk: boolean): MockVurdering => {
 }
 
 const lagMockTiltakDeltagerForGjennomforing = (
-  gjennomforing: Gjennomforing
+  gjennomforing: Gjennomforing,
+  harFellesOppstart?: boolean
 ): MockTiltakDeltaker => {
-  const erKurs = deltakerlisteErKurs(gjennomforing.tiltak.tiltakskode)
+  const erKurs = harFellesOppstart || deltakerlisteErKurs(gjennomforing.tiltak.tiltakskode)
   const status = getStatus(erKurs, gjennomforing.tiltak.tiltakskode)
   const gender = faker.person.sexType()
   const brukerFornavn = faker.person.firstName(gender)
@@ -421,7 +423,7 @@ const lagMockTiltakDeltagerForGjennomforing = (
         deltAvNavn: null
       }
     })
-	} 
+  }
 	if (erKurs) {
 		ulesteEndringer.push({
 			id: randomUuid(),
