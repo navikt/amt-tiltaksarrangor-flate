@@ -15,6 +15,7 @@ import {
 } from './tiltak'
 import { ulestEndringSchema } from './ulestEndring'
 import { veilederMedTypeSchema, veiledertypeSchema } from './veileder'
+import { Oppstartstype } from './historikk'
 
 export enum Hendelser {
   VenterPaSvarFraNav = 'VenterPaSvarFraNav',
@@ -60,11 +61,6 @@ export enum AktivEndring {
   Startdato = 'Startdato',
   Sluttarsak = 'Sluttarsak',
   FjernOppstartsdato = 'FjernOppstartsdato'
-}
-
-export enum Oppstartstype {
-  LOPENDE = 'LOPENDE',
-  FELLES = 'FELLES'
 }
 
 const tiltakDeltakerStatusSchema = z.nativeEnum(TiltakDeltakerStatus)
@@ -126,7 +122,8 @@ export const deltakersDeltakerlisteSchema = z.object({
   startDato: nullableDateSchema,
   sluttDato: nullableDateSchema,
   erKurs: z.boolean(),
-  tiltakstype: z.nativeEnum(Tiltakskode)
+  tiltakstype: z.nativeEnum(Tiltakskode),
+  oppstartstype: z.nativeEnum(Oppstartstype)
 })
 
 export const adresseSchema = z.object({

@@ -3,7 +3,11 @@ import { dateSchema, nullableDateSchema } from '../utils'
 import { deltakerStatusAarsakSchema } from './endringsmelding'
 import { historikkForslagSchema, HistorikkType } from './forslag'
 import { deltakelsesinnholdSchema, innholdSchema } from './innhold'
-import { Oppstartstype } from './deltaker'
+
+export enum Oppstartstype {
+  LOPENDE = 'LOPENDE',
+  FELLES = 'FELLES'
+}
 
 export enum EndringType {
   EndreStartdato = 'EndreStartdato',

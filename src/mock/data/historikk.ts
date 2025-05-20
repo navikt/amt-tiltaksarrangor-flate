@@ -3,6 +3,7 @@ import {
   DeltakerHistorikkListe,
   DeltakerHistorikkStatus,
   EndringType,
+  Oppstartstype,
   TiltakskoordinatorEndringsType
 } from '../../api/data/historikk'
 import {
@@ -16,7 +17,7 @@ import nb from 'dayjs/locale/nb'
 import customParseFormat from 'dayjs/plugin/customParseFormat'
 import { randomUuid } from '../utils/faker'
 import { DeltakerStatusAarsakType } from '../../api/data/endringsmelding'
-import { Oppstartstype, Vurderingstype } from '../../api/data/deltaker'
+import { Vurderingstype } from '../../api/data/deltaker'
 
 dayjs.locale(nb)
 dayjs.extend(customParseFormat)
