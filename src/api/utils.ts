@@ -26,6 +26,7 @@ export function parse<T>(
 }
 
 export function logAndThrowError<E = Error>(err: E, url: string): E {
+  console.error('error', err)
   console.error(`Request to ${url} failed: ${JSON.stringify(err)}`)
 
   // Ikke logg 401 feil til sentry
