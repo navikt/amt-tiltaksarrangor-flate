@@ -3,7 +3,8 @@ import { HistorikkElement } from './HistorikkElement'
 import {
   DeltakerEndring,
   Endring,
-  EndringType
+  EndringType,
+  Oppstartstype
 } from '../../../../../api/data/historikk'
 import { EMDASH } from '../../../../../utils/constants'
 import { DeltakelseInnholdListe } from '../DeltakelseInnholdListe'
@@ -16,7 +17,6 @@ import styles from './Historikk.module.scss'
 import { EndringTypeIkon } from '../EndringTypeIkon'
 import globalStyles from '../../../../../globals.module.scss'
 import { Tiltakskode } from '../../../../../api/data/tiltak'
-import { Oppstartstype } from '../../../../../api/data/deltaker'
 
 interface Props {
   deltakerEndring: DeltakerEndring
