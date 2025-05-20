@@ -62,6 +62,11 @@ export enum AktivEndring {
   FjernOppstartsdato = 'FjernOppstartsdato'
 }
 
+export enum Oppstartstype {
+  LOPENDE = 'LOPENDE',
+  FELLES = 'FELLES'
+}
+
 const tiltakDeltakerStatusSchema = z.nativeEnum(TiltakDeltakerStatus)
 
 export const deltakerStatusSchema = z.object({
