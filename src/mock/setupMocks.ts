@@ -21,6 +21,7 @@ import { mockDeltakerHistorikk } from './data/historikk'
 import { deltakerlisteErKurs, MockGjennomforing } from './data/tiltak'
 import { mockTilgjengeligeVeiledere } from './data/veileder'
 import { randomUuid } from './utils/faker'
+import { Oppstartstype } from '../api/data/historikk'
 
 export async function enableMocking() {
 	if (useMock) {
@@ -505,7 +506,8 @@ const mapToDeltakerDetaljerView = (
 			startDato: deltaker.gjennomforing.startDato,
 			sluttDato: deltaker.gjennomforing.sluttDato,
 			erKurs: deltakerlisteErKurs(deltaker.gjennomforing.tiltak.tiltakskode),
-			tiltakstype: deltaker.gjennomforing.tiltak.tiltakskode
+			tiltakstype: deltaker.gjennomforing.tiltak.tiltakskode,
+			oppstartstype: deltakerlisteErKurs(deltaker.gjennomforing.tiltak.tiltakskode) ? Oppstartstype.FELLES : Oppstartstype.LOPENDE
 		},
 		fornavn: deltaker.fornavn,
 		mellomnavn: deltaker.mellomnavn,
