@@ -3,7 +3,7 @@ import useLocalStorage from '../../../../hooks/useLocalStorage'
 import styles from './AlertInfoMessageSoktInnVurderes.module.scss'
 
 export const AlertInfoMessageSoktInnVurderes = () => {
-  const alertMessage = 'I overgangen til ny løsning vil knappen “Endre deltakelse” ikke være tilgjengelig fra 28. mai - 2. juni. Fra 3. juni. vil du kunne sende forslag om endring direkte til NAV-veilederen.'
+  const alertMessage = 'I overgangen til ny løsning vil knappen “Endre deltakelse” ikke være tilgjengelig fra 28. mai - 2. juni. Fra 3. juni vil du kunne sende forslag om endring direkte til NAV-veilederen.'
   const [ hideAlertMessage, setHideAlertMessage ] = useLocalStorage(
     'alert-message-sokt-inn-hide',
     false
