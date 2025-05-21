@@ -1,22 +1,23 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import { Radio, RadioGroup } from '@navikt/ds-react'
 import { DeltakerStatusAarsakType } from '../../../../../api/data/endringsmelding'
+import { EndringAarsak } from '../../../../../api/data/forslag'
 import { postAvsluttDeltakelse } from '../../../../../api/forslag-api'
 import { maxDate } from '../../../../../utils/date-utils'
+import { harDeltattMindreEnnFemtenDager } from '../../../../../utils/deltaker-utils'
 import { Nullable } from '../../../../../utils/types/or-nothing'
 import { DateField } from '../../../../felles/DateField'
-import { EndringType } from '../types'
-import { AarsakSelector } from './AarsakSelector'
-import { maxSluttdato } from './datoutils'
-import { Endringsmodal } from './endringsmodal/Endringsmodal'
-import { toEndringAarsakType } from './validering/aarsakValidering'
 import { ModalDataProps } from '../ModalController'
 import {
   avslutningsBeskrivelseTekstMapper,
   avslutningsTypeTekstMapper
 } from '../tekst-mappers'
-import { EndringAarsak } from '../../../../../api/data/forslag'
+import { EndringType } from '../types'
+import { AarsakSelector } from './AarsakSelector'
+import { maxSluttdato } from './datoutils'
+import { Endringsmodal } from './endringsmodal/Endringsmodal'
+import { toEndringAarsakType } from './validering/aarsakValidering'
 import { useAvsluttKursDeltakelseValidering } from './validering/useAvsluttKursDeltakelseValidering'
 
 export const AvsluttKursDeltakelseModal = (props: ModalDataProps) => {
@@ -42,6 +43,8 @@ export const AvsluttKursDeltakelseModal = (props: ModalDataProps) => {
     avslutningsType === AvslutningsType.AVBRUTT ||
     avslutningsType === AvslutningsType.IKKE_DELTATT
   const { validering } = useAvsluttKursDeltakelseValidering(avslutningsType, sluttDato, aarsak, beskrivelse, begrunnelse)
+
+  const skalViseHarDeltatt = erForslagEnabled && harDeltattMindreEnnFemtenDager(deltaker)
 
   const onAarsakSelected = (
     nyAarsak: DeltakerStatusAarsakType,
@@ -95,7 +98,7 @@ export const AvsluttKursDeltakelseModal = (props: ModalDataProps) => {
       >
         <AvslutningstypeRadio avslutningstype={AvslutningsType.FULLFORT} />
         <AvslutningstypeRadio avslutningstype={AvslutningsType.AVBRUTT} />
-        <AvslutningstypeRadio avslutningstype={AvslutningsType.IKKE_DELTATT} />
+        {skalViseHarDeltatt && <AvslutningstypeRadio avslutningstype={AvslutningsType.IKKE_DELTATT} />}
       </RadioGroup>
 
       {skalOppgiAarsak && (

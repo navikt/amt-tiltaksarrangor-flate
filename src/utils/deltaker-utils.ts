@@ -1,4 +1,4 @@
-import { Adresse, AktivEndring, AktivEndringForDeltaker, AktivEndringsType } from '../api/data/deltaker'
+import { Adresse, AktivEndring, AktivEndringForDeltaker, AktivEndringsType, Deltaker } from '../api/data/deltaker'
 import { Tiltakskode } from '../api/data/tiltak'
 
 export const INNHOLD_TYPE_ANNET = 'annet'
@@ -71,4 +71,12 @@ export const getAktivEndringTekst = (aktivEndring: AktivEndringForDeltaker) => {
   const typeTekst = aktivEndring.type === AktivEndringsType.Endringsmelding ? 'Endringsmelding' : 'Forslag'
   const typeEndringTekst = getAktivEndringTypeTekst(aktivEndring.endingsType)
   return `${typeTekst} sendt til Nav: ${typeEndringTekst}`
+}
+
+export const harDeltattMindreEnnFemtenDager = (deltaker: Deltaker) => {
+  const startDato = deltaker.startDato
+  if (startDato === null) throw Error('startdato er null')
+  const femtenDagerSiden = new Date()
+  femtenDagerSiden.setDate(femtenDagerSiden.getDate() - 15)
+  return startDato > femtenDagerSiden
 }

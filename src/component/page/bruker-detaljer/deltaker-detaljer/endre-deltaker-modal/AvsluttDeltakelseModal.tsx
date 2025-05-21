@@ -1,13 +1,14 @@
 import { useState } from 'react'
 
 import { Radio, RadioGroup } from '@navikt/ds-react'
-import { Deltaker } from '../../../../../api/data/deltaker'
 import { DeltakerStatusAarsakType } from '../../../../../api/data/endringsmelding'
 import { postAvsluttDeltakelse } from '../../../../../api/forslag-api'
 import { avsluttDeltakelse } from '../../../../../api/tiltak-api'
 import { maxDate } from '../../../../../utils/date-utils'
+import { harDeltattMindreEnnFemtenDager } from '../../../../../utils/deltaker-utils'
 import { Nullable } from '../../../../../utils/types/or-nothing'
 import { DateField } from '../../../../felles/DateField'
+import { ModalDataProps } from '../ModalController'
 import { EndringType } from '../types'
 import { AarsakSelector } from './AarsakSelector'
 import styles from './AvsluttDeltakelseModal.module.scss'
@@ -17,7 +18,6 @@ import {
   useAarsakValidering,
   validerAarsakForm
 } from './validering/aarsakValidering'
-import { ModalDataProps } from '../ModalController'
 
 export const AvsluttDeltakelseModal = (props: ModalDataProps) => {
   const {
@@ -35,7 +35,7 @@ export const AvsluttDeltakelseModal = (props: ModalDataProps) => {
   const [harDeltatt, setHarDeltatt] = useState<boolean | null>(null)
 
   const { validering } = useAarsakValidering(aarsak, beskrivelse, begrunnelse)
-  const skalViseHarDeltatt = erForslagEnabled && showHarDeltatt(deltaker)
+  const skalViseHarDeltatt = erForslagEnabled && harDeltattMindreEnnFemtenDager(deltaker)
   const isSluttdatoValid = () => {
     if ((harDeltatt || harDeltatt === null) && !sluttDato) {
       return false
@@ -143,12 +143,4 @@ export const AvsluttDeltakelseModal = (props: ModalDataProps) => {
       )}
     </Endringsmodal>
   )
-}
-
-const showHarDeltatt = (deltaker: Deltaker) => {
-  const startDato = deltaker.startDato
-  if (startDato === null) throw Error('startdato er null')
-  const femtenDagerSiden = new Date()
-  femtenDagerSiden.setDate(femtenDagerSiden.getDate() - 15)
-  return startDato > femtenDagerSiden
 }
