@@ -28,12 +28,12 @@ export const AvsluttKursDeltakelseModal = (props: ModalDataProps) => {
     onForslagSendt,
     erForslagEnabled
   } = props
-  const [sluttDato, settSluttDato] = useState<Date>()
-  const [aarsak, settAarsak] = useState<DeltakerStatusAarsakType>()
-  const [beskrivelse, settBeskrivelse] = useState<string>()
-  const [begrunnelse, setBegrunnelse] = useState<string>()
-  const [avslutningsType, settAvslutningsType] = useState<AvslutningsType>()
-  const [harFullfort, setHarFullfort] = useState<boolean | null>(null)
+  const [ sluttDato, settSluttDato ] = useState<Date>()
+  const [ aarsak, settAarsak ] = useState<DeltakerStatusAarsakType>()
+  const [ beskrivelse, settBeskrivelse ] = useState<string>()
+  const [ begrunnelse, setBegrunnelse ] = useState<string>()
+  const [ avslutningsType, settAvslutningsType ] = useState<AvslutningsType>()
+  const [ harFullfort, setHarFullfort ] = useState<boolean | null>(null)
   const harDeltatt = avslutningsType != AvslutningsType.IKKE_DELTATT
   const skalOppgiSluttdato =
     avslutningsType === AvslutningsType.FULLFORT ||
@@ -57,10 +57,10 @@ export const AvsluttKursDeltakelseModal = (props: ModalDataProps) => {
   useEffect(() => {
     settAarsak(undefined)
     setHarFullfort(avslutningsType === AvslutningsType.FULLFORT)
-  }, [avslutningsType])
+  }, [ avslutningsType ])
 
   const sendForslag = () => {
-    if(!validering.isSuccess) {
+    if (!validering.isSuccess) {
       return Promise.reject(validering.feilmelding)
     }
 
@@ -69,12 +69,12 @@ export const AvsluttKursDeltakelseModal = (props: ModalDataProps) => {
   }
 
   const avslutt = (nyaarsak: EndringAarsak | null, begrunnelse?: string) => postAvsluttDeltakelse(
-      deltaker.id,
-      harFullfort,
-      harDeltatt,
-      nyaarsak,
-      !harDeltatt ? null : sluttDato,
-      begrunnelse
+    deltaker.id,
+    harFullfort,
+    null, // velger ikke her om personen har deltatt.
+    nyaarsak,
+    !harDeltatt ? null : sluttDato,
+    begrunnelse
   ).then((res) => onForslagSendt(res.data))
 
   return (
