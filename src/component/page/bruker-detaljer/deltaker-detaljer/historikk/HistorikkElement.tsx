@@ -78,6 +78,12 @@ export const ForslagtypeDetaljer = ({
                 {forslag.endring.harDeltatt ? 'Ja' : 'Nei'}
               </BodyLong>
             )}
+            {forslag.endring.harFullfort !== null && (
+              <BodyLong size="small">
+                Er kurset fullført?{' '}
+                {forslag.endring.harFullfort ? 'Ja' : 'Nei'}
+              </BodyLong>
+            )}
             {forslag.endring.sluttdato && (
               <BodyLong size="small">
                 Ny sluttdato: {formatDate(forslag.endring.sluttdato)}

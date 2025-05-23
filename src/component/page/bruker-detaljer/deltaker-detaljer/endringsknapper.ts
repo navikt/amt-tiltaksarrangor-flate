@@ -51,7 +51,7 @@ export function endringsknapper(deltaker: Deltaker, erKometMaster: boolean, moda
 	const kanEndreSluttaarsak = () => {
 
 		if (erKometMaster) {
-			return status.erHarSluttet || ferdigPaKurs || status.erIkkeAktuell
+			return status.erHarSluttet || status.erAvbrutt || status.erIkkeAktuell
 		}
 		return status.erHarSluttet && !deltaker.deltakerliste.erKurs
 	}
