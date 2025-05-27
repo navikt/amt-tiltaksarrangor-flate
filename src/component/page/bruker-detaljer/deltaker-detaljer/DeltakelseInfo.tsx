@@ -4,6 +4,7 @@ import React, { useState } from 'react'
 
 import { Deltaker, TiltakDeltakerStatus } from '../../../../api/data/deltaker'
 import { AktivtForslag } from '../../../../api/data/forslag'
+import { Tiltakskode } from '../../../../api/data/tiltak'
 import { skjulDeltaker } from '../../../../api/tiltak-api'
 import { useFeatureToggle } from '../../../../hooks/useFeatureToggle'
 import { formatDate } from '../../../../utils/date-utils'
@@ -28,7 +29,6 @@ import { FjernDeltakerModal } from './fjern-deltaker-modal/FjernDeltakerModal'
 import { UbehandledeEndringer } from './forslag/UbehandledeEndringer'
 import { SeEndringer } from './historikk/SeEndringer'
 import { getDeltakerStatusAarsakText } from './tekst-mappers'
-import { Tiltakskode } from '../../../../api/data/tiltak'
 
 interface DeltakelseInfoProps {
   deltaker: Deltaker
@@ -92,8 +92,9 @@ export const DeltakelseInfo = ({
   ].includes(deltaker.status.type)
 
   const skruAvEndringer =
-    (deltaker.deltakerliste.tiltakstype === Tiltakskode.VASV ||
-      deltaker.deltakerliste.tiltakstype === Tiltakskode.DIGIOPPARB) &&
+    (deltaker.deltakerliste.tiltakstype === Tiltakskode.GRUFAGYRKE ||
+      deltaker.deltakerliste.tiltakstype === Tiltakskode.GRUPPEAMO ||
+      deltaker.deltakerliste.tiltakstype === Tiltakskode.JOBBK) &&
     !erKometMaster
 
   return (
