@@ -81,7 +81,7 @@ export const AvsluttDeltakelseModal = (props: ModalDataProps) => {
       .then((validertForm) =>
         postAvsluttDeltakelse(
           deltaker.id,
-          harDeltatt === true ? true : null,
+          null,
           harDeltatt,
           validertForm.forslag.aarsak,
           harDeltatt === false ? null : sluttDato,
