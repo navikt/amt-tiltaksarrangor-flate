@@ -33,7 +33,7 @@
     "@navikt/nav-dekoratoren-moduler": "^3.2.3",
     "@sentry/react": "^9.22.0",
     "@sentry/tracing": "^7.120.3",
-    "@types/react": "^19.1.5",
+    "@types/react": "^19.1.6",
     "@types/react-collapse": "^5.0.4",
     "@types/react-dom": "^19.1.5",
     "@types/react-router-dom": "^5.3.3",
@@ -42,9 +42,9 @@
     "dayjs": "^1.11.13",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
-    "react-router-dom": "^7.6.0",
+    "react-router-dom": "^7.6.1",
     "typescript": "^5.8.3",
-    "zod": "^3.25.23"
+    "zod": "^3.25.30"
   },
   "devDependencies": {
     "@eslint/js": "^9.27.0",
@@ -59,7 +59,7 @@
     "eslint-plugin-jsx-a11y": "^6.10.2",
     "eslint-plugin-react": "^7.37.5",
     "eslint-plugin-react-hooks": "^5.2.0",
-    "globals": "^16.1.0",
+    "globals": "^16.2.0",
     "husky": "^9.1.7",
     "lint-staged": "^16.0.0",
     "msw": "^2.8.4",
