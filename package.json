@@ -33,7 +33,7 @@
     "@navikt/nav-dekoratoren-moduler": "^3.2.3",
     "@sentry/react": "^9.22.0",
     "@sentry/tracing": "^7.120.3",
-    "@types/react": "^19.1.5",
+    "@types/react": "^19.1.6",
     "@types/react-collapse": "^5.0.4",
     "@types/react-dom": "^19.1.5",
     "@types/react-router-dom": "^5.3.3",
