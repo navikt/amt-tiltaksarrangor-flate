@@ -3,7 +3,6 @@ import { faker } from '@faker-js/faker/locale/nb_NO'
 import {
   AktivEndring,
   AktivEndringForDeltaker,
-  AktivEndringsType,
   KoordinatorForDeltakerliste,
   MineDeltakerlister,
   VeiledersDeltaker
@@ -215,7 +214,6 @@ export const lagMockAktivEndring = (): null | AktivEndringForDeltaker => {
   if (i < 3) return null
 
   let endingsType = AktivEndring.ForlengDeltakelse
-  const type = AktivEndringsType.Forslag
 
   if (i < 5) {
     endingsType = AktivEndring.ForlengDeltakelse
@@ -229,7 +227,6 @@ export const lagMockAktivEndring = (): null | AktivEndringForDeltaker => {
 
   return {
     endingsType,
-    type,
     sendt: faker.date.recent()
   }
 }

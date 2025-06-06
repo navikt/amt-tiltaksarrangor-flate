@@ -2,7 +2,7 @@ import { z } from 'zod'
 import { dateSchema, nullableDateSchema } from '../utils'
 import { historikkForslagSchema, HistorikkType } from './forslag'
 import { deltakelsesinnholdSchema, innholdSchema } from './innhold'
-import { deltakerStatusAarsakSchema } from './deltaker'
+import { deltakerStatusAarsakSchema } from './deltakerStatusArsak'
 
 export enum Oppstartstype {
   LOPENDE = 'LOPENDE',

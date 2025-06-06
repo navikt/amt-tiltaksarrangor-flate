@@ -2,7 +2,7 @@ import { z } from 'zod'
 import { deltakerEndringSchema } from './historikk'
 import { historikkForslagSchema } from './forslag'
 import { dateSchema } from '../utils'
-import { deltakerStatusAarsakSchema } from './deltaker'
+import { deltakerStatusAarsakSchema } from './deltakerStatusArsak'
 
 export enum UlestEndringType {
   DeltakelsesEndring = 'DeltakelsesEndring',

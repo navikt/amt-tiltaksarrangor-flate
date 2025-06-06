@@ -18,7 +18,7 @@ import { maxSluttdato } from './datoutils'
 import { Endringsmodal } from './endringsmodal/Endringsmodal'
 import { toEndringAarsakType } from './validering/aarsakValidering'
 import { useAvsluttKursDeltakelseValidering } from './validering/useAvsluttKursDeltakelseValidering'
-import { DeltakerStatusAarsakType } from '../../../../../api/data/deltaker'
+import { DeltakerStatusAarsakType } from '../../../../../api/data/deltakerStatusArsak'
 
 export const AvsluttKursDeltakelseModal = (props: ModalDataProps) => {
   const {

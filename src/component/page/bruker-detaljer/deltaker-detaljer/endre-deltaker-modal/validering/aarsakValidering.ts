@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import {EndringAarsak, ForslagEndringAarsakType} from '../../../../../../api/data/forslag'
 import { BEGRUNNELSE_MAKS_TEGN } from '../../../../../../utils/endre-deltaker-utils'
 import { aarsakTekstMapper } from '../../tekst-mappers'
-import { DeltakerStatusAarsakType } from '../../../../../../api/data/deltaker'
+import { DeltakerStatusAarsakType } from '../../../../../../api/data/deltakerStatusArsak'
 
 type ValidertAarsakForm = {
   forslag: {

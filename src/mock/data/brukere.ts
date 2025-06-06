@@ -7,7 +7,6 @@ import {
   AktivEndring,
   AktivEndringForDeltaker,
   Deltakelsesmengder,
-  DeltakerStatusAarsakType,
   TiltakDeltakerStatus,
   Vurdering,
   Vurderingstype
@@ -25,6 +24,7 @@ import { deltakerId } from './id'
 import { lagMockAktiveForslag } from './mock-forslag'
 import { deltakerlisteErKurs, MockGjennomforing } from './tiltak'
 import { lagMockVeiledereForDeltaker } from './veileder'
+import { DeltakerStatusAarsakType } from '../../api/data/deltakerStatusArsak'
 
 export type MockVurdering = Vurdering
 
