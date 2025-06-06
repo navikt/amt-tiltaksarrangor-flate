@@ -1,9 +1,7 @@
 import { useState } from 'react'
 
 import { Radio, RadioGroup } from '@navikt/ds-react'
-import { DeltakerStatusAarsakType } from '../../../../../api/data/endringsmelding'
 import { postAvsluttDeltakelse } from '../../../../../api/forslag-api'
-import { avsluttDeltakelse } from '../../../../../api/tiltak-api'
 import { maxDate } from '../../../../../utils/date-utils'
 import { harDeltattMindreEnnFemtenDager } from '../../../../../utils/deltaker-utils'
 import { Nullable } from '../../../../../utils/types/or-nothing'
@@ -18,15 +16,14 @@ import {
   useAarsakValidering,
   validerAarsakForm
 } from './validering/aarsakValidering'
+import { DeltakerStatusAarsakType } from '../../../../../api/data/deltaker'
 
 export const AvsluttDeltakelseModal = (props: ModalDataProps) => {
   const {
     onClose,
     deltaker,
     visGodkjennVilkaarPanel,
-    onEndringUtfort,
     onForslagSendt,
-    erForslagEnabled
   } = props
   const [sluttDato, settSluttDato] = useState<Nullable<Date>>()
   const [aarsak, settAarsak] = useState<DeltakerStatusAarsakType>()
@@ -35,7 +32,7 @@ export const AvsluttDeltakelseModal = (props: ModalDataProps) => {
   const [harDeltatt, setHarDeltatt] = useState<boolean | null>(null)
 
   const { validering } = useAarsakValidering(aarsak, beskrivelse, begrunnelse)
-  const skalViseHarDeltatt = erForslagEnabled && harDeltattMindreEnnFemtenDager(deltaker)
+  const skalViseHarDeltatt = harDeltattMindreEnnFemtenDager(deltaker)
   const isSluttdatoValid = () => {
     if ((harDeltatt || harDeltatt === null) && !sluttDato) {
       return false
@@ -51,23 +48,6 @@ export const AvsluttDeltakelseModal = (props: ModalDataProps) => {
       return !skalViseHarDeltatt
     }
     return harDeltatt
-  }
-
-  const sendEndringsmelding = () => {
-    if (!sluttDato) {
-      return Promise.reject(
-        'Sluttdato er påkrevd for å sende AvsluttDeltakelse endringsmelding'
-      )
-    }
-    return validerAarsakForm(aarsak, beskrivelse)
-      .then((validertForm) =>
-        avsluttDeltakelse(
-          deltaker.id,
-          sluttDato,
-          validertForm.endringsmelding.aarsak
-        )
-      )
-      .then(onEndringUtfort)
   }
 
   const sendForslag = () => {
@@ -104,11 +84,11 @@ export const AvsluttDeltakelseModal = (props: ModalDataProps) => {
       tittel="Avslutt deltakelse"
       endringstype={EndringType.AVSLUTT_DELTAKELSE}
       visGodkjennVilkaarPanel={visGodkjennVilkaarPanel}
-      erForslag={erForslagEnabled}
+      erForslag={true}
       erSendKnappDisabled={!validering.isSuccess || !isSluttdatoValid()}
       begrunnelseType="valgfri"
       onClose={onClose}
-      onSend={erForslagEnabled ? sendForslag : sendEndringsmelding}
+      onSend={sendForslag}
       onBegrunnelse={(begrunnelse) => {
         setBegrunnelse(begrunnelse)
       }}

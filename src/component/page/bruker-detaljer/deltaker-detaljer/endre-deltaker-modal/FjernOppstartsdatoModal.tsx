@@ -14,12 +14,10 @@ export const FjernOppstartsdatoModal = ({
   deltaker,
   visGodkjennVilkaarPanel,
   onClose,
-  onForslagSendt,
-  erForslagEnabled
+  onForslagSendt
 }: ModalDataProps) => {
   const [begrunnelse, setBegrunnelse] = useState('')
-  const kanSendeForslag = erForslagEnabled &&
-    deltaker.status.type === TiltakDeltakerStatus.VENTER_PA_OPPSTART && deltaker.startDato
+  const kanSendeForslag = deltaker.status.type === TiltakDeltakerStatus.VENTER_PA_OPPSTART && deltaker.startDato
 
   const sendForslag = () => {
     if (!kanSendeForslag) {
@@ -41,7 +39,7 @@ export const FjernOppstartsdatoModal = ({
       tittel="Fjerne oppstartsdato"
       endringstype={EndringType.FJERN_OPPSTARTSDATO}
       visGodkjennVilkaarPanel={visGodkjennVilkaarPanel}
-      erForslag={erForslagEnabled}
+      erForslag={true}
       erSendKnappDisabled={!kanSendeForslag}
       begrunnelseType="obligatorisk"
       onClose={onClose}

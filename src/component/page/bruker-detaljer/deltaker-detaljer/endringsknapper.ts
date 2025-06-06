@@ -10,7 +10,7 @@ interface EndringsknappData {
 	modalFunc: (props: ModalDataProps) => void,
 }
 
-export function endringsknapper(deltaker: Deltaker, erKometMaster: boolean, modal: ModalHandler): EndringsknappData[] {
+export function endringsknapper(deltaker: Deltaker, modal: ModalHandler): EndringsknappData[] {
 	const {
 		visEndreOppstartModal,
 		visLeggTilOppstartModal,
@@ -31,16 +31,11 @@ export function endringsknapper(deltaker: Deltaker, erKometMaster: boolean, moda
 	const kanFjerneOppstartsdato =
 		status.erVenterPaOppstart &&
 		deltaker.startDato !== null &&
-		!deltaker.deltakerliste.erKurs &&
-		erKometMaster
+		!deltaker.deltakerliste.erKurs
 
 	const kanForlengeDeltakelse = () => {
 		const deltarMedSluttdato = status.erDeltar && deltaker.sluttDato !== null
-
-		if (erKometMaster) {
-			return status.erHarSluttet || ferdigPaKurs || deltarMedSluttdato
-		}
-		return status.erHarSluttet || deltarMedSluttdato
+		return status.erHarSluttet || ferdigPaKurs || deltarMedSluttdato
 	}
 
 	const kanEndreSluttdato =
@@ -48,13 +43,7 @@ export function endringsknapper(deltaker: Deltaker, erKometMaster: boolean, moda
 		status.erAvbrutt ||
 		status.erHarSluttet
 
-	const kanEndreSluttaarsak = () => {
-
-		if (erKometMaster) {
-			return status.erHarSluttet || status.erAvbrutt || status.erIkkeAktuell
-		}
-		return status.erHarSluttet && !deltaker.deltakerliste.erKurs
-	}
+	const kanEndreSluttaarsak = () => status.erHarSluttet || status.erAvbrutt || status.erIkkeAktuell
 
 	const kanSetteIkkeAktuell =
 		status.erVurderes ||
@@ -63,9 +52,9 @@ export function endringsknapper(deltaker: Deltaker, erKometMaster: boolean, moda
 
 	const kanEndreDeltakelsesmengde = deltaker.tiltakskode === Tiltakskode.ARBFORB || deltaker.tiltakskode === Tiltakskode.VASV
 
-	const kanAvslutteDeltakelse = status.erDeltar && !(erKometMaster && deltaker.deltakerliste.erKurs)
+	const kanAvslutteDeltakelse = status.erDeltar && !deltaker.deltakerliste.erKurs
 	const kanAvslutteKursDeltakelse =
-		status.erDeltar && deltaker.deltakerliste.erKurs && erKometMaster
+		status.erDeltar && deltaker.deltakerliste.erKurs
 
 	const kanEndreStartDato =
 		status.erVenterPaOppstart ||
@@ -76,12 +65,7 @@ export function endringsknapper(deltaker: Deltaker, erKometMaster: boolean, moda
 
 	const kanEndreOppstartsdato = kanEndreStartDato && deltaker.startDato !== null
 
-	const kanLeggeTilOppstartsdato = () => {
-		if (erKometMaster) {
-			return (status.erVenterPaOppstart || status.erDeltar) && !deltaker.startDato
-		}
-		return kanEndreStartDato && !deltaker.startDato
-	}
+	const kanLeggeTilOppstartsdato = () => (status.erVenterPaOppstart || status.erDeltar) && !deltaker.startDato
 
 	return [
 		{

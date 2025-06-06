@@ -1,16 +1,10 @@
 import { useEffect, useState } from 'react'
-import { DeltakerStatusAarsakType } from '../../../../../../api/data/endringsmelding'
 import {EndringAarsak, ForslagEndringAarsakType} from '../../../../../../api/data/forslag'
 import { BEGRUNNELSE_MAKS_TEGN } from '../../../../../../utils/endre-deltaker-utils'
 import { aarsakTekstMapper } from '../../tekst-mappers'
+import { DeltakerStatusAarsakType } from '../../../../../../api/data/deltaker'
 
 type ValidertAarsakForm = {
-  endringsmelding: {
-    aarsak: {
-      type: DeltakerStatusAarsakType
-      beskrivelse: string | null
-    }
-  }
   forslag: {
     aarsak: EndringAarsak
     begrunnelse: string | undefined
@@ -46,12 +40,6 @@ export function validerAarsakForm(
       )
     }
     return resolve({
-      endringsmelding: {
-        aarsak: {
-          type: aarsak,
-          beskrivelse: beskrivelse ?? null
-        }
-      },
       forslag: {
         aarsak: toEndringAarsakType(aarsak, beskrivelse)!,
         begrunnelse: begrunnelse

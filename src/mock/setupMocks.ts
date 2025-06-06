@@ -3,12 +3,9 @@ import { delay, http, HttpResponse } from 'msw'
 import { setupWorker } from 'msw/browser'
 import { Deltaker, TiltakDeltaker, Vurderingstype } from '../api/data/deltaker'
 import { EndringFraArrangor, EndringFraArrangorType } from '../api/data/endring'
-import { DeltakerStatusAarsak, EndringsmeldingStatus, EndringsmeldingType } from '../api/data/endringsmelding'
-import {
-	KOMET_DELTAKERE_TOGGLE_NAVN,
-	VIS_DRIFTSMELDING_TOGGLE_NAVN
-} from '../api/data/feature-toggle'
+import { VIS_DRIFTSMELDING_TOGGLE_NAVN } from '../api/data/feature-toggle'
 import { AktivtForslag, ForslagEndring, ForslagEndringType, ForslagStatusType } from '../api/data/forslag'
+import { Oppstartstype } from '../api/data/historikk'
 import { AdminDeltakerliste } from '../api/data/tiltak'
 import { Veileder, VeilederMedType, Veiledertype } from '../api/data/veileder'
 import { ulestEndringErNyeDeltaker, ulestEndringErOppdateringFraNav, ulestEndringErSvarFraNav } from '../component/page/bruker-detaljer/deltaker-detaljer/forslag/forslagUtils'
@@ -21,7 +18,6 @@ import { mockDeltakerHistorikk } from './data/historikk'
 import { deltakerlisteErKurs, MockGjennomforing } from './data/tiltak'
 import { mockTilgjengeligeVeiledere } from './data/veileder'
 import { randomUuid } from './utils/faker'
-import { Oppstartstype } from '../api/data/historikk'
 
 export async function enableMocking() {
 	if (useMock) {
@@ -120,166 +116,6 @@ export const worker = setupWorker(
 			return HttpResponse.json(mockDeltakerlisteVeileder)
 		}
 	),
-	http.delete(appUrl('/amt-tiltaksarrangor-bff/tiltaksarrangor/endringsmelding/:endringsmeldingId')
-		, async ({ params }) => {
-			await delay(500)
-			const endringsmeldingId = params.endringsmeldingId as string
-			const deltaker = mockTiltakDeltakere.find((d) => {
-				return (
-					d.aktiveEndringsmeldinger.find((e) => e.id == endringsmeldingId) !=
-					null
-				)
-			})
-
-			if (deltaker) {
-				deltaker.aktiveEndringsmeldinger =
-					deltaker.aktiveEndringsmeldinger.filter(
-						(e) => e.id != endringsmeldingId
-					)
-			}
-
-			return new HttpResponse(null, { status: 200 })
-		}),
-	http.post(appUrl('/amt-tiltaksarrangor-bff/tiltaksarrangor/deltaker/:deltakerId/endringsmelding')
-		, async ({ params, request }) => {
-			await delay(500)
-			const deltakerId = params.deltakerId as string
-			const bodyJson = await request.json()
-
-			const bodyType = bodyJson as { innhold: { type: string } }
-
-			const deltaker = mockTiltakDeltakere.find((d) => d.id == deltakerId)
-
-			if (deltaker) {
-				if (
-					bodyType.innhold.type === EndringsmeldingType.LEGG_TIL_OPPSTARTSDATO
-				) {
-					const body = bodyJson as {
-						innhold: { type: string; oppstartsdato: string }
-					}
-					deltaker.aktiveEndringsmeldinger.push({
-						id: randomUuid(),
-						type: EndringsmeldingType.LEGG_TIL_OPPSTARTSDATO,
-						innhold: {
-							oppstartsdato: dayjs(body.innhold.oppstartsdato).toDate()
-						},
-						sendt: new Date(),
-						status: EndringsmeldingStatus.AKTIV
-					})
-				}
-				if (bodyType.innhold.type === EndringsmeldingType.ENDRE_OPPSTARTSDATO) {
-					const body = bodyJson as {
-						innhold: { type: string; oppstartsdato: string }
-					}
-					deltaker.aktiveEndringsmeldinger.push({
-						id: randomUuid(),
-						type: EndringsmeldingType.ENDRE_OPPSTARTSDATO,
-						innhold: {
-							oppstartsdato: dayjs(body.innhold.oppstartsdato).toDate()
-						},
-						sendt: new Date(),
-						status: EndringsmeldingStatus.AKTIV
-					})
-				}
-				if (
-					bodyType.innhold.type === EndringsmeldingType.ENDRE_DELTAKELSE_PROSENT
-				) {
-					const body = bodyJson as {
-						innhold: {
-							type: string
-							deltakelseProsent: number
-							dagerPerUke: number | null
-							gyldigFraDato: string
-						}
-					}
-					deltaker.aktiveEndringsmeldinger.push({
-						id: randomUuid(),
-						type: EndringsmeldingType.ENDRE_DELTAKELSE_PROSENT,
-						innhold: {
-							deltakelseProsent: body.innhold.deltakelseProsent,
-							dagerPerUke: body.innhold.dagerPerUke,
-							gyldigFraDato: dayjs(body.innhold.gyldigFraDato).toDate()
-						},
-						sendt: new Date(),
-						status: EndringsmeldingStatus.AKTIV
-					})
-				}
-				if (bodyType.innhold.type === EndringsmeldingType.FORLENG_DELTAKELSE) {
-					const body = bodyJson as {
-						innhold: { type: string; sluttdato: string }
-					}
-					deltaker.aktiveEndringsmeldinger.push({
-						id: randomUuid(),
-						type: EndringsmeldingType.FORLENG_DELTAKELSE,
-						innhold: { sluttdato: dayjs(body.innhold.sluttdato).toDate() },
-						sendt: new Date(),
-						status: EndringsmeldingStatus.AKTIV
-					})
-				}
-				if (bodyType.innhold.type === EndringsmeldingType.AVSLUTT_DELTAKELSE) {
-					const body = bodyJson as {
-						innhold: {
-							type: string
-							sluttdato: string
-							aarsak: DeltakerStatusAarsak
-						}
-					}
-					deltaker.aktiveEndringsmeldinger.push({
-						id: randomUuid(),
-						type: EndringsmeldingType.AVSLUTT_DELTAKELSE,
-						innhold: {
-							sluttdato: dayjs(body.innhold.sluttdato).toDate(),
-							aarsak: body.innhold.aarsak
-						},
-						sendt: new Date(),
-						status: EndringsmeldingStatus.AKTIV
-					})
-				}
-				if (
-					bodyType.innhold.type === EndringsmeldingType.DELTAKER_IKKE_AKTUELL
-				) {
-					const body = bodyJson as {
-						innhold: { type: string; aarsak: DeltakerStatusAarsak }
-					}
-					deltaker.aktiveEndringsmeldinger.push({
-						id: randomUuid(),
-						type: EndringsmeldingType.DELTAKER_IKKE_AKTUELL,
-						innhold: { aarsak: body.innhold.aarsak },
-						sendt: new Date(),
-						status: EndringsmeldingStatus.AKTIV
-					})
-				}
-
-				if (bodyType.innhold.type === EndringsmeldingType.ENDRE_SLUTTDATO) {
-					const body = bodyJson as {
-						innhold: { type: string; sluttdato: string }
-					}
-					deltaker.aktiveEndringsmeldinger.push({
-						id: randomUuid(),
-						type: EndringsmeldingType.ENDRE_SLUTTDATO,
-						innhold: { sluttdato: dayjs(body.innhold.sluttdato).toDate() },
-						sendt: new Date(),
-						status: EndringsmeldingStatus.AKTIV
-					})
-				}
-
-				if (bodyType.innhold.type === EndringsmeldingType.ENDRE_SLUTTAARSAK) {
-					const body = bodyJson as {
-						innhold: { type: string; aarsak: DeltakerStatusAarsak }
-					}
-					deltaker.aktiveEndringsmeldinger.push({
-						id: randomUuid(),
-						type: EndringsmeldingType.ENDRE_SLUTTAARSAK,
-						innhold: { aarsak: body.innhold.aarsak },
-						sendt: new Date(),
-						status: EndringsmeldingStatus.AKTIV
-					})
-				}
-			}
-
-			return new HttpResponse(null, { status: 200 })
-		}
-	),
 	http.post(appUrl('/amt-tiltaksarrangor-bff/tiltaksarrangor/deltaker/:deltakerId/vurdering')
 		, async ({ params, request }) => {
 			await delay(500)
@@ -323,17 +159,6 @@ export const worker = setupWorker(
 			return new HttpResponse(null, { status: 200 })
 		}
 	),
-	http.get(appUrl('/amt-tiltaksarrangor-bff/tiltaksarrangor/deltaker/:deltakerId/alle-endringsmeldinger'
-	), async ({ params }) => {
-		await delay(500)
-		const deltakerId = params.deltakerId as string
-		const deltaker = mockTiltakDeltakere.find((d) => d.id == deltakerId)
-		const aktiveEndringsmeldinger = deltaker?.aktiveEndringsmeldinger ?? []
-		const historiskeEndringsmeldinger =
-			deltaker?.historiskeEndringsmeldinger ?? []
-
-		return HttpResponse.json(({ aktiveEndringsmeldinger, historiskeEndringsmeldinger }))
-	}),
 	http.get(appUrl('/amt-tiltaksarrangor-bff/tiltaksarrangor/koordinator/:deltakerlisteId/veiledere')
 		, async () => {
 			await delay(500)
@@ -459,8 +284,7 @@ export const worker = setupWorker(
 		async () => {
 			await delay(500)
 			const toggles = {
-				[ VIS_DRIFTSMELDING_TOGGLE_NAVN ]: false,
-				[ KOMET_DELTAKERE_TOGGLE_NAVN ]: true
+				[ VIS_DRIFTSMELDING_TOGGLE_NAVN ]: false
 			}
 
 			return HttpResponse.json(toggles)
@@ -481,7 +305,6 @@ export const mapToDeltakerListView = (
 		sluttDato: deltaker.sluttDato,
 		status: deltaker.status,
 		soktInnDato: deltaker.registrertDato,
-		aktiveEndringsmeldinger: deltaker.aktiveEndringsmeldinger,
 		veiledere: deltaker.veiledere,
 		navKontor: deltaker.navEnhet ? deltaker.navEnhet.navn : null,
 		gjeldendeVurderingFraArrangor: deltaker.gjeldendeVurderingFraArrangor,
@@ -539,8 +362,6 @@ const mapToDeltakerDetaljerView = (
 		veiledere: deltaker.veiledere,
 		aktiveForslag: deltaker.aktiveForslag,
 		ulesteEndringer: deltaker.ulesteEndringer,
-		aktiveEndringsmeldinger: deltaker.aktiveEndringsmeldinger,
-		historiskeEndringsmeldinger: deltaker.historiskeEndringsmeldinger,
 		adresse: deltaker.adresse
 			? {
 				adressetype: deltaker.adresse.adressetype,
