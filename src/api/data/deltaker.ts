@@ -12,6 +12,7 @@ import {
 } from './tiltak'
 import { ulestEndringSchema } from './ulestEndring'
 import { veilederMedTypeSchema, veiledertypeSchema } from './veileder'
+import { deltakerStatusAarsakSchema } from './deltakerStatusArsak'
 
 export enum Hendelser {
   VenterPaSvarFraNav = 'VenterPaSvarFraNav',
@@ -54,26 +55,7 @@ export enum AktivEndring {
   FjernOppstartsdato = 'FjernOppstartsdato'
 }
 
-export enum DeltakerStatusAarsakType {
-  SYK = 'SYK',
-  FATT_JOBB = 'FATT_JOBB',
-  TRENGER_ANNEN_STOTTE = 'TRENGER_ANNEN_STOTTE',
-  FIKK_IKKE_PLASS = 'FIKK_IKKE_PLASS',
-  UTDANNING = 'UTDANNING',
-  AVLYST_KONTRAKT = 'AVLYST_KONTRAKT',
-  IKKE_MOTT = 'IKKE_MOTT',
-  ANNET = 'ANNET',
-  SAMARBEIDET_MED_ARRANGOREN_ER_AVBRUTT = 'SAMARBEIDET_MED_ARRANGOREN_ER_AVBRUTT',
-  KURS_FULLT = 'KURS_FULLT',
-  KRAV_IKKE_OPPFYLT = 'KRAV_IKKE_OPPFYLT'
-}
-
 const tiltakDeltakerStatusSchema = z.nativeEnum(TiltakDeltakerStatus)
-
-export const deltakerStatusAarsakSchema = z.object({
-  type: z.nativeEnum(DeltakerStatusAarsakType),
-  beskrivelse: z.string().nullable()
-})
 
 export const deltakerStatusSchema = z.object({
   type: tiltakDeltakerStatusSchema,
@@ -286,6 +268,3 @@ export type Vurdering = z.infer<typeof vurderingSchema>
 export type Deltakelsesmengder = z.infer<typeof deltakelsesmengderSchema>
 
 export type Deltakelsesmengde = z.infer<typeof deltakelsesmengdeSchema>
-
-export type DeltakerStatusAarsak = z.infer<typeof deltakerStatusAarsakSchema>
-

@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { Nullable } from '../../../../../utils/types/or-nothing'
 import { AarsakRadio } from './AarsakRadio'
 import { AarsakRadioMedBeskrivelse } from './AarsakRadioMedBeskrivelse'
-import { DeltakerStatusAarsakType } from '../../../../../api/data/deltaker'
+import { DeltakerStatusAarsakType } from '../../../../../api/data/deltakerStatusArsak'
 
 interface AarsakSelectorProps {
   tittel: string

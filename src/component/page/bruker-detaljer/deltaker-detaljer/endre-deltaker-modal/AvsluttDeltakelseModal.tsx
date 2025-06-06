@@ -16,7 +16,7 @@ import {
   useAarsakValidering,
   validerAarsakForm
 } from './validering/aarsakValidering'
-import { DeltakerStatusAarsakType } from '../../../../../api/data/deltaker'
+import { DeltakerStatusAarsakType } from '../../../../../api/data/deltakerStatusArsak'
 
 export const AvsluttDeltakelseModal = (props: ModalDataProps) => {
   const {

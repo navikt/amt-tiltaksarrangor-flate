@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-import { DeltakerStatusAarsakType, TiltakDeltakerStatus } from '../../../../../api/data/deltaker'
+import { DeltakerStatusAarsakType } from '../../../../../api/data/deltakerStatusArsak'
 import { endreSluttarsakForslag } from '../../../../../api/forslag-api'
 import { Nullable } from '../../../../../utils/types/or-nothing'
 import { ModalDataProps } from '../ModalController'
@@ -11,6 +11,7 @@ import {
   useAarsakValidering,
   validerAarsakForm
 } from './validering/aarsakValidering'
+import { TiltakDeltakerStatus } from '../../../../../api/data/deltaker'
 
 export const EndreSluttaarsakModal = ({
   deltaker,
