@@ -3,44 +3,31 @@ import { useRef, useState } from 'react'
 import { Alert } from '@navikt/ds-react'
 import { Tiltakskode } from '../../../../../api/data/tiltak'
 import { leggTilOppstartsdatoFraArrangor } from '../../../../../api/endring-api'
-import { leggTilOppstartsdato } from '../../../../../api/tiltak-api'
 import { Nullable } from '../../../../../utils/types/or-nothing'
 import { DateField } from '../../../../felles/DateField'
+import { ModalDataProps } from '../ModalController'
 import { EndringType } from '../types'
 import { kalkulerMaxDato, kalkulerMinDato, maxSluttdato } from './datoutils'
 import { Endringsmodal } from './endringsmodal/Endringsmodal'
 import { SluttdatoRef, SluttdatoVelger } from './SluttdatoVelger'
 import { finnValgtVarighet } from './varighet'
 import { VeilederConfirmationPanel } from './VeilederConfirmationPanel'
-import { ModalDataProps } from '../ModalController'
 
 export const LeggTilOppstartModal = ({
   deltaker,
   onClose,
   visGodkjennVilkaarPanel,
-  onEndringUtfort,
   onEndringSendt,
-  erForslagEnabled
 }: ModalDataProps) => {
-  const erEndringFraArrangorEnabled = erForslagEnabled
   const [ startdato, setStartdato ] = useState<Nullable<Date>>(null)
   const sluttdato = useRef<SluttdatoRef>(null)
 
   const [ vilkaarGodkjent, setVilkaarGodkjent ] = useState(false)
 
-  const skalVelgeSluttdato = erEndringFraArrangorEnabled &&
+  const skalVelgeSluttdato =
     deltaker.deltakerliste.tiltakstype !== Tiltakskode.VASV
 
-  const kanSendeMelding = erEndringFraArrangorEnabled
-    ? startdato !== null && sluttdato !== null
-    : startdato !== null
-
-  const sendEndringsmelding = () => {
-    if (!startdato) {
-      return Promise.reject('Kan ikke sende endringsmelding uten oppstartsdato')
-    }
-    return leggTilOppstartsdato(deltaker.id, startdato).then(onEndringUtfort)
-  }
+  const kanSendeMelding = startdato !== null && sluttdato !== null
 
   const lagreEndring = () => {
     if (!startdato) {
@@ -64,17 +51,17 @@ export const LeggTilOppstartModal = ({
       visGodkjennVilkaarPanel={visGodkjennVilkaarPanel}
       erSendKnappDisabled={!kanSendeMelding}
       erForslag={false}
-      erEndringFraArrangor={erEndringFraArrangorEnabled}
+      erEndringFraArrangor={true}
       onClose={onClose}
-      onSend={erEndringFraArrangorEnabled ? lagreEndring : sendEndringsmelding}
+      onSend={lagreEndring}
     >
-      {erEndringFraArrangorEnabled && (
-        <Alert variant="info" size="small" >
-          Oppstartsdato avtales med deltaker direkte. Når du lagrer så kan
-          Nav-veileder se datoene i arbeidsverktøyet sitt og deltaker kan se
-          datoene på nav.no.
-        </Alert>
-      )}
+
+      <Alert variant="info" size="small" >
+        Oppstartsdato avtales med deltaker direkte. Når du lagrer så kan
+        Nav-veileder se datoene i arbeidsverktøyet sitt og deltaker kan se
+        datoene på nav.no.
+      </Alert>
+
       <DateField
         label="Oppstartsdato"
         defaultDate={startdato}

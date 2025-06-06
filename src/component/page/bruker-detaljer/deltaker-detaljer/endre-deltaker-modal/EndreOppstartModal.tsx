@@ -1,45 +1,33 @@
-import React, { useRef, useState } from 'react'
+import { useRef, useState } from 'react'
 
-import { endreOppstartsdato } from '../../../../../api/tiltak-api'
+import dayjs from 'dayjs'
+import { Tiltakskode } from '../../../../../api/data/tiltak'
+import { endreStartdatoForslag } from '../../../../../api/forslag-api'
 import { Nullable } from '../../../../../utils/types/or-nothing'
+import { DateField } from '../../../../felles/DateField'
+import { ModalDataProps } from '../ModalController'
+import { EndringType } from '../types'
+import { kalkulerMaxDato, kalkulerMinDato, maxSluttdato } from './datoutils'
+import { Endringsmodal } from './endringsmodal/Endringsmodal'
+import { SluttdatoRef, SluttdatoVelger } from './SluttdatoVelger'
 import {
   gyldigObligatoriskBegrunnelse,
   validerObligatoriskBegrunnelse
 } from './validering/begrunnelseValidering'
-import { endreStartdatoForslag } from '../../../../../api/forslag-api'
-import { Endringsmodal } from './endringsmodal/Endringsmodal'
-import { DateField } from '../../../../felles/DateField'
-import { EndringType } from '../types'
-import { maxSluttdato, kalkulerMaxDato, kalkulerMinDato } from './datoutils'
-import { SluttdatoVelger, SluttdatoRef } from './SluttdatoVelger'
 import { finnValgtVarighet } from './varighet'
-import dayjs from 'dayjs'
-import { Tiltakskode } from '../../../../../api/data/tiltak'
-import { ModalDataProps } from '../ModalController'
 
 export const EndreOppstartModal = ({
   deltaker,
   visGodkjennVilkaarPanel,
-  onEndringUtfort,
   onForslagSendt,
-  onClose,
-  erForslagEnabled
+  onClose
 }: ModalDataProps) => {
   const [startdato, setStartdato] = useState<Nullable<Date>>(deltaker.startDato)
   const [begrunnelse, setBegrunnelse] = useState<string>('')
-  const skalVelgeVarighet = erForslagEnabled && deltaker.deltakerliste.tiltakstype != Tiltakskode.VASV
+  const skalVelgeVarighet = deltaker.deltakerliste.tiltakstype != Tiltakskode.VASV
   const sluttdato = useRef<SluttdatoRef>(null)
 
-  const kanSendeMelding = erForslagEnabled
-    ? startdato !== null && gyldigObligatoriskBegrunnelse(begrunnelse)
-    : startdato !== null
-
-  const sendEndringsmelding = () => {
-    if (!startdato) {
-      return Promise.reject('Startdato må være valgt for å sende endring')
-    }
-    return endreOppstartsdato(deltaker.id, startdato).then(onEndringUtfort)
-  }
+  const kanSendeMelding = startdato !== null && gyldigObligatoriskBegrunnelse(begrunnelse)
 
   const sendForslag = () => {
     if (!startdato) {
@@ -75,9 +63,9 @@ export const EndreOppstartModal = ({
       endringstype={EndringType.ENDRE_OPPSTARTSDATO}
       visGodkjennVilkaarPanel={visGodkjennVilkaarPanel}
       erSendKnappDisabled={!kanSendeMelding}
-      erForslag={erForslagEnabled}
+      erForslag={true}
       onClose={onClose}
-      onSend={erForslagEnabled ? sendForslag : sendEndringsmelding}
+      onSend={sendForslag}
       begrunnelseType="obligatorisk"
       onBegrunnelse={(begrunnelse) => {
         setBegrunnelse(begrunnelse)

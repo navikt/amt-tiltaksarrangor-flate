@@ -1,5 +1,4 @@
-import { Vurderingstype } from '../../../../api/data/deltaker'
-import { DeltakerStatusAarsak, DeltakerStatusAarsakType} from '../../../../api/data/endringsmelding'
+import { DeltakerStatusAarsak, DeltakerStatusAarsakType, Vurderingstype } from '../../../../api/data/deltaker'
 import { EndringAarsak } from '../../../../api/data/forslag'
 import { EndringType } from './types'
 import { AvslutningsType } from './endre-deltaker-modal/AvsluttKursDeltakelseModal'

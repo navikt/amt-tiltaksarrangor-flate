@@ -5,5 +5,5 @@ interface ShowProps {
   children: React.ReactNode
 }
 
-export const Show = (props: ShowProps): JSX.Element | null =>
+export const Show = (props: ShowProps) =>
   props.if ? <>{props.children}</> : null

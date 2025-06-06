@@ -4,9 +4,7 @@ import React, { useState } from 'react'
 
 import { Deltaker, TiltakDeltakerStatus } from '../../../../api/data/deltaker'
 import { AktivtForslag } from '../../../../api/data/forslag'
-import { Tiltakskode } from '../../../../api/data/tiltak'
 import { skjulDeltaker } from '../../../../api/tiltak-api'
-import { useFeatureToggle } from '../../../../hooks/useFeatureToggle'
 import { formatDate } from '../../../../utils/date-utils'
 import {
   getDeltakelsesmengdetekst,
@@ -24,7 +22,6 @@ import styles from './DeltakelseInfo.module.scss'
 import { useDeltakerContext } from './DeltakerContext'
 import { ElementPanel } from './ElementPanel'
 import { EndreDeltakelseKnapp } from './EndreDeltakelseKnapp'
-import { Endringsmeldinger } from './endringsmelding/Endringsmeldinger'
 import { FjernDeltakerModal } from './fjern-deltaker-modal/FjernDeltakerModal'
 import { UbehandledeEndringer } from './forslag/UbehandledeEndringer'
 import { SeEndringer } from './historikk/SeEndringer'
@@ -37,7 +34,6 @@ interface DeltakelseInfoProps {
 export const DeltakelseInfo = ({
   deltaker
 }: DeltakelseInfoProps): React.ReactElement => {
-  const [ reloadEndringsmeldinger, setReloadEndringsmeldinger ] = useState(false)
   const [ visFjernDeltakerModal, setVisFjernDeltakerModal ] = useState(false)
   const [ forslag, setForslag ] = useState(deltaker.aktiveForslag)
   const [ ulesteEndringer, setUlesteEndringer ] = useState(deltaker.ulesteEndringer)
@@ -45,11 +41,6 @@ export const DeltakelseInfo = ({
   const { setDeltaker } = useDeltakerContext()
 
   const skjulDeltakerPromise = usePromise<AxiosResponse>()
-
-  const { erKometMasterForTiltak } = useFeatureToggle()
-  const erKometMaster = erKometMasterForTiltak(
-    deltaker.deltakerliste.tiltakstype
-  )
 
   const handleForslagSendt = (forslag: AktivtForslag) => {
     setForslag((prev) => [
@@ -64,10 +55,6 @@ export const DeltakelseInfo = ({
 
   const fjernLesteEndringer = (enringId: string) => {
     setUlesteEndringer((prev) => prev.filter((it) => it.id !== enringId))
-  }
-
-  const triggerReloadEndringsmeldinger = () => {
-    setReloadEndringsmeldinger(true)
   }
 
   const handleSkjulDeltaker = () => {
@@ -91,12 +78,6 @@ export const DeltakelseInfo = ({
     TiltakDeltakerStatus.FULLFORT
   ].includes(deltaker.status.type)
 
-  const skruAvEndringer =
-    (deltaker.deltakerliste.tiltakstype === Tiltakskode.GRUFAGYRKE ||
-      deltaker.deltakerliste.tiltakstype === Tiltakskode.GRUPPEAMO ||
-      deltaker.deltakerliste.tiltakstype === Tiltakskode.JOBBK) &&
-    !erKometMaster
-
   return (
     <div className={styles.section}>
       <div className={styles.deltakerInfoWrapper}>
@@ -104,7 +85,7 @@ export const DeltakelseInfo = ({
           <ElementPanel tittel="Status:">
             <StatusMerkelapp status={deltaker.status} />
           </ElementPanel>
-          {erKometMaster && deltaker.status.aarsak && (
+          {deltaker.status.aarsak && (
             <ElementPanel tittel="Årsak:">
               <span>{getDeltakerStatusAarsakText(deltaker.status.aarsak)}</span>
             </ElementPanel>
@@ -141,15 +122,12 @@ export const DeltakelseInfo = ({
             </ElementPanel>
           )}
         </div>
-        {!skruAvEndringer && (
-          <EndreDeltakelseKnapp
-            deltaker={deltaker}
-            onEndringUtfort={triggerReloadEndringsmeldinger}
-            erKometMaster={erKometMaster}
-            onForslagSendt={handleForslagSendt}
-            onEndringSendt={oppdaterDeltaker}
-          />
-        )}
+
+        <EndreDeltakelseKnapp
+          deltaker={deltaker}
+          onForslagSendt={handleForslagSendt}
+          onEndringSendt={oppdaterDeltaker}
+        />
       </div>
 
       <div className={styles.body}>
@@ -162,21 +140,11 @@ export const DeltakelseInfo = ({
           tiltakstype={deltaker.deltakerliste.tiltakstype}
         />
 
-        {erKometMaster && (
-          <SeEndringer
-            className={styles.seEndringerKnapp}
-            tiltakstype={deltaker.deltakerliste.tiltakstype}
-            deltakerId={deltaker.id}
-          />
-        )}
-
-        {!erKometMaster && (
-          <Endringsmeldinger
-            deltaker={deltaker}
-            setReloadEndringsmeldinger={setReloadEndringsmeldinger}
-            reloadEndringsmeldinger={reloadEndringsmeldinger}
-          />
-        )}
+        <SeEndringer
+          className={styles.seEndringerKnapp}
+          tiltakstype={deltaker.deltakerliste.tiltakstype}
+          deltakerId={deltaker.id}
+        />
 
         {kanFjerneDeltaker && isNotStarted(skjulDeltakerPromise) && (
           <Alert variant="warning" size="small" className={styles.statusAlert}>

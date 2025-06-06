@@ -1,26 +1,23 @@
-import React, { useRef, useState } from 'react'
+import { useRef, useState } from 'react'
 
-import { forlengDeltakelse } from '../../../../../api/tiltak-api'
-import { maxDate } from '../../../../../utils/date-utils'
+import dayjs from 'dayjs'
 import { forlengDeltakelseForslag } from '../../../../../api/forslag-api'
+import { maxDate } from '../../../../../utils/date-utils'
+import { ModalDataProps } from '../ModalController'
+import { EndringType } from '../types'
+import { SluttdatoRef, SluttdatoVelger } from './SluttdatoVelger'
+import { maxSluttdato } from './datoutils'
 import { Endringsmodal } from './endringsmodal/Endringsmodal'
 import {
   gyldigObligatoriskBegrunnelse,
   validerObligatoriskBegrunnelse
 } from './validering/begrunnelseValidering'
-import { EndringType } from '../types'
-import { SluttdatoRef, SluttdatoVelger } from './SluttdatoVelger'
-import { maxSluttdato } from './datoutils'
-import dayjs from 'dayjs'
-import { ModalDataProps } from '../ModalController'
 
 export const ForlengDeltakelseModal = (props: ModalDataProps) => {
   const {
     deltaker,
     onClose,
-    onEndringUtfort,
-    visGodkjennVilkaarPanel,
-    erForslagEnabled
+    visGodkjennVilkaarPanel
   } = props
   const deltakerliste = deltaker.deltakerliste
   const minDato = maxDate(dayjs(deltaker.sluttDato).add(1, 'day').toDate(), deltakerliste.startDato)
@@ -28,20 +25,7 @@ export const ForlengDeltakelseModal = (props: ModalDataProps) => {
   const [begrunnelse, setBegrunnelse] = useState('')
   const sluttdato = useRef<SluttdatoRef>(null)
 
-  const kanSendeMelding = erForslagEnabled
-    ? sluttdato !== null && gyldigObligatoriskBegrunnelse(begrunnelse)
-    : sluttdato !== null
-
-  const sendEndringsmelding = () => {
-    if (!sluttdato.current?.validate() || !sluttdato.current.sluttdato) {
-      return Promise.reject(
-        'Endringsmeldingen kan ikke sendes fordi datoen ikke er gyldig.'
-      )
-    }
-    return forlengDeltakelse(deltaker.id, sluttdato.current.sluttdato).then(
-      onEndringUtfort
-    )
-  }
+  const kanSendeMelding = sluttdato !== null && gyldigObligatoriskBegrunnelse(begrunnelse)
 
   const sendForslag = () => {
     if (!sluttdato.current?.sluttdato) {
@@ -71,11 +55,11 @@ export const ForlengDeltakelseModal = (props: ModalDataProps) => {
       tittel="Forleng deltakelse"
       endringstype={EndringType.FORLENG_DELTAKELSE}
       visGodkjennVilkaarPanel={visGodkjennVilkaarPanel}
-      erForslag={erForslagEnabled}
+      erForslag={true}
       erSendKnappDisabled={!kanSendeMelding}
       begrunnelseType="obligatorisk"
       onClose={onClose}
-      onSend={erForslagEnabled ? sendForslag : sendEndringsmelding}
+      onSend={sendForslag}
       onBegrunnelse={(begrunnelse) => {
         setBegrunnelse(begrunnelse)
       }}

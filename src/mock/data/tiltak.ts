@@ -1,27 +1,24 @@
 import { faker } from '@faker-js/faker/locale/nb_NO'
 
 import {
-  Gjennomforing,
-  Koordinator,
-  TiltakGjennomforingStatus,
-  Tiltakskode
-} from '../../api/data/tiltak'
-import { arrangorForGjennomforing } from './arrangor'
-import { gjennomforingId } from './id'
-import {
   AktivEndring,
   AktivEndringForDeltaker,
   AktivEndringsType,
   KoordinatorForDeltakerliste,
   MineDeltakerlister,
-  TiltakDeltakerStatus,
   VeiledersDeltaker
 } from '../../api/data/deltaker'
-import { MockTiltakDeltaker } from './brukere'
-import { randBetween } from '../utils/faker'
-import { lagMockEndringsmeldingForDeltaker } from './endringsmelding'
-import { Endringsmelding } from '../../api/data/endringsmelding'
+import {
+  Gjennomforing,
+  Koordinator,
+  TiltakGjennomforingStatus,
+  Tiltakskode
+} from '../../api/data/tiltak'
 import { Veiledertype } from '../../api/data/veileder'
+import { randBetween } from '../utils/faker'
+import { arrangorForGjennomforing } from './arrangor'
+import { MockTiltakDeltaker } from './brukere'
+import { gjennomforingId } from './id'
 
 export type MockGjennomforing = Gjennomforing
 
@@ -218,7 +215,7 @@ export const lagMockAktivEndring = (): null | AktivEndringForDeltaker => {
   if (i < 3) return null
 
   let endingsType = AktivEndring.ForlengDeltakelse
-  let type = AktivEndringsType.Forslag
+  const type = AktivEndringsType.Forslag
 
   if (i < 5) {
     endingsType = AktivEndring.ForlengDeltakelse
@@ -226,10 +223,8 @@ export const lagMockAktivEndring = (): null | AktivEndringForDeltaker => {
     endingsType = AktivEndring.AvsluttDeltakelse
   } else if (i < 8) {
     endingsType = AktivEndring.IkkeAktuell
-    type = AktivEndringsType.Endringsmelding
   } else if (i < 10) {
     endingsType = AktivEndring.ForlengDeltakelse
-    type = AktivEndringsType.Endringsmelding
   }
 
   return {
@@ -257,7 +252,6 @@ const lagMockVeiledersDeltaker = (
       navn: deltaker.gjennomforing.navn
     },
     veiledertype: getVeiledertype(),
-    aktiveEndringsmeldinger: getEndringsmeldinger(),
     aktivEndring: deltaker.aktivEndring ?? null,
     sistEndret: faker.date.recent(),
     adressebeskyttet: deltaker.adressebeskyttet,
@@ -275,10 +269,3 @@ const getVeiledertype = (): Veiledertype => {
   }
 }
 
-const getEndringsmeldinger = (): Endringsmelding[] => {
-  if (randBetween(0, 10) < 3) {
-    return lagMockEndringsmeldingForDeltaker(TiltakDeltakerStatus.DELTAR)
-  } else {
-    return []
-  }
-}

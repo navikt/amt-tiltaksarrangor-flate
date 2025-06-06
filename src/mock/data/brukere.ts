@@ -6,33 +6,25 @@ import {
   Adressetype,
   AktivEndring,
   AktivEndringForDeltaker,
-  AktivEndringsType,
   Deltakelsesmengder,
+  DeltakerStatusAarsakType,
   TiltakDeltakerStatus,
   Vurdering,
   Vurderingstype
 } from '../../api/data/deltaker'
-import {
-  DeltakerStatusAarsakType,
-  Endringsmelding
-} from '../../api/data/endringsmelding'
 import { AktivtForslag, ForslagEndringType, ForslagStatusType, HistorikkForslag, HistorikkType } from '../../api/data/forslag'
 import { DeltakerEndring } from '../../api/data/historikk'
+import { Deltakelsesinnhold } from '../../api/data/innhold'
 import { Gjennomforing, Tiltakskode } from '../../api/data/tiltak'
+import { UlestEndring, UlestEndringType } from '../../api/data/ulestEndring'
 import { VeilederMedType } from '../../api/data/veileder'
 import { ulestEndringErNyeDeltaker, ulestEndringErOppdateringFraNav, ulestEndringErSvarFraNav } from '../../component/page/bruker-detaljer/deltaker-detaljer/forslag/forslagUtils'
 import { randBetween, randomBoolean, randomFnr, randomUuid } from '../utils/faker'
-import {
-  lagMockEndringsmeldingForDeltaker,
-  lagMockHistoriskeEndringsmeldingForDeltaker
-} from './endringsmelding'
 import { mockDeltakerHistorikk } from './historikk'
 import { deltakerId } from './id'
 import { lagMockAktiveForslag } from './mock-forslag'
 import { deltakerlisteErKurs, MockGjennomforing } from './tiltak'
 import { lagMockVeiledereForDeltaker } from './veileder'
-import { Deltakelsesinnhold } from '../../api/data/innhold'
-import { UlestEndring, UlestEndringType } from '../../api/data/ulestEndring'
 
 export type MockVurdering = Vurdering
 
@@ -77,8 +69,6 @@ export interface MockTiltakDeltaker {
   innhold: Deltakelsesinnhold | null
   aktiveForslag: AktivtForslag[]
   ulesteEndringer: UlestEndring[]
-  aktiveEndringsmeldinger: Endringsmelding[]
-  historiskeEndringsmeldinger: Endringsmelding[]
   veiledere: VeilederMedType[]
   adresse: MockAdresse | null
   gjeldendeVurderingFraArrangor: MockVurdering | null
@@ -288,25 +278,14 @@ const lagMockTiltakDeltagerForGjennomforing = (
 
   const id = deltakerId()
 
-  const erForslagEnabled = erKometMasterForTiltak(
-    gjennomforing.tiltak.tiltakskode
-  )
-  const aktiveForslag = erForslagEnabled ? lagMockAktiveForslag(status) : []
-  const aktiveEndringsmeldinger = erForslagEnabled ? [] : lagMockEndringsmeldingForDeltaker(status)
+  const aktiveForslag = lagMockAktiveForslag(status)
   let aktivEndring: AktivEndringForDeltaker | null = null
 
   if (aktiveForslag.length > 0) {
     const forslag = aktiveForslag[ 0 ]
     aktivEndring = {
-      type: AktivEndringsType.Forslag,
       sendt: faker.date.recent(),
       endingsType: mapForlsagTypeTilAktivEndring(forslag.endring.type)
-    }
-  } else if (aktiveEndringsmeldinger.length > 0) {
-    aktivEndring = {
-      type: AktivEndringsType.Endringsmelding,
-      sendt: faker.date.recent(),
-      endingsType: AktivEndring.LeggTilOppstartsDato
     }
   }
 
@@ -476,12 +455,6 @@ const lagMockTiltakDeltagerForGjennomforing = (
     innsokBegrunnelse: genererBegrunnelse(brukerFornavn),
     innhold: mockInnhold(gjennomforing.tiltak.tiltakskode),
     aktiveForslag,
-    aktiveEndringsmeldinger,
-    historiskeEndringsmeldinger: lagMockHistoriskeEndringsmeldingForDeltaker(
-      status,
-      startDato,
-      sluttDato
-    ),
     veiledere: lagMockVeiledereForDeltaker(id),
     adresse: lagAdresse(),
     gjeldendeVurderingFraArrangor,
@@ -617,19 +590,3 @@ const mapForlsagTypeTilAktivEndring = (endringsType: ForslagEndringType) => {
   }
 }
 
-const erKometMasterForTiltak = (tiltakstype: Tiltakskode) => {
-  const tiltakstyperKometErMasterFor = [
-    Tiltakskode.ARBFORB,
-    Tiltakskode.ARBRRHDAG,
-    Tiltakskode.AVKLARAG,
-    Tiltakskode.INDOPPFAG,
-    Tiltakskode.DIGIOPPARB,
-    Tiltakskode.VASV,
-		Tiltakskode.JOBBK,
-		Tiltakskode.GRUPPEAMO,
-		Tiltakskode.GRUFAGYRKE,
-	]
-  if (tiltakstyperKometErMasterFor.includes(tiltakstype))
-    return true
-  return false
-}

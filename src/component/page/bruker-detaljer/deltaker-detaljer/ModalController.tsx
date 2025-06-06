@@ -17,10 +17,8 @@ import { AvsluttKursDeltakelseModal } from './endre-deltaker-modal/AvsluttKursDe
 export interface ModalDataProps {
   readonly deltaker: Deltaker
   readonly visGodkjennVilkaarPanel: boolean
-  readonly onEndringUtfort: () => void
   readonly onEndringSendt: (oppdatertDeltaker: Deltaker) => void
   readonly onForslagSendt: (forslag: AktivtForslag) => void
-  readonly erForslagEnabled: boolean
   readonly onClose: () => void
 }
 

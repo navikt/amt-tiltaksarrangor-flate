@@ -1,39 +1,27 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 
-import { DeltakerStatusAarsakType } from '../../../../../api/data/endringsmelding'
-import { endreSluttaarsak } from '../../../../../api/tiltak-api'
+import { DeltakerStatusAarsakType, TiltakDeltakerStatus } from '../../../../../api/data/deltaker'
+import { endreSluttarsakForslag } from '../../../../../api/forslag-api'
 import { Nullable } from '../../../../../utils/types/or-nothing'
+import { ModalDataProps } from '../ModalController'
+import { EndringType } from '../types'
 import { AarsakSelector } from './AarsakSelector'
 import { Endringsmodal } from './endringsmodal/Endringsmodal'
 import {
   useAarsakValidering,
   validerAarsakForm
 } from './validering/aarsakValidering'
-import { endreSluttarsakForslag } from '../../../../../api/forslag-api'
-import { EndringType } from '../types'
-import { ModalDataProps } from '../ModalController'
-import { TiltakDeltakerStatus } from '../../../../../api/data/deltaker'
 
 export const EndreSluttaarsakModal = ({
   deltaker,
   visGodkjennVilkaarPanel,
   onClose,
-  onEndringUtfort,
-  onForslagSendt,
-  erForslagEnabled
+  onForslagSendt
 }: ModalDataProps) => {
   const [aarsak, settAarsak] = useState<DeltakerStatusAarsakType>()
   const [beskrivelse, settBeskrivelse] = useState<Nullable<string>>()
   const [begrunnelse, setBegrunnelse] = useState<string>()
   const { validering } = useAarsakValidering(aarsak, beskrivelse, begrunnelse)
-
-  const sendEndringsmelding = () => {
-    return validerAarsakForm(aarsak, beskrivelse)
-      .then((validertForm) =>
-        endreSluttaarsak(deltaker.id, validertForm.endringsmelding.aarsak)
-      )
-      .then(onEndringUtfort)
-  }
 
   const sendForslag = () => {
     const harIngenEndring = aarsak === deltaker.status.aarsak?.type &&
@@ -67,11 +55,11 @@ export const EndreSluttaarsakModal = ({
       tittel="Endre sluttårsak"
       endringstype={EndringType.ENDRE_SLUTTAARSAK}
       visGodkjennVilkaarPanel={visGodkjennVilkaarPanel}
-      erForslag={erForslagEnabled}
+      erForslag={true}
       erSendKnappDisabled={!validering.isSuccess}
       begrunnelseType="valgfri"
       onClose={onClose}
-      onSend={erForslagEnabled ? sendForslag : sendEndringsmelding}
+      onSend={sendForslag}
       onBegrunnelse={(begrunnelse) => {
         setBegrunnelse(begrunnelse)
       }}
