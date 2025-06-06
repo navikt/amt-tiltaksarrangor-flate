@@ -24,8 +24,6 @@ const gjennomforingIder = genererIder(500)
 
 const deltakerIder = genererIder(2000)
 
-const endringsmeldingIder = genererIder(5000)
-
 const ansattIder = genererIder(500)
 
 export const gjennomforingId = (): string => {
@@ -34,10 +32,6 @@ export const gjennomforingId = (): string => {
 
 export const deltakerId = (): string => {
   return getId(deltakerIder)
-}
-
-export const endringsmeldingId = (): string => {
-  return getId(endringsmeldingIder)
 }
 
 export const ansattId = (): string => {

@@ -1,14 +1,6 @@
 import { TiltakDeltaker } from '../../../../../api/data/deltaker'
-import {
-  AvsluttDeltakelseEndringsmelding,
-  EndreOppstartsdatoEndringsmelding,
-  Endringsmelding,
-  EndringsmeldingType,
-  ForlengDeltakelseEndringsmelding,
-  LeggTilOppstartsdatoEndringsmelding
-} from '../../../../../api/data/endringsmelding'
-import { compareAsc, Sortering } from '../../../../../utils/sortering-utils'
 import { Veiledertype } from '../../../../../api/data/veileder'
+import { compareAsc, Sortering } from '../../../../../utils/sortering-utils'
 
 export enum DeltakerKolonne {
   NAVN = 'NAVN',
@@ -32,34 +24,6 @@ export const sorterDeltakere = (
     return deltakere
   }
 
-  const finnEndringsmeldingMedStartDato = (
-    endringsmeldinger: Endringsmelding[]
-  ):
-    | LeggTilOppstartsdatoEndringsmelding
-    | EndreOppstartsdatoEndringsmelding
-    | undefined => {
-    return endringsmeldinger.filter(
-      (endringsmelding) =>
-        endringsmelding.type === EndringsmeldingType.LEGG_TIL_OPPSTARTSDATO ||
-        endringsmelding.type === EndringsmeldingType.ENDRE_OPPSTARTSDATO
-    )[0] as
-      | LeggTilOppstartsdatoEndringsmelding
-      | EndreOppstartsdatoEndringsmelding
-  }
-
-  const finnEndringsmeldingMedSluttDato = (
-    endringsmeldinger: Endringsmelding[]
-  ):
-    | ForlengDeltakelseEndringsmelding
-    | AvsluttDeltakelseEndringsmelding
-    | undefined => {
-    return endringsmeldinger.filter(
-      (endringsmelding) =>
-        endringsmelding.type === EndringsmeldingType.FORLENG_DELTAKELSE ||
-        endringsmelding.type === EndringsmeldingType.AVSLUTT_DELTAKELSE
-    )[0] as ForlengDeltakelseEndringsmelding | AvsluttDeltakelseEndringsmelding
-  }
-
   const sorterteDeltakereAsc = [...deltakere].sort((a, b) => {
     switch (sortering.orderBy) {
       case DeltakerKolonne.NAVN: {
@@ -81,18 +45,10 @@ export const sorterDeltakere = (
       case DeltakerKolonne.STATUS:
         return compareAsc(a.status.type, b.status.type)
       case DeltakerKolonne.OPPSTART:
-        return compareAsc(
-          finnEndringsmeldingMedStartDato(a.aktiveEndringsmeldinger)?.innhold
-            .oppstartsdato || a.startDato,
-          finnEndringsmeldingMedStartDato(b.aktiveEndringsmeldinger)?.innhold
-            .oppstartsdato || b.startDato
+        return compareAsc(a.startDato, b.startDato
         )
       case DeltakerKolonne.SLUTT:
-        return compareAsc(
-          finnEndringsmeldingMedSluttDato(a.aktiveEndringsmeldinger)?.innhold
-            .sluttdato || a.sluttDato,
-          finnEndringsmeldingMedSluttDato(b.aktiveEndringsmeldinger)?.innhold
-            .sluttdato || b.sluttDato
+        return compareAsc(a.sluttDato, b.sluttDato
         )
       case DeltakerKolonne.FODSELSNUMMER:
         return compareAsc(a.fodselsnummer, b.fodselsnummer)

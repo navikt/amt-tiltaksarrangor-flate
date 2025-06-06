@@ -1,4 +1,4 @@
-import { Adresse, AktivEndring, AktivEndringForDeltaker, AktivEndringsType, Deltaker } from '../api/data/deltaker'
+import { Adresse, AktivEndring, AktivEndringForDeltaker, Deltaker } from '../api/data/deltaker'
 import { Tiltakskode } from '../api/data/tiltak'
 
 export const INNHOLD_TYPE_ANNET = 'annet'
@@ -68,9 +68,8 @@ const getAktivEndringTypeTekst = (aktivEndringType: AktivEndring) => {
 }
 
 export const getAktivEndringTekst = (aktivEndring: AktivEndringForDeltaker) => {
-  const typeTekst = aktivEndring.type === AktivEndringsType.Endringsmelding ? 'Endringsmelding' : 'Forslag'
   const typeEndringTekst = getAktivEndringTypeTekst(aktivEndring.endingsType)
-  return `${typeTekst} sendt til Nav: ${typeEndringTekst}`
+  return `Forslag sendt til Nav: ${typeEndringTekst}`
 }
 
 export const harDeltattMindreEnnFemtenDager = (deltaker: Deltaker) => {
