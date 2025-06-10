@@ -1,27 +1,22 @@
 import { TextField } from '@navikt/ds-react'
 import dayjs from 'dayjs'
 import { useState } from 'react'
-import React from 'react'
 
-import { endreDeltakelsesprosent } from '../../../../../api/tiltak-api'
-import { DateField } from '../../../../felles/DateField'
+import { deltakelsesmengdeForslag } from '../../../../../api/forslag-api'
+import { SimpleDatePicker } from '../../../../felles/SimpleDatePicker'
+import { ModalDataProps } from '../ModalController'
+import { EndringType } from '../types'
 import styles from './EndreProsentDeltakelseModal.module.scss'
 import { Endringsmodal } from './endringsmodal/Endringsmodal'
 import {
   gyldigObligatoriskBegrunnelse,
   validerObligatoriskBegrunnelse
 } from './validering/begrunnelseValidering'
-import { deltakelsesmengdeForslag } from '../../../../../api/forslag-api'
 import { useDeltakelsesmengdeValidering } from './validering/deltakelsesmengdeValidering'
-import { EndringType } from '../types'
-import { SimpleDatePicker } from '../../../../felles/SimpleDatePicker'
-import { ModalDataProps } from '../ModalController'
 
 export const EndreProsentDeltakelseModal = ({
   deltaker,
   visGodkjennVilkaarPanel,
-  erForslagEnabled,
-  onEndringUtfort,
   onForslagSendt,
   onClose
 }: ModalDataProps) => {
@@ -46,26 +41,7 @@ export const EndreProsentDeltakelseModal = ({
     deltaker.deltakelsesmengder?.sisteDeltakelsesmengde ?? null
   )
 
-  const kanSendeMelding = erForslagEnabled
-    ? validering.isValid && gyldigObligatoriskBegrunnelse(begrunnelse)
-    : validering.isValid
-
-  const sendEndringsmelding = () => {
-    const prosentDeltakelse = parseInt(prosentDeltakelseFelt)
-    const dagerPerUke =
-      prosentDeltakelse === 100 ? null : parseInt(dagerPerUkeFelt)
-
-    if (!gyldigFraDato) {
-      return Promise.reject('Ugyldig fra dato')
-    }
-
-    return endreDeltakelsesprosent(
-      deltaker.id,
-      prosentDeltakelse,
-      dagerPerUke,
-      gyldigFraDato
-    ).then(onEndringUtfort)
-  }
+  const kanSendeMelding = validering.isValid && gyldigObligatoriskBegrunnelse(begrunnelse)
 
   const sendForslag = () => {
     const prosentDeltakelse = parseInt(prosentDeltakelseFelt)
@@ -100,11 +76,11 @@ export const EndreProsentDeltakelseModal = ({
       tittel="Endre deltakelsesmengde"
       endringstype={EndringType.ENDRE_DELTAKELSE_PROSENT}
       visGodkjennVilkaarPanel={visGodkjennVilkaarPanel}
-      erForslag={erForslagEnabled}
+      erForslag={true}
       erSendKnappDisabled={!kanSendeMelding}
       begrunnelseType="obligatorisk"
       onClose={onClose}
-      onSend={erForslagEnabled ? sendForslag : sendEndringsmelding}
+      onSend={sendForslag}
       onBegrunnelse={(begrunnelse) => {
         setBegrunnelse(begrunnelse)
       }}
@@ -130,7 +106,7 @@ export const EndreProsentDeltakelseModal = ({
           onChange={(e) => settDagerPerUkeFelt(e.target.value)}
         />
       )}
-      {erForslagEnabled && deltaker.startDato && (
+      {deltaker.startDato && (
         <SimpleDatePicker
           label="Fra når gjelder ny deltakelsesmengde?"
           defaultDate={gyldigFraDato}
@@ -139,16 +115,6 @@ export const EndreProsentDeltakelseModal = ({
           error={validering.gyldigFraError}
           onValidate={validering.validerGyldigFra}
           onChange={(date: Date | undefined) => setGyldigFraDato(date)}
-        />
-      )}
-
-      {!erForslagEnabled && (
-        <DateField
-          label="Fra når gjelder ny deltakelsesmengde?"
-          defaultDate={gyldigFraDato}
-          onDateChanged={(d) => setGyldigFraDato(d ?? undefined)}
-          min={deltaker.deltakerliste.startDato}
-          max={deltaker.deltakerliste.sluttDato}
         />
       )}
     </Endringsmodal>

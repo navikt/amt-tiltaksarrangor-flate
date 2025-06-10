@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react'
 
 import { Radio, RadioGroup } from '@navikt/ds-react'
-import { DeltakerStatusAarsakType } from '../../../../../api/data/endringsmelding'
 import { EndringAarsak } from '../../../../../api/data/forslag'
 import { postAvsluttDeltakelse } from '../../../../../api/forslag-api'
 import { maxDate } from '../../../../../utils/date-utils'
@@ -19,6 +18,7 @@ import { maxSluttdato } from './datoutils'
 import { Endringsmodal } from './endringsmodal/Endringsmodal'
 import { toEndringAarsakType } from './validering/aarsakValidering'
 import { useAvsluttKursDeltakelseValidering } from './validering/useAvsluttKursDeltakelseValidering'
+import { DeltakerStatusAarsakType } from '../../../../../api/data/deltakerStatusArsak'
 
 export const AvsluttKursDeltakelseModal = (props: ModalDataProps) => {
   const {
@@ -26,7 +26,6 @@ export const AvsluttKursDeltakelseModal = (props: ModalDataProps) => {
     deltaker,
     visGodkjennVilkaarPanel,
     onForslagSendt,
-    erForslagEnabled
   } = props
   const [ sluttDato, settSluttDato ] = useState<Date>()
   const [ aarsak, settAarsak ] = useState<DeltakerStatusAarsakType>()
@@ -44,7 +43,7 @@ export const AvsluttKursDeltakelseModal = (props: ModalDataProps) => {
     avslutningsType === AvslutningsType.IKKE_DELTATT
   const { validering } = useAvsluttKursDeltakelseValidering(avslutningsType, sluttDato, aarsak, beskrivelse, begrunnelse)
 
-  const skalViseHarDeltatt = erForslagEnabled && harDeltattMindreEnnFemtenDager(deltaker)
+  const skalViseHarDeltatt = harDeltattMindreEnnFemtenDager(deltaker)
 
   const onAarsakSelected = (
     nyAarsak: DeltakerStatusAarsakType,
@@ -82,7 +81,7 @@ export const AvsluttKursDeltakelseModal = (props: ModalDataProps) => {
       tittel="Avslutt deltakelse"
       endringstype={EndringType.AVSLUTT_DELTAKELSE}
       visGodkjennVilkaarPanel={visGodkjennVilkaarPanel}
-      erForslag={erForslagEnabled}
+      erForslag={true}
       erSendKnappDisabled={!validering.isSuccess}
       begrunnelseType="valgfri"
       onClose={onClose}

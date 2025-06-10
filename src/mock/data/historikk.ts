@@ -16,8 +16,8 @@ import dayjs from 'dayjs'
 import nb from 'dayjs/locale/nb'
 import customParseFormat from 'dayjs/plugin/customParseFormat'
 import { randomUuid } from '../utils/faker'
-import { DeltakerStatusAarsakType } from '../../api/data/endringsmelding'
 import { Vurderingstype } from '../../api/data/deltaker'
+import { DeltakerStatusAarsakType } from '../../api/data/deltakerStatusArsak'
 
 dayjs.locale(nb)
 dayjs.extend(customParseFormat)
