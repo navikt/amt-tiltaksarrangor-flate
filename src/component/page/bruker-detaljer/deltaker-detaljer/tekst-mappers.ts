@@ -1,8 +1,8 @@
 import { Vurderingstype } from '../../../../api/data/deltaker'
-import { DeltakerStatusAarsak, DeltakerStatusAarsakType} from '../../../../api/data/endringsmelding'
 import { EndringAarsak } from '../../../../api/data/forslag'
 import { EndringType } from './types'
 import { AvslutningsType } from './endre-deltaker-modal/AvsluttKursDeltakelseModal'
+import { DeltakerStatusAarsak, DeltakerStatusAarsakType } from '../../../../api/data/deltakerStatusArsak'
 
 export const aarsakTekstMapper = (aarsakType: DeltakerStatusAarsakType) => {
   switch (aarsakType) {

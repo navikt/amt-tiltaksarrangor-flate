@@ -16,8 +16,6 @@ import { endringsknapper } from './endringsknapper'
 
 interface EndreDeltakelseKnappProps {
 	deltaker: Deltaker
-	onEndringUtfort: () => void
-	erKometMaster: boolean
 	onForslagSendt: (forslag: AktivtForslag) => void
 	onEndringSendt: (oppdatertDeltaker: Deltaker) => void
 }
@@ -62,7 +60,7 @@ export const EndreDeltakelseKnapp = (props: EndreDeltakelseKnappProps) => {
 				</Button>
 				<Dropdown.Menu className={styles.dropdownMenu}>
 					<Dropdown.Menu.List>
-						{endringsknapper(deltaker, props.erKometMaster, modal).map(knapp => {
+						{endringsknapper(deltaker, modal).map(knapp => {
 							if (knapp.erTilgjengelig) {
 								return <DropDownButton
 									key={knapp.type}
@@ -71,9 +69,7 @@ export const EndreDeltakelseKnapp = (props: EndreDeltakelseKnappProps) => {
 										knapp.modalFunc({
 											deltaker: deltaker,
 											visGodkjennVilkaarPanel: visGodkjennVilkaarPanel(knapp.type),
-											onEndringUtfort: props.onEndringUtfort,
 											onEndringSendt: props.onEndringSendt,
-											erForslagEnabled: props.erKometMaster,
 											onForslagSendt: props.onForslagSendt,
 											onClose: handleCloseModal,
 										})

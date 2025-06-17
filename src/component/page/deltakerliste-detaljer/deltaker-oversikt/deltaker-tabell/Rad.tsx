@@ -1,16 +1,12 @@
 import { Table } from '@navikt/ds-react'
-import React, { useState } from 'react'
 import cls from 'classnames'
+import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import {
-  TiltakDeltakerStatus,
   TiltakDeltaker,
+  TiltakDeltakerStatus,
   Vurderingstype
 } from '../../../../../api/data/deltaker'
-import {
-  Endringsmelding,
-  EndringsmeldingType
-} from '../../../../../api/data/endringsmelding'
 import { brukerDetaljerPageUrl } from '../../../../../navigation'
 import { lagKommaSeparertBrukerNavn } from '../../../../../utils/bruker-utils'
 import { EMDASH } from '../../../../../utils/constants'
@@ -18,58 +14,17 @@ import { formatDate } from '../../../../../utils/date-utils'
 import { Fnr } from '../../../../felles/fnr/Fnr'
 import { StatusMerkelapp } from '../../../../felles/status-merkelapp/StatusMerkelapp'
 
-import styles from './Rad.module.scss'
-import { Veiledertype } from '../../../../../api/data/veileder'
 import {
   CheckmarkCircleFillIcon,
   PlusCircleFillIcon
 } from '@navikt/aksel-icons'
+import { Veiledertype } from '../../../../../api/data/veileder'
 import { AdressebeskyttetModal } from '../../../veileder/AdressebeskyttetModal.tsx'
+import styles from './Rad.module.scss'
 
 interface RadProps {
   idx: number
   deltaker: TiltakDeltaker
-}
-
-const hentSluttdatoEndringsmelding = (endringsmeldinger: Endringsmelding[]) => {
-  return endringsmeldinger?.flatMap((e) => {
-    const erSluttdatoMelding =
-      e.type === EndringsmeldingType.FORLENG_DELTAKELSE ||
-      e.type === EndringsmeldingType.AVSLUTT_DELTAKELSE ||
-      e.type === EndringsmeldingType.ENDRE_SLUTTDATO
-
-    return erSluttdatoMelding ? e : []
-  })[0]
-}
-
-const hentStartdatoEndringsmelding = (endringsmeldinger: Endringsmelding[]) => {
-  return endringsmeldinger?.flatMap((e) => {
-    const erStartdatoMelding =
-      e.type === EndringsmeldingType.ENDRE_OPPSTARTSDATO ||
-      e.type === EndringsmeldingType.LEGG_TIL_OPPSTARTSDATO
-
-    return erStartdatoMelding ? e : []
-  })[0]
-}
-
-export const utledStartdato = (
-  deltakerStartdato: Date | null,
-  endringsmeldinger: Endringsmelding[]
-) => {
-  const endringsmelding = hentStartdatoEndringsmelding(endringsmeldinger)
-  return endringsmelding
-    ? formatDate(endringsmelding.innhold.oppstartsdato) + '*'
-    : formatDate(deltakerStartdato)
-}
-
-export const utledSluttdato = (
-  deltakerSluttdato: Date | null,
-  endringsmeldinger: Endringsmelding[]
-) => {
-  const endringsmelding = hentSluttdatoEndringsmelding(endringsmeldinger)
-  return endringsmelding
-    ? formatDate(endringsmelding.innhold.sluttdato) + '*'
-    : formatDate(deltakerSluttdato)
 }
 
 export const Rad = (props: RadProps): React.ReactElement<RadProps> => {
@@ -83,7 +38,6 @@ export const Rad = (props: RadProps): React.ReactElement<RadProps> => {
     sluttDato,
     soktInnDato,
     status,
-    aktiveEndringsmeldinger,
     veiledere,
     gjeldendeVurderingFraArrangor,
     adressebeskyttet,
@@ -153,10 +107,10 @@ export const Rad = (props: RadProps): React.ReactElement<RadProps> => {
         {formatDate(soktInnDato)}
       </Table.DataCell>
       <Table.DataCell className={styles.smallText}>
-        {utledStartdato(startDato, aktiveEndringsmeldinger)}
+        {formatDate(startDato)}
       </Table.DataCell>
       <Table.DataCell className={styles.smallText}>
-        {utledSluttdato(sluttDato, aktiveEndringsmeldinger)}
+        {formatDate(sluttDato)}
       </Table.DataCell>
       <Table.DataCell className={cls(styles.smallText)}>
         <div className={cls(styles.statusCelle)}>

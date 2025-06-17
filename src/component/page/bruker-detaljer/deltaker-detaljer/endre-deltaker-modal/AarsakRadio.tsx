@@ -1,8 +1,8 @@
 import { Radio } from '@navikt/ds-react'
 import React from 'react'
 
-import { DeltakerStatusAarsakType } from '../../../../../api/data/endringsmelding'
 import { aarsakTekstMapper } from '../tekst-mappers'
+import { DeltakerStatusAarsakType } from '../../../../../api/data/deltakerStatusArsak'
 
 interface AarsakRadioProps {
   aarsakType: DeltakerStatusAarsakType

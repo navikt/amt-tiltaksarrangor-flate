@@ -5,14 +5,13 @@ import { Tiltakskode } from '../../../api/data/tiltak'
 import { formatDate } from '../../../utils/date-utils'
 import { Show } from '../../felles/Show'
 import { Bestilling } from './bestilling/Bestilling'
+import { DeltakelsesinnholdDetaljer } from './deltakelsesinnhold/DeltakelsesinnholdDetaljer'
 import { DeltakelseInfo } from './deltaker-detaljer/DeltakelseInfo'
+import { useDeltakerContext } from './deltaker-detaljer/DeltakerContext'
+import { DeltakerVurdering } from './deltaker-detaljer/vurdering/DeltakerVurdering'
 import styles from './DeltakerDetaljer.module.scss'
 import { NavInfoPanel } from './nav-info-panel/NavInfoPanel'
 import { VeilederPanel } from './veileder-panel/VeilederPanel'
-import { DeltakerVurdering } from './deltaker-detaljer/vurdering/DeltakerVurdering'
-import { useDeltakerContext } from './deltaker-detaljer/DeltakerContext'
-import { DeltakelsesinnholdDetaljer } from './deltakelsesinnhold/DeltakelsesinnholdDetaljer'
-import { useFeatureToggle } from '../../../hooks/useFeatureToggle'
 
 export const DeltakerDetaljer = (props: {
   visTildeling: boolean
@@ -26,11 +25,6 @@ export const DeltakerDetaljer = (props: {
     tiltakskode,
     innhold
   } = deltaker
-  const { erKometMasterForTiltak } = useFeatureToggle()
-
-  const erInnholdOgInfoEnabled = erKometMasterForTiltak(
-    deltaker.deltakerliste.tiltakstype
-  )
 
   return (
     <div className={styles.detaljer}>
@@ -56,14 +50,14 @@ export const DeltakerDetaljer = (props: {
           </BodyShort>
         </div>
 
-        {erInnholdOgInfoEnabled && innhold && (
+        {innhold && (
           <DeltakelsesinnholdDetaljer innhold={innhold} tiltakskode={tiltakskode} />
         )}
 
         <Show if={visBestilling(tiltakskode)}>
           <Bestilling
             tekst={bestillingTekst}
-            label={erInnholdOgInfoEnabled ? 'Bakgrunnsinfo' : 'Bestilling'}
+            label="Bakgrunnsinfo"
           />
         </Show>
       </section>

@@ -1,4 +1,4 @@
-import { DeltakerStatusAarsakType } from '../../../../../api/data/endringsmelding'
+
 import React, { useEffect, useState } from 'react'
 import { aarsakTekstMapper } from '../tekst-mappers'
 import { Textarea, useId } from '@navikt/ds-react'
@@ -6,6 +6,7 @@ import styles from './AarsakSelector.module.scss'
 import { AarsakRadio } from './AarsakRadio'
 import { Nullable } from '../../../../../utils/types/or-nothing'
 import { BESKRIVELSE_MAKS_TEGN, fjernUgyldigeTegn } from '../../../../../utils/endre-deltaker-utils'
+import { DeltakerStatusAarsakType } from '../../../../../api/data/deltakerStatusArsak'
 
 interface AarsakRadioMedBeskrivelseProps {
   aarsakType: DeltakerStatusAarsakType

@@ -1,40 +1,28 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 
-import { postEndreSluttdato } from '../../../../../api/tiltak-api'
-import { Nullable } from '../../../../../utils/types/or-nothing'
-import { Endringsmodal } from './endringsmodal/Endringsmodal'
-import { DateField } from '../../../../felles/DateField'
+import dayjs from 'dayjs'
 import { endreSluttdatoForslag } from '../../../../../api/forslag-api'
+import { Nullable } from '../../../../../utils/types/or-nothing'
+import { DateField } from '../../../../felles/DateField'
+import { ModalDataProps } from '../ModalController'
+import { EndringType } from '../types'
+import { kalkulerMinDato, maxSluttdato } from './datoutils'
+import { Endringsmodal } from './endringsmodal/Endringsmodal'
 import {
   gyldigObligatoriskBegrunnelse,
   validerObligatoriskBegrunnelse
 } from './validering/begrunnelseValidering'
-import { EndringType } from '../types'
-import { kalkulerMinDato, maxSluttdato } from './datoutils'
-import dayjs from 'dayjs'
-import { ModalDataProps } from '../ModalController'
 
 export const EndreSluttdatoModal = ({
   deltaker,
   visGodkjennVilkaarPanel,
-  onEndringUtfort,
   onForslagSendt,
-  onClose,
-  erForslagEnabled
+  onClose
 }: ModalDataProps) => {
   const [valgtDato, setValgtDato] = useState<Nullable<Date>>()
   const [begrunnelse, setBegrunnelse] = useState<string>('')
 
-  const kanSendeMelding = erForslagEnabled
-    ? valgtDato !== null && gyldigObligatoriskBegrunnelse(begrunnelse)
-    : valgtDato !== null
-
-  const sendEndringsmelding = () => {
-    if (!valgtDato)
-      return Promise.reject('Sluttdato må være valgt for å sende endring')
-
-    return postEndreSluttdato(deltaker.id, valgtDato).then(onEndringUtfort)
-  }
+  const kanSendeMelding = valgtDato !== null && gyldigObligatoriskBegrunnelse(begrunnelse)
 
   const sendForslag = () => {
     if (!valgtDato) {
@@ -56,9 +44,9 @@ export const EndreSluttdatoModal = ({
       endringstype={EndringType.ENDRE_SLUTTDATO}
       visGodkjennVilkaarPanel={visGodkjennVilkaarPanel}
       erSendKnappDisabled={!kanSendeMelding}
-      erForslag={erForslagEnabled}
+      erForslag={true}
       onClose={onClose}
-      onSend={erForslagEnabled ? sendForslag : sendEndringsmelding}
+      onSend={sendForslag}
       begrunnelseType="obligatorisk"
       onBegrunnelse={(begrunnelse) => {
         setBegrunnelse(begrunnelse)

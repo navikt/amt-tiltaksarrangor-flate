@@ -1,5 +1,5 @@
 import { Adressetype, Hendelser, TiltakDeltakerStatus } from '../api/data/deltaker'
-import { DeltakerStatusAarsak, DeltakerStatusAarsakType } from '../api/data/endringsmelding'
+import { DeltakerStatusAarsak, DeltakerStatusAarsakType } from '../api/data/deltakerStatusArsak'
 import { EndringAarsak, ForslagEndringAarsakType, ForslagEndringType, ForslagStatusType } from '../api/data/forslag'
 import { DeltakerHistorikkStatus, Endring, EndringType, TiltakskoordinatorEndringsType } from '../api/data/historikk'
 import { Veiledertype } from '../api/data/veileder'

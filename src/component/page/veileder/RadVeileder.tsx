@@ -2,20 +2,16 @@ import { BodyShort, Button, Table, Tooltip } from '@navikt/ds-react'
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 
+import { InformationSquareIcon } from '@navikt/aksel-icons'
+import { VeiledersDeltaker } from '../../../api/data/deltaker'
 import { brukerDetaljerPageUrl } from '../../../navigation'
 import { lagKommaSeparertBrukerNavn } from '../../../utils/bruker-utils'
+import { formatDate } from '../../../utils/date-utils'
+import { getAktivEndringTekst } from '../../../utils/deltaker-utils'
 import { Fnr } from '../../felles/fnr/Fnr'
 import { StatusMerkelapp } from '../../felles/status-merkelapp/StatusMerkelapp'
-import styles from './RadVeileder.module.scss'
-import { VeiledersDeltaker } from '../../../api/data/deltaker'
-import {
-  utledSluttdato,
-  utledStartdato
-} from '../deltakerliste-detaljer/deltaker-oversikt/deltaker-tabell/Rad'
 import { AdressebeskyttetModal } from './AdressebeskyttetModal.tsx'
-import { formatDate } from '../../../utils/date-utils'
-import { InformationSquareIcon } from '@navikt/aksel-icons'
-import { getAktivEndringTekst } from '../../../utils/deltaker-utils'
+import styles from './RadVeileder.module.scss'
 
 interface RadProps {
   idx: number
@@ -32,7 +28,6 @@ export const RadVeileder = (props: RadProps): React.ReactElement<RadProps> => {
     startDato,
     sluttDato,
     status,
-    aktiveEndringsmeldinger,
     aktivEndring,
     sistEndret,
     adressebeskyttet
@@ -87,10 +82,10 @@ export const RadVeileder = (props: RadProps): React.ReactElement<RadProps> => {
         </BodyShort>
       </Table.DataCell>
       <Table.DataCell>
-        {utledStartdato(startDato, aktiveEndringsmeldinger)}
+        {formatDate(startDato)}
       </Table.DataCell>
       <Table.DataCell>
-        {utledSluttdato(sluttDato, aktiveEndringsmeldinger)}
+        {formatDate(sluttDato)}
       </Table.DataCell>
       <Table.DataCell>
         <StatusMerkelapp status={status} />

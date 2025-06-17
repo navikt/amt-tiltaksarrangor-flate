@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
-import { DeltakerStatusAarsakType } from '../../../../../../api/data/endringsmelding'
 import { AvslutningsType } from '../AvsluttKursDeltakelseModal'
 import { validerAarsakForm } from './aarsakValidering'
+import { DeltakerStatusAarsakType } from '../../../../../../api/data/deltakerStatusArsak'
 
 type ValideringState = {
     isSuccess: boolean
