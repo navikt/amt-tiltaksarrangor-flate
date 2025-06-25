@@ -1,4 +1,4 @@
-
+/* eslint-disable */
 /* tslint:disable */
 
 /**
@@ -12,16 +12,16 @@ const INTEGRITY_CHECKSUM = 'f5825c521429caf22a4dd13b66e243af'
 const IS_MOCKED_RESPONSE = Symbol('isMockedResponse')
 const activeClientIds = new Set()
 
-addEventListener( 'install', function () {
+addEventListener('install', function () {
   self.skipWaiting()
 })
 
-addEventListener( 'activate', function ( event ) {
+addEventListener('activate', function (event) {
   event.waitUntil(self.clients.claim())
 })
 
-addEventListener( 'message', async function ( event ) {
-  const clientId = Reflect.get( event.source || {}, 'id' )
+addEventListener('message', async function (event) {
+  const clientId = Reflect.get(event.source || {}, 'id')
 
   if (!clientId || !self.clients) {
     return
@@ -93,9 +93,9 @@ addEventListener( 'message', async function ( event ) {
   }
 })
 
-addEventListener( 'fetch', function ( event ) {
+addEventListener('fetch', function (event) {
   // Bypass navigation requests.
-  if ( event.request.mode === 'navigate' ) {
+  if (event.request.mode === 'navigate') {
     return
   }
 
@@ -132,7 +132,7 @@ async function handleRequest(event, requestId) {
   // Ensure MSW is active and ready to handle the message, otherwise
   // this message will pend indefinitely.
   if (client && activeClientIds.has(client.id)) {
-    const serializedRequest = await serializeRequest( requestCloneForEvents )
+    const serializedRequest = await serializeRequest(requestCloneForEvents)
 
     // Clone the response so both the client and the library could consume it.
     const responseClone = response.clone()
@@ -156,7 +156,7 @@ async function handleRequest(event, requestId) {
           },
         },
       },
-      responseClone.body ? [ serializedRequest.body, responseClone.body ] : [],
+      responseClone.body ? [serializedRequest.body, responseClone.body] : [],
     )
   }
 
@@ -204,7 +204,7 @@ async function resolveMainClient(event) {
  * @param {string} requestId
  * @returns {Promise<Response>}
  */
-async function getResponse( event, client, requestId ) {
+async function getResponse(event, client, requestId) {
   // Clone the request because it might've been already used
   // (i.e. its body has been read and sent to the client).
   const requestClone = event.request.clone()
@@ -248,7 +248,7 @@ async function getResponse( event, client, requestId ) {
   }
 
   // Notify the client that a request has been intercepted.
-  const serializedRequest = await serializeRequest( event.request )
+  const serializedRequest = await serializeRequest(event.request)
   const clientMessage = await sendToClient(
     client,
     {
@@ -258,7 +258,7 @@ async function getResponse( event, client, requestId ) {
         ...serializedRequest,
       },
     },
-    [ serializedRequest.body ],
+    [serializedRequest.body],
   )
 
   switch (clientMessage.type) {
@@ -292,10 +292,10 @@ function sendToClient(client, message, transferrables = []) {
       resolve(event.data)
     }
 
-    client.postMessage( message, [
+    client.postMessage(message, [
       channel.port2,
-      ...transferrables.filter( Boolean ),
-    ] )
+      ...transferrables.filter(Boolean),
+    ])
   })
 }
 
@@ -303,7 +303,7 @@ function sendToClient(client, message, transferrables = []) {
  * @param {Response} response
  * @returns {Response}
  */
-function respondWithMock( response ) {
+function respondWithMock(response) {
   // Setting response status code to 0 is a no-op.
   // However, when responding with a "Response.error()", the produced Response
   // instance will have status code set to 0. Since it's not possible to create
@@ -325,12 +325,12 @@ function respondWithMock( response ) {
 /**
  * @param {Request} request
  */
-async function serializeRequest( request ) {
+async function serializeRequest(request) {
   return {
     url: request.url,
     mode: request.mode,
     method: request.method,
-    headers: Object.fromEntries( request.headers.entries() ),
+    headers: Object.fromEntries(request.headers.entries()),
     cache: request.cache,
     credentials: request.credentials,
     destination: request.destination,
