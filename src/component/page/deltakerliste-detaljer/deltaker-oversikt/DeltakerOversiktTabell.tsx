@@ -6,6 +6,7 @@ import globalStyles from '../../../../globals.module.scss'
 import { useDeltakerSorteringContext } from '../../../../store/DeltakerSorteringContextProvider'
 import { finnNesteSortering } from '../../../../utils/sortering-utils'
 import { AlertInfoMessage } from '../../../felles/alert-info-message/AlertInfoMessage'
+import { AlertInfoMessageKravUtbetaling } from '../../../felles/alert-info-message/krav-utbetaling/AlertInfoMessageKravUtbetaling'
 import {
 	AlertInfoMessageSoktInnVurderes
 } from '../../../felles/alert-info-message/sokt-inn-vurderes/AlertInfoMessageSoktInnVurderes'
@@ -32,6 +33,7 @@ export const DeltakerOversiktTabell = (
 		TiltakDeltaker[]
 	>(sorterDeltakere(deltakere, deltakerSortering))
 	const visInfomeldingKursTiltak = tiltakstype === Tiltakskode.GRUPPEAMO || tiltakstype === Tiltakskode.GRUFAGYRKE || tiltakstype === Tiltakskode.JOBBK
+	const visInfoMeldingKravutbetaling = tiltakstype === Tiltakskode.VASV || tiltakstype === Tiltakskode.ARBFORB
 
 	useEffect(() => {
 		if (!deltakere) return
@@ -56,6 +58,7 @@ export const DeltakerOversiktTabell = (
 		<div className={styles.tableWrapper}>
 			<AlertInfoMessage />
 			{visInfomeldingKursTiltak && <AlertInfoMessageSoktInnVurderes />}
+			{visInfoMeldingKravutbetaling && <AlertInfoMessageKravUtbetaling />}
 
 			{deltakere.length === 0 ? (
 				<IngenDeltakereAlertstripe />
