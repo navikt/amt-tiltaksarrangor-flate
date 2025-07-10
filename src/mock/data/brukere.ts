@@ -78,7 +78,8 @@ export interface MockTiltakDeltaker {
   aktivEndring?: AktivEndringForDeltaker | null,
   svarFraNav: boolean,
   oppdateringFraNav: boolean,
-  nyDeltaker: boolean
+  nyDeltaker: boolean,
+	erUnderOppfolging: boolean,
 }
 
 const navEnheter: MockNavEnhet[] = [
@@ -420,6 +421,7 @@ const lagMockTiltakDeltagerForGjennomforing = (
 			}
 		})
 	}
+	const erUnderOppfolging = status === TiltakDeltakerStatus.HAR_SLUTTET && randomNumber > 11 ? false : true
 
   return {
     id: id,
@@ -480,7 +482,8 @@ const lagMockTiltakDeltagerForGjennomforing = (
     ulesteEndringer,
     svarFraNav: ulesteEndringer.find(ulestEndringErSvarFraNav) ? true : false,
     oppdateringFraNav: ulesteEndringer.find(ulestEndringErOppdateringFraNav) ? true : false,
-    nyDeltaker: ulesteEndringer.find(ulestEndringErNyeDeltaker) ? true : false
+    nyDeltaker: ulesteEndringer.find(ulestEndringErNyeDeltaker) ? true : false,
+		erUnderOppfolging: erUnderOppfolging
   }
 }
 
