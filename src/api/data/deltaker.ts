@@ -162,7 +162,8 @@ export const deltakerSchema = z.object({
   adresse: adresseSchema.nullable(),
   gjeldendeVurderingFraArrangor: vurderingSchema.nullable(),
   adressebeskyttet: z.boolean(),
-  deltakelsesmengder: deltakelsesmengderSchema.nullable()
+  deltakelsesmengder: deltakelsesmengderSchema.nullable(),
+	erUnderOppfolging: z.boolean(),
 })
 
 export const veilederForSchema = z.object({
@@ -210,7 +211,8 @@ export const veiledersDeltakerSchema = z.object({
   adressebeskyttet: z.boolean(),
   svarFraNav: z.boolean(),
   oppdateringFraNav: z.boolean(),
-  nyDeltaker: z.boolean()
+  nyDeltaker: z.boolean(),
+	erUnderOppfolging: z.boolean()
 })
 
 export const deltakerlisteVeilederSchema = z.array(veiledersDeltakerSchema)

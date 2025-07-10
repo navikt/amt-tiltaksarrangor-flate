@@ -254,7 +254,8 @@ const lagMockVeiledersDeltaker = (
     adressebeskyttet: deltaker.adressebeskyttet,
     svarFraNav: deltaker.svarFraNav,
     oppdateringFraNav: deltaker.oppdateringFraNav,
-    nyDeltaker: deltaker.nyDeltaker
+    nyDeltaker: deltaker.nyDeltaker,
+		erUnderOppfolging: deltaker.erUnderOppfolging,
   }
 }
 

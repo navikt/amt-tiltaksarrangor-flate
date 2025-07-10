@@ -373,7 +373,8 @@ const mapToDeltakerDetaljerView = (
 			: null,
 		gjeldendeVurderingFraArrangor: deltaker.gjeldendeVurderingFraArrangor,
 		adressebeskyttet: deltaker.adressebeskyttet,
-		deltakelsesmengder: deltaker.deltakelsesmengder
+		deltakelsesmengder: deltaker.deltakelsesmengder,
+		erUnderOppfolging: deltaker.erUnderOppfolging,
 	}
 }
 
