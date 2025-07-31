@@ -28,7 +28,7 @@ export const AvsluttKursDeltakelseModal = (props: ModalDataProps) => {
     visGodkjennVilkaarPanel,
     onForslagSendt,
   } = props
-  const [ sluttDato, settSluttDato ] = useState<Date>()
+  const [ sluttDato, settSluttDato ] = useState<Date | undefined>(deltaker.sluttDato ?? undefined)
   const [ aarsak, settAarsak ] = useState<DeltakerStatusAarsakType>()
   const [ beskrivelse, settBeskrivelse ] = useState<string>()
   const [ begrunnelse, setBegrunnelse ] = useState<string>()
