@@ -65,6 +65,7 @@ export const ForslagtypeDetaljer = ({
           </BodyLong>
         )
       case ForslagEndringType.AvsluttDeltakelse:
+      case ForslagEndringType.EndreAvslutning:
         return (
           <>
             {forslag.endring.aarsak && (

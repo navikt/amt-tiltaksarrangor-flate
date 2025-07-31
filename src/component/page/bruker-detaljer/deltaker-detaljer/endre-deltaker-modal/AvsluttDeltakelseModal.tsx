@@ -1,6 +1,7 @@
 import { useState } from 'react'
 
 import { Radio, RadioGroup } from '@navikt/ds-react'
+import { DeltakerStatusAarsakType } from '../../../../../api/data/deltakerStatusArsak'
 import { postAvsluttDeltakelse } from '../../../../../api/forslag-api'
 import { maxDate } from '../../../../../utils/date-utils'
 import { harDeltattMindreEnnFemtenDager } from '../../../../../utils/deltaker-utils'
@@ -16,7 +17,6 @@ import {
   useAarsakValidering,
   validerAarsakForm
 } from './validering/aarsakValidering'
-import { DeltakerStatusAarsakType } from '../../../../../api/data/deltakerStatusArsak'
 
 export const AvsluttDeltakelseModal = (props: ModalDataProps) => {
   const {

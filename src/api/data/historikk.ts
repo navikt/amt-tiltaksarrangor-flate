@@ -56,7 +56,7 @@ export enum TiltakskoordinatorEndringsType {
 	Avslag = 'Avslag'
 }
 
-export const vurderingstypeSchema = z.nativeEnum(Vurderingstype)
+export const vurderingstypeSchema = z.enum(Vurderingstype)
 
 export const endreBakgrunnsinformasjonSchema = z.object({
   type: z.literal(EndringType.EndreBakgrunnsinformasjon),
@@ -108,7 +108,7 @@ export const avsluttDeltakelseSchema = z.object({
   sluttdato: dateSchema,
   begrunnelse: z.string().nullable(),
   harFullfort: z.boolean(),
-  oppstartstype: z.nativeEnum(Oppstartstype)
+  oppstartstype: z.enum(Oppstartstype)
 })
 
 export const endreSluttarsakSchema = z.object({
@@ -211,14 +211,14 @@ export const deltakerEndringSchema = z.object({
 
 export const endringFraArrangorSchema = z.object({
   type: z.literal(HistorikkType.EndringFraArrangor),
-  id: z.string().uuid(),
+  id: z.uuid(),
   opprettet: dateSchema,
   arrangorNavn: z.string(),
   endring: arrangorEndringSchema
 })
 
 export const deltakerHistorikkStatusSchema = z.object({
-  type: z.nativeEnum(DeltakerHistorikkStatus),
+  type: z.enum(DeltakerHistorikkStatus),
   aarsak: deltakerStatusAarsakSchema.nullable()
 })
 

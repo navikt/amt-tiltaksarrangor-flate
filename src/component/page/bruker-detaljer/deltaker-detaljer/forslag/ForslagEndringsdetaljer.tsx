@@ -55,7 +55,8 @@ function EndringsDetaljer({ endring }: { readonly endring: ForslagEndring }) {
         </>
       )
     }
-    case ForslagEndringType.AvsluttDeltakelse: {
+    case ForslagEndringType.AvsluttDeltakelse:
+    case ForslagEndringType.EndreAvslutning: {
       return (
         <>
           {endring.aarsak && (

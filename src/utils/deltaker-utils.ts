@@ -64,6 +64,8 @@ const getAktivEndringTypeTekst = (aktivEndringType: AktivEndring) => {
       return 'Legg til oppstartsdato'
     case AktivEndring.FjernOppstartsdato:
       return 'Fjern oppstartsdato'
+    case AktivEndring.EndreAvslutning:
+      return 'Endre avslutning'
   }
 }
 

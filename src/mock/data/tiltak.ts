@@ -221,8 +221,10 @@ export const lagMockAktivEndring = (): null | AktivEndringForDeltaker => {
     endingsType = AktivEndring.AvsluttDeltakelse
   } else if (i < 8) {
     endingsType = AktivEndring.IkkeAktuell
-  } else if (i < 10) {
+  } else if (i < 9) {
     endingsType = AktivEndring.ForlengDeltakelse
+  } else if (i < 10) {
+    endingsType = AktivEndring.Deltakelsesmengde
   }
 
   return {

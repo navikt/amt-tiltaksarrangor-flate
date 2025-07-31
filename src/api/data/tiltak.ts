@@ -20,11 +20,11 @@ export enum TiltakGjennomforingStatus {
   AVSLUTTET = 'AVSLUTTET'
 }
 
-export const tiltakGjennomforingStatusSchema = z.nativeEnum(
+export const tiltakGjennomforingStatusSchema = z.enum(
   TiltakGjennomforingStatus
 )
 
-export const tiltakstypeSchema = z.nativeEnum(Tiltakskode)
+export const tiltakstypeSchema = z.enum(Tiltakskode)
 
 export const tiltakSchema = z.object({
   tiltakskode: tiltakstypeSchema,

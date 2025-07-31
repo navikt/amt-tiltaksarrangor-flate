@@ -86,6 +86,8 @@ export const EndringTypeIkon = ({ type, size }: EndringTypeIkonProps) => {
       )
     case HistorikkEndringType.EndreSluttarsak:
     case ForslagEndringType.Sluttarsak:
+    case ForslagEndringType.EndreAvslutning:
+    case EndringType.ENDRE_AVSLUTNING:
     case EndringType.ENDRE_SLUTTAARSAK:
       return (
         <ChevronRightLastCircleFillIcon

@@ -126,6 +126,8 @@ export const endringTypeTekstMapper = (endringsType: EndringType) => {
       return 'Endre sluttårsak'
     case EndringType.FJERN_OPPSTARTSDATO:
       return 'Fjern oppstartsdato'
+    case EndringType.ENDRE_AVSLUTNING:
+      return 'Endre avslutning'
     default:
       return 'Ukjent'
   }

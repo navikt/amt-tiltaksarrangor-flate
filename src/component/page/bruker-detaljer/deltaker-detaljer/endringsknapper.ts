@@ -22,6 +22,7 @@ export function endringsknapper(deltaker: Deltaker, modal: ModalHandler): Endrin
 		visEndreSluttdatoModal,
 		visEndreSluttaarsakModal,
 		visFjernOppstartsdatoModal,
+		visEndreAvslutningModal
 	} = modal
 
 	const status = statusBooleans(deltaker.status.type)
@@ -55,6 +56,9 @@ export function endringsknapper(deltaker: Deltaker, modal: ModalHandler): Endrin
 	const kanAvslutteDeltakelse = status.erDeltar && !deltaker.deltakerliste.erKurs
 	const kanAvslutteKursDeltakelse =
 		status.erDeltar && deltaker.deltakerliste.erKurs
+
+	const kanEndreAvslutning = (status.erFullfort || status.erAvbrutt || status.erIkkeAktuell) &&
+		deltaker.deltakerliste.erKurs
 
 	const kanEndreStartDato =
 		status.erVenterPaOppstart ||
@@ -119,6 +123,11 @@ export function endringsknapper(deltaker: Deltaker, modal: ModalHandler): Endrin
 			erTilgjengelig: kanFjerneOppstartsdato,
 			modalFunc: visFjernOppstartsdatoModal,
 		},
+		{
+			type: EndringType.ENDRE_AVSLUTNING,
+			erTilgjengelig: kanEndreAvslutning,
+			modalFunc: visEndreAvslutningModal,
+		}
 	]
 }
 

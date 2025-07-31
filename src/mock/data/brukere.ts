@@ -590,6 +590,8 @@ const mapForlsagTypeTilAktivEndring = (endringsType: ForslagEndringType) => {
       return AktivEndring.Startdato
     case ForslagEndringType.FjernOppstartsdato:
       return AktivEndring.FjernOppstartsdato
+    case ForslagEndringType.EndreAvslutning:
+      return AktivEndring.EndreAvslutning
   }
 }
 

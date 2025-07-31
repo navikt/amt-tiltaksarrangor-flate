@@ -17,6 +17,7 @@ import { AvsluttKursDeltakelseModal } from './endre-deltaker-modal/AvsluttKursDe
 export interface ModalDataProps {
   readonly deltaker: Deltaker
   readonly visGodkjennVilkaarPanel: boolean
+  readonly endringstype?: ModalType
   readonly onEndringSendt: (oppdatertDeltaker: Deltaker) => void
   readonly onForslagSendt: (forslag: AktivtForslag) => void
   readonly onClose: () => void
@@ -38,8 +39,9 @@ export const ModalController = (props: {
       return <SettIkkeAktuellModal {...modalData.props} />
     case ModalType.AvsluttDeltaker:
       return <AvsluttDeltakelseModal {...modalData.props} />
+    case ModalType.EndreAvslutning:
     case ModalType.AvsluttKursDeltaker:
-      return <AvsluttKursDeltakelseModal {...modalData.props} />
+      return <AvsluttKursDeltakelseModal {...modalData.props} endringstype={modalData?.type} />
     case ModalType.EndreProsentDeltakelse:
       return <EndreProsentDeltakelseModal {...modalData.props} />
     case ModalType.EndreSluttdato:

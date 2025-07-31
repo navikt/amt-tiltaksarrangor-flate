@@ -34,6 +34,8 @@ export function forslagEndringsTittel(type: ForslagEndringType | EndringType) {
       return 'Endre bakgrunnsinformasjon'
     case EndringType.ReaktiverDeltakelse:
       return 'Deltakelsen er endret til å være aktiv'
+    case ForslagEndringType.EndreAvslutning:
+      return 'Endre avslutning'
   }
 }
 

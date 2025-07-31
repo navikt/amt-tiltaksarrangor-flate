@@ -143,6 +143,8 @@ export const getForslagTittel = (endringstype: ForslagEndringType) => {
       return 'Endre oppstartsdato'
     case ForslagEndringType.FjernOppstartsdato:
       return 'Fjern oppstartsdato'
+    case ForslagEndringType.EndreAvslutning:
+      return 'Endre avslutning'
   }
 }
 

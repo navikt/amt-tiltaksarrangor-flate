@@ -1,11 +1,10 @@
 import { BodyLong, Detail } from '@navikt/ds-react'
-import { HistorikkElement } from './HistorikkElement'
-import { ForslagStatusType, HistorikkForslag as Forslag } from '../../../../../api/data/forslag'
+import { HistorikkForslag as Forslag, ForslagStatusType } from '../../../../../api/data/forslag'
+import globalStyles from '../../../../../globals.module.scss'
 import { formatDate } from '../../../../../utils/date-utils'
-import { getHistorikkEndringsType } from '../../../../../mock/utils/historikk'
 import { getForslagTittel } from '../../../../../utils/text-mappers'
 import { EndringTypeIkon } from '../EndringTypeIkon'
-import globalStyles from '../../../../../globals.module.scss'
+import { HistorikkElement } from './HistorikkElement'
 
 interface Props {
   forslag: Forslag
@@ -26,12 +25,11 @@ const getForslagStatusTekst = (forslag: Forslag) => {
 }
 
 export const HistorikkForslag = ({ forslag }: Props) => {
-  const endringsType = getHistorikkEndringsType(forslag)
   const forslagStatusTekst = getForslagStatusTekst(forslag)
   return (
     <HistorikkElement
       tittel={`Forslag: ${getForslagTittel(forslag.endring.type)}`}
-      icon={<EndringTypeIkon type={endringsType} size={'small'} />}
+      icon={<EndringTypeIkon type={forslag.endring.type} size={'small'} />}
       forslag={forslag}
     >
       {forslag.status.type === ForslagStatusType.Avvist && (

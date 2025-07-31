@@ -30,7 +30,8 @@ export enum ForslagEndringType {
   Sluttdato = 'Sluttdato',
   Startdato = 'Startdato',
   Sluttarsak = 'Sluttarsak',
-  FjernOppstartsdato = 'FjernOppstartsdato'
+  FjernOppstartsdato = 'FjernOppstartsdato',
+  EndreAvslutning = 'EndreAvslutning'
 }
 
 export enum ForslagEndringAarsakType {
@@ -82,6 +83,14 @@ const avsluttDeltakelseSchema = z.object({
   harFullfort: z.boolean().nullable()
 })
 
+export const endreAvslutningForslagSchema = z.object({
+  type: z.literal(ForslagEndringType.EndreAvslutning),
+  sluttdato: dateSchema.nullable(),
+  aarsak: endringAarsakSchema.nullable(),
+  harDeltatt: z.boolean().nullable(),
+  harFullfort: z.boolean().optional().nullable()
+})
+
 const ikkeAktuellSchema = z.object({
   type: z.literal(ForslagEndringType.IkkeAktuell),
   aarsak: endringAarsakSchema
@@ -118,6 +127,7 @@ const endringSchema = z.discriminatedUnion('type', [
   forlengDeltakelseSchema,
   ikkeAktuellSchema,
   avsluttDeltakelseSchema,
+  endreAvslutningForslagSchema,
   deltakelsesmengdeSchema,
   sluttdatoSchema,
   startdatoSchema,
@@ -157,7 +167,7 @@ const statusSchema = z.discriminatedUnion('type', [
 ])
 
 export const aktivtForslagSchema = z.object({
-  id: z.string().uuid(),
+  id: z.uuid(),
   opprettet: dateSchema,
   begrunnelse: z.string().nullable(),
   endring: endringSchema,
@@ -165,7 +175,7 @@ export const aktivtForslagSchema = z.object({
 })
 
 export const historikkForslagSchema = z.object({
-  id: z.string().uuid(),
+  id: z.uuid(),
   type: z.literal(HistorikkType.Forslag),
   opprettet: dateSchema,
   begrunnelse: z.string().nullable(),

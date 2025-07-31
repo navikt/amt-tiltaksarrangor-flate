@@ -19,6 +19,7 @@ import { Endringsmodal } from './endringsmodal/Endringsmodal'
 import { toEndringAarsakType } from './validering/aarsakValidering'
 import { useAvsluttKursDeltakelseValidering } from './validering/useAvsluttKursDeltakelseValidering'
 import { DeltakerStatusAarsakType } from '../../../../../api/data/deltakerStatusArsak'
+import { ModalType } from '../modal-store'
 
 export const AvsluttKursDeltakelseModal = (props: ModalDataProps) => {
   const {
@@ -79,7 +80,7 @@ export const AvsluttKursDeltakelseModal = (props: ModalDataProps) => {
   return (
     <Endringsmodal
       tittel="Avslutt deltakelse"
-      endringstype={EndringType.AVSLUTT_DELTAKELSE}
+      endringstype={props.endringstype === ModalType.EndreAvslutning ? EndringType.ENDRE_AVSLUTNING : EndringType.AVSLUTT_DELTAKELSE}
       visGodkjennVilkaarPanel={visGodkjennVilkaarPanel}
       erForslag={true}
       erSendKnappDisabled={!validering.isSuccess}
