@@ -57,7 +57,7 @@ export function endringsknapper(deltaker: Deltaker, modal: ModalHandler): Endrin
 	const kanAvslutteKursDeltakelse =
 		status.erDeltar && deltaker.deltakerliste.erKurs
 
-	const kanEndreAvslutning = (status.erFullfort || status.erAvbrutt || status.erIkkeAktuell) &&
+	const kanEndreAvslutning = (status.erFullfort || status.erAvbrutt) &&
 		deltaker.deltakerliste.erKurs
 
 	const kanEndreStartDato =
