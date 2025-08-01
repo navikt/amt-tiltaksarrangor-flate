@@ -35,7 +35,7 @@ export const AvsluttKursDeltakelseModal = (props: ModalDataProps) => {
   const [ avslutningsType, settAvslutningsType ] = useState<AvslutningsType>()
   const [ harFullfort, setHarFullfort ] = useState<boolean | null>(null)
   const harDeltatt = avslutningsType === AvslutningsType.IKKE_DELTATT ? false : null
-  const skalOppgiSluttdato = props.endringstype === ModalType.AvsluttDeltaker &&
+  const skalOppgiSluttdato = props.endringstype === ModalType.AvsluttKursDeltaker &&
     (avslutningsType === AvslutningsType.FULLFORT ||
       avslutningsType === AvslutningsType.AVBRUTT)
 
