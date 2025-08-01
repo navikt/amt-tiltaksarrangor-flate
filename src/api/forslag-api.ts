@@ -43,6 +43,21 @@ export const postAvsluttDeltakelse = (
   })
 }
 
+export const postEndreAvslutning = (
+  deltakerId: string,
+  harFullfort: boolean | null,
+  harDeltatt: boolean | null,
+  aarsak: EndringAarsak | null,
+  begrunnelse?: string
+): AxiosPromise => {
+  return postForslag(deltakerId, 'endre-avslutning', {
+    aarsak: aarsak,
+    harDeltatt: harDeltatt,
+    harFullfort: harFullfort,
+    begrunnelse: begrunnelse ?? null
+  })
+}
+
 export const deltakelsesmengdeForslag = (
   deltakerId: string,
   deltakelsesprosent: number,

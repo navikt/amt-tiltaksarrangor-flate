@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 
 import { Radio, RadioGroup } from '@navikt/ds-react'
 import { EndringAarsak } from '../../../../../api/data/forslag'
-import { postAvsluttDeltakelse } from '../../../../../api/forslag-api'
+import { postAvsluttDeltakelse, postEndreAvslutning } from '../../../../../api/forslag-api'
 import { maxDate } from '../../../../../utils/date-utils'
 import { harDeltattMindreEnnFemtenDager } from '../../../../../utils/deltaker-utils'
 import { Nullable } from '../../../../../utils/types/or-nothing'
@@ -64,8 +64,12 @@ export const AvsluttKursDeltakelseModal = (props: ModalDataProps) => {
       return Promise.reject(validering.feilmelding)
     }
 
-    return avslutt(toEndringAarsakType(aarsak, beskrivelse), begrunnelse)
-
+    if (ModalType.EndreAvslutning === props.endringstype) {
+      return endreAvslutning(toEndringAarsakType(aarsak, beskrivelse), begrunnelse)
+    }
+    else {
+      return avslutt(toEndringAarsakType(aarsak, beskrivelse), begrunnelse)
+    }
   }
 
   const avslutt = (nyaarsak: EndringAarsak | null, begrunnelse?: string) => postAvsluttDeltakelse(
@@ -74,6 +78,14 @@ export const AvsluttKursDeltakelseModal = (props: ModalDataProps) => {
     harDeltatt,
     nyaarsak,
     harDeltatt === false ? null : sluttDato,
+    begrunnelse
+  ).then((res) => onForslagSendt(res.data))
+
+  const endreAvslutning = (nyaarsak: EndringAarsak | null, begrunnelse?: string) => postEndreAvslutning(
+    deltaker.id,
+    harFullfort,
+    harDeltatt,
+    nyaarsak,
     begrunnelse
   ).then((res) => onForslagSendt(res.data))
 
