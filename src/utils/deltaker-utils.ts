@@ -88,7 +88,6 @@ export const harDeltattMindreEnnFemtenDager = (deltaker: Deltaker, endringstype?
       : false
   }
 
-  const femtenDagerSiden = new Date()
-  femtenDagerSiden.setDate(femtenDagerSiden.getDate() - 15)
-  return startDato > femtenDagerSiden
+  const femtenDagerSiden = dayjs().subtract(15, 'days')
+  return dayjs(startDato).isAfter(femtenDagerSiden, 'day')
 }
