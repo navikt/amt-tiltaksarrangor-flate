@@ -1,5 +1,7 @@
+import dayjs from 'dayjs'
 import { Adresse, AktivEndring, AktivEndringForDeltaker, Deltaker } from '../api/data/deltaker'
 import { Tiltakskode } from '../api/data/tiltak'
+import { EndringType } from '../component/page/bruker-detaljer/deltaker-detaljer/types'
 
 export const INNHOLD_TYPE_ANNET = 'annet'
 
@@ -74,9 +76,18 @@ export const getAktivEndringTekst = (aktivEndring: AktivEndringForDeltaker) => {
   return `Forslag sendt til Nav: ${typeEndringTekst}`
 }
 
-export const harDeltattMindreEnnFemtenDager = (deltaker: Deltaker) => {
+export const harDeltattMindreEnnFemtenDager = (deltaker: Deltaker, endringstype?: EndringType) => {
   const startDato = deltaker.startDato
   if (startDato === null) throw Error('startdato er null')
+
+  if (endringstype === EndringType.ENDRE_AVSLUTNING) {
+    return deltaker.sluttDato
+      ? dayjs(deltaker.startDato)
+        .add(15, 'days')
+        .isAfter(deltaker.sluttDato, 'day')
+      : false
+  }
+
   const femtenDagerSiden = new Date()
   femtenDagerSiden.setDate(femtenDagerSiden.getDate() - 15)
   return startDato > femtenDagerSiden

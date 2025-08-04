@@ -44,7 +44,8 @@ export const AvsluttKursDeltakelseModal = (props: ModalDataProps) => {
     avslutningsType === AvslutningsType.IKKE_DELTATT
   const { validering } = useAvsluttKursDeltakelseValidering(avslutningsType, sluttDato, aarsak, beskrivelse, begrunnelse)
 
-  const skalViseHarDeltatt = harDeltattMindreEnnFemtenDager(deltaker)
+  const endringstype = props.endringstype === ModalType.EndreAvslutning ? EndringType.ENDRE_AVSLUTNING : EndringType.AVSLUTT_DELTAKELSE
+  const skalViseHarDeltatt = harDeltattMindreEnnFemtenDager(deltaker, endringstype)
 
   const onAarsakSelected = (
     nyAarsak: DeltakerStatusAarsakType,
@@ -92,7 +93,7 @@ export const AvsluttKursDeltakelseModal = (props: ModalDataProps) => {
   return (
     <Endringsmodal
       tittel="Avslutt deltakelse"
-      endringstype={props.endringstype === ModalType.EndreAvslutning ? EndringType.ENDRE_AVSLUTNING : EndringType.AVSLUTT_DELTAKELSE}
+      endringstype={endringstype}
       visGodkjennVilkaarPanel={visGodkjennVilkaarPanel}
       erForslag={true}
       erSendKnappDisabled={!validering.isSuccess}
