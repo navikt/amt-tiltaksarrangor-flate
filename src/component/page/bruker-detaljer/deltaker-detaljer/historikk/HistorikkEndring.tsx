@@ -60,6 +60,27 @@ export const getEndringsDetaljer = (endring: Endring, tiltakstype: Tiltakskode) 
         </>
       )
     }
+    case EndringType.EndreAvslutning: {
+      return (
+        <>
+          {endring.aarsak && (
+            <BodyLong size="small">
+              Årsak: {getDeltakerStatusAarsakText(endring.aarsak)}
+            </BodyLong>
+          )}
+
+          <BodyLong size="small">
+            Er kurset fullført: {endring.harFullfort ? 'Ja' : 'Nei'}
+          </BodyLong>
+
+          {endring.begrunnelse && (
+            <BodyLong size="small" className={globalStyles.textPreWrap}>
+              Navs begrunnelse: {endring.begrunnelse}
+            </BodyLong>
+          )}
+        </>
+      )
+    }
     case EndringType.EndreBakgrunnsinformasjon: {
       return (
         <BodyLong size="small" className={globalStyles.textPreWrap}>

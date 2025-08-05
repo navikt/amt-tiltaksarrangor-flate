@@ -22,7 +22,6 @@ export const AvsluttDeltakelseModal = (props: ModalDataProps) => {
   const {
     onClose,
     deltaker,
-    visGodkjennVilkaarPanel,
     onForslagSendt,
   } = props
   const [sluttDato, settSluttDato] = useState<Nullable<Date>>()
@@ -83,7 +82,6 @@ export const AvsluttDeltakelseModal = (props: ModalDataProps) => {
     <Endringsmodal
       tittel="Avslutt deltakelse"
       endringstype={EndringType.AVSLUTT_DELTAKELSE}
-      visGodkjennVilkaarPanel={visGodkjennVilkaarPanel}
       erForslag={true}
       erSendKnappDisabled={!validering.isSuccess || !isSluttdatoValid()}
       begrunnelseType="valgfri"

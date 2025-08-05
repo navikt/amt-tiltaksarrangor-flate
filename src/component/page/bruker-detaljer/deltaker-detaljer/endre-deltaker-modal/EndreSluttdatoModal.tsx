@@ -15,7 +15,6 @@ import {
 
 export const EndreSluttdatoModal = ({
   deltaker,
-  visGodkjennVilkaarPanel,
   onForslagSendt,
   onClose
 }: ModalDataProps) => {
@@ -42,7 +41,6 @@ export const EndreSluttdatoModal = ({
     <Endringsmodal
       tittel="Endre sluttdato"
       endringstype={EndringType.ENDRE_SLUTTDATO}
-      visGodkjennVilkaarPanel={visGodkjennVilkaarPanel}
       erSendKnappDisabled={!kanSendeMelding}
       erForslag={true}
       onClose={onClose}

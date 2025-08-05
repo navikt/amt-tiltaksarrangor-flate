@@ -18,7 +18,6 @@ import { finnValgtVarighet } from './varighet'
 
 export const EndreOppstartModal = ({
   deltaker,
-  visGodkjennVilkaarPanel,
   onForslagSendt,
   onClose
 }: ModalDataProps) => {
@@ -61,7 +60,6 @@ export const EndreOppstartModal = ({
     <Endringsmodal
       tittel="Endre oppstartsdato"
       endringstype={EndringType.ENDRE_OPPSTARTSDATO}
-      visGodkjennVilkaarPanel={visGodkjennVilkaarPanel}
       erSendKnappDisabled={!kanSendeMelding}
       erForslag={true}
       onClose={onClose}

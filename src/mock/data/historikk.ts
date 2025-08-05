@@ -360,6 +360,37 @@ export const lagHistorikkFellesOppstart = (): DeltakerHistorikkListe => {
     {
       type: HistorikkType.Endring,
       endring: {
+        type: EndringType.EndreAvslutning,
+        aarsak: null,
+        begrunnelse: null,
+        harFullfort: true
+      },
+      endretAv: 'Navn Navnesen',
+      endretAvEnhet: 'Nav Fredrikstad',
+      endret: dayjs().subtract(2, 'day').toDate(),
+      forslag: {
+        id: randomUuid(),
+        type: HistorikkType.Forslag,
+        opprettet: dayjs().toDate(),
+        begrunnelse: 'Trenger mer tid',
+        arrangorNavn: 'Muligheter As',
+        endring: {
+          type: ForslagEndringType.EndreAvslutning,
+          aarsak: {
+            type: ForslagEndringAarsakType.FattJobb
+          },
+          harDeltatt: true,
+          harFullfort: false
+        },
+        status: {
+          type: ForslagStatusType.Godkjent,
+          godkjent: dayjs().toDate()
+        }
+      }
+    },
+    {
+      type: HistorikkType.Endring,
+      endring: {
         type: EndringType.AvsluttDeltakelse,
         aarsak: {
           type: DeltakerStatusAarsakType.FATT_JOBB,

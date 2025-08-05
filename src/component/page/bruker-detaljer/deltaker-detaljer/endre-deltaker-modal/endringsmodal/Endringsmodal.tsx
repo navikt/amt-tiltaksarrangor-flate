@@ -1,8 +1,7 @@
 import { Alert } from '@navikt/ds-react'
-import { ReactNode, useState } from 'react'
+import { ReactNode } from 'react'
 import { BaseModal } from '../../../../../felles/base-modal/BaseModal'
 import { SendTilNavKnapp } from '../SendTilNavKnapp'
-import { VeilederConfirmationPanel } from '../VeilederConfirmationPanel'
 import { BegrunnelseInput, BegrunnelseType } from './BegrunnelseInput'
 
 import { EndringType } from '../../types'
@@ -13,7 +12,6 @@ interface EndringsmodalProps {
   readonly endringstype: EndringType
   readonly erForslag?: boolean
   readonly erEndringFraArrangor?: boolean
-  readonly visGodkjennVilkaarPanel: boolean
   readonly erSendKnappDisabled?: boolean
   readonly begrunnelseType?: BegrunnelseType
   readonly onClose: () => void
@@ -23,10 +21,6 @@ interface EndringsmodalProps {
 }
 
 export function Endringsmodal(props: EndringsmodalProps) {
-  const [ vilkaarGodkjent, setVilkaarGodkjent ] = useState(false)
-
-  const krevVilkaarGodkjent =
-    props.erForslag !== true && props.visGodkjennVilkaarPanel
   const prefix = props.erForslag ? 'Foreslå: ' : ''
 
   return (
@@ -51,19 +45,10 @@ export function Endringsmodal(props: EndringsmodalProps) {
         />
       )}
 
-      {krevVilkaarGodkjent && (
-        <VeilederConfirmationPanel
-          vilkaarGodkjent={vilkaarGodkjent}
-          setVilkaarGodkjent={setVilkaarGodkjent}
-        />
-      )}
-
       <SendTilNavKnapp
         onEndringSendt={props.onClose}
         sendEndring={props.onSend}
-        disabled={
-          props.erSendKnappDisabled || (!vilkaarGodkjent && krevVilkaarGodkjent)
-        }
+        disabled={props.erSendKnappDisabled}
         forslag={props.erForslag}
         endringFraArrangor={props.erEndringFraArrangor}
       />

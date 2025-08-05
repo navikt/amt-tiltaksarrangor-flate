@@ -15,7 +15,6 @@ import { DeltakerStatusAarsakType } from '../../../../../api/data/deltakerStatus
 export const SettIkkeAktuellModal = ({
   deltaker,
   onClose,
-  visGodkjennVilkaarPanel,
   onForslagSendt,
 }: ModalDataProps) => {
   const [aarsak, settAarsak] = useState<DeltakerStatusAarsakType>()
@@ -48,7 +47,6 @@ export const SettIkkeAktuellModal = ({
     <Endringsmodal
       tittel="Er ikke aktuell"
       endringstype={EndringType.DELTAKER_IKKE_AKTUELL}
-      visGodkjennVilkaarPanel={visGodkjennVilkaarPanel}
       erForslag={true}
       erSendKnappDisabled={!validering.isSuccess}
       begrunnelseType="valgfri"

@@ -12,7 +12,6 @@ import { ModalDataProps } from '../ModalController'
 
 export const FjernOppstartsdatoModal = ({
   deltaker,
-  visGodkjennVilkaarPanel,
   onClose,
   onForslagSendt
 }: ModalDataProps) => {
@@ -38,7 +37,6 @@ export const FjernOppstartsdatoModal = ({
     <Endringsmodal
       tittel="Fjerne oppstartsdato"
       endringstype={EndringType.FJERN_OPPSTARTSDATO}
-      visGodkjennVilkaarPanel={visGodkjennVilkaarPanel}
       erForslag={true}
       erSendKnappDisabled={!kanSendeForslag}
       begrunnelseType="obligatorisk"
