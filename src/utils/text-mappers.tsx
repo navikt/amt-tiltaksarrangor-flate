@@ -123,7 +123,7 @@ export const getEndringsTittel = (endring: Endring) => {
     case EndringType.FjernOppstartsdato:
       return 'Oppstartsdato er fjernet'
     case EndringType.EndreAvslutning:
-      return 'Endre avslutning'
+      return 'Avslutning endret'
   }
 }
 
