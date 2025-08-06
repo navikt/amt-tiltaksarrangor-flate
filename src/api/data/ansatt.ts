@@ -6,12 +6,12 @@ export enum Rolle {
 }
 
 export const virksomhetSchema = z.object({
-  id: z.string().uuid(),
+  id: z.uuid(),
   overordnetEnhetOrganisasjonsnummer: z.string().nullable(),
   overordnetEnhetNavn: z.string().nullable(),
   organisasjonsnummer: z.string(),
   navn: z.string(),
-  roller: z.array(z.nativeEnum(Rolle))
+  roller: z.array(z.enum(Rolle))
 })
 
 export const innloggetAnsattSchema = z.object({

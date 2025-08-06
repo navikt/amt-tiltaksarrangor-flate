@@ -253,6 +253,12 @@ export const worker = setupWorker(
 		harDeltatt: body.harDeltatt,
 		harFullfort: body.harFullfort
 	})),
+	handlePostForslagRequest('endre-avslutning', (body) => ({
+		type: ForslagEndringType.EndreAvslutning,
+		aarsak: body.aarsak,
+		harDeltatt: body.harDeltatt,
+		harFullfort: body.harFullfort
+	})),
 	handlePostForslagRequest('deltakelsesmengde', (body) => ({
 		type: ForslagEndringType.Deltakelsesmengde,
 		deltakelsesprosent: body.deltakelsesprosent,

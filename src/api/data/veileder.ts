@@ -5,11 +5,11 @@ export enum Veiledertype {
   MEDVEILEDER = 'MEDVEILEDER'
 }
 
-export const veiledertypeSchema = z.nativeEnum(Veiledertype)
+export const veiledertypeSchema = z.enum(Veiledertype)
 
 export const veilederMedTypeSchema = z.object({
-  ansattId: z.string().uuid(),
-  deltakerId: z.string().uuid(),
+  ansattId: z.uuid(),
+  deltakerId: z.uuid(),
   veiledertype: veiledertypeSchema,
   fornavn: z.string(),
   mellomnavn: z.string().nullable(),
@@ -17,8 +17,8 @@ export const veilederMedTypeSchema = z.object({
 })
 
 export const veilederSchema = z.object({
-  ansattId: z.string().uuid(),
-  deltakerId: z.string().uuid(),
+  ansattId: z.uuid(),
+  deltakerId: z.uuid(),
   erMedveileder: z.boolean(),
   fornavn: z.string(),
   mellomnavn: z.string().nullable(),
@@ -26,7 +26,7 @@ export const veilederSchema = z.object({
 })
 
 export const tilgjengeligVeilederSchema = z.object({
-  ansattId: z.string().uuid(),
+  ansattId: z.uuid(),
   fornavn: z.string(),
   mellomnavn: z.string().nullable(),
   etternavn: z.string()

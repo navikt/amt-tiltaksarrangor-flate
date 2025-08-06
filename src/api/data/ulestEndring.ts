@@ -74,8 +74,8 @@ const avslagSchema = z.object({
 })
 
 export const ulestEndringSchema = z.object({
-  id: z.string().uuid(),
-  deltakerId: z.string().uuid(),
+  id: z.uuid(),
+  deltakerId: z.uuid(),
   oppdatering: z.discriminatedUnion('type', [
     ulestEndrinDeltakelsesEndringSchema,
     ulestEndringForslagSchema,

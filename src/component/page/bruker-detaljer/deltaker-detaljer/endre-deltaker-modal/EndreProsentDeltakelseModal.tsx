@@ -16,7 +16,6 @@ import { useDeltakelsesmengdeValidering } from './validering/deltakelsesmengdeVa
 
 export const EndreProsentDeltakelseModal = ({
   deltaker,
-  visGodkjennVilkaarPanel,
   onForslagSendt,
   onClose
 }: ModalDataProps) => {
@@ -75,7 +74,6 @@ export const EndreProsentDeltakelseModal = ({
     <Endringsmodal
       tittel="Endre deltakelsesmengde"
       endringstype={EndringType.ENDRE_DELTAKELSE_PROSENT}
-      visGodkjennVilkaarPanel={visGodkjennVilkaarPanel}
       erForslag={true}
       erSendKnappDisabled={!kanSendeMelding}
       begrunnelseType="obligatorisk"

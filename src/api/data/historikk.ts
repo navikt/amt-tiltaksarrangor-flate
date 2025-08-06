@@ -15,6 +15,7 @@ export enum EndringType {
   EndreDeltakelsesmengde = 'EndreDeltakelsesmengde',
   EndreBakgrunnsinformasjon = 'EndreBakgrunnsinformasjon',
   EndreInnhold = 'EndreInnhold',
+  EndreAvslutning = 'EndreAvslutning',
   IkkeAktuell = 'IkkeAktuell',
   ForlengDeltakelse = 'ForlengDeltakelse',
   AvsluttDeltakelse = 'AvsluttDeltakelse',
@@ -56,7 +57,7 @@ export enum TiltakskoordinatorEndringsType {
 	Avslag = 'Avslag'
 }
 
-export const vurderingstypeSchema = z.nativeEnum(Vurderingstype)
+export const vurderingstypeSchema = z.enum(Vurderingstype)
 
 export const endreBakgrunnsinformasjonSchema = z.object({
   type: z.literal(EndringType.EndreBakgrunnsinformasjon),
@@ -108,7 +109,14 @@ export const avsluttDeltakelseSchema = z.object({
   sluttdato: dateSchema,
   begrunnelse: z.string().nullable(),
   harFullfort: z.boolean(),
-  oppstartstype: z.nativeEnum(Oppstartstype)
+  oppstartstype: z.enum(Oppstartstype)
+})
+
+export const endreAvslutningSchema = z.object({
+  type: z.literal(EndringType.EndreAvslutning),
+  aarsak: deltakerStatusAarsakSchema.nullable(),
+  begrunnelse: z.string().nullable(),
+  harFullfort: z.boolean(),
 })
 
 export const endreSluttarsakSchema = z.object({
@@ -134,6 +142,7 @@ const endringSchema = z.discriminatedUnion('type', [
   endreDeltakelsesmengdeSchema,
   endreStartdatoSchema,
   endreSluttdatoSchema,
+  endreAvslutningSchema,
   forlengDeltakelseSchema,
   ikkeAktuellSchema,
   avsluttDeltakelseSchema,
@@ -211,14 +220,14 @@ export const deltakerEndringSchema = z.object({
 
 export const endringFraArrangorSchema = z.object({
   type: z.literal(HistorikkType.EndringFraArrangor),
-  id: z.string().uuid(),
+  id: z.uuid(),
   opprettet: dateSchema,
   arrangorNavn: z.string(),
   endring: arrangorEndringSchema
 })
 
 export const deltakerHistorikkStatusSchema = z.object({
-  type: z.nativeEnum(DeltakerHistorikkStatus),
+  type: z.enum(DeltakerHistorikkStatus),
   aarsak: deltakerStatusAarsakSchema.nullable()
 })
 

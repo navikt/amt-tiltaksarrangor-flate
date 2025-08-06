@@ -1,5 +1,7 @@
+import dayjs from 'dayjs'
 import { Adresse, AktivEndring, AktivEndringForDeltaker, Deltaker } from '../api/data/deltaker'
 import { Tiltakskode } from '../api/data/tiltak'
+import { EndringType } from '../component/page/bruker-detaljer/deltaker-detaljer/types'
 
 export const INNHOLD_TYPE_ANNET = 'annet'
 
@@ -64,6 +66,8 @@ const getAktivEndringTypeTekst = (aktivEndringType: AktivEndring) => {
       return 'Legg til oppstartsdato'
     case AktivEndring.FjernOppstartsdato:
       return 'Fjern oppstartsdato'
+    case AktivEndring.EndreAvslutning:
+      return 'Endre avslutning'
   }
 }
 
@@ -72,10 +76,18 @@ export const getAktivEndringTekst = (aktivEndring: AktivEndringForDeltaker) => {
   return `Forslag sendt til Nav: ${typeEndringTekst}`
 }
 
-export const harDeltattMindreEnnFemtenDager = (deltaker: Deltaker) => {
+export const harDeltattMindreEnnFemtenDager = (deltaker: Deltaker, endringstype?: EndringType) => {
   const startDato = deltaker.startDato
   if (startDato === null) throw Error('startdato er null')
-  const femtenDagerSiden = new Date()
-  femtenDagerSiden.setDate(femtenDagerSiden.getDate() - 15)
-  return startDato > femtenDagerSiden
+
+  if (endringstype === EndringType.ENDRE_AVSLUTNING) {
+    return deltaker.sluttDato
+      ? dayjs(deltaker.startDato)
+        .add(15, 'days')
+        .isAfter(deltaker.sluttDato, 'day')
+      : false
+  }
+
+  const femtenDagerSiden = dayjs().subtract(15, 'days')
+  return dayjs(startDato).isAfter(femtenDagerSiden, 'day')
 }

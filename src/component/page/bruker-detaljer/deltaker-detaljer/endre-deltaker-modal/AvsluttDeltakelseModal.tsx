@@ -1,6 +1,7 @@
 import { useState } from 'react'
 
 import { Radio, RadioGroup } from '@navikt/ds-react'
+import { DeltakerStatusAarsakType } from '../../../../../api/data/deltakerStatusArsak'
 import { postAvsluttDeltakelse } from '../../../../../api/forslag-api'
 import { maxDate } from '../../../../../utils/date-utils'
 import { harDeltattMindreEnnFemtenDager } from '../../../../../utils/deltaker-utils'
@@ -16,13 +17,11 @@ import {
   useAarsakValidering,
   validerAarsakForm
 } from './validering/aarsakValidering'
-import { DeltakerStatusAarsakType } from '../../../../../api/data/deltakerStatusArsak'
 
 export const AvsluttDeltakelseModal = (props: ModalDataProps) => {
   const {
     onClose,
     deltaker,
-    visGodkjennVilkaarPanel,
     onForslagSendt,
   } = props
   const [sluttDato, settSluttDato] = useState<Nullable<Date>>()
@@ -83,7 +82,6 @@ export const AvsluttDeltakelseModal = (props: ModalDataProps) => {
     <Endringsmodal
       tittel="Avslutt deltakelse"
       endringstype={EndringType.AVSLUTT_DELTAKELSE}
-      visGodkjennVilkaarPanel={visGodkjennVilkaarPanel}
       erForslag={true}
       erSendKnappDisabled={!validering.isSuccess || !isSluttdatoValid()}
       begrunnelseType="valgfri"

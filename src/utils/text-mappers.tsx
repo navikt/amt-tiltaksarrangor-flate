@@ -122,6 +122,8 @@ export const getEndringsTittel = (endring: Endring) => {
       return `Oppstartsdato er endret til ${dateStrWithMonthName(endring.startdato)}`
     case EndringType.FjernOppstartsdato:
       return 'Oppstartsdato er fjernet'
+    case EndringType.EndreAvslutning:
+      return 'Avslutning endret'
   }
 }
 
@@ -143,6 +145,8 @@ export const getForslagTittel = (endringstype: ForslagEndringType) => {
       return 'Endre oppstartsdato'
     case ForslagEndringType.FjernOppstartsdato:
       return 'Fjern oppstartsdato'
+    case ForslagEndringType.EndreAvslutning:
+      return 'Endre avslutning'
   }
 }
 

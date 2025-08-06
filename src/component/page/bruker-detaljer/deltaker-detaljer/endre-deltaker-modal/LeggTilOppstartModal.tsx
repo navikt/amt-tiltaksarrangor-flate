@@ -11,18 +11,14 @@ import { kalkulerMaxDato, kalkulerMinDato, maxSluttdato } from './datoutils'
 import { Endringsmodal } from './endringsmodal/Endringsmodal'
 import { SluttdatoRef, SluttdatoVelger } from './SluttdatoVelger'
 import { finnValgtVarighet } from './varighet'
-import { VeilederConfirmationPanel } from './VeilederConfirmationPanel'
 
 export const LeggTilOppstartModal = ({
   deltaker,
   onClose,
-  visGodkjennVilkaarPanel,
   onEndringSendt,
 }: ModalDataProps) => {
   const [ startdato, setStartdato ] = useState<Nullable<Date>>(null)
   const sluttdato = useRef<SluttdatoRef>(null)
-
-  const [ vilkaarGodkjent, setVilkaarGodkjent ] = useState(false)
 
   const skalVelgeSluttdato =
     deltaker.deltakerliste.tiltakstype !== Tiltakskode.VASV
@@ -48,7 +44,6 @@ export const LeggTilOppstartModal = ({
     <Endringsmodal
       tittel="Legg til oppstartsdato"
       endringstype={EndringType.LEGG_TIL_OPPSTARTSDATO}
-      visGodkjennVilkaarPanel={visGodkjennVilkaarPanel}
       erSendKnappDisabled={!kanSendeMelding}
       erForslag={false}
       erEndringFraArrangor={true}
@@ -88,12 +83,6 @@ export const LeggTilOppstartModal = ({
               )
               : undefined
           }
-        />
-      )}
-      {visGodkjennVilkaarPanel && (
-        <VeilederConfirmationPanel
-          vilkaarGodkjent={vilkaarGodkjent}
-          setVilkaarGodkjent={setVilkaarGodkjent}
         />
       )}
     </Endringsmodal>

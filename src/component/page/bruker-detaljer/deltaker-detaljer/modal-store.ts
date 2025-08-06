@@ -12,7 +12,8 @@ export enum ModalType {
   EndreProsentDeltakelse,
   EndreSluttdato,
   EndreSluttaarsak,
-  FjernOppstartsdato
+  FjernOppstartsdato,
+  EndreAvslutning
 }
 
 interface BaseModalData<T extends ModalType, P> {
@@ -58,6 +59,10 @@ type FjernOppstartsdato = BaseModalData<
   ModalType.FjernOppstartsdato,
   ModalDataProps
 >
+type EndreAvslutning = BaseModalData<
+  ModalType.EndreAvslutning,
+  ModalDataProps
+>
 
 export type ModalData =
   | LeggTilOppstartData
@@ -70,6 +75,7 @@ export type ModalData =
   | EndreSluttdato
   | EndreSluttaarsak
   | FjernOppstartsdato
+  | EndreAvslutning
 
 export interface ModalHandler {
   modalData: ModalData | undefined
@@ -84,6 +90,7 @@ export interface ModalHandler {
   visEndreSluttdatoModal: (props: ModalDataProps) => void
   visEndreSluttaarsakModal: (props: ModalDataProps) => void
   visFjernOppstartsdatoModal: (props: ModalDataProps) => void
+  visEndreAvslutningModal: (props: ModalDataProps) => void
 }
 
 export const useModalData = (): ModalHandler => {
@@ -163,6 +170,13 @@ export const useModalData = (): ModalHandler => {
     })
   }
 
+  const visEndreAvslutningModal = (props: ModalDataProps) => {
+    setModalData({
+      type: ModalType.EndreAvslutning,
+      props: props
+    })
+  }
+
   return {
     modalData,
     lukkModal,
@@ -175,6 +189,7 @@ export const useModalData = (): ModalHandler => {
     visEndreProsentDeltakelseModal,
     visEndreSluttdatoModal,
     visEndreSluttaarsakModal,
-    visFjernOppstartsdatoModal
+    visFjernOppstartsdatoModal,
+    visEndreAvslutningModal
   }
 }

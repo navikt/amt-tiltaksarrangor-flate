@@ -17,7 +17,6 @@ export const ForlengDeltakelseModal = (props: ModalDataProps) => {
   const {
     deltaker,
     onClose,
-    visGodkjennVilkaarPanel
   } = props
   const deltakerliste = deltaker.deltakerliste
   const minDato = maxDate(dayjs(deltaker.sluttDato).add(1, 'day').toDate(), deltakerliste.startDato)
@@ -54,7 +53,6 @@ export const ForlengDeltakelseModal = (props: ModalDataProps) => {
     <Endringsmodal
       tittel="Forleng deltakelse"
       endringstype={EndringType.FORLENG_DELTAKELSE}
-      visGodkjennVilkaarPanel={visGodkjennVilkaarPanel}
       erForslag={true}
       erSendKnappDisabled={!kanSendeMelding}
       begrunnelseType="obligatorisk"

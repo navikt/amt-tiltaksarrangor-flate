@@ -52,10 +52,11 @@ export enum AktivEndring {
   Sluttdato = 'Sluttdato',
   Startdato = 'Startdato',
   Sluttarsak = 'Sluttarsak',
-  FjernOppstartsdato = 'FjernOppstartsdato'
+  FjernOppstartsdato = 'FjernOppstartsdato',
+  EndreAvslutning = 'EndreAvslutning'
 }
 
-const tiltakDeltakerStatusSchema = z.nativeEnum(TiltakDeltakerStatus)
+const tiltakDeltakerStatusSchema = z.enum(TiltakDeltakerStatus)
 
 export const deltakerStatusSchema = z.object({
   type: tiltakDeltakerStatusSchema,
@@ -75,19 +76,19 @@ export const navInformasjonSchema = z.object({
 })
 
 export const vurderingSchema = z.object({
-  vurderingstype: z.nativeEnum(Vurderingstype),
+  vurderingstype: z.enum(Vurderingstype),
   begrunnelse: z.string().nullable(),
   gyldigFra: nullableDateSchema,
   gyldigTil: nullableDateSchema.nullable()
 })
 
 export const aktivEndringSchema = z.object({
-  endingsType: z.nativeEnum(AktivEndring),
+  endingsType: z.enum(AktivEndring),
   sendt: dateSchema
 })
 
 export const tiltakDeltakerSchema = z.object({
-  id: z.string().uuid(),
+  id: z.uuid(),
   fornavn: z.string(),
   mellomnavn: z.string().nullable(),
   etternavn: z.string(),
@@ -108,16 +109,16 @@ export const tiltakDeltakerSchema = z.object({
 })
 
 export const deltakersDeltakerlisteSchema = z.object({
-  id: z.string().uuid(),
+  id: z.uuid(),
   startDato: nullableDateSchema,
   sluttDato: nullableDateSchema,
   erKurs: z.boolean(),
-  tiltakstype: z.nativeEnum(Tiltakskode),
-  oppstartstype: z.nativeEnum(Oppstartstype)
+  tiltakstype: z.enum(Tiltakskode),
+  oppstartstype: z.enum(Oppstartstype)
 })
 
 export const adresseSchema = z.object({
-  adressetype: z.nativeEnum(Adressetype),
+  adressetype: z.enum(Adressetype),
   postnummer: z.string(),
   poststed: z.string(),
   tilleggsnavn: z.string().nullable(),
@@ -136,7 +137,7 @@ export const deltakelsesmengderSchema = z.object({
 })
 
 export const deltakerSchema = z.object({
-  id: z.string().uuid(),
+  id: z.uuid(),
   deltakerliste: deltakersDeltakerlisteSchema,
   fornavn: z.string(),
   mellomnavn: z.string().nullable(),
@@ -172,13 +173,13 @@ export const veilederForSchema = z.object({
 })
 
 export const deltakerlisteSchema = z.object({
-  id: z.string().uuid(),
+  id: z.uuid(),
   type: z.string(),
   navn: z.string()
 })
 
 export const koordinatorForDeltakerlisteSchema = z.object({
-  id: z.string().uuid(),
+  id: z.uuid(),
   type: z.string(),
   navn: z.string(),
   startdato: nullableDateSchema,
@@ -196,7 +197,7 @@ export const mineDeltakerlisterSchema = z.object({
 })
 
 export const veiledersDeltakerSchema = z.object({
-  id: z.string().uuid(),
+  id: z.uuid(),
   fornavn: z.string(),
   mellomnavn: z.string().nullable(),
   etternavn: z.string(),

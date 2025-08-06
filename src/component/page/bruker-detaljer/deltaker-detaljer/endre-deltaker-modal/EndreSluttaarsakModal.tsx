@@ -15,7 +15,6 @@ import { TiltakDeltakerStatus } from '../../../../../api/data/deltaker'
 
 export const EndreSluttaarsakModal = ({
   deltaker,
-  visGodkjennVilkaarPanel,
   onClose,
   onForslagSendt
 }: ModalDataProps) => {
@@ -55,7 +54,6 @@ export const EndreSluttaarsakModal = ({
     <Endringsmodal
       tittel="Endre sluttårsak"
       endringstype={EndringType.ENDRE_SLUTTAARSAK}
-      visGodkjennVilkaarPanel={visGodkjennVilkaarPanel}
       erForslag={true}
       erSendKnappDisabled={!validering.isSuccess}
       begrunnelseType="valgfri"
