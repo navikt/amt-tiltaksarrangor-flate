@@ -191,9 +191,9 @@ export function maxVarighetMillisFor(
       return aarMs(3)
     case Tiltakskode.ARBRRHDAG:
     case Tiltakskode.AVKLARAG:
-      return ukerMs(16)
+      return ukerMs(17)
     case Tiltakskode.DIGIOPPARB:
-      return ukerMs(12)
+      return ukerMs(13)
     case Tiltakskode.GRUFAGYRKE:
       return aarMs(4)
     case Tiltakskode.INDOPPFAG:
