@@ -18,15 +18,13 @@ spec:
     path: /internal/ready
     initialDelay: 10
   replicas:
+    disableAutoScaling: true
     min: 1
-    max: 2
-    cpuThresholdPercentage: 75
   resources:
-    limits:
-      cpu: '1'
-      memory: 512Mi
     requests:
-      cpu: 250m
+      cpu: 10m
+      memory: 64Mi
+    limits:
       memory: 256Mi
   idporten:
     enabled: true
