@@ -17,7 +17,7 @@ spec:
     path: /internal/ready
     initialDelay: 10
   replicas:
-    min: 1
+    min: 2
     max: 3
     scalingStrategy:
       cpu:
