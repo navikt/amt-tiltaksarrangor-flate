@@ -5,7 +5,6 @@ registries:
     url: https://npm.pkg.github.com
     token: ${{secrets.READER_TOKEN}}
     replaces-base: false
-
 updates:
   - package-ecosystem: "npm"
     directory: "/"
@@ -13,8 +12,26 @@ updates:
       - npm-github
     schedule:
       interval: "daily"
-    open-pull-requests-limit: 50
-
+    open-pull-requests-limit: 10
+    groups:
+      nav-designsystem:
+        patterns:
+          - '@navikt/aksel-*'
+          - '@navikt/ds-*'
+        update-types:
+          - 'major'
+      react:
+        patterns:
+          - 'react'
+          - 'react-dom'
+        update-types:
+          - 'major'
+      minor-and-patch:
+        patterns:
+          - '*'
+        update-types:
+          - 'patch'
+          - 'minor'
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
