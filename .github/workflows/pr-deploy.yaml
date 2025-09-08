@@ -22,7 +22,7 @@ jobs:
         with:
           version: 10.13.1
       - name: Setup node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v5
         with:
           node-version: '24'
           cache: 'pnpm'
@@ -34,12 +34,12 @@ jobs:
       - name: Build Pull Request Application
         run: BASE=/deltakeroversikt/pr-${{ github.event.number }}/ pnpm build --mode pull-request
       - name: Authenticate to Google Cloud
-        uses: google-github-actions/auth@v2
+        uses: google-github-actions/auth@v3
         with:
           workload_identity_provider: projects/696882554390/locations/global/workloadIdentityPools/github/providers/github-action
           service_account: amt-tiltaksarrangor-flate-gcs@amt-dev-d98f.iam.gserviceaccount.com
       - name: Set up Cloud SDK
-        uses: google-github-actions/setup-gcloud@v2
+        uses: google-github-actions/setup-gcloud@v3
       - name: Upload files to GCS
         run: gsutil -m rsync -r build gs://amt-tiltaksarrangor-flate-dev/pr-${{ github.event.number }}
   create-link-to-app:
