@@ -19,6 +19,6 @@ jobs:
           workload_identity_provider: projects/696882554390/locations/global/workloadIdentityPools/github/providers/github-action
           service_account: amt-tiltaksarrangor-flate-gcs@amt-dev-d98f.iam.gserviceaccount.com
       - name: Set up Cloud SDK
-        uses: google-github-actions/setup-gcloud@v2
+        uses: google-github-actions/setup-gcloud@v3
       - name: Delete files on GCS
         run: gsutil rm -r gs://amt-tiltaksarrangor-flate-dev/pr-${{ github.event.number }}
