@@ -12,10 +12,7 @@ updates:
       - npm-github
     schedule:
       interval: "daily"
-    open-pull-requests-limit: 10
-    ignore:
-      - dependency-name: "@navikt/*"
-        versions: ["*"]
+    # open-pull-requests-limit: 10
     groups:
       nav-designsystem:
         patterns:
