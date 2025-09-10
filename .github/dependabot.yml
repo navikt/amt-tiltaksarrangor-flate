@@ -6,7 +6,7 @@ registries:
     token: ${{secrets.READER_TOKEN}}
     replaces-base: false
 updates:
-  - package-ecosystem: "npm"
+  - package-ecosystem: "pnpm"
     directory: "/"
     registries:
       - npm-github
