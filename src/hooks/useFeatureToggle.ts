@@ -16,13 +16,13 @@ const tiltakstyperKometAlltidErMasterFor = [
   Tiltakskode.AVKLARAG,
   Tiltakskode.INDOPPFAG,
   Tiltakskode.DIGIOPPARB,
-  Tiltakskode.VASV
-]
-
-const tiltakstyperKometKanskjeErMasterFor: Tiltakskode[] = [
+  Tiltakskode.VASV,
   Tiltakskode.JOBBK,
   Tiltakskode.GRUFAGYRKE,
   Tiltakskode.GRUPPEAMO,
+]
+
+const tiltakstyperKometKanskjeErMasterFor: Tiltakskode[] = [
 ]
 
 export const useFeatureToggle = () => {
