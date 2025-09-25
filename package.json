@@ -31,7 +31,7 @@
     "@navikt/ds-react": "^7.31.0",
     "@navikt/ds-tokens": "^7.31.0",
     "@navikt/nav-dekoratoren-moduler": "^3.4.0",
-    "@sentry/react": "^10.14.0",
+    "@sentry/react": "^10.15.0",
     "@sentry/tracing": "^7.120.4",
     "@types/react": "^19.1.13",
     "@types/react-collapse": "^5.0.4",
@@ -42,7 +42,7 @@
     "dayjs": "^1.11.18",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
-    "react-router-dom": "^7.9.1",
+    "react-router-dom": "^7.9.2",
     "typescript": "^5.9.2",
     "zod": "^4.1.11"
   },
