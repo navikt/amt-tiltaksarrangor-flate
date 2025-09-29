@@ -16,28 +16,28 @@ importers:
         version: 7.31.0
       '@navikt/ds-react':
         specifier: ^7.31.0
-        version: 7.31.0(@types/react@19.1.13)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
+        version: 7.31.0(@types/react@19.1.15)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
       '@navikt/ds-tokens':
         specifier: ^7.31.0
         version: 7.31.0
       '@navikt/nav-dekoratoren-moduler':
         specifier: ^3.4.0
-        version: 3.4.0(csp-header@6.0.0)(html-react-parser@5.2.2(@types/react@19.1.13)(react@19.1.1))(jsdom@26.0.0)(react@19.1.1)
+        version: 3.4.0(csp-header@6.0.0)(html-react-parser@5.2.2(@types/react@19.1.15)(react@19.1.1))(jsdom@26.0.0)(react@19.1.1)
       '@sentry/react':
-        specifier: ^10.15.0
-        version: 10.15.0(react@19.1.1)
+        specifier: ^10.16.0
+        version: 10.16.0(react@19.1.1)
       '@sentry/tracing':
         specifier: ^7.120.4
         version: 7.120.4
       '@types/react':
-        specifier: ^19.1.13
-        version: 19.1.13
+        specifier: ^19.1.15
+        version: 19.1.15
       '@types/react-collapse':
         specifier: ^5.0.4
         version: 5.0.4
       '@types/react-dom':
         specifier: ^19.1.9
-        version: 19.1.9(@types/react@19.1.13)
+        version: 19.1.9(@types/react@19.1.15)
       '@types/react-router-dom':
         specifier: ^5.3.3
         version: 5.3.3
@@ -57,8 +57,8 @@ importers:
         specifier: ^19.1.1
         version: 19.1.1(react@19.1.1)
       react-router-dom:
-        specifier: ^7.9.2
-        version: 7.9.2(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
+        specifier: ^7.9.3
+        version: 7.9.3(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
       typescript:
         specifier: ^5.9.2
         version: 5.9.2
@@ -73,8 +73,8 @@ importers:
         specifier: ^10.0.0
         version: 10.0.0
       '@vitejs/plugin-react':
-        specifier: ^5.0.3
-        version: 5.0.3(vite@7.1.7(@types/node@24.5.2)(sass@1.93.2)(yaml@2.8.1))
+        specifier: ^5.0.4
+        version: 5.0.4(vite@7.1.7(@types/node@24.5.2)(sass@1.93.2)(yaml@2.8.1))
       cpy-cli:
         specifier: ^6.0.0
         version: 6.0.0
@@ -109,8 +109,8 @@ importers:
         specifier: ^9.1.7
         version: 9.1.7
       lint-staged:
-        specifier: ^16.2.1
-        version: 16.2.1
+        specifier: ^16.2.3
+        version: 16.2.3
       msw:
         specifier: ^2.11.3
         version: 2.11.3(@types/node@24.5.2)(typescript@5.9.2)
@@ -682,8 +682,8 @@ packages:
     resolution: {integrity: sha512-dfUnCxiN9H4ap84DvD2ubjw+3vUNpstxa0TneY/Paat8a3R4uQZDLSvWjmznAY/DoahqTHl9V46HF/Zs3F29pg==}
     engines: {node: '>= 10.0.0'}
 
-  '@rolldown/pluginutils@1.0.0-beta.35':
-    resolution: {integrity: sha512-slYrCpoxJUqzFDDNlvrOYRazQUNRvWPjXA17dAOISY3rDMxX6k8K4cj2H+hEYMHF81HO3uNd5rHVigAWRM5dSg==}
+  '@rolldown/pluginutils@1.0.0-beta.38':
+    resolution: {integrity: sha512-N/ICGKleNhA5nc9XXQG/kkKHJ7S55u0x0XUJbbkmdCnFuoRkM1Il12q9q0eX19+M7KKUEPw/daUPIRnxhcxAIw==}
 
   '@rollup/rollup-android-arm-eabi@4.52.2':
     resolution: {integrity: sha512-o3pcKzJgSGt4d74lSZ+OCnHwkKBeAbFDmbEm5gg70eA8VkyCuC/zV9TwBnmw6VjDlRdF4Pshfb+WE9E6XY1PoQ==}
@@ -795,40 +795,40 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@sentry-internal/browser-utils@10.15.0':
-    resolution: {integrity: sha512-hJxo6rj3cMqiYlZd6PC8o/i2FG6hRnZdHcJkfm1HXgWCRgdCPilKghL6WU+B2H5dLyRKJ17nWjDAVQPRdCxO9w==}
+  '@sentry-internal/browser-utils@10.16.0':
+    resolution: {integrity: sha512-0o6fI2FUPlwa6AyqNY8RfCMhzveVDKW27uFyFXZ6d+tMfnjFO7iRe7UlzM/9cJ6lDiCtjoIXiuttZsMXDlosWg==}
     engines: {node: '>=18'}
 
-  '@sentry-internal/feedback@10.15.0':
-    resolution: {integrity: sha512-EP+NvdU9yfmepGzQwz0jnqhd0DBxHzrP16TsJIVXJe93QJ+gumdN3XQ0lvYtEC9zHuU08DghRLjfI1kLRfGzdQ==}
+  '@sentry-internal/feedback@10.16.0':
+    resolution: {integrity: sha512-dyFNQMkqe0YKTkdAVpFenV+5KUjcu7SqysmXUE91vpqfc/9J+6KAYJH9hE6IvoCf7GlwyzH85bJDniUjF2vt4A==}
     engines: {node: '>=18'}
 
-  '@sentry-internal/replay-canvas@10.15.0':
-    resolution: {integrity: sha512-SXgUWArk+haUJ24W6pIm9IiwmIk3WxeQyFUxFfMUetSRb06CVAoNjPb0YuzKIeuFYJb6hDPGQ9UWhShnQpTmkw==}
+  '@sentry-internal/replay-canvas@10.16.0':
+    resolution: {integrity: sha512-JGwcWItG4evtE/Clz/33y59cTJIeAOD9EQh3iEZC6wJ94eNy1cjjUTYBrmUAsW4sMpv820yksSrskSMzYHofFw==}
     engines: {node: '>=18'}
 
-  '@sentry-internal/replay@10.15.0':
-    resolution: {integrity: sha512-vHBAFVdDfa51oqPWyRCK4fOIFhFeE2mVlqBWrBb+S3vCNcmtpvqJUq6o4sjSYcQzdZQpMSp5/Lj8Y3a8x/ed7w==}
+  '@sentry-internal/replay@10.16.0':
+    resolution: {integrity: sha512-cKCkXNS+giNTo6euhYXpiIit2hH7YLa3s8Kl/QE8CJw9ao1oMNezNPHR1dxZzhr5+oziGdIphMVR7EAhdA4tsQ==}
     engines: {node: '>=18'}
 
   '@sentry-internal/tracing@7.120.4':
     resolution: {integrity: sha512-Fz5+4XCg3akeoFK+K7g+d7HqGMjmnLoY2eJlpONJmaeT9pXY7yfUyXKZMmMajdE2LxxKJgQ2YKvSCaGVamTjHw==}
     engines: {node: '>=8'}
 
-  '@sentry/browser@10.15.0':
-    resolution: {integrity: sha512-YV42VgW7xdmY23u7+nQLNJXDVilNTP0d5WWkHDxeI/uD6AAvn3GyKjx1YMG/KCulxva3dPDPEUunzDm3al26Sw==}
+  '@sentry/browser@10.16.0':
+    resolution: {integrity: sha512-NHufRQ5sjXcAXInHKjQrm561DyGNO0bscKPDbwsSGAXGwOhyz+WOaNSZJmx9/v6JJfAYSa7fr/zKG/bMuc3+OQ==}
     engines: {node: '>=18'}
 
-  '@sentry/core@10.15.0':
-    resolution: {integrity: sha512-J7WsQvb9G6nsVgWkTHwyX7wR2djtEACYCx19hAnRbSGIg+ysVG+7Ti3RL4bz9/VXfcxsz346cleKc7ljhynYlQ==}
+  '@sentry/core@10.16.0':
+    resolution: {integrity: sha512-jGcigU8kU8DfmTjWoLUpftgkayWjKLPBWm8TN3OJOevoQ319MwqoyukWXTMVu4FoyH+Vw6+xovDqMgPd/Mexsg==}
     engines: {node: '>=18'}
 
   '@sentry/core@7.120.4':
     resolution: {integrity: sha512-TXu3Q5kKiq8db9OXGkWyXUbIxMMuttB5vJ031yolOl5T/B69JRyAoKuojLBjRv1XX583gS1rSSoX8YXX7ATFGA==}
     engines: {node: '>=8'}
 
-  '@sentry/react@10.15.0':
-    resolution: {integrity: sha512-dyJTv0rJtHunGE0rZ3amQAgBaKR9YnbIJcg9Y1uZt+vPK/B19sqM9S8D7DUvlBfDk9iWfhBCK6gHLEUOckFrKA==}
+  '@sentry/react@10.16.0':
+    resolution: {integrity: sha512-QuUXNATNFWUaFMHV7CPwmRF1HX1RIQ1GwO5ACDSoN+1CUkUotlHwI5M64tX/L5MabMjPiiGlooUsuC/wEWAPIA==}
     engines: {node: '>=18'}
     peerDependencies:
       react: ^16.14.0 || 17.x || 18.x || 19.x
@@ -896,8 +896,8 @@ packages:
   '@types/react-router@5.1.20':
     resolution: {integrity: sha512-jGjmu/ZqS7FjSH6owMcD5qpq19+1RS9DeVRqfl1FeBMxTDQAGwlMWOcs52NDoXaNKyG3d1cYQFMs9rCrb88o9Q==}
 
-  '@types/react@19.1.13':
-    resolution: {integrity: sha512-hHkbU/eoO3EG5/MZkuFSKmYqPbSVk5byPFa3e7y/8TybHiLMACgI8seVYlicwk7H5K/rI2px9xrQp/C+AUDTiQ==}
+  '@types/react@19.1.15':
+    resolution: {integrity: sha512-+kLxJpaJzXybyDyFXYADyP1cznTO8HSuBpenGlnKOAkH4hyNINiywvXS/tGJhsrGGP/gM185RA3xpjY0Yg4erA==}
 
   '@types/sinonjs__fake-timers@8.1.1':
     resolution: {integrity: sha512-0kSuKjAS0TrGLJ0M/+8MaFkGsQhZpB6pxOmvS3K8FYI72K//YmdfoW9X2qPsAKh1mkwxGD5zib9s1FIFed6E8g==}
@@ -973,8 +973,8 @@ packages:
     resolution: {integrity: sha512-576+u0QD+Jp3tZzvfRfxon0EA2lzcDt3lhUbsC6Lgzy9x2VR4E+JUiNyGHi5T8vk0TV+fpJ5GLG1JsJuWCaKhw==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
 
-  '@vitejs/plugin-react@5.0.3':
-    resolution: {integrity: sha512-PFVHhosKkofGH0Yzrw1BipSedTH68BFF8ZWy1kfUpCtJcouXXY0+racG8sExw7hw0HoX36813ga5o3LTWZ4FUg==}
+  '@vitejs/plugin-react@5.0.4':
+    resolution: {integrity: sha512-La0KD0vGkVkSk6K+piWDKRUyg8Rl5iAIKRMH0vMJI0Eg47bq1eOxmoObAaQG37WMW9MSyk7Cs8EIWwJC1PtzKA==}
     engines: {node: ^20.19.0 || >=22.12.0}
     peerDependencies:
       vite: ^4.2.0 || ^5.0.0 || ^6.0.0 || ^7.0.0
@@ -1154,8 +1154,8 @@ packages:
   base64-js@1.5.1:
     resolution: {integrity: sha512-AKpaYlHn8t4SVbOHCy+b5+KKgvR4vrsD8vbvrbiQJps7fKDTkjkDry6ji0rUJjC0kzbNePLwzxq8iypo41qeWA==}
 
-  baseline-browser-mapping@2.8.6:
-    resolution: {integrity: sha512-wrH5NNqren/QMtKUEEJf7z86YjfqW/2uw3IL3/xpqZUC95SSVIFXYQeeGjL6FT/X68IROu6RMehZQS5foy2BXw==}
+  baseline-browser-mapping@2.8.9:
+    resolution: {integrity: sha512-hY/u2lxLrbecMEWSB0IpGzGyDyeoMFQhCvZd2jGFSE5I17Fh01sYUBPCJtkWERw7zrac9+cIghxm/ytJa2X8iA==}
     hasBin: true
 
   bcrypt-pbkdf@1.0.2:
@@ -1212,8 +1212,8 @@ packages:
     resolution: {integrity: sha512-P8BjAsXvZS+VIDUI11hHCQEv74YT67YUi5JJFNWIqL235sBmjX4+qx9Muvls5ivyNENctx46xQLQ3aTuE7ssaQ==}
     engines: {node: '>=6'}
 
-  caniuse-lite@1.0.30001743:
-    resolution: {integrity: sha512-e6Ojr7RV14Un7dz6ASD0aZDmQPT/A+eZU+nuTNfjqmRrmkmQlnTNWH0SKmqagx9PeW87UVqapSurtAXifmtdmw==}
+  caniuse-lite@1.0.30001745:
+    resolution: {integrity: sha512-ywt6i8FzvdgrrrGbr1jZVObnVv6adj+0if2/omv9cmR2oiZs30zL4DIyaptKcbOrBdOIc74QTMoJvSE2QHh5UQ==}
 
   caseless@0.12.0:
     resolution: {integrity: sha512-4tYFyifaFfGacoiObjJegolkwSU4xQNGbVgUiNYVUxbQ2x2lUsFvY4hVgVzGiIe6WLOPqycWXA40l+PWsxthUw==}
@@ -1464,8 +1464,8 @@ packages:
   ecc-jsbn@0.1.2:
     resolution: {integrity: sha512-eh9O+hwRHNbG4BLTjEl3nw044CkGm5X6LoaCf7LPp7UU8Qrt47JYNi6nPX8xjW97TKGKm1ouctg0QSpZe9qrnw==}
 
-  electron-to-chromium@1.5.223:
-    resolution: {integrity: sha512-qKm55ic6nbEmagFlTFczML33rF90aU+WtrJ9MdTCThrcvDNdUHN4p6QfVN78U06ZmguqXIyMPyYhw2TrbDUwPQ==}
+  electron-to-chromium@1.5.227:
+    resolution: {integrity: sha512-ITxuoPfJu3lsNWUi2lBM2PaBPYgH3uqmxut5vmBxgYvyI4AlJ6P3Cai1O76mOrkJCBzq0IxWg/NtqOrpu/0gKA==}
 
   emoji-regex@10.5.0:
     resolution: {integrity: sha512-lb49vf1Xzfx080OKA0o6l8DQQpV+6Vg95zyCJX9VB/BqKYlhG7N4wgROUUHRA+ZPUefLnteQOad7z1kT2bV7bg==}
@@ -2164,8 +2164,8 @@ packages:
     resolution: {integrity: sha512-+bT2uH4E5LGE7h/n3evcS/sQlJXCpIp6ym8OWJ5eV6+67Dsql/LaaT7qJBAt2rzfoa/5QBGBhxDix1dMt2kQKQ==}
     engines: {node: '>= 0.8.0'}
 
-  lint-staged@16.2.1:
-    resolution: {integrity: sha512-KMeYmH9wKvHsXdUp+z6w7HN3fHKHXwT1pSTQTYxB9kI6ekK1rlL3kLZEoXZCppRPXFK9PFW/wfQctV7XUqMrPQ==}
+  lint-staged@16.2.3:
+    resolution: {integrity: sha512-1OnJEESB9zZqsp61XHH2fvpS1es3hRCxMplF/AJUDa8Ho8VrscYDIuxGrj3m8KPXbcWZ8fT9XTMUhEQmOVKpKw==}
     engines: {node: '>=20.17'}
     hasBin: true
 
@@ -2521,15 +2521,15 @@ packages:
     resolution: {integrity: sha512-z6F7K9bV85EfseRCp2bzrpyQ0Gkw1uLoCel9XBVWPg/TjRj94SkJzUTGfOa4bs7iJvBWtQG0Wq7wnI0syw3EBQ==}
     engines: {node: '>=0.10.0'}
 
-  react-router-dom@7.9.2:
-    resolution: {integrity: sha512-pagqpVJnjZOfb+vIM23eTp7Sp/AAJjOgaowhP1f1TWOdk5/W8Uk8d/M/0wfleqx7SgjitjNPPsKeCZE1hTSp3w==}
+  react-router-dom@7.9.3:
+    resolution: {integrity: sha512-1QSbA0TGGFKTAc/aWjpfW/zoEukYfU4dc1dLkT/vvf54JoGMkW+fNA+3oyo2gWVW1GM7BxjJVHz5GnPJv40rvg==}
     engines: {node: '>=20.0.0'}
     peerDependencies:
       react: '>=18'
       react-dom: '>=18'
 
-  react-router@7.9.2:
-    resolution: {integrity: sha512-i2TPp4dgaqrOqiRGLZmqh2WXmbdFknUyiCRmSKs0hf6fWXkTKg5h56b+9F22NbGRAMxjYfqQnpi63egzD2SuZA==}
+  react-router@7.9.3:
+    resolution: {integrity: sha512-4o2iWCFIwhI/eYAIL43+cjORXYn/aRQPgtFRRZb3VzoyQ5Uej0Bmqj7437L97N9NJW4wnicSwLOLS+yCXfAPgg==}
     engines: {node: '>=20.0.0'}
     peerDependencies:
       react: '>=18'
@@ -3582,13 +3582,13 @@ snapshots:
 
   '@navikt/ds-css@7.31.0': {}
 
-  '@navikt/ds-react@7.31.0(@types/react@19.1.13)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)':
+  '@navikt/ds-react@7.31.0(@types/react@19.1.15)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)':
     dependencies:
       '@floating-ui/react': 0.27.8(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
       '@floating-ui/react-dom': 2.1.6(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
       '@navikt/aksel-icons': 7.31.0
       '@navikt/ds-tokens': 7.31.0
-      '@types/react': 19.1.13
+      '@types/react': 19.1.15
       clsx: 2.1.1
       date-fns: 4.1.0
       react: 19.1.1
@@ -3598,10 +3598,10 @@ snapshots:
 
   '@navikt/ds-tokens@7.31.0': {}
 
-  '@navikt/nav-dekoratoren-moduler@3.4.0(csp-header@6.0.0)(html-react-parser@5.2.2(@types/react@19.1.13)(react@19.1.1))(jsdom@26.0.0)(react@19.1.1)':
+  '@navikt/nav-dekoratoren-moduler@3.4.0(csp-header@6.0.0)(html-react-parser@5.2.2(@types/react@19.1.15)(react@19.1.1))(jsdom@26.0.0)(react@19.1.1)':
     dependencies:
       csp-header: 6.0.0
-      html-react-parser: 5.2.2(@types/react@19.1.13)(react@19.1.1)
+      html-react-parser: 5.2.2(@types/react@19.1.15)(react@19.1.1)
       js-cookie: 3.0.5
       jsdom: 26.0.0
       react: 19.1.1
@@ -3688,7 +3688,7 @@ snapshots:
       '@parcel/watcher-win32-x64': 2.5.1
     optional: true
 
-  '@rolldown/pluginutils@1.0.0-beta.35': {}
+  '@rolldown/pluginutils@1.0.0-beta.38': {}
 
   '@rollup/rollup-android-arm-eabi@4.52.2':
     optional: true
@@ -3756,23 +3756,23 @@ snapshots:
   '@rollup/rollup-win32-x64-msvc@4.52.2':
     optional: true
 
-  '@sentry-internal/browser-utils@10.15.0':
+  '@sentry-internal/browser-utils@10.16.0':
     dependencies:
-      '@sentry/core': 10.15.0
+      '@sentry/core': 10.16.0
 
-  '@sentry-internal/feedback@10.15.0':
+  '@sentry-internal/feedback@10.16.0':
     dependencies:
-      '@sentry/core': 10.15.0
+      '@sentry/core': 10.16.0
 
-  '@sentry-internal/replay-canvas@10.15.0':
+  '@sentry-internal/replay-canvas@10.16.0':
     dependencies:
-      '@sentry-internal/replay': 10.15.0
-      '@sentry/core': 10.15.0
+      '@sentry-internal/replay': 10.16.0
+      '@sentry/core': 10.16.0
 
-  '@sentry-internal/replay@10.15.0':
+  '@sentry-internal/replay@10.16.0':
     dependencies:
-      '@sentry-internal/browser-utils': 10.15.0
-      '@sentry/core': 10.15.0
+      '@sentry-internal/browser-utils': 10.16.0
+      '@sentry/core': 10.16.0
 
   '@sentry-internal/tracing@7.120.4':
     dependencies:
@@ -3780,25 +3780,25 @@ snapshots:
       '@sentry/types': 7.120.4
       '@sentry/utils': 7.120.4
 
-  '@sentry/browser@10.15.0':
+  '@sentry/browser@10.16.0':
     dependencies:
-      '@sentry-internal/browser-utils': 10.15.0
-      '@sentry-internal/feedback': 10.15.0
-      '@sentry-internal/replay': 10.15.0
-      '@sentry-internal/replay-canvas': 10.15.0
-      '@sentry/core': 10.15.0
+      '@sentry-internal/browser-utils': 10.16.0
+      '@sentry-internal/feedback': 10.16.0
+      '@sentry-internal/replay': 10.16.0
+      '@sentry-internal/replay-canvas': 10.16.0
+      '@sentry/core': 10.16.0
 
-  '@sentry/core@10.15.0': {}
+  '@sentry/core@10.16.0': {}
 
   '@sentry/core@7.120.4':
     dependencies:
       '@sentry/types': 7.120.4
       '@sentry/utils': 7.120.4
 
-  '@sentry/react@10.15.0(react@19.1.1)':
+  '@sentry/react@10.16.0(react@19.1.1)':
     dependencies:
-      '@sentry/browser': 10.15.0
-      '@sentry/core': 10.15.0
+      '@sentry/browser': 10.16.0
+      '@sentry/core': 10.16.0
       hoist-non-react-statics: 3.3.2
       react: 19.1.1
 
@@ -3856,24 +3856,24 @@ snapshots:
 
   '@types/react-collapse@5.0.4':
     dependencies:
-      '@types/react': 19.1.13
+      '@types/react': 19.1.15
 
-  '@types/react-dom@19.1.9(@types/react@19.1.13)':
+  '@types/react-dom@19.1.9(@types/react@19.1.15)':
     dependencies:
-      '@types/react': 19.1.13
+      '@types/react': 19.1.15
 
   '@types/react-router-dom@5.3.3':
     dependencies:
       '@types/history': 4.7.11
-      '@types/react': 19.1.13
+      '@types/react': 19.1.15
       '@types/react-router': 5.1.20
 
   '@types/react-router@5.1.20':
     dependencies:
       '@types/history': 4.7.11
-      '@types/react': 19.1.13
+      '@types/react': 19.1.15
 
-  '@types/react@19.1.13':
+  '@types/react@19.1.15':
     dependencies:
       csstype: 3.1.3
 
@@ -3983,12 +3983,12 @@ snapshots:
       '@typescript-eslint/types': 8.44.1
       eslint-visitor-keys: 4.2.1
 
-  '@vitejs/plugin-react@5.0.3(vite@7.1.7(@types/node@24.5.2)(sass@1.93.2)(yaml@2.8.1))':
+  '@vitejs/plugin-react@5.0.4(vite@7.1.7(@types/node@24.5.2)(sass@1.93.2)(yaml@2.8.1))':
     dependencies:
       '@babel/core': 7.28.4
       '@babel/plugin-transform-react-jsx-self': 7.27.1(@babel/core@7.28.4)
       '@babel/plugin-transform-react-jsx-source': 7.27.1(@babel/core@7.28.4)
-      '@rolldown/pluginutils': 1.0.0-beta.35
+      '@rolldown/pluginutils': 1.0.0-beta.38
       '@types/babel__core': 7.20.5
       react-refresh: 0.17.0
       vite: 7.1.7(@types/node@24.5.2)(sass@1.93.2)(yaml@2.8.1)
@@ -4190,7 +4190,7 @@ snapshots:
 
   base64-js@1.5.1: {}
 
-  baseline-browser-mapping@2.8.6: {}
+  baseline-browser-mapping@2.8.9: {}
 
   bcrypt-pbkdf@1.0.2:
     dependencies:
@@ -4215,9 +4215,9 @@ snapshots:
 
   browserslist@4.26.2:
     dependencies:
-      baseline-browser-mapping: 2.8.6
-      caniuse-lite: 1.0.30001743
-      electron-to-chromium: 1.5.223
+      baseline-browser-mapping: 2.8.9
+      caniuse-lite: 1.0.30001745
+      electron-to-chromium: 1.5.227
       node-releases: 2.0.21
       update-browserslist-db: 1.1.3(browserslist@4.26.2)
 
@@ -4251,7 +4251,7 @@ snapshots:
 
   callsites@3.1.0: {}
 
-  caniuse-lite@1.0.30001743: {}
+  caniuse-lite@1.0.30001745: {}
 
   caseless@0.12.0: {}
 
@@ -4533,7 +4533,7 @@ snapshots:
       jsbn: 0.1.1
       safer-buffer: 2.1.2
 
-  electron-to-chromium@1.5.223: {}
+  electron-to-chromium@1.5.227: {}
 
   emoji-regex@10.5.0: {}
 
@@ -5064,7 +5064,7 @@ snapshots:
     dependencies:
       whatwg-encoding: 3.1.1
 
-  html-react-parser@5.2.2(@types/react@19.1.13)(react@19.1.1):
+  html-react-parser@5.2.2(@types/react@19.1.15)(react@19.1.1):
     dependencies:
       domhandler: 5.0.3
       html-dom-parser: 5.0.13
@@ -5072,7 +5072,7 @@ snapshots:
       react-property: 2.0.2
       style-to-js: 1.1.16
     optionalDependencies:
-      '@types/react': 19.1.13
+      '@types/react': 19.1.15
 
   htmlparser2@10.0.0:
     dependencies:
@@ -5374,7 +5374,7 @@ snapshots:
       prelude-ls: 1.2.1
       type-check: 0.4.0
 
-  lint-staged@16.2.1:
+  lint-staged@16.2.3:
     dependencies:
       commander: 14.0.1
       listr2: 9.0.4
@@ -5718,13 +5718,13 @@ snapshots:
 
   react-refresh@0.17.0: {}
 
-  react-router-dom@7.9.2(react-dom@19.1.1(react@19.1.1))(react@19.1.1):
+  react-router-dom@7.9.3(react-dom@19.1.1(react@19.1.1))(react@19.1.1):
     dependencies:
       react: 19.1.1
       react-dom: 19.1.1(react@19.1.1)
-      react-router: 7.9.2(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
+      react-router: 7.9.3(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
 
-  react-router@7.9.2(react-dom@19.1.1(react@19.1.1))(react@19.1.1):
+  react-router@7.9.3(react-dom@19.1.1(react@19.1.1))(react@19.1.1):
     dependencies:
       cookie: 1.0.2
       react: 19.1.1
