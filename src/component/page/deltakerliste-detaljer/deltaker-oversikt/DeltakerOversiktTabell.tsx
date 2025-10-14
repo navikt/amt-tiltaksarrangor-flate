@@ -21,7 +21,7 @@ interface DeltakerOversiktTabellProps {
 export const DeltakerOversiktTabell = (
 	props: DeltakerOversiktTabellProps
 ): React.ReactElement<DeltakerOversiktTabellProps> => {
-	const { deltakere, tiltakstype } = props
+	const { deltakere } = props
 	const { filtrerDeltakere, veilederFilter, medveilederFilter, statusFilter, hendelseFilter } =
 		useKoordinatorFilterContext()
 	const { deltakerSortering, setDeltakerSortering } =
@@ -29,7 +29,7 @@ export const DeltakerOversiktTabell = (
 	const [ deltakereBearbeidet, setDeltakereBearbeidet ] = useState<
 		TiltakDeltaker[]
 		>(sorterDeltakere(deltakere, deltakerSortering))
-	const visInfoMeldingKravutbetaling = tiltakstype === Tiltakskode.VASV || tiltakstype === Tiltakskode.ARBFORB
+	const visInfoMeldingKravutbetaling = false
 
 	useEffect(() => {
 		if (!deltakere) return
