@@ -7,9 +7,6 @@ import { useDeltakerSorteringContext } from '../../../../store/DeltakerSortering
 import { finnNesteSortering } from '../../../../utils/sortering-utils'
 import { AlertInfoMessage } from '../../../felles/alert-info-message/AlertInfoMessage'
 import { AlertInfoMessageKravUtbetaling } from '../../../felles/alert-info-message/krav-utbetaling/AlertInfoMessageKravUtbetaling'
-import {
-	AlertInfoMessageSoktInnVurderes
-} from '../../../felles/alert-info-message/sokt-inn-vurderes/AlertInfoMessageSoktInnVurderes'
 import { useKoordinatorFilterContext } from '../store/KoordinatorFilterContextProvider'
 import { DeltakerTabell } from './deltaker-tabell/DeltakerTabell'
 import { sorterDeltakere } from './deltaker-tabell/sortering'
@@ -24,16 +21,15 @@ interface DeltakerOversiktTabellProps {
 export const DeltakerOversiktTabell = (
 	props: DeltakerOversiktTabellProps
 ): React.ReactElement<DeltakerOversiktTabellProps> => {
-	const { deltakere, tiltakstype } = props
+	const { deltakere } = props
 	const { filtrerDeltakere, veilederFilter, medveilederFilter, statusFilter, hendelseFilter } =
 		useKoordinatorFilterContext()
 	const { deltakerSortering, setDeltakerSortering } =
 		useDeltakerSorteringContext()
 	const [ deltakereBearbeidet, setDeltakereBearbeidet ] = useState<
 		TiltakDeltaker[]
-	>(sorterDeltakere(deltakere, deltakerSortering))
-	const visInfomeldingKursTiltak = tiltakstype === Tiltakskode.GRUPPEAMO || tiltakstype === Tiltakskode.GRUFAGYRKE || tiltakstype === Tiltakskode.JOBBK
-	const visInfoMeldingKravutbetaling = tiltakstype === Tiltakskode.VASV || tiltakstype === Tiltakskode.ARBFORB
+		>(sorterDeltakere(deltakere, deltakerSortering))
+	const visInfoMeldingKravutbetaling = false
 
 	useEffect(() => {
 		if (!deltakere) return
@@ -57,7 +53,6 @@ export const DeltakerOversiktTabell = (
 	return (
 		<div className={styles.tableWrapper}>
 			<AlertInfoMessage />
-			{visInfomeldingKursTiltak && <AlertInfoMessageSoktInnVurderes />}
 			{visInfoMeldingKravutbetaling && <AlertInfoMessageKravUtbetaling />}
 
 			{deltakere.length === 0 ? (
