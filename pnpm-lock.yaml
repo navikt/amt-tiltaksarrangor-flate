@@ -12,8 +12,8 @@ importers:
         specifier: ^7.32.2
         version: 7.32.2
       '@navikt/ds-css':
-        specifier: ^7.32.2
-        version: 7.32.2
+        specifier: ^7.32.3
+        version: 7.32.3
       '@navikt/ds-react':
         specifier: ^7.32.2
         version: 7.32.2(@types/react@19.2.2)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
@@ -135,8 +135,8 @@ packages:
   '@asamuzakjp/css-color@4.0.5':
     resolution: {integrity: sha512-lMrXidNhPGsDjytDy11Vwlb6OIGrT3CmLg3VWNFyWkLWtijKl7xjvForlh8vuj0SHGjgl4qZEQzUmYTeQA2JFQ==}
 
-  '@asamuzakjp/dom-selector@6.7.0':
-    resolution: {integrity: sha512-GrYRsKf8oVnPHsA+4dOAnPybrhT3cQ0xykXxjj2DaOni5xOlV1T8/Nqo+iNUO7wh9bs3jViIFsxJKFzDTU/ulQ==}
+  '@asamuzakjp/dom-selector@6.7.2':
+    resolution: {integrity: sha512-ccKogJI+0aiDhOahdjANIc9SDixSud1gbwdVrhn7kMopAtLXqsz9MKmQQtIl6Y5aC2IYq+j4dz/oedL2AVMmVQ==}
 
   '@asamuzakjp/nwsapi@2.3.9':
     resolution: {integrity: sha512-n8GuYSrI9bF7FFZ/SjhwevlHc8xaVlb/7HmHelnc/PZXBD2ZR49NnN9sMMuDdEGPeeRQ5d0hqlSlEpgCX3Wl0Q==}
@@ -561,8 +561,8 @@ packages:
   '@navikt/aksel-icons@7.32.2':
     resolution: {integrity: sha512-6bmfbHlb4rSwVECALx7kldnWoXBITPyr7GDIpRrbALcdEoMlL3qfapMZID2GkmExX5A5G1FrbRqbB4fjpmmCiw==, tarball: https://npm.pkg.github.com/download/@navikt/aksel-icons/7.32.2/03f96bab5119fd9b89f836dd6716bd3e15e5c684}
 
-  '@navikt/ds-css@7.32.2':
-    resolution: {integrity: sha512-ZznXt6Ljd23c9jhcut3F2aOZAlUapKBI0mVBSu+V1H2whNos9RtLz7PHzpc4dne5dSIu31U8N+WzRpe4Me4OSA==, tarball: https://npm.pkg.github.com/download/@navikt/ds-css/7.32.2/100b27808970f7005d122dfcdeddf7aa1fc1d173}
+  '@navikt/ds-css@7.32.3':
+    resolution: {integrity: sha512-g2aGpLjD/l5y9nHao4iKrAZj+fEEjBQMTtZnjKDemGNxrvvOuVAOHq0AyBDbhZNOx5rFfYl3hGeC6hYLPdQzfw==, tarball: https://npm.pkg.github.com/download/@navikt/ds-css/7.32.3/6be2189f2bb288fba3acc03425281b1aed86f4aa}
 
   '@navikt/ds-react@7.32.2':
     resolution: {integrity: sha512-WXsy+0O1eyag3vkhg7sQlb0kuG9XQKwrS7Gea9L9uyoeRVb7dglBh1xJwjDQ+MCVFctbY3xRr7Vvf+4qL2RN3g==, tarball: https://npm.pkg.github.com/download/@navikt/ds-react/7.32.2/bda14c3aca93e4df2262297dc99f038380d8d47c}
@@ -3194,7 +3194,7 @@ snapshots:
       '@csstools/css-tokenizer': 3.0.4
       lru-cache: 11.2.2
 
-  '@asamuzakjp/dom-selector@6.7.0':
+  '@asamuzakjp/dom-selector@6.7.2':
     dependencies:
       '@asamuzakjp/nwsapi': 2.3.9
       bidi-js: 1.0.3
@@ -3590,7 +3590,7 @@ snapshots:
 
   '@navikt/aksel-icons@7.32.2': {}
 
-  '@navikt/ds-css@7.32.2': {}
+  '@navikt/ds-css@7.32.3': {}
 
   '@navikt/ds-react@7.32.2(@types/react@19.2.2)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)':
     dependencies:
@@ -5312,7 +5312,7 @@ snapshots:
 
   jsdom@27.0.0(postcss@8.5.6):
     dependencies:
-      '@asamuzakjp/dom-selector': 6.7.0
+      '@asamuzakjp/dom-selector': 6.7.2
       cssstyle: 5.3.1(postcss@8.5.6)
       data-urls: 6.0.0
       decimal.js: 10.6.0
