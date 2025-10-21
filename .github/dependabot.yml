@@ -15,13 +15,9 @@ updates:
     open-pull-requests-limit: 10
     groups:
       major:
-        patterns:
-          - '*'
         update-types:
           - 'major'
       minor-and-patch:
-        patterns:
-          - '*'
         update-types:
           - 'patch'
           - 'minor'
