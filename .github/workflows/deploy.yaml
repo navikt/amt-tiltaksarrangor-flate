@@ -33,7 +33,7 @@ jobs:
       - name: Build application
         run: pnpm build
       - name: Upload frontend asset files
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: frontend-assets
           path: build
