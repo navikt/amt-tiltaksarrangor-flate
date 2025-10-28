@@ -37,7 +37,7 @@
     "@types/react-collapse": "^5.0.4",
     "@types/react-dom": "^19.2.2",
     "@types/react-router-dom": "^5.3.3",
-    "axios": "^1.12.2",
+    "axios": "^1.13.0",
     "classnames": "^2.5.1",
     "dayjs": "^1.11.18",
     "react": "^19.2.0",
@@ -68,7 +68,7 @@
     "typescript": "^5.9.3",
     "typescript-eslint": "^8.46.2",
     "vite": "^7.1.12",
-    "vitest": "^4.0.3"
+    "vitest": "^4.0.4"
   },
   "msw": {
     "workerDirectory": [

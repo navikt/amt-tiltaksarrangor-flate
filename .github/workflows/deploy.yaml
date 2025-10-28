@@ -33,7 +33,7 @@ jobs:
       - name: Build application
         run: pnpm build
       - name: Upload frontend asset files
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: frontend-assets
           path: build
@@ -78,7 +78,7 @@ jobs:
       contents: 'write' # Create release
     steps:
       - name: Download frontend asset files
-        uses: actions/download-artifact@v5
+        uses: actions/download-artifact@v6
         with:
           name: frontend-assets
           path: build
