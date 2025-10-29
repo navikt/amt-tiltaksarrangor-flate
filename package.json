@@ -26,10 +26,10 @@
     ]
   },
   "dependencies": {
-    "@navikt/aksel-icons": "^7.32.3",
-    "@navikt/ds-css": "^7.32.3",
-    "@navikt/ds-react": "^7.32.3",
-    "@navikt/ds-tokens": "^7.32.3",
+    "@navikt/aksel-icons": "^7.32.4",
+    "@navikt/ds-css": "^7.32.4",
+    "@navikt/ds-react": "^7.32.4",
+    "@navikt/ds-tokens": "^7.32.4",
     "@navikt/nav-dekoratoren-moduler": "^3.4.0",
     "@sentry/react": "^10.22.0",
     "@sentry/tracing": "^7.120.4",
@@ -37,7 +37,7 @@
     "@types/react-collapse": "^5.0.4",
     "@types/react-dom": "^19.2.2",
     "@types/react-router-dom": "^5.3.3",
-    "axios": "^1.13.0",
+    "axios": "^1.13.1",
     "classnames": "^2.5.1",
     "dayjs": "^1.11.18",
     "react": "^19.2.0",
