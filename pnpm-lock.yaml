@@ -9,17 +9,17 @@ importers:
   .:
     dependencies:
       '@navikt/aksel-icons':
-        specifier: ^7.32.4
-        version: 7.32.4
+        specifier: ^7.32.5
+        version: 7.32.5
       '@navikt/ds-css':
-        specifier: ^7.32.4
-        version: 7.32.4
+        specifier: ^7.32.5
+        version: 7.32.5
       '@navikt/ds-react':
-        specifier: ^7.32.4
-        version: 7.32.4(@types/react@19.2.2)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
+        specifier: ^7.32.5
+        version: 7.32.5(@types/react@19.2.2)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
       '@navikt/ds-tokens':
-        specifier: ^7.32.4
-        version: 7.32.4
+        specifier: ^7.32.5
+        version: 7.32.5
       '@navikt/nav-dekoratoren-moduler':
         specifier: ^3.4.0
         version: 3.4.0(csp-header@6.1.0)(html-react-parser@5.2.6(@types/react@19.2.2)(react@19.2.0))(jsdom@27.0.0(postcss@8.5.6))(react@19.2.0)
@@ -57,8 +57,8 @@ importers:
         specifier: ^19.2.0
         version: 19.2.0(react@19.2.0)
       react-router-dom:
-        specifier: ^7.9.4
-        version: 7.9.4(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
+        specifier: ^7.9.5
+        version: 7.9.5(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
       typescript:
         specifier: ^5.9.3
         version: 5.9.3
@@ -127,8 +127,8 @@ importers:
         specifier: ^7.1.12
         version: 7.1.12(@types/node@24.9.1)(sass@1.93.2)(yaml@2.8.1)
       vitest:
-        specifier: ^4.0.4
-        version: 4.0.4(@types/node@24.9.1)(jsdom@27.0.0(postcss@8.5.6))(msw@2.11.6(@types/node@24.9.1)(typescript@5.9.3))(sass@1.93.2)(yaml@2.8.1)
+        specifier: ^4.0.5
+        version: 4.0.5(@types/node@24.9.1)(jsdom@27.0.0(postcss@8.5.6))(msw@2.11.6(@types/node@24.9.1)(typescript@5.9.3))(sass@1.93.2)(yaml@2.8.1)
 
 packages:
 
@@ -558,20 +558,20 @@ packages:
     resolution: {integrity: sha512-EFd6cVbHsgLa6wa4RljGj6Wk75qoHxUSyc5asLyyPSyuhIcdS2Q3Phw6ImS1q+CkALthJRShiYfKANcQMuMqsQ==}
     engines: {node: '>=18'}
 
-  '@navikt/aksel-icons@7.32.4':
-    resolution: {integrity: sha512-KcUpmvLr5nybJOicjm0xz3bPnF8vRlSyxxd17ZMIF4I72USi7asiAMWJAWeRCkb87rAc1gv32Rw68/MYrtBNEA==, tarball: https://npm.pkg.github.com/download/@navikt/aksel-icons/7.32.4/38ea5ae4e13ba48c7196c70be41dccdd34e4d77c}
+  '@navikt/aksel-icons@7.32.5':
+    resolution: {integrity: sha512-yTbja6F9JBNFAed5DTgwILQ9VDNNgNIODl7aHXeDgUU3LnwTHcHZMS4XCnSF7cKEqTN/xSW9jwwV4I1gKNpqyg==, tarball: https://npm.pkg.github.com/download/@navikt/aksel-icons/7.32.5/0215e8e41e1d2f1381b237b8abc7c2a26aad575a}
 
-  '@navikt/ds-css@7.32.4':
-    resolution: {integrity: sha512-d+EZyTt8fgUwnBKiWewKLGYJ3aOPmfhdK4Gcr3qyeVkZ5YsaKZ5Wa/E46yyptrZGZlStl3tWOacMN129K/XdJQ==, tarball: https://npm.pkg.github.com/download/@navikt/ds-css/7.32.4/10c062ef83e17765951cf6c8f28162a0ed67f066}
+  '@navikt/ds-css@7.32.5':
+    resolution: {integrity: sha512-HhO3ORxApzOCRez/GU4wqNqfY8fl9Y09nVjN46UZRAc9z3yvjXFmNBb4apYxTm6YW6l+4G3MZKP6C8mHDiTqdA==, tarball: https://npm.pkg.github.com/download/@navikt/ds-css/7.32.5/8439b27d26ecda87e81daf522c8bf0489785ea01}
 
-  '@navikt/ds-react@7.32.4':
-    resolution: {integrity: sha512-bA60IXdWpkGOnWLEodkbR6ajs0pF9HbssqLiyHPIE2Q/D+GUmRMCONQ5nsq0Q9gvGH4r/C9yw5pRvrQs35+VWw==, tarball: https://npm.pkg.github.com/download/@navikt/ds-react/7.32.4/e5969222993544d2253c797d4b5c9e7a638a105f}
+  '@navikt/ds-react@7.32.5':
+    resolution: {integrity: sha512-5s4/mTRxVNXSpXCvJFdLu0k6P5brq+a/yYaVSlFUa3l0C8akckxnfLnauWcdBNJkGm4MDbIltKSLhLYQYAiyiw==, tarball: https://npm.pkg.github.com/download/@navikt/ds-react/7.32.5/0f8fea1a6a93a6355082b7ce51355c6e9e23614a}
     peerDependencies:
       '@types/react': '>=17.0.30'
       react: '>=17.0.0 || >19.0.0-rc'
 
-  '@navikt/ds-tokens@7.32.4':
-    resolution: {integrity: sha512-fCie3e/WXQTw5mIu0F7s4kcTaemh1wQb8qo0E5qUkfwwYPNCgoPLrGGRLCT03ZOCIgBF3bFnulY1S7FzQSM4bg==, tarball: https://npm.pkg.github.com/download/@navikt/ds-tokens/7.32.4/31be19656cd2658faaa2d82674cebc82ed210d9c}
+  '@navikt/ds-tokens@7.32.5':
+    resolution: {integrity: sha512-dG/gP1iJARLeTK7frnLGziBZ0t2Wwu+YGLxbzZ21Nk/jpBlctIdn1MAn40sVygddWj6fOeT3X26DtiS4vLdwHA==, tarball: https://npm.pkg.github.com/download/@navikt/ds-tokens/7.32.5/de05cbe9e3c3c55ff252735ebd0cc31074f0f9d2}
 
   '@navikt/nav-dekoratoren-moduler@3.4.0':
     resolution: {integrity: sha512-dAD2TDjadqt7kdR8pZ421q6lqqfnFfNg8AuRpWFQ7Bd3lML29/oipe/d+g/vQwaLH4aVTDIpGX8nVrR/g2NXfA==, tarball: https://npm.pkg.github.com/download/@navikt/nav-dekoratoren-moduler/3.4.0/e368316e1b7d6e0fb7f15fbd087c34400a7208f3}
@@ -982,11 +982,11 @@ packages:
     peerDependencies:
       vite: ^4.2.0 || ^5.0.0 || ^6.0.0 || ^7.0.0
 
-  '@vitest/expect@4.0.4':
-    resolution: {integrity: sha512-0ioMscWJtfpyH7+P82sGpAi3Si30OVV73jD+tEqXm5+rIx9LgnfdaOn45uaFkKOncABi/PHL00Yn0oW/wK4cXw==}
+  '@vitest/expect@4.0.5':
+    resolution: {integrity: sha512-DJctLVlKoddvP/G389oGmKWNG6GD9frm2FPXARziU80Rjo7SIYxQzb2YFzmQ4fVD3Q5utUYY8nUmWrqsuIlIXQ==}
 
-  '@vitest/mocker@4.0.4':
-    resolution: {integrity: sha512-UTtKgpjWj+pvn3lUM55nSg34098obGhSHH+KlJcXesky8b5wCUgg7s60epxrS6yAG8slZ9W8T9jGWg4PisMf5Q==}
+  '@vitest/mocker@4.0.5':
+    resolution: {integrity: sha512-iYHIy72LfbK+mL5W8zXROp6oOcJKXWeKcNjcPPsqoa18qIEDrhB6/Z08o0wRajTd6SSSDNw8NCSIHVNOMpz0mw==}
     peerDependencies:
       msw: ^2.4.9
       vite: ^6.0.0 || ^7.0.0-0
@@ -996,20 +996,20 @@ packages:
       vite:
         optional: true
 
-  '@vitest/pretty-format@4.0.4':
-    resolution: {integrity: sha512-lHI2rbyrLVSd1TiHGJYyEtbOBo2SDndIsN3qY4o4xe2pBxoJLD6IICghNCvD7P+BFin6jeyHXiUICXqgl6vEaQ==}
+  '@vitest/pretty-format@4.0.5':
+    resolution: {integrity: sha512-t1T/sSdsYyNc5AZl0EMeD0jW9cpJe2cODP0R++ZQe1kTkpgrwEfxGFR/yCG4w8ZybizbXRTHU7lE8sTDD/QsGw==}
 
-  '@vitest/runner@4.0.4':
-    resolution: {integrity: sha512-99EDqiCkncCmvIZj3qJXBZbyoQ35ghOwVWNnQ5nj0Hnsv4Qm40HmrMJrceewjLVvsxV/JSU4qyx2CGcfMBmXJw==}
+  '@vitest/runner@4.0.5':
+    resolution: {integrity: sha512-CQVVe+YEeKSiFBD5gBAmRDQglm4PnMBYzeTmt06t5iWtsUN9StQeeKhYCea/oaqBYilf8sARG6fSctUcEL/UmQ==}
 
-  '@vitest/snapshot@4.0.4':
-    resolution: {integrity: sha512-XICqf5Gi4648FGoBIeRgnHWSNDp+7R5tpclGosFaUUFzY6SfcpsfHNMnC7oDu/iOLBxYfxVzaQpylEvpgii3zw==}
+  '@vitest/snapshot@4.0.5':
+    resolution: {integrity: sha512-jfmSAeR6xYNEvcD+/RxFGA1bzpqHtkVhgxo2cxXia+Q3xX7m6GpZij07rz+WyQcA/xEGn4eIS1OItkMyWsGBmQ==}
 
-  '@vitest/spy@4.0.4':
-    resolution: {integrity: sha512-G9L13AFyYECo40QG7E07EdYnZZYCKMTSp83p9W8Vwed0IyCG1GnpDLxObkx8uOGPXfDpdeVf24P1Yka8/q1s9g==}
+  '@vitest/spy@4.0.5':
+    resolution: {integrity: sha512-TUmVQpAQign7r8+EnZsgTF3vY9BdGofTUge1rGNbnHn2IN3FChiQoT9lrPz7A7AVUZJU2LAZXl4v66HhsNMhoA==}
 
-  '@vitest/utils@4.0.4':
-    resolution: {integrity: sha512-4bJLmSvZLyVbNsYFRpPYdJViG9jZyRvMZ35IF4ymXbRZoS+ycYghmwTGiscTXduUg2lgKK7POWIyXJNute1hjw==}
+  '@vitest/utils@4.0.5':
+    resolution: {integrity: sha512-V5RndUgCB5/AfNvK9zxGCrRs99IrPYtMTIdUzJMMFs9nrmE5JXExIEfjVtUteyTRiLfCm+dCRMHf/Uu7Mm8/dg==}
 
   acorn-jsx@5.3.2:
     resolution: {integrity: sha512-rq9s+JNhf0IChjtDXxllJ7g41oZk5SlXtp0LHwyA5cejwn7vKmKp4pPri6YEePv2PU65sAsegbXtIinmDFDXgQ==}
@@ -2504,15 +2504,15 @@ packages:
     resolution: {integrity: sha512-QgT5//D3jfjJb6Gsjxv0Slpj23ip+HtOpnNgnb2S5zU3CB26G/IDPGoy4RJB42wzFE46DRsstbW6tKHoKbhAxw==}
     engines: {node: '>=0.10.0'}
 
-  react-router-dom@7.9.4:
-    resolution: {integrity: sha512-f30P6bIkmYvnHHa5Gcu65deIXoA2+r3Eb6PJIAddvsT9aGlchMatJ51GgpU470aSqRRbFX22T70yQNUGuW3DfA==}
+  react-router-dom@7.9.5:
+    resolution: {integrity: sha512-mkEmq/K8tKN63Ae2M7Xgz3c9l9YNbY+NHH6NNeUmLA3kDkhKXRsNb/ZpxaEunvGo2/3YXdk5EJU3Hxp3ocaBPw==}
     engines: {node: '>=20.0.0'}
     peerDependencies:
       react: '>=18'
       react-dom: '>=18'
 
-  react-router@7.9.4:
-    resolution: {integrity: sha512-SD3G8HKviFHg9xj7dNODUKDFgpG4xqD5nhyd0mYoB5iISepuZAvzSr8ywxgxKJ52yRzf/HWtVHc9AWwoTbljvA==}
+  react-router@7.9.5:
+    resolution: {integrity: sha512-JmxqrnBZ6E9hWmf02jzNn9Jm3UqyeimyiwzD69NjxGySG6lIz/1LVPsoTCwN7NBX2XjCEa1LIX5EMz1j2b6u6A==}
     engines: {node: '>=20.0.0'}
     peerDependencies:
       react: '>=18'
@@ -3003,18 +3003,18 @@ packages:
       yaml:
         optional: true
 
-  vitest@4.0.4:
-    resolution: {integrity: sha512-hV31h0/bGbtmDQc0KqaxsTO1v4ZQeF8ojDFuy4sZhFadwAqqvJA0LDw68QUocctI5EDpFMql/jVWKuPYHIf2Ew==}
+  vitest@4.0.5:
+    resolution: {integrity: sha512-4H+J28MI5oeYgGg3h5BFSkQ1g/2GKK1IR8oorH3a6EQQbb7CwjbnyBjH4PGxw9/6vpwAPNzaeUMp4Js4WJmdXQ==}
     engines: {node: ^20.0.0 || ^22.0.0 || >=24.0.0}
     hasBin: true
     peerDependencies:
       '@edge-runtime/vm': '*'
       '@types/debug': ^4.1.12
       '@types/node': ^20.0.0 || ^22.0.0 || >=24.0.0
-      '@vitest/browser-playwright': 4.0.4
-      '@vitest/browser-preview': 4.0.4
-      '@vitest/browser-webdriverio': 4.0.4
-      '@vitest/ui': 4.0.4
+      '@vitest/browser-playwright': 4.0.5
+      '@vitest/browser-preview': 4.0.5
+      '@vitest/browser-webdriverio': 4.0.5
+      '@vitest/ui': 4.0.5
       happy-dom: '*'
       jsdom: '*'
     peerDependenciesMeta:
@@ -3559,16 +3559,16 @@ snapshots:
       outvariant: 1.4.3
       strict-event-emitter: 0.5.1
 
-  '@navikt/aksel-icons@7.32.4': {}
+  '@navikt/aksel-icons@7.32.5': {}
 
-  '@navikt/ds-css@7.32.4': {}
+  '@navikt/ds-css@7.32.5': {}
 
-  '@navikt/ds-react@7.32.4(@types/react@19.2.2)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)':
+  '@navikt/ds-react@7.32.5(@types/react@19.2.2)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)':
     dependencies:
       '@floating-ui/react': 0.27.8(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
       '@floating-ui/react-dom': 2.1.6(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
-      '@navikt/aksel-icons': 7.32.4
-      '@navikt/ds-tokens': 7.32.4
+      '@navikt/aksel-icons': 7.32.5
+      '@navikt/ds-tokens': 7.32.5
       '@types/react': 19.2.2
       clsx: 2.1.1
       date-fns: 4.1.0
@@ -3577,7 +3577,7 @@ snapshots:
     transitivePeerDependencies:
       - react-dom
 
-  '@navikt/ds-tokens@7.32.4': {}
+  '@navikt/ds-tokens@7.32.5': {}
 
   '@navikt/nav-dekoratoren-moduler@3.4.0(csp-header@6.1.0)(html-react-parser@5.2.6(@types/react@19.2.2)(react@19.2.0))(jsdom@27.0.0(postcss@8.5.6))(react@19.2.0)':
     dependencies:
@@ -3977,44 +3977,44 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@vitest/expect@4.0.4':
+  '@vitest/expect@4.0.5':
     dependencies:
       '@standard-schema/spec': 1.0.0
       '@types/chai': 5.2.3
-      '@vitest/spy': 4.0.4
-      '@vitest/utils': 4.0.4
+      '@vitest/spy': 4.0.5
+      '@vitest/utils': 4.0.5
       chai: 6.2.0
       tinyrainbow: 3.0.3
 
-  '@vitest/mocker@4.0.4(msw@2.11.6(@types/node@24.9.1)(typescript@5.9.3))(vite@7.1.12(@types/node@24.9.1)(sass@1.93.2)(yaml@2.8.1))':
+  '@vitest/mocker@4.0.5(msw@2.11.6(@types/node@24.9.1)(typescript@5.9.3))(vite@7.1.12(@types/node@24.9.1)(sass@1.93.2)(yaml@2.8.1))':
     dependencies:
-      '@vitest/spy': 4.0.4
+      '@vitest/spy': 4.0.5
       estree-walker: 3.0.3
       magic-string: 0.30.21
     optionalDependencies:
       msw: 2.11.6(@types/node@24.9.1)(typescript@5.9.3)
       vite: 7.1.12(@types/node@24.9.1)(sass@1.93.2)(yaml@2.8.1)
 
-  '@vitest/pretty-format@4.0.4':
+  '@vitest/pretty-format@4.0.5':
     dependencies:
       tinyrainbow: 3.0.3
 
-  '@vitest/runner@4.0.4':
+  '@vitest/runner@4.0.5':
     dependencies:
-      '@vitest/utils': 4.0.4
+      '@vitest/utils': 4.0.5
       pathe: 2.0.3
 
-  '@vitest/snapshot@4.0.4':
+  '@vitest/snapshot@4.0.5':
     dependencies:
-      '@vitest/pretty-format': 4.0.4
+      '@vitest/pretty-format': 4.0.5
       magic-string: 0.30.21
       pathe: 2.0.3
 
-  '@vitest/spy@4.0.4': {}
+  '@vitest/spy@4.0.5': {}
 
-  '@vitest/utils@4.0.4':
+  '@vitest/utils@4.0.5':
     dependencies:
-      '@vitest/pretty-format': 4.0.4
+      '@vitest/pretty-format': 4.0.5
       tinyrainbow: 3.0.3
 
   acorn-jsx@5.3.2(acorn@8.15.0):
@@ -5686,13 +5686,13 @@ snapshots:
 
   react-refresh@0.18.0: {}
 
-  react-router-dom@7.9.4(react-dom@19.2.0(react@19.2.0))(react@19.2.0):
+  react-router-dom@7.9.5(react-dom@19.2.0(react@19.2.0))(react@19.2.0):
     dependencies:
       react: 19.2.0
       react-dom: 19.2.0(react@19.2.0)
-      react-router: 7.9.4(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
+      react-router: 7.9.5(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
 
-  react-router@7.9.4(react-dom@19.2.0(react@19.2.0))(react@19.2.0):
+  react-router@7.9.5(react-dom@19.2.0(react@19.2.0))(react@19.2.0):
     dependencies:
       cookie: 1.0.2
       react: 19.2.0
@@ -6223,15 +6223,15 @@ snapshots:
       sass: 1.93.2
       yaml: 2.8.1
 
-  vitest@4.0.4(@types/node@24.9.1)(jsdom@27.0.0(postcss@8.5.6))(msw@2.11.6(@types/node@24.9.1)(typescript@5.9.3))(sass@1.93.2)(yaml@2.8.1):
+  vitest@4.0.5(@types/node@24.9.1)(jsdom@27.0.0(postcss@8.5.6))(msw@2.11.6(@types/node@24.9.1)(typescript@5.9.3))(sass@1.93.2)(yaml@2.8.1):
     dependencies:
-      '@vitest/expect': 4.0.4
-      '@vitest/mocker': 4.0.4(msw@2.11.6(@types/node@24.9.1)(typescript@5.9.3))(vite@7.1.12(@types/node@24.9.1)(sass@1.93.2)(yaml@2.8.1))
-      '@vitest/pretty-format': 4.0.4
-      '@vitest/runner': 4.0.4
-      '@vitest/snapshot': 4.0.4
-      '@vitest/spy': 4.0.4
-      '@vitest/utils': 4.0.4
+      '@vitest/expect': 4.0.5
+      '@vitest/mocker': 4.0.5(msw@2.11.6(@types/node@24.9.1)(typescript@5.9.3))(vite@7.1.12(@types/node@24.9.1)(sass@1.93.2)(yaml@2.8.1))
+      '@vitest/pretty-format': 4.0.5
+      '@vitest/runner': 4.0.5
+      '@vitest/snapshot': 4.0.5
+      '@vitest/spy': 4.0.5
+      '@vitest/utils': 4.0.5
       debug: 4.4.3(supports-color@8.1.1)
       es-module-lexer: 1.7.0
       expect-type: 1.2.2
