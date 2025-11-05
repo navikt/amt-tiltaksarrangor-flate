@@ -22,3 +22,6 @@ Husk å følge dokumentasjonen her https://github.com/navikt/nav-dekoratoren-mod
 WCAG rapport ligger i mappen .wcag/.
 Rapporten kan lastes opp i https://www.w3.org/WAI/eval/report-tool/evaluation/view-report
 for å se på og legge til endringer
+
+## 🤖 KI-assistanse - GitHub Copilot
+Dette repoet bruker GitHub Copilot for kodeforslag.
