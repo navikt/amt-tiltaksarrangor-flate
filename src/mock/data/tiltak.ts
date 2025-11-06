@@ -30,9 +30,9 @@ interface GjennomforingInfo {
 
 export const deltakerlisteErKurs = (tiltakskode: Tiltakskode): boolean => {
   return [
-    Tiltakskode.GRUFAGYRKE,
-    Tiltakskode.JOBBK,
-    Tiltakskode.GRUPPEAMO
+    Tiltakskode.GRUPPE_FAG_OG_YRKESOPPLAERING,
+    Tiltakskode.JOBBKLUBB,
+    Tiltakskode.GRUPPE_ARBEIDSMARKEDSOPPLAERING
   ].includes(tiltakskode)
 }
 
@@ -40,75 +40,75 @@ export const gjennomforingInfoListe: GjennomforingInfo[] = [
   {
     gjennomforingNavn:
       'Oppfølging Åsedalen for alle mennesker og andre. Dette er bare en lang tekst for å sjekke om ting bryter riktig.',
-    tiltakskode: Tiltakskode.INDOPPFAG,
+    tiltakskode: Tiltakskode.OPPFOLGING,
     tiltaksnavn: 'Oppfølging',
     status: TiltakGjennomforingStatus.GJENNOMFORES
   },
   {
     gjennomforingNavn: 'Oppfølging Region Østvest',
-    tiltakskode: Tiltakskode.INDOPPFAG,
+    tiltakskode: Tiltakskode.OPPFOLGING,
     tiltaksnavn: 'Oppfølging',
     status: TiltakGjennomforingStatus.GJENNOMFORES
   },
   {
     gjennomforingNavn: 'Avklaring Region Test',
-    tiltakskode: Tiltakskode.AVKLARAG,
+    tiltakskode: Tiltakskode.AVKLARING,
     tiltaksnavn: 'Avklaring',
     status: TiltakGjennomforingStatus.GJENNOMFORES
   },
   {
     gjennomforingNavn: 'AFT Region Vestøst',
-    tiltakskode: Tiltakskode.ARBFORB,
+    tiltakskode: Tiltakskode.ARBEIDSFORBEREDENDE_TRENING,
     tiltaksnavn: 'Arbeidsforberedende trening (AFT)',
     status: TiltakGjennomforingStatus.GJENNOMFORES
   },
   {
     gjennomforingNavn: 'Oppfølging Region Nordsør',
-    tiltakskode: Tiltakskode.INDOPPFAG,
+    tiltakskode: Tiltakskode.OPPFOLGING,
     tiltaksnavn: 'Oppfølging',
     status: TiltakGjennomforingStatus.PLANLAGT
   },
   {
     gjennomforingNavn: 'Arbeidsrettet rehabilitering Region Nordsør',
-    tiltakskode: Tiltakskode.ARBRRHDAG,
+    tiltakskode: Tiltakskode.ARBEIDSRETTET_REHABILITERING,
     tiltaksnavn: 'Arbeidsrettet rehabilitering',
     status: TiltakGjennomforingStatus.GJENNOMFORES
   },
   {
     gjennomforingNavn: 'Digitalt jobbsøkerkurs Region Nordsør',
-    tiltakskode: Tiltakskode.DIGIOPPARB,
+    tiltakskode: Tiltakskode.DIGITALT_OPPFOLGINGSTILTAK,
     tiltaksnavn: 'Digitalt jobbsøkerkurs for arbeidsledige',
     status: TiltakGjennomforingStatus.GJENNOMFORES
   },
   {
     gjennomforingNavn:
       'Varig tilrettelagt arbeid i skjermet virksomhet Region Nordsør',
-    tiltakskode: Tiltakskode.VASV,
+    tiltakskode: Tiltakskode.VARIG_TILRETTELAGT_ARBEID_SKJERMET,
     tiltaksnavn: 'Varig tilrettelagt arbeid i skjermet virksomhet ',
     status: TiltakGjennomforingStatus.GJENNOMFORES
   },
   {
     gjennomforingNavn: 'Jobbklubb i tjenesteområde 1',
-    tiltakskode: Tiltakskode.JOBBK,
+    tiltakskode: Tiltakskode.JOBBKLUBB,
     tiltaksnavn: 'Jobbklubb',
     status: TiltakGjennomforingStatus.GJENNOMFORES
   },
   {
     gjennomforingNavn: 'Gruppe AMO Nordvest',
-    tiltakskode: Tiltakskode.GRUPPEAMO,
+    tiltakskode: Tiltakskode.GRUPPE_ARBEIDSMARKEDSOPPLAERING,
     tiltaksnavn: 'Gruppe AMO',
     status: TiltakGjennomforingStatus.GJENNOMFORES
   },
   {
     gjennomforingNavn: 'Gruppe AMO Sørvest',
-    tiltakskode: Tiltakskode.GRUPPEAMO,
+    tiltakskode: Tiltakskode.GRUPPE_ARBEIDSMARKEDSOPPLAERING,
     tiltaksnavn: 'Gruppe AMO',
     status: TiltakGjennomforingStatus.GJENNOMFORES
   },
   {
     gjennomforingNavn:
       'Gruppe fag- og yrkesopplæring VGS og høyere yrkesfaglig utdanning',
-    tiltakskode: Tiltakskode.GRUFAGYRKE,
+    tiltakskode: Tiltakskode.GRUPPE_FAG_OG_YRKESOPPLAERING,
     tiltaksnavn: 'Gruppe fag- og yrkesopplæring',
     status: TiltakGjennomforingStatus.GJENNOMFORES
   }

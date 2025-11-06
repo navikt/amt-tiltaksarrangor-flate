@@ -29,9 +29,9 @@ export const DeltakerOversiktTabell = (
 	const [ deltakereBearbeidet, setDeltakereBearbeidet ] = useState<
 		TiltakDeltaker[]
 		>(sorterDeltakere(deltakere, deltakerSortering))
-	const visInfoMeldingKravutbetaling = props.tiltakstype === Tiltakskode.AVKLARAG
-		|| props.tiltakstype === Tiltakskode.ARBRRHDAG
-		|| props.tiltakstype === Tiltakskode.INDOPPFAG
+	const visInfoMeldingKravutbetaling = props.tiltakstype === Tiltakskode.AVKLARING
+		|| props.tiltakstype === Tiltakskode.ARBEIDSRETTET_REHABILITERING
+		|| props.tiltakstype === Tiltakskode.OPPFOLGING
 
 	useEffect(() => {
 		if (!deltakere) return

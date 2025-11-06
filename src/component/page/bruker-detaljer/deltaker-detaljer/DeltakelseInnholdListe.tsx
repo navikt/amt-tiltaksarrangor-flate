@@ -20,7 +20,7 @@ export const DeltakelseInnholdListe = ({
   }
 
   return (<>
-    {tiltakstype === Tiltakskode.VASV &&
+    {tiltakstype === Tiltakskode.VARIG_TILRETTELAGT_ARBEID_SKJERMET &&
       deltakelsesinnhold.innhold.map((i) => {
         if (i.innholdskode === 'annet') {
           return <BodyLong
@@ -34,7 +34,7 @@ export const DeltakelseInnholdListe = ({
       })
     }
 
-    {tiltakstype !== Tiltakskode.VASV &&
+    {tiltakstype !== Tiltakskode.VARIG_TILRETTELAGT_ARBEID_SKJERMET  &&
       <List as="ul" size="small" className={className ?? ''}>
         {deltakelsesinnhold.innhold.map((i) => (
           <List.Item key={i.innholdskode} className={styles.listItem}>

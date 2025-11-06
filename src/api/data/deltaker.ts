@@ -8,7 +8,7 @@ import {
   Tiltakskode,
   koordinatorListSchema,
   tiltakGjennomforingStatusSchema,
-  tiltakstypeSchema
+  tiltakskodeSchema
 } from './tiltak'
 import { ulestEndringSchema } from './ulestEndring'
 import { veilederMedTypeSchema, veiledertypeSchema } from './veileder'
@@ -152,7 +152,7 @@ export const deltakerSchema = z.object({
   dagerPerUke: z.number().nullable(),
   soktInnPa: z.string(),
   soktInnDato: dateSchema,
-  tiltakskode: tiltakstypeSchema,
+  tiltakskode: tiltakskodeSchema,
   bestillingTekst: z.string().nullable(),
   innhold: deltakelsesinnholdSchema.nullable(),
   fjernesDato: nullableDateSchema,
@@ -231,7 +231,7 @@ export const koordinatorsDeltakerlisteSchema = z.object({
   koordinatorer: koordinatorListSchema,
   deltakere: tiltakDeltakereSchema,
   erKurs: z.boolean(),
-  tiltakType: tiltakstypeSchema
+  tiltakType: tiltakskodeSchema
 })
 
 export type NavVeileder = z.infer<typeof navVeilederSchema>

@@ -12,10 +12,10 @@ export const lagAdresseTekst = (adresse: Adresse) => {
 }
 
 export const TILTAK_UTEN_DELTAKER_ADRESSE = [
-  Tiltakskode.DIGIOPPARB, // Digitalt jobbsøkerkurs
-  Tiltakskode.JOBBK, // jobbklubb
-  Tiltakskode.GRUPPEAMO, // GruppeAMO
-  Tiltakskode.GRUFAGYRKE // Gruppe Fag og yrkesopplæring
+  Tiltakskode.DIGITALT_OPPFOLGINGSTILTAK, // Digitalt jobbsøkerkurs
+  Tiltakskode.JOBBKLUBB, // jobbklubb
+  Tiltakskode.GRUPPE_ARBEIDSMARKEDSOPPLAERING, // GruppeAMO
+  Tiltakskode.GRUPPE_FAG_OG_YRKESOPPLAERING // Gruppe Fag og yrkesopplæring
 ]
 
 export const skalTiltakViseAdresse = (tiltakskode: Tiltakskode) => {
@@ -26,7 +26,7 @@ export const skalTiltakViseAdresse = (tiltakskode: Tiltakskode) => {
 }
 
 export const skalViseDeltakelsesmengde = (tiltakskode: Tiltakskode) =>
-  [Tiltakskode.ARBFORB, Tiltakskode.VASV].includes(tiltakskode)
+  [Tiltakskode.ARBEIDSFORBEREDENDE_TRENING, Tiltakskode.VARIG_TILRETTELAGT_ARBEID_SKJERMET].includes(tiltakskode)
 
 export const getDagerPerUkeTekst = (dagerPerUke: number): string => {
   if (dagerPerUke === 1) {

@@ -51,7 +51,7 @@ export function endringsknapper(deltaker: Deltaker, modal: ModalHandler): Endrin
 		status.erSoktInn ||
 		status.erVenterPaOppstart
 
-	const kanEndreDeltakelsesmengde = deltaker.tiltakskode === Tiltakskode.ARBFORB || deltaker.tiltakskode === Tiltakskode.VASV
+	const kanEndreDeltakelsesmengde = deltaker.tiltakskode === Tiltakskode.ARBEIDSFORBEREDENDE_TRENING || deltaker.tiltakskode === Tiltakskode.VARIG_TILRETTELAGT_ARBEID_SKJERMET
 
 	const kanAvslutteDeltakelse = status.erDeltar && !deltaker.deltakerliste.erKurs
 	const kanAvslutteKursDeltakelse =
