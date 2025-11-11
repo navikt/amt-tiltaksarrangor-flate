@@ -45,8 +45,8 @@ export function maxSluttdato(
   skalLeggeTilOppstartsDato?: boolean
 ): Date | undefined {
   const maxVarighetMs = skalLeggeTilOppstartsDato
-    ? maxVarighetLeggTilOppstartsDatoMillisFor(deltakerliste.tiltakstype)
-    : maxVarighetMillisFor(deltakerliste.tiltakstype)
+    ? maxVarighetLeggTilOppstartsDatoMillisFor(deltakerliste.tiltakskode)
+    : maxVarighetMillisFor(deltakerliste.tiltakskode)
   if (!startdato || !maxVarighetMs) return deltakerliste.sluttDato ?? undefined
 
   const sluttdato = dayjs(startdato).add(maxVarighetMs, 'milliseconds').toDate()

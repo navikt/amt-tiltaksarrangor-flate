@@ -20,10 +20,10 @@ import { Tiltakskode } from '../../../../../api/data/tiltak'
 
 interface Props {
   deltakerEndring: DeltakerEndring
-  tiltakstype: Tiltakskode
+  tiltakskode: Tiltakskode
 }
 
-export const getEndringsDetaljer = (endring: Endring, tiltakstype: Tiltakskode) => {
+export const getEndringsDetaljer = (endring: Endring, tiltakskode: Tiltakskode) => {
   switch (endring.type) {
     case EndringType.IkkeAktuell: {
       return (
@@ -95,7 +95,7 @@ export const getEndringsDetaljer = (endring: Endring, tiltakstype: Tiltakskode) 
             <BodyLong size="small">{endring.ledetekst}</BodyLong>
           )}
           <DeltakelseInnholdListe
-            tiltakstype={tiltakstype}
+            tiltakskode={tiltakskode}
             deltakelsesinnhold={{
               ledetekst: endring.ledetekst ?? '',
               innhold: endring.innhold
@@ -159,7 +159,7 @@ export const getEndringsDetaljer = (endring: Endring, tiltakstype: Tiltakskode) 
   }
 }
 
-export const HistorikkEndring = ({ deltakerEndring, tiltakstype }: Props) => {
+export const HistorikkEndring = ({ deltakerEndring, tiltakskode }: Props) => {
   return (
     <HistorikkElement
       tittel={getEndringsTittel(deltakerEndring.endring)}
@@ -168,7 +168,7 @@ export const HistorikkEndring = ({ deltakerEndring, tiltakstype }: Props) => {
       }
       forslag={deltakerEndring.forslag}
     >
-      {getEndringsDetaljer(deltakerEndring.endring, tiltakstype)}
+      {getEndringsDetaljer(deltakerEndring.endring, tiltakskode)}
       <Detail className={styles.endring_detail} textColor="subtle">
         {`Endret ${formatDate(deltakerEndring.endret)} av ${deltakerEndring.endretAv} ${deltakerEndring.endretAvEnhet}.`}
       </Detail>

@@ -1,6 +1,6 @@
 import { forwardRef, useImperativeHandle, useState } from 'react'
 import { Tiltakskode } from '../../../../../api/data/tiltak'
-import { VarighetValg, varigheter, varighetValgForType } from './varighet'
+import { VarighetValg, varigheter, varighetValgForKode } from './varighet'
 import {
   BodyShort,
   DatePicker,
@@ -97,7 +97,7 @@ export const SluttdatoVelger = forwardRef<SluttdatoRef, SluttdatoVelgerProps>(
         onChange={handleVarighet}
         error={sluttdato.error}
       >
-        {varighetValgForType(tiltakskode, erForOppstartsdato).map((v) => (
+        {varighetValgForKode(tiltakskode, erForOppstartsdato).map((v) => (
           <Radio value={v} key={v}>
             {varigheter[v].navn}
           </Radio>

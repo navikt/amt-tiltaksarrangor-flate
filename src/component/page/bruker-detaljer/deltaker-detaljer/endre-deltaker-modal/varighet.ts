@@ -45,34 +45,34 @@ export const varigheter: Varigheter = {
   }
 }
 
-export const varighetValgForType = (
-  tiltakstype: Tiltakskode,
+export const varighetValgForKode = (
+  tiltakskode: Tiltakskode,
   erForOppstartsdato?: boolean
 ): VarighetValg[] => {
-  switch (tiltakstype) {
-    case Tiltakskode.ARBFORB:
+  switch (tiltakskode) {
+    case Tiltakskode.ARBEIDSFORBEREDENDE_TRENING:
       return [
         VarighetValg.TRE_MANEDER,
         VarighetValg.SEKS_MANEDER,
         VarighetValg.TOLV_MANEDER
       ]
-    case Tiltakskode.ARBRRHDAG:
+    case Tiltakskode.ARBEIDSRETTET_REHABILITERING:
       return [
         VarighetValg.FIRE_UKER,
         VarighetValg.SEKS_UKER,
         VarighetValg.TOLV_UKER
       ]
-    case Tiltakskode.AVKLARAG:
+    case Tiltakskode.AVKLARING:
       return [VarighetValg.FIRE_UKER, VarighetValg.ATTE_UKER]
-    case Tiltakskode.INDOPPFAG:
+    case Tiltakskode.OPPFOLGING:
       return [VarighetValg.TRE_MANEDER, VarighetValg.SEKS_MANEDER]
-    case Tiltakskode.DIGIOPPARB:
+    case Tiltakskode.DIGITALT_OPPFOLGINGSTILTAK:
       return erForOppstartsdato
         ? [ VarighetValg.FIRE_UKER, VarighetValg.ATTE_UKER ]
         : [ VarighetValg.FIRE_UKER ]
-    case Tiltakskode.VASV:
+    case Tiltakskode.VARIG_TILRETTELAGT_ARBEID_SKJERMET:
       return [VarighetValg.SEKS_MANEDER, VarighetValg.TOLV_MANEDER]
-    case Tiltakskode.GRUFAGYRKE:
+    case Tiltakskode.GRUPPE_FAG_OG_YRKESOPPLAERING:
     default:
       return [
         VarighetValg.FIRE_UKER,
@@ -87,20 +87,20 @@ export const varighetValgForType = (
 export function finnValgtVarighet(
   fraDato: Date | null | undefined,
   tilDato: Date | null | undefined,
-  tiltakstype: Tiltakskode
+  tiltakskode: Tiltakskode
 ) {
   return fraDato && tilDato
-    ? finnVarighetValgForTiltakstype(fraDato, tilDato, tiltakstype)
+    ? finnVarighetValgForTiltakskode(fraDato, tilDato, tiltakskode)
     : undefined
 }
 
-function finnVarighetValgForTiltakstype(
+function finnVarighetValgForTiltakskode(
   fraDato: Date,
   tilDato: Date,
-  tiltakstype: Tiltakskode
+  tiltakskode: Tiltakskode
 ) {
   const varighet = finnVarighetValg(fraDato, tilDato)
-  const varigheter = varighetValgForType(tiltakstype)
+  const varigheter = varighetValgForKode(tiltakskode)
 
   if (varigheter.includes(varighet.uker)) {
     return varighet.uker
@@ -167,7 +167,7 @@ function finnVarighetValg(
 }
 
 /*
- * Finner maksimal varighet for en tiltakstype.
+ * Finner maksimal varighet for en tiltakskode.
  * Denne sjekken er enklere enn i nav-veiledersflate,
  * fordi vi ønsker at tiltaksarrangør ikke skal behøve
  * å ta høyde for forskjellige innsatsgrupper.
@@ -178,54 +178,54 @@ function finnVarighetValg(
  * Hvis dette ikke gjøres vil maks varighet ofte være noe lengre hos tiltaksarrangør enn nav.
  */
 export function maxVarighetMillisFor(
-  tiltakstype: Tiltakskode
+  tiltakskode: Tiltakskode
 ): number | undefined {
   const dagMs = 24 * 60 * 60 * 1000
   const ukerMs = (n: number) => n * 7 * dagMs
   const maanederMs = (n: number) => n * 30 * dagMs
   const aarMs = (n: number) => n * 365 * dagMs
 
-  switch (tiltakstype) {
-    case Tiltakskode.GRUPPEAMO:
-    case Tiltakskode.ARBFORB:
+  switch (tiltakskode) {
+    case Tiltakskode.GRUPPE_ARBEIDSMARKEDSOPPLAERING:
+    case Tiltakskode.ARBEIDSFORBEREDENDE_TRENING:
       return aarMs(3)
-    case Tiltakskode.ARBRRHDAG:
-    case Tiltakskode.AVKLARAG:
+    case Tiltakskode.ARBEIDSRETTET_REHABILITERING:
+    case Tiltakskode.AVKLARING:
       return ukerMs(17)
-    case Tiltakskode.DIGIOPPARB:
+    case Tiltakskode.DIGITALT_OPPFOLGINGSTILTAK:
       return ukerMs(13)
-    case Tiltakskode.GRUFAGYRKE:
+    case Tiltakskode.GRUPPE_FAG_OG_YRKESOPPLAERING:
       return aarMs(4)
-    case Tiltakskode.INDOPPFAG:
+    case Tiltakskode.OPPFOLGING:
       return aarMs(3) + maanederMs(6)
-    case Tiltakskode.JOBBK:
-    case Tiltakskode.VASV:
+    case Tiltakskode.JOBBKLUBB:
+    case Tiltakskode.VARIG_TILRETTELAGT_ARBEID_SKJERMET:
       return undefined
   }
 }
 
 export function maxVarighetLeggTilOppstartsDatoMillisFor(
-  tiltakstype: Tiltakskode
+  tiltakskode: Tiltakskode
 ): number | undefined {
   const dagMs = 24 * 60 * 60 * 1000
   const ukerMs = (n: number) => n * 7 * dagMs
   const aarMs = (n: number) => n * 365 * dagMs
 
-  switch (tiltakstype) {
-    case Tiltakskode.GRUPPEAMO:
-    case Tiltakskode.GRUFAGYRKE:
+  switch (tiltakskode) {
+    case Tiltakskode.GRUPPE_ARBEIDSMARKEDSOPPLAERING:
+    case Tiltakskode.GRUPPE_FAG_OG_YRKESOPPLAERING:
       return aarMs(3)
-    case Tiltakskode.DIGIOPPARB:
+    case Tiltakskode.DIGITALT_OPPFOLGINGSTILTAK:
       return ukerMs(8) + (dagMs * 6)
-    case Tiltakskode.ARBFORB:
+    case Tiltakskode.ARBEIDSFORBEREDENDE_TRENING:
       return aarMs(2)
-    case Tiltakskode.ARBRRHDAG:
-    case Tiltakskode.AVKLARAG:
+    case Tiltakskode.ARBEIDSRETTET_REHABILITERING:
+    case Tiltakskode.AVKLARING:
       return ukerMs(12)
-    case Tiltakskode.INDOPPFAG:
+    case Tiltakskode.OPPFOLGING:
       return aarMs(1)
-    case Tiltakskode.JOBBK:
-    case Tiltakskode.VASV:
+    case Tiltakskode.JOBBKLUBB:
+    case Tiltakskode.VARIG_TILRETTELAGT_ARBEID_SKJERMET:
       return undefined
   }
 }

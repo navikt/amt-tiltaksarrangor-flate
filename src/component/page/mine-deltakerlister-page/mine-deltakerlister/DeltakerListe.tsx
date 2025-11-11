@@ -9,7 +9,7 @@ import { TiltakSection } from './TiltakSection'
 import { KoordinatorForDeltakerliste } from '../../../../api/data/deltaker'
 import {
   finnDeltakerlister,
-  finnUnikeTiltakstyper
+  finnUnikeTiltakskoder
 } from '../../../../utils/deltakerliste-utils'
 
 interface DeltakerListeProps {
@@ -19,11 +19,11 @@ interface DeltakerListeProps {
 export const DeltakerListe = (
   props: DeltakerListeProps
 ): React.ReactElement<DeltakerListeProps> => {
-  const unikeTiltakstyper = useMemo<string[]>(() => {
-    return finnUnikeTiltakstyper(props.deltakerliste)
+  const unikeTiltakskoder = useMemo<string[]>(() => {
+    return finnUnikeTiltakskoder(props.deltakerliste)
   }, [props.deltakerliste])
 
-  const sorterteTiltakstyper = unikeTiltakstyper.sort((t1, t2) =>
+  const sorterteTiltakskoder = unikeTiltakskoder.sort((t1, t2) =>
     sortAlphabeticAsc(t1, t2)
   )
 
@@ -37,10 +37,10 @@ export const DeltakerListe = (
 
   return (
     <div className={styles.cleanList}>
-      {sorterteTiltakstyper.map((tiltakstype, tiltakstypeIdx) => {
+      {sorterteTiltakskoder.map((tiltakskode, tiltakskodeIdx) => {
         return (
-          <TiltakSection key={tiltakstypeIdx} navn={tiltakstype}>
-            {finnDeltakerlister(tiltakstype, props.deltakerliste)
+          <TiltakSection key={tiltakskodeIdx} navn={tiltakskode}>
+            {finnDeltakerlister(tiltakskode, props.deltakerliste)
               .sort((d1, d2) => sortAlphabeticAsc(d1.navn, d2.navn))
               .map((dl) => {
                 return (

@@ -7,13 +7,13 @@ import { Tiltakskode } from '../../../../../api/data/tiltak'
 
 interface Props {
   deltakerId: string
-  tiltakstype: Tiltakskode
+  tiltakskode: Tiltakskode
   className?: string
 }
 
 export const SeEndringer = ({
   deltakerId,
-  tiltakstype,
+  tiltakskode,
   className
 }: Props) => {
   const [ historikkModalOpen, setHistorikkModalOpen ] = useState(false)
@@ -49,7 +49,7 @@ export const SeEndringer = ({
 
       <HistorikkModal
         historikk={historikk}
-        tiltakstype={tiltakstype}
+        tiltakskode={tiltakskode}
         open={historikkModalOpen}
         onClose={() => setHistorikkModalOpen(false)}
       />

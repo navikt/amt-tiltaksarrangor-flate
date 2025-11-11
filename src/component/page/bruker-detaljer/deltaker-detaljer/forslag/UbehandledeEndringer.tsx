@@ -25,7 +25,7 @@ interface Props {
   forslag: AktivtForslag[]
   deltakerId: string
   ulesteEndringer: UlestEndring[]
-  tiltakstype: Tiltakskode
+  tiltakskode: Tiltakskode
   onTilbakekalt: (forslagId: string) => void
   onMarkertSomLest: (endringId: string) => void
 }
@@ -34,7 +34,7 @@ export const UbehandledeEndringer = ({
   deltakerId,
   forslag,
   ulesteEndringer,
-  tiltakstype,
+  tiltakskode,
   onTilbakekalt,
   onMarkertSomLest
 }: Props) => {
@@ -57,14 +57,14 @@ export const UbehandledeEndringer = ({
           Forslag sendt til Nav:
         </Heading>
         {getSendteForslag(forslag, deltakerId, onTilbakekalt)}
-        {getEndringsDetaljer(ulesteSvarFraNav, deltakerId, tiltakstype, onMarkertSomLest)}
+        {getEndringsDetaljer(ulesteSvarFraNav, deltakerId, tiltakskode, onMarkertSomLest)}
       </>)}
 
       {ulesteOppdateringerFraNav.length > 0 && (<>
         <Heading level="3" size="small" className={styles.aktiveForslagTitle}>
           Oppdatering fra Nav:
         </Heading>
-        {getEndringsDetaljer(ulesteOppdateringerFraNav, deltakerId, tiltakstype, onMarkertSomLest)}
+        {getEndringsDetaljer(ulesteOppdateringerFraNav, deltakerId, tiltakskode, onMarkertSomLest)}
       </>)}
     </Box>
   )
@@ -99,7 +99,7 @@ const getSendteForslag = (
 const getEndringsDetaljer = (
   ulesteEndringer: UlestEndring[],
   deltakerId: string,
-  tiltakstype: Tiltakskode,
+  tiltakskode: Tiltakskode,
   onMarkertSomLest: (endringId: string) => void) => {
   return ulesteEndringer.map((it, i) => (
     <EndringPanel
@@ -114,7 +114,7 @@ const getEndringsDetaljer = (
       {it.oppdatering.type === UlestEndringType.DeltakelsesEndring &&
         <Endringsdetaljer
           deltakerEndring={it.oppdatering.endring}
-          tiltakstype={tiltakstype}
+          tiltakskode={tiltakskode}
         />
       }
       {it.oppdatering.type === UlestEndringType.AvvistForslag

@@ -21,9 +21,9 @@ export const LeggTilOppstartModal = ({
   const sluttdato = useRef<SluttdatoRef>(null)
 
   const skalVelgeSluttdato =
-    deltaker.deltakerliste.tiltakstype !== Tiltakskode.VASV
+    deltaker.deltakerliste.tiltakskode !== Tiltakskode.VARIG_TILRETTELAGT_ARBEID_SKJERMET
 
-  const kanSendeMelding = startdato !== null && sluttdato !== null
+    const kanSendeMelding = startdato !== null && sluttdato !== null
 
   const lagreEndring = () => {
     if (!startdato) {
@@ -68,7 +68,7 @@ export const LeggTilOppstartModal = ({
         <SluttdatoVelger
           ref={sluttdato}
           erForOppstartsdato={true}
-          tiltakskode={deltaker.deltakerliste.tiltakstype}
+          tiltakskode={deltaker.deltakerliste.tiltakskode}
           legend="Hva er forventet varighet?"
           detailLabel="Forventet sluttdato"
           min={startdato ?? undefined}
@@ -79,7 +79,7 @@ export const LeggTilOppstartModal = ({
               ? finnValgtVarighet(
                 deltaker.startDato,
                 deltaker.sluttDato,
-                deltaker.deltakerliste.tiltakstype
+                deltaker.deltakerliste.tiltakskode
               )
               : undefined
           }

@@ -12,12 +12,12 @@ import { HistorikkElement } from './HistorikkElement'
 
 interface Props {
   deltakelseVedImport: importertFraArena
-  tiltakstype: Tiltakskode
+  tiltakskode: Tiltakskode
 }
 
 export const HistorikkImportertFraArena = ({
   deltakelseVedImport,
-  tiltakstype
+  tiltakskode
 }: Props) => {
   const datoText = `${formatDate(deltakelseVedImport.startdato)} ${deltakelseVedImport.sluttdato
     ? '- ' + formatDate(deltakelseVedImport.sluttdato)
@@ -42,7 +42,7 @@ export const HistorikkImportertFraArena = ({
         <BodyLong size="small">{`Dato: ${datoText}`}</BodyLong>
       )}
 
-      {skalViseDeltakelsesmengde(tiltakstype) && (
+      {skalViseDeltakelsesmengde(tiltakskode) && (
         <>
           <BodyLong size="small">
             {`Deltakelsesmengde: ${getDeltakelsesmengdetekst(

@@ -64,7 +64,7 @@ export const ForlengDeltakelseModal = (props: ModalDataProps) => {
     >
       <SluttdatoVelger
         ref={sluttdato}
-        tiltakskode={deltakerliste.tiltakstype}
+        tiltakskode={deltakerliste.tiltakskode}
         legend="Hvor lenge skal deltakelsen forlenges?"
         min={minDato ?? undefined}
         max={maxSluttdato(deltaker.startDato, deltakerliste)}

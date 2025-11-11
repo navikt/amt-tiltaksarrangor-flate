@@ -6,13 +6,13 @@ import { Deltakelsesinnhold } from '../../../../api/data/innhold'
 
 interface Props {
   deltakelsesinnhold: Deltakelsesinnhold
-  tiltakstype: Tiltakskode
+  tiltakskode: Tiltakskode
   className?: string
 }
 
 export const DeltakelseInnholdListe = ({
   deltakelsesinnhold,
-  tiltakstype,
+  tiltakskode,
   className
 }: Props) => {
   if (deltakelsesinnhold.innhold.length === 0) {
@@ -20,7 +20,7 @@ export const DeltakelseInnholdListe = ({
   }
 
   return (<>
-    {tiltakstype === Tiltakskode.VASV &&
+    {tiltakskode === Tiltakskode.VARIG_TILRETTELAGT_ARBEID_SKJERMET &&
       deltakelsesinnhold.innhold.map((i) => {
         if (i.innholdskode === 'annet') {
           return <BodyLong
@@ -34,7 +34,7 @@ export const DeltakelseInnholdListe = ({
       })
     }
 
-    {tiltakstype !== Tiltakskode.VASV &&
+    {tiltakskode !== Tiltakskode.VARIG_TILRETTELAGT_ARBEID_SKJERMET  &&
       <List as="ul" size="small" className={className ?? ''}>
         {deltakelsesinnhold.innhold.map((i) => (
           <List.Item key={i.innholdskode} className={styles.listItem}>

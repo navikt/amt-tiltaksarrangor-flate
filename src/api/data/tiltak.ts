@@ -3,15 +3,18 @@ import { z } from 'zod'
 import { nullableDateSchema } from '../utils'
 
 export enum Tiltakskode {
-  ARBFORB = 'ARBFORB',
-  ARBRRHDAG = 'ARBRRHDAG',
-  AVKLARAG = 'AVKLARAG',
-  INDOPPFAG = 'INDOPPFAG',
-  DIGIOPPARB = 'DIGIOPPARB',
-  GRUFAGYRKE = 'GRUFAGYRKE',
-  GRUPPEAMO = 'GRUPPEAMO',
-  JOBBK = 'JOBBK',
-  VASV = 'VASV'
+    ARBEIDSFORBEREDENDE_TRENING = 'ARBEIDSFORBEREDENDE_TRENING',
+    ARBEIDSRETTET_REHABILITERING = 'ARBEIDSRETTET_REHABILITERING',
+    AVKLARING = 'AVKLARING',
+    DIGITALT_OPPFOLGINGSTILTAK = 'DIGITALT_OPPFOLGINGSTILTAK',
+    GRUPPE_ARBEIDSMARKEDSOPPLAERING = 'GRUPPE_ARBEIDSMARKEDSOPPLAERING',
+    GRUPPE_FAG_OG_YRKESOPPLAERING = 'GRUPPE_FAG_OG_YRKESOPPLAERING',
+    JOBBKLUBB = 'JOBBKLUBB',
+    OPPFOLGING = 'OPPFOLGING',
+    VARIG_TILRETTELAGT_ARBEID_SKJERMET = 'VARIG_TILRETTELAGT_ARBEID_SKJERMET',
+    HOYERE_UTDANNING = 'HOYERE_UTDANNING',
+    ENKELTPLASS_ARBEIDSMARKEDSOPPLAERING = 'ENKELTPLASS_ARBEIDSMARKEDSOPPLAERING',
+    ENKELTPLASS_FAG_OG_YRKESOPPLAERING = 'ENKELTPLASS_FAG_OG_YRKESOPPLAERING',
 }
 
 export enum TiltakGjennomforingStatus {
@@ -24,10 +27,10 @@ export const tiltakGjennomforingStatusSchema = z.enum(
   TiltakGjennomforingStatus
 )
 
-export const tiltakstypeSchema = z.enum(Tiltakskode)
+export const tiltakskodeSchema = z.enum(Tiltakskode)
 
 export const tiltakSchema = z.object({
-  tiltakskode: tiltakstypeSchema,
+  tiltakskode: tiltakskodeSchema,
   tiltaksnavn: z.string()
 })
 

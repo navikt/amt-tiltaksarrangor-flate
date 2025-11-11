@@ -138,7 +138,7 @@ const getStatus = (
 ): TiltakDeltakerStatus => {
   const i = randBetween(0, 10)
 
-  if (erKurs && (tiltakskode === Tiltakskode.GRUPPEAMO || tiltakskode === Tiltakskode.GRUFAGYRKE)) {
+  if (erKurs && (tiltakskode === Tiltakskode.GRUPPE_ARBEIDSMARKEDSOPPLAERING || tiltakskode === Tiltakskode.GRUPPE_FAG_OG_YRKESOPPLAERING)) {
     if (i < 1) return TiltakDeltakerStatus.SOKT_INN
     if (i < 2) return TiltakDeltakerStatus.VURDERES
     if (i < 4) return TiltakDeltakerStatus.DELTAR
@@ -188,7 +188,7 @@ const finnSluttdato = (
     deltakerstatus === TiltakDeltakerStatus.HAR_SLUTTET ||
     deltakerstatus === TiltakDeltakerStatus.FULLFORT
 
-  if (gjennomforing.tiltak.tiltakskode === Tiltakskode.VASV) return null
+  if (gjennomforing.tiltak.tiltakskode === Tiltakskode.VARIG_TILRETTELAGT_ARBEID_SKJERMET) return null
   if (erKurs && erAvbrutt) {
     return startDato && gjennomforing.sluttDato
       ? faker.date.between({ from: startDato, to: gjennomforing.sluttDato })
@@ -547,7 +547,7 @@ const innholdselementer = [
 ]
 
 function mockInnhold(tiltakskode: Tiltakskode): Deltakelsesinnhold | null {
-  if (tiltakskode !== Tiltakskode.ARBFORB) {
+  if (tiltakskode !== Tiltakskode.ARBEIDSFORBEREDENDE_TRENING) {
     return null
   }
 

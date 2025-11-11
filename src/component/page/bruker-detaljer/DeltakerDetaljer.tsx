@@ -31,7 +31,7 @@ export const DeltakerDetaljer = (props: {
       <section className={styles.section}>
         <DeltakelseInfo deltaker={deltaker} />
 
-        {(deltaker.tiltakskode === Tiltakskode.GRUPPEAMO || deltaker.tiltakskode === Tiltakskode.GRUFAGYRKE) && (
+        {(deltaker.tiltakskode === Tiltakskode.GRUPPE_ARBEIDSMARKEDSOPPLAERING || deltaker.tiltakskode === Tiltakskode.GRUPPE_FAG_OG_YRKESOPPLAERING) && (
           <DeltakerVurdering deltaker={deltaker} />
         )}
 
@@ -75,9 +75,9 @@ export const DeltakerDetaljer = (props: {
 
 const visBestilling = (tiltakskode: Tiltakskode) => {
   return ![
-    Tiltakskode.DIGIOPPARB,
-    Tiltakskode.GRUFAGYRKE,
-    Tiltakskode.JOBBK,
-    Tiltakskode.GRUPPEAMO
+    Tiltakskode.DIGITALT_OPPFOLGINGSTILTAK,
+    Tiltakskode.GRUPPE_FAG_OG_YRKESOPPLAERING,
+    Tiltakskode.JOBBKLUBB,
+    Tiltakskode.GRUPPE_ARBEIDSMARKEDSOPPLAERING
   ].includes(tiltakskode)
 }
