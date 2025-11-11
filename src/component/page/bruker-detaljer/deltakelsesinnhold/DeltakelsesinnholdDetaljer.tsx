@@ -27,7 +27,7 @@ export function DeltakelsesinnholdDetaljer({ innhold, tiltakskode }: Props) {
       </BodyLong>
 
       <DeltakelseInnholdListe
-        tiltakstype={tiltakskode}
+        tiltakskode={tiltakskode}
         deltakelsesinnhold={innhold}
       />
     </div>

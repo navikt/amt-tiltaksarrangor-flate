@@ -14,19 +14,19 @@ import { HistorikkTiltakskoordinatorEndring } from './HistorikkTiltakskoordinato
 
 interface Props {
   historikk: DeltakerHistorikkListe | null
-  tiltakstype: Tiltakskode
+  tiltakskode: Tiltakskode
   open: boolean
   onClose: () => void
 }
 
-const getHistorikkItem = (historikk: DeltakerHistorikk, tiltakstype: Tiltakskode) => {
+const getHistorikkItem = (historikk: DeltakerHistorikk, tiltakskode: Tiltakskode) => {
   switch (historikk.type) {
     case HistorikkType.Vedtak:
-      return <HistorikkVedtak endringsVedtak={historikk} tiltakstype={tiltakstype} />
+      return <HistorikkVedtak endringsVedtak={historikk} tiltakskode={tiltakskode} />
     case HistorikkType.InnsokPaaFellesOppstart:
       return <HistorikkSoktInn soktInnHistorikk={historikk} />
     case HistorikkType.Endring:
-      return <HistorikkEndring deltakerEndring={historikk} tiltakstype={tiltakstype} />
+      return <HistorikkEndring deltakerEndring={historikk} tiltakskode={tiltakskode} />
     case HistorikkType.Forslag:
       return <HistorikkForslag forslag={historikk} />
     case HistorikkType.EndringFraArrangor:
@@ -35,7 +35,7 @@ const getHistorikkItem = (historikk: DeltakerHistorikk, tiltakstype: Tiltakskode
       return (
         <HistorikkImportertFraArena
           deltakelseVedImport={historikk}
-          tiltakstype={tiltakstype}
+          tiltakskode={tiltakskode}
         />
       )
     case HistorikkType.VurderingFraArrangor:
@@ -51,14 +51,14 @@ const getHistorikkItem = (historikk: DeltakerHistorikk, tiltakstype: Tiltakskode
   }
 }
 
-export const HistorikkModal = ({ open, historikk, tiltakstype, onClose }: Props) => {
+export const HistorikkModal = ({ open, historikk, tiltakskode, onClose }: Props) => {
   return (
     <Modal open={open} header={{ heading: 'Endringer' }} onClose={onClose}>
       <Modal.Body>
         {historikk &&
           historikk.map((i, index) => (
             <div key={`${i.type}${index}`} className={styles.historikk_list_item}>
-              {getHistorikkItem(i, tiltakstype)}
+              {getHistorikkItem(i, tiltakskode)}
             </div>
           ))}
         {(!historikk || historikk.length === 0) && (

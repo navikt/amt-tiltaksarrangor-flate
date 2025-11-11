@@ -11,10 +11,10 @@ import globalStyles from '../../../../../globals.module.scss'
 
 interface Props {
   endringsVedtak: Vedtak
-  tiltakstype: Tiltakskode
+  tiltakskode: Tiltakskode
 }
 
-export const HistorikkVedtak = ({ endringsVedtak, tiltakstype }: Props) => {
+export const HistorikkVedtak = ({ endringsVedtak, tiltakskode }: Props) => {
   const {
     fattet,
     opprettetAv,
@@ -40,7 +40,7 @@ export const HistorikkVedtak = ({ endringsVedtak, tiltakstype }: Props) => {
           <BodyLong size="small">{deltakelsesinnhold.ledetekst}</BodyLong>
         )}
         <DeltakelseInnholdListe
-          tiltakstype={tiltakstype}
+          tiltakskode={tiltakskode}
           deltakelsesinnhold={deltakelsesinnhold}
           className={styles.innhold_liste}
         /> </>
@@ -55,7 +55,7 @@ export const HistorikkVedtak = ({ endringsVedtak, tiltakstype }: Props) => {
         </>
       )}
 
-      {skalViseDeltakelsesmengde(tiltakstype) && (
+      {skalViseDeltakelsesmengde(tiltakskode) && (
         <>
           <BodyLong size="small" weight="semibold" className={styles.vedtak_info}>
             Deltakelsesmengde

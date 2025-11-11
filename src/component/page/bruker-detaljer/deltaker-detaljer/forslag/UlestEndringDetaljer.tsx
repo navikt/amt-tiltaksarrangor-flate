@@ -13,16 +13,16 @@ import globalStyles from '../../../../../globals.module.scss'
 
 interface Props {
 	deltakerEndring: DeltakerEndring
-	tiltakstype: Tiltakskode
+	tiltakskode: Tiltakskode
 }
 
 export const Endringsdetaljer = ({
 	deltakerEndring,
-	tiltakstype,
+	tiltakskode,
 }: Props) => {
 	return (
 		<>
-			{getEndringsDetaljer(deltakerEndring.endring, tiltakstype)}
+			{getEndringsDetaljer(deltakerEndring.endring, tiltakskode)}
 			<Detail className={styles.endring_detail} textColor="subtle">
 				{`Endret ${formatDate(deltakerEndring.endret)} av ${deltakerEndring.endretAv} ${deltakerEndring.endretAvEnhet}.`}
 			</Detail>

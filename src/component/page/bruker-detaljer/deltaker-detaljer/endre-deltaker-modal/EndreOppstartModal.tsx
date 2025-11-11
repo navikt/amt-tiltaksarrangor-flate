@@ -23,7 +23,7 @@ export const EndreOppstartModal = ({
 }: ModalDataProps) => {
   const [startdato, setStartdato] = useState<Nullable<Date>>(deltaker.startDato)
   const [begrunnelse, setBegrunnelse] = useState<string>('')
-  const skalVelgeVarighet = deltaker.deltakerliste.tiltakstype != Tiltakskode.VARIG_TILRETTELAGT_ARBEID_SKJERMET
+  const skalVelgeVarighet = deltaker.deltakerliste.tiltakskode != Tiltakskode.VARIG_TILRETTELAGT_ARBEID_SKJERMET
   const sluttdato = useRef<SluttdatoRef>(null)
 
   const kanSendeMelding = startdato !== null && gyldigObligatoriskBegrunnelse(begrunnelse)
@@ -80,7 +80,7 @@ export const EndreOppstartModal = ({
         <SluttdatoVelger
           ref={sluttdato}
           erForOppstartsdato={true}
-          tiltakskode={deltaker.deltakerliste.tiltakstype}
+          tiltakskode={deltaker.deltakerliste.tiltakskode}
           legend="Hva er forventet varighet?"
           detailLabel="Forventet sluttdato"
           min={startdato ?? undefined}
@@ -91,7 +91,7 @@ export const EndreOppstartModal = ({
               ? finnValgtVarighet(
                   deltaker.startDato,
                   deltaker.sluttDato,
-                  deltaker.deltakerliste.tiltakstype
+                  deltaker.deltakerliste.tiltakskode
                 )
               : undefined
           }

@@ -145,12 +145,12 @@ export const DeltakelseInfo = ({
 					ulesteEndringer={ulesteEndringer}
 					onTilbakekalt={handleForslagTilbakekalt}
 					onMarkertSomLest={fjernLesteEndringer}
-					tiltakstype={deltaker.deltakerliste.tiltakstype}
+					tiltakskode={deltaker.deltakerliste.tiltakskode}
 				/>
 
 				<SeEndringer
 					className={styles.seEndringerKnapp}
-					tiltakstype={deltaker.deltakerliste.tiltakstype}
+					tiltakskode={deltaker.deltakerliste.tiltakskode}
 					deltakerId={deltaker.id}
 				/>
 

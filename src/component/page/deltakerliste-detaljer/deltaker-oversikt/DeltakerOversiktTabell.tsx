@@ -15,7 +15,7 @@ import { IngenDeltakereAlertstripe } from './IngenDeltakereAlertstripe'
 
 interface DeltakerOversiktTabellProps {
 	deltakere: TiltakDeltaker[],
-	tiltakstype?: Tiltakskode
+	tiltakskode?: Tiltakskode
 }
 
 export const DeltakerOversiktTabell = (
@@ -29,9 +29,9 @@ export const DeltakerOversiktTabell = (
 	const [ deltakereBearbeidet, setDeltakereBearbeidet ] = useState<
 		TiltakDeltaker[]
 		>(sorterDeltakere(deltakere, deltakerSortering))
-	const visInfoMeldingKravutbetaling = props.tiltakstype === Tiltakskode.AVKLARING
-		|| props.tiltakstype === Tiltakskode.ARBEIDSRETTET_REHABILITERING
-		|| props.tiltakstype === Tiltakskode.OPPFOLGING
+	const visInfoMeldingKravutbetaling = props.tiltakskode === Tiltakskode.AVKLARING
+		|| props.tiltakskode === Tiltakskode.ARBEIDSRETTET_REHABILITERING
+		|| props.tiltakskode === Tiltakskode.OPPFOLGING
 
 	useEffect(() => {
 		if (!deltakere) return

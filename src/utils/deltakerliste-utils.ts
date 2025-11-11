@@ -4,20 +4,20 @@ import {
 } from '../api/data/deltaker'
 import { Veiledertype } from '../api/data/veileder'
 
-export const finnUnikeTiltakstyper = (
+export const finnUnikeTiltakskoder = (
   detakerlister: Deltakerliste[]
 ): string[] => {
-  const unikeTiltakstyper: string[] = []
+  const unikeTiltakskode: string[] = []
 
   detakerlister.forEach((deltakerliste) => {
-    const type1 = unikeTiltakstyper.find((t) => t === deltakerliste.type)
+    const type1 = unikeTiltakskode.find((t) => t === deltakerliste.type)
 
     if (!type1) {
-      unikeTiltakstyper.push(deltakerliste.type)
+      unikeTiltakskode.push(deltakerliste.type)
     }
   })
 
-  return unikeTiltakstyper
+  return unikeTiltakskode
 }
 
 export const finnDeltakerlister = (

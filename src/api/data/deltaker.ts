@@ -113,7 +113,7 @@ export const deltakersDeltakerlisteSchema = z.object({
   startDato: nullableDateSchema,
   sluttDato: nullableDateSchema,
   erKurs: z.boolean(),
-  tiltakstype: z.enum(Tiltakskode),
+  tiltakskode: z.enum(Tiltakskode),
   oppstartstype: z.enum(Oppstartstype)
 })
 
