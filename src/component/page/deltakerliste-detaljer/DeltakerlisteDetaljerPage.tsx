@@ -68,7 +68,7 @@ export const DeltakerlisteDetaljerPage = (): React.ReactElement => {
         <KoordinatorInfo koordinatorer={deltakerliste.koordinatorer} />
         <FilterMenyDeltakerListeDetaljer deltakerliste={deltakerliste} />
       </section>
-      <DeltakerOversiktTabell deltakere={deltakerliste.deltakere} tiltakskode={deltakerliste.tiltakType}/>
+      <DeltakerOversiktTabell deltakere={deltakerliste.deltakere} tiltakskode={deltakerliste.tiltakskode}/>
     </div>
   )
 }

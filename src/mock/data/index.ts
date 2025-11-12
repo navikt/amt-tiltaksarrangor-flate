@@ -39,7 +39,7 @@ export const mockKoordinatorsDeltakerliste = (
       .filter((deltaker) => deltaker.gjennomforing.id === gjennomforing.id)
       .map((deltaker) => mapToDeltakerListView(deltaker)),
     erKurs: deltakerlisteErKurs(gjennomforing.tiltak.tiltakskode),
-    tiltakType: gjennomforing.tiltak.tiltakskode
+    tiltakskode: gjennomforing.tiltak.tiltakskode
   }
 }
 export const mockGjennomforinger: MockGjennomforing[] = lagMockGjennomforinger(

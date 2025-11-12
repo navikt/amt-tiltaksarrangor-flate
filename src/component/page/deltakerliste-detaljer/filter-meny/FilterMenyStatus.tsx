@@ -17,7 +17,7 @@ import { getIndividuellStatuser, getKursStatuser } from '../../../../utils/filtr
 
 interface Props {
   deltakere: TiltakDeltaker[]
-  tiltakType: Tiltakskode
+  tiltakskode: Tiltakskode
   erKurs: boolean
 }
 
@@ -54,9 +54,9 @@ export const FilterMenyStatus = (props: Props): React.ReactElement => {
       const tekst = mapTiltakDeltakerStatusTilTekst(status)
 
       if (
-        (!props.erKurs || props.tiltakType === Tiltakskode.JOBBKLUBB) &&
-        props.tiltakType !== Tiltakskode.GRUPPE_FAG_OG_YRKESOPPLAERING &&
-        props.tiltakType !== Tiltakskode.GRUPPE_ARBEIDSMARKEDSOPPLAERING &&
+        (!props.erKurs || props.tiltakskode === Tiltakskode.JOBBKLUBB) &&
+        props.tiltakskode !== Tiltakskode.GRUPPE_FAG_OG_YRKESOPPLAERING &&
+        props.tiltakskode !== Tiltakskode.GRUPPE_ARBEIDSMARKEDSOPPLAERING &&
         (status === TiltakDeltakerStatus.VURDERES || status === TiltakDeltakerStatus.SOKT_INN)
       ) {
         return
@@ -69,7 +69,7 @@ export const FilterMenyStatus = (props: Props): React.ReactElement => {
       })
     })
     return dataMap
-  }, [props.erKurs, props.tiltakType])
+  }, [props.erKurs, props.tiltakskode])
 
   useEffect(() => {
     const statusMap = createInitialDataMap()

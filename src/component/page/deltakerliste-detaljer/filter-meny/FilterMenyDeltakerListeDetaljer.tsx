@@ -32,7 +32,7 @@ export const FilterMenyDeltakerListeDetaljer: React.FC<Props> = ({
 
       <FilterMenyStatus
         erKurs={deltakerliste.erKurs}
-        tiltakType={deltakerliste.tiltakType}
+        tiltakskode={deltakerliste.tiltakskode}
         deltakere={deltakerliste.deltakere}
       />
       <FilterMenyHendelser deltakere={deltakerliste.deltakere} />

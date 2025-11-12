@@ -231,7 +231,7 @@ export const koordinatorsDeltakerlisteSchema = z.object({
   koordinatorer: koordinatorListSchema,
   deltakere: tiltakDeltakereSchema,
   erKurs: z.boolean(),
-  tiltakType: tiltakskodeSchema
+  tiltakskode: tiltakskodeSchema
 })
 
 export type NavVeileder = z.infer<typeof navVeilederSchema>
