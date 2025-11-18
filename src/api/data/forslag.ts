@@ -1,6 +1,6 @@
 import { z } from 'zod'
 
-import { dateSchema } from '../utils'
+import { dateSchema, nullableDateSchema } from '../utils'
 
 export enum HistorikkType {
   Vedtak = 'Vedtak',
@@ -87,7 +87,8 @@ export const endreAvslutningForslagSchema = z.object({
   type: z.literal(ForslagEndringType.EndreAvslutning),
   aarsak: endringAarsakSchema.nullable(),
   harDeltatt: z.boolean().nullable(),
-  harFullfort: z.boolean().optional().nullable()
+  harFullfort: z.boolean().optional().nullable(),
+  sluttdato: nullableDateSchema
 })
 
 const ikkeAktuellSchema = z.object({

@@ -69,9 +69,17 @@ export const getEndringsDetaljer = (endring: Endring, tiltakskode: Tiltakskode) 
             </BodyLong>
           )}
 
-          <BodyLong size="small">
-            Er kurset fullført: {endring.harFullfort ? 'Ja' : 'Nei'}
-          </BodyLong>
+          {endring.harFullfort !== null && (
+            <BodyLong size="small">
+              Er kurset fullført: {endring.harFullfort ? 'Ja' : 'Nei'}
+            </BodyLong>
+          )}
+
+          {endring.sluttdato && (
+            <BodyLong size="small">
+              Sluttdato: {formatDate(endring.sluttdato)}
+            </BodyLong>
+          )}
 
           {endring.begrunnelse && (
             <BodyLong size="small" className={globalStyles.textPreWrap}>

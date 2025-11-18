@@ -85,6 +85,12 @@ export const ForslagtypeDetaljer = ({
                 {forslag.endring.harFullfort ? 'Ja' : 'Nei'}
               </BodyLong>
             )}
+
+            {forslag.endring.type === ForslagEndringType.EndreAvslutning && forslag.endring.sluttdato && (
+              <BodyLong size="small">
+                Sluttdato: {formatDate(forslag.endring.sluttdato)}
+              </BodyLong>
+            )}
             {forslag.endring.type === ForslagEndringType.AvsluttDeltakelse && forslag.endring.sluttdato && (
               <BodyLong size="small">
                 Ny sluttdato: {formatDate(forslag.endring.sluttdato)}
