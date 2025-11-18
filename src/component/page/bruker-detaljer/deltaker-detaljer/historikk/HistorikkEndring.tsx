@@ -75,9 +75,9 @@ export const getEndringsDetaljer = (endring: Endring, tiltakskode: Tiltakskode) 
             </BodyLong>
           )}
 
-          {endring.harFullfort !== null && (
+          {endring.sluttdato && (
             <BodyLong size="small">
-              Er kurset fullført: {endring.harFullfort ? 'Ja' : 'Nei'}
+              Sluttdato: {formatDate(endring.sluttdato)}
             </BodyLong>
           )}
 

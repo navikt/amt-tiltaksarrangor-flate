@@ -74,6 +74,12 @@ function EndringsDetaljer({ endring }: { readonly endring: ForslagEndring }) {
               Har personen fullført? {endring.harFullfort ? 'Ja' : 'Nei'}
             </BodyLong>
           )}
+
+          {endring.type === ForslagEndringType.EndreAvslutning && endring.sluttdato && (
+            <BodyLong size="small">
+              Sluttdato: {formatDate(endring.sluttdato)}
+            </BodyLong>
+          )}
           {endring.type === ForslagEndringType.AvsluttDeltakelse && endring.sluttdato && (
             <BodyLong size="small">
               Ny sluttdato: {formatDate(endring.sluttdato)}

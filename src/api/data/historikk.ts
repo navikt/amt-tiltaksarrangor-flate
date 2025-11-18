@@ -117,6 +117,7 @@ export const endreAvslutningSchema = z.object({
   aarsak: deltakerStatusAarsakSchema.nullable(),
   begrunnelse: z.string().nullable(),
   harFullfort: z.boolean().nullable(),
+  sluttdato: nullableDateSchema
 })
 
 export const endreSluttarsakSchema = z.object({
