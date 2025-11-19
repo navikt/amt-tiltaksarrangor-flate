@@ -31,7 +31,7 @@
     "@navikt/ds-react": "^7.33.4",
     "@navikt/ds-tokens": "^7.33.4",
     "@navikt/nav-dekoratoren-moduler": "^3.5.0",
-    "@sentry/react": "^10.25.0",
+    "@sentry/react": "^10.26.0",
     "@sentry/tracing": "^7.120.4",
     "@types/react": "^19.2.6",
     "@types/react-collapse": "^5.0.4",
