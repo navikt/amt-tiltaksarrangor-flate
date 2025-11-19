@@ -37,7 +37,6 @@ export const AvsluttKursDeltakelseModal = (props: ModalDataProps) => {
     if (deltaker.status.type === TiltakDeltakerStatus.IKKE_AKTUELL) return AvslutningsType.IKKE_DELTATT
     return undefined
   })
-  const [ harFullfort, setHarFullfort ] = useState<boolean | null>(avslutningsType === AvslutningsType.FULLFORT ? true : null)
   const harDeltatt = avslutningsType === AvslutningsType.IKKE_DELTATT ? false : null
   const skalOppgiSluttdato =
     avslutningsType === AvslutningsType.FULLFORT ||
@@ -64,7 +63,7 @@ export const AvsluttKursDeltakelseModal = (props: ModalDataProps) => {
     if (EndringType.AVSLUTT_DELTAKELSE === endringstype) {
       return postAvsluttDeltakelse(
         deltaker.id,
-        harFullfort,
+        avslutningsType === AvslutningsType.FULLFORT,
         harDeltatt,
         toEndringAarsakType(aarsak, beskrivelse),
         harDeltatt === false ? null : sluttDato,
@@ -74,7 +73,7 @@ export const AvsluttKursDeltakelseModal = (props: ModalDataProps) => {
     else {
       return postEndreAvslutning(
         deltaker.id,
-        harFullfort,
+        avslutningsType === AvslutningsType.FULLFORT,
         harDeltatt,
         toEndringAarsakType(aarsak, beskrivelse),
         harDeltatt === false ? null : sluttDato,
@@ -101,7 +100,6 @@ export const AvsluttKursDeltakelseModal = (props: ModalDataProps) => {
         legend="Har deltakeren fullført kurset?"
         onChange={(newAvslutningsType) => {
           settAarsak(undefined)
-          setHarFullfort(newAvslutningsType === AvslutningsType.FULLFORT)
           settAvslutningsType(newAvslutningsType as AvslutningsType)
         }}
         defaultValue={avslutningsType}
