@@ -48,12 +48,14 @@ export const postEndreAvslutning = (
   harFullfort: boolean | null,
   harDeltatt: boolean | null,
   aarsak: EndringAarsak | null,
+  sluttDato?: Date | null,
   begrunnelse?: string
 ): AxiosPromise => {
   return postForslag(deltakerId, 'endre-avslutning', {
     aarsak: aarsak,
     harDeltatt: harDeltatt,
     harFullfort: harFullfort,
+    sluttdato: sluttDato ? formatDateToDateInputStr(sluttDato) : null,
     begrunnelse: begrunnelse ?? null
   })
 }

@@ -6,7 +6,8 @@ import { AarsakRadioMedBeskrivelse } from './AarsakRadioMedBeskrivelse'
 import { DeltakerStatusAarsakType } from '../../../../../api/data/deltakerStatusArsak'
 
 interface AarsakSelectorProps {
-  tittel: string
+  tittel: string,
+  defaultAarsak?: DeltakerStatusAarsakType,
   onAarsakSelected: (
     aarsak: DeltakerStatusAarsakType,
     beskrivelse: Nullable<string>
@@ -15,9 +16,10 @@ interface AarsakSelectorProps {
 
 export const AarsakSelector = ({
   tittel,
+  defaultAarsak,
   onAarsakSelected,
 }: AarsakSelectorProps) => {
-  const [aarsak, settAarsak] = useState<DeltakerStatusAarsakType>()
+  const [ aarsak, settAarsak ] = useState<DeltakerStatusAarsakType | undefined>(defaultAarsak)
   const [beskrivelse, settBeskrivelse] = useState<Nullable<string>>()
   const onBeskrivelse = (nyBeskrivelse: Nullable<string>) => {
     settBeskrivelse(nyBeskrivelse)
@@ -31,7 +33,7 @@ export const AarsakSelector = ({
   }, [beskrivelse, aarsak, onAarsakSelected, tittel])
 
   return (
-    <RadioGroup size="small" legend={tittel} onChange={(a) => settAarsak(a)}>
+    <RadioGroup size="small" legend={tittel} onChange={(a) => settAarsak(a)} defaultValue={aarsak}>
       <AarsakRadio aarsakType={DeltakerStatusAarsakType.FATT_JOBB} />
       <AarsakRadio aarsakType={DeltakerStatusAarsakType.SYK} />
       <AarsakRadio aarsakType={DeltakerStatusAarsakType.TRENGER_ANNEN_STOTTE} />
