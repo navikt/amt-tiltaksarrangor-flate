@@ -37,7 +37,7 @@ export const AvsluttKursDeltakelseModal = (props: ModalDataProps) => {
     if (deltaker.status.type === TiltakDeltakerStatus.IKKE_AKTUELL) return AvslutningsType.IKKE_DELTATT
     return undefined
   })
-  const harDeltatt = avslutningsType === AvslutningsType.IKKE_DELTATT ? false : null
+
   const skalOppgiSluttdato =
     avslutningsType === AvslutningsType.FULLFORT ||
     avslutningsType === AvslutningsType.AVBRUTT
@@ -60,10 +60,13 @@ export const AvsluttKursDeltakelseModal = (props: ModalDataProps) => {
       return Promise.reject(validering.feilmelding)
     }
 
+    const harFullfort = avslutningsType === AvslutningsType.FULLFORT
+    const harDeltatt = avslutningsType !== AvslutningsType.IKKE_DELTATT
+
     if (EndringType.AVSLUTT_DELTAKELSE === endringstype) {
       return postAvsluttDeltakelse(
         deltaker.id,
-        avslutningsType === AvslutningsType.FULLFORT,
+        harFullfort,
         harDeltatt,
         toEndringAarsakType(aarsak, beskrivelse),
         harDeltatt === false ? null : sluttDato,
@@ -73,7 +76,7 @@ export const AvsluttKursDeltakelseModal = (props: ModalDataProps) => {
     else {
       return postEndreAvslutning(
         deltaker.id,
-        avslutningsType === AvslutningsType.FULLFORT,
+        harFullfort,
         harDeltatt,
         toEndringAarsakType(aarsak, beskrivelse),
         harDeltatt === false ? null : sluttDato,
