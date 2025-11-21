@@ -18,7 +18,7 @@ import { AarsakSelector } from './AarsakSelector'
 import { maxSluttdato } from './datoutils'
 import { Endringsmodal } from './endringsmodal/Endringsmodal'
 import { toEndringAarsakType } from './validering/aarsakValidering'
-import { useAvsluttKursDeltakelseValidering } from './validering/useAvsluttKursDeltakelseValidering'
+import { skalOppgiAarsak, skalOppgiSluttdato, useAvsluttKursDeltakelseValidering } from './validering/useAvsluttKursDeltakelseValidering'
 
 export const AvsluttKursDeltakelseModal = (props: ModalDataProps) => {
   const {
@@ -38,13 +38,8 @@ export const AvsluttKursDeltakelseModal = (props: ModalDataProps) => {
     return undefined
   })
 
-  const skalOppgiSluttdato =
-    avslutningsType === AvslutningsType.FULLFORT ||
-    avslutningsType === AvslutningsType.AVBRUTT
-
-  const skalOppgiAarsak =
-    avslutningsType === AvslutningsType.AVBRUTT ||
-    avslutningsType === AvslutningsType.IKKE_DELTATT
+  const skalSluttdatoOppgis = skalOppgiSluttdato(avslutningsType)
+  const skalAarsakOppgis = skalOppgiAarsak(avslutningsType)
   const { validering } = useAvsluttKursDeltakelseValidering(avslutningsType, sluttDato, aarsak, beskrivelse, begrunnelse)
 
   const onAarsakSelected = (
@@ -68,8 +63,8 @@ export const AvsluttKursDeltakelseModal = (props: ModalDataProps) => {
         deltaker.id,
         harFullfort,
         harDeltatt,
-        skalOppgiAarsak ? toEndringAarsakType(aarsak, beskrivelse) : null,
-        harDeltatt === false ? null : sluttDato,
+        skalAarsakOppgis ? toEndringAarsakType(aarsak, beskrivelse) : null,
+        skalSluttdatoOppgis ? sluttDato : null,
         begrunnelse
       ).then((res) => onForslagSendt(res.data))
     }
@@ -78,8 +73,8 @@ export const AvsluttKursDeltakelseModal = (props: ModalDataProps) => {
         deltaker.id,
         harFullfort,
         harDeltatt,
-        skalOppgiAarsak ? toEndringAarsakType(aarsak, beskrivelse) : null,
-        harDeltatt === false ? null : sluttDato,
+        skalAarsakOppgis ? toEndringAarsakType(aarsak, beskrivelse) : null,
+        skalSluttdatoOppgis ? sluttDato : null,
         begrunnelse
       ).then((res) => onForslagSendt(res.data))
     }
@@ -111,7 +106,7 @@ export const AvsluttKursDeltakelseModal = (props: ModalDataProps) => {
         <AvslutningstypeRadio avslutningstype={AvslutningsType.IKKE_DELTATT} />
       </RadioGroup>
 
-      {skalOppgiAarsak && (
+      {skalAarsakOppgis && (
         <AarsakSelector
           tittel="Hva er årsaken til avslutning?"
           onAarsakSelected={onAarsakSelected}
@@ -119,7 +114,7 @@ export const AvsluttKursDeltakelseModal = (props: ModalDataProps) => {
           defaultBeskrivelse={beskrivelse}
         />
       )}
-      {skalOppgiSluttdato && (
+      {skalSluttdatoOppgis && (
         <DateField
           label="Hva er ny sluttdato?"
           defaultDate={sluttDato}
