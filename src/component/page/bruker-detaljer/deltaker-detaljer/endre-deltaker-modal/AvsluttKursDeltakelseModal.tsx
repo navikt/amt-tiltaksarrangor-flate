@@ -68,7 +68,7 @@ export const AvsluttKursDeltakelseModal = (props: ModalDataProps) => {
         deltaker.id,
         harFullfort,
         harDeltatt,
-        toEndringAarsakType(aarsak, beskrivelse),
+        skalOppgiAarsak ? toEndringAarsakType(aarsak, beskrivelse) : null,
         harDeltatt === false ? null : sluttDato,
         begrunnelse
       ).then((res) => onForslagSendt(res.data))
@@ -78,7 +78,7 @@ export const AvsluttKursDeltakelseModal = (props: ModalDataProps) => {
         deltaker.id,
         harFullfort,
         harDeltatt,
-        toEndringAarsakType(aarsak, beskrivelse),
+        skalOppgiAarsak ? toEndringAarsakType(aarsak, beskrivelse) : null,
         harDeltatt === false ? null : sluttDato,
         begrunnelse
       ).then((res) => onForslagSendt(res.data))
@@ -102,7 +102,6 @@ export const AvsluttKursDeltakelseModal = (props: ModalDataProps) => {
         size="small"
         legend="Har deltakeren fullført kurset?"
         onChange={(newAvslutningsType) => {
-          settAarsak(undefined)
           settAvslutningsType(newAvslutningsType as AvslutningsType)
         }}
         defaultValue={avslutningsType}
