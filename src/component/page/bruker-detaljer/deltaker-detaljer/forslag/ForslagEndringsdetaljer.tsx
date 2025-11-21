@@ -69,7 +69,7 @@ function EndringsDetaljer({ endring }: { readonly endring: ForslagEndring }) {
               Har personen deltatt? {endring.harDeltatt ? 'Ja' : 'Nei'}
             </BodyLong>
           )}
-          {endring.harFullfort !== null && (
+          {endring.harDeltatt && endring.harFullfort !== null && (
             <BodyLong size="small">
               Har personen fullført? {endring.harFullfort ? 'Ja' : 'Nei'}
             </BodyLong>

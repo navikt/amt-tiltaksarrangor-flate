@@ -10,10 +10,10 @@ export enum ModalType {
   AvsluttDeltaker,
   AvsluttKursDeltaker,
   EndreProsentDeltakelse,
-  EndreSluttdato,
   EndreSluttaarsak,
   FjernOppstartsdato,
-  EndreAvslutning
+  EndreAvslutning,
+  EndreAvslutningKurs,
 }
 
 interface BaseModalData<T extends ModalType, P> {
@@ -49,8 +49,7 @@ type AvsluttKursDeltakerModalData = BaseModalData<
 type EndreProsentDeltakelse = BaseModalData<
   ModalType.EndreProsentDeltakelse,
   ModalDataProps
->
-type EndreSluttdato = BaseModalData<ModalType.EndreSluttdato, ModalDataProps>
+  >
 type EndreSluttaarsak = BaseModalData<
   ModalType.EndreSluttaarsak,
   ModalDataProps
@@ -63,6 +62,10 @@ type EndreAvslutning = BaseModalData<
   ModalType.EndreAvslutning,
   ModalDataProps
 >
+type EndreAvslutningKurs = BaseModalData<
+  ModalType.EndreAvslutningKurs,
+  ModalDataProps
+>
 
 export type ModalData =
   | LeggTilOppstartData
@@ -72,10 +75,10 @@ export type ModalData =
   | AvsluttDeltakerModalData
   | AvsluttKursDeltakerModalData
   | EndreProsentDeltakelse
-  | EndreSluttdato
   | EndreSluttaarsak
   | FjernOppstartsdato
   | EndreAvslutning
+  | EndreAvslutningKurs
 
 export interface ModalHandler {
   modalData: ModalData | undefined
@@ -87,10 +90,10 @@ export interface ModalHandler {
   visAvsluttDeltakerModal: (props: ModalDataProps) => void
   visAvsluttKursDeltakerModal: (props: ModalDataProps) => void
   visEndreProsentDeltakelseModal: (props: ModalDataProps) => void
-  visEndreSluttdatoModal: (props: ModalDataProps) => void
   visEndreSluttaarsakModal: (props: ModalDataProps) => void
   visFjernOppstartsdatoModal: (props: ModalDataProps) => void
   visEndreAvslutningModal: (props: ModalDataProps) => void
+  visEndreAvslutningKursModal: (props: ModalDataProps) => void
 }
 
 export const useModalData = (): ModalHandler => {
@@ -149,13 +152,6 @@ export const useModalData = (): ModalHandler => {
     })
   }
 
-  const visEndreSluttdatoModal = (props: ModalDataProps) => {
-    setModalData({
-      type: ModalType.EndreSluttdato,
-      props: props
-    })
-  }
-
   const visEndreSluttaarsakModal = (props: ModalDataProps) => {
     setModalData({
       type: ModalType.EndreSluttaarsak,
@@ -177,6 +173,13 @@ export const useModalData = (): ModalHandler => {
     })
   }
 
+  const visEndreAvslutningKursModal = (props: ModalDataProps) => {
+    setModalData({
+      type: ModalType.EndreAvslutningKurs,
+      props: props
+    })
+  }
+
   return {
     modalData,
     lukkModal,
@@ -187,9 +190,9 @@ export const useModalData = (): ModalHandler => {
     visAvsluttDeltakerModal,
     visAvsluttKursDeltakerModal,
     visEndreProsentDeltakelseModal,
-    visEndreSluttdatoModal,
     visEndreSluttaarsakModal,
     visFjernOppstartsdatoModal,
-    visEndreAvslutningModal
+    visEndreAvslutningModal,
+    visEndreAvslutningKursModal
   }
 }

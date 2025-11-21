@@ -258,7 +258,7 @@ export const worker = setupWorker(
 		aarsak: body.aarsak,
 		harDeltatt: body.harDeltatt,
 		harFullfort: body.harFullfort,
-		sluttdato: null // TODO body.sluttdato
+		sluttdato: body.sluttdato
 	})),
 	handlePostForslagRequest('deltakelsesmengde', (body) => ({
 		type: ForslagEndringType.Deltakelsesmengde,

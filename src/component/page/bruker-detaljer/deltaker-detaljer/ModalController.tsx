@@ -7,7 +7,6 @@ import { ForlengDeltakelseModal } from './endre-deltaker-modal/ForlengDeltakelse
 import { LeggTilOppstartModal } from './endre-deltaker-modal/LeggTilOppstartModal'
 import { SettIkkeAktuellModal } from './endre-deltaker-modal/SettIkkeAktuellModal'
 import { ModalData, ModalType } from './modal-store'
-import { EndreSluttdatoModal } from './endre-deltaker-modal/EndreSluttdatoModal'
 import { EndreSluttaarsakModal } from './endre-deltaker-modal/EndreSluttaarsakModal'
 import { FjernOppstartsdatoModal } from './endre-deltaker-modal/FjernOppstartsdatoModal'
 import { Deltaker } from '../../../../api/data/deltaker'
@@ -36,15 +35,14 @@ export const ModalController = (props: {
       return <ForlengDeltakelseModal {...modalData.props} />
     case ModalType.SettDeltakerIkkeAktuell:
       return <SettIkkeAktuellModal {...modalData.props} />
-    case ModalType.AvsluttDeltaker:
-      return <AvsluttDeltakelseModal {...modalData.props} />
     case ModalType.EndreAvslutning:
+    case ModalType.AvsluttDeltaker:
+      return <AvsluttDeltakelseModal {...modalData.props} endringstype={modalData?.type} />
+    case ModalType.EndreAvslutningKurs:
     case ModalType.AvsluttKursDeltaker:
       return <AvsluttKursDeltakelseModal {...modalData.props} endringstype={modalData?.type} />
     case ModalType.EndreProsentDeltakelse:
       return <EndreProsentDeltakelseModal {...modalData.props} />
-    case ModalType.EndreSluttdato:
-      return <EndreSluttdatoModal {...modalData.props} />
     case ModalType.EndreSluttaarsak:
       return <EndreSluttaarsakModal {...modalData.props} />
     case ModalType.FjernOppstartsdato:

@@ -19,10 +19,10 @@ export function endringsknapper(deltaker: Deltaker, modal: ModalHandler): Endrin
 		visAvsluttDeltakerModal,
 		visAvsluttKursDeltakerModal,
 		visEndreProsentDeltakelseModal,
-		visEndreSluttdatoModal,
 		visEndreSluttaarsakModal,
 		visFjernOppstartsdatoModal,
-		visEndreAvslutningModal
+		visEndreAvslutningModal,
+		visEndreAvslutningKursModal
 	} = modal
 
 	const status = statusBooleans(deltaker.status.type)
@@ -39,12 +39,7 @@ export function endringsknapper(deltaker: Deltaker, modal: ModalHandler): Endrin
 		return status.erHarSluttet || ferdigPaKurs || deltarMedSluttdato
 	}
 
-	const kanEndreSluttdato =
-		status.erFullfort ||
-		status.erAvbrutt ||
-		status.erHarSluttet
-
-	const kanEndreSluttaarsak = () => status.erHarSluttet || status.erAvbrutt || status.erIkkeAktuell
+	const kanEndreSluttaarsak = status.erIkkeAktuell
 
 	const kanSetteIkkeAktuell =
 		status.erVurderes ||
@@ -57,8 +52,8 @@ export function endringsknapper(deltaker: Deltaker, modal: ModalHandler): Endrin
 	const kanAvslutteKursDeltakelse =
 		status.erDeltar && deltaker.deltakerliste.erKurs
 
-	const kanEndreAvslutning = (status.erFullfort || status.erAvbrutt) &&
-		deltaker.deltakerliste.erKurs
+	const kanEndreAvslutning = status.erHarSluttet
+	const kanEndreAvslutningKurs = status.erFullfort || status.erAvbrutt
 
 	const kanEndreStartDato =
 		status.erVenterPaOppstart ||
@@ -108,13 +103,8 @@ export function endringsknapper(deltaker: Deltaker, modal: ModalHandler): Endrin
 			modalFunc: visEndreProsentDeltakelseModal,
 		},
 		{
-			type: EndringType.ENDRE_SLUTTDATO,
-			erTilgjengelig: kanEndreSluttdato,
-			modalFunc: visEndreSluttdatoModal,
-		},
-		{
 			type: EndringType.ENDRE_SLUTTAARSAK,
-			erTilgjengelig: kanEndreSluttaarsak(),
+			erTilgjengelig: kanEndreSluttaarsak,
 			modalFunc: visEndreSluttaarsakModal,
 
 		},
@@ -127,6 +117,11 @@ export function endringsknapper(deltaker: Deltaker, modal: ModalHandler): Endrin
 			type: EndringType.ENDRE_AVSLUTNING,
 			erTilgjengelig: kanEndreAvslutning,
 			modalFunc: visEndreAvslutningModal,
+		},
+		{
+			type: EndringType.ENDRE_AVSLUTNING,
+			erTilgjengelig: kanEndreAvslutningKurs,
+			modalFunc: visEndreAvslutningKursModal,
 		}
 	]
 }
