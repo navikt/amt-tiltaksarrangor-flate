@@ -8,6 +8,7 @@ import { DeltakerStatusAarsakType } from '../../../../../api/data/deltakerStatus
 interface AarsakSelectorProps {
   tittel: string,
   defaultAarsak?: DeltakerStatusAarsakType,
+  defaultBeskrivelse?: Nullable<string>,
   onAarsakSelected: (
     aarsak: DeltakerStatusAarsakType,
     beskrivelse: Nullable<string>
@@ -17,10 +18,11 @@ interface AarsakSelectorProps {
 export const AarsakSelector = ({
   tittel,
   defaultAarsak,
+  defaultBeskrivelse,
   onAarsakSelected,
 }: AarsakSelectorProps) => {
   const [ aarsak, settAarsak ] = useState<DeltakerStatusAarsakType | undefined>(defaultAarsak)
-  const [beskrivelse, settBeskrivelse] = useState<Nullable<string>>()
+  const [ beskrivelse, settBeskrivelse ] = useState<Nullable<string>>(defaultBeskrivelse)
   const onBeskrivelse = (nyBeskrivelse: Nullable<string>) => {
     settBeskrivelse(nyBeskrivelse)
   }

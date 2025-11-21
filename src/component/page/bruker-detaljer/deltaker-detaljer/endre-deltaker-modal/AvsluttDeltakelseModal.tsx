@@ -28,8 +28,8 @@ export const AvsluttDeltakelseModal = (props: ModalDataProps) => {
   const endringstype = props.endringstype === ModalType.EndreAvslutning ? EndringType.ENDRE_AVSLUTNING : EndringType.AVSLUTT_DELTAKELSE
   const [ sluttDato, settSluttDato ] = useState<Date | undefined>(deltaker.sluttDato ?? undefined)
   const [ aarsak, settAarsak ] = useState<DeltakerStatusAarsakType | undefined>(deltaker.status.aarsak?.type ?? undefined)
-  const [ beskrivelse, settBeskrivelse ] = useState<string>()
-  const [ begrunnelse, setBegrunnelse ] = useState<string | undefined>(deltaker.status.aarsak?.beskrivelse ?? undefined)
+  const [ beskrivelse, settBeskrivelse ] = useState<string | undefined>(deltaker.status.aarsak?.beskrivelse ?? undefined)
+  const [ begrunnelse, setBegrunnelse ] = useState<string>()
   const [ harDeltatt, setHarDeltatt ] = useState<boolean | null>(harDeltattMindreEnnFemtenDager(deltaker) ? null : true)
 
   const { validering } = useAarsakValidering(aarsak, beskrivelse, begrunnelse)
@@ -98,6 +98,7 @@ export const AvsluttDeltakelseModal = (props: ModalDataProps) => {
         tittel="Hva er årsaken til avslutning?"
         onAarsakSelected={onAarsakSelected}
         defaultAarsak={aarsak}
+        defaultBeskrivelse={beskrivelse}
       />
 
       <section className={styles.radiogruppe}>

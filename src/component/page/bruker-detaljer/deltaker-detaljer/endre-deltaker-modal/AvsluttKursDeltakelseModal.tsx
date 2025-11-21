@@ -29,8 +29,8 @@ export const AvsluttKursDeltakelseModal = (props: ModalDataProps) => {
   const endringstype = props.endringstype === ModalType.EndreAvslutningKurs ? EndringType.ENDRE_AVSLUTNING : EndringType.AVSLUTT_DELTAKELSE
   const [ sluttDato, settSluttDato ] = useState<Date | undefined>(deltaker.sluttDato ?? undefined)
   const [ aarsak, settAarsak ] = useState<DeltakerStatusAarsakType | undefined>(deltaker.status.aarsak?.type ?? undefined)
-  const [ beskrivelse, settBeskrivelse ] = useState<string>()
-  const [ begrunnelse, setBegrunnelse ] = useState<string | undefined>(deltaker.status.aarsak?.beskrivelse ?? undefined)
+  const [ beskrivelse, settBeskrivelse ] = useState<string | undefined>(deltaker.status.aarsak?.beskrivelse ?? undefined)
+  const [ begrunnelse, setBegrunnelse ] = useState<string>()
   const [ avslutningsType, settAvslutningsType ] = useState<AvslutningsType | undefined>(() => {
     if (deltaker.status.type === TiltakDeltakerStatus.FULLFORT) return AvslutningsType.FULLFORT
     if (deltaker.status.type === TiltakDeltakerStatus.AVBRUTT) return AvslutningsType.AVBRUTT
@@ -116,6 +116,7 @@ export const AvsluttKursDeltakelseModal = (props: ModalDataProps) => {
           tittel="Hva er årsaken til avslutning?"
           onAarsakSelected={onAarsakSelected}
           defaultAarsak={aarsak}
+          defaultBeskrivelse={beskrivelse}
         />
       )}
       {skalOppgiSluttdato && (
