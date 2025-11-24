@@ -5,12 +5,11 @@ import { DeltakerStatusAarsakType } from '../../../../../api/data/deltakerStatus
 import { postAvsluttDeltakelse, postEndreAvslutning } from '../../../../../api/forslag-api'
 import { maxDate } from '../../../../../utils/date-utils'
 import { harDeltattMindreEnnFemtenDager } from '../../../../../utils/deltaker-utils'
-import { Nullable } from '../../../../../utils/types/or-nothing'
 import { DateField } from '../../../../felles/DateField'
 import { ModalType } from '../modal-store'
 import { ModalDataProps } from '../ModalController'
 import { EndringType } from '../types'
-import { AarsakSelector } from './AarsakSelector'
+import { AarsakRadioGroup } from './AarsakRadioGroup'
 import styles from './AvsluttDeltakelseModal.module.scss'
 import { maxSluttdato } from './datoutils'
 import { Endringsmodal } from './endringsmodal/Endringsmodal'
@@ -73,14 +72,6 @@ export const AvsluttDeltakelseModal = (props: ModalDataProps) => {
     }
   }
 
-  const onAarsakSelected = (
-    nyAarsak: DeltakerStatusAarsakType,
-    nyBeskrivelse: Nullable<string>
-  ) => {
-    settAarsak(nyAarsak)
-    settBeskrivelse(nyBeskrivelse ?? undefined)
-  }
-
   return (
     <Endringsmodal
       tittel={endringstype == EndringType.AVSLUTT_DELTAKELSE ? 'Avslutt deltakelse' : 'Endre avslutning'}
@@ -94,11 +85,19 @@ export const AvsluttDeltakelseModal = (props: ModalDataProps) => {
         setBegrunnelse(begrunnelse)
       }}
     >
-      <AarsakSelector
-        tittel="Hva er årsaken til avslutning?"
-        onAarsakSelected={onAarsakSelected}
-        defaultAarsak={aarsak}
-        defaultBeskrivelse={beskrivelse}
+      <AarsakRadioGroup
+        className="mt-4"
+        legend="Hva er årsaken til avslutning?"
+        aarsak={aarsak}
+        beskrivelse={beskrivelse}
+        onChange={(
+          nyAarsak: DeltakerStatusAarsakType
+        ) => {
+          settAarsak(nyAarsak)
+          settBeskrivelse(undefined)
+        }}
+        onBeskrivelse={(nyBeskrivelse) => settBeskrivelse(nyBeskrivelse ?? undefined)}
+        disabled={false}
       />
 
       <section className={styles.radiogruppe}>

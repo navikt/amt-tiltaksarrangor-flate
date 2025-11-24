@@ -5,7 +5,6 @@ import { TiltakDeltakerStatus } from '../../../../../api/data/deltaker'
 import { DeltakerStatusAarsakType } from '../../../../../api/data/deltakerStatusArsak'
 import { postAvsluttDeltakelse, postEndreAvslutning } from '../../../../../api/forslag-api'
 import { maxDate } from '../../../../../utils/date-utils'
-import { Nullable } from '../../../../../utils/types/or-nothing'
 import { DateField } from '../../../../felles/DateField'
 import { ModalType } from '../modal-store'
 import { ModalDataProps } from '../ModalController'
@@ -14,7 +13,7 @@ import {
   avslutningsTypeTekstMapper
 } from '../tekst-mappers'
 import { EndringType } from '../types'
-import { AarsakSelector } from './AarsakSelector'
+import { AarsakRadioGroup } from './AarsakRadioGroup'
 import { maxSluttdato } from './datoutils'
 import { Endringsmodal } from './endringsmodal/Endringsmodal'
 import { toEndringAarsakType } from './validering/aarsakValidering'
@@ -41,14 +40,6 @@ export const AvsluttKursDeltakelseModal = (props: ModalDataProps) => {
   const skalSluttdatoOppgis = skalOppgiSluttdato(avslutningsType)
   const skalAarsakOppgis = skalOppgiAarsak(avslutningsType)
   const { validering } = useAvsluttKursDeltakelseValidering(avslutningsType, sluttDato, aarsak, beskrivelse, begrunnelse)
-
-  const onAarsakSelected = (
-    nyAarsak: DeltakerStatusAarsakType,
-    nyBeskrivelse: Nullable<string>
-  ) => {
-    settAarsak(nyAarsak)
-    settBeskrivelse(nyBeskrivelse ?? undefined)
-  }
 
   const sendForslag = () => {
     if (!validering.isSuccess) {
@@ -107,13 +98,22 @@ export const AvsluttKursDeltakelseModal = (props: ModalDataProps) => {
       </RadioGroup>
 
       {skalAarsakOppgis && (
-        <AarsakSelector
-          tittel="Hva er årsaken til avslutning?"
-          onAarsakSelected={onAarsakSelected}
-          defaultAarsak={aarsak}
-          defaultBeskrivelse={beskrivelse}
+        <AarsakRadioGroup
+          className="mt-4"
+          legend="Hva er årsaken til avslutning?"
+          aarsak={aarsak}
+          beskrivelse={beskrivelse}
+          onChange={(
+            nyAarsak: DeltakerStatusAarsakType
+          ) => {
+            settAarsak(nyAarsak)
+            settBeskrivelse(undefined)
+          }}
+          onBeskrivelse={(nyBeskrivelse) => settBeskrivelse(nyBeskrivelse ?? undefined)}
+          disabled={false}
         />
       )}
+
       {skalSluttdatoOppgis && (
         <DateField
           label="Hva er ny sluttdato?"
