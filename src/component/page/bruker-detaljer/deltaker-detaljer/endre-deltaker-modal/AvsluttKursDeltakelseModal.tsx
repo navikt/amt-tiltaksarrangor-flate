@@ -99,7 +99,6 @@ export const AvsluttKursDeltakelseModal = (props: ModalDataProps) => {
 
       {skalAarsakOppgis && (
         <AarsakRadioGroup
-          className="mt-4"
           legend="Hva er årsaken til avslutning?"
           aarsak={aarsak}
           beskrivelse={beskrivelse}
@@ -110,7 +109,6 @@ export const AvsluttKursDeltakelseModal = (props: ModalDataProps) => {
             settBeskrivelse(undefined)
           }}
           onBeskrivelse={(nyBeskrivelse) => settBeskrivelse(nyBeskrivelse ?? undefined)}
-          disabled={false}
         />
       )}
 

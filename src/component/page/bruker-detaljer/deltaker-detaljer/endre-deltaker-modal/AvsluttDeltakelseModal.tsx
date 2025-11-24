@@ -86,7 +86,6 @@ export const AvsluttDeltakelseModal = (props: ModalDataProps) => {
       }}
     >
       <AarsakRadioGroup
-        className="mt-4"
         legend="Hva er årsaken til avslutning?"
         aarsak={aarsak}
         beskrivelse={beskrivelse}
@@ -97,7 +96,6 @@ export const AvsluttDeltakelseModal = (props: ModalDataProps) => {
           settBeskrivelse(undefined)
         }}
         onBeskrivelse={(nyBeskrivelse) => settBeskrivelse(nyBeskrivelse ?? undefined)}
-        disabled={false}
       />
 
       <section className={styles.radiogruppe}>
