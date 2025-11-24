@@ -31,6 +31,14 @@ export function useAvsluttKursDeltakelseValidering(
     return {validering}
 }
 
+export const skalOppgiSluttdato = (avslutningsType?: AvslutningsType) =>
+    avslutningsType === AvslutningsType.FULLFORT ||
+    avslutningsType === AvslutningsType.AVBRUTT
+
+export const skalOppgiAarsak = (avslutningsType?: AvslutningsType) =>
+    avslutningsType === AvslutningsType.AVBRUTT ||
+    avslutningsType === AvslutningsType.IKKE_DELTATT
+
 const valider = (sluttDato?: Date, aarsak?: DeltakerStatusAarsakType, aarsakBeskrivelse?: string, begrunnelse?: string, avslutningsType?: AvslutningsType) => {
 
     if (!avslutningsType) {
@@ -39,14 +47,11 @@ const valider = (sluttDato?: Date, aarsak?: DeltakerStatusAarsakType, aarsakBesk
         )
     }
 
-    if (!sluttDato &&
-        (avslutningsType === AvslutningsType.FULLFORT ||
-            avslutningsType === AvslutningsType.AVBRUTT)
-    ) {
+    if (!sluttDato && skalOppgiSluttdato(avslutningsType)) {
         return Promise.reject('Kan ikke sende forslag uten at sluttdato er satt')
     }
 
-    if(avslutningsType !== AvslutningsType.FULLFORT) {
+    if (skalOppgiAarsak(avslutningsType)) {
         return validerAarsakForm(aarsak, aarsakBeskrivelse, begrunnelse)
     }
 

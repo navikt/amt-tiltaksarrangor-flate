@@ -363,7 +363,8 @@ export const lagHistorikkFellesOppstart = (): DeltakerHistorikkListe => {
         type: EndringType.EndreAvslutning,
         aarsak: null,
         begrunnelse: null,
-        harFullfort: true
+        harFullfort: true,
+        sluttdato: null
       },
       endretAv: 'Navn Navnesen',
       endretAvEnhet: 'Nav Fredrikstad',
@@ -380,7 +381,8 @@ export const lagHistorikkFellesOppstart = (): DeltakerHistorikkListe => {
             type: ForslagEndringAarsakType.FattJobb
           },
           harDeltatt: true,
-          harFullfort: false
+          harFullfort: false,
+          sluttdato: dayjs().add(1, 'month').toDate()
         },
         status: {
           type: ForslagStatusType.Godkjent,

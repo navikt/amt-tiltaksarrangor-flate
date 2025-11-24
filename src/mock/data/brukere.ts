@@ -443,8 +443,8 @@ const lagMockTiltakDeltagerForGjennomforing = (
           status === TiltakDeltakerStatus.AVBRUTT ||
           status === TiltakDeltakerStatus.HAR_SLUTTET
           ? {
-            type: DeltakerStatusAarsakType.FATT_JOBB,
-            beskrivelse: null
+            type: DeltakerStatusAarsakType.ANNET,
+            beskrivelse: 'TEST'
           }
           : null
     },

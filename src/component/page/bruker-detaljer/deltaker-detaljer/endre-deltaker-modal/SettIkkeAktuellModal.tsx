@@ -1,16 +1,16 @@
 import { useState } from 'react'
 
+import { DeltakerStatusAarsakType } from '../../../../../api/data/deltakerStatusArsak'
 import { ikkeAktuellForslag } from '../../../../../api/forslag-api'
 import { Nullable } from '../../../../../utils/types/or-nothing'
 import { ModalDataProps } from '../ModalController'
 import { EndringType } from '../types'
-import { AarsakSelector } from './AarsakSelector'
+import { AarsakRadioGroup } from './AarsakRadioGroup'
 import { Endringsmodal } from './endringsmodal/Endringsmodal'
 import {
   useAarsakValidering,
   validerAarsakForm
 } from './validering/aarsakValidering'
-import { DeltakerStatusAarsakType } from '../../../../../api/data/deltakerStatusArsak'
 
 export const SettIkkeAktuellModal = ({
   deltaker,
@@ -35,14 +35,6 @@ export const SettIkkeAktuellModal = ({
       .then((res) => onForslagSendt(res.data))
   }
 
-  const onAarsakSelected = (
-    nyAarsak: DeltakerStatusAarsakType,
-    nyBeskrivelse: Nullable<string>
-  ) => {
-    settAarsak(nyAarsak)
-    settBeskrivelse(nyBeskrivelse)
-  }
-
   return (
     <Endringsmodal
       tittel="Er ikke aktuell"
@@ -56,9 +48,17 @@ export const SettIkkeAktuellModal = ({
         setBegrunnelse(begrunnelse)
       }}
     >
-      <AarsakSelector
-        tittel="Hva er årsaken til at personen ikke er aktuell?"
-        onAarsakSelected={onAarsakSelected}
+      <AarsakRadioGroup
+        legend="Hva er årsaken til at personen ikke er aktuell?"
+        aarsak={aarsak}
+        beskrivelse={beskrivelse ?? undefined}
+        onChange={(
+          nyAarsak: DeltakerStatusAarsakType
+        ) => {
+          settAarsak(nyAarsak)
+          settBeskrivelse(undefined)
+        }}
+        onBeskrivelse={(nyBeskrivelse) => settBeskrivelse(nyBeskrivelse ?? undefined)}
       />
     </Endringsmodal>
   )
