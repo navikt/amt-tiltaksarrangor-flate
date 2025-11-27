@@ -17,7 +17,7 @@ jobs:
       id-token: 'write' # Used to authenticate with Google Cloud
     steps:
       - name: Checkout
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
       - uses: pnpm/action-setup@v4
         with:
           version: 10.20.0
