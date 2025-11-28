@@ -10,7 +10,7 @@ env:
 
 jobs:
   deploy-pull-request-branch:
-    if: github.event.pull_request.head.repo.fork != true
+    if: github.event.pull_request.head.repo.fork != true && github.event.pull_request.user.login != 'dependabot[bot]'
     name: Deploy Pull Request Branch
     runs-on: ubuntu-latest
     permissions:
