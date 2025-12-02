@@ -12,7 +12,7 @@ import {
   veilederNavn
 } from '../../../../utils/veileder-utils'
 import { FiltermenyDataEntry } from '../../../felles/table-filter/filtermeny-data-entry'
-import useLocalStorage from '../../../../hooks/useLocalStorage'
+import useSessionStorage from '../../../../hooks/useSessionStorage'
 
 interface Props {
   deltakere: TiltakDeltaker[]
@@ -22,7 +22,7 @@ export const FilterMenyMedveileder = (props: Props): React.ReactElement => {
   const [deltakerePerMedveileder, setDeltakerePerMedveileder] = useState<
     FiltermenyDataEntry[]
   >([])
-  const [filterOpen, setFilterOpen] = useLocalStorage(
+  const [filterOpen, setFilterOpen] = useSessionStorage(
     'filter-deltakerliste-medveileder',
     true
   )

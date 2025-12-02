@@ -10,7 +10,7 @@ import globalStyles from '../../../../globals.module.scss'
 import { FilterMeny } from '../../../felles/table-filter/FilterMeny'
 import { Veiledertype } from '../../../../api/data/veileder'
 import { mapVeilderTypeTilTekst } from '../../../../utils/text-mappers'
-import useLocalStorage from '../../../../hooks/useLocalStorage'
+import useSessionStorage from '../../../../hooks/useSessionStorage'
 
 interface Props {
   deltakere: VeiledersDeltaker[]
@@ -20,7 +20,7 @@ export const FilterMenyVeilederType = (props: Props): React.ReactElement => {
   const [deltakerePerVeiledertype, setDeltakerePerVeiledertype] = useState<
     FiltermenyDataEntry[]
   >([])
-  const [filterOpen, setFilterOpen] = useLocalStorage(
+  const [filterOpen, setFilterOpen] = useSessionStorage(
     'filter-veileder-veileder-type',
     true
   )

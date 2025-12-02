@@ -1,9 +1,9 @@
 import { Alert, BodyShort, Heading, Link } from '@navikt/ds-react'
 import styles from './AlertInfoMessageKravUtbetaling.module.scss'
-import useLocalStorage from '../../../../hooks/useLocalStorage'
+import useSessionStorage from '../../../../hooks/useSessionStorage'
 
 export const AlertInfoMessageKravUtbetaling = () => {
-  const [ hideAlertMessage, setHideAlertMessage ] = useLocalStorage(
+  const [ hideAlertMessage, setHideAlertMessage ] = useSessionStorage(
     'alert-message-krav-utbetaling-2-hide',
     false
   )

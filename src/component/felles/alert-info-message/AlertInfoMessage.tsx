@@ -1,14 +1,14 @@
 import { Alert, BodyShort, Heading, Link } from '@navikt/ds-react'
-import useLocalStorage from '../../../hooks/useLocalStorage'
+import useSessionStorage from '../../../hooks/useSessionStorage'
 import styles from './AlertInfoMessage.module.scss'
 
 export const AlertInfoMessage = () => {
   const alertMessage = 'Dette påvirker tiltakene: oppfølging, avklaring, ARR, AFT, VTA og digitalt jobbsøkerkurs i deltakeroversikten. Når du endrer deltakelse, sendes forslaget direkte til Nav-veilederen. '
-  const [ lastMessage, setLastMessage ] = useLocalStorage(
+  const [ lastMessage, setLastMessage ] = useSessionStorage(
     'alert-message-last-message',
     alertMessage
   )
-  const [ hideAlertMessage, setHideAlertMessage ] = useLocalStorage(
+  const [ hideAlertMessage, setHideAlertMessage ] = useSessionStorage(
     'alert-message-hide',
     false
   )

@@ -7,7 +7,7 @@ import {
 } from '../store/KoordinatorFilterContextProvider'
 import { FilterMeny } from '../../../felles/table-filter/FilterMeny'
 import globalStyles from '../../../../globals.module.scss'
-import useLocalStorage from '../../../../hooks/useLocalStorage'
+import useSessionStorage from '../../../../hooks/useSessionStorage'
 
 interface Props {
   deltakere: TiltakDeltaker[]
@@ -17,7 +17,7 @@ export const FilterMenyNavKontor = (props: Props): React.ReactElement => {
   const [deltakerePerNavKontor, setDeltakerePerNavKontor] = useState<
     FiltermenyDataEntry[]
   >([])
-  const [filterOpen, setFilterOpen] = useLocalStorage(
+  const [filterOpen, setFilterOpen] = useSessionStorage(
     'filter-deltakerliste-nav-kontor',
     true
   )

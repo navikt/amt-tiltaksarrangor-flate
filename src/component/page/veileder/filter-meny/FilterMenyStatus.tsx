@@ -11,7 +11,7 @@ import {
   FilterType,
   useVeilederFilterContext
 } from '../store/VeilederFilterContextProvider'
-import useLocalStorage from '../../../../hooks/useLocalStorage'
+import useSessionStorage from '../../../../hooks/useSessionStorage'
 
 interface Props {
   deltakere: VeiledersDeltaker[]
@@ -21,7 +21,7 @@ export const FilterMenyStatus = (props: Props): React.ReactElement => {
   const [deltakerePerStatus, setDeltakerePerStatus] = useState<
     FiltermenyDataEntry[]
   >([])
-  const [filterOpen, setFilterOpen] = useLocalStorage(
+  const [filterOpen, setFilterOpen] = useSessionStorage(
     'filter-veileder-status-mine-deltakere',
     true
   )

@@ -4,7 +4,7 @@ import {
   VeiledersDeltaker
 } from '../../../../api/data/deltaker'
 import globalStyles from '../../../../globals.module.scss'
-import useLocalStorage from '../../../../hooks/useLocalStorage'
+import useSessionStorage from '../../../../hooks/useSessionStorage'
 import { FilterMeny } from '../../../felles/table-filter/FilterMeny'
 import { FiltermenyDataEntry } from '../../../felles/table-filter/filtermeny-data-entry'
 import {
@@ -21,7 +21,7 @@ export const FilterMenyHendelser = (props: Props): React.ReactElement => {
   const [ deltakerePerHendelse, setDeltakerePerHendelse ] = useState<
     FiltermenyDataEntry[]
   >([])
-  const [ filterOpen, setFilterOpen ] = useLocalStorage(
+  const [ filterOpen, setFilterOpen ] = useSessionStorage(
     'filter-veileder-hendelse-mine-deltakere',
     true
   )

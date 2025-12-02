@@ -11,7 +11,7 @@ import globalStyles from '../../../../globals.module.scss'
 import { FilterMeny } from '../../../felles/table-filter/FilterMeny'
 import { mapHendelseTypeTilTekst } from '../../../../utils/text-mappers'
 import { FiltermenyDataEntry } from '../../../felles/table-filter/filtermeny-data-entry'
-import useLocalStorage from '../../../../hooks/useLocalStorage'
+import useSessionStorage from '../../../../hooks/useSessionStorage'
 
 interface Props {
   deltakere: TiltakDeltaker[]
@@ -21,7 +21,7 @@ export const FilterMenyHendelser = ({ deltakere }: Props): React.ReactElement =>
   const [ deltakerePerHendelse, setDeltakerePerHendelse ] = useState<
     FiltermenyDataEntry[]
   >([])
-  const [ filterOpen, setFilterOpen ] = useLocalStorage(
+  const [ filterOpen, setFilterOpen ] = useSessionStorage(
     'filter-deltakerliste-hendelse',
     true
   )

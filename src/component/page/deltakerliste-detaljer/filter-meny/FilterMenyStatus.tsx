@@ -11,7 +11,7 @@ import globalStyles from '../../../../globals.module.scss'
 import { FilterMeny } from '../../../felles/table-filter/FilterMeny'
 import { mapTiltakDeltakerStatusTilTekst } from '../../../../utils/text-mappers'
 import { FiltermenyDataEntry } from '../../../felles/table-filter/filtermeny-data-entry'
-import useLocalStorage from '../../../../hooks/useLocalStorage'
+import useSessionStorage from '../../../../hooks/useSessionStorage'
 import { Tiltakskode } from '../../../../api/data/tiltak'
 import { getIndividuellStatuser, getKursStatuser } from '../../../../utils/filtrering-utils'
 
@@ -25,7 +25,7 @@ export const FilterMenyStatus = (props: Props): React.ReactElement => {
   const [deltakerePerStatus, setDeltakerePerStatus] = useState<
     FiltermenyDataEntry[]
   >([])
-  const [filterOpen, setFilterOpen] = useLocalStorage(
+  const [filterOpen, setFilterOpen] = useSessionStorage(
     'filter-deltakerliste-status',
     true
   )
