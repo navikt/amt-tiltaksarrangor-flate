@@ -5,3 +5,7 @@ onlyBuiltDependencies:
   - cypress
   - esbuild
   - msw
+
+minimumReleaseAge: 17280  # 12 dager i minutter. Matcher vår dependanbot-config
+
+trustPolicy: no-downgrade # Ikke tillat å oppdatere en pakke om "trust level" er lavere på ny versjon enn gammel
