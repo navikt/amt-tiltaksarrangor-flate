@@ -4,7 +4,7 @@ import useLocalStorage from '../../../../hooks/useLocalStorage'
 
 export const AlertInfoMessageKravUtbetaling = () => {
   const [ hideAlertMessage, setHideAlertMessage ] = useLocalStorage(
-    'alert-message-krav-utbetaling-2-hide',
+    'alert-message-krav-utbetaling-3-hide',
     false
   )
 
@@ -14,7 +14,7 @@ export const AlertInfoMessageKravUtbetaling = () => {
 
   return (
     <Alert variant="info" size="small" closeButton className={styles.alert} onClose={() => setHideAlertMessage(true)}>
-      <Heading size="xsmall" level="2">Krav om utbetaling skal sendes inn i ny digital løsning fra november</Heading>
+      <Heading size="xsmall" level="2">Krav om utbetaling skal sendes inn i ny digital løsning fra januar</Heading>
       <BodyShort as="span" size="small" className={styles.text}>
         <Link href="https://www.nav.no/samarbeidspartner/ny-losning-tilsagn-utbetalinger-tiltaksarrangorer">Les mer om løsningen for tilsagn og utbetaling på nav.no</Link>
       </BodyShort>
