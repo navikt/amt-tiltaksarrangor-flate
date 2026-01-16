@@ -1,5 +1,5 @@
 import { BodyLong, List } from '@navikt/ds-react'
-import { INNHOLD_TYPE_ANNET } from '../../../../utils/deltaker-utils'
+import { erOpplaringstiltak, INNHOLD_TYPE_ANNET } from '../../../../utils/deltaker-utils'
 import { Tiltakskode } from '../../../../api/data/tiltak'
 import styles from './DeltakelseInfo.module.scss'
 import { Deltakelsesinnhold } from '../../../../api/data/innhold'
@@ -19,8 +19,11 @@ export const DeltakelseInnholdListe = ({
     return null
   }
 
+  const kanKunHaAnnetInnhold = erOpplaringstiltak(tiltakskode)
+    || tiltakskode === Tiltakskode.VARIG_TILRETTELAGT_ARBEID_SKJERMET
+
   return (<>
-    {tiltakskode === Tiltakskode.VARIG_TILRETTELAGT_ARBEID_SKJERMET &&
+    {kanKunHaAnnetInnhold &&
       deltakelsesinnhold.innhold.map((i) => {
         if (i.innholdskode === 'annet') {
           return <BodyLong
@@ -34,7 +37,7 @@ export const DeltakelseInnholdListe = ({
       })
     }
 
-    {tiltakskode !== Tiltakskode.VARIG_TILRETTELAGT_ARBEID_SKJERMET  &&
+    {!kanKunHaAnnetInnhold &&
       <List as="ul" size="small" className={className ?? ''}>
         {deltakelsesinnhold.innhold.map((i) => (
           <List.Item key={i.innholdskode} className={styles.listItem}>

@@ -8,26 +8,26 @@ import { Button, Heading } from '@navikt/ds-react'
 import cls from 'classnames'
 import React, { useEffect, useState } from 'react'
 
+import { Adresse } from '../../../api/data/deltaker'
+import { Tiltakskode } from '../../../api/data/tiltak'
 import {
   MINE_DELTAKERE_PAGE_ROUTE,
   deltakerlisteDetaljerPageUrl
 } from '../../../navigation'
+import { useInnloggetBrukerContext } from '../../../store/InnloggetBrukerContextProvider'
 import { useTilbakelenkeContext } from '../../../store/TilbakelenkeContextProvider'
 import {
   formaterTelefonnummer,
   lagBrukerNavn
 } from '../../../utils/bruker-utils'
+import { harAdresse } from '../../../utils/deltaker-utils'
+import { isOnlyKoordinator, isOnlyVeileder } from '../../../utils/rolle-utils'
+import { useQuery } from '../../../utils/use-query'
+import { Show } from '../../felles/Show'
+import { DeltakerAdresse } from './DeltakerAdresse'
 import styles from './DeltakerDetaljerHeader.module.scss'
 import { IconLabel } from './icon-label/IconLabel'
 import { KopierKnapp } from './kopier-knapp/KopierKnapp'
-import { useInnloggetBrukerContext } from '../../../store/InnloggetBrukerContextProvider'
-import { isOnlyKoordinator, isOnlyVeileder } from '../../../utils/rolle-utils'
-import { useQuery } from '../../../utils/use-query'
-import { Adresse } from '../../../api/data/deltaker'
-import { DeltakerAdresse } from './DeltakerAdresse'
-import { Show } from '../../felles/Show'
-import { Tiltakskode } from '../../../api/data/tiltak'
-import { skalTiltakViseAdresse } from '../../../utils/deltaker-utils'
 
 interface BrukerPaaTiltakHeaderProps {
   deltakerlisteId: string
@@ -61,7 +61,7 @@ export const DeltakerDetaljerHeader = (
   const query = useQuery()
   const [visAdresse, setVisAdresse] = useState(false)
   const visAdresseForTiltak =
-    !props.adressebeskyttet && skalTiltakViseAdresse(tiltakskode)
+    !props.adressebeskyttet && harAdresse(tiltakskode)
 
   const toggleVisAdresse = () => {
     setVisAdresse(!visAdresse)

@@ -53,6 +53,7 @@ export const FilterMenyStatus = (props: Props): React.ReactElement => {
     statuser.forEach((status) => {
       const tekst = mapTiltakDeltakerStatusTilTekst(status)
 
+      // TODO sjekk opp påmeldingstype og nye tiltakstyper
       if (
         (!props.erKurs || props.tiltakskode === Tiltakskode.JOBBKLUBB) &&
         props.tiltakskode !== Tiltakskode.GRUPPE_FAG_OG_YRKESOPPLAERING &&
