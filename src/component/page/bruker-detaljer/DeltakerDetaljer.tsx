@@ -26,12 +26,15 @@ export const DeltakerDetaljer = (props: {
     innhold
   } = deltaker
 
+  // TODO skal vi ha med de andre tiltakene og påmeldingstype?
+  const visDeltakerVurdering = deltaker.tiltakskode === Tiltakskode.GRUPPE_ARBEIDSMARKEDSOPPLAERING || deltaker.tiltakskode === Tiltakskode.GRUPPE_FAG_OG_YRKESOPPLAERING
+
   return (
     <div className={styles.detaljer}>
       <section className={styles.section}>
         <DeltakelseInfo deltaker={deltaker} />
 
-        {(deltaker.tiltakskode === Tiltakskode.GRUPPE_ARBEIDSMARKEDSOPPLAERING || deltaker.tiltakskode === Tiltakskode.GRUPPE_FAG_OG_YRKESOPPLAERING) && (
+        {visDeltakerVurdering && (
           <DeltakerVurdering deltaker={deltaker} />
         )}
 

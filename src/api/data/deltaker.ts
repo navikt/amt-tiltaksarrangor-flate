@@ -5,6 +5,7 @@ import { aktivtForslagSchema } from './forslag'
 import { Oppstartstype } from './historikk'
 import { deltakelsesinnholdSchema } from './innhold'
 import {
+  Pameldingstype,
   Tiltakskode,
   koordinatorListSchema,
   tiltakGjennomforingStatusSchema,
@@ -114,7 +115,8 @@ export const deltakersDeltakerlisteSchema = z.object({
   sluttDato: nullableDateSchema,
   erKurs: z.boolean(),
   tiltakskode: z.enum(Tiltakskode),
-  oppstartstype: z.enum(Oppstartstype)
+  oppstartstype: z.enum(Oppstartstype),
+  pameldingstype: z.enum(Pameldingstype)
 })
 
 export const adresseSchema = z.object({
