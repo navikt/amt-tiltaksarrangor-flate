@@ -1,7 +1,7 @@
 import { BodyShort, Label } from '@navikt/ds-react'
 import React from 'react'
 
-import { Tiltakskode } from '../../../api/data/tiltak'
+import { Pameldingstype, Tiltakskode } from '../../../api/data/tiltak'
 import { formatDate } from '../../../utils/date-utils'
 import { Show } from '../../felles/Show'
 import { Bestilling } from './bestilling/Bestilling'
@@ -12,6 +12,7 @@ import { DeltakerVurdering } from './deltaker-detaljer/vurdering/DeltakerVurderi
 import styles from './DeltakerDetaljer.module.scss'
 import { NavInfoPanel } from './nav-info-panel/NavInfoPanel'
 import { VeilederPanel } from './veileder-panel/VeilederPanel'
+import { erOpplaringstiltak } from '../../../utils/deltaker-utils'
 
 export const DeltakerDetaljer = (props: {
   visTildeling: boolean
@@ -26,8 +27,8 @@ export const DeltakerDetaljer = (props: {
     innhold
   } = deltaker
 
-  // TODO skal vi ha med de andre tiltakene og påmeldingstype?
-  const visDeltakerVurdering = deltaker.tiltakskode === Tiltakskode.GRUPPE_ARBEIDSMARKEDSOPPLAERING || deltaker.tiltakskode === Tiltakskode.GRUPPE_FAG_OG_YRKESOPPLAERING
+  const visDeltakerVurdering = deltaker.deltakerliste.pameldingstype === Pameldingstype.TRENGER_GODKJENNING &&
+    erOpplaringstiltak(deltaker.deltakerliste.tiltakskode)
 
   return (
     <div className={styles.detaljer}>
