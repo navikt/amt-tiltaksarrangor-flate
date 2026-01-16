@@ -6,10 +6,10 @@ import {
   Vurdering,
   Vurderingstype
 } from '../../../../../api/data/deltaker'
+import { EMDASH } from '../../../../../utils/constants'
+import { vurderingstypeTeksMapper } from '../../deltaker-detaljer/tekst-mappers'
 import styles from './DeltakerVurdering.module.scss'
 import { VurderDeltakelseKnapp } from './VurderDeltakelseKnapp'
-import { vurderingstypeTeksMapper } from '../../deltaker-detaljer/tekst-mappers'
-import { EMDASH } from '../../../../../utils/constants'
 
 interface DeltakerVurderingProps {
   deltaker: Deltaker
