@@ -1,19 +1,19 @@
+import React, { useCallback, useEffect, useState } from 'react'
 import {
   TiltakDeltaker,
   TiltakDeltakerStatus
 } from '../../../../api/data/deltaker'
-import React, { useCallback, useEffect, useState } from 'react'
+import { Tiltakskode } from '../../../../api/data/tiltak'
+import globalStyles from '../../../../globals.module.scss'
+import useLocalStorage from '../../../../hooks/useLocalStorage'
+import { getIndividuellStatuser, getKursStatuser } from '../../../../utils/filtrering-utils'
+import { mapTiltakDeltakerStatusTilTekst } from '../../../../utils/text-mappers'
+import { FilterMeny } from '../../../felles/table-filter/FilterMeny'
+import { FiltermenyDataEntry } from '../../../felles/table-filter/filtermeny-data-entry'
 import {
   FilterType,
   useKoordinatorFilterContext
 } from '../store/KoordinatorFilterContextProvider'
-import globalStyles from '../../../../globals.module.scss'
-import { FilterMeny } from '../../../felles/table-filter/FilterMeny'
-import { mapTiltakDeltakerStatusTilTekst } from '../../../../utils/text-mappers'
-import { FiltermenyDataEntry } from '../../../felles/table-filter/filtermeny-data-entry'
-import useLocalStorage from '../../../../hooks/useLocalStorage'
-import { Tiltakskode } from '../../../../api/data/tiltak'
-import { getIndividuellStatuser, getKursStatuser } from '../../../../utils/filtrering-utils'
 
 interface Props {
   deltakere: TiltakDeltaker[]
@@ -46,6 +46,7 @@ export const FilterMenyStatus = (props: Props): React.ReactElement => {
   > => {
     const dataMap = new Map<string, FiltermenyDataEntry>()
 
+    // TODO sjekk opp påmeldingstype
     const statuser = props.erKurs
       ? getKursStatuser()
       : getIndividuellStatuser()
@@ -54,6 +55,8 @@ export const FilterMenyStatus = (props: Props): React.ReactElement => {
       const tekst = mapTiltakDeltakerStatusTilTekst(status)
 
       // TODO sjekk opp påmeldingstype og nye tiltakstyper
+      // if(props.pameldingstype === Pameldingstype.TRENGER_GODKJENNING &&
+      //   (status === TiltakDeltakerStatus.VURDERES || status === TiltakDeltakerStatus.SOKT_INN))
       if (
         (!props.erKurs || props.tiltakskode === Tiltakskode.JOBBKLUBB) &&
         props.tiltakskode !== Tiltakskode.GRUPPE_FAG_OG_YRKESOPPLAERING &&
