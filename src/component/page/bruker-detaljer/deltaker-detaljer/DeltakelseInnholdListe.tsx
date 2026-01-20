@@ -22,29 +22,30 @@ export const DeltakelseInnholdListe = ({
   const kanKunHaAnnetInnhold = erOpplaringstiltak(tiltakskode)
     || tiltakskode === Tiltakskode.VARIG_TILRETTELAGT_ARBEID_SKJERMET
 
-  return (<>
-    {kanKunHaAnnetInnhold &&
-      deltakelsesinnhold.innhold.map((i) => {
-        if (i.innholdskode === 'annet') {
-          return <BodyLong
-            className={styles.annetTekst}
-            key={i.innholdskode}
-            size="small"
-          >
-            {i.beskrivelse}
-          </BodyLong>
-        }
-      })
-    }
+  return (
+    <div>
+      {kanKunHaAnnetInnhold &&
+        deltakelsesinnhold.innhold.map((i) => {
+          if (i.innholdskode === 'annet') {
+            return <BodyLong
+              className={styles.annetTekst}
+              key={i.innholdskode}
+              size="small"
+            >
+              {i.beskrivelse}
+            </BodyLong>
+          }
+        })
+      }
 
-    {!kanKunHaAnnetInnhold &&
-      <List as="ul" size="small" className={className ?? ''}>
-        {deltakelsesinnhold.innhold.map((i) => (
-          <List.Item key={i.innholdskode} className={styles.listItem}>
-            {i.innholdskode === INNHOLD_TYPE_ANNET ? i.beskrivelse : i.tekst}
-          </List.Item>
-        ))}
-      </List>
-    }</>
+      {!kanKunHaAnnetInnhold &&
+        <List as="ul" size="small" className={className ?? ''}>
+          {deltakelsesinnhold.innhold.map((i) => (
+            <List.Item key={i.innholdskode} className={styles.listItem}>
+              {i.innholdskode === INNHOLD_TYPE_ANNET ? i.beskrivelse : i.tekst}
+            </List.Item>
+          ))}
+        </List>
+      }</div>
   )
 }
