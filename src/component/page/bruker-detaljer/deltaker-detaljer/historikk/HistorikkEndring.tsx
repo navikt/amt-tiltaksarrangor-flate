@@ -108,7 +108,7 @@ export const getEndringsDetaljer = (endring: Endring, tiltakskode: Tiltakskode) 
               ledetekst: endring.ledetekst ?? '',
               innhold: endring.innhold
             }}
-            className={styles.innhold_liste}
+            listClassName={styles.innhold_liste}
           />
         </>
       )

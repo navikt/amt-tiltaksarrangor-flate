@@ -20,16 +20,14 @@ export const HistorikkInnhold = ({ deltakelsesinnhold, tiltakskode }: Props) => 
       <BodyLong size="small" weight="semibold">
         Dette er innholdet
       </BodyLong>
-      <div className={styles.innhold_wrapper}>
-        {deltakelsesinnhold.ledetekst && (
-          <BodyLong size="small">{deltakelsesinnhold.ledetekst}</BodyLong>
-        )}
-        <DeltakelseInnholdListe
-          tiltakskode={tiltakskode}
-          deltakelsesinnhold={deltakelsesinnhold}
-          className={styles.innhold_liste}
-        />
-      </div>
+      {deltakelsesinnhold.ledetekst && (
+        <BodyLong size="small">{deltakelsesinnhold.ledetekst}</BodyLong>
+      )}
+      <DeltakelseInnholdListe
+        tiltakskode={tiltakskode}
+        deltakelsesinnhold={deltakelsesinnhold}
+        listClassName={styles.innhold_liste}
+      />
     </div>
   )
 }

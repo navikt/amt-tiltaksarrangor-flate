@@ -7,13 +7,13 @@ import { Deltakelsesinnhold } from '../../../../api/data/innhold'
 interface Props {
   deltakelsesinnhold: Deltakelsesinnhold
   tiltakskode: Tiltakskode
-  className?: string
+  listClassName?: string
 }
 
 export const DeltakelseInnholdListe = ({
   deltakelsesinnhold,
   tiltakskode,
-  className
+  listClassName
 }: Props) => {
   if (deltakelsesinnhold.innhold.length === 0) {
     return null
@@ -39,7 +39,7 @@ export const DeltakelseInnholdListe = ({
       }
 
       {!kanKunHaAnnetInnhold &&
-        <List as="ul" size="small" className={className ?? ''}>
+        <List as="ul" size="small" className={listClassName ?? ''}>
           {deltakelsesinnhold.innhold.map((i) => (
             <List.Item key={i.innholdskode} className={styles.listItem}>
               {i.innholdskode === INNHOLD_TYPE_ANNET ? i.beskrivelse : i.tekst}
