@@ -1,4 +1,4 @@
-import { Koordinator } from '../../api/data/tiltak'
+import { Koordinator, Pameldingstype } from '../../api/data/tiltak'
 import {
   lagMockTiltakDeltagereForGjennomforing,
   MockTiltakDeltaker
@@ -18,6 +18,7 @@ import {
   VeiledersDeltaker
 } from '../../api/data/deltaker'
 import { mapToDeltakerListView } from '../setupMocks'
+import { Oppstartstype } from '../../api/data/historikk'
 
 export const mockKoordinatorer: Koordinator[] = lagMockKoordinatorer()
 
@@ -38,7 +39,8 @@ export const mockKoordinatorsDeltakerliste = (
     deltakere: mockTiltakDeltakere
       .filter((deltaker) => deltaker.gjennomforing.id === gjennomforing.id)
       .map((deltaker) => mapToDeltakerListView(deltaker)),
-    erKurs: deltakerlisteErKurs(gjennomforing.tiltak.tiltakskode),
+    oppstartstype: deltakerlisteErKurs(gjennomforing.tiltak.tiltakskode) ? Oppstartstype.FELLES : Oppstartstype.LOPENDE,
+    pameldingstype: deltakerlisteErKurs(gjennomforing.tiltak.tiltakskode) ? Pameldingstype.TRENGER_GODKJENNING : Pameldingstype.DIREKTE_VEDTAK,
     tiltakskode: gjennomforing.tiltak.tiltakskode
   }
 }

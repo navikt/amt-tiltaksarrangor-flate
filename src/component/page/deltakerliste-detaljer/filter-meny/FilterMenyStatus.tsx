@@ -1,12 +1,14 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import {
+  KoordinatorsDeltakerliste,
   TiltakDeltaker,
   TiltakDeltakerStatus
 } from '../../../../api/data/deltaker'
+import { Oppstartstype } from '../../../../api/data/historikk'
 import { Tiltakskode } from '../../../../api/data/tiltak'
 import globalStyles from '../../../../globals.module.scss'
 import useLocalStorage from '../../../../hooks/useLocalStorage'
-import { getIndividuellStatuser, getKursStatuser } from '../../../../utils/filtrering-utils'
+import { getFilterStatuser } from '../../../../utils/filtrering-utils'
 import { mapTiltakDeltakerStatusTilTekst } from '../../../../utils/text-mappers'
 import { FilterMeny } from '../../../felles/table-filter/FilterMeny'
 import { FiltermenyDataEntry } from '../../../felles/table-filter/filtermeny-data-entry'
@@ -16,12 +18,10 @@ import {
 } from '../store/KoordinatorFilterContextProvider'
 
 interface Props {
-  deltakere: TiltakDeltaker[]
-  tiltakskode: Tiltakskode
-  erKurs: boolean
+  deltakerliste: KoordinatorsDeltakerliste
 }
 
-export const FilterMenyStatus = (props: Props): React.ReactElement => {
+export const FilterMenyStatus = ({ deltakerliste }: Props): React.ReactElement => {
   const [deltakerePerStatus, setDeltakerePerStatus] = useState<
     FiltermenyDataEntry[]
   >([])
@@ -46,10 +46,7 @@ export const FilterMenyStatus = (props: Props): React.ReactElement => {
   > => {
     const dataMap = new Map<string, FiltermenyDataEntry>()
 
-    // TODO sjekk opp påmeldingstype
-    const statuser = props.erKurs
-      ? getKursStatuser()
-      : getIndividuellStatuser()
+    const statuser = getFilterStatuser(deltakerliste.oppstartstype, deltakerliste.pameldingstype)
 
     statuser.forEach((status) => {
       const tekst = mapTiltakDeltakerStatusTilTekst(status)
@@ -58,9 +55,9 @@ export const FilterMenyStatus = (props: Props): React.ReactElement => {
       // if(props.pameldingstype === Pameldingstype.TRENGER_GODKJENNING &&
       //   (status === TiltakDeltakerStatus.VURDERES || status === TiltakDeltakerStatus.SOKT_INN))
       if (
-        (!props.erKurs || props.tiltakskode === Tiltakskode.JOBBKLUBB) &&
-        props.tiltakskode !== Tiltakskode.GRUPPE_FAG_OG_YRKESOPPLAERING &&
-        props.tiltakskode !== Tiltakskode.GRUPPE_ARBEIDSMARKEDSOPPLAERING &&
+        (deltakerliste.oppstartstype === Oppstartstype.LOPENDE || deltakerliste.tiltakskode === Tiltakskode.JOBBKLUBB) &&
+        deltakerliste.tiltakskode !== Tiltakskode.GRUPPE_FAG_OG_YRKESOPPLAERING &&
+        deltakerliste.tiltakskode !== Tiltakskode.GRUPPE_ARBEIDSMARKEDSOPPLAERING &&
         (status === TiltakDeltakerStatus.VURDERES || status === TiltakDeltakerStatus.SOKT_INN)
       ) {
         return
@@ -73,12 +70,12 @@ export const FilterMenyStatus = (props: Props): React.ReactElement => {
       })
     })
     return dataMap
-  }, [props.erKurs, props.tiltakskode])
+  }, [ deltakerliste.oppstartstype, deltakerliste.tiltakskode ])
 
   useEffect(() => {
     const statusMap = createInitialDataMap()
 
-    filtrerDeltakerePaaAltUtenom(FilterType.Status, props.deltakere).forEach(
+    filtrerDeltakerePaaAltUtenom(FilterType.Status, deltakerliste.deltakere).forEach(
       (deltaker: TiltakDeltaker) => {
         const status = deltaker.status.type
         const entry = statusMap.get(status)
@@ -93,7 +90,7 @@ export const FilterMenyStatus = (props: Props): React.ReactElement => {
 
     setDeltakerePerStatus([...statusMap.values()])
   }, [
-    props.deltakere,
+    deltakerliste.deltakere,
     hendelseFilter,
     medveilederFilter,
     veilederFilter,

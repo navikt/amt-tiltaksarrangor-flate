@@ -1,4 +1,6 @@
 import { TiltakDeltakerStatus, VeiledersDeltaker } from '../api/data/deltaker'
+import { Oppstartstype } from '../api/data/historikk'
+import { Pameldingstype } from '../api/data/tiltak'
 
 const matcherDeltakerliste = (
 	deltakerlisteFilter: string[],
@@ -17,24 +19,19 @@ export const filtrerDeltakerliste = (
 	)
 }
 
-export const getKursStatuser = () => {
-	return [TiltakDeltakerStatus.VURDERES,
-	TiltakDeltakerStatus.SOKT_INN,
-	TiltakDeltakerStatus.VURDERES,
-	TiltakDeltakerStatus.VENTER_PA_OPPSTART,
-	TiltakDeltakerStatus.DELTAR,
-	TiltakDeltakerStatus.FULLFORT,
-	TiltakDeltakerStatus.AVBRUTT,
-	TiltakDeltakerStatus.IKKE_AKTUELL,
-	]
-}
-
-export const getIndividuellStatuser = () => {
-	return [
-		TiltakDeltakerStatus.VURDERES,
-		TiltakDeltakerStatus.VENTER_PA_OPPSTART,
-		TiltakDeltakerStatus.DELTAR,
-		TiltakDeltakerStatus.HAR_SLUTTET,
-		TiltakDeltakerStatus.IKKE_AKTUELL
-	]
+export const getFilterStatuser = (oppstartstype: Oppstartstype | null, pameldingstype: Pameldingstype | null) => {
+	const statuser = [ TiltakDeltakerStatus.VURDERES ] // TODO skal avvikles
+	if (pameldingstype === Pameldingstype.TRENGER_GODKJENNING) {
+		statuser.push(TiltakDeltakerStatus.SOKT_INN)
+	}
+	statuser.push(TiltakDeltakerStatus.VENTER_PA_OPPSTART)
+	statuser.push(TiltakDeltakerStatus.DELTAR)
+	if (oppstartstype === Oppstartstype.FELLES) {
+		statuser.push(TiltakDeltakerStatus.FULLFORT)
+		statuser.push(TiltakDeltakerStatus.AVBRUTT)
+	} else {
+		statuser.push(TiltakDeltakerStatus.HAR_SLUTTET)
+	}
+	statuser.push(TiltakDeltakerStatus.IKKE_AKTUELL)
+	return statuser
 }

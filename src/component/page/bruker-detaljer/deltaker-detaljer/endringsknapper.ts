@@ -1,4 +1,5 @@
 import { Deltaker, TiltakDeltakerStatus } from '../../../../api/data/deltaker'
+import { Oppstartstype } from '../../../../api/data/historikk'
 import { Tiltakskode } from '../../../../api/data/tiltak'
 import { ModalHandler } from './modal-store'
 import { ModalDataProps } from './ModalController'
@@ -32,7 +33,7 @@ export function endringsknapper(deltaker: Deltaker, modal: ModalHandler): Endrin
 	const kanFjerneOppstartsdato =
 		status.erVenterPaOppstart &&
 		deltaker.startDato !== null &&
-		!deltaker.deltakerliste.erKurs
+		deltaker.deltakerliste.oppstartstype === Oppstartstype.LOPENDE
 
 	const kanForlengeDeltakelse = () => {
 		const deltarMedSluttdato = status.erDeltar && deltaker.sluttDato !== null
@@ -48,9 +49,9 @@ export function endringsknapper(deltaker: Deltaker, modal: ModalHandler): Endrin
 
 	const kanEndreDeltakelsesmengde = deltaker.tiltakskode === Tiltakskode.ARBEIDSFORBEREDENDE_TRENING || deltaker.tiltakskode === Tiltakskode.VARIG_TILRETTELAGT_ARBEID_SKJERMET
 
-	const kanAvslutteDeltakelse = status.erDeltar && !deltaker.deltakerliste.erKurs
+	const kanAvslutteDeltakelse = status.erDeltar && deltaker.deltakerliste.oppstartstype !== Oppstartstype.FELLES
 	const kanAvslutteKursDeltakelse =
-		status.erDeltar && deltaker.deltakerliste.erKurs
+		status.erDeltar && deltaker.deltakerliste.oppstartstype === Oppstartstype.FELLES
 
 	const kanEndreAvslutning = status.erHarSluttet
 	const kanEndreAvslutningKurs = status.erFullfort || status.erAvbrutt

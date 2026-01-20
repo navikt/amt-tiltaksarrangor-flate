@@ -1,6 +1,7 @@
 import { z } from 'zod'
 
 import { nullableDateSchema } from '../utils'
+import { Oppstartstype } from './historikk'
 
 export enum Pameldingstype {
   DIREKTE_VEDTAK = 'DIREKTE_VEDTAK',
@@ -75,7 +76,8 @@ export const adminDeltakerlisteSchema = z.object({
   arrangorParentNavn: z.string(),
   startDato: nullableDateSchema,
   sluttDato: nullableDateSchema,
-  lagtTil: z.boolean()
+  lagtTil: z.boolean(),
+  oppstartstype: z.enum(Oppstartstype).nullable()
 })
 
 export const koordinatorSchema = z.object({

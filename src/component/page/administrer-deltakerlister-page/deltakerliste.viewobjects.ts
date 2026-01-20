@@ -1,3 +1,5 @@
+import { Oppstartstype } from '../../../api/data/historikk'
+
 export interface ArrangorOverenhet {
   navn: string
   arrangorer: Arrangor[]
@@ -15,4 +17,5 @@ export interface Deltakerliste {
   tiltaksnavn: string
   startDato: Date | null
   sluttDato: Date | null
+  oppstartstype: Oppstartstype
 }

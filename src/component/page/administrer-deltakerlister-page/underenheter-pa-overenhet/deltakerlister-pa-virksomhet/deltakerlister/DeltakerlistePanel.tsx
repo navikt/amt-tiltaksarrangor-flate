@@ -1,12 +1,12 @@
-import { Deltakerliste } from '../../../deltakerliste.viewobjects'
-import styles from './DeltakerlistePanel.module.scss'
+import { PlusIcon, XMarkIcon } from '@navikt/aksel-icons'
 import { Alert, BodyShort, Button, Heading, Panel } from '@navikt/ds-react'
-import globalStyles from '../../../../../../globals.module.scss'
 import cls from 'classnames'
+import { useEffect, useState } from 'react'
+import globalStyles from '../../../../../../globals.module.scss'
 import { formatDate } from '../../../../../../utils/date-utils'
 import { Show } from '../../../../../felles/Show'
-import { PlusIcon, XMarkIcon } from '@navikt/aksel-icons'
-import React, { useEffect, useState } from 'react'
+import { Deltakerliste } from '../../../deltakerliste.viewobjects'
+import styles from './DeltakerlistePanel.module.scss'
 
 interface DeltakerlistePanelProps {
   deltakerliste: Deltakerliste

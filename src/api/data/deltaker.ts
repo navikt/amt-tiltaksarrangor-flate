@@ -113,7 +113,6 @@ export const deltakersDeltakerlisteSchema = z.object({
   id: z.uuid(),
   startDato: nullableDateSchema,
   sluttDato: nullableDateSchema,
-  erKurs: z.boolean(),
   tiltakskode: z.enum(Tiltakskode),
   oppstartstype: z.enum(Oppstartstype),
   pameldingstype: z.enum(Pameldingstype)
@@ -186,7 +185,7 @@ export const koordinatorForDeltakerlisteSchema = z.object({
   navn: z.string(),
   startdato: nullableDateSchema,
   sluttdato: nullableDateSchema,
-  erKurs: z.boolean()
+  oppstartstype: z.enum(Oppstartstype)
 })
 
 export const koordinatorForSchema = z.object({
@@ -232,8 +231,9 @@ export const koordinatorsDeltakerlisteSchema = z.object({
   status: tiltakGjennomforingStatusSchema,
   koordinatorer: koordinatorListSchema,
   deltakere: tiltakDeltakereSchema,
-  erKurs: z.boolean(),
-  tiltakskode: tiltakskodeSchema
+  tiltakskode: tiltakskodeSchema,
+  oppstartstype: z.enum(Oppstartstype),
+  pameldingstype: z.enum(Pameldingstype)
 })
 
 export type NavVeileder = z.infer<typeof navVeilederSchema>

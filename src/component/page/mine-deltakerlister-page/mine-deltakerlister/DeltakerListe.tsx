@@ -50,7 +50,7 @@ export const DeltakerListe = (
                     navn={dl.navn}
                     startdato={dl.startdato}
                     sluttdato={dl.sluttdato}
-                    erKurs={dl.erKurs}
+                    oppstartstype={dl.oppstartstype}
                   />
                 )
               })}

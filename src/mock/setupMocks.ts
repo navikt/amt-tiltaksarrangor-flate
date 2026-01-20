@@ -336,7 +336,6 @@ const mapToDeltakerDetaljerView = (
 			id: deltaker.gjennomforing.id,
 			startDato: deltaker.gjennomforing.startDato,
 			sluttDato: deltaker.gjennomforing.sluttDato,
-			erKurs: erKurs,
 			tiltakskode: deltaker.gjennomforing.tiltak.tiltakskode,
 			oppstartstype: erKurs ? Oppstartstype.FELLES : Oppstartstype.LOPENDE,
 			pameldingstype: erKurs ? Pameldingstype.TRENGER_GODKJENNING : Pameldingstype.DIREKTE_VEDTAK
@@ -403,7 +402,10 @@ const mapGjennomforingTilAdminDeltakerliste = (
 		arrangorParentNavn: gjennomforing.arrangor.virksomhetNavn,
 		startDato: gjennomforing.startDato,
 		sluttDato: gjennomforing.sluttDato,
-		lagtTil: lagtTil
+		lagtTil: lagtTil,
+		oppstartstype: deltakerlisteErKurs(gjennomforing.tiltak.tiltakskode)
+			? Oppstartstype.FELLES
+			: Oppstartstype.LOPENDE
 	}
 }
 
