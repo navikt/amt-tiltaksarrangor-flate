@@ -6,6 +6,11 @@
     margin-bottom: 0;
 }
 
+.innhold_wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
 .innhold_liste {
     margin-top: -0.75rem;
     margin-bottom: -0.25rem;

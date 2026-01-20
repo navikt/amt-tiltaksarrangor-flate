@@ -12,14 +12,15 @@ interface Props {
 export const HistorikkInnhold = ({ deltakelsesinnhold, tiltakskode }: Props) => {
 
   const harInnhold = deltakelsesinnhold &&
-  (deltakelsesinnhold.innhold.length > 0 || deltakelsesinnhold.ledetekst)
+    (deltakelsesinnhold.innhold.length > 0 || deltakelsesinnhold.ledetekst)
 
   if (!harInnhold) return null
   return (
-     <div >
-        <BodyLong size="small" weight="semibold">
-          Dette er innholdet
-        </BodyLong>
+    <div >
+      <BodyLong size="small" weight="semibold">
+        Dette er innholdet
+      </BodyLong>
+      <div className={styles.innhold_wrapper}>
         {deltakelsesinnhold.ledetekst && (
           <BodyLong size="small">{deltakelsesinnhold.ledetekst}</BodyLong>
         )}
@@ -28,6 +29,7 @@ export const HistorikkInnhold = ({ deltakelsesinnhold, tiltakskode }: Props) => 
           deltakelsesinnhold={deltakelsesinnhold}
           className={styles.innhold_liste}
         />
-        </div>
+      </div>
+    </div>
   )
 }
