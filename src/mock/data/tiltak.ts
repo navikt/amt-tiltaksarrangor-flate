@@ -18,6 +18,7 @@ import { randBetween } from '../utils/faker'
 import { arrangorForGjennomforing } from './arrangor'
 import { MockTiltakDeltaker } from './brukere'
 import { gjennomforingId } from './id'
+import { Oppstartstype } from '../../api/data/historikk'
 
 export type MockGjennomforing = Gjennomforing
 
@@ -194,7 +195,7 @@ const lagMockKoordinatorForDeltakerliste = (
     type: gjennomforing.tiltak.tiltaksnavn,
     startdato: gjennomforing.startDato,
     sluttdato: gjennomforing.sluttDato,
-    erKurs: deltakerlisteErKurs(gjennomforing.tiltak.tiltakskode)
+    oppstartstype: deltakerlisteErKurs(gjennomforing.tiltak.tiltakskode) ? Oppstartstype.FELLES : Oppstartstype.LOPENDE
   }
 }
 

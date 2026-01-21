@@ -6,19 +6,20 @@ import { deltakerlisteDetaljerPageUrl } from '../../../../navigation'
 import { SpaLenkepanel } from '../../../felles/spa-lenkepanel/SpaLenkepanel'
 import styles from './DeltakerlistePanel.module.scss'
 import { formatDate } from '../../../../utils/date-utils'
+import { Oppstartstype } from '../../../../api/data/historikk'
 
 interface DeltakerlistePanelProps {
   id: string
   navn: string
   startdato: Date | null
   sluttdato: Date | null
-  erKurs: boolean
+  oppstartstype: Oppstartstype
 }
 
 export const DeltakerlistePanel = (
   props: DeltakerlistePanelProps
 ): React.ReactElement<DeltakerlistePanelProps> => {
-  const { id, navn, startdato, sluttdato, erKurs } = props
+  const { id, navn, startdato, sluttdato, oppstartstype } = props
 
   return (
     <li className={globalStyles.blokkS}>
@@ -27,7 +28,7 @@ export const DeltakerlistePanel = (
           <BodyShort as="span" className={styles.panelTittel}>
             {navn}
           </BodyShort>
-          {erKurs && (startdato || sluttdato) && (
+          {oppstartstype === Oppstartstype.FELLES && (startdato || sluttdato) && (
             <BodyShort size="small" className={styles.datotekst}>
               <span>
                 {formatDate(startdato)} - {formatDate(sluttdato)}

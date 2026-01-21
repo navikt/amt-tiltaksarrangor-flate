@@ -25,6 +25,7 @@ import { useTilbakelenkeContext } from '../../../store/TilbakelenkeContextProvid
 import { MINE_DELTAKERLISTER_PAGE_ROUTE } from '../../../navigation'
 import { useTabTitle } from '../../../hooks/use-tab-title'
 import { useKoordinatorsDeltakerlisterContext } from '../../../store/KoordinatorsDeltakerlisterContextProvider'
+import { Oppstartstype } from '../../../api/data/historikk'
 
 export const AdministrerDeltakerlisterPage = () => {
   const { setTilbakeTilUrl } = useTilbakelenkeContext()
@@ -99,7 +100,7 @@ export const AdministrerDeltakerlisterPage = () => {
     })
   }
 
-  const leggTilConfirmed = (id: string, navn: string, type: string) => {
+  const leggTilConfirmed = (id: string, navn: string, type: string, oppstartstype: Oppstartstype) => {
     leggTilDeltakerliste(id).then(() => {
       setDeltakerlisteIderLagtTil([...deltakerlisteIderLagtTil, id])
       setDeltakerlisteIdUpdating(undefined)
@@ -116,7 +117,7 @@ export const AdministrerDeltakerlisterPage = () => {
           navn: navn,
           startdato: null,
           sluttdato: null,
-          erKurs: false
+          oppstartstype: oppstartstype
         })
         const nyKoordinatorsDeltakerlister = {
           ...koordinatorsDeltakerlister,
@@ -159,6 +160,18 @@ export const AdministrerDeltakerlisterPage = () => {
     )
 
     return deltakerliste != undefined ? deltakerliste.tiltaksnavn : ''
+  }
+
+  const getOppstartstypeForDeltakerliste = (
+    deltakerlisteId: string | undefined
+  ): Oppstartstype => {
+    if (deltakerlisteId === undefined) return Oppstartstype.LOPENDE
+
+    const deltakerliste = fetchAlleDeltakerlisterPromise.result?.data.find(
+      (g) => g.id === deltakerlisteId
+    )
+
+    return deltakerliste?.oppstartstype ? deltakerliste.oppstartstype : Oppstartstype.LOPENDE
   }
 
   if (isNotStartedOrPending(fetchAlleDeltakerlisterPromise)) {
@@ -211,6 +224,7 @@ export const AdministrerDeltakerlisterPage = () => {
           deltakerlisteIdUpdating
         )}
         deltakerlisteId={deltakerlisteIdUpdating as string}
+        oppstartstype={getOppstartstypeForDeltakerliste(deltakerlisteIdUpdating)}
         onConfirm={leggTilConfirmed}
         onClose={onLeggTilModalClosed}
       />

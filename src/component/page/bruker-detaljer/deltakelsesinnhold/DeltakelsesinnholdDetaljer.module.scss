@@ -1,8 +1,15 @@
 .wrapper {
   margin-top: 1rem;
+  display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
 }
 
 .bodylong {
   white-space: pre-wrap;
   max-width: 80ch;
+}
+
+.innhold_liste {
+  margin-top: -0.75rem;
 }

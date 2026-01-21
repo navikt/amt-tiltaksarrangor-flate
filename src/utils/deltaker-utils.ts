@@ -1,6 +1,6 @@
 import dayjs from 'dayjs'
 import { Adresse, AktivEndring, AktivEndringForDeltaker, Deltaker } from '../api/data/deltaker'
-import { Tiltakskode } from '../api/data/tiltak'
+import { Pameldingstype, Tiltakskode } from '../api/data/tiltak'
 import { EndringType } from '../component/page/bruker-detaljer/deltaker-detaljer/types'
 
 export const INNHOLD_TYPE_ANNET = 'annet'
@@ -11,19 +11,10 @@ export const lagAdresseTekst = (adresse: Adresse) => {
   return `${tilleggsnavn}${adressenavn}${adresse.postnummer} ${adresse.poststed}`
 }
 
-export const TILTAK_UTEN_DELTAKER_ADRESSE = [
-  Tiltakskode.DIGITALT_OPPFOLGINGSTILTAK, // Digitalt jobbsøkerkurs
-  Tiltakskode.JOBBKLUBB, // jobbklubb
-  Tiltakskode.GRUPPE_ARBEIDSMARKEDSOPPLAERING, // GruppeAMO
-  Tiltakskode.GRUPPE_FAG_OG_YRKESOPPLAERING // Gruppe Fag og yrkesopplæring
-]
-
-export const skalTiltakViseAdresse = (tiltakskode: Tiltakskode) => {
-  if (TILTAK_UTEN_DELTAKER_ADRESSE.includes(tiltakskode)) {
-    return false
-  }
-  return true
-}
+export const harAdresse = (tiltakskode: Tiltakskode) =>
+  !erOpplaringstiltak(tiltakskode) &&
+  tiltakskode !== Tiltakskode.DIGITALT_OPPFOLGINGSTILTAK &&
+  tiltakskode !== Tiltakskode.JOBBKLUBB
 
 export const skalViseDeltakelsesmengde = (tiltakskode: Tiltakskode) =>
   [Tiltakskode.ARBEIDSFORBEREDENDE_TRENING, Tiltakskode.VARIG_TILRETTELAGT_ARBEID_SKJERMET].includes(tiltakskode)
@@ -90,4 +81,35 @@ export const harDeltattMindreEnnFemtenDager = (deltaker: Deltaker, endringstype?
 
   const femtenDagerSiden = dayjs().subtract(15, 'days')
   return dayjs(startDato).isAfter(femtenDagerSiden, 'day')
+}
+
+export const erOpplaringstiltak = (tiltakskode: Tiltakskode) =>
+  [
+    Tiltakskode.GRUPPE_ARBEIDSMARKEDSOPPLAERING,
+    Tiltakskode.GRUPPE_FAG_OG_YRKESOPPLAERING,
+    Tiltakskode.ARBEIDSMARKEDSOPPLAERING,
+    Tiltakskode.NORSKOPPLAERING_GRUNNLEGGENDE_FERDIGHETER_FOV,
+    Tiltakskode.STUDIESPESIALISERING,
+    Tiltakskode.FAG_OG_YRKESOPPLAERING,
+    Tiltakskode.HOYERE_YRKESFAGLIG_UTDANNING,
+    Tiltakskode.HOYERE_UTDANNING,
+    Tiltakskode.ENKELTPLASS_ARBEIDSMARKEDSOPPLAERING,
+    Tiltakskode.ENKELTPLASS_FAG_OG_YRKESOPPLAERING
+  ].includes(tiltakskode)
+
+export const kanDeleDeltakerMedArrangorForVurdering = (
+  pameldingstype: Pameldingstype,
+  tiltakskode: Tiltakskode
+) => {
+  return (
+    pameldingstype === Pameldingstype.TRENGER_GODKJENNING &&
+    (tiltakskode === Tiltakskode.GRUPPE_ARBEIDSMARKEDSOPPLAERING ||
+      tiltakskode === Tiltakskode.GRUPPE_FAG_OG_YRKESOPPLAERING ||
+      tiltakskode === Tiltakskode.ARBEIDSMARKEDSOPPLAERING ||
+      tiltakskode === Tiltakskode.FAG_OG_YRKESOPPLAERING ||
+      tiltakskode ===
+      Tiltakskode.NORSKOPPLAERING_GRUNNLEGGENDE_FERDIGHETER_FOV ||
+      tiltakskode === Tiltakskode.STUDIESPESIALISERING ||
+      tiltakskode === Tiltakskode.HOYERE_YRKESFAGLIG_UTDANNING)
+  )
 }

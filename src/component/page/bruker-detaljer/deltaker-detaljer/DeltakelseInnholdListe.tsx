@@ -1,5 +1,5 @@
 import { BodyLong, List } from '@navikt/ds-react'
-import { INNHOLD_TYPE_ANNET } from '../../../../utils/deltaker-utils'
+import { erOpplaringstiltak, INNHOLD_TYPE_ANNET } from '../../../../utils/deltaker-utils'
 import { Tiltakskode } from '../../../../api/data/tiltak'
 import styles from './DeltakelseInfo.module.scss'
 import { Deltakelsesinnhold } from '../../../../api/data/innhold'
@@ -7,41 +7,45 @@ import { Deltakelsesinnhold } from '../../../../api/data/innhold'
 interface Props {
   deltakelsesinnhold: Deltakelsesinnhold
   tiltakskode: Tiltakskode
-  className?: string
+  listClassName?: string
 }
 
 export const DeltakelseInnholdListe = ({
   deltakelsesinnhold,
   tiltakskode,
-  className
+  listClassName
 }: Props) => {
   if (deltakelsesinnhold.innhold.length === 0) {
     return null
   }
 
-  return (<>
-    {tiltakskode === Tiltakskode.VARIG_TILRETTELAGT_ARBEID_SKJERMET &&
-      deltakelsesinnhold.innhold.map((i) => {
-        if (i.innholdskode === 'annet') {
-          return <BodyLong
-            className={styles.annetTekst}
-            key={i.innholdskode}
-            size="small"
-          >
-            {i.beskrivelse}
-          </BodyLong>
-        }
-      })
-    }
+  const kanKunHaAnnetInnhold = erOpplaringstiltak(tiltakskode)
+    || tiltakskode === Tiltakskode.VARIG_TILRETTELAGT_ARBEID_SKJERMET
 
-    {tiltakskode !== Tiltakskode.VARIG_TILRETTELAGT_ARBEID_SKJERMET  &&
-      <List as="ul" size="small" className={className ?? ''}>
-        {deltakelsesinnhold.innhold.map((i) => (
-          <List.Item key={i.innholdskode} className={styles.listItem}>
-            {i.innholdskode === INNHOLD_TYPE_ANNET ? i.beskrivelse : i.tekst}
-          </List.Item>
-        ))}
-      </List>
-    }</>
+  return (
+    <div>
+      {kanKunHaAnnetInnhold &&
+        deltakelsesinnhold.innhold.map((i) => {
+          if (i.innholdskode === 'annet') {
+            return <BodyLong
+              className={styles.annetTekst}
+              key={i.innholdskode}
+              size="small"
+            >
+              {i.beskrivelse}
+            </BodyLong>
+          }
+        })
+      }
+
+      {!kanKunHaAnnetInnhold &&
+        <List as="ul" size="small" className={listClassName ?? ''}>
+          {deltakelsesinnhold.innhold.map((i) => (
+            <List.Item key={i.innholdskode} className={styles.listItem}>
+              {i.innholdskode === INNHOLD_TYPE_ANNET ? i.beskrivelse : i.tekst}
+            </List.Item>
+          ))}
+        </List>
+      }</div>
   )
 }

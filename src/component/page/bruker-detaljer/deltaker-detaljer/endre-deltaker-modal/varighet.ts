@@ -73,6 +73,7 @@ export const varighetValgForKode = (
     case Tiltakskode.VARIG_TILRETTELAGT_ARBEID_SKJERMET:
       return [VarighetValg.SEKS_MANEDER, VarighetValg.TOLV_MANEDER]
     case Tiltakskode.GRUPPE_FAG_OG_YRKESOPPLAERING:
+    // TODO sjekk opp varighet for nye tiltakstyper
     default:
       return [
         VarighetValg.FIRE_UKER,
@@ -201,6 +202,7 @@ export function maxVarighetMillisFor(
     case Tiltakskode.JOBBKLUBB:
     case Tiltakskode.VARIG_TILRETTELAGT_ARBEID_SKJERMET:
       return undefined
+    // TODO sjekk opp varighet for nye tiltakstyper
   }
 }
 
@@ -227,5 +229,6 @@ export function maxVarighetLeggTilOppstartsDatoMillisFor(
     case Tiltakskode.JOBBKLUBB:
     case Tiltakskode.VARIG_TILRETTELAGT_ARBEID_SKJERMET:
       return undefined
+    // TODO sjekk opp varighet for nye tiltakstyper
   }
 }

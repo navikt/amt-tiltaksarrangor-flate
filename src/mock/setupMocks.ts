@@ -6,7 +6,7 @@ import { EndringFraArrangor, EndringFraArrangorType } from '../api/data/endring'
 import { VIS_DRIFTSMELDING_TOGGLE_NAVN } from '../api/data/feature-toggle'
 import { AktivtForslag, ForslagEndring, ForslagEndringType, ForslagStatusType } from '../api/data/forslag'
 import { Oppstartstype } from '../api/data/historikk'
-import { AdminDeltakerliste } from '../api/data/tiltak'
+import { AdminDeltakerliste, Pameldingstype } from '../api/data/tiltak'
 import { Veileder, VeilederMedType, Veiledertype } from '../api/data/veileder'
 import { ulestEndringErNyeDeltaker, ulestEndringErOppdateringFraNav, ulestEndringErSvarFraNav } from '../component/page/bruker-detaljer/deltaker-detaljer/forslag/forslagUtils'
 import { useMock } from '../utils/environment'
@@ -329,15 +329,16 @@ const mapToDeltakerDetaljerView = (
 	isVeileder: boolean
 ): Deltaker => {
 	const fodselsnummer = isVeileder ? deltaker.fodselsnummer : ''
+	const erKurs = deltakerlisteErKurs(deltaker.gjennomforing.tiltak.tiltakskode)
 	return {
 		id: deltaker.id,
 		deltakerliste: {
 			id: deltaker.gjennomforing.id,
 			startDato: deltaker.gjennomforing.startDato,
 			sluttDato: deltaker.gjennomforing.sluttDato,
-			erKurs: deltakerlisteErKurs(deltaker.gjennomforing.tiltak.tiltakskode),
 			tiltakskode: deltaker.gjennomforing.tiltak.tiltakskode,
-			oppstartstype: deltakerlisteErKurs(deltaker.gjennomforing.tiltak.tiltakskode) ? Oppstartstype.FELLES : Oppstartstype.LOPENDE
+			oppstartstype: erKurs ? Oppstartstype.FELLES : Oppstartstype.LOPENDE,
+			pameldingstype: erKurs ? Pameldingstype.TRENGER_GODKJENNING : Pameldingstype.DIREKTE_VEDTAK
 		},
 		fornavn: deltaker.fornavn,
 		mellomnavn: deltaker.mellomnavn,
@@ -401,7 +402,10 @@ const mapGjennomforingTilAdminDeltakerliste = (
 		arrangorParentNavn: gjennomforing.arrangor.virksomhetNavn,
 		startDato: gjennomforing.startDato,
 		sluttDato: gjennomforing.sluttDato,
-		lagtTil: lagtTil
+		lagtTil: lagtTil,
+		oppstartstype: deltakerlisteErKurs(gjennomforing.tiltak.tiltakskode)
+			? Oppstartstype.FELLES
+			: Oppstartstype.LOPENDE
 	}
 }
 

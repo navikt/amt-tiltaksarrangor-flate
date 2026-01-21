@@ -31,9 +31,7 @@ export const FilterMenyDeltakerListeDetaljer: React.FC<Props> = ({
       <FilterMenyChips deltakere={deltakerliste.deltakere} />
 
       <FilterMenyStatus
-        erKurs={deltakerliste.erKurs}
-        tiltakskode={deltakerliste.tiltakskode}
-        deltakere={deltakerliste.deltakere}
+        deltakerliste={deltakerliste}
       />
       <FilterMenyHendelser deltakere={deltakerliste.deltakere} />
       <FilterMenyVeiledere deltakere={deltakerliste.deltakere} />

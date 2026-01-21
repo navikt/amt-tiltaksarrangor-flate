@@ -22,13 +22,16 @@ export function DeltakelsesinnholdDetaljer({ innhold, tiltakskode }: Props) {
         Dette er innholdet
       </Label>
 
-      <BodyLong size="small" className={styles.bodylong}>
-        {innhold.ledetekst}
-      </BodyLong>
+      {innhold.ledetekst && (
+        <BodyLong size="small" className={styles.bodylong}>
+          {innhold.ledetekst}
+        </BodyLong>
+      )}
 
       <DeltakelseInnholdListe
         tiltakskode={tiltakskode}
         deltakelsesinnhold={innhold}
+        listClassName={styles.innhold_liste}
       />
     </div>
   )

@@ -25,6 +25,7 @@ import { lagMockAktiveForslag } from './mock-forslag'
 import { deltakerlisteErKurs, MockGjennomforing } from './tiltak'
 import { lagMockVeiledereForDeltaker } from './veileder'
 import { DeltakerStatusAarsakType } from '../../api/data/deltakerStatusArsak'
+import { erOpplaringstiltak } from '../../utils/deltaker-utils'
 
 export type MockVurdering = Vurdering
 
@@ -547,7 +548,16 @@ const innholdselementer = [
 ]
 
 function mockInnhold(tiltakskode: Tiltakskode): Deltakelsesinnhold | null {
-  if (tiltakskode !== Tiltakskode.ARBEIDSFORBEREDENDE_TRENING) {
+  if (erOpplaringstiltak(tiltakskode)) {
+    return {
+      ledetekst: null,
+      innhold: [ {
+        tekst: 'Annet',
+        innholdskode: 'annet',
+        beskrivelse: 'Ønsker å kartlegge \nTeste ulike verktøy'
+      } ]
+    }
+  } else if (tiltakskode !== Tiltakskode.ARBEIDSFORBEREDENDE_TRENING) {
     return null
   }
 

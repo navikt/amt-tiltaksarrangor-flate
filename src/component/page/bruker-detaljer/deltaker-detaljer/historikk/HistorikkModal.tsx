@@ -24,7 +24,7 @@ const getHistorikkItem = (historikk: DeltakerHistorikk, tiltakskode: Tiltakskode
     case HistorikkType.Vedtak:
       return <HistorikkVedtak endringsVedtak={historikk} tiltakskode={tiltakskode} />
     case HistorikkType.InnsokPaaFellesOppstart:
-      return <HistorikkSoktInn soktInnHistorikk={historikk} />
+      return <HistorikkSoktInn soktInnHistorikk={historikk} tiltakskode={tiltakskode} />
     case HistorikkType.Endring:
       return <HistorikkEndring deltakerEndring={historikk} tiltakskode={tiltakskode} />
     case HistorikkType.Forslag:
