@@ -51,7 +51,7 @@ export const SluttdatoVelger = forwardRef<SluttdatoRef, SluttdatoVelgerProps>(
 
     const [ valgtVarighet, setValgtVarighet ] = useState<VarighetValg | undefined>(() => {
       if (defaultVarighet) return defaultVarighet
-      if (varighetsvalg.length == 0) {
+      if (varighetsvalg.length === 0) {
         return VarighetValg.ANNET
       }
       return undefined
