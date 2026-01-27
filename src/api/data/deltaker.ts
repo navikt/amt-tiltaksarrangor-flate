@@ -1,6 +1,7 @@
 import { z } from 'zod'
 
 import { dateSchema, nullableDateSchema } from '../utils'
+import { deltakerStatusAarsakSchema } from './deltakerStatusArsak'
 import { aktivtForslagSchema } from './forslag'
 import { Oppstartstype } from './historikk'
 import { deltakelsesinnholdSchema } from './innhold'
@@ -13,7 +14,6 @@ import {
 } from './tiltak'
 import { ulestEndringSchema } from './ulestEndring'
 import { veilederMedTypeSchema, veiledertypeSchema } from './veileder'
-import { deltakerStatusAarsakSchema } from './deltakerStatusArsak'
 
 export enum Hendelser {
   VenterPaSvarFraNav = 'VenterPaSvarFraNav',

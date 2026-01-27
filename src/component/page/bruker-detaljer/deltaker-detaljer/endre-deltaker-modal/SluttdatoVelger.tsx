@@ -1,6 +1,3 @@
-import { forwardRef, useImperativeHandle, useState } from 'react'
-import { Tiltakskode } from '../../../../../api/data/tiltak'
-import { VarighetValg, varigheter, varighetValgForKode } from './varighet'
 import {
   BodyShort,
   DatePicker,
@@ -8,10 +5,13 @@ import {
   RadioGroup,
   useDatepicker
 } from '@navikt/ds-react'
+import dayjs from 'dayjs'
+import { forwardRef, useImperativeHandle, useState } from 'react'
+import { Tiltakskode } from '../../../../../api/data/tiltak'
 import { formatDate } from '../../../../../utils/date-utils'
 import styles from './SluttdatoVelger.module.scss'
 import { useSluttdato } from './use-sluttdato'
-import dayjs from 'dayjs'
+import { varigheter, VarighetValg, varighetValgForKode } from './varighet'
 
 interface SluttdatoVelgerProps {
   tiltakskode: Tiltakskode
@@ -46,7 +46,15 @@ export const SluttdatoVelger = forwardRef<SluttdatoRef, SluttdatoVelgerProps>(
     }: SluttdatoVelgerProps,
     ref
   ) {
-    const [valgtVarighet, setValgtVarighet] = useState(defaultVarighet)
+    const varighetsValg = varighetValgForKode(tiltakskode, erForOppstartsdato)
+    const [ valgtVarighet, setValgtVarighet ] = useState<VarighetValg | undefined>(() => {
+      if (defaultVarighet) return defaultVarighet
+      if (varighetsValg.length == 0) {
+        return VarighetValg.ANNET
+      }
+      return undefined
+    }
+    )
     const [dateInput, setDateInput] = useState<string>(
       defaultSluttdato ? formatDate(defaultSluttdato) : ''
     )
