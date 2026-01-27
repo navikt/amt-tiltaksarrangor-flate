@@ -4,8 +4,7 @@ import {
   TiltakDeltaker,
   TiltakDeltakerStatus
 } from '../../../../api/data/deltaker'
-import { Oppstartstype } from '../../../../api/data/historikk'
-import { Tiltakskode } from '../../../../api/data/tiltak'
+import { Pameldingstype } from '../../../../api/data/tiltak'
 import globalStyles from '../../../../globals.module.scss'
 import useLocalStorage from '../../../../hooks/useLocalStorage'
 import { getFilterStatuser } from '../../../../utils/filtrering-utils'
@@ -50,14 +49,10 @@ export const FilterMenyStatus = ({ deltakerliste }: Props): React.ReactElement =
 
     statuser.forEach((status) => {
       const tekst = mapTiltakDeltakerStatusTilTekst(status)
-
-      // TODO sjekk opp påmeldingstype og nye tiltakstyper
-      // if(props.pameldingstype === Pameldingstype.TRENGER_GODKJENNING &&
-      //   (status === TiltakDeltakerStatus.VURDERES || status === TiltakDeltakerStatus.SOKT_INN))
+      // For dirkete påmeldinger
+      // skal ikke "Vurderes" og "Søkt inn" vises i statusfilteret
       if (
-        (deltakerliste.oppstartstype === Oppstartstype.LOPENDE || deltakerliste.tiltakskode === Tiltakskode.JOBBKLUBB) &&
-        deltakerliste.tiltakskode !== Tiltakskode.GRUPPE_FAG_OG_YRKESOPPLAERING &&
-        deltakerliste.tiltakskode !== Tiltakskode.GRUPPE_ARBEIDSMARKEDSOPPLAERING &&
+        deltakerliste.pameldingstype === Pameldingstype.DIREKTE_VEDTAK &&
         (status === TiltakDeltakerStatus.VURDERES || status === TiltakDeltakerStatus.SOKT_INN)
       ) {
         return

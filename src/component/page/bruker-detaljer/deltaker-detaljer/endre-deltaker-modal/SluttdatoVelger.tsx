@@ -1,6 +1,3 @@
-import { forwardRef, useImperativeHandle, useState } from 'react'
-import { Tiltakskode } from '../../../../../api/data/tiltak'
-import { VarighetValg, varigheter, varighetValgForKode } from './varighet'
 import {
   BodyShort,
   DatePicker,
@@ -8,10 +5,13 @@ import {
   RadioGroup,
   useDatepicker
 } from '@navikt/ds-react'
+import dayjs from 'dayjs'
+import { forwardRef, useImperativeHandle, useState } from 'react'
+import { Tiltakskode } from '../../../../../api/data/tiltak'
 import { formatDate } from '../../../../../utils/date-utils'
 import styles from './SluttdatoVelger.module.scss'
 import { useSluttdato } from './use-sluttdato'
-import dayjs from 'dayjs'
+import { varigheter, VarighetValg, varighetValgForKode } from './varighet'
 
 interface SluttdatoVelgerProps {
   tiltakskode: Tiltakskode
@@ -46,7 +46,17 @@ export const SluttdatoVelger = forwardRef<SluttdatoRef, SluttdatoVelgerProps>(
     }: SluttdatoVelgerProps,
     ref
   ) {
-    const [valgtVarighet, setValgtVarighet] = useState(defaultVarighet)
+    const varighetsvalg = varighetValgForKode(tiltakskode, erForOppstartsdato)
+    const visRadioAnnet = varighetsvalg.length > 0
+
+    const [ valgtVarighet, setValgtVarighet ] = useState<VarighetValg | undefined>(() => {
+      if (defaultVarighet) return defaultVarighet
+      if (varighetsvalg.length === 0) {
+        return VarighetValg.ANNET
+      }
+      return undefined
+    }
+    )
     const [dateInput, setDateInput] = useState<string>(
       defaultSluttdato ? formatDate(defaultSluttdato) : ''
     )
@@ -93,22 +103,26 @@ export const SluttdatoVelger = forwardRef<SluttdatoRef, SluttdatoVelgerProps>(
       <RadioGroup
         value={valgtVarighet ?? ''}
         size="small"
-        legend={legend}
+        legend={varighetsvalg.length > 0 ? legend : 'Hva er forventet sluttdato?'}
         onChange={handleVarighet}
         error={sluttdato.error}
       >
-        {varighetValgForKode(tiltakskode, erForOppstartsdato).map((v) => (
+        {varighetsvalg.map((v) => (
           <Radio value={v} key={v}>
             {varigheter[v].navn}
           </Radio>
         ))}
-        <Radio value={VarighetValg.ANNET}>
-          Annet - velg dato
-        </Radio>
+
+        {visRadioAnnet && (
+          <Radio value={VarighetValg.ANNET}>
+            Annet - velg dato
+          </Radio>
+        )}
+
         {valgtVarighet === VarighetValg.ANNET && (
           <DatePicker {...datepickerProps} >
             <DatePicker.Input
-              className={styles.velgSluttdatoField}
+              className={visRadioAnnet ? styles.velgSluttdatoField : ''}
               value={dateInput}
               label="Annet - velg dato"
               size="small"

@@ -71,10 +71,8 @@ export const varighetValgForKode = (
         ? [ VarighetValg.FIRE_UKER, VarighetValg.ATTE_UKER ]
         : [ VarighetValg.FIRE_UKER ]
     case Tiltakskode.VARIG_TILRETTELAGT_ARBEID_SKJERMET:
-      return [VarighetValg.SEKS_MANEDER, VarighetValg.TOLV_MANEDER]
-    case Tiltakskode.GRUPPE_FAG_OG_YRKESOPPLAERING:
-    // TODO sjekk opp varighet for nye tiltakstyper
-    default:
+      return [ VarighetValg.SEKS_MANEDER, VarighetValg.TOLV_MANEDER ]
+    case Tiltakskode.JOBBKLUBB:
       return [
         VarighetValg.FIRE_UKER,
         VarighetValg.SEKS_UKER,
@@ -82,6 +80,8 @@ export const varighetValgForKode = (
         VarighetValg.TOLV_UKER,
         VarighetValg.TRE_MANEDER
       ]
+    default:
+      return []
   }
 }
 
@@ -188,6 +188,7 @@ export function maxVarighetMillisFor(
 
   switch (tiltakskode) {
     case Tiltakskode.GRUPPE_ARBEIDSMARKEDSOPPLAERING:
+    case Tiltakskode.ARBEIDSMARKEDSOPPLAERING:
     case Tiltakskode.ARBEIDSFORBEREDENDE_TRENING:
       return aarMs(3)
     case Tiltakskode.ARBEIDSRETTET_REHABILITERING:
@@ -196,13 +197,20 @@ export function maxVarighetMillisFor(
     case Tiltakskode.DIGITALT_OPPFOLGINGSTILTAK:
       return ukerMs(13)
     case Tiltakskode.GRUPPE_FAG_OG_YRKESOPPLAERING:
+    case Tiltakskode.HOYERE_UTDANNING:
+    case Tiltakskode.HOYERE_YRKESFAGLIG_UTDANNING:
+    case Tiltakskode.NORSKOPPLAERING_GRUNNLEGGENDE_FERDIGHETER_FOV:
+    case Tiltakskode.STUDIESPESIALISERING:
       return aarMs(4)
     case Tiltakskode.OPPFOLGING:
       return aarMs(3) + maanederMs(6)
     case Tiltakskode.JOBBKLUBB:
     case Tiltakskode.VARIG_TILRETTELAGT_ARBEID_SKJERMET:
+    case Tiltakskode.ENKELTPLASS_ARBEIDSMARKEDSOPPLAERING:
+    case Tiltakskode.ENKELTPLASS_FAG_OG_YRKESOPPLAERING:
       return undefined
-    // TODO sjekk opp varighet for nye tiltakstyper
+    case Tiltakskode.FAG_OG_YRKESOPPLAERING:
+      return aarMs(5)
   }
 }
 
@@ -216,6 +224,7 @@ export function maxVarighetLeggTilOppstartsDatoMillisFor(
   switch (tiltakskode) {
     case Tiltakskode.GRUPPE_ARBEIDSMARKEDSOPPLAERING:
     case Tiltakskode.GRUPPE_FAG_OG_YRKESOPPLAERING:
+    case Tiltakskode.ARBEIDSMARKEDSOPPLAERING:
       return aarMs(3)
     case Tiltakskode.DIGITALT_OPPFOLGINGSTILTAK:
       return ukerMs(8) + (dagMs * 6)
@@ -228,7 +237,15 @@ export function maxVarighetLeggTilOppstartsDatoMillisFor(
       return aarMs(1)
     case Tiltakskode.JOBBKLUBB:
     case Tiltakskode.VARIG_TILRETTELAGT_ARBEID_SKJERMET:
+    case Tiltakskode.ENKELTPLASS_ARBEIDSMARKEDSOPPLAERING:
+    case Tiltakskode.ENKELTPLASS_FAG_OG_YRKESOPPLAERING:
       return undefined
-    // TODO sjekk opp varighet for nye tiltakstyper
+    case Tiltakskode.HOYERE_UTDANNING:
+    case Tiltakskode.HOYERE_YRKESFAGLIG_UTDANNING:
+    case Tiltakskode.NORSKOPPLAERING_GRUNNLEGGENDE_FERDIGHETER_FOV:
+    case Tiltakskode.STUDIESPESIALISERING:
+      return aarMs(4)
+    case Tiltakskode.FAG_OG_YRKESOPPLAERING:
+      return aarMs(5)
   }
 }
