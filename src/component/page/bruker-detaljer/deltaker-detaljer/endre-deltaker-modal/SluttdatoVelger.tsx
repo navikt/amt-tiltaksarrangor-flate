@@ -46,10 +46,12 @@ export const SluttdatoVelger = forwardRef<SluttdatoRef, SluttdatoVelgerProps>(
     }: SluttdatoVelgerProps,
     ref
   ) {
-    const varighetsValg = varighetValgForKode(tiltakskode, erForOppstartsdato)
+    const varighetsvalg = varighetValgForKode(tiltakskode, erForOppstartsdato)
+    const visRadioAnnet = varighetsvalg.length > 0
+
     const [ valgtVarighet, setValgtVarighet ] = useState<VarighetValg | undefined>(() => {
       if (defaultVarighet) return defaultVarighet
-      if (varighetsValg.length == 0) {
+      if (varighetsvalg.length == 0) {
         return VarighetValg.ANNET
       }
       return undefined
@@ -96,9 +98,6 @@ export const SluttdatoVelger = forwardRef<SluttdatoRef, SluttdatoVelgerProps>(
       setDateInput(e.target.value)
       sluttdato.handleChange(date.toDate())
     }
-
-    const varighetsvalg = varighetValgForKode(tiltakskode, erForOppstartsdato)
-    const visRadioAnnet = varighetsvalg.length > 0
 
     return (
       <RadioGroup
