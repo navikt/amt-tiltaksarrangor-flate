@@ -103,7 +103,7 @@ export const SluttdatoVelger = forwardRef<SluttdatoRef, SluttdatoVelgerProps>(
       <RadioGroup
         value={valgtVarighet ?? ''}
         size="small"
-        legend={legend}
+        legend={varighetsvalg.length > 0 ? legend : 'Hva er forventet sluttdato?'}
         onChange={handleVarighet}
         error={sluttdato.error}
       >
