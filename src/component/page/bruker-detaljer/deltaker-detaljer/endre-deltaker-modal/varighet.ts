@@ -72,6 +72,14 @@ export const varighetValgForKode = (
         : [ VarighetValg.FIRE_UKER ]
     case Tiltakskode.VARIG_TILRETTELAGT_ARBEID_SKJERMET:
       return [ VarighetValg.SEKS_MANEDER, VarighetValg.TOLV_MANEDER ]
+    case Tiltakskode.JOBBKLUBB:
+      return [
+        VarighetValg.FIRE_UKER,
+        VarighetValg.SEKS_UKER,
+        VarighetValg.ATTE_UKER,
+        VarighetValg.TOLV_UKER,
+        VarighetValg.TRE_MANEDER
+      ]
     default:
       return []
   }
