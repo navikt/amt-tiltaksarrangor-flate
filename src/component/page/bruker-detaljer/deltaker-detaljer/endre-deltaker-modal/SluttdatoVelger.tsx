@@ -97,6 +97,9 @@ export const SluttdatoVelger = forwardRef<SluttdatoRef, SluttdatoVelgerProps>(
       sluttdato.handleChange(date.toDate())
     }
 
+    const varighetsvalg = varighetValgForKode(tiltakskode, erForOppstartsdato)
+    const visRadioAnnet = varighetsvalg.length > 0
+
     return (
       <RadioGroup
         value={valgtVarighet ?? ''}
@@ -105,18 +108,22 @@ export const SluttdatoVelger = forwardRef<SluttdatoRef, SluttdatoVelgerProps>(
         onChange={handleVarighet}
         error={sluttdato.error}
       >
-        {varighetValgForKode(tiltakskode, erForOppstartsdato).map((v) => (
+        {varighetsvalg.map((v) => (
           <Radio value={v} key={v}>
             {varigheter[v].navn}
           </Radio>
         ))}
-        <Radio value={VarighetValg.ANNET}>
-          Annet - velg dato
-        </Radio>
+
+        {visRadioAnnet && (
+          <Radio value={VarighetValg.ANNET}>
+            Annet - velg dato
+          </Radio>
+        )}
+
         {valgtVarighet === VarighetValg.ANNET && (
           <DatePicker {...datepickerProps} >
             <DatePicker.Input
-              className={styles.velgSluttdatoField}
+              className={visRadioAnnet ? styles.velgSluttdatoField : ''}
               value={dateInput}
               label="Annet - velg dato"
               size="small"
