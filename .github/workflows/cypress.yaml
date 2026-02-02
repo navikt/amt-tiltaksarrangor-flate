@@ -40,7 +40,7 @@ jobs:
       - name: Check if PR is not created by Dependabot
         run: echo "IS_NOT_DEPENDABOT=${{ github.event.pull_request.user.login != 'dependabot[bot]' }}" >> $GITHUB_ENV
       - name: Run tests
-        uses: cypress-io/github-action@v6
+        uses: cypress-io/github-action@v7
         with:
           browser: chrome
           start: pnpm start
