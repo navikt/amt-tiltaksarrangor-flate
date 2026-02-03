@@ -1,6 +1,7 @@
 import { TiltakDeltakerStatus, VeiledersDeltaker } from '../api/data/deltaker'
 import { Oppstartstype } from '../api/data/historikk'
-import { Pameldingstype } from '../api/data/tiltak'
+import { Pameldingstype, Tiltakskode } from '../api/data/tiltak'
+import { harKursAvslutning } from './deltakerliste-utils'
 
 const matcherDeltakerliste = (
 	deltakerlisteFilter: string[],
@@ -19,19 +20,25 @@ export const filtrerDeltakerliste = (
 	)
 }
 
-export const getFilterStatuser = (oppstartstype: Oppstartstype | null, pameldingstype: Pameldingstype | null) => {
+export const getFilterStatuser = (
+	oppstartstype: Oppstartstype,
+	pameldingstype: Pameldingstype,
+	tiltakskode: Tiltakskode
+) => {
 	const statuser = [ TiltakDeltakerStatus.VURDERES ] // TODO skal avvikles
 	if (pameldingstype === Pameldingstype.TRENGER_GODKJENNING) {
 		statuser.push(TiltakDeltakerStatus.SOKT_INN)
 	}
 	statuser.push(TiltakDeltakerStatus.VENTER_PA_OPPSTART)
 	statuser.push(TiltakDeltakerStatus.DELTAR)
-	if (oppstartstype === Oppstartstype.FELLES) {
+
+	if (harKursAvslutning(oppstartstype, tiltakskode)) {
 		statuser.push(TiltakDeltakerStatus.FULLFORT)
 		statuser.push(TiltakDeltakerStatus.AVBRUTT)
 	} else {
 		statuser.push(TiltakDeltakerStatus.HAR_SLUTTET)
 	}
+
 	statuser.push(TiltakDeltakerStatus.IKKE_AKTUELL)
 	return statuser
 }

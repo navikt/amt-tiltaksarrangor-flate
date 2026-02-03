@@ -3,6 +3,7 @@ import React from 'react'
 
 import { Pameldingstype, Tiltakskode } from '../../../api/data/tiltak'
 import { formatDate } from '../../../utils/date-utils'
+import { erOpplaringstiltak } from '../../../utils/deltakerliste-utils'
 import { Show } from '../../felles/Show'
 import { Bestilling } from './bestilling/Bestilling'
 import { DeltakelsesinnholdDetaljer } from './deltakelsesinnhold/DeltakelsesinnholdDetaljer'
@@ -12,7 +13,6 @@ import { DeltakerVurdering } from './deltaker-detaljer/vurdering/DeltakerVurderi
 import styles from './DeltakerDetaljer.module.scss'
 import { NavInfoPanel } from './nav-info-panel/NavInfoPanel'
 import { VeilederPanel } from './veileder-panel/VeilederPanel'
-import { erOpplaringstiltak } from '../../../utils/deltaker-utils'
 
 export const DeltakerDetaljer = (props: {
   visTildeling: boolean

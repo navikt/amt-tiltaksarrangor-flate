@@ -2,6 +2,7 @@ import dayjs from 'dayjs'
 import { Adresse, AktivEndring, AktivEndringForDeltaker, Deltaker } from '../api/data/deltaker'
 import { Pameldingstype, Tiltakskode } from '../api/data/tiltak'
 import { EndringType } from '../component/page/bruker-detaljer/deltaker-detaljer/types'
+import { erOpplaringstiltak } from './deltakerliste-utils'
 
 export const INNHOLD_TYPE_ANNET = 'annet'
 
@@ -82,20 +83,6 @@ export const harDeltattMindreEnnFemtenDager = (deltaker: Deltaker, endringstype?
   const femtenDagerSiden = dayjs().subtract(15, 'days')
   return dayjs(startDato).isAfter(femtenDagerSiden, 'day')
 }
-
-export const erOpplaringstiltak = (tiltakskode: Tiltakskode) =>
-  [
-    Tiltakskode.GRUPPE_ARBEIDSMARKEDSOPPLAERING,
-    Tiltakskode.GRUPPE_FAG_OG_YRKESOPPLAERING,
-    Tiltakskode.ARBEIDSMARKEDSOPPLAERING,
-    Tiltakskode.NORSKOPPLAERING_GRUNNLEGGENDE_FERDIGHETER_FOV,
-    Tiltakskode.STUDIESPESIALISERING,
-    Tiltakskode.FAG_OG_YRKESOPPLAERING,
-    Tiltakskode.HOYERE_YRKESFAGLIG_UTDANNING,
-    Tiltakskode.HOYERE_UTDANNING,
-    Tiltakskode.ENKELTPLASS_ARBEIDSMARKEDSOPPLAERING,
-    Tiltakskode.ENKELTPLASS_FAG_OG_YRKESOPPLAERING
-  ].includes(tiltakskode)
 
 export const kanDeleDeltakerMedArrangorForVurdering = (
   pameldingstype: Pameldingstype,

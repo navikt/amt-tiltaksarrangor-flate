@@ -11,6 +11,7 @@ import {
   Vurdering,
   Vurderingstype
 } from '../../api/data/deltaker'
+import { DeltakerStatusAarsakType } from '../../api/data/deltakerStatusArsak'
 import { AktivtForslag, ForslagEndringType, ForslagStatusType, HistorikkForslag, HistorikkType } from '../../api/data/forslag'
 import { DeltakerEndring } from '../../api/data/historikk'
 import { Deltakelsesinnhold } from '../../api/data/innhold'
@@ -18,14 +19,13 @@ import { Gjennomforing, Tiltakskode } from '../../api/data/tiltak'
 import { UlestEndring, UlestEndringType } from '../../api/data/ulestEndring'
 import { VeilederMedType } from '../../api/data/veileder'
 import { ulestEndringErNyeDeltaker, ulestEndringErOppdateringFraNav, ulestEndringErSvarFraNav } from '../../component/page/bruker-detaljer/deltaker-detaljer/forslag/forslagUtils'
+import { erOpplaringstiltak } from '../../utils/deltakerliste-utils'
 import { randBetween, randomBoolean, randomFnr, randomUuid } from '../utils/faker'
 import { mockDeltakerHistorikk } from './historikk'
 import { deltakerId } from './id'
 import { lagMockAktiveForslag } from './mock-forslag'
 import { deltakerlisteErKurs, MockGjennomforing } from './tiltak'
 import { lagMockVeiledereForDeltaker } from './veileder'
-import { DeltakerStatusAarsakType } from '../../api/data/deltakerStatusArsak'
-import { erOpplaringstiltak } from '../../utils/deltaker-utils'
 
 export type MockVurdering = Vurdering
 

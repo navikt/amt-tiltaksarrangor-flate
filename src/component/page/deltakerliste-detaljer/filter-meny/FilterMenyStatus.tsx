@@ -45,7 +45,7 @@ export const FilterMenyStatus = ({ deltakerliste }: Props): React.ReactElement =
   > => {
     const dataMap = new Map<string, FiltermenyDataEntry>()
 
-    const statuser = getFilterStatuser(deltakerliste.oppstartstype, deltakerliste.pameldingstype)
+    const statuser = getFilterStatuser(deltakerliste.oppstartstype, deltakerliste.pameldingstype, deltakerliste.tiltakskode)
 
     statuser.forEach((status) => {
       const tekst = mapTiltakDeltakerStatusTilTekst(status)
