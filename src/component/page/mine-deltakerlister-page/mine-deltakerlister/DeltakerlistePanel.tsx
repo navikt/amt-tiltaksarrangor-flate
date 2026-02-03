@@ -7,6 +7,7 @@ import { SpaLenkepanel } from '../../../felles/spa-lenkepanel/SpaLenkepanel'
 import styles from './DeltakerlistePanel.module.scss'
 import { formatDate } from '../../../../utils/date-utils'
 import { Oppstartstype } from '../../../../api/data/historikk'
+import { harFellesOppstart } from '../../../../utils/deltakerliste-utils'
 
 interface DeltakerlistePanelProps {
   id: string
@@ -28,7 +29,7 @@ export const DeltakerlistePanel = (
           <BodyShort as="span" className={styles.panelTittel}>
             {navn}
           </BodyShort>
-          {oppstartstype === Oppstartstype.FELLES && (startdato || sluttdato) && (
+          {harFellesOppstart(oppstartstype) && (startdato || sluttdato) && (
             <BodyShort size="small" className={styles.datotekst}>
               <span>
                 {formatDate(startdato)} - {formatDate(sluttdato)}

@@ -1,22 +1,22 @@
 import { BodyLong, Detail } from '@navikt/ds-react'
-import { HistorikkElement } from './HistorikkElement'
 import {
   DeltakerEndring,
   Endring,
-  EndringType,
-  Oppstartstype
+  EndringType
 } from '../../../../../api/data/historikk'
+import { Tiltakskode } from '../../../../../api/data/tiltak'
+import globalStyles from '../../../../../globals.module.scss'
 import { EMDASH } from '../../../../../utils/constants'
-import { DeltakelseInnholdListe } from '../DeltakelseInnholdListe'
 import { formatDate } from '../../../../../utils/date-utils'
+import { harKursAvslutning } from '../../../../../utils/deltakerliste-utils'
 import {
   getDeltakerStatusAarsakText,
   getEndringsTittel
 } from '../../../../../utils/text-mappers'
-import styles from './Historikk.module.scss'
+import { DeltakelseInnholdListe } from '../DeltakelseInnholdListe'
 import { EndringTypeIkon } from '../EndringTypeIkon'
-import globalStyles from '../../../../../globals.module.scss'
-import { Tiltakskode } from '../../../../../api/data/tiltak'
+import styles from './Historikk.module.scss'
+import { HistorikkElement } from './HistorikkElement'
 
 interface Props {
   deltakerEndring: DeltakerEndring
@@ -47,7 +47,7 @@ export const getEndringsDetaljer = (endring: Endring, tiltakskode: Tiltakskode) 
               Årsak: {getDeltakerStatusAarsakText(endring.aarsak)}
             </BodyLong>
           )}
-          {endring.oppstartstype === Oppstartstype.FELLES && (
+          {harKursAvslutning(endring.oppstartstype, tiltakskode) && (
             <BodyLong size="small">
               Er kurset fullført: {endring.harFullfort ? 'Ja' : 'Nei'}
             </BodyLong>

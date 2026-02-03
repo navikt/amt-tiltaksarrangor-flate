@@ -1,8 +1,9 @@
 import { BodyLong, List } from '@navikt/ds-react'
-import { erOpplaringstiltak, INNHOLD_TYPE_ANNET } from '../../../../utils/deltaker-utils'
-import { Tiltakskode } from '../../../../api/data/tiltak'
-import styles from './DeltakelseInfo.module.scss'
 import { Deltakelsesinnhold } from '../../../../api/data/innhold'
+import { Tiltakskode } from '../../../../api/data/tiltak'
+import { INNHOLD_TYPE_ANNET } from '../../../../utils/deltaker-utils'
+import { erOpplaringstiltak } from '../../../../utils/deltakerliste-utils'
+import styles from './DeltakelseInfo.module.scss'
 
 interface Props {
   deltakelsesinnhold: Deltakelsesinnhold
