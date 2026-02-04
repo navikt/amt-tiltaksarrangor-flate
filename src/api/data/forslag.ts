@@ -4,6 +4,7 @@ import { dateSchema, nullableDateSchema } from '../utils'
 
 export enum HistorikkType {
   Vedtak = 'Vedtak',
+  // TODO skal renames?
   InnsokPaaFellesOppstart = 'InnsokPaaFellesOppstart',
   Endring = 'Endring',
   Forslag = 'Forslag',
