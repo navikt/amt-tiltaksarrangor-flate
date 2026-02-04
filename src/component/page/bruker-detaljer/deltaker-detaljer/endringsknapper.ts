@@ -1,6 +1,6 @@
 import { Deltaker, TiltakDeltakerStatus } from '../../../../api/data/deltaker'
 import { Tiltakskode } from '../../../../api/data/tiltak'
-import { harKursAvslutning, harLopendeOppstart } from '../../../../utils/deltakerliste-utils'
+import { harKursAvslutning as sjekkKursAvslutning, harLopendeOppstart } from '../../../../utils/deltakerliste-utils'
 import { ModalHandler } from './modal-store'
 import { ModalDataProps } from './ModalController'
 import { EndringType } from './types'
@@ -27,11 +27,12 @@ export function endringsknapper(deltaker: Deltaker, modal: ModalHandler): Endrin
 	} = modal
 
 	const status = statusBooleans(deltaker.status.type)
-	const erLopendeOppstart = harLopendeOppstart(deltaker.deltakerliste.oppstartstype)
+	const harKursAvslutning = sjekkKursAvslutning(deltaker.deltakerliste.oppstartstype, deltaker.tiltakskode)
+
 	const ferdigPaKurs = status.erFullfort || status.erAvbrutt
 
 	const kanFjerneOppstartsdato =
-		erLopendeOppstart &&
+		harLopendeOppstart(deltaker.deltakerliste.oppstartstype) &&
 		status.erVenterPaOppstart &&
 		deltaker.startDato !== null
 
@@ -49,10 +50,8 @@ export function endringsknapper(deltaker: Deltaker, modal: ModalHandler): Endrin
 
 	const kanEndreDeltakelsesmengde = deltaker.tiltakskode === Tiltakskode.ARBEIDSFORBEREDENDE_TRENING || deltaker.tiltakskode === Tiltakskode.VARIG_TILRETTELAGT_ARBEID_SKJERMET
 
-	const kanAvslutteDeltakelse = status.erDeltar && erLopendeOppstart
-	const kanAvslutteKursDeltakelse =
-		status.erDeltar &&
-		harKursAvslutning(deltaker.deltakerliste.oppstartstype, deltaker.tiltakskode)
+	const kanAvslutteDeltakelse = status.erDeltar && !harKursAvslutning
+	const kanAvslutteKursDeltakelse = status.erDeltar && harKursAvslutning
 
 	const kanEndreAvslutning = status.erHarSluttet
 	const kanEndreAvslutningKurs = status.erFullfort || status.erAvbrutt
