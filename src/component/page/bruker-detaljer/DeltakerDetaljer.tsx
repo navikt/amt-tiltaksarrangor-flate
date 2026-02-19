@@ -5,7 +5,7 @@ import { Pameldingstype, Tiltakskode } from '../../../api/data/tiltak'
 import { formatDate } from '../../../utils/date-utils'
 import { erOpplaringstiltak } from '../../../utils/deltakerliste-utils'
 import { Show } from '../../felles/Show'
-import { Bestilling } from './bestilling/Bestilling'
+import { Bakgrunnsinfo } from './bestilling/Bakgrunnsinfo'
 import { DeltakelsesinnholdDetaljer } from './deltakelsesinnhold/DeltakelsesinnholdDetaljer'
 import { DeltakelseInfo } from './deltaker-detaljer/DeltakelseInfo'
 import { useDeltakerContext } from './deltaker-detaljer/DeltakerContext'
@@ -58,8 +58,8 @@ export const DeltakerDetaljer = (props: {
           <DeltakelsesinnholdDetaljer innhold={innhold} tiltakskode={tiltakskode} />
         )}
 
-        <Show if={visBestilling(tiltakskode)}>
-          <Bestilling
+        <Show if={harBakgrunnsinfo(tiltakskode)}>
+          <Bakgrunnsinfo
             tekst={bestillingTekst}
             label="Bakgrunnsinfo"
           />
@@ -77,11 +77,7 @@ export const DeltakerDetaljer = (props: {
   )
 }
 
-const visBestilling = (tiltakskode: Tiltakskode) => {
-  return ![
-    Tiltakskode.DIGITALT_OPPFOLGINGSTILTAK,
-    Tiltakskode.GRUPPE_FAG_OG_YRKESOPPLAERING,
-    Tiltakskode.JOBBKLUBB,
-    Tiltakskode.GRUPPE_ARBEIDSMARKEDSOPPLAERING
-  ].includes(tiltakskode)
-}
+export const harBakgrunnsinfo = (tiltakskode: Tiltakskode) =>
+  !erOpplaringstiltak(tiltakskode) &&
+  tiltakskode !== Tiltakskode.DIGITALT_OPPFOLGINGSTILTAK &&
+  tiltakskode !== Tiltakskode.JOBBKLUBB
