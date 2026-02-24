@@ -117,7 +117,6 @@ export const DeltakerDetaljerHeader = (
             icon={visAdresse ? <ChevronUpIcon /> : <ChevronDownIcon />}
             iconPosition="right"
             onClick={toggleVisAdresse}
-            className={styles.toggleAdresseKnapp}
             size="small"
           >
             {visAdresse ? 'Lukk' : 'Vis mer'}

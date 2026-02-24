@@ -95,16 +95,3 @@
   gap: 0.5rem;
   align-items: center;
 }
-
-.toggleAdresseKnapp {
-  --ac-button-tertiary-hover-bg: transparent;
-
-  &:hover {
-    text-decoration: underline;
-  }
-  &:active {
-    text-decoration: underline;
-    background-color: transparent !important;
-    color: var(--ac-button-tertiary-text, var(--a-text-action));
-  }
-}

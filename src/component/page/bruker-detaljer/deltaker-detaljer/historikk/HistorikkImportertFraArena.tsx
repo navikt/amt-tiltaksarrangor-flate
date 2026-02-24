@@ -27,7 +27,8 @@ export const HistorikkImportertFraArena = ({
   return (
     <HistorikkElement
       tittel={`Deltakelsen ble importert ${dateStrWithMonthName(deltakelseVedImport.importertDato)}`}
-      icon={<CaretRightCircleFillIcon color="var(--a-limegreen-800)" />}
+      // TODO sjekk farge
+      icon={<CaretRightCircleFillIcon color="var(--ax-meta-lime-900)" />}
     >
       <BodyLong size="small">
         {`Status: ${getDeltakerHistorikkStatusDisplayText(deltakelseVedImport.status.type)}`}

@@ -31,8 +31,9 @@
 
 ::-webkit-scrollbar-thumb {
   border-radius: 4px;
-  background-color: var(--a-gray-500);
-  box-shadow: 0 0 1px var(--a-gray-50)
+  // TODO sjekk farger
+    background-color: var(--ax-neutral-600);
+    box-shadow: 0 0 1px var(--ax-neutral-100)
 }
 
 .expansionContent {

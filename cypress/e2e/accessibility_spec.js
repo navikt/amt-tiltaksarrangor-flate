@@ -30,7 +30,7 @@ function navigerTilTiltakGjennomforingDetaljer() {
 		cy.get('a')
 			.not('[data-testid=rad_adressebeskyttet]')
 			.eq(2)
-			.should('have.class', 'navds-link-panel')
+			.should( 'have.class', 'aksel-link-panel' )
 			.first()
 			.click()
 	})
