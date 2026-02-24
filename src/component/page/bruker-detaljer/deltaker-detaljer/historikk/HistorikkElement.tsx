@@ -36,13 +36,13 @@ export const getForslagStatusTag = (forslagStatusType: ForslagStatusType) => {
     case ForslagStatusType.Tilbakekalt:
     case ForslagStatusType.Avvist:
       return (
-        <Tag size="small" variant="neutral">
+        <Tag data-color="neutral" size="small" variant="outline">
           {getForslagStatusTypeText(forslagStatusType)}
         </Tag>
       )
     case ForslagStatusType.VenterPaSvar:
       return (
-        <Tag size="small" variant="info">
+        <Tag data-color="info" size="small" variant="outline">
           {getForslagStatusTypeText(forslagStatusType)}
         </Tag>
       )

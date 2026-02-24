@@ -11,22 +11,31 @@ export function ForslagStatusTag({
   switch (type) {
     case ForslagStatusType.VenterPaSvar: {
       return (
-        <Tag variant="info" size="small" className={className ?? ''}>
-          Venter på svar fra Nav
+        <Tag
+          data-color="info"
+          variant="outline"
+          size="small"
+          className={className ?? ''}>Venter på svar fra Nav
         </Tag>
       )
     }
     case ForslagStatusType.Godkjent: {
       return (
-        <Tag variant="success" size="small" className={className ?? ''}>
-          Godkjent av Nav
+        <Tag
+          data-color="success"
+          variant="outline"
+          size="small"
+          className={className ?? ''}>Godkjent av Nav
         </Tag>
       )
     }
     case ForslagStatusType.Avvist: {
       return (
-        <Tag variant="error" size="small" className={className ?? ''}>
-          Avvist av Nav
+        <Tag
+          data-color="danger"
+          variant="outline"
+          size="small"
+          className={className ?? ''}>Avvist av Nav
         </Tag>
       )
     }
