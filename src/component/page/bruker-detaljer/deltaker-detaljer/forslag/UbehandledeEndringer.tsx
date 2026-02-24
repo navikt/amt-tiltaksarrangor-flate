@@ -67,7 +67,7 @@ export const UbehandledeEndringer = ({
         {getEndringsDetaljer(ulesteOppdateringerFraNav, deltakerId, tiltakskode, onMarkertSomLest)}
       </>)}
     </Box>
-Box
+  )
 }
 
 const getSendteForslag = (

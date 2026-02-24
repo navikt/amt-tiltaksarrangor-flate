@@ -44,7 +44,7 @@ export const EndringPanel = ({
   return (
     <Box
       background="default"
-      borderColor="border-neutral"
+      borderColor="neutral"
       borderWidth="1"
       borderRadius="4"
       className={styles.panel}
