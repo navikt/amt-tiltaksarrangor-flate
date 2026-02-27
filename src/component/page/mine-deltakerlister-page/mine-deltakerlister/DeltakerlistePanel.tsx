@@ -6,6 +6,7 @@ import globalStyles from '../../../../globals.module.scss'
 import { deltakerlisteDetaljerPageUrl } from '../../../../navigation'
 import { formatDate } from '../../../../utils/date-utils'
 import { harFellesOppstart } from '../../../../utils/deltakerliste-utils'
+import { Link } from 'react-router-dom'
 
 interface DeltakerlistePanelProps {
   id: string
@@ -24,7 +25,9 @@ export const DeltakerlistePanel = (
     <li className={globalStyles.blokkS}>
       <LinkCard>
         <LinkCard.Title>
-          <LinkCard.Anchor href={deltakerlisteDetaljerPageUrl(id)}>{navn}</LinkCard.Anchor>
+          <LinkCard.Anchor asChild >
+            <Link to={deltakerlisteDetaljerPageUrl(id)}>{navn}</Link>
+          </LinkCard.Anchor>
         </LinkCard.Title>
 
         {harFellesOppstart(oppstartstype) && (startdato || sluttdato) && (
