@@ -1,7 +1,8 @@
 @use '../../../globals.module.scss';
+@use '../../../colors.scss';
 
 .header {
-  background-color: white;
+  background-color: colors.$navWhiteDefault;
   padding: 1rem 1rem;
   margin: auto;
   max-width: globals.$max-bredde;

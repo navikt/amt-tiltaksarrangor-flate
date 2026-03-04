@@ -2,7 +2,8 @@
 $max-bredde: 1440px;
 
 .whiteBackground {
-	background-color: white;
+	// TODO sjekk bruken
+	background-color: var(--ax-bg-default);
 }
 
 .blokkNull {
