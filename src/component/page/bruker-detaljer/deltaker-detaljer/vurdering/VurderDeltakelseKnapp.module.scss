@@ -10,8 +10,7 @@
 }
 
 .oppfyllerKraveneIkon {
-  // TODO sjekk farge
-    color: var(--ax-success-600);
+  color: var(--ax-text-success-decoration);
   @extend .ikon;
 }
 

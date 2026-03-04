@@ -28,8 +28,7 @@ export const HistorikkVedtak = ({ endringsVedtak, tiltakskode }: Props) => {
   return (
     <HistorikkElement
       tittel={`Påmelding ${dateStrWithMonthName(fattet)}`}
-      // TODO sjekk farge
-      icon={<CaretRightCircleFillIcon color="var(--ax-meta-lime-900)" />}
+      icon={<CaretRightCircleFillIcon color="var(--ax-text-meta-lime-decoration)" />}
     >
       <HistorikkInnhold deltakelsesinnhold={deltakelsesinnhold} tiltakskode={tiltakskode} />
 

@@ -16,8 +16,7 @@ export const HistorikkVurderingFraArrangor = ({ vurdering }: Props) => {
     <HistorikkElement
       tittel={'Vurdering fra arrangør'}
       icon={
-        // TODO sjekk farge
-        <MenuElipsisHorizontalCircleFillIcon color="var(--ax-brand-blue-500)" />
+        <MenuElipsisHorizontalCircleFillIcon color="var(--ax-text-info-decoration)" />
       }
     >
       <BodyShort size="small">Vurdering: {vurderingstypeTekst}</BodyShort>
