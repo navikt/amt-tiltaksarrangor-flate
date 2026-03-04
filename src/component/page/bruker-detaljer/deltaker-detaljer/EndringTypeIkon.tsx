@@ -1,5 +1,3 @@
-import React from 'react'
-
 import styles from './EndringTypeIkon.module.scss'
 import {EndringType} from './types'
 import {
@@ -38,11 +36,12 @@ export const EndringTypeIkon = ({ type, size }: EndringTypeIkonProps) => {
     case ForslagEndringType.Startdato:
     case EndringType.LEGG_TIL_OPPSTARTSDATO:
     case EndringType.ENDRE_OPPSTARTSDATO:
+    case TiltakskoordinatorEndringsType.TildelPlass:
       return (
         <ChevronRightCircleFillIcon
           className={sizeName(size)}
           aria-hidden
-          color="var(--ax-bg-brand-blue-moderate-pressed)"
+          color="var(--ax-text-accent-decoration)"
         />
       )
     case HistorikkEndringType.ForlengDeltakelse:
@@ -69,8 +68,7 @@ export const EndringTypeIkon = ({ type, size }: EndringTypeIkonProps) => {
         <MinusCircleFillIcon
           className={sizeName(size)}
           aria-hidden
-          // TODO sjekk farge
-          color="var(--ax-neutral-700)"
+          color="var(--ax-text-neutral-decoration)"
         />
       )
 		case UlestEndringType.Avslag:
@@ -82,7 +80,7 @@ export const EndringTypeIkon = ({ type, size }: EndringTypeIkonProps) => {
         <PlusCircleFillIcon
           className={`${sizeName(size)} ${styles.ikke_aktuell_ikon}`}
           aria-hidden
-          color="var(--ax-bg-warning-strong)"
+          color="var(--ax-text-warning-decoration)"
         />
       )
     case HistorikkEndringType.EndreSluttarsak:
@@ -95,8 +93,7 @@ export const EndringTypeIkon = ({ type, size }: EndringTypeIkonProps) => {
         <ChevronRightLastCircleFillIcon
           className={sizeName(size)}
           aria-hidden
-          // TODO sjekk farge
-          color="var(--ax-neutral-600)"
+          color="var(--ax-text-neutral-decoration)"
         />
       )
     case HistorikkEndringType.EndreBakgrunnsinformasjon:
@@ -113,16 +110,7 @@ export const EndringTypeIkon = ({ type, size }: EndringTypeIkonProps) => {
         <PieChartFillIcon
           className={sizeName(size)}
           aria-hidden
-          // TODO sjekk farge
-          color="var(--ax-meta-purple-600)"
-        />
-      )
-    case TiltakskoordinatorEndringsType.TildelPlass:
-      return (
-        <ChevronRightCircleFillIcon
-          className={sizeName(size)}
-          aria-hidden
-          color="var(--ax-bg-brand-blue-moderate-pressed)"
+          color="var(--ax-text-meta-purple-decoration)"
         />
       )
     case HistorikkEndringType.ReaktiverDeltakelse:
@@ -133,8 +121,8 @@ export const EndringTypeIkon = ({ type, size }: EndringTypeIkonProps) => {
           color="var(--ax-text-meta-lime-decoration)"
         />
       )
-		default:
-			return <DefaultIcon size={size} />
+    default:
+      return <DefaultIcon size={size} />
   }
 
 }
@@ -148,8 +136,7 @@ export const DefaultIcon = ({ size }: DefaultIconProps) => {
     <MenuElipsisHorizontalCircleFillIcon
       className={sizeName(size)}
       aria-hidden
-      // TODO sjekk farge
-      color="var(--ax-brand-blue-500)"
+      color="var(--ax-text-info-decoration)"
     />
   )
 }

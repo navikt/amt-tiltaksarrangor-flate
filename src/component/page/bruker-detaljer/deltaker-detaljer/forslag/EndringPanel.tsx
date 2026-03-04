@@ -43,7 +43,7 @@ export const EndringPanel = ({
 
   return (
     <Box
-      background="default"
+      background="raised"
       borderColor="neutral"
       borderWidth="1"
       borderRadius="4"

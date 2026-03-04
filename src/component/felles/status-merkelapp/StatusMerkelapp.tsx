@@ -36,7 +36,7 @@ const deltakerlisteStyle = (statusType: TiltakDeltakerStatus | string) => {
 const getTagType = (statusType: TiltakDeltakerStatus | string) => {
   switch (statusType) {
     case TiltakDeltakerStatus.VENTER_PA_OPPSTART:
-      return 'brand-blue'
+      return 'info'
     case TiltakDeltakerStatus.FULLFORT:
     case TiltakDeltakerStatus.HAR_SLUTTET:
       return 'meta-purple'

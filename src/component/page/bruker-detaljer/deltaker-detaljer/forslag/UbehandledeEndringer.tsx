@@ -47,7 +47,7 @@ export const UbehandledeEndringer = ({
 
   return (
     <Box
-      background="neutral-moderate"
+      background="sunken"
       padding={{ xs: 'space-8', md: 'space-16' }}
       borderRadius="4"
       className={styles.ulesteEndringerContainer}
