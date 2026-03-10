@@ -47,9 +47,9 @@ export const UbehandledeEndringer = ({
 
   return (
     <Box
-      background="bg-subtle"
-      padding={{ xs: '2', md: '4' }}
-      borderRadius="medium"
+      background="sunken"
+      padding={{ xs: 'space-8', md: 'space-16' }}
+      borderRadius="4"
       className={styles.ulesteEndringerContainer}
     >
       {(forslag.length > 0 || ulesteSvarFraNav.length > 0) && (<>

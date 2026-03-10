@@ -37,16 +37,16 @@ export const EndringPanel = ({
 }: Props) => {
   const endringIkon = endringType
     ? <EndringTypeIkon size="large" type={endringType} />
-    : ulestEndringType 
+    : ulestEndringType
       ? <EndringTypeIkon size="large" type={ulestEndringType} />
       : <DefaultIcon size="large" />
 
   return (
     <Box
-      background="surface-default"
-      borderColor="border-default"
+      background="raised"
+      borderColor="neutral"
       borderWidth="1"
-      borderRadius="medium"
+      borderRadius="4"
       className={styles.panel}
     >
       <HGrid columns="2rem auto" className={styles.grid}>

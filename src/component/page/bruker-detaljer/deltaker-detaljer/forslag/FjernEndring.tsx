@@ -31,9 +31,9 @@ export const FjernEndring = ({
 
   return (
     <Box
-      background="surface-action-subtle"
+      background="accent-moderate"
       className={styles.marker_som_lest_box}
-      borderRadius="0 0 medium medium"
+      borderRadius="0 0 4 4"
     >
       <div className={styles.marker_som_lest_knapp_wrapper}>
         <Button size="small" onClick={handleLestForslag}>Marker som lest</Button>

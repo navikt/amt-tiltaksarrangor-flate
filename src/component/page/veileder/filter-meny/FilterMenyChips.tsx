@@ -24,38 +24,35 @@ export const FilterMenyChips = (): React.ReactElement => {
     <Chips className={globalStyles.blokkXs} title="Fjern filter">
       {statusFilter.map((status) => (
         <Chips.Removable
+          data-color="accent"
           key={status}
-          variant="action"
           onDelete={() => removeStatusFilter(status)}
         >
           {mapTiltakDeltakerStatusTilTekst(status)}
         </Chips.Removable>
       ))}
-
       {hendelseFilter.map((hendelse) => (
         <Chips.Removable
+          data-color="accent"
           key={status}
-          variant="action"
           onDelete={() => removeHendelseFilter(hendelse)}
         >
           {mapHendelseTypeTilTekst(hendelse)}
         </Chips.Removable>
       ))}
-
       {deltakerlisteFilter.map((deltakerListe) => (
         <Chips.Removable
+          data-color="accent"
           key={deltakerListe}
-          variant="action"
           onDelete={() => removeDeltakerlisteFilter(deltakerListe)}
         >
           {deltakerListe}
         </Chips.Removable>
       ))}
-
       {veiledertypeFilter.map((veilederType) => (
         <Chips.Removable
+          data-color="accent"
           key={veilederType}
-          variant="action"
           onDelete={() => removeVeilederTypeFilter(veilederType)}
         >
           {mapVeilderTypeTilTekst(veilederType)}

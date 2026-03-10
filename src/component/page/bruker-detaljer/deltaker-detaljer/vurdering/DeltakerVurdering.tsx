@@ -18,7 +18,7 @@ interface DeltakerVurderingProps {
 const getTagType = (vurderingstype: Vurderingstype | undefined) => {
   switch (vurderingstype) {
     case Vurderingstype.OPPFYLLER_IKKE_KRAVENE:
-      return 'error'
+      return 'danger'
     case Vurderingstype.OPPFYLLER_KRAVENE:
       return 'success'
   }
@@ -47,7 +47,7 @@ export const DeltakerVurdering = ({
         </Label>
         {vurderingstype && tagType ? (
           <>
-            <Tag variant={tagType} size="xsmall">
+            <Tag data-color={tagType} size="xsmall" variant="outline">
               {vurderingLabel}
             </Tag>
             {vurdering?.begrunnelse}

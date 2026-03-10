@@ -1,7 +1,8 @@
 @use '../../../globals.module.scss';
+@use '../../../colors.scss';
 
 .header {
-  background-color: white;
+  background-color: colors.$navWhiteDefault;
   padding: 1rem 1rem;
   margin: auto;
   max-width: globals.$max-bredde;
@@ -94,17 +95,4 @@
   display: flex;
   gap: 0.5rem;
   align-items: center;
-}
-
-.toggleAdresseKnapp {
-  --ac-button-tertiary-hover-bg: transparent;
-
-  &:hover {
-    text-decoration: underline;
-  }
-  &:active {
-    text-decoration: underline;
-    background-color: transparent !important;
-    color: var(--ac-button-tertiary-text, var(--a-text-action));
-  }
 }

@@ -1,13 +1,12 @@
-import { BodyShort } from '@navikt/ds-react'
+import { LinkCard } from '@navikt/ds-react'
 import React from 'react'
 
+import { Oppstartstype } from '../../../../api/data/historikk'
 import globalStyles from '../../../../globals.module.scss'
 import { deltakerlisteDetaljerPageUrl } from '../../../../navigation'
-import { SpaLenkepanel } from '../../../felles/spa-lenkepanel/SpaLenkepanel'
-import styles from './DeltakerlistePanel.module.scss'
 import { formatDate } from '../../../../utils/date-utils'
-import { Oppstartstype } from '../../../../api/data/historikk'
 import { harFellesOppstart } from '../../../../utils/deltakerliste-utils'
+import { Link } from 'react-router-dom'
 
 interface DeltakerlistePanelProps {
   id: string
@@ -24,20 +23,19 @@ export const DeltakerlistePanel = (
 
   return (
     <li className={globalStyles.blokkS}>
-      <SpaLenkepanel to={deltakerlisteDetaljerPageUrl(id)}>
-        <div className={styles.content}>
-          <BodyShort as="span" className={styles.panelTittel}>
-            {navn}
-          </BodyShort>
-          {harFellesOppstart(oppstartstype) && (startdato || sluttdato) && (
-            <BodyShort size="small" className={styles.datotekst}>
-              <span>
-                {formatDate(startdato)} - {formatDate(sluttdato)}
-              </span>
-            </BodyShort>
-          )}
-        </div>
-      </SpaLenkepanel>
+      <LinkCard>
+        <LinkCard.Title>
+          <LinkCard.Anchor asChild >
+            <Link to={deltakerlisteDetaljerPageUrl(id)}>{navn}</Link>
+          </LinkCard.Anchor>
+        </LinkCard.Title>
+
+        {harFellesOppstart(oppstartstype) && (startdato || sluttdato) && (
+          <LinkCard.Description>
+            {formatDate(startdato)} - {formatDate(sluttdato)}
+          </LinkCard.Description>
+        )}
+      </LinkCard>
     </li>
   )
 }

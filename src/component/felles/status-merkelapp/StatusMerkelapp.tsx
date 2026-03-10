@@ -36,13 +36,13 @@ const deltakerlisteStyle = (statusType: TiltakDeltakerStatus | string) => {
 const getTagType = (statusType: TiltakDeltakerStatus | string) => {
   switch (statusType) {
     case TiltakDeltakerStatus.VENTER_PA_OPPSTART:
-      return 'alt3'
+      return 'info'
     case TiltakDeltakerStatus.FULLFORT:
     case TiltakDeltakerStatus.HAR_SLUTTET:
-      return 'alt1'
+      return 'meta-purple'
     case TiltakDeltakerStatus.SOKT_INN:
     case TiltakDeltakerStatus.VURDERES:
-      return 'alt2'
+      return 'meta-lime'
     case TiltakDeltakerStatus.DELTAR:
     case TiltakDeltakerStatus.AVBRUTT:
     case TiltakDeltakerStatus.IKKE_AKTUELL:
@@ -60,7 +60,8 @@ export const StatusMerkelapp = (props: StatusProps) => {
   const { type } = props.status
   return (
     <Tag
-      variant={getTagType(type)}
+      variant="outline"
+      data-color={getTagType(type)}
       size="xsmall"
       className={classNames(
         getStyle(type),

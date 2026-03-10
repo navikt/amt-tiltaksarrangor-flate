@@ -13,5 +13,14 @@ export default defineConfig({
 	e2e: {
 		baseUrl: 'http://localhost:3001/deltakeroversikt',
 		specPattern: 'cypress/e2e/**/*.{js,jsx,ts,tsx}',
+		setupNodeEvents(on) {
+			on('task', {
+				log(message) {
+					// eslint-disable-next-line no-console
+					console.log(message)
+					return null
+				}
+			})
+		}
 	},
 })

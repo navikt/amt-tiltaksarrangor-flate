@@ -3,6 +3,7 @@
   flex-direction: column;
   padding: 0.5rem 0;
   margin-bottom: 2rem;
+  cursor: pointer;
 }
 
 .link{
@@ -17,5 +18,4 @@
 .clipboardimage {
   display: flex;
   justify-content: flex-start;
-  padding-right: 2rem;
 }

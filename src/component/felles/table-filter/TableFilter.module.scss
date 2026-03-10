@@ -1,3 +1,4 @@
+@use '../../../colors.scss';
 .checkbox {
   width: 100%;
 
@@ -31,8 +32,8 @@
 
 ::-webkit-scrollbar-thumb {
   border-radius: 4px;
-  background-color: var(--a-gray-500);
-  box-shadow: 0 0 1px var(--a-gray-50)
+    background-color: colors.$navGraNeutral;
+      box-shadow: 0 0 1px colors.$navSubtle;
 }
 
 .expansionContent {

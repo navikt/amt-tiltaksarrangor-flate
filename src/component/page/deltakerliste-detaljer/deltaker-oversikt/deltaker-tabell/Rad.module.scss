@@ -26,12 +26,12 @@
 }
 
 .oppfyllerIkkeKraveneIkon {
-  color: var(--a-icon-danger);
+  color: var(--ax-text-danger-decoration);
   transform: rotate(45deg);
   @extend .ikon;
 }
 
 .oppfyllerKraveneIkon {
-  color: var(--a-green-500);
+  color: var(--ax-text-success-decoration);
   @extend .ikon;
 }

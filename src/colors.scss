@@ -1,9 +1,9 @@
-$navBla: var(--a-blue-500);
+$navBla: var(--ax-text-accent-subtle);
+$navWhiteDefault: var(--ax-bg-default);
+$navWhiteRaised: var(--ax-bg-raised);
 
-$interactionPrimary: var(--a-surface-action);
-$navMorkGra: var(--a-gray-900);
-$navGra80: var(--a-gray-800);
-$navGra60: var(--a-gray-600);
-$navGra30: var(--a-gray-300);
-$navLysGra: var(--a-gray-100);
-$textMuted: var(--a-text-subtle)
+$interactionPrimary: var(--ax-bg-accent-strong);
+$navMorkGra: var(--ax-border-neutral-strong);
+$navGraNeutral: var(--ax-border-neutral);
+$navSubtle: var(--ax-border-neutral-subtle);
+$navLysGra: var(--ax-bg-neutral-soft);
