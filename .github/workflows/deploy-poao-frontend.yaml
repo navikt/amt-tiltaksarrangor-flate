@@ -1,0 +1,57 @@
+name: Deploy poao-frontend
+
+on:
+  push:
+    paths:
+      - ".nais/nais-*.yaml"
+  workflow_dispatch:
+
+permissions:
+  id-token: write
+
+jobs:
+  changes:
+    runs-on: ubuntu-latest
+    outputs:
+      dev: ${{ steps.filter.outputs.dev }}
+      prod: ${{ steps.filter.outputs.prod }}
+
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: dorny/paths-filter@v4
+        id: filter
+        with:
+          filters: |
+            dev:
+              - ".nais/nais-dev.yaml"
+            prod:
+              - ".nais/nais-prod.yaml"
+
+  deploy-dev:
+    needs: changes
+    if: github.event_name == 'workflow_dispatch' || needs.changes.outputs.dev == 'true'
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: nais/deploy/actions/deploy@v2
+        env:
+          CLUSTER: dev-gcp
+          RESOURCE: .nais/nais-dev.yaml
+          PRINT_PAYLOAD: true
+
+  deploy-prod:
+    needs: changes
+    if: github.ref == 'refs/heads/main' && needs.changes.outputs.prod == 'true'
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: nais/deploy/actions/deploy@v2
+        env:
+          CLUSTER: prod-gcp
+          RESOURCE: .nais/nais-prod.yaml
+          PRINT_PAYLOAD: true
