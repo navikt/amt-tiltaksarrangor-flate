@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from 'react'
+import { createContext, use, useState } from 'react'
 import { Hendelser, TiltakDeltaker } from '../../../../api/data/deltaker'
 import {
   getHovedveileder,
@@ -41,7 +41,7 @@ export interface KoordinatorFilterContextProps {
 const KoordinatorFilterContext = createContext<KoordinatorFilterContextProps | undefined>(undefined)
 
 const useKoordinatorFilterContext = () => {
-  const context = useContext(KoordinatorFilterContext)
+  const context = use(KoordinatorFilterContext)
 
   if (!context) {
     throw new Error('useKoordinatorFilterContext must be used within an  KoordinatorFilterContextProvider')
@@ -281,7 +281,7 @@ const KoordinatorFilterContextProvider = ({
   }
 
   return (
-    <KoordinatorFilterContext.Provider value={contextValue} > {children} </KoordinatorFilterContext.Provider>
+    <KoordinatorFilterContext value={contextValue} > {children} </KoordinatorFilterContext>
   )
 }
 

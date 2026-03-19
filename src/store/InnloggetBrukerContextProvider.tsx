@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from 'react'
+import { createContext, use, useState } from 'react'
 import { Rolle } from '../api/data/ansatt'
 
 export interface InnloggetBrukerContextProps {
@@ -9,7 +9,7 @@ export interface InnloggetBrukerContextProps {
 const InnloggetBrukerContext = createContext<InnloggetBrukerContextProps | undefined>(undefined)
 
 const useInnloggetBrukerContext = () => {
-  const context = useContext(InnloggetBrukerContext)
+  const context = use(InnloggetBrukerContext)
 
   if (!context) {
     throw new Error('useInnloggetBrukerContext must be used within an InnloggetBrukerContextProvider')
@@ -27,7 +27,7 @@ const InnloggetBrukerContextProvider = ({
   const contextValue: InnloggetBrukerContextProps = { roller, setRoller }
 
   return (
-    <InnloggetBrukerContext.Provider value={contextValue} > {children} </InnloggetBrukerContext.Provider>
+    <InnloggetBrukerContext value={contextValue} > {children} </InnloggetBrukerContext>
   )
 }
 

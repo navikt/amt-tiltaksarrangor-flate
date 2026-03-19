@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useState } from 'react'
+import { createContext, use, useEffect, useState } from 'react'
 import { MineDeltakerlister } from '../api/data/deltaker'
 import { fetchDeltakeroversikt } from '../api/tiltak-api'
 import { isResolved, UsePromise, usePromise } from '../utils/use-promise'
@@ -14,7 +14,7 @@ export interface KoordinatorsDeltakerlisterContextProps {
 const KoordinatorsDeltakerlisterContext = createContext<KoordinatorsDeltakerlisterContextProps | undefined>(undefined)
 
 const useKoordinatorsDeltakerlisterContext = () => {
-  const context = useContext(KoordinatorsDeltakerlisterContext)
+  const context = use(KoordinatorsDeltakerlisterContext)
 
   if (!context) {
     throw new Error('useKoordinatorsDeltakerlisterContext must be used within an KoordinatorsDeltakerlisterContextProvider')
@@ -50,7 +50,7 @@ const KoordinatorsDeltakerlisterContextProvider = ({
   }
 
   return (
-    <KoordinatorsDeltakerlisterContext.Provider value={contextValue} > {children} </KoordinatorsDeltakerlisterContext.Provider>
+    <KoordinatorsDeltakerlisterContext value={contextValue} > {children} </KoordinatorsDeltakerlisterContext>
   )
 }
 

@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from 'react'
+import { createContext, use, useState } from 'react'
 import { Deltaker } from '../../../../api/data/deltaker'
 
 export interface DeltakerContextProps {
@@ -9,7 +9,7 @@ export interface DeltakerContextProps {
 const DeltakerContext = createContext<DeltakerContextProps | undefined>(undefined)
 
 const useDeltakerContext = () => {
-  const context = useContext(DeltakerContext)
+  const context = use(DeltakerContext)
 
   if (!context) {
     throw new Error('useDeltakerContext must be used within an DeltakerContextProvider')
@@ -29,7 +29,7 @@ const DeltakerContextProvider = ({
   const contextValue: DeltakerContextProps = { deltaker, setDeltaker }
 
   return (
-    <DeltakerContext.Provider value={contextValue} > {children} </DeltakerContext.Provider>
+    <DeltakerContext value={contextValue} > {children} </DeltakerContext>
   )
 }
 
