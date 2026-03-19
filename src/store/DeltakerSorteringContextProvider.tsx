@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from 'react'
+import { createContext, use, useState } from 'react'
 import { Sortering } from '../utils/sortering-utils'
 
 export interface DeltakerSorteringContextProps {
@@ -9,7 +9,7 @@ export interface DeltakerSorteringContextProps {
 const DeltakerSorteringContext = createContext<DeltakerSorteringContextProps | undefined>(undefined)
 
 const useDeltakerSorteringContext = () => {
-  const context = useContext(DeltakerSorteringContext)
+  const context = use(DeltakerSorteringContext)
 
   if (!context) {
     throw new Error('useDeltakerSorteringContext must be used within an DeltakerSorteringContextProvider')
@@ -27,7 +27,7 @@ const DeltakerSorteringContextProvider = ({
   const contextValue: DeltakerSorteringContextProps = { deltakerSortering, setDeltakerSortering }
 
   return (
-    <DeltakerSorteringContext.Provider value={contextValue} > {children} </DeltakerSorteringContext.Provider>
+    <DeltakerSorteringContext value={contextValue} > {children} </DeltakerSorteringContext>
   )
 }
 

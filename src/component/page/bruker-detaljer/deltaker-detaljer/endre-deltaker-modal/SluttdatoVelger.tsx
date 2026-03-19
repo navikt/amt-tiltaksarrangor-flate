@@ -6,7 +6,7 @@ import {
   useDatepicker
 } from '@navikt/ds-react'
 import dayjs from 'dayjs'
-import { forwardRef, useImperativeHandle, useState } from 'react'
+import { useImperativeHandle, useState } from 'react'
 import { Tiltakskode } from '../../../../../api/data/tiltak'
 import { formatDate } from '../../../../../utils/date-utils'
 import styles from './SluttdatoVelger.module.scss'
@@ -31,20 +31,8 @@ export interface SluttdatoRef {
   error?: string
 }
 
-export const SluttdatoVelger = forwardRef<SluttdatoRef, SluttdatoVelgerProps>(
-  function SluttdatoVelger(
-    {
-      tiltakskode,
-      legend,
-      detailLabel,
-      min,
-      max,
-      defaultSluttdato,
-      defaultMaaned,
-      defaultVarighet,
-      erForOppstartsdato
-    }: SluttdatoVelgerProps,
-    ref
+export const SluttdatoVelger = function SluttdatoVelger(
+  { ref, tiltakskode, legend, detailLabel, min, max, defaultSluttdato, defaultMaaned, defaultVarighet, erForOppstartsdato }: SluttdatoVelgerProps & { ref?: React.RefObject<SluttdatoRef | null> }
   ) {
     const varighetsvalg = varighetValgForKode(tiltakskode, erForOppstartsdato)
     const visRadioAnnet = varighetsvalg.length > 0
@@ -138,5 +126,4 @@ export const SluttdatoVelger = forwardRef<SluttdatoRef, SluttdatoVelgerProps>(
         )}
       </RadioGroup>
     )
-  }
-)
+}

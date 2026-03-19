@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from 'react'
+import { createContext, use, useState } from 'react'
 import { Hendelser, VeiledersDeltaker } from '../../../../api/data/deltaker'
 import { tilVeiledertype } from '../../../../utils/deltakerliste-utils'
 import { Veiledertype } from '../../../../api/data/veileder'
@@ -31,7 +31,7 @@ export interface VeilederFilterContextProps {
 const VeilederFilterContext = createContext<VeilederFilterContextProps | undefined>(undefined)
 
 const useVeilederFilterContext = () => {
-  const context = useContext(VeilederFilterContext)
+  const context = use(VeilederFilterContext)
 
   if (!context) {
     throw new Error('useVeilederFilterContext must be used within an VeilederFilterContextProvider')
@@ -181,7 +181,7 @@ const VeilederFilterContextProvider = ({
   }
 
   return (
-    <VeilederFilterContext.Provider value={contextValue} > {children} </VeilederFilterContext.Provider>
+    <VeilederFilterContext value={contextValue} > {children} </VeilederFilterContext>
   )
 }
 

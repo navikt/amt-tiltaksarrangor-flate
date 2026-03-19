@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from 'react'
+import { createContext, use, useState } from 'react'
 
 export interface TilbakelenkeContextProps {
   tilbakeTilUrl?: string | null
@@ -8,7 +8,7 @@ export interface TilbakelenkeContextProps {
 const TilbakelenkeContext = createContext<TilbakelenkeContextProps | undefined>(undefined)
 
 const useTilbakelenkeContext = () => {
-  const context = useContext(TilbakelenkeContext)
+  const context = use(TilbakelenkeContext)
 
   if (!context) {
     throw new Error('useTilbakelenkeContext must be used within an TilbakelenkeContextProvider')
@@ -26,7 +26,7 @@ const TilbakelenkeContextProvider = ({
   const contextValue: TilbakelenkeContextProps = { tilbakeTilUrl, setTilbakeTilUrl }
 
   return (
-    <TilbakelenkeContext.Provider value={contextValue} > {children} </TilbakelenkeContext.Provider>
+    <TilbakelenkeContext value={contextValue} > {children} </TilbakelenkeContext>
   )
 }
 
