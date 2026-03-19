@@ -6,4 +6,6 @@ onlyBuiltDependencies:
   - esbuild
   - msw
 
-minimumReleaseAge: 17280  # 12 dager i minutter. Matcher vår dependanbot-config
+# Pakker må være 7 dager gamle før de kan installeres (likt som dependabot cooldown)
+# Et sikkerhetstiltak i tilfelle en pakke blir komprimittert
+minimumReleaseAge: 10080 # 24 x 60 x 7
