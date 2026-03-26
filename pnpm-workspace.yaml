@@ -12,4 +12,5 @@ minimumReleaseAge: 10080 # 24 x 60 x 7
 
 # Unntak for manuelt oppdaterte pakker innenfor minimumReleaseAge
 minimumReleaseAgeExclude:
-  - picomatch@4.0.4 # CVE-2026-33228. sjekk pnpm overrides
+  - picomatch@4.0.4 # CVE-2026-33228
+  - yaml@2.8.3 # CWE-674
