@@ -49,7 +49,7 @@
     "@eslint/js": "^10.0.1",
     "@faker-js/faker": "^10.3.0",
     "@navikt/aksel": "^8.7.0",
-    "@vitejs/plugin-react": "^5.1.4",
+    "@vitejs/plugin-react": "^6.0.1",
     "cpy-cli": "^7.0.0",
     "cypress": "^15.12.0",
     "cypress-axe": "^1.7.0",
@@ -66,7 +66,7 @@
     "table": "^6.9.0",
     "typescript": "^5.9.3",
     "typescript-eslint": "^8.57.1",
-    "vite": "^7.3.1",
+    "vite": "^8.0.0",
     "vitest": "^4.1.0"
   },
   "msw": {
