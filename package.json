@@ -30,7 +30,7 @@
     "@navikt/ds-css": "^8.7.0",
     "@navikt/ds-react": "^8.7.0",
     "@navikt/nav-dekoratoren-moduler": "^3.6.3",
-    "@sentry/react": "^10.43.0",
+    "@sentry/react": "^10.44.0",
     "@sentry/tracing": "^7.120.4",
     "@types/react": "^19.2.14",
     "@types/react-collapse": "^5.0.4",
@@ -60,13 +60,13 @@
     "globals": "^17.4.0",
     "husky": "^9.1.7",
     "lint-staged": "^16.4.0",
-    "msw": "^2.12.12",
+    "msw": "^2.12.13",
     "prettier": "^3.8.1",
     "sass": "^1.98.0",
     "table": "^6.9.0",
     "typescript": "^5.9.3",
     "typescript-eslint": "^8.57.1",
-    "vite": "^8.0.0",
+    "vite": "^8.0.1",
     "vitest": "^4.1.0"
   },
   "msw": {
@@ -74,5 +74,12 @@
       "public"
     ]
   },
-  "packageManager": "pnpm@10.28.0"
+  "packageManager": "pnpm@10.28.0",
+  "pnpm": {
+    "overrides": {
+      "flatted@<3.4.1": ">=3.4.2",
+      "picomatch@<4.0.4": ">=4.0.4",
+      "yaml@>=2.0.0 <2.8.3": ">=2.8.3"
+    }
+  }
 }
