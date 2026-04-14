@@ -14,5 +14,5 @@ minimumReleaseAge: 10080 # 24 x 60 x 7
 minimumReleaseAgeExclude:
   - picomatch@4.0.4 # CVE-2026-33228
   - yaml@2.8.3 # CWE-674
-  - axios@1.5.0 # CVE-2026-40175
+  - axios@1.15.0 # CVE-2026-40175
   - lodash@4.18.0 # CVE-2026-4800
