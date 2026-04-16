@@ -11,7 +11,7 @@ updates:
     registries:
       - npm-github
     schedule:
-      interval: dayly
+      interval: daily
       time: '05:00'
       timezone: Europe/Oslo
     cooldown:
