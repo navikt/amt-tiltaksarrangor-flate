@@ -15,7 +15,7 @@ interface Props {
 
 const FilterCheckbox = (entry: FiltermenyDataEntry) => {
   return (
-    <Checkbox className={styles.checkbox} value={entry.id}>
+    <Checkbox value={entry.id}>
       <span className={styles.content}>
         <span>{entry.displayName}</span>
         <span className={styles.occurrences}>{entry.antallDeltakere}</span>

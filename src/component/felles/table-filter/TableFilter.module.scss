@@ -1,11 +1,4 @@
 @use '../../../colors.scss';
-.checkbox {
-  width: 100%;
-
-  label > span {
-    width: 100%;
-  }
-}
 
 .occurrences {
   font-weight: bolder;
@@ -14,11 +7,14 @@
 .content {
   display: flex;
   justify-content: space-between;
-  gap: 1rem
+  gap: 1rem;
 }
 
 .checkboxGroup {
   margin: 0;
+  :global(.aksel-checkbox) {
+      width: 100%;
+    }
 }
 
 .expansionCard {
