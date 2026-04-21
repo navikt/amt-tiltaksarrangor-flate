@@ -22,6 +22,7 @@ export const DeltakelseInnholdListe = ({
 
   const kanKunHaAnnetInnhold = erOpplaringstiltak(tiltakskode)
     || tiltakskode === Tiltakskode.VARIG_TILRETTELAGT_ARBEID_SKJERMET
+    || tiltakskode === Tiltakskode.TILPASSET_JOBBSTOTTE
 
   return (
     <div>
