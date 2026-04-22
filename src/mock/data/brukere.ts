@@ -189,7 +189,10 @@ const finnSluttdato = (
     deltakerstatus === TiltakDeltakerStatus.HAR_SLUTTET ||
     deltakerstatus === TiltakDeltakerStatus.FULLFORT
 
-  if (gjennomforing.tiltak.tiltakskode === Tiltakskode.VARIG_TILRETTELAGT_ARBEID_SKJERMET) return null
+  if (gjennomforing.tiltak.tiltakskode === Tiltakskode.VARIG_TILRETTELAGT_ARBEID_SKJERMET
+    || gjennomforing.tiltak.tiltakskode === Tiltakskode.TILPASSET_JOBBSTOTTE
+  ) return null
+
   if (erKurs && erAvbrutt) {
     return startDato && gjennomforing.sluttDato
       ? faker.date.between({ from: startDato, to: gjennomforing.sluttDato })

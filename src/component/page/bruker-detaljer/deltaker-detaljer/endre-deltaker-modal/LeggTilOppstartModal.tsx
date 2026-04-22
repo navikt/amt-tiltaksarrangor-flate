@@ -22,6 +22,7 @@ export const LeggTilOppstartModal = ({
 
   const skalVelgeSluttdato =
     deltaker.deltakerliste.tiltakskode !== Tiltakskode.VARIG_TILRETTELAGT_ARBEID_SKJERMET
+    && deltaker.deltakerliste.tiltakskode !== Tiltakskode.TILPASSET_JOBBSTOTTE
 
     const kanSendeMelding = startdato !== null && sluttdato !== null
 

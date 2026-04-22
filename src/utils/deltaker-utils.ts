@@ -15,10 +15,14 @@ export const lagAdresseTekst = (adresse: Adresse) => {
 export const harAdresse = (tiltakskode: Tiltakskode) =>
   !erOpplaringstiltak(tiltakskode) &&
   tiltakskode !== Tiltakskode.DIGITALT_OPPFOLGINGSTILTAK &&
-  tiltakskode !== Tiltakskode.JOBBKLUBB
+  tiltakskode !== Tiltakskode.JOBBKLUBB &&
+  tiltakskode !== Tiltakskode.TILPASSET_JOBBSTOTTE
 
 export const skalViseDeltakelsesmengde = (tiltakskode: Tiltakskode) =>
-  [Tiltakskode.ARBEIDSFORBEREDENDE_TRENING, Tiltakskode.VARIG_TILRETTELAGT_ARBEID_SKJERMET].includes(tiltakskode)
+  [ Tiltakskode.ARBEIDSFORBEREDENDE_TRENING,
+    Tiltakskode.VARIG_TILRETTELAGT_ARBEID_SKJERMET,
+    Tiltakskode.TILPASSET_JOBBSTOTTE
+  ].includes(tiltakskode)
 
 export const getDagerPerUkeTekst = (dagerPerUke: number): string => {
   if (dagerPerUke === 1) {

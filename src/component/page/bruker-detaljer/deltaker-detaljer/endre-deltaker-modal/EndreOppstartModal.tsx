@@ -24,6 +24,7 @@ export const EndreOppstartModal = ({
   const [startdato, setStartdato] = useState<Nullable<Date>>(deltaker.startDato)
   const [begrunnelse, setBegrunnelse] = useState<string>('')
   const skalVelgeVarighet = deltaker.deltakerliste.tiltakskode != Tiltakskode.VARIG_TILRETTELAGT_ARBEID_SKJERMET
+    && deltaker.deltakerliste.tiltakskode != Tiltakskode.TILPASSET_JOBBSTOTTE
   const sluttdato = useRef<SluttdatoRef>(null)
 
   const kanSendeMelding = startdato !== null && gyldigObligatoriskBegrunnelse(begrunnelse)
