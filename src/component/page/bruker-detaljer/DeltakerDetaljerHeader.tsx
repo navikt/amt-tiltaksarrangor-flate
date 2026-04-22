@@ -61,7 +61,7 @@ export const DeltakerDetaljerHeader = (
   const query = useQuery()
   const [visAdresse, setVisAdresse] = useState(false)
   const visAdresseForTiltak =
-    !props.adressebeskyttet && harAdresse(tiltakskode)
+    !props.adressebeskyttet && adresse && harAdresse(tiltakskode)
 
   const toggleVisAdresse = () => {
     setVisAdresse(!visAdresse)
@@ -111,6 +111,7 @@ export const DeltakerDetaljerHeader = (
             />
           </div>
         </div>
+
         {visAdresseForTiltak && (
           <Button
             variant="tertiary"
