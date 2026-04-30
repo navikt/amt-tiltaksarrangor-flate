@@ -29,6 +29,15 @@ class Environment {
       return 'development'
     }
   }
+
+  get faroUrl(): string | undefined {
+    if (this.isProd) {
+      return 'https://telemetry.nav.no/collect'
+    } else if (this.isPreprod) {
+      return 'https://telemetry.ekstern.dev.nav.no/collect'
+    }
+    return undefined
+  }
 }
 
 const env = new Environment()
