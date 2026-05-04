@@ -14,13 +14,14 @@ import { BrowserRouter } from 'react-router-dom'
 
 import { App } from './App'
 import { DemoBanner } from './component/felles/demo-banner/DemoBanner'
-import { ErrorBoundary } from './component/felles/ErrorBoundry'
 import { ErrorPage } from './component/page/error/ErrorPage'
 import StoreProvider from './store/store-provider'
 import env from './utils/environment'
 import { setupNavDekorator } from './utils/nav-dekorator'
 import { initSentry } from './utils/sentry-utils'
 import { enableMocking } from './mock/setupMocks'
+import { initializeFaro } from '@grafana/faro-web-sdk'
+import { FaroErrorBoundary } from '@grafana/faro-react'
 
 dayjs.locale(nb)
 dayjs.extend(utc)
@@ -42,18 +43,65 @@ const renderAsReactRoot = () => {
 
   root.render(
     <React.StrictMode>
-      <ErrorBoundary renderOnError={() => <ErrorPage />}>
+      <FaroErrorBoundary fallback={<ErrorPage />}>
         <StoreProvider>
           {env.isDemo && <DemoBanner />}
           <BrowserRouter>
             <App />
           </BrowserRouter>
         </StoreProvider>
-      </ErrorBoundary>
+      </FaroErrorBoundary>
     </React.StrictMode>
   )
 }
 
 enableMocking().then(() => {
+  if (env.faroUrl) {
+    initializeFaro({
+      url: env.faroUrl,
+      app: {
+        name: 'amt-deltaker-innbyggers-flate',
+        version: import.meta.env.VITE_APP_VERSION || 'local'
+      },
+      isolate: true,
+      beforeSend: faroBeforeSend
+    })
+  }
+
   renderAsReactRoot()
 })
+
+// Faro beforeSend callback for å rense telemetri-data før de sendes til Faro. Dette inkluderer:
+// 1. Fjerne query-parametere fra side-URLer for å unngå at sensitive data som tokens eller autorisasjonskoder logges.
+// 2. Dropp hele telemetri-elementet hvis payloaden inneholder et 11-sifret mønster som kan være et fødselsnummer, for å beskytte personopplysninger.
+
+interface TransportItem {
+  meta?: {
+    page?: {
+      url?: string
+    }
+  }
+}
+
+const faroBeforeSend = <T extends TransportItem>(item: T): T | null => {
+  // Fjern query-parametere fra side-URLer.
+  // Kan inneholde tokens, autorisasjonskoder eller andre identifikatorer.
+  if (item.meta?.page?.url) {
+    try {
+      const url = new URL(item.meta.page.url)
+      url.search = ''
+      item.meta.page.url = url.toString()
+    } catch {
+      /* ignore malformed URLs */
+    }
+  }
+
+  // Dropp hele telemetri-elementet hvis payloaden inneholder et
+  // 11-sifret mønster som kan være et fødselsnummer.
+  const payload = JSON.stringify(item)
+  if (/\d{11}/.test(payload)) {
+    return null
+  }
+
+  return item
+}
