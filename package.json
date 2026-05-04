@@ -26,11 +26,11 @@
     ]
   },
   "dependencies": {
-    "@navikt/aksel-icons": "^8.10.1",
-    "@navikt/ds-css": "^8.10.1",
-    "@navikt/ds-react": "^8.10.1",
+    "@navikt/aksel-icons": "^8.10.2",
+    "@navikt/ds-css": "^8.10.2",
+    "@navikt/ds-react": "^8.10.2",
     "@navikt/nav-dekoratoren-moduler": "^3.7.1",
-    "@sentry/react": "^10.49.0",
+    "@sentry/react": "^10.50.0",
     "@sentry/tracing": "^7.120.4",
     "@types/react": "^19.2.14",
     "@types/react-collapse": "^5.0.4",
@@ -48,7 +48,7 @@
   "devDependencies": {
     "@eslint/js": "^10.0.1",
     "@faker-js/faker": "^10.4.0",
-    "@navikt/aksel": "^8.10.1",
+    "@navikt/aksel": "^8.10.2",
     "@vitejs/plugin-react": "^6.0.1",
     "cpy-cli": "^7.0.0",
     "cypress": "^15.14.1",
@@ -60,13 +60,13 @@
     "globals": "^17.5.0",
     "husky": "^9.1.7",
     "lint-staged": "^16.4.0",
-    "msw": "^2.13.5",
+    "msw": "^2.13.6",
     "prettier": "^3.8.3",
     "sass": "^1.99.0",
     "table": "^6.9.0",
     "typescript": "^6.0.3",
     "typescript-eslint": "^8.59.0",
-    "vite": "^8.0.9",
+    "vite": "^8.0.10",
     "vitest": "^4.1.5"
   },
   "msw": {
