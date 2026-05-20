@@ -9,6 +9,7 @@ import { useTabTitle } from '../../../hooks/use-tab-title'
 import { MINE_DELTAKERLISTER_PAGE_ROUTE } from '../../../navigation'
 import { useTilbakelenkeContext } from '../../../store/TilbakelenkeContextProvider'
 import {
+  isForbidden,
   isNotFound,
   isNotStartedOrPending,
   isRejected,
@@ -45,6 +46,10 @@ export const DeltakerlisteDetaljerPage = (): React.ReactElement => {
   if (isRejected(fetchKoordinatorsDeltakerlistePromise)) {
     if (isNotFound(fetchKoordinatorsDeltakerlistePromise)) {
       return <Navigate replace to={MINE_DELTAKERLISTER_PAGE_ROUTE} />
+    }
+
+    if (isForbidden(fetchKoordinatorsDeltakerlistePromise)) {
+      return <AlertPage variant="error" tekst="Du har ikke tilgang til denne deltakerlisten" />
     }
 
     return <AlertPage variant="error" tekst="Noe gikk galt" />
