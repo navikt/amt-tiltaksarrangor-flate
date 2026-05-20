@@ -157,3 +157,10 @@ export const isNotFound = <R>(state: PromiseState<R>): boolean => {
     state.status === Status.REJECTED && state.error.response?.status === 404
   )
 }
+
+export const isForbidden = <R>(state: PromiseState<R>): boolean => {
+  return (
+    state.status === Status.REJECTED && state.error.response?.status === 403
+  )
+}
+
