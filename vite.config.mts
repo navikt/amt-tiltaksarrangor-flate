@@ -9,7 +9,14 @@ export default defineConfig({
 	},
 	server: {
 		port: 3001,
-		open: true
+		open: true,
+		proxy: {
+			'/amt-tiltaksarrangor-bff': {
+				target: 'http://localhost:8088',
+				changeOrigin: true,
+				rewrite: (path: string) => path.replace(/^\/amt-tiltaksarrangor-bff/, ''),
+			}
+		}
 	},
 	base: process.env.BASE || '/deltakeroversikt/',
 	plugins: [ react() ],
