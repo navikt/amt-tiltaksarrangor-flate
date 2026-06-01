@@ -11,10 +11,10 @@ export default defineConfig({
 		port: 3001,
 		open: true,
 		proxy: {
-			'/amt-tiltaksarrangor-bff': {
+			'/deltakeroversikt/amt-tiltaksarrangor-bff': {
 				target: 'http://localhost:8088',
 				changeOrigin: true,
-				rewrite: (path: string) => path.replace(/^\/amt-tiltaksarrangor-bff/, ''),
+				rewrite: (path: string) => path.replace(/^\/deltakeroversikt\/amt-tiltaksarrangor-bff/, ''),
 			}
 		}
 	},
