@@ -21,7 +21,8 @@ export default defineConfig(async ({ mode }: { mode: string }) => {
               changeOrigin: true,
               headers: {
                 'x-local-app-source': 'tiltaksarrangor-flate'
-              }
+              },
+              rewrite: (path: string) => path.replace(/^\/deltakeroversikt/, '')
             }
           }
         : undefined
