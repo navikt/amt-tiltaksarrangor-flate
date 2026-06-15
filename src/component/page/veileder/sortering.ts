@@ -1,4 +1,8 @@
-import { compareAsc, Sortering } from '../../../utils/sortering-utils'
+import {
+  compareAsc,
+  sortAlphabeticAsc,
+  Sortering
+} from '../../../utils/sortering-utils'
 import { VeiledersDeltaker } from '../../../api/data/deltaker'
 
 export enum DeltakerKolonne {
@@ -25,8 +29,10 @@ export const sorterVeiledersDeltakere = (
   const sorterteDeltakereAsc = [...deltakere].sort((a, b) => {
     switch (sortering.orderBy) {
       case DeltakerKolonne.NAVN: {
-        const compareRes = compareAsc(a.etternavn, b.etternavn)
-        return compareRes != 0 ? compareRes : compareAsc(a.fornavn, b.fornavn)
+        const compareRes = sortAlphabeticAsc(a.etternavn, b.etternavn)
+        return compareRes != 0
+          ? compareRes
+          : sortAlphabeticAsc(a.fornavn, b.fornavn)
       }
       case DeltakerKolonne.STATUS:
         return compareAsc(a.status.type, b.status.type)
