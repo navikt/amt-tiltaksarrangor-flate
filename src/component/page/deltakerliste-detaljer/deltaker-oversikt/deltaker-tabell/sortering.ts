@@ -1,6 +1,10 @@
 import { TiltakDeltaker } from '../../../../../api/data/deltaker'
 import { Veiledertype } from '../../../../../api/data/veileder'
-import { compareAsc, Sortering } from '../../../../../utils/sortering-utils'
+import {
+  compareAsc,
+  sortAlphabeticAsc,
+  Sortering
+} from '../../../../../utils/sortering-utils'
 
 export enum DeltakerKolonne {
   NAVN = 'NAVN',
@@ -27,8 +31,10 @@ export const sorterDeltakere = (
   const sorterteDeltakereAsc = [...deltakere].sort((a, b) => {
     switch (sortering.orderBy) {
       case DeltakerKolonne.NAVN: {
-        const compareRes = compareAsc(a.etternavn, b.etternavn)
-        return compareRes != 0 ? compareRes : compareAsc(a.fornavn, b.fornavn)
+        const compareRes = sortAlphabeticAsc(a.etternavn, b.etternavn)
+        return compareRes != 0
+          ? compareRes
+          : sortAlphabeticAsc(a.fornavn, b.fornavn)
       }
       case DeltakerKolonne.VEILEDER: {
         const v1 = a.veiledere.filter(
