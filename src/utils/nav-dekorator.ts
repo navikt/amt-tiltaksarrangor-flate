@@ -17,6 +17,7 @@ const utledEnv = () => {
 export const setupNavDekorator = (): Promise<void> => {
   return injectDecoratorClientSide({
     env: utledEnv(),
+    teamName: "komet",
     params: {
       context: 'samarbeidspartner',
       simpleFooter: true,
