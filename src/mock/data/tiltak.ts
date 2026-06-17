@@ -89,9 +89,9 @@ export const gjennomforingInfoListe: GjennomforingInfo[] = [
     status: TiltakGjennomforingStatus.GJENNOMFORES
   },
   {
-    gjennomforingNavn: 'Tilpasset jobbstøtte Region Nordsør',
-    tiltakskode: Tiltakskode.TILPASSET_JOBBSTOTTE,
-    tiltaksnavn: 'Tilpasset jobbstøtte',
+    gjennomforingNavn: 'Varig tilrettelagt arbeid hos Region Nordsør',
+    tiltakskode: Tiltakskode.VARIG_TILRETTELAGT_ARBEID_ORDINAER,
+    tiltaksnavn: 'Varig tilrettelagt arbeid i ordinær virksomhet',
     status: TiltakGjennomforingStatus.GJENNOMFORES
   },
   {
