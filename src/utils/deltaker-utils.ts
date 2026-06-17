@@ -16,12 +16,12 @@ export const harAdresse = (tiltakskode: Tiltakskode) =>
   !erOpplaringstiltak(tiltakskode) &&
   tiltakskode !== Tiltakskode.DIGITALT_OPPFOLGINGSTILTAK &&
   tiltakskode !== Tiltakskode.JOBBKLUBB &&
-  tiltakskode !== Tiltakskode.TILPASSET_JOBBSTOTTE
+  tiltakskode !== Tiltakskode.VARIG_TILRETTELAGT_ARBEID_ORDINAER
 
 export const skalViseDeltakelsesmengde = (tiltakskode: Tiltakskode) =>
   [ Tiltakskode.ARBEIDSFORBEREDENDE_TRENING,
     Tiltakskode.VARIG_TILRETTELAGT_ARBEID_SKJERMET,
-    Tiltakskode.TILPASSET_JOBBSTOTTE
+    Tiltakskode.VARIG_TILRETTELAGT_ARBEID_ORDINAER
   ].includes(tiltakskode)
 
 export const getDagerPerUkeTekst = (dagerPerUke: number): string => {

@@ -71,7 +71,7 @@ export const varighetValgForKode = (
         ? [ VarighetValg.FIRE_UKER, VarighetValg.ATTE_UKER ]
         : [ VarighetValg.FIRE_UKER ]
     case Tiltakskode.VARIG_TILRETTELAGT_ARBEID_SKJERMET:
-    case Tiltakskode.TILPASSET_JOBBSTOTTE: // TODO er denne riktig da?
+    case Tiltakskode.VARIG_TILRETTELAGT_ARBEID_ORDINAER:
       return [ VarighetValg.SEKS_MANEDER, VarighetValg.TOLV_MANEDER ]
     case Tiltakskode.JOBBKLUBB:
       return [
@@ -207,7 +207,7 @@ export function maxVarighetMillisFor(
       return aarMs(3) + maanederMs(6)
     case Tiltakskode.JOBBKLUBB:
     case Tiltakskode.VARIG_TILRETTELAGT_ARBEID_SKJERMET:
-    case Tiltakskode.TILPASSET_JOBBSTOTTE:
+    case Tiltakskode.VARIG_TILRETTELAGT_ARBEID_ORDINAER:
     case Tiltakskode.ENKELTPLASS_ARBEIDSMARKEDSOPPLAERING:
     case Tiltakskode.ENKELTPLASS_FAG_OG_YRKESOPPLAERING:
       return undefined
@@ -239,7 +239,7 @@ export function maxVarighetLeggTilOppstartsDatoMillisFor(
       return aarMs(1)
     case Tiltakskode.JOBBKLUBB:
     case Tiltakskode.VARIG_TILRETTELAGT_ARBEID_SKJERMET:
-    case Tiltakskode.TILPASSET_JOBBSTOTTE:
+    case Tiltakskode.VARIG_TILRETTELAGT_ARBEID_ORDINAER:
     case Tiltakskode.ENKELTPLASS_ARBEIDSMARKEDSOPPLAERING:
     case Tiltakskode.ENKELTPLASS_FAG_OG_YRKESOPPLAERING:
       return undefined
