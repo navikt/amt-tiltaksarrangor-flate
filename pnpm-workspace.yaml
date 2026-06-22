@@ -1,18 +1,14 @@
 packages:
   - "."
 
-onlyBuiltDependencies:
-  - cypress
-  - esbuild
-  - msw
+allowBuilds:
+  '@swc/core': false
+  esbuild: true
+  msw: true
+  protobufjs: false
+  cypress: true
+  '@parcel/watcher': false
 
 # Pakker må være 7 dager gamle før de kan installeres (likt som dependabot cooldown)
 # Et sikkerhetstiltak i tilfelle en pakke blir komprimittert
 minimumReleaseAge: 10080 # 24 x 60 x 7
-
-# Unntak for manuelt oppdaterte pakker innenfor minimumReleaseAge
-minimumReleaseAgeExclude:
-  - picomatch@4.0.4 # CVE-2026-33228
-  - yaml@2.8.3 # CWE-674
-  - axios@1.15.0 # CVE-2026-40175
-  - lodash@4.18.0 # CVE-2026-4800
