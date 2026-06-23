@@ -29,7 +29,7 @@
     "@navikt/aksel-icons": "^8.12.1",
     "@navikt/ds-css": "^8.12.1",
     "@navikt/ds-react": "^8.12.1",
-    "@navikt/nav-dekoratoren-moduler": "4.2.3-beta.5",
+    "@navikt/nav-dekoratoren-moduler": "4.2.3-beta.6",
     "@sentry/react": "^10.58.0",
     "@sentry/tracing": "^7.120.4",
     "@types/react": "^19.2.17",
