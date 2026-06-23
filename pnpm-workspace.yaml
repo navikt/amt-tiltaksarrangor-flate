@@ -1,10 +1,13 @@
 packages:
   - "."
 
-onlyBuiltDependencies:
-  - cypress
-  - esbuild
-  - msw
+allowBuilds:
+  '@swc/core': false
+  esbuild: true
+  msw: true
+  protobufjs: false
+  cypress: true
+  '@parcel/watcher': false
 
 # Pakker må være 7 dager gamle før de kan installeres (likt som dependabot cooldown)
 # Et sikkerhetstiltak i tilfelle en pakke blir komprimittert

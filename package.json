@@ -26,34 +26,34 @@
     ]
   },
   "dependencies": {
-    "@navikt/aksel-icons": "^8.11.1",
-    "@navikt/ds-css": "^8.11.1",
-    "@navikt/ds-react": "^8.11.1",
-    "@navikt/nav-dekoratoren-moduler": "4.2.3-beta.5",
-    "@sentry/react": "^10.56.0",
+    "@navikt/aksel-icons": "^8.12.1",
+    "@navikt/ds-css": "^8.12.1",
+    "@navikt/ds-react": "^8.12.1",
+    "@navikt/nav-dekoratoren-moduler": "^4.2.2",
+    "@sentry/react": "^10.58.0",
     "@sentry/tracing": "^7.120.4",
-    "@types/react": "^19.2.16",
+    "@types/react": "^19.2.17",
     "@types/react-collapse": "^5.0.4",
     "@types/react-dom": "^19.2.3",
     "@types/react-router-dom": "^5.3.3",
-    "axios": "^1.17.0",
+    "axios": "^1.18.0",
     "classnames": "^2.5.1",
     "dayjs": "^1.11.21",
     "react": "^19.2.7",
     "react-dom": "^19.2.7",
-    "react-router-dom": "^7.16.0",
+    "react-router-dom": "^7.17.0",
     "typescript": "^6.0.3",
     "zod": "^4.4.3"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
     "@faker-js/faker": "^10.4.0",
-    "@navikt/aksel": "^8.11.1",
+    "@navikt/aksel": "^8.12.1",
     "@vitejs/plugin-react": "^6.0.2",
     "cpy-cli": "^7.0.0",
-    "cypress": "^15.16.0",
+    "cypress": "^15.17.0",
     "cypress-axe": "^1.7.0",
-    "eslint": "^10.4.1",
+    "eslint": "^10.5.0",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-cypress": "^6.4.1",
     "eslint-plugin-jsx-a11y": "^6.10.2",
@@ -61,27 +61,18 @@
     "husky": "^9.1.7",
     "lint-staged": "^17.0.7",
     "msw": "^2.14.6",
-    "prettier": "^3.8.3",
-    "sass": "^1.100.0",
+    "prettier": "^3.8.4",
+    "sass": "^1.101.0",
     "table": "^6.9.0",
     "typescript": "^6.0.3",
-    "typescript-eslint": "^8.60.1",
+    "typescript-eslint": "^8.61.1",
     "vite": "^8.0.16",
-    "vitest": "^4.1.8"
+    "vitest": "^4.1.9"
   },
   "msw": {
     "workerDirectory": [
       "public"
     ]
   },
-  "packageManager": "pnpm@10.33.0",
-  "pnpm": {
-    "overrides": {
-      "flatted@<3.4.1": ">=3.4.2",
-      "picomatch@<4.0.4": ">=4.0.4",
-      "yaml@>=2.0.0 <2.8.3": ">=2.8.3",
-      "axios@<1.15.0": ">=1.15.0",
-      "lodash@>=4.0.0 <=4.17.23": ">=4.18.0"
-    }
-  }
+  "packageManager": "pnpm@11.8.0"
 }
