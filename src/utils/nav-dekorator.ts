@@ -28,9 +28,11 @@ export const setupNavDekorator = async (): Promise<void> => {
     }
   })
 
-  await logAnalyticsCustomEvent({
-    origin: APP_NAME,
-    eventName: 'app-started',
-    eventData: { teamName: TEAM_NAME }
-  })
+  if (env.isProd || env.isPreprod) {
+    await logAnalyticsCustomEvent({
+      origin: APP_NAME,
+      eventName: 'app-started',
+      eventData: { teamName: TEAM_NAME }
+    })
+  }
 }
