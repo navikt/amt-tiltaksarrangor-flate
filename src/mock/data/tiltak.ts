@@ -90,8 +90,8 @@ export const gjennomforingInfoListe: GjennomforingInfo[] = [
   },
   {
     gjennomforingNavn: 'Varig tilrettelagt arbeid hos Region Nordsør',
-    tiltakskode: Tiltakskode.VARIG_TILRETTELAGT_ARBEID_ORDINAER,
-    tiltaksnavn: 'Varig tilrettelagt arbeid i ordinær virksomhet',
+    tiltakskode: Tiltakskode.TILRETTELAGT_ARBEID_ORDINAER,
+    tiltaksnavn: 'Tilrettelagt arbeid i ordinær virksomhet',
     status: TiltakGjennomforingStatus.GJENNOMFORES
   },
   {

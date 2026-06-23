@@ -190,7 +190,7 @@ const finnSluttdato = (
     deltakerstatus === TiltakDeltakerStatus.FULLFORT
 
   if (gjennomforing.tiltak.tiltakskode === Tiltakskode.VARIG_TILRETTELAGT_ARBEID_SKJERMET
-    || gjennomforing.tiltak.tiltakskode === Tiltakskode.VARIG_TILRETTELAGT_ARBEID_ORDINAER
+    || gjennomforing.tiltak.tiltakskode === Tiltakskode.TILRETTELAGT_ARBEID_ORDINAER
   ) return null
 
   if (erKurs && erAvbrutt) {
