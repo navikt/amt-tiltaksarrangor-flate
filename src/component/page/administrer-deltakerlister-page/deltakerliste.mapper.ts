@@ -36,6 +36,7 @@ export const deltakerlisteMapper = (
         id: deltakerliste.id,
         navn: deltakerliste.navn,
         tiltaksnavn: deltakerliste.tiltaksnavn,
+        oppstartstype: deltakerliste.oppstartstype,
         startDato: deltakerliste.startDato,
         sluttDato: deltakerliste.sluttDato
       })

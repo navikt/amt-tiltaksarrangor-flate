@@ -17,5 +17,5 @@ export interface Deltakerliste {
   tiltaksnavn: string
   startDato: Date | null
   sluttDato: Date | null
-  oppstartstype: Oppstartstype
+  oppstartstype: Oppstartstype | null
 }

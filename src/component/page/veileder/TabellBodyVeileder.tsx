@@ -1,5 +1,5 @@
 import { Table } from '@navikt/ds-react'
-import React from 'react'
+import React, { JSX } from 'react'
 
 import { VeiledersDeltaker } from '../../../api/data/deltaker'
 import { RadVeileder } from './RadVeileder'
