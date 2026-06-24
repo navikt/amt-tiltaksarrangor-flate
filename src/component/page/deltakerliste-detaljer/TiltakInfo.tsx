@@ -1,9 +1,8 @@
-import { Alert, BodyLong, BodyShort } from '@navikt/ds-react'
+import { Alert, BodyLong, BodyShort, Detail } from '@navikt/ds-react'
 import cls from 'classnames'
 import React from 'react'
 
 import { TiltakGjennomforingStatus } from '../../../api/data/tiltak'
-import globalStyles from '../../../globals.module.scss'
 import { dateStrWithMonthName } from '../../../utils/date-utils'
 import { Show } from '../../felles/Show'
 import styles from './DeltakerlisteDetaljerPage.module.scss'
@@ -24,12 +23,12 @@ export const TiltakInfo = ({ deltakerliste, className }: TiltakInfoProps) => {
         {dateStrWithMonthName(deltakerliste.startDato)} -{' '}
         {dateStrWithMonthName(deltakerliste.sluttDato)}
       </BodyShort>
-      <BodyShort
-        size="small"
-        className={cls(styles.textXs, globalStyles.blokkXxs)}
-      >
+      <BodyShort size="small" className={cls(styles.textXs)}>
         {deltakerliste.arrangorNavn}
       </BodyShort>
+{deltakerliste.lopenummer && (
+  <Detail>Løpenr. {deltakerliste.lopenummer}</Detail>
+)}
 
       <Show if={deltakerliste.status === TiltakGjennomforingStatus.AVSLUTTET}>
         <Alert variant="warning" className={styles.statusAlert}>

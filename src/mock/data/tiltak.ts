@@ -133,11 +133,21 @@ export const lagMockGjennomforinger = (
   return gjennomforinger
 }
 
+let nesteGjennomforingLopenummer = 1
+function nyttLopenummer() {
+  return (
+    new Date().getFullYear().toString().slice(2) +
+    '/' +
+    nesteGjennomforingLopenummer++
+  )
+}
+
 const lagMockGjennomforing = (
   gjennomforingInfo: GjennomforingInfo
 ): MockGjennomforing => {
   return {
     id: gjennomforingId(),
+    lopenummer: nyttLopenummer(),
     navn: gjennomforingInfo.gjennomforingNavn,
     status: gjennomforingInfo.status,
     tiltak: {
@@ -197,11 +207,14 @@ const lagMockKoordinatorForDeltakerliste = (
 ): KoordinatorForDeltakerliste => {
   return {
     id: gjennomforing.id,
+    lopenummer: gjennomforing.lopenummer,
     navn: gjennomforing.navn,
     type: gjennomforing.tiltak.tiltaksnavn,
     startdato: gjennomforing.startDato,
     sluttdato: gjennomforing.sluttDato,
-    oppstartstype: deltakerlisteErKurs(gjennomforing.tiltak.tiltakskode) ? Oppstartstype.FELLES : Oppstartstype.LOPENDE
+    oppstartstype: deltakerlisteErKurs(gjennomforing.tiltak.tiltakskode)
+      ? Oppstartstype.FELLES
+      : Oppstartstype.LOPENDE
   }
 }
 
@@ -264,7 +277,7 @@ const lagMockVeiledersDeltaker = (
     svarFraNav: deltaker.svarFraNav,
     oppdateringFraNav: deltaker.oppdateringFraNav,
     nyDeltaker: deltaker.nyDeltaker,
-		erUnderOppfolging: deltaker.erUnderOppfolging,
+    erUnderOppfolging: deltaker.erUnderOppfolging
   }
 }
 
@@ -275,4 +288,3 @@ const getVeiledertype = (): Veiledertype => {
     return Veiledertype.VEILEDER
   }
 }
-

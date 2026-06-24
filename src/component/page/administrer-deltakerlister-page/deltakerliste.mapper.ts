@@ -34,6 +34,7 @@ export const deltakerlisteMapper = (
 
       enhet?.deltakerlister.push({
         id: deltakerliste.id,
+        lopenummer: deltakerliste.lopenummer || null,
         navn: deltakerliste.navn,
         tiltaksnavn: deltakerliste.tiltaksnavn,
         oppstartstype: deltakerliste.oppstartstype,

@@ -13,6 +13,7 @@ export interface Arrangor {
 
 export interface Deltakerliste {
   id: string
+  lopenummer: string | null
   navn: string
   tiltaksnavn: string
   startDato: Date | null
