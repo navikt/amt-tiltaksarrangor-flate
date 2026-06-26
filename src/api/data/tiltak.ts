@@ -70,7 +70,7 @@ export const gjennomforingSchema = z.object({
 
 export const adminDeltakerlisteSchema = z.object({
   id: z.string(),
-  lopenummer: z.string().nullish(), // kan gjøres nullable etter prodsetting
+  lopenummer: z.string().nullable(),
   navn: z.string(),
   tiltaksnavn: z.string(),
   arrangorNavn: z.string(),

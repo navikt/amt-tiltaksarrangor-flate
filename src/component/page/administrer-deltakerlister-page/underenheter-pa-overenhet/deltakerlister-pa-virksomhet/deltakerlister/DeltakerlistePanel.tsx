@@ -80,7 +80,13 @@ export const DeltakerlistePanel = (props: DeltakerlistePanelProps) => {
       </div>
 
       <div className={styles.bunn}>
-        <Detail>Løpenr. {deltakerliste.lopenummer}</Detail>
+        {deltakerliste.lopenummer ? (
+          <Detail>Løpenr. {deltakerliste.lopenummer}</Detail>
+        ) : (
+          // Tom <div/> gjør at knappen nedenfor dyttes ut til høyre
+          // selv om løpenummer mangler
+          <div></div>
+        )}
         <Show if={!lagtTil}>
           {!showSuccessAlert && (
             <Button

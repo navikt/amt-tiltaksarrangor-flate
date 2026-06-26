@@ -181,7 +181,7 @@ export const deltakerlisteSchema = z.object({
 
 export const koordinatorForDeltakerlisteSchema = z.object({
   id: z.uuid(),
-  lopenummer: z.string().nullish(), // kan gjøres nullable etter prodsetting
+  lopenummer: z.string().nullable(),
   type: z.string(),
   navn: z.string(),
   startdato: nullableDateSchema,
