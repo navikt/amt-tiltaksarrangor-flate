@@ -26,9 +26,9 @@ export const TiltakInfo = ({ deltakerliste, className }: TiltakInfoProps) => {
       <BodyShort size="small" className={cls(styles.textXs)}>
         {deltakerliste.arrangorNavn}
       </BodyShort>
-{deltakerliste.lopenummer && (
-  <Detail>Løpenr. {deltakerliste.lopenummer}</Detail>
-)}
+      {deltakerliste.lopenummer && (
+        <Detail>Løpenr. {deltakerliste.lopenummer}</Detail>
+      )}
 
       <Show if={deltakerliste.status === TiltakGjennomforingStatus.AVSLUTTET}>
         <Alert variant="warning" className={styles.statusAlert}>
