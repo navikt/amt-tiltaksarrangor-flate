@@ -42,9 +42,7 @@ export enum TiltakGjennomforingStatus {
   AVSLUTTET = 'AVSLUTTET'
 }
 
-export const tiltakGjennomforingStatusSchema = z.enum(
-  TiltakGjennomforingStatus
-)
+export const tiltakGjennomforingStatusSchema = z.enum(TiltakGjennomforingStatus)
 
 export const tiltakskodeSchema = z.enum(Tiltakskode)
 
@@ -61,6 +59,7 @@ export const arrangorSchema = z.object({
 
 export const gjennomforingSchema = z.object({
   id: z.string(),
+  lopenummer: z.string().nullable(),
   navn: z.string(),
   startDato: nullableDateSchema,
   sluttDato: nullableDateSchema,
@@ -71,6 +70,7 @@ export const gjennomforingSchema = z.object({
 
 export const adminDeltakerlisteSchema = z.object({
   id: z.string(),
+  lopenummer: z.string().nullable(),
   navn: z.string(),
   tiltaksnavn: z.string(),
   arrangorNavn: z.string(),

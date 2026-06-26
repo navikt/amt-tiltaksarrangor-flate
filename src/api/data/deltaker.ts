@@ -6,10 +6,10 @@ import { aktivtForslagSchema } from './forslag'
 import { Oppstartstype } from './historikk'
 import { deltakelsesinnholdSchema } from './innhold'
 import {
-  Pameldingstype,
-  Tiltakskode,
   koordinatorListSchema,
+  Pameldingstype,
   tiltakGjennomforingStatusSchema,
+  Tiltakskode,
   tiltakskodeSchema
 } from './tiltak'
 import { ulestEndringSchema } from './ulestEndring'
@@ -165,7 +165,7 @@ export const deltakerSchema = z.object({
   gjeldendeVurderingFraArrangor: vurderingSchema.nullable(),
   adressebeskyttet: z.boolean(),
   deltakelsesmengder: deltakelsesmengderSchema.nullable(),
-	erUnderOppfolging: z.boolean(),
+  erUnderOppfolging: z.boolean()
 })
 
 export const veilederForSchema = z.object({
@@ -181,6 +181,7 @@ export const deltakerlisteSchema = z.object({
 
 export const koordinatorForDeltakerlisteSchema = z.object({
   id: z.uuid(),
+  lopenummer: z.string().nullable(),
   type: z.string(),
   navn: z.string(),
   startdato: nullableDateSchema,
@@ -214,7 +215,7 @@ export const veiledersDeltakerSchema = z.object({
   svarFraNav: z.boolean(),
   oppdateringFraNav: z.boolean(),
   nyDeltaker: z.boolean(),
-	erUnderOppfolging: z.boolean()
+  erUnderOppfolging: z.boolean()
 })
 
 export const deltakerlisteVeilederSchema = z.array(veiledersDeltakerSchema)
@@ -223,6 +224,7 @@ export const tiltakDeltakereSchema = z.array(tiltakDeltakerSchema)
 
 export const koordinatorsDeltakerlisteSchema = z.object({
   id: z.string(),
+  lopenummer: z.string().nullable(),
   navn: z.string(),
   tiltaksnavn: z.string(),
   arrangorNavn: z.string(),

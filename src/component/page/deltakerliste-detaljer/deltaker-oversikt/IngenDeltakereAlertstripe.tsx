@@ -1,5 +1,5 @@
 import { Alert } from '@navikt/ds-react'
-import React from 'react'
+import React, { JSX } from 'react'
 
 import styles from './IngenDeltakereAlertstripe.module.scss'
 

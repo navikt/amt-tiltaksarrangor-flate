@@ -47,6 +47,7 @@ export const DeltakerListe = (
                   <DeltakerlistePanel
                     key={dl.id}
                     id={dl.id}
+                    lopenummer={dl.lopenummer || null}
                     navn={dl.navn}
                     startdato={dl.startdato}
                     sluttdato={dl.sluttdato}

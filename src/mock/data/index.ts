@@ -1,8 +1,5 @@
 import { Koordinator, Pameldingstype } from '../../api/data/tiltak'
-import {
-  lagMockTiltakDeltagereForGjennomforing,
-  MockTiltakDeltaker
-} from './brukere'
+import { lagMockTiltakDeltagereForGjennomforing, MockTiltakDeltaker } from './brukere'
 import {
   deltakerlisteErKurs,
   gjennomforingInfoListe,
@@ -12,11 +9,7 @@ import {
   lagMockMineDeltakerlister,
   MockGjennomforing
 } from './tiltak'
-import {
-  KoordinatorsDeltakerliste,
-  MineDeltakerlister,
-  VeiledersDeltaker
-} from '../../api/data/deltaker'
+import { KoordinatorsDeltakerliste, MineDeltakerlister, VeiledersDeltaker } from '../../api/data/deltaker'
 import { mapToDeltakerListView } from '../setupMocks'
 import { Oppstartstype } from '../../api/data/historikk'
 
@@ -27,6 +20,7 @@ export const mockKoordinatorsDeltakerliste = (
 ): KoordinatorsDeltakerliste => {
   return {
     id: gjennomforing.id,
+    lopenummer: gjennomforing.lopenummer || null,
     navn: gjennomforing.navn,
     tiltaksnavn: gjennomforing.tiltak.tiltaksnavn,
     arrangorNavn:
@@ -39,8 +33,12 @@ export const mockKoordinatorsDeltakerliste = (
     deltakere: mockTiltakDeltakere
       .filter((deltaker) => deltaker.gjennomforing.id === gjennomforing.id)
       .map((deltaker) => mapToDeltakerListView(deltaker)),
-    oppstartstype: deltakerlisteErKurs(gjennomforing.tiltak.tiltakskode) ? Oppstartstype.FELLES : Oppstartstype.LOPENDE,
-    pameldingstype: deltakerlisteErKurs(gjennomforing.tiltak.tiltakskode) ? Pameldingstype.TRENGER_GODKJENNING : Pameldingstype.DIREKTE_VEDTAK,
+    oppstartstype: deltakerlisteErKurs(gjennomforing.tiltak.tiltakskode)
+      ? Oppstartstype.FELLES
+      : Oppstartstype.LOPENDE,
+    pameldingstype: deltakerlisteErKurs(gjennomforing.tiltak.tiltakskode)
+      ? Pameldingstype.TRENGER_GODKJENNING
+      : Pameldingstype.DIREKTE_VEDTAK,
     tiltakskode: gjennomforing.tiltak.tiltakskode
   }
 }
@@ -73,7 +71,7 @@ export const lagMockTiltakDeltakere = (
     15
   )
   const deltakereGruppeFagOgYrkeSorvest =
-    lagMockTiltakDeltagereForGjennomforing(mockGjennomforinger[ 11 ], 18, true)
+    lagMockTiltakDeltagereForGjennomforing(mockGjennomforinger[11], 18, true)
 
   return tilfeldigeDeltakere.concat(
     deltakereJobbklubb,
@@ -98,9 +96,8 @@ const deltakereTilVeileder = () => {
   return lagMockDeltakerlisteVeileder(deltakere1.concat(deltakere2))
 }
 
-export const mockTiltakDeltakere: MockTiltakDeltaker[] = lagMockTiltakDeltakere(
-  30
-)
+export const mockTiltakDeltakere: MockTiltakDeltaker[] =
+  lagMockTiltakDeltakere(30)
 
 export const mockDeltakerlisteVeileder: VeiledersDeltaker[] =
   deltakereTilVeileder()

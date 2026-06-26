@@ -1,5 +1,12 @@
 import { PlusIcon, XMarkIcon } from '@navikt/aksel-icons'
-import { Alert, BodyShort, Button, Heading, Panel } from '@navikt/ds-react'
+import {
+  Alert,
+  BodyShort,
+  Button,
+  Detail,
+  Heading,
+  Panel
+} from '@navikt/ds-react'
 import cls from 'classnames'
 import { useEffect, useState } from 'react'
 import globalStyles from '../../../../../../globals.module.scss'
@@ -61,22 +68,25 @@ export const DeltakerlistePanel = (props: DeltakerlistePanelProps) => {
       <Heading size="xsmall" level="5" className={globalStyles.blokkXxs}>
         {deltakerliste.navn}
       </Heading>
-      <div className={styles.innhold}>
-        <div>
-          <div className={cls(styles.rad, globalStyles.blokkXxs)}>
-            <BodyShort size="small" className={styles.tiltaksinfo}>
-              <span className={styles.tiltaknavn}>
-                {deltakerliste.tiltaksnavn}
-              </span>
-              <span>
-                {' '}
-                {formatDate(deltakerliste.startDato)} -{' '}
-                {formatDate(deltakerliste.sluttDato)}
-              </span>
-            </BodyShort>
-          </div>
-        </div>
+      <div className={cls(styles.rad, globalStyles.blokkXxs)}>
+        <BodyShort size="small" className={styles.tiltaksinfo}>
+          <span className={styles.tiltaknavn}>{deltakerliste.tiltaksnavn}</span>
+          <span>
+            {' '}
+            {formatDate(deltakerliste.startDato)} -{' '}
+            {formatDate(deltakerliste.sluttDato)}
+          </span>
+        </BodyShort>
+      </div>
 
+      <div className={styles.bunn}>
+        {deltakerliste.lopenummer ? (
+          <Detail>Løpenr. {deltakerliste.lopenummer}</Detail>
+        ) : (
+          // Tom <div/> gjør at knappen nedenfor dyttes ut til høyre
+          // selv om løpenummer mangler
+          <div></div>
+        )}
         <Show if={!lagtTil}>
           {!showSuccessAlert && (
             <Button
