@@ -1,5 +1,6 @@
-import { injectDecoratorClientSide } from '@navikt/nav-dekoratoren-moduler'
+import { injectDecoratorClientSide, logAnalyticsCustomEvent } from '@navikt/nav-dekoratoren-moduler'
 
+import { APP_NAME, TEAM_NAME } from './constants'
 import env from './environment'
 
 const utledEnv = () => {
@@ -14,9 +15,10 @@ const utledEnv = () => {
   }
 }
 
-export const setupNavDekorator = (): Promise<void> => {
-  return injectDecoratorClientSide({
+export const setupNavDekorator = async (): Promise<void> => {
+  await injectDecoratorClientSide({
     env: utledEnv(),
+    teamName: TEAM_NAME,
     params: {
       context: 'samarbeidspartner',
       simpleFooter: true,
@@ -25,4 +27,12 @@ export const setupNavDekorator = (): Promise<void> => {
       logoutWarning: env.isProd || env.isPreprod
     }
   })
+
+  if (env.isProd || env.isPreprod) {
+    await logAnalyticsCustomEvent({
+      origin: APP_NAME,
+      eventName: 'app-started',
+      eventData: { teamName: TEAM_NAME }
+    })
+  }
 }
