@@ -100,7 +100,19 @@ export const AdministrerDeltakerlisterPage = () => {
     })
   }
 
-  const leggTilConfirmed = (id: string, navn: string, type: string, oppstartstype: Oppstartstype) => {
+  const leggTilConfirmed = ({
+    id,
+    lopenummer,
+    navn,
+    type,
+    oppstartstype
+  }: {
+    id: string
+    lopenummer: string | null
+    navn: string
+    type: string
+    oppstartstype: Oppstartstype
+  }) => {
     leggTilDeltakerliste(id).then(() => {
       setDeltakerlisteIderLagtTil([...deltakerlisteIderLagtTil, id])
       setDeltakerlisteIdUpdating(undefined)
@@ -113,6 +125,7 @@ export const AdministrerDeltakerlisterPage = () => {
         ]
         nyDeltakerliste.push({
           id: id,
+          lopenummer: lopenummer,
           type: type,
           navn: navn,
           startdato: null,
@@ -171,7 +184,21 @@ export const AdministrerDeltakerlisterPage = () => {
       (g) => g.id === deltakerlisteId
     )
 
-    return deltakerliste?.oppstartstype ? deltakerliste.oppstartstype : Oppstartstype.LOPENDE
+    return deltakerliste?.oppstartstype
+      ? deltakerliste.oppstartstype
+      : Oppstartstype.LOPENDE
+  }
+
+  const getLopenummerForDeltakerListe = (
+    deltakerlisteId: string | undefined
+  ): string | null => {
+    if (deltakerlisteId === undefined) return null
+
+    const deltakerliste = fetchAlleDeltakerlisterPromise.result?.data.find(
+      (g) => g.id === deltakerlisteId
+    )
+
+    return deltakerliste?.lopenummer ?? null
   }
 
   if (isNotStartedOrPending(fetchAlleDeltakerlisterPromise)) {
@@ -180,6 +207,16 @@ export const AdministrerDeltakerlisterPage = () => {
 
   if (isRejected(fetchAlleDeltakerlisterPromise)) {
     return <AlertPage variant="error" tekst="Noe gikk galt" />
+  }
+
+  const onLeggTilModalConfirmed = () => {
+    leggTilConfirmed({
+      id: deltakerlisteIdUpdating as string,
+      lopenummer: getLopenummerForDeltakerListe(deltakerlisteIdUpdating),
+      navn: getNavnPaDeltakerliste(deltakerlisteIdUpdating),
+      type: getTiltaksnavnForDeltakerliste(deltakerlisteIdUpdating),
+      oppstartstype: getOppstartstypeForDeltakerliste(deltakerlisteIdUpdating)
+    })
   }
 
   return (
@@ -220,12 +257,7 @@ export const AdministrerDeltakerlisterPage = () => {
       <LeggTilDeltakerlisteModal
         open={showLeggTilModal}
         deltakerlisteNavn={getNavnPaDeltakerliste(deltakerlisteIdUpdating)}
-        deltakerlisteTiltaksnavn={getTiltaksnavnForDeltakerliste(
-          deltakerlisteIdUpdating
-        )}
-        deltakerlisteId={deltakerlisteIdUpdating as string}
-        oppstartstype={getOppstartstypeForDeltakerliste(deltakerlisteIdUpdating)}
-        onConfirm={leggTilConfirmed}
+        onConfirm={onLeggTilModalConfirmed}
         onClose={onLeggTilModalClosed}
       />
     </div>

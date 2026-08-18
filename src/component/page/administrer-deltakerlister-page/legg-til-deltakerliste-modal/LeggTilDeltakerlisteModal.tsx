@@ -2,29 +2,17 @@ import { BaseModal } from '../../../felles/base-modal/BaseModal'
 import { BodyLong, Button } from '@navikt/ds-react'
 import styles from '../../bruker-detaljer/deltaker-detaljer/fjern-deltaker-modal/FjernDeltakerModal.module.scss'
 import React from 'react'
-import { Oppstartstype } from '../../../../api/data/historikk'
 
 interface LeggTilDeltakerlisteModalProps {
   open: boolean
   deltakerlisteNavn: string
-  deltakerlisteTiltaksnavn: string
-  deltakerlisteId: string
-  oppstartstype: Oppstartstype
-  onConfirm: (id: string, navn: string, type: string, oppstartstype: Oppstartstype) => void
+  onConfirm: () => void
   onClose: () => void
 }
 
 export const LeggTilDeltakerlisteModal = (
   props: LeggTilDeltakerlisteModalProps
 ) => {
-  const onLeggTilClicked = () => {
-    props.onConfirm(
-      props.deltakerlisteId,
-      props.deltakerlisteNavn,
-      props.deltakerlisteTiltaksnavn,
-      props.oppstartstype
-    )
-  }
 
   return (
     <BaseModal
@@ -49,7 +37,7 @@ export const LeggTilDeltakerlisteModal = (
         <Button size="small" variant="secondary" onClick={props.onClose}>
           Avbryt
         </Button>
-        <Button size="small" variant="primary" onClick={onLeggTilClicked}>
+        <Button size="small" variant="primary" onClick={props.onConfirm}>
           Legg til
         </Button>
       </div>

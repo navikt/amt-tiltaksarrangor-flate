@@ -1,4 +1,4 @@
-import { LinkCard } from '@navikt/ds-react'
+import { Detail, LinkCard } from '@navikt/ds-react'
 import React from 'react'
 
 import { Oppstartstype } from '../../../../api/data/historikk'
@@ -10,6 +10,7 @@ import { Link } from 'react-router-dom'
 
 interface DeltakerlistePanelProps {
   id: string
+  lopenummer: string | null
   navn: string
   startdato: Date | null
   sluttdato: Date | null
@@ -25,7 +26,7 @@ export const DeltakerlistePanel = (
     <li className={globalStyles.blokkS}>
       <LinkCard>
         <LinkCard.Title>
-          <LinkCard.Anchor asChild >
+          <LinkCard.Anchor asChild>
             <Link to={deltakerlisteDetaljerPageUrl(id)}>{navn}</Link>
           </LinkCard.Anchor>
         </LinkCard.Title>
@@ -34,6 +35,11 @@ export const DeltakerlistePanel = (
           <LinkCard.Description>
             {formatDate(startdato)} - {formatDate(sluttdato)}
           </LinkCard.Description>
+        )}
+        {props.lopenummer && (
+          <LinkCard.Footer>
+            <Detail>Løpenr. {props.lopenummer}</Detail>
+          </LinkCard.Footer>
         )}
       </LinkCard>
     </li>

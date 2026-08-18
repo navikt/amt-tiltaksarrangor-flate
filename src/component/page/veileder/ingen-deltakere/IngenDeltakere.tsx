@@ -1,5 +1,5 @@
 import { GuidePanel } from '@navikt/ds-react'
-import React from 'react'
+import React, { JSX } from 'react'
 import styles from './IngenDeltakere.module.scss'
 import adult from './adult.svg'
 
