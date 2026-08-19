@@ -18,9 +18,9 @@ const utledEnv = () => {
 export const setupNavDekorator = async (): Promise<void> => {
   await injectDecoratorClientSide({
     env: utledEnv(),
-    teamName: TEAM_NAME,
     params: {
       context: 'samarbeidspartner',
+      teamName: TEAM_NAME,
       simpleFooter: true,
       shareScreen: false,
       level: 'Level4',
