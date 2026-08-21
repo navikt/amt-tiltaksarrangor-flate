@@ -7,8 +7,8 @@
  * - Please do NOT modify this file.
  */
 
-const PACKAGE_VERSION = '2.15.0'
-const INTEGRITY_CHECKSUM = '03cb67ac84128e63d7cd722a6e5b7f1e'
+const PACKAGE_VERSION = '2.14.6'
+const INTEGRITY_CHECKSUM = '4db4a41e972cec1b64cc569c66952d82'
 const IS_MOCKED_RESPONSE = Symbol('isMockedResponse')
 const activeClientIds = new Set()
 
@@ -34,13 +34,13 @@ addEventListener('message', async function (event) {
   }
 
   const allClients = await self.clients.matchAll({
-    type: 'window',
+    type: 'window'
   })
 
   switch (event.data) {
     case 'KEEPALIVE_REQUEST': {
       sendToClient(client, {
-        type: 'KEEPALIVE_RESPONSE',
+        type: 'KEEPALIVE_RESPONSE'
       })
       break
     }
@@ -50,8 +50,8 @@ addEventListener('message', async function (event) {
         type: 'INTEGRITY_CHECK_RESPONSE',
         payload: {
           packageVersion: PACKAGE_VERSION,
-          checksum: INTEGRITY_CHECKSUM,
-        },
+          checksum: INTEGRITY_CHECKSUM
+        }
       })
       break
     }
@@ -64,9 +64,9 @@ addEventListener('message', async function (event) {
         payload: {
           client: {
             id: client.id,
-            frameType: client.frameType,
-          },
-        },
+            frameType: client.frameType
+          }
+        }
       })
       break
     }
@@ -128,7 +128,7 @@ async function handleRequest(event, requestId, requestInterceptedAt) {
     event,
     client,
     requestId,
-    requestInterceptedAt,
+    requestInterceptedAt
   )
 
   // Send back the response clone for the "response:*" life-cycle events.
@@ -137,18 +137,8 @@ async function handleRequest(event, requestId, requestInterceptedAt) {
   if (client && activeClientIds.has(client.id)) {
     const serializedRequest = await serializeRequest(requestCloneForEvents)
 
-    // Omit the body of server-sent event stream responses.
-    // Cloning such responses would prevent client-side stream cancelations
-    // from reaching the original stream (a teed stream only cancels its
-    // source once both of its branches cancel) and would buffer the
-    // entire stream into the unconsumed clone indefinitely.
-    const isEventStreamResponse = response.headers
-      .get('content-type')
-      ?.toLowerCase()
-      .startsWith('text/event-stream')
-
     // Clone the response so both the client and the library could consume it.
-    const responseClone = isEventStreamResponse ? null : response.clone()
+    const responseClone = response.clone()
 
     sendToClient(
       client,
@@ -158,20 +148,18 @@ async function handleRequest(event, requestId, requestInterceptedAt) {
           isMockedResponse: IS_MOCKED_RESPONSE in response,
           request: {
             id: requestId,
-            ...serializedRequest,
+            ...serializedRequest
           },
           response: {
-            type: response.type,
-            status: response.status,
-            statusText: response.statusText,
-            headers: Object.fromEntries(response.headers.entries()),
-            body: responseClone ? responseClone.body : null,
-          },
-        },
+            type: responseClone.type,
+            status: responseClone.status,
+            statusText: responseClone.statusText,
+            headers: Object.fromEntries(responseClone.headers.entries()),
+            body: responseClone.body
+          }
+        }
       },
-      responseClone && responseClone.body
-        ? [serializedRequest.body, responseClone.body]
-        : [],
+      responseClone.body ? [serializedRequest.body, responseClone.body] : []
     )
   }
 
@@ -198,7 +186,7 @@ async function resolveMainClient(event) {
   }
 
   const allClients = await self.clients.matchAll({
-    type: 'window',
+    type: 'window'
   })
 
   return allClients
@@ -237,7 +225,7 @@ async function getResponse(event, client, requestId, requestInterceptedAt) {
     if (acceptHeader) {
       const values = acceptHeader.split(',').map((value) => value.trim())
       const filteredValues = values.filter(
-        (value) => value !== 'msw/passthrough',
+        (value) => value !== 'msw/passthrough'
       )
 
       if (filteredValues.length > 0) {
@@ -272,10 +260,10 @@ async function getResponse(event, client, requestId, requestInterceptedAt) {
       payload: {
         id: requestId,
         interceptedAt: requestInterceptedAt,
-        ...serializedRequest,
-      },
+        ...serializedRequest
+      }
     },
-    [serializedRequest.body],
+    [serializedRequest.body]
   )
 
   switch (clientMessage.type) {
@@ -311,7 +299,7 @@ function sendToClient(client, message, transferrables = []) {
 
     client.postMessage(message, [
       channel.port2,
-      ...transferrables.filter(Boolean),
+      ...transferrables.filter(Boolean)
     ])
   })
 }
@@ -333,7 +321,7 @@ function respondWithMock(response) {
 
   Reflect.defineProperty(mockedResponse, IS_MOCKED_RESPONSE, {
     value: true,
-    enumerable: true,
+    enumerable: true
   })
 
   return mockedResponse
@@ -356,6 +344,6 @@ async function serializeRequest(request) {
     referrer: request.referrer,
     referrerPolicy: request.referrerPolicy,
     body: await request.arrayBuffer(),
-    keepalive: request.keepalive,
+    keepalive: request.keepalive
   }
 }
