@@ -20,8 +20,7 @@ export const harAdresse = (tiltakskode: Tiltakskode) =>
 
 export const skalViseDeltakelsesmengde = (tiltakskode: Tiltakskode) =>
   [ Tiltakskode.ARBEIDSFORBEREDENDE_TRENING,
-    Tiltakskode.VARIG_TILRETTELAGT_ARBEID_SKJERMET,
-    Tiltakskode.TILRETTELAGT_ARBEID_ORDINAER
+    Tiltakskode.VARIG_TILRETTELAGT_ARBEID_SKJERMET
   ].includes(tiltakskode)
 
 export const getDagerPerUkeTekst = (dagerPerUke: number): string => {
