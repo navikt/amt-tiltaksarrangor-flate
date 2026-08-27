@@ -25,6 +25,11 @@ updates:
         update-types:
           - 'patch'
           - 'minor'
+    ignore:
+      - dependency-name: 'typescript'
+        # Vent til 7.1.0 kommer pga bedre støtte
+        versions: ['7.0.x']
+
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
