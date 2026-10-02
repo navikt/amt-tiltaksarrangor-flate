@@ -20,6 +20,7 @@ import {
 } from '@navikt/aksel-icons'
 import { Veiledertype } from '../../../../../api/data/veileder'
 import { AdressebeskyttetModal } from '../../../veileder/AdressebeskyttetModal.tsx'
+import { useScrollPositionContext } from '../../../../../store/ScrollPositionContextProvider'
 import styles from './Rad.module.scss'
 
 interface RadProps {
@@ -44,6 +45,7 @@ export const Rad = (props: RadProps): React.ReactElement<RadProps> => {
     erVeilederForDeltaker
   } = props.deltaker
   const [modalOpen, setModalOpen] = useState(false)
+  const { saveActiveScrollPosition } = useScrollPositionContext()
   const navigate = useNavigate()
   const veileder = veiledere.filter(
     (v) => v.veiledertype === Veiledertype.VEILEDER
@@ -80,6 +82,7 @@ export const Rad = (props: RadProps): React.ReactElement<RadProps> => {
 
   const handleConfrimed = () => {
     setModalOpen(false)
+    saveActiveScrollPosition()
     navigate(deltakerDetaljerPageUrl)
   }
 
@@ -91,6 +94,7 @@ export const Rad = (props: RadProps): React.ReactElement<RadProps> => {
           to={deltakerDetaljerPageUrl}
           data-testid={adressebeskyttet ? 'rad_adressebeskyttet' : ''}
           onClick={(e) => {
+            saveActiveScrollPosition()
             if (adressebeskyttet && erVeilederForDeltaker) {
               e.preventDefault()
               setModalOpen(true)

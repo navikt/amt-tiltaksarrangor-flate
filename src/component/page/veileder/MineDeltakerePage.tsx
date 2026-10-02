@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react'
+import { useScrollPosition } from '../../../hooks/use-scroll-position'
 import { useTabTitle } from '../../../hooks/use-tab-title'
 import { fetchMineDeltakere } from '../../../api/tiltak-api'
 import {
@@ -44,6 +45,11 @@ export const MineDeltakerePage = (): React.ReactElement => {
   const fetchMineDeltakerePromise = usePromise<
     AxiosResponse<VeiledersDeltaker[]>
   >(() => fetchMineDeltakere())
+
+  useScrollPosition(
+    'mine-deltakere',
+    !isNotStartedOrPending(fetchMineDeltakerePromise)
+  )
 
   if (isNotStartedOrPending(fetchMineDeltakerePromise)) {
     return <SpinnerPage />

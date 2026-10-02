@@ -5,6 +5,7 @@ import { Navigate, useParams } from 'react-router-dom'
 
 import { fetchKoordinatorsDeltakerliste } from '../../../api/tiltak-api'
 import globalStyles from '../../../globals.module.scss'
+import { useScrollPosition } from '../../../hooks/use-scroll-position'
 import { useTabTitle } from '../../../hooks/use-tab-title'
 import { MINE_DELTAKERLISTER_PAGE_ROUTE } from '../../../navigation'
 import { useTilbakelenkeContext } from '../../../store/TilbakelenkeContextProvider'
@@ -38,6 +39,11 @@ export const DeltakerlisteDetaljerPage = (): React.ReactElement => {
   const fetchKoordinatorsDeltakerlistePromise = usePromise<
     AxiosResponse<KoordinatorsDeltakerliste>
   >(() => fetchKoordinatorsDeltakerliste(deltakerlisteId), [deltakerlisteId])
+
+  useScrollPosition(
+    `deltakerliste-${deltakerlisteId}`,
+    !isNotStartedOrPending(fetchKoordinatorsDeltakerlistePromise)
+  )
 
   if (isNotStartedOrPending(fetchKoordinatorsDeltakerlistePromise)) {
     return <SpinnerPage />
