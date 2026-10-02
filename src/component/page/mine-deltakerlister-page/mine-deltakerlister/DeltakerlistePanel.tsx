@@ -7,6 +7,7 @@ import { deltakerlisteDetaljerPageUrl } from '../../../../navigation'
 import { formatDate } from '../../../../utils/date-utils'
 import { harFellesOppstart } from '../../../../utils/deltakerliste-utils'
 import { Link } from 'react-router-dom'
+import { useScrollPositionContext } from '../../../../store/ScrollPositionContextProvider'
 
 interface DeltakerlistePanelProps {
   id: string
@@ -21,13 +22,19 @@ export const DeltakerlistePanel = (
   props: DeltakerlistePanelProps
 ): React.ReactElement<DeltakerlistePanelProps> => {
   const { id, navn, startdato, sluttdato, oppstartstype } = props
+  const { saveActiveScrollPosition } = useScrollPositionContext()
 
   return (
     <li className={globalStyles.blokkS}>
       <LinkCard>
         <LinkCard.Title>
           <LinkCard.Anchor asChild>
-            <Link to={deltakerlisteDetaljerPageUrl(id)}>{navn}</Link>
+            <Link
+              to={deltakerlisteDetaljerPageUrl(id)}
+              onClick={saveActiveScrollPosition}
+            >
+              {navn}
+            </Link>
           </LinkCard.Anchor>
         </LinkCard.Title>
 

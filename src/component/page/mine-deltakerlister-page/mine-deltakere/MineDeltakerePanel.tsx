@@ -4,6 +4,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { VeilederFor } from '../../../../api/data/deltaker'
 import { MINE_DELTAKERE_PAGE_ROUTE } from '../../../../navigation'
+import { useScrollPositionContext } from '../../../../store/ScrollPositionContextProvider'
 import clipboard from './clipboard.svg'
 import styles from './MineDeltakerePanel.module.scss'
 
@@ -14,6 +15,8 @@ interface MineDeltakerePanelProps {
 export const MineDeltakerePanel = (
   props: MineDeltakerePanelProps
 ): React.ReactElement<MineDeltakerePanelProps> => {
+  const { saveActiveScrollPosition } = useScrollPositionContext()
+
   return (
     <div className={styles.content}>
       <LinkCard>
@@ -22,7 +25,12 @@ export const MineDeltakerePanel = (
         </LinkCard.Icon>
         <LinkCard.Title>
           <LinkCard.Anchor asChild >
-            <Link to={MINE_DELTAKERE_PAGE_ROUTE}>Mine deltakere</Link>
+            <Link
+              to={MINE_DELTAKERE_PAGE_ROUTE}
+              onClick={saveActiveScrollPosition}
+            >
+              Mine deltakere
+            </Link>
           </LinkCard.Anchor>
         </LinkCard.Title>
 
