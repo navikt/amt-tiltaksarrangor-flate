@@ -1,21 +1,22 @@
 import { PlusIcon } from '@navikt/aksel-icons'
 import React, { useEffect } from 'react'
 
+import { Alert, BodyShort, Link } from '@navikt/ds-react'
+import globalStyles from '../../../globals.module.scss'
+import { useScrollPosition } from '../../../hooks/use-scroll-position'
 import { useTabTitle } from '../../../hooks/use-tab-title'
 import { LEGG_TIL_DELTAKERLISTE_PAGE_ROUTE } from '../../../navigation'
+import { useInnloggetBrukerContext } from '../../../store/InnloggetBrukerContextProvider'
+import { useKoordinatorsDeltakerlisterContext } from '../../../store/KoordinatorsDeltakerlisterContextProvider'
 import { useTilbakelenkeContext } from '../../../store/TilbakelenkeContextProvider'
+import { isVeileder } from '../../../utils/rolle-utils'
+import { isNotStartedOrPending, isRejected } from '../../../utils/use-promise'
 import { AlertPage } from '../../felles/alert-page/AlertPage'
 import { IkonLenke } from '../../felles/ikon-lenke/IkonLenke'
-import styles from './MineDeltakerlisterPage.module.scss'
-import { Alert, BodyShort, Link } from '@navikt/ds-react'
-import { DeltakerListe } from './mine-deltakerlister/DeltakerListe'
-import { MineDeltakerePanel } from './mine-deltakere/MineDeltakerePanel'
-import globalStyles from '../../../globals.module.scss'
-import { useInnloggetBrukerContext } from '../../../store/InnloggetBrukerContextProvider'
-import { isVeileder } from '../../../utils/rolle-utils'
-import { useKoordinatorsDeltakerlisterContext } from '../../../store/KoordinatorsDeltakerlisterContextProvider'
-import { isNotStartedOrPending, isRejected } from '../../../utils/use-promise'
 import { SpinnerPage } from '../../felles/spinner-page/SpinnerPage'
+import { MineDeltakerePanel } from './mine-deltakere/MineDeltakerePanel'
+import { DeltakerListe } from './mine-deltakerlister/DeltakerListe'
+import styles from './MineDeltakerlisterPage.module.scss'
 
 export const MineDeltakerlisterPage = (): React.ReactElement => {
   const { setTilbakeTilUrl } = useTilbakelenkeContext()
@@ -23,6 +24,7 @@ export const MineDeltakerlisterPage = (): React.ReactElement => {
   const { koordinatorsDeltakerlister, fetchMineDeltakerlisterPromise } =
     useKoordinatorsDeltakerlisterContext()
 
+  useScrollPosition('mine-deltakerlister', !!koordinatorsDeltakerlister)
   useTabTitle('Deltakeroversikt')
 
   useEffect(() => {
@@ -38,7 +40,10 @@ export const MineDeltakerlisterPage = (): React.ReactElement => {
 
   if (koordinatorsDeltakerlister && koordinatorsDeltakerlister.koordinatorFor) {
     return (
-      <div className={styles.page} data-testid="gjennomforing-oversikt-page">
+      <div
+        className={styles.page}
+        data-testid="gjennomforing-oversikt-page"
+      >
         {isVeileder(roller) && koordinatorsDeltakerlister.veilederFor && (
           <MineDeltakerePanel
             veileder={koordinatorsDeltakerlister.veilederFor}
