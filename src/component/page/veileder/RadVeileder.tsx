@@ -11,6 +11,7 @@ import { getAktivEndringTekst } from '../../../utils/deltaker-utils'
 import { Fnr } from '../../felles/fnr/Fnr'
 import { StatusMerkelapp } from '../../felles/status-merkelapp/StatusMerkelapp'
 import { AdressebeskyttetModal } from './AdressebeskyttetModal.tsx'
+import { useScrollPositionContext } from '../../../store/ScrollPositionContextProvider'
 import styles from './RadVeileder.module.scss'
 
 interface RadProps {
@@ -34,6 +35,7 @@ export const RadVeileder = (props: RadProps): React.ReactElement<RadProps> => {
   } = props.deltaker
   const navigate = useNavigate()
   const [modalOpen, setModalOpen] = useState(false)
+  const { saveActiveScrollPosition } = useScrollPositionContext()
   const brukernaavn = adressebeskyttet
     ? 'Adressebeskyttet'
     : lagKommaSeparertBrukerNavn(fornavn, mellomnavn, etternavn)
@@ -42,6 +44,7 @@ export const RadVeileder = (props: RadProps): React.ReactElement<RadProps> => {
 
   const handleConfrimed = () => {
     setModalOpen(false)
+    saveActiveScrollPosition()
     navigate(deltakerDetaljerPageUrl)
   }
 
@@ -54,6 +57,7 @@ export const RadVeileder = (props: RadProps): React.ReactElement<RadProps> => {
           className={styles.brukersNavn}
           to={deltakerDetaljerPageUrl}
           onClick={(e) => {
+            saveActiveScrollPosition()
             if (adressebeskyttet) {
               e.preventDefault()
               setModalOpen(true)
