@@ -10,9 +10,9 @@
     "lint": "eslint --max-warnings=0 'src/**/*.{ts,tsx}'",
     "lint:fix": "eslint --fix 'src/**/*.{ts,tsx,js}'",
     "format": "prettier --write 'src/**/*.{ts,tsx}'",
-    "cy:run": "cypress run",
-    "cy:open": "cypress open",
-    "cy:clear": "cypress cache clear"
+    "playwright": "playwright test",
+    "playwright:debug": "playwright test --debug",
+    "playwright:open": "playwright test --ui"
   },
   "husky": {
     "hooks": {
@@ -50,12 +50,11 @@
     "@faker-js/faker": "^10.6.0",
     "@navikt/aksel": "^8.16.2",
     "@vitejs/plugin-react": "^6.1.1",
+    "@axe-core/playwright": "^4.13.0",
+    "@playwright/test": "^1.63.0",
     "cpy-cli": "^7.0.0",
-    "cypress": "^16.1.0",
-    "cypress-axe": "^1.7.0",
     "eslint": "^10.11.0",
     "eslint-config-prettier": "^10.1.8",
-    "eslint-plugin-cypress": "^7.0.2",
     "eslint-plugin-jsx-a11y": "^6.10.2",
     "globals": "^17.12.0",
     "husky": "^9.1.7",
@@ -63,7 +62,6 @@
     "msw": "^2.15.0",
     "prettier": "^3.9.9",
     "sass": "^1.105.0",
-    "table": "^6.9.0",
     "typescript": "^6.0.3",
     "typescript-eslint": "^8.70.1",
     "vite": "^8.3.1",

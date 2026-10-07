@@ -6,7 +6,6 @@ allowBuilds:
   esbuild: true
   msw: true
   protobufjs: false
-  cypress: true
   '@parcel/watcher': false
 
 overrides:

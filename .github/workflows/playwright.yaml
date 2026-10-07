@@ -1,13 +1,21 @@
-name: Cypress cache
+name: Playwright tests
 on:
-  push:
+  pull_request:
     branches:
       - main
 
+permissions:
+  contents: read
+
+env:
+  CI: true
+  TZ: Europe/Amsterdam
+
 jobs:
-  cypress-cache:
-    name: Cypress cache
+  playwright:
+    name: Playwright tests
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     steps:
       - name: Checkout
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -20,14 +28,11 @@ jobs:
           node-version: '24'
           cache: 'pnpm'
           registry-url: 'https://npm.pkg.github.com'
-      - name: Cypress binary cache
-        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v5
-        id: cypress-cache
-        with:
-          path: ~/.cache/Cypress
-          key: cypress-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}
-      - name: Install cypress binary
-        if: steps.cypress-cache.outputs.cache-hit != 'true'
-        run: pnpm install --frozen-lockfile && pnpm exec cypress install
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
         env:
           NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
+      - name: Install Playwright browsers
+        run: pnpm exec playwright install --with-deps chromium
+      - name: Run tests
+        run: pnpm playwright

@@ -12,7 +12,10 @@ export default defineConfig(async ({ mode }: { mode: string }) => {
     },
     server: {
       port: 3001,
-      open: !isOffline,
+      open:
+        !isOffline &&
+        !process.env.CI &&
+        process.env.OPEN_BROWSER !== 'false',
       proxy: isOffline
         ? {
             '/deltakeroversikt/amt-tiltaksarrangor-bff': {
