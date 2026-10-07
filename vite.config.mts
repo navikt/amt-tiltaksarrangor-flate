@@ -7,6 +7,7 @@ export default defineConfig(async ({ mode }: { mode: string }) => {
 
   return {
     test: {
+      include: ['src/**/*.{test,spec}.{ts,tsx}'],
       exclude: [...configDefaults.exclude, 'tests/**']
     },
     build: {
