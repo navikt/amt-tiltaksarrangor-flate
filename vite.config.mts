@@ -1,11 +1,14 @@
 import react from '@vitejs/plugin-react'
-import { defineConfig } from 'vite'
+import { configDefaults, defineConfig } from 'vitest/config'
 
 // https://vitejs.dev/config/
 export default defineConfig(async ({ mode }: { mode: string }) => {
   const isOffline = mode === 'offline'
 
   return {
+    test: {
+      exclude: [...configDefaults.exclude, 'tests/**']
+    },
     build: {
       target: 'esnext',
       outDir: 'build'
@@ -13,9 +16,7 @@ export default defineConfig(async ({ mode }: { mode: string }) => {
     server: {
       port: 3001,
       open:
-        !isOffline &&
-        !process.env.CI &&
-        process.env.OPEN_BROWSER !== 'false',
+        !isOffline && !process.env.CI && process.env.OPEN_BROWSER !== 'false',
       proxy: isOffline
         ? {
             '/deltakeroversikt/amt-tiltaksarrangor-bff': {
