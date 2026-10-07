@@ -20,23 +20,6 @@
   align-items: start;
 }
 
-.closeButton {
-  height: fit-content;
-  margin-left: auto;
-  justify-content: center;
-}
-
-.tooltip {
-  background-color: rgba(38,
-      38,
-      38,
-      1);
-  color: rgba(255, 255, 255, 1);
-  padding: 0.33rem 0.66rem;
-  font-size: 14px;
-  border-radius: 0.2rem;
-}
-
 .tittel {
   display: flex;
   flex-direction: row;
@@ -48,6 +31,16 @@
 
 .tittel_hedaing {
   margin-right: 0.75rem;
+}
+
+.aktivtForslagStatusTag {
+  margin-left: auto;
+}
+
+.aktivtForslagHandling {
+  display: flex;
+  justify-content: flex-end;
+  padding: 0 var(--ax-space-16) var(--ax-space-16);
 }
 
 .marker_som_lest_box {

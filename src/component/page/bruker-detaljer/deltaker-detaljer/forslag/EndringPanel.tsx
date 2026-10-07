@@ -1,12 +1,10 @@
 import React from 'react'
-import { ForslagEndringType, ForslagStatusType } from '../../../../../api/data/forslag'
-
 import {
-  Box,
-  HGrid,
-  Heading,
-  VStack
-} from '@navikt/ds-react'
+  ForslagEndringType,
+  ForslagStatusType
+} from '../../../../../api/data/forslag'
+
+import { Box, HGrid, Heading, VStack } from '@navikt/ds-react'
 import { EndringType } from '../../../../../api/data/historikk'
 import { UlestEndringType } from '../../../../../api/data/ulestEndring'
 import { DefaultIcon, EndringTypeIkon } from '../EndringTypeIkon'
@@ -35,11 +33,13 @@ export const EndringPanel = ({
   ulestEndringType,
   nyNavVeileder
 }: Props) => {
-  const endringIkon = endringType
-    ? <EndringTypeIkon size="large" type={endringType} />
-    : ulestEndringType
-      ? <EndringTypeIkon size="large" type={ulestEndringType} />
-      : <DefaultIcon size="large" />
+  const endringIkon = endringType ? (
+    <EndringTypeIkon size="large" type={endringType} />
+  ) : ulestEndringType ? (
+    <EndringTypeIkon size="large" type={ulestEndringType} />
+  ) : (
+    <DefaultIcon size="large" />
+  )
 
   return (
     <Box
@@ -54,16 +54,31 @@ export const EndringPanel = ({
         <VStack>
           <div className={styles.tittel}>
             <Heading level="4" size="small" className={styles.tittel_hedaing}>
-              {getEndringsTittel(tittel, endringType, ulestEndringType, nyNavVeileder)}
+              {getEndringsTittel(
+                tittel,
+                endringType,
+                ulestEndringType,
+                nyNavVeileder
+              )}
             </Heading>
-            {forslagStatusType && <ForslagStatusTag type={forslagStatusType} />}
-            {erAktivtForslag && fjernEndring}
+            {forslagStatusType && (
+              <ForslagStatusTag
+                type={forslagStatusType}
+                className={
+                  erAktivtForslag ? styles.aktivtForslagStatusTag : undefined
+                }
+              />
+            )}
           </div>
           {children}
         </VStack>
       </HGrid>
 
-      {!erAktivtForslag && fjernEndring}
+      {erAktivtForslag ? (
+        <div className={styles.aktivtForslagHandling}>{fjernEndring}</div>
+      ) : (
+        fjernEndring
+      )}
     </Box>
   )
 }
@@ -89,7 +104,7 @@ const getEndringsTittel = (
   } else if (ulestEndringType === UlestEndringType.TildeltPlass) {
     return 'Fått plass'
   } else if (ulestEndringType === UlestEndringType.Avslag) {
-		return 'Søknaden er avslått'
-	}
+    return 'Søknaden er avslått'
+  }
   return 'Oppdatert deltaker'
 }
