@@ -39,7 +39,7 @@ export async function enableMocking() {
     const url = appUrl('mockServiceWorker.js')
 
     return worker.start({
-      onUnhandledRequest: 'bypass',
+      onUnhandledFrame: 'bypass',
       serviceWorker: {
         url: url
       }
